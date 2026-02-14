@@ -6,7 +6,7 @@ permalink: /index.html
 
 <div class="container">
   <div class="hero">
-    <h1>Hi, I'm Xavier Rudisell</h1>
+    <h1>Hi, I'm 酥悠沫</h1>
     <p class="hero-subtitle">软件工程专业，专注于大模型领域的工程师。热爱探索新技术，喜欢折腾各种有趣的项目。</p>
   </div>
 </div>
