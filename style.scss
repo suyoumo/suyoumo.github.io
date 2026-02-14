@@ -201,18 +201,21 @@ hr {
 /*********************/
 
 .site-header {
-  background: $black;
+  background: $white;
   padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid $lightGray;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.92);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 64px;
 }
 
 .site-name {
@@ -223,11 +226,11 @@ hr {
   letter-spacing: -0.01em;
 
   a {
-    color: $white;
+    color: $black;
     text-decoration: none;
 
     &:hover {
-      color: $lightGray;
+      color: $primary;
     }
   }
 }
@@ -235,14 +238,14 @@ hr {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 
   a {
-    color: rgba(255,255,255,0.8);
+    color: $gray;
     font-size: 0.9rem;
-    font-weight: 400;
-    padding: 6px 14px;
-    border-radius: 6px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
     transition: all 0.2s ease;
     text-decoration: none;
     display: inline-flex;
@@ -250,28 +253,29 @@ hr {
     gap: 6px;
 
     &:hover {
-      color: $white;
-      background: rgba(255,255,255,0.1);
+      color: $black;
+      background: $cream;
     }
 
     &.active {
-      color: $white;
-      background: rgba(255,255,255,0.12);
+      color: $black;
+      background: $cream;
     }
 
     svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       fill: currentColor;
+      stroke: currentColor;
     }
   }
 
   @include mobile {
-    gap: 2px;
+    gap: 0;
 
     a {
       font-size: 0.82rem;
-      padding: 6px 10px;
+      padding: 8px 10px;
     }
   }
 }
