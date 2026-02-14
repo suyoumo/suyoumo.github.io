@@ -1,15 +1,30 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /index.html
 ---
 
-Hi, I'm Xavier Rudisell (suyoumo).
+<div class="container">
+  <div class="hero">
+    <h1>Hi, I'm Xavier Rudisell</h1>
+    <p class="hero-subtitle">软件工程专业，专注于大模型领域的工程师。热爱探索新技术，喜欢折腾各种有趣的项目。</p>
+  </div>
+</div>
 
-I am an engineer in the field of large models. My undergraduate major is software engineering.
-
-I am interested in large models and currently working in this field.
-
-Welcome to my blog!
-
-(last updated: Feb 2026)
+<div class="container">
+  <div class="posts-section">
+    <h2 class="section-title">最新文章</h2>
+    {% for post in site.posts limit:3 %}
+    <div class="post-card">
+      <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+      <div class="post-card-meta">
+        <span>{{ post.date | date: "%Y年%m月%d日" }}</span>
+        {% if post.categories.size > 0 %}
+        <span class="post-card-category">{{ post.categories | first }}</span>
+        {% endif %}
+      </div>
+      <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>

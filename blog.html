@@ -1,18 +1,27 @@
 ---
 layout: default
+title: 文章
+permalink: /blog
 ---
 
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
+<div class="container">
+  <div class="hero">
+    <h1>文章</h1>
+    <p class="hero-subtitle">记录技术探索与思考</p>
+  </div>
 
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
-
-      <div class="entry">
-        {{ post.excerpt }}
+  <div class="posts-section">
+    {% for post in site.posts %}
+    <div class="post-card">
+      <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+      <div class="post-card-meta">
+        <span>{{ post.date | date: "%Y年%m月%d日" }}</span>
+        {% if post.categories.size > 0 %}
+        <span class="post-card-category">{{ post.categories | first }}</span>
+        {% endif %}
       </div>
-
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endfor %}
+      <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+    </div>
+    {% endfor %}
+  </div>
 </div>
