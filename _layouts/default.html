@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </head>
 
   <body>
@@ -40,6 +41,11 @@
 
     <footer class="site-footer">
       <div class="container">
+        <p class="site-stats">
+          <span>本站总访问 <span id="busuanzi_value_site_pv"></span> 次</span>
+          <span>|</span>
+          <span>访客 <span id="busuanzi_value_site_uv"></span> 人</span>
+        </p>
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.name }}. All rights reserved.</p>
       </div>
     </footer>
