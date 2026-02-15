@@ -16,8 +16,6 @@ categories: 技术
 
 最后会不会造出新形式的manus呢？
 
-有活水岗位可以联系我，偏好agent评估，agent开发
-
 **国外的**
 
 **一 OpenWork**

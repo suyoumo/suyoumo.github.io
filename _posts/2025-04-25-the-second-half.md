@@ -5,8 +5,6 @@ date: 2025-04-25 12:00:00 +0800
 categories: 随笔
 ---
 
-# 总结
-
 读了[姚顺雨](https://zhida.zhihu.com/search?content_id=256439340&content_type=Article&match_order=1&q=姚顺雨&zhida_source=entity)大神的新博客：The Second Half，insights非常深刻，堪称AGI时代的the bitter lesson，推荐大家去他的博客上阅读原文。以下是摘录： 几十年来，AI的研究者都在重复着提出榜单(benchmark)-提出算法刷榜-提出更难的榜单的游戏。但今天，事情不一样了。我们讨论的是通用人工智能：[OpenAI](https://zhida.zhihu.com/search?content_id=256439340&content_type=Article&match_order=1&q=OpenAI&zhida_source=entity) o3, Deepseek-R1。 这象征着AI这场游戏，已经进入下半场。
 
 姚顺雨用三个词总结了AI的上半场：RL finally generalizes，强化学习终于泛化出了通用智能。尽管RL（强化学习）一直被视作AI的圣杯，但直到今天，我们才真正认识RL。 RL有三个关键：1)算法，2)环境，3)先验。过去，绝大多数的研究都关注1-算法。时至今日，[ICML](https://zhida.zhihu.com/search?content_id=256439340&content_type=Article&match_order=1&q=ICML&zhida_source=entity)的投稿还会因为没有算法创新而被攻击。然而，今天回头看，RL中最重要的原来不是算法或环境，而是3-先验。而获得先验的方式 - [LLM](https://zhida.zhihu.com/search?content_id=256439340&content_type=Article&match_order=1&q=LLM&zhida_source=entity)的语言预训练 - 又和RL本身完全无关。 语言先验进而改变了2-环境。通过将语言推理加入到任意RL环境的动作空间中，我们得以利用LLM在预训练中积攒的先验知识实现泛化。
