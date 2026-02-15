@@ -1,7 +1,6 @@
 ---
 layout: default
 title: 文章
-permalink: /blog
 ---
 
 <div class="container">
@@ -16,7 +15,7 @@ permalink: /blog
   </div>
 
   <div class="posts-section">
-    {% for post in site.posts %}
+    {% for post in paginator.posts %}
     <div class="post-card">
       <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
       <div class="post-card-meta">
@@ -29,4 +28,22 @@ permalink: /blog
     </div>
     {% endfor %}
   </div>
+
+  {% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="pagination-link">&laquo; 上一页</a>
+    {% else %}
+    <span class="pagination-link disabled">&laquo; 上一页</span>
+    {% endif %}
+
+    <span class="pagination-info">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+
+    {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="pagination-link">下一页 &raquo;</a>
+    {% else %}
+    <span class="pagination-link disabled">下一页 &raquo;</span>
+    {% endif %}
+  </div>
+  {% endif %}
 </div>

@@ -544,6 +544,38 @@ hr {
 }
 
 /*********************/
+/* PAGINATION        */
+/*********************/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 0;
+}
+
+.pagination-link {
+  font-size: 0.9rem;
+  color: $darkGray;
+  text-decoration: none;
+
+  &:hover {
+    color: $red;
+  }
+
+  &.disabled {
+    color: $lightGray;
+    pointer-events: none;
+  }
+}
+
+.pagination-info {
+  font-size: 0.85rem;
+  color: $gray;
+}
+
+/*********************/
 /* FOOTER            */
 /*********************/
 
