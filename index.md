@@ -7,9 +7,11 @@ permalink: /index.html
 <div class="container">
   <div class="hero">
     <h1>Hi, I'm 酥悠沫</h1>
-    <p class="hero-subtitle">软件工程专业，专注于大模型领域的工程师。热爱探索新技术，喜欢折腾各种有趣的项目。</p>
+    <p class="hero-subtitle">曾是2个B开头的大厂程序员，本硕计算机，专注于大模型评估领域。热爱探索新技术，喜欢折腾各种有趣的项目。很高兴大家认识我。</p>
+    <p class="hero-subtitle">像最近出的openclaw还有anthropic出的cowork我也觉得比较有意思，有空会弄一下相关的小项目。</p>
   </div>
 </div>
+
 
 <div class="container">
   <div class="posts-section">
