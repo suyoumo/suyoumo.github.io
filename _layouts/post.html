@@ -18,7 +18,7 @@ layout: default
         {% endif %}
         <span>阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
         <span>|</span>
-        <span><span id="busuanzi_value_page_uv"></span> 人读过</span>
+        <span><span id="unique_visitor_count"></span> 人读过</span>
       </div>
     </div>
 
@@ -27,5 +27,6 @@ layout: default
     </div>
 
     {% include giscus.html %}
+    {% include visitor-tracker.html %}
   </div>
 </article>
