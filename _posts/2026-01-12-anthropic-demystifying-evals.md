@@ -409,13 +409,3 @@ Langfuse提供类似的功能，它是一款可自托管的开源替代方案，
 我们发现，虽然框架可以有效地加速开发进程并实现标准化，但它们的有效性取决于你运行在其中的评估任务的质量。通常情况下，最好的做法是快速选择一个适合你工作流程的框架，然后将精力集中在评估本身，不断迭代编写高质量的测试用例和评分器。
 
 原文链接：https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
-
-我的其他文章：
-
-关于Agent评估,我的一些思考：https://bytetech.info/articles/7579149092333289499?fromIdType=50&fromId=7559555546531364927
-
-skill和agent区别：https://bytetech.info/articles/7579121065834921993#R5scdIZY6oRj5HxWn2kcM9Lxnbe
-
-LLM Agent效果评估完整方法论与实践指南：https://bytetech.info/articles/7571681356351012910?fromIdType=50&fromId=7559555546531364927
-
-Agent评估方法论：工程化实践指南：https://bytetech.info/articles/7571447838660362240?fromIdType=50&fromId=7559555546531364927

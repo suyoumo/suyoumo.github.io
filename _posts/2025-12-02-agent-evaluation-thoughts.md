@@ -288,14 +288,6 @@ Agent评估是一个快速演进的领域。我在这篇文章里分享的,是�
 
 最后,推荐几个我觉得不错的资源:
 
-我的其他文章：
-
-skill和agent区别：https://bytetech.info/articles/7579121065834921993#R5scdIZY6oRj5HxWn2kcM9Lxnbe
-
-LLM Agent效果评估完整方法论与实践指南：https://bytetech.info/articles/7571681356351012910?fromIdType=50&fromId=7559555546531364927
-
-Agent评估方法论：工程化实践指南：https://bytetech.info/articles/7571447838660362240?fromIdType=50&fromId=7559555546531364927
-
 **学术论文**:
 
 Survey on Evaluation of LLM-based Agents (2025)
