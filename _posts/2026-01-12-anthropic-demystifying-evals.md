@@ -410,8 +410,6 @@ Langfuse提供类似的功能，它是一款可自托管的开源替代方案，
 
 原文链接：https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
 
-有活水岗位可以联系我，偏好agent评估，agent开发
-
 我的其他文章：
 
 关于Agent评估,我的一些思考：https://bytetech.info/articles/7579149092333289499?fromIdType=50&fromId=7559555546531364927

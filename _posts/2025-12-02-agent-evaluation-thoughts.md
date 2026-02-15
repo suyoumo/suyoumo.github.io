@@ -312,6 +312,4 @@ AgentBoard: <https://github.com/hkust-nlp/agentboard>
 
 LangSmith: <https://www.langchain.com/langsmith>
 
-有活水岗位可以联系我，偏好agent评估，agent开发
-
 *写于2025年12月*

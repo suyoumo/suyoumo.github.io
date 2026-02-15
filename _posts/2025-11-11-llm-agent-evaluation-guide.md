@@ -198,6 +198,7 @@ return step1['action'] == step2['action']
 
 DeepEval框架提供的多级评估：
 
+{% raw %}
 ```python
 from deepeval.metrics import ToolCorrectnessMetric
 
@@ -236,6 +237,7 @@ score = metric_l3.measure(test_case)
 print(f"Tool Correctness: {score}")
 
 ```
+{% endraw %}
 
 **2.3 API vs 浏览器：性能对比（WebArena 2025研究）**
 
@@ -654,6 +656,7 @@ return float(score)
 
 **成本追踪代码示例**
 
+{% raw %}
 ```python
 class CostTracker:
 """
@@ -721,6 +724,7 @@ print(f"Task cost: \${summary['total_cost']:.4f}")
 print(f"Total tokens: {summary['total_tokens']}")
 
 ```
+{% endraw %}
 
 **2. 延迟与性能评估**
 
@@ -814,6 +818,7 @@ print(f" 建议: {bottleneck['optimization']}\\n")
 
 **Agent-SafetyBench评估框架**
 
+{% raw %}
 ```python
 class SafetyEvaluator:
 """
@@ -916,6 +921,7 @@ print(f"Refusal Rate: {safety_metrics['refusal_rate']:.2%}")
 print(f"Harm Rate: {safety_metrics['harm_rate']:.2%}")
 
 ```
+{% endraw %}
 
 **对抗鲁棒性评估（ARE框架）**
 
@@ -1032,6 +1038,7 @@ return {
 
 **完整的评估管道**
 
+{% raw %}
 ```python
 import deepeval
 from deepeval import evaluate
@@ -1236,9 +1243,11 @@ print(f"综合分数: {results['overall_score']:.2%}")
 print(f"通过率: {results['passed']}/{len(evaluator.test_cases)}")
 
 ```
+{% endraw %}
 
 **CI/CD集成**
 
+{% raw %}
 ```yaml
 # .github/workflows/agent-evaluation.yml
 name: Agent Evaluation Pipeline
@@ -1309,6 +1318,7 @@ body: \`## Agent Evaluation Results\\n\\n\${report}\`
 });
 
 ```
+{% endraw %}
 
 **行业案例与最佳实践**
 
@@ -1324,6 +1334,7 @@ Agent类型：客服自动化
 
 **评估框架**
 
+{% raw %}
 ```python
 class EcommerceAgentEvaluator:
 """
@@ -1427,6 +1438,7 @@ print(f"客户满意度: {metrics['avg_satisfaction']:.1f}/5.0")
 print(f"ROI: {metrics['roi']:.2%}")
 
 ```
+{% endraw %}
 
 **关键发现**
 
@@ -1574,6 +1586,7 @@ np.mean(results) + 1.96 \* np.std(results) / np.sqrt(num_runs)
 
 **解决方案：LLM-as-a-Judge + 多维度评分**
 
+{% raw %}
 ```python
 def evaluate_open_ended_task(agent_output, task_description):
 """
@@ -1610,6 +1623,7 @@ scores[dimension] = json.loads(result)
 return scores
 
 ```
+{% endraw %}
 
 **Q3: 基准测试分数与实际表现不符怎么办？**
 
@@ -1784,6 +1798,7 @@ return all(checks)
 
 **趋势：** 评估不再是"一次性检查"，而是"持续改进循环"的一部分。
 
+{% raw %}
 ```python
 class ContinuousImprovementLoop:
 """
@@ -1831,6 +1846,7 @@ break
 return self.performance_history
 
 ```
+{% endraw %}
 
 **2. 多Agent系统评估**
 

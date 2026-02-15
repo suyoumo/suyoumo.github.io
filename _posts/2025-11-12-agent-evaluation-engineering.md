@@ -426,6 +426,7 @@ ab_test_config = {
 
 **成本追踪代码**
 
+{% raw %}
 ```python
 class CostTracker:
 def __init__(self, pricing):
@@ -445,6 +446,7 @@ return {
 }
 
 ```
+{% endraw %}
 
 **成本优化建议**
 
@@ -723,6 +725,7 @@ f.write(report)
 
 **GitHub Actions配置**
 
+{% raw %}
 ```yaml
 name: Agent Evaluation
 
@@ -771,6 +774,7 @@ name: evaluation-report
 path: report.md
 
 ```
+{% endraw %}
 
 **七、实施路线图**
 
