@@ -1,14 +1,30 @@
 
 // Syntax highlighting - dark theme matching pre block style
 .highlight {
-  background: none;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+  background: #191918 !important;
+  color: #e8e4de !important;
+  margin: 1.5em 0;
+  padding: 20px 24px;
+  border-radius: 12px;
+  overflow-x: auto;
+  line-height: 1.5;
+  border: none !important;
+  box-shadow: none !important;
 
   pre {
     margin: 0;
     padding: 0;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: inherit;
+  }
+
+  code {
+    background: none !important;
+    padding: 0;
+    color: inherit;
+    font-size: 0.9em;
   }
 }
 
