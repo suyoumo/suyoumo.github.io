@@ -15,19 +15,23 @@ permalink: /bench/blog/
     </div>
 
     <div class="bench-blog-list">
-      {% assign bench_blog_pages = site.pages | where_exp: 'item', "item.url contains '/bench/blog/' and item.url != '/bench/blog/'" | sort: 'date' | reverse %}
-      {% for post in bench_blog_pages %}
       <article class="post-card">
-        <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+        <h3 class="post-card-title"><a href="{{ site.baseurl }}/bench/blog/2026-04-02-why-pass3-matters/">Why Pass^3 Matters</a></h3>
         <div class="post-card-meta">
-          <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-          {% if post.categories.size > 0 %}
-          <span class="post-card-category">{{ post.categories | first }}</span>
-          {% endif %}
+          <span>2026-04-02</span>
+          <span class="post-card-category">Methodology</span>
         </div>
-        <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+        <p class="post-card-excerpt">Repeated success is a stronger signal of useful OpenClaw intelligence than one lucky run. This note explains why the leaderboard emphasizes Pass^3.</p>
       </article>
-      {% endfor %}
+
+      <article class="post-card">
+        <h3 class="post-card-title"><a href="{{ site.baseurl }}/bench/blog/2026-04-02-openclawprobench-launch/">Launching OpenClawProBench</a></h3>
+        <div class="post-card-meta">
+          <span>2026-04-02</span>
+          <span class="post-card-category">Benchmark</span>
+        </div>
+        <p class="post-card-excerpt">OpenClawProBench is designed to evaluate model intelligence under OpenClaw across planning, tool use, constraints, recovery, synthesis, and safety.</p>
+      </article>
     </div>
   </div>
 </section>

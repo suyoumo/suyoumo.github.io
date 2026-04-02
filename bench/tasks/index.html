@@ -19,11 +19,8 @@ permalink: /bench/tasks/
         <span>Dimension</span>
         <select id="task-dimension-filter">
           <option value="all">All</option>
-          {% assign dimensions = site.data.bench.tasks | map: 'dimension' | uniq | sort %}
-          {% for dimension in dimensions %}
-          {% if dimension %}
-          <option value="{{ dimension }}">{{ dimension }}</option>
-          {% endif %}
+          {% for item in site.data.bench.task_dimensions %}
+          <option value="{{ item.Dimension | downcase }}">{{ item.Label }}</option>
           {% endfor %}
         </select>
       </label>
@@ -31,11 +28,8 @@ permalink: /bench/tasks/
         <span>Difficulty</span>
         <select id="task-difficulty-filter">
           <option value="all">All</option>
-          {% assign difficulties = site.data.bench.tasks | map: 'difficulty' | uniq | sort %}
-          {% for difficulty in difficulties %}
-          {% if difficulty %}
-          <option value="{{ difficulty }}">{{ difficulty }}</option>
-          {% endif %}
+          {% for item in site.data.bench.task_difficulties %}
+          <option value="{{ item.Difficulty | downcase }}">{{ item.Difficulty }}</option>
           {% endfor %}
         </select>
       </label>
