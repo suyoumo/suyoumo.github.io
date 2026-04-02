@@ -3,6 +3,7 @@ layout: bench_post
 title: "Launching OpenClawProBench"
 date: 2026-04-02 10:00:00 +0800
 categories: Benchmark
+permalink: /bench/blog/2026-04-02-openclawprobench-launch/
 ---
 
 OpenClawProBench is designed to evaluate model intelligence under OpenClaw instead of only measuring raw knowledge.

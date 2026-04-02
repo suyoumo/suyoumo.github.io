@@ -15,8 +15,8 @@ permalink: /bench/blog/
     </div>
 
     <div class="bench-blog-list">
-      {% assign bench_posts = site.bench_posts | sort: 'date' | reverse %}
-      {% for post in bench_posts %}
+      {% assign bench_blog_pages = site.pages | where_exp: 'item', "item.url contains '/bench/blog/' and item.url != '/bench/blog/'" | sort: 'date' | reverse %}
+      {% for post in bench_blog_pages %}
       <article class="post-card">
         <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
         <div class="post-card-meta">

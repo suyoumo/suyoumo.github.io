@@ -3,6 +3,7 @@ layout: bench_post
 title: "Why Pass^3 Matters"
 date: 2026-04-02 12:00:00 +0800
 categories: Methodology
+permalink: /bench/blog/2026-04-02-why-pass3-matters/
 ---
 
 A single successful run is often not enough to judge whether an agent is dependable.
