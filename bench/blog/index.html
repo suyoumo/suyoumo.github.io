@@ -1,0 +1,33 @@
+---
+layout: bench
+title: Bench Blog
+permalink: /bench/blog/
+---
+
+<section class="bench-section">
+  <div class="container-wide bench-shell bench-blog-shell">
+    <div class="bench-section-head">
+      <div>
+        <h2>Bench <span>Blog</span></h2>
+        <p>Updates, benchmark notes, result interpretations, and design changes for OpenClawProBench.</p>
+      </div>
+      <a class="bench-ghost-link" href="{{ site.baseurl }}/blog">AI Blog →</a>
+    </div>
+
+    <div class="bench-blog-list">
+      {% assign bench_posts = site.bench_posts | sort: 'date' | reverse %}
+      {% for post in bench_posts %}
+      <article class="post-card">
+        <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+        <div class="post-card-meta">
+          <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+          {% if post.categories.size > 0 %}
+          <span class="post-card-category">{{ post.categories | first }}</span>
+          {% endif %}
+        </div>
+        <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

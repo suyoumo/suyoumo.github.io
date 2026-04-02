@@ -1,0 +1,26 @@
+{
+  "title": "OpenClawProBench Architecture",
+  "subtitle": "A benchmark for measuring model intelligence under OpenClaw.",
+  "sections": [
+    {
+      "title": "What it measures",
+      "body": "OpenClawProBench evaluates how well models act as agents inside OpenClaw: planning multi-step work, using tools correctly, recovering from failures, respecting constraints, synthesizing information, and staying safe."
+    },
+    {
+      "title": "Evaluation pipeline",
+      "body": "Tasks are defined as scenario YAML files. The harness loads each scenario, runs three trials per task, records traces, scores outcomes deterministically, and then aggregates capability, reliability, runtime, and cost into final model reports."
+    },
+    {
+      "title": "Task families",
+      "body": "The benchmark currently covers six core dimensions: planning, tool use, constraints, error recovery, synthesis, and safety. The public task browser now focuses on the 102 active benchmark tasks."
+    },
+    {
+      "title": "Scoring philosophy",
+      "body": "The benchmark emphasizes stable three-try performance. Pass^3 rewards consistency across repeated trials, while score breakdowns reveal where a model is strong, fragile, slow, or unsafe."
+    },
+    {
+      "title": "Why it is useful",
+      "body": "The goal is not to measure memorized knowledge, but agentic intelligence under realistic OpenClaw workflows. The benchmark highlights how models behave when they must read, decide, use tools, and recover under pressure."
+    }
+  ]
+}

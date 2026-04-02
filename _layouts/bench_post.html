@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<article class="post bench-post">
+  <div class="container">
+    <a href="{{ site.baseurl }}/bench/blog/" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Bench Blog
+    </a>
+
+    <div class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <div class="post-meta">
+        <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+        {% if page.categories.size > 0 %}
+        <span class="post-card-category">{{ page.categories | first }}</span>
+        {% endif %}
+        <span>阅读 <span id="busuanzi_value_page_pv"></span> 次</span>
+        <span>|</span>
+        <span><span id="unique_visitor_count"></span> 人读过</span>
+      </div>
+    </div>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    {% include giscus.html %}
+    {% include visitor-tracker.html %}
+  </div>
+</article>

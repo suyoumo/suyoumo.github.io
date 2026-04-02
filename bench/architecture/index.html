@@ -1,0 +1,38 @@
+---
+layout: bench
+title: Architecture
+permalink: /bench/architecture/
+---
+
+<section class="bench-section">
+  <div class="container-wide bench-shell">
+    <div class="bench-section-head">
+      <div>
+        <h2>Architecture <span>Overview</span></h2>
+        <p>{{ site.data.bench.architecture.subtitle }}</p>
+      </div>
+      <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
+    </div>
+
+    <div class="bench-architecture-flow bench-card">
+      <div class="bench-flow-grid">
+        <div class="bench-flow-node">Scenario YAML</div>
+        <div class="bench-flow-arrow">→</div>
+        <div class="bench-flow-node">OpenClaw Runner</div>
+        <div class="bench-flow-arrow">→</div>
+        <div class="bench-flow-node">Trace + Scoring</div>
+        <div class="bench-flow-arrow">→</div>
+        <div class="bench-flow-node">Model Report</div>
+      </div>
+    </div>
+
+    <div class="bench-architecture-grid">
+      {% for section in site.data.bench.architecture.sections %}
+      <article class="bench-card bench-architecture-card">
+        <h3>{{ section.title }}</h3>
+        <p>{{ section.body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

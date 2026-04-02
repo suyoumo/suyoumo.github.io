@@ -3,7 +3,7 @@
 #
 
 # Name of your site (displayed in the header)
-name: 酥悠沫
+name: 酥悠沫大模型评测
 
 # Short bio or description (displayed in the header)
 description: suyoumo
@@ -91,6 +91,12 @@ plugins:
   - jekyll-sitemap # Create a sitemap using the official Jekyll sitemap gem
   - jekyll-feed # Create an Atom feed using the official Jekyll feed gem
   - jekyll-paginate # Pagination for blog listing
+  - jekyll-collections-paginate
+
+collections:
+  bench_posts:
+    output: true
+    permalink: /bench/blog/:name/
 
 # Pagination
 paginate: 10

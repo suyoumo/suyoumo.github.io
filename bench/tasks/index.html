@@ -1,0 +1,82 @@
+---
+layout: bench
+title: Tasks
+permalink: /bench/tasks/
+---
+
+<section class="bench-section">
+  <div class="container-wide bench-shell">
+    <div class="bench-section-head">
+      <div>
+        <h2>Task <span>Browser</span></h2>
+        <p>Browse the current OpenClawProBench tasks. This view focuses on what each task asks the model to do, without exposing low-level grading logic.</p>
+      </div>
+      <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
+    </div>
+
+    <div class="bench-filter-bar">
+      <label>
+        <span>Dimension</span>
+        <select id="task-dimension-filter">
+          <option value="all">All</option>
+          {% assign dimensions = site.data.bench.tasks | map: 'dimension' | uniq | sort %}
+          {% for dimension in dimensions %}
+          {% if dimension %}
+          <option value="{{ dimension }}">{{ dimension }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        <span>Difficulty</span>
+        <select id="task-difficulty-filter">
+          <option value="all">All</option>
+          {% assign difficulties = site.data.bench.tasks | map: 'difficulty' | uniq | sort %}
+          {% for difficulty in difficulties %}
+          {% if difficulty %}
+          <option value="{{ difficulty }}">{{ difficulty }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+      </label>
+      <label class="bench-search-field">
+        <span>Search</span>
+        <input id="task-search-input" type="search" placeholder="Search by task id or name" />
+      </label>
+    </div>
+
+    <div class="bench-task-grid" id="task-grid">
+      {% for task in site.data.bench.tasks %}
+      <article
+        class="bench-task-card"
+        data-dimension="{{ task.dimension | downcase }}"
+        data-difficulty="{{ task.difficulty | downcase }}"
+        data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }}"
+      >
+        <div class="bench-task-meta">
+          <span class="bench-task-id">{{ task.id }}</span>
+          <span class="bench-task-difficulty">{{ task.difficulty }}</span>
+        </div>
+        <h3>{{ task.name }}</h3>
+        <div class="bench-task-tags">
+          <span>{{ task.dimension }}</span>
+          {% if task.category %}
+          <span>{{ task.category }}</span>
+          {% endif %}
+        </div>
+        {% if task.description %}
+        <p>{{ task.description }}</p>
+        {% endif %}
+        {% if task.objective %}
+        <details>
+          <summary>Show objective</summary>
+          <p>{{ task.objective }}</p>
+        </details>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script src="{{ site.baseurl }}/assets/js/bench.js"></script>

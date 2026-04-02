@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% if page.title %}{{ page.title }} – {% endif %}OpenClawProBench</title>
+
+    {% include meta.html %}
+
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </head>
+
+  <body class="bench-body">
+    <header class="site-header bench-header">
+      <div class="container-wide header-inner bench-header-inner">
+        <a class="bench-brand" href="{{ site.baseurl }}/bench/">
+          <span class="bench-brand-mark">OC</span>
+          <span class="bench-brand-text">OpenClawProBench</span>
+        </a>
+        <nav class="site-nav bench-nav">
+          <a href="{{ site.baseurl }}/bench/" {% if page.url == '/bench/' or page.url == '/bench/index.html' %}class="active"{% endif %}>Home</a>
+          <a href="{{ site.baseurl }}/bench/tasks/" {% if page.url contains '/bench/tasks' %}class="active"{% endif %}>Tasks</a>
+          <a href="{{ site.baseurl }}/bench/architecture/" {% if page.url contains '/bench/architecture' %}class="active"{% endif %}>Architecture</a>
+          <a href="{{ site.baseurl }}/bench/blog/" {% if page.url contains '/bench/blog' %}class="active"{% endif %}>Blog</a>
+          <a href="https://github.com/suyoumo/OpenClawProBench" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="bench-main">
+      {{ content }}
+    </main>
+  </body>
+</html>
