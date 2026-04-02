@@ -1425,17 +1425,17 @@ main {
 }
 
 .bench-task-card-compact {
-  min-height: 360px;
+  min-height: 420px;
   display: flex;
   flex-direction: column;
 }
 
 .bench-task-clamp {
   display: -webkit-box;
-  -webkit-line-clamp: 8;
+  -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 13.2em;
+  min-height: 16.6em;
   line-height: 1.65;
 }
 
@@ -1449,11 +1449,12 @@ main {
 
 .bench-architecture-page .bench-card {
   overflow: hidden;
+  position: relative;
 }
 
 .bench-architecture-panel {
   padding: 30px 34px;
-  margin-bottom: 36px;
+  margin-bottom: 48px;
 }
 
 .bench-architecture-copy {
@@ -1479,6 +1480,7 @@ main {
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 18px;
   align-items: stretch;
+  margin-bottom: 18px;
 
   @include mobile {
     grid-template-columns: 1fr;
