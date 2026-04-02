@@ -1414,3 +1414,319 @@ main {
   margin: 0 auto;
   padding: 0 32px 24px;
 }
+
+
+.bench-task-list-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bench-task-card-compact {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bench-task-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 8.6em;
+}
+
+.bench-task-card details {
+  margin-top: auto;
+}
+
+.bench-task-card details p {
+  white-space: pre-wrap;
+}
+
+.bench-architecture-page .bench-card {
+  overflow: hidden;
+}
+
+.bench-architecture-panel {
+  padding: 30px 34px;
+  margin-bottom: 24px;
+}
+
+.bench-architecture-copy {
+  max-width: 920px;
+  margin-bottom: 24px;
+}
+
+.bench-architecture-copy h3 {
+  margin: 0 0 12px;
+  font-family: $sans;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+
+.bench-architecture-copy p {
+  color: $gray;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.bench-flow-board {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bench-flow-stage {
+  padding: 22px 20px;
+  border-radius: 22px;
+  color: $white;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 16px 40px rgba(25, 25, 24, 0.10);
+
+  span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.9;
+  }
+
+  strong {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.stage-1 { background: linear-gradient(135deg, #b86c39 0%, #d78c53 100%); }
+.stage-2 { background: linear-gradient(135deg, #5871d8 0%, #7390f1 100%); }
+.stage-3 { background: linear-gradient(135deg, #2f8f78 0%, #55b098 100%); }
+.stage-4 { background: linear-gradient(135deg, #5a5d73 0%, #7c82a4 100%); }
+
+.bench-flow-connector {
+  align-self: center;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(77,108,240,0.1), rgba(77,108,240,0.6));
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.bench-signal-grid-rich,
+.bench-advantage-grid-rich {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bench-signal-grid,
+.bench-advantage-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.bench-signal-card,
+.bench-advantage-card {
+  background: rgba(0,0,0,0.025);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.bench-signal-card span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #4d6cf0;
+}
+
+.bench-signal-card strong,
+.bench-advantage-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-family: $sans;
+  font-size: 1.05rem;
+  color: $black;
+}
+
+.bench-signal-card p,
+.bench-advantage-card p {
+  margin: 0;
+  color: $gray;
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.bench-score-diagram {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bench-score-block {
+  min-height: 130px;
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $white;
+
+  span {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.92;
+  }
+
+  strong {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+}
+
+.block-blue { background: linear-gradient(135deg, #4967d9 0%, #6e89f1 100%); }
+.block-purple { background: linear-gradient(135deg, #7351d4 0%, #956ff2 100%); }
+.block-gold { background: linear-gradient(135deg, #b97a2c 0%, #d6a34f 100%); }
+.block-red { background: linear-gradient(135deg, #a85a4b 0%, #d07e6d 100%); }
+
+.bench-score-plus,
+.bench-score-times {
+  text-align: center;
+  font-size: 2rem;
+  color: #8f8a83;
+  font-weight: 700;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.bench-score-formula-card {
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(77,108,240,0.06);
+  color: #4d6cf0;
+  font-family: $mono;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.bench-audit-flow {
+  display: grid;
+  grid-template-columns: 1fr 220px 1fr;
+  gap: 22px;
+  align-items: stretch;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bench-audit-column {
+  background: rgba(0,0,0,0.02);
+  border-radius: 22px;
+  padding: 22px;
+
+  h4 {
+    margin: 0 0 16px;
+    font-family: $sans;
+    color: $black;
+  }
+}
+
+.bench-audit-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #191918 0%, #474742 100%);
+  color: $white;
+  font-weight: 700;
+  box-shadow: 0 14px 36px rgba(25,25,24,0.16);
+  min-height: 220px;
+}
+
+.bench-audit-pill {
+  display: inline-flex;
+  margin: 0 10px 10px 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.06);
+  color: $gray;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.bench-scenario-name {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bench-scenario-id {
+  font-family: $mono;
+  font-size: 0.76rem;
+  color: $gray;
+}
+
+.bench-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(77,108,240,0.10);
+  color: #4d6cf0;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.bench-pill-soft {
+  background: rgba(0,0,0,0.05);
+  color: $gray;
+}
+
+.bench-pass-yes {
+  color: #3f9b54;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.bench-pass-no {
+  color: #a7a19a;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.bench-blog-shell-wide {
+  max-width: 1280px;
+}
+
+.bench-post-card-wide {
+  padding-bottom: 34px;
+}
+
+.bench-post-content-wide {
+  max-width: 1080px;
+}
