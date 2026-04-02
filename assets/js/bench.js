@@ -8,16 +8,29 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentDirection = 'desc';
 
     function parseValue(row, key, index) {
-      if (key === 'model_name' || key === 'platform') {
-        return row.children[index].innerText.trim().toLowerCase();
-      }
       const cell = row.children[index];
+      if (key === 'model_name' || key === 'platform' || key === 'openclaw_version' || key === 'updated_at') {
+        return cell.innerText.trim().toLowerCase();
+      }
       return Number(cell.dataset.value || cell.textContent.replace(/[^0-9.-]/g, ''));
     }
 
     function updateRanks(sortedRows) {
       sortedRows.forEach(function (row, idx) {
         row.children[0].textContent = idx + 1;
+      });
+    }
+
+    function updateSortIndicators() {
+      headers.forEach(function (header) {
+        const indicator = header.querySelector('.bench-sort-indicator');
+        header.classList.remove('bench-sort-active', 'bench-sort-asc', 'bench-sort-desc');
+        if (!indicator) return;
+        indicator.textContent = '↕';
+        if (header.dataset.sortKey === currentKey) {
+          header.classList.add('bench-sort-active', currentDirection === 'asc' ? 'bench-sort-asc' : 'bench-sort-desc');
+          indicator.textContent = currentDirection === 'asc' ? '↑' : '↓';
+        }
       });
     }
 
@@ -29,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const sorted = rows.slice().sort(function (a, b) {
         const av = parseValue(a, key, index);
         const bv = parseValue(b, key, index);
-
         if (typeof av === 'string' || typeof bv === 'string') {
           return direction === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
         }
@@ -40,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sorted.forEach(function (row) {
         tbody.appendChild(row);
       });
+      updateSortIndicators();
     }
 
     headers.forEach(function (header) {
@@ -50,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
           currentDirection = currentDirection === 'asc' ? 'desc' : 'asc';
         } else {
           currentKey = key;
-          currentDirection = key === 'model_name' || key === 'platform' ? 'asc' : 'desc';
+          currentDirection = key === 'model_name' || key === 'platform' || key === 'updated_at' ? 'asc' : 'desc';
         }
         sortRows(currentKey, currentDirection);
       });
@@ -91,4 +104,66 @@ document.addEventListener('DOMContentLoaded', function () {
       element.addEventListener('change', applyTaskFilters);
     });
   }
+
+  const scenarioTables = document.querySelectorAll('.bench-scenario-table');
+  scenarioTables.forEach(function (table) {
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const headers = Array.from(table.querySelectorAll('th[data-sort-key]'));
+    let sortKey = 'avg_score';
+    let direction = 'desc';
+
+    function valueFor(row, key, index) {
+      const cell = row.children[index];
+      if (key === 'name' || key === 'dimension' || key === 'difficulty') {
+        return cell.innerText.trim().toLowerCase();
+      }
+      if (key === 'strict_pass_k') {
+        return cell.dataset.value === 'true' ? 1 : 0;
+      }
+      return Number(cell.dataset.value || cell.textContent.replace(/[^0-9.-]/g, ''));
+    }
+
+    function updateScenarioIndicators() {
+      headers.forEach(function (header) {
+        const indicator = header.querySelector('.bench-sort-indicator');
+        if (!indicator) return;
+        indicator.textContent = header.dataset.sortKey === sortKey ? (direction === 'asc' ? '↑' : '↓') : '↕';
+        header.classList.toggle('bench-sort-active', header.dataset.sortKey === sortKey);
+      });
+    }
+
+    function applyScenarioSort() {
+      const index = headers.findIndex(function (header) {
+        return header.dataset.sortKey === sortKey;
+      }) + 1;
+      const sorted = rows.slice().sort(function (a, b) {
+        const av = valueFor(a, sortKey, index);
+        const bv = valueFor(b, sortKey, index);
+        if (typeof av === 'string' || typeof bv === 'string') {
+          return direction === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+        }
+        return direction === 'asc' ? av - bv : bv - av;
+      });
+      sorted.forEach(function (row) {
+        tbody.appendChild(row);
+      });
+      updateScenarioIndicators();
+    }
+
+    headers.forEach(function (header) {
+      header.addEventListener('click', function () {
+        const key = header.dataset.sortKey;
+        if (sortKey === key) {
+          direction = direction === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortKey = key;
+          direction = key === 'name' || key === 'dimension' || key === 'difficulty' ? 'asc' : 'desc';
+        }
+        applyScenarioSort();
+      });
+    });
+
+    applyScenarioSort();
+  });
 });

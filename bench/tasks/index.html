@@ -9,7 +9,7 @@ permalink: /bench/tasks/
     <div class="bench-section-head">
       <div>
         <h2>Task <span>Browser</span></h2>
-        <p>Browse the current OpenClawProBench tasks. This view focuses on what each task asks the model to do, without exposing low-level grading logic.</p>
+        <p>Browse the 102 active OpenClawProBench tasks. Each card shows the task type, a readable summary, and expandable full objective text.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
     </div>
@@ -39,31 +39,35 @@ permalink: /bench/tasks/
       </label>
     </div>
 
-    <div class="bench-task-grid" id="task-grid">
+    <div class="bench-task-list" id="task-grid">
       {% for task in site.data.bench.tasks %}
       <article
-        class="bench-task-card"
+        class="bench-task-card bench-task-card-wide"
         data-dimension="{{ task.dimension | downcase }}"
         data-difficulty="{{ task.difficulty | downcase }}"
         data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }}"
       >
-        <div class="bench-task-meta">
-          <span class="bench-task-id">{{ task.id }}</span>
-          <span class="bench-task-difficulty">{{ task.difficulty }}</span>
-        </div>
-        <h3>{{ task.name }}</h3>
-        <div class="bench-task-tags">
-          <span>{{ task.dimension }}</span>
-          {% if task.category %}
-          <span>{{ task.category }}</span>
-          {% endif %}
+        <div class="bench-task-header">
+          <div>
+            <div class="bench-task-meta">
+              <span class="bench-task-id">{{ task.id }}</span>
+              <span class="bench-task-difficulty">{{ task.difficulty }}</span>
+            </div>
+            <h3>{{ task.name }}</h3>
+          </div>
+          <div class="bench-task-tags">
+            <span>{{ task.dimension }}</span>
+            {% if task.category %}
+            <span>{{ task.category }}</span>
+            {% endif %}
+          </div>
         </div>
         {% if task.description %}
-        <p>{{ task.description }}</p>
+        <p class="bench-task-lead">{{ task.description }}</p>
         {% endif %}
         {% if task.objective %}
         <details>
-          <summary>Show objective</summary>
+          <summary>Read full task objective</summary>
           <p>{{ task.objective }}</p>
         </details>
         {% endif %}
