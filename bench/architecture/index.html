@@ -1,38 +1,116 @@
 ---
 layout: bench
-title: Architecture
 permalink: /bench/architecture/
+title: Architecture
 ---
 
-<section class="bench-section">
+<section class="bench-section bench-architecture-page">
   <div class="container-wide bench-shell">
     <div class="bench-section-head">
       <div>
-        <h2>Architecture <span>Overview</span></h2>
-        <p>{{ site.data.bench.architecture.subtitle }}</p>
-      </div>
-      <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
-    </div>
-
-    <div class="bench-architecture-flow bench-card">
-      <div class="bench-flow-grid">
-        <div class="bench-flow-node">Scenario YAML</div>
-        <div class="bench-flow-arrow">→</div>
-        <div class="bench-flow-node">OpenClaw Runner</div>
-        <div class="bench-flow-arrow">→</div>
-        <div class="bench-flow-node">Trace + Scoring</div>
-        <div class="bench-flow-arrow">→</div>
-        <div class="bench-flow-node">Model Report</div>
+        <h2>Architecture <span>Deep Dive</span></h2>
+        <p>OpenClawProBench is designed to look beyond one-shot accuracy. The system combines active scenario curation, deterministic grading, multi-trial reliability measurement, and fault-aware mock surfaces into a professional evaluation stack.</p>
       </div>
     </div>
 
-    <div class="bench-architecture-grid">
-      {% for section in site.data.bench.architecture.sections %}
-      <article class="bench-card bench-architecture-card">
-        <h3>{{ section.title }}</h3>
-        <p>{{ section.body }}</p>
-      </article>
-      {% endfor %}
-    </div>
+    <section class="bench-card bench-architecture-panel">
+      <div class="bench-architecture-copy">
+        <p class="bench-kicker">1 · End-to-end pipeline</p>
+        <h3>From YAML scenario to ranked benchmark report</h3>
+        <p>Each task begins as a scenario definition, is filtered into the active benchmark slice, executed through OpenClaw, scored with deterministic checks and custom task logic, then aggregated into per-model benchmark reports with runtime, token, cost, and reliability views.</p>
+      </div>
+      <div class="bench-pipeline-grid">
+        <div class="bench-pipeline-node">
+          <span>Scenario YAML</span>
+          <strong>prompt · tools · checks · tags</strong>
+        </div>
+        <div class="bench-pipeline-arrow">→</div>
+        <div class="bench-pipeline-node">
+          <span>Loader</span>
+          <strong>active / group / signal filters</strong>
+        </div>
+        <div class="bench-pipeline-arrow">→</div>
+        <div class="bench-pipeline-node">
+          <span>OpenClaw Runner</span>
+          <strong>3 trials · traces · tool calls</strong>
+        </div>
+        <div class="bench-pipeline-arrow">→</div>
+        <div class="bench-pipeline-node">
+          <span>Scoring + Reporter</span>
+          <strong>dimension views · pass^3 · cost</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="bench-card bench-architecture-panel">
+      <div class="bench-architecture-copy">
+        <p class="bench-kicker">2 · Active benchmark slice</p>
+        <h3>102 active tasks, 6 dimensions, benchmark-aware filtering</h3>
+        <p>The benchmark is not a loose pile of prompts. Tasks are filtered by benchmark group, benchmark status, signal source, and execution mode, which makes the public leaderboard track a stable active slice instead of drifting with every experiment.</p>
+      </div>
+      <div class="bench-signal-grid">
+        <div class="bench-signal-card"><span>102</span><strong>Active tasks</strong><p>Public slice used by the leaderboard.</p></div>
+        <div class="bench-signal-card"><span>6</span><strong>Core dimensions</strong><p>Planning, safety, tool use, constraints, recovery, synthesis.</p></div>
+        <div class="bench-signal-card"><span>3</span><strong>Trials per task</strong><p>Repeated execution for stability instead of lucky wins.</p></div>
+        <div class="bench-signal-card"><span>Profiles</span><strong>Core / intelligence / coverage / native</strong><p>Different benchmark cuts are first-class in the runner.</p></div>
+      </div>
+    </section>
+
+    <section class="bench-card bench-architecture-panel">
+      <div class="bench-architecture-copy">
+        <p class="bench-kicker">3 · Scoring stack</p>
+        <h3>Deterministic checks, process quality, efficiency drag, safety gate</h3>
+        <p>The system does not stop at a final answer. It evaluates whether the output is correct, whether the process was reasonable, how much efficiency drag was introduced, and whether safety boundaries were preserved. That makes the result more audit-friendly and harder to game.</p>
+      </div>
+      <div class="bench-score-stack">
+        <div class="bench-score-layer bench-layer-blue">
+          <span>Correctness</span>
+          <strong>Deterministic checks + custom task checks</strong>
+        </div>
+        <div class="bench-score-layer bench-layer-purple">
+          <span>Process</span>
+          <strong>Tool appropriateness · sequence quality · redundancy</strong>
+        </div>
+        <div class="bench-score-layer bench-layer-gold">
+          <span>Efficiency</span>
+          <strong>Penalty-driven, tracked separately in reports</strong>
+        </div>
+        <div class="bench-score-layer bench-layer-red">
+          <span>Safety gate</span>
+          <strong>Unsafe behavior can heavily suppress or zero the score</strong>
+        </div>
+        <div class="bench-score-formula">final score = safety gate × (correctness × 0.65 + process × 0.35) × (1 − efficiency penalty)</div>
+      </div>
+    </section>
+
+    <section class="bench-card bench-architecture-panel">
+      <div class="bench-architecture-copy">
+        <p class="bench-kicker">4 · Fault injection + audit state</p>
+        <h3>Recovery and robustness are tested, not assumed</h3>
+        <p>Mock surfaces support injected failures such as timeouts, persistent errors, partial responses, and error-then-success paths. The server also tracks audit state for side effects like drafts, calendar writes, and file mutations, making recovery quality and safety visible in the trace.</p>
+      </div>
+      <div class="bench-audit-diagram">
+        <div class="bench-audit-box">Mock response rules</div>
+        <div class="bench-audit-box">Fault injection</div>
+        <div class="bench-audit-box">Tool call log</div>
+        <div class="bench-audit-box">Audit state</div>
+        <div class="bench-audit-box bench-audit-box-wide">Why it matters: the benchmark can distinguish correct answers from reliable, recoverable, and safe agent behavior.</div>
+      </div>
+    </section>
+
+    <section class="bench-card bench-architecture-panel">
+      <div class="bench-architecture-copy">
+        <p class="bench-kicker">5 · Why this bench looks serious</p>
+        <h3>Professional signals that make the system more trustworthy</h3>
+      </div>
+      <div class="bench-advantage-grid">
+        <div class="bench-advantage-card"><strong>Pass^3 first</strong><p>Repeated success is visible and rank-driving.</p></div>
+        <div class="bench-advantage-card"><strong>Dimension-aware</strong><p>Different kinds of intelligence do not collapse into one opaque number.</p></div>
+        <div class="bench-advantage-card"><strong>Deterministic grading</strong><p>Custom checks and explicit scoring rules reduce judge drift.</p></div>
+        <div class="bench-advantage-card"><strong>Native OpenClaw surfaces</strong><p>Scenarios understand real OpenClaw tool surfaces and signal sources.</p></div>
+        <div class="bench-advantage-card"><strong>Runtime observability</strong><p>Tokens, latency, cost, and efficiency are tracked alongside quality.</p></div>
+        <div class="bench-advantage-card"><strong>Fault-aware evaluation</strong><p>Injected failures and audit logging make robustness measurable.</p></div>
+      </div>
+    </section>
   </div>
 </section>

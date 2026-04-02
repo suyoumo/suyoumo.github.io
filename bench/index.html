@@ -17,7 +17,7 @@ permalink: /bench/
     <div class="bench-section-head">
       <div>
         <h2>Benchmark <span>Leaderboard</span></h2>
-        <p>Pass^3 remains the default rank signal. The table also shows average score, capability, efficiency, average runtime, tokens, OpenClaw version, update time, and cost-related efficiency.</p>
+        <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, tokens, OpenClaw version, and update time.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
     </div>
@@ -35,7 +35,10 @@ permalink: /bench/
               <th data-sort-key="efficiency_score">Efficiency <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="planning_score">Planning <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="safety_score">Safety <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="native_score">Native <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="tool_use_score">Tool Use <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="constraints_score">Constraints <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="error_recovery_score">Error Recovery <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="synthesis_score">Synthesis <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
@@ -65,7 +68,10 @@ permalink: /bench/
               <td data-value="{{ row.efficiency_score }}">{{ row.efficiency_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.planning_score }}">{{ row.planning_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.safety_score }}">{{ row.safety_score | times: 100 | round: 1 }}</td>
-              <td data-value="{{ row.native_score }}">{{ row.native_score | times: 100 | round: 1 }}</td>
+              <td data-value="{{ row.tool_use_score }}">{{ row.tool_use_score | times: 100 | round: 1 }}</td>
+              <td data-value="{{ row.constraints_score }}">{{ row.constraints_score | times: 100 | round: 1 }}</td>
+              <td data-value="{{ row.error_recovery_score }}">{{ row.error_recovery_score | times: 100 | round: 1 }}</td>
+              <td data-value="{{ row.synthesis_score }}">{{ row.synthesis_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
               <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
               <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
