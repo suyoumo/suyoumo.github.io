@@ -9,7 +9,7 @@ title: Tasks
     <div class="bench-section-head">
       <div>
         <h2>Task <span>Browser</span></h2>
-        <p>Browse the 102 active OpenClawProBench tasks. Cards now keep a compact 3-column layout while showing the actual task objective by default.</p>
+        <p>Browse the 102 active OpenClawProBench tasks. Each card shows the original task id, difficulty, dimension, and the actual task prompt preview by default.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
     </div>
@@ -45,7 +45,7 @@ title: Tasks
         class="bench-task-card bench-task-card-compact"
         data-dimension="{{ task.dimension | downcase }}"
         data-difficulty="{{ task.difficulty | downcase }}"
-        data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }}"
+        data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }}"
       >
         <div class="bench-task-header">
           <div>
@@ -62,15 +62,17 @@ title: Tasks
             {% endif %}
           </div>
         </div>
-        {% if task.objective %}
+        {% if task.prompt_preview %}
+        <p class="bench-task-lead bench-task-clamp">{{ task.prompt_preview }}</p>
+        {% elsif task.objective %}
         <p class="bench-task-lead bench-task-clamp">{{ task.objective }}</p>
         {% elsif task.description %}
         <p class="bench-task-lead bench-task-clamp">{{ task.description }}</p>
         {% endif %}
-        {% if task.objective or task.description %}
+        {% if task.prompt_preview or task.objective or task.description %}
         <details>
           <summary>Read full task objective</summary>
-          <p>{{ task.objective | default: task.description }}</p>
+          <p>{{ task.prompt_preview | default: task.objective | default: task.description }}</p>
         </details>
         {% endif %}
       </article>
