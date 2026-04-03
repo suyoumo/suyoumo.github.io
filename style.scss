@@ -1961,3 +1961,36 @@ main {
     justify-content: flex-start;
   }
 }
+
+
+.bench-task-details {
+  display: block;
+}
+
+.bench-task-details summary {
+  margin-bottom: 14px;
+}
+
+.bench-task-details .bench-task-copy {
+  display: block;
+}
+
+.bench-task-details:not([open]) .bench-task-copy {
+  display: block;
+}
+
+.bench-task-details:not([open]) .bench-task-preview {
+  display: block;
+}
+
+.bench-task-details:not([open]) .bench-task-full {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-preview {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+}
