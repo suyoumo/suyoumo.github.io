@@ -172,15 +172,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = button.closest('.bench-task-card');
       const preview = card.querySelector('.bench-task-preview');
       const full = card.querySelector('.bench-task-full');
-      const expanded = button.getAttribute('aria-expanded') === 'true';
+      const expanded = card.classList.contains('is-expanded');
       if (expanded) {
+        card.classList.remove('is-expanded');
         button.setAttribute('aria-expanded', 'false');
-        preview.hidden = false;
-        full.hidden = true;
       } else {
+        card.classList.add('is-expanded');
         button.setAttribute('aria-expanded', 'true');
-        preview.hidden = true;
-        full.hidden = false;
       }
     });
   });
