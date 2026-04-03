@@ -2210,3 +2210,47 @@ main {
     max-width: none;
   }
 }
+
+
+.bench-task-details {
+  margin-top: 0;
+}
+
+.bench-task-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $primary;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.bench-task-preview,
+.bench-task-full {
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: #6b6b65;
+  line-height: 1.72;
+}
+
+.bench-task-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 13.6em;
+}
+
+.bench-task-full {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-preview {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+}
