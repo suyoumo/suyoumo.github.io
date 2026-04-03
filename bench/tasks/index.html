@@ -64,9 +64,11 @@ title: Tasks
         </div>
         {% assign task_text = task.prompt_preview | default: task.objective | default: task.description %}
         {% if task_text %}
-        <p class="bench-task-preview">{{ task_text }}</p>
         <details class="bench-task-details bench-task-details-bottom">
           <summary>Read full task objective</summary>
+          <div class="bench-task-preview-wrap">
+            <p class="bench-task-preview">{{ task_text }}</p>
+          </div>
           <div class="bench-task-full">{{ task_text }}</div>
         </details>
         {% endif %}

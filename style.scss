@@ -2048,3 +2048,21 @@ main {
   display: block;
   margin-top: 12px;
 }
+
+
+.bench-task-preview-wrap {
+  display: block;
+}
+
+.bench-task-details[open] .bench-task-preview-wrap {
+  display: none !important;
+}
+
+.bench-task-details:not([open]) .bench-task-full {
+  display: none !important;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block !important;
+  margin-top: 12px;
+}
