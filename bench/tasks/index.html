@@ -41,32 +41,34 @@ title: Tasks
 
     <div class="bench-task-list bench-task-list-compact" id="task-grid">
       {% for task in site.data.bench.tasks %}
+      {% assign task_text = task.prompt_preview | default: task.objective | default: task.description %}
       <article
         class="bench-task-card bench-task-card-compact"
         data-dimension="{{ task.dimension | downcase }}"
         data-difficulty="{{ task.difficulty | downcase }}"
         data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }}"
       >
-        <div class="bench-task-header">
-          <div class="bench-task-main">
-            <div class="bench-task-meta">
-              <span class="bench-task-id">{{ task.id }}</span>
-              <span class="bench-task-difficulty">{{ task.difficulty }}</span>
-            </div>
-            <h3>{{ task.name }}</h3>
+        <div class="bench-task-header-row">
+          <div class="bench-task-chip-row">
+            <span class="bench-task-chip bench-task-id">{{ task.id }}</span>
+            <span class="bench-task-chip bench-task-difficulty">{{ task.difficulty }}</span>
           </div>
-          <div class="bench-task-tags">
-            <span>{{ task.dimension }}</span>
+          <div class="bench-task-chip-row bench-task-chip-row-right">
+            <span class="bench-task-chip bench-task-tag">{{ task.dimension }}</span>
             {% if task.category %}
-            <span>{{ task.category }}</span>
+            <span class="bench-task-chip bench-task-tag">{{ task.category }}</span>
             {% endif %}
           </div>
         </div>
-        {% assign task_text = task.prompt_preview | default: task.objective | default: task.description %}
+
+        <h3>{{ task.name }}</h3>
+
         {% if task_text %}
-        <details class="bench-task-details bench-task-details-bottom">
+        <div class="bench-task-preview-block">
+          <p class="bench-task-preview">{{ task_text }}</p>
+        </div>
+        <details class="bench-task-details">
           <summary>Read full task objective</summary>
-          <div class="bench-task-preview">{{ task_text }}</div>
           <div class="bench-task-full">{{ task_text }}</div>
         </details>
         {% endif %}

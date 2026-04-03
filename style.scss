@@ -2109,3 +2109,104 @@ main {
   display: block !important;
   margin-top: 12px;
 }
+
+
+.bench-task-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.bench-task-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.bench-task-chip-row-right {
+  justify-content: flex-end;
+  max-width: 42%;
+}
+
+.bench-task-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.05);
+  color: $gray;
+  font-size: 0.78rem;
+  font-weight: 600;
+  max-width: 100%;
+}
+
+.bench-task-card-compact {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.bench-task-card-compact h3 {
+  margin: 0 0 14px;
+  font-family: $sans;
+  font-size: 1.15rem;
+  line-height: 1.45;
+}
+
+.bench-task-preview-block {
+  margin-bottom: 14px;
+}
+
+.bench-task-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: #6b6b65;
+  line-height: 1.72;
+  margin: 0;
+}
+
+.bench-task-details {
+  margin-top: auto;
+}
+
+.bench-task-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $primary;
+  font-weight: 600;
+}
+
+.bench-task-full {
+  display: none;
+  margin-top: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: #6b6b65;
+  line-height: 1.72;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .bench-task-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bench-task-chip-row-right {
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
