@@ -1786,3 +1786,78 @@ main {
 .bench-post-card .comments .giscus {
   width: 100%;
 }
+
+
+.bench-task-card-compact {
+  overflow: hidden;
+}
+
+.bench-task-lead,
+.bench-task-full {
+  width: 100%;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.bench-task-details-bottom {
+  margin-top: 0;
+}
+
+.bench-task-details-bottom summary {
+  margin-bottom: 12px;
+}
+
+.bench-task-full {
+  display: block;
+  width: 100%;
+}
+
+.bench-architecture-panel:first-of-type {
+  padding-bottom: 72px;
+}
+
+.bench-architecture-panel:nth-of-type(2) {
+  margin-top: 28px;
+}
+
+@media screen and (max-width: 768px) {
+  .bench-task-card-compact {
+    min-height: auto;
+  }
+
+  .bench-task-header {
+    grid-template-columns: 1fr;
+  }
+
+  .bench-task-tags {
+    justify-content: flex-start;
+  }
+
+  .bench-task-clamp {
+    -webkit-line-clamp: 12;
+    min-height: auto;
+  }
+}
+
+.bench-post-card .comments {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: auto;
+}
+
+
+.bench-task-details .bench-task-full {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-clamp {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+}
+
+.bench-task-details .bench-task-clamp {
+  margin-bottom: 0;
+}

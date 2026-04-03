@@ -54,12 +54,6 @@ title: Tasks
               <span class="bench-task-difficulty">{{ task.difficulty }}</span>
             </div>
             <h3>{{ task.name }}</h3>
-            {% if task.prompt_preview or task.objective or task.description %}
-            <details>
-              <summary>Read full task objective</summary>
-              <p>{{ task.prompt_preview | default: task.objective | default: task.description }}</p>
-            </details>
-            {% endif %}
           </div>
           <div class="bench-task-tags">
             <span>{{ task.dimension }}</span>
@@ -68,12 +62,12 @@ title: Tasks
             {% endif %}
           </div>
         </div>
-        {% if task.prompt_preview %}
-        <p class="bench-task-lead bench-task-clamp">{{ task.prompt_preview }}</p>
-        {% elsif task.objective %}
-        <p class="bench-task-lead bench-task-clamp">{{ task.objective }}</p>
-        {% elsif task.description %}
-        <p class="bench-task-lead bench-task-clamp">{{ task.description }}</p>
+        {% if task.prompt_preview or task.objective or task.description %}
+        <details class="bench-task-details bench-task-details-bottom">
+          <summary>Read full task objective</summary>
+          <p class="bench-task-lead bench-task-clamp">{{ task.prompt_preview | default: task.objective | default: task.description }}</p>
+          <div class="bench-task-full">{{ task.prompt_preview | default: task.objective | default: task.description }}</div>
+        </details>
         {% endif %}
       </article>
       {% endfor %}
