@@ -48,7 +48,7 @@ title: Tasks
         data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }}"
       >
         <div class="bench-task-header">
-          <div>
+          <div class="bench-task-main">
             <div class="bench-task-meta">
               <span class="bench-task-id">{{ task.id }}</span>
               <span class="bench-task-difficulty">{{ task.difficulty }}</span>
@@ -65,8 +65,10 @@ title: Tasks
         {% if task.prompt_preview or task.objective or task.description %}
         <details class="bench-task-details bench-task-details-bottom">
           <summary>Read full task objective</summary>
-          <p class="bench-task-lead bench-task-clamp">{{ task.prompt_preview | default: task.objective | default: task.description }}</p>
-          <div class="bench-task-full">{{ task.prompt_preview | default: task.objective | default: task.description }}</div>
+          <div class="bench-task-copy">
+            <p class="bench-task-preview">{{ task.prompt_preview | default: task.objective | default: task.description }}</p>
+            <div class="bench-task-full">{{ task.prompt_preview | default: task.objective | default: task.description }}</div>
+          </div>
         </details>
         {% endif %}
       </article>

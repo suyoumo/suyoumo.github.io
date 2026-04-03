@@ -1874,3 +1874,94 @@ main {
 .bench-architecture-page .bench-architecture-panel {
   clear: both;
 }
+
+
+.bench-architecture-hero-card {
+  padding: 56px 56px 72px;
+  margin-bottom: 72px;
+}
+
+.bench-architecture-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
+.bench-architecture-stack .bench-architecture-panel {
+  margin: 0;
+  padding: 36px 40px 44px;
+}
+
+.bench-task-main {
+  min-width: 0;
+}
+
+.bench-task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-start;
+  gap: 10px;
+  max-width: 220px;
+}
+
+.bench-task-tags span {
+  max-width: 100%;
+}
+
+.bench-task-details {
+  width: 100%;
+}
+
+.bench-task-copy {
+  width: 100%;
+}
+
+.bench-task-preview,
+.bench-task-full {
+  width: 100%;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  color: $gray;
+  line-height: 1.7;
+}
+
+.bench-task-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bench-task-full {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-preview {
+  display: none;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .bench-architecture-hero-card {
+    padding: 36px 24px 52px;
+  }
+
+  .bench-architecture-stack {
+    gap: 48px;
+  }
+
+  .bench-architecture-stack .bench-architecture-panel {
+    padding: 28px 24px 32px;
+  }
+
+  .bench-task-tags {
+    max-width: none;
+    justify-content: flex-start;
+  }
+}
