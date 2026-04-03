@@ -64,11 +64,9 @@ title: Tasks
         <h3>{{ task.name }}</h3>
 
         {% if task_text %}
-        <details class="bench-task-details">
-          <summary>Read full task objective</summary>
-          <div class="bench-task-preview">{{ task_text }}</div>
-          <div class="bench-task-full">{{ task_text }}</div>
-        </details>
+        <button type="button" class="bench-task-toggle" aria-expanded="false">Read full task objective</button>
+        <div class="bench-task-preview">{{ task_text }}</div>
+        <div class="bench-task-full" hidden>{{ task_text }}</div>
         {% endif %}
       </article>
       {% endfor %}

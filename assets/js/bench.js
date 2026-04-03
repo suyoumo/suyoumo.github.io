@@ -167,3 +167,22 @@ document.addEventListener('DOMContentLoaded', function () {
     applyScenarioSort();
   });
 });
+
+
+  document.querySelectorAll('.bench-task-toggle').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const card = button.closest('.bench-task-card')
+      const preview = card.querySelector('.bench-task-preview')
+      const full = card.querySelector('.bench-task-full')
+      const expanded = button.getAttribute('aria-expanded') === 'true'
+      if (expanded) {
+        button.setAttribute('aria-expanded', 'false')
+        preview.hidden = false
+        full.hidden = true
+      } else {
+        button.setAttribute('aria-expanded', 'true')
+        preview.hidden = true
+        full.hidden = false
+      }
+    })
+  })
