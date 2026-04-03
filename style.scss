@@ -2016,3 +2016,35 @@ main {
 .bench-task-details[open] .bench-task-full {
   display: block !important;
 }
+
+
+.bench-task-preview {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 8 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  min-height: 13.6em !important;
+  margin: 0 0 16px !important;
+  color: #6b6b65 !important;
+  white-space: pre-wrap !important;
+  width: 100% !important;
+}
+
+.bench-task-details summary {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.bench-task-details .bench-task-full {
+  display: none;
+  width: 100%;
+  white-space: pre-wrap;
+  color: #6b6b65;
+  line-height: 1.7;
+}
+
+.bench-task-details[open] .bench-task-full {
+  display: block;
+  margin-top: 12px;
+}
