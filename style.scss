@@ -1741,3 +1741,48 @@ main {
 .bench-post-content-wide {
   max-width: 1080px;
 }
+
+
+.bench-architecture-panel:first-of-type {
+  margin-bottom: 88px;
+}
+
+.bench-architecture-panel + .bench-architecture-panel {
+  margin-top: 18px;
+}
+
+.bench-task-header > div:first-child {
+  min-width: 0;
+}
+
+.bench-task-details {
+  margin-top: 8px;
+}
+
+.bench-task-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.bench-task-details[open] summary {
+  margin-bottom: 12px;
+}
+
+.bench-task-full {
+  width: 100%;
+  white-space: pre-wrap;
+  color: $gray;
+  line-height: 1.7;
+}
+
+.bench-post-card .comments {
+  padding: 0 28px;
+  margin-top: 24px;
+}
+
+.bench-post-card .comments iframe,
+.bench-post-card .comments .giscus {
+  width: 100%;
+}
