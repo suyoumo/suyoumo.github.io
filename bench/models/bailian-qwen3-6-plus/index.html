@@ -39,9 +39,40 @@ permalink: /bench/models/bailian-qwen3-6-plus/
       </div>
     </div>
 
-    <div class="bench-card bench-notes-card">
-      <h3>Model summary</h3>
-      <p>This model has been added to the benchmark leaderboard with full coverage across all six dimensions. The page exposes the aggregated scoring snapshot needed for leaderboard comparison while the main benchmark pages remain the primary place to compare models side by side.</p>
+    <div class="bench-detail-grid bench-detail-grid-expanded">
+      <section class="bench-card">
+        <h2>Dimension overview</h2>
+        <div class="bench-bar-list">
+          <div class="bench-bar-row"><span>Planning</span><div class="bench-bar-track"><span style="width:71.2%"></span></div><strong>71.2</strong></div>
+          <div class="bench-bar-row"><span>Safety</span><div class="bench-bar-track"><span style="width:63.3%"></span></div><strong>63.3</strong></div>
+          <div class="bench-bar-row"><span>Tool Use</span><div class="bench-bar-track"><span style="width:64.1%"></span></div><strong>64.1</strong></div>
+          <div class="bench-bar-row"><span>Constraints</span><div class="bench-bar-track"><span style="width:66.7%"></span></div><strong>66.7</strong></div>
+          <div class="bench-bar-row"><span>Error Recovery</span><div class="bench-bar-track"><span style="width:68.4%"></span></div><strong>68.4</strong></div>
+          <div class="bench-bar-row"><span>Synthesis</span><div class="bench-bar-track"><span style="width:56.2%"></span></div><strong>56.2</strong></div>
+        </div>
+      </section>
+
+      <section class="bench-card">
+        <h2>Reliability</h2>
+        <div class="bench-dimension-list">
+          <div><span>Pass@1</span><strong>46.4%</strong></div>
+          <div><span>Pass@3</span><strong>55.9%</strong></div>
+          <div><span>Strict pass rate</span><strong>39.0%</strong></div>
+          <div><span>Score stddev</span><strong>0.0473</strong></div>
+          <div><span>Trials per task</span><strong>3</strong></div>
+          <div><span>Tasks passed</span><strong>0/102</strong></div>
+        </div>
+      </section>
+
+      <section class="bench-card bench-card-full">
+        <h2>Coverage summary</h2>
+        <div class="bench-dimension-list bench-dimension-list-wide">
+          <div><span>Covered dimensions</span><strong>6/6</strong></div>
+          <div><span>Covered weight</span><strong>1.000</strong></div>
+          <div><span>Normalized score</span><strong>0.6525</strong></div>
+          <div><span>Execution modes</span><strong>live</strong></div>
+        </div>
+      </section>
     </div>
   </div>
 </section>
