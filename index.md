@@ -5,13 +5,21 @@ permalink: /index.html
 ---
 
 <div class="container">
-  <div class="hero">
-    <h1>文章</h1>
-    <p class="hero-subtitle">记录技术探索与思考，也持续更新 OpenClaw、agent benchmark 与大模型评估相关内容。</p>
+  <div class="hero hero-bench-entry">
+    <p class="hero-kicker">OpenClaw benchmark</p>
+    <h1><a href="{{ site.baseurl }}/bench/">OpenClawBench</a></h1>
+    <p class="hero-subtitle">一个聚焦 OpenClaw agent 智力表现的 benchmark，关注模型在真实工具调用、规划、约束遵循、安全与稳定多维信号下的综合能力。</p>
+    <p class="hero-subtitle">点击标题即可进入 benchmark 页面查看 architecture、dataset、scoring 与 leaderboard。这里继续保留我的文章内容与更新。</p>
+    <div class="hero-actions">
+      <a class="primary-link" href="{{ site.baseurl }}/bench/">进入 OpenClawBench →</a>
+    </div>
   </div>
+</div>
 
+<div class="container">
   <div class="posts-section">
-    {% for post in paginator.posts %}
+    <h2 class="section-title">文章</h2>
+    {% for post in site.posts %}
     <div class="post-card">
       <h3 class="post-card-title"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
       <div class="post-card-meta">
@@ -24,22 +32,4 @@ permalink: /index.html
     </div>
     {% endfor %}
   </div>
-
-  {% if paginator.total_pages > 1 %}
-  <div class="pagination">
-    {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="pagination-link">&laquo; 上一页</a>
-    {% else %}
-    <span class="pagination-link disabled">&laquo; 上一页</span>
-    {% endif %}
-
-    <span class="pagination-info">{{ paginator.page }} / {{ paginator.total_pages }}</span>
-
-    {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="pagination-link">下一页 &raquo;</a>
-    {% else %}
-    <span class="pagination-link disabled">下一页 &raquo;</span>
-    {% endif %}
-  </div>
-  {% endif %}
 </div>
