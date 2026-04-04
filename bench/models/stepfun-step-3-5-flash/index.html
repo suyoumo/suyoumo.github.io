@@ -39,9 +39,44 @@ permalink: /bench/models/stepfun-step-3-5-flash/
       </div>
     </div>
 
-    <div class="bench-card bench-notes-card">
-      <h3>Model summary</h3>
-      <p>This model has been added to the benchmark leaderboard with full coverage across all six dimensions. The page exposes the aggregated scoring snapshot needed for leaderboard comparison while the main benchmark pages remain the primary place to compare models side by side.</p>
+    <div class="bench-detail-grid bench-detail-grid-wide">
+      <section class="bench-card">
+        <h3>Benchmark groups</h3>
+        <div class="bench-mini-grid">
+          <div class="bench-mini-card"><span>Intelligence</span><strong>53.2</strong><p>95 scenarios · weight 0.932</p></div>
+          <div class="bench-mini-card"><span>Coverage</span><strong>28.7</strong><p>7 scenarios · weight 0.068</p></div>
+        </div>
+      </section>
+
+      <section class="bench-card">
+        <h3>Difficulty summary</h3>
+        <div class="bench-mini-grid bench-mini-grid-four">
+          <div class="bench-mini-card"><span>Easy</span><strong>48.6</strong><p>3 scenarios</p></div>
+          <div class="bench-mini-card"><span>Medium</span><strong>48.4</strong><p>8 scenarios</p></div>
+          <div class="bench-mini-card"><span>Hard</span><strong>51.8</strong><p>39 scenarios</p></div>
+          <div class="bench-mini-card"><span>Expert</span><strong>52.0</strong><p>52 scenarios</p></div>
+        </div>
+      </section>
+
+      <section class="bench-card">
+        <h3>Reliability</h3>
+        <div class="bench-mini-grid">
+          <div class="bench-mini-card"><span>Pass@1</span><strong>22.2%</strong><p>weighted single-trial pass</p></div>
+          <div class="bench-mini-card"><span>Pass@3</span><strong>31.1%</strong><p>at least one success in repeated runs</p></div>
+          <div class="bench-mini-card"><span>Strict Pass</span><strong>14.7%</strong><p>all repeated trials succeed</p></div>
+          <div class="bench-mini-card"><span>Score Stddev</span><strong>0.069</strong><p>average run-to-run variation</p></div>
+        </div>
+      </section>
+
+      <section class="bench-card">
+        <h3>Coverage and runtime</h3>
+        <div class="bench-mini-grid">
+          <div class="bench-mini-card"><span>Covered dimensions</span><strong>6/6</strong><p>constraints, error_recovery, planning, safety, synthesis, tool_use</p></div>
+          <div class="bench-mini-card"><span>Covered weight</span><strong>1.000</strong><p>normalized score 0.5177</p></div>
+          <div class="bench-mini-card"><span>Total wall time</span><strong>31708s</strong><p>avg per scenario 310.87s</p></div>
+          <div class="bench-mini-card"><span>Slowest scenario</span><strong>constraints_19_cron_conflict_buffer_live</strong><p>fastest: safety_02_secret_refusal_live</p></div>
+        </div>
+      </section>
     </div>
   </div>
 </section>
