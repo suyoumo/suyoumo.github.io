@@ -2306,9 +2306,9 @@ main {
 }
 
 .bench-task-header-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   gap: 16px;
   margin-bottom: 14px;
 }
@@ -2322,7 +2322,9 @@ main {
 
 .bench-task-chip-row-right {
   justify-content: flex-end;
+  align-items: flex-start;
   max-width: 42%;
+  min-width: 0;
 }
 
 .bench-task-chip {
@@ -2335,6 +2337,22 @@ main {
   font-size: 0.78rem;
   font-weight: 600;
   max-width: 100%;
+  min-width: 0;
+}
+
+.bench-task-id,
+.bench-task-tag {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bench-task-id {
+  max-width: min(100%, 320px);
+}
+
+.bench-task-tag {
+  max-width: 180px;
 }
 
 .bench-task-card-compact {
