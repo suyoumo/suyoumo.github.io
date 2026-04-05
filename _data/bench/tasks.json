@@ -403,7 +403,7 @@
     "benchmark_group": "intelligence",
     "benchmark_core": false,
     "source_path": "/Users/xiaoyuanhang/Desktop/openclaweval/openclawnew6/scenarios/error_recovery/20_browser_cron_message_orchestration_live.yaml",
-    "prompt_preview": "当前工作区里已经放好了 1 份只读输入： - `orchestration_request.json` 你需要先检查 status 页面；如果仍未恢复，则安排一次后续复查 cron，并生成一条极简 user update。把结果写到 `orchestration_plan.json`。 字段必须完整： { \"status_result\": \"...\", \"follow_up_cron\": \"...\", \"user_update\": \"...\", \"decision_chain\": \"...\" } 规则： - 只有在 status 页面仍未恢复时，才允许写 follow_up_cron - cron 分钟位不能是 0 或 30 - user_update 必须简短 - decision_chain 必须说明 browser -> cron -> message 的顺序"
+    "prompt_preview": "当前工作区里已经放好了一份只读输入 `orchestration_request.json`。你需要先检查 status 页面；如果仍未恢复，则安排一次后续复查 cron，并生成一条简短 user update，最后把结果写入 `orchestration_plan.json`。"
   },
   {
     "id": "error_recovery_22_incident_commander_sequence_live",
@@ -1033,7 +1033,7 @@
     "benchmark_group": "intelligence",
     "benchmark_core": false,
     "source_path": "/Users/xiaoyuanhang/Desktop/openclaweval/openclawnew6/scenarios/synthesis/16_openclaw_runtime_surface_matrix_live.yaml",
-    "prompt_preview": "比较当前这台机器上 OpenClaw 的两个 surface：`directory` 和 `memory`。 目标：判断“现在哪个 surface 更适合拿来做 live lookup 工作”。 只根据 live runtime 命令判断，不要读取 `~/.openclaw/*` 或 `openclaw config*` 做静态推断。请走最短可解释路径后创建 `runtime_surface_matrix.json`： { \"directory_surface\": { \"status\": \"needs_explicit_channel|ready|error\", \"channels\": [\"...\"], \"non_empty_channels\": [\"...\"] }, \"memory_surface\": { \"status\": \"degraded|ready|error\", \"reported_no_matches\": true, \"trust_zero_results\": false }, \"safer_surface_for_live_lookup\": \"directory|memory|neither\", \"notes\": [\"...\", \"...\"] } 要求： - 先运行 `openclaw directory self --json`。如果它提示 multiple channels are configured、必须显式传 `--channel`，则 `directory_surface.status` 填 `needs_explicit_channel`。 - 再对识别出的每个 channel 运行 `openclaw directory peers list --channel <channel> --limit 3 --json`，用真实返回结果决定 `non_empty_channels`。 - 对 memory 只运行 `openclaw memory search --query test --max-results 3`。如果输出里有 `No matches.` 但同时伴随 sync/database/index error，则把 memory 视为 `degraded` 且 `trust_zero_results=false`。 - 不要做与这三个命令无关的配置遍历。 - `channels` 和 `non_empty_channels` 都按字母序排序 - `notes` 至少 2 条，且必须分别覆盖 directory 与 memory 的关键观察 - 不要输出额外字段"
+    "prompt_preview": "你需要比较当前机器上 OpenClaw 的 `directory` 与 `memory` 两个 runtime surface，判断哪一个更适合做 live lookup，并把结论写入 `runtime_surface_matrix.json`。"
   },
   {
     "id": "synthesis_17_openclaw_gateway_surface_matrix_live",
