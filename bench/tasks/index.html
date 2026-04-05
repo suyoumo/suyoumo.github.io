@@ -42,7 +42,15 @@ title: Tasks
     <div class="bench-task-list bench-task-list-compact" id="task-grid">
       {% for task in site.data.bench.tasks %}
       {% assign task_text = task.prompt_preview | default: task.objective | default: task.description %}
-      {% assign task_preview = task_text | replace: '" >', '"' | replace: ' >', '' | strip %}
+      {% assign task_preview = task_text
+        | replace: '" >', '"'
+        | replace: ' >', ''
+        | replace: '” >', '”'
+        | replace: '”>', '”'
+        | replace: '" >', '"'
+        | replace: "' >", "'"
+        | replace: '&gt;', ''
+        | strip %}
       <article
         class="bench-task-card bench-task-card-compact"
         data-dimension="{{ task.dimension | downcase }}"
@@ -50,12 +58,12 @@ title: Tasks
         data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }}"
       >
         <div class="bench-task-header-row">
-          <div class="bench-task-chip-row">
+          <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
-            <span class="bench-task-chip bench-task-difficulty">{{ task.difficulty }}</span>
-          </div>
-          <div class="bench-task-chip-row bench-task-chip-row-right">
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
+          </div>
+          <div class="bench-task-chip-row bench-task-chip-row-bottom">
+            <span class="bench-task-chip bench-task-difficulty">{{ task.difficulty }}</span>
             {% if task.category %}
             <span class="bench-task-chip bench-task-tag" title="{{ task.category }}">{{ task.category }}</span>
             {% endif %}
