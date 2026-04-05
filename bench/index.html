@@ -30,6 +30,7 @@ permalink: /bench/
               <th>#</th>
               <th data-sort-key="model_name">Model <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="pass3">Pass^3 <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="pass_at_3">Pass@3 <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="overall_score">Avg Score <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="capability_score">Capability <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="efficiency_score">Efficiency <span class="bench-sort-indicator"></span></th>
@@ -44,6 +45,7 @@ permalink: /bench/
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_efficiency_score_per_1k">Cost Efficiency <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="openclaw_version">OpenClaw <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="released_at">Released <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="updated_at">Updated <span class="bench-sort-indicator"></span></th>
             </tr>
           </thead>
@@ -63,6 +65,7 @@ permalink: /bench/
                   <strong>{{ row.pass3 | times: 100 | round: 1 }}%</strong>
                 </div>
               </td>
+              <td data-value="{{ row.pass_at_3 }}">{{ row.pass_at_3 | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.overall_score }}"><span class="bench-score">{{ row.overall_score | times: 100 | round: 1 }}</span></td>
               <td data-value="{{ row.capability_score }}">{{ row.capability_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.efficiency_score }}">{{ row.efficiency_score | times: 100 | round: 1 }}</td>
@@ -77,6 +80,7 @@ permalink: /bench/
               <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
               <td data-value="{{ row.cost_efficiency_score_per_1k }}">{{ row.cost_efficiency_score_per_1k | round: 4 }}</td>
               <td data-value="{{ row.openclaw_version }}">v{{ row.openclaw_version }}</td>
+              <td data-value="{{ row.released_at }}">{{ row.released_at | slice: 0, 10 }}</td>
               <td data-value="{{ row.updated_at }}">{{ row.updated_at | slice: 0, 10 }}</td>
             </tr>
             {% endfor %}
