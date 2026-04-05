@@ -54,9 +54,14 @@ permalink: /bench/
             <tr class="bench-row" data-href="{{ site.baseurl }}/bench/models/{{ row.slug }}/">
               <td>{{ row.rank }}</td>
               <td>
-                <div class="bench-model-cell">
-                  <strong>{{ row.model_name }}</strong>
-                  <span>{{ row.provider_key }} · {{ row.platform }}</span>
+                <div class="bench-model-cell bench-model-cell-rich">
+                  {% if row.logo %}
+                  <img class="bench-model-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
+                  {% endif %}
+                  <div class="bench-model-meta">
+                    <strong>{{ row.model_name }}</strong>
+                    <span>{{ row.provider_key }} · {{ row.platform }}</span>
+                  </div>
                 </div>
               </td>
               <td data-value="{{ row.pass3 }}">

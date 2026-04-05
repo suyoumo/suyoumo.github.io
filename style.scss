@@ -1356,6 +1356,29 @@ main {
   }
 }
 
+.bench-model-cell-rich {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.bench-model-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.06);
+  flex: 0 0 40px;
+}
+
+.bench-model-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
 .bench-pass-cell {
   display: grid;
   grid-template-columns: minmax(140px, 1fr) auto;
