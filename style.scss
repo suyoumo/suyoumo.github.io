@@ -1348,35 +1348,47 @@ main {
   strong {
     color: $black;
     font-size: 1.08rem;
+    line-height: 1.2;
   }
 
   span {
     color: $gray;
     font-size: 0.88rem;
+    line-height: 1.35;
   }
 }
 
+.bench-model-column {
+  min-width: 240px;
+}
+
 .bench-model-cell-rich {
-  display: flex;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
+  column-gap: 14px;
 }
 
 .bench-model-logo {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   object-fit: cover;
   border-radius: 12px;
   background: rgba(255,255,255,0.92);
   border: 1px solid rgba(0,0,0,0.06);
-  flex: 0 0 40px;
+  display: block;
 }
 
 .bench-model-meta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: center;
+  gap: 3px;
   min-width: 0;
+}
+
+.bench-model-meta strong {
+  word-break: break-word;
 }
 
 .bench-pass-cell {

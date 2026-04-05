@@ -53,7 +53,7 @@ permalink: /bench/
             {% for row in site.data.bench.leaderboard %}
             <tr class="bench-row" data-href="{{ site.baseurl }}/bench/models/{{ row.slug }}/">
               <td>{{ row.rank }}</td>
-              <td>
+              <td class="bench-model-column">
                 <div class="bench-model-cell bench-model-cell-rich">
                   {% if row.logo %}
                   <img class="bench-model-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
