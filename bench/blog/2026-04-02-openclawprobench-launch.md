@@ -1,10 +1,10 @@
 ---
 layout: bench_post
-title: "Launching OpenClawProBench"
+title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
 date: 2026-04-02 10:00:00 +0800
 categories: Benchmark
 permalink: /bench/blog/2026-04-02-openclawprobench-launch/
-bilingual: true
+display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
 ---
 
 <div class="bench-lang-switch" data-default-lang="en">
