@@ -24,6 +24,25 @@ layout: bench
         {{ content }}
       </div>
 
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const switcher = document.querySelector('.bench-lang-switch');
+          if (!switcher) return;
+          const buttons = Array.from(switcher.querySelectorAll('.bench-lang-btn'));
+          const panels = Array.from(document.querySelectorAll('[data-lang-panel]'));
+          function activate(lang) {
+            buttons.forEach(btn => btn.classList.toggle('is-active', btn.dataset.lang === lang));
+            panels.forEach(panel => panel.classList.toggle('is-active', panel.dataset.langPanel === lang));
+          }
+          buttons.forEach(btn => {
+            btn.addEventListener('click', function () {
+              activate(btn.dataset.lang);
+            });
+          });
+          activate(switcher.dataset.defaultLang || 'en');
+        });
+      </script>
+
       {% include giscus.html %}
       {% include visitor-tracker.html %}
     </article>
