@@ -42,6 +42,8 @@ permalink: /bench/
               <th data-sort-key="synthesis_score">Synthesis <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="input_tokens">Input Tokens <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="output_tokens">Output Tokens <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="price_usd_input">Price <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_efficiency_score_per_1k">Cost Efficiency <span class="bench-sort-indicator"></span></th>
@@ -83,6 +85,8 @@ permalink: /bench/
               <td data-value="{{ row.synthesis_score }}">{{ row.synthesis_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
               <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
+              <td data-value="{{ row.input_tokens }}">{{ row.input_tokens | round: 0 }}</td>
+              <td data-value="{{ row.output_tokens }}">{{ row.output_tokens | round: 0 }}</td>
               <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
               <td data-value="{{ row.price_usd_input }}">
                 <div class="bench-price-cell">
