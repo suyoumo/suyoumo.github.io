@@ -1164,12 +1164,38 @@ main {
   letter-spacing: -0.02em;
 }
 
+.bench-brand-logo-wrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 56px;
+}
+
 .bench-brand-logo {
+  position: absolute;
+  inset: 0;
   width: 56px;
   height: 56px;
   object-fit: cover;
   border-radius: 18px;
   box-shadow: 0 8px 24px rgba(25, 25, 24, 0.15);
+  transition: opacity 0.22s ease;
+}
+
+.bench-brand-logo-default {
+  opacity: 1;
+}
+
+.bench-brand-logo-hover {
+  opacity: 0;
+}
+
+.bench-brand:hover .bench-brand-logo-default {
+  opacity: 0;
+}
+
+.bench-brand:hover .bench-brand-logo-hover {
+  opacity: 1;
 }
 
 .bench-brand-text {
