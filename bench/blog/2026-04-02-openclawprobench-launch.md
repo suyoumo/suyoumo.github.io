@@ -13,9 +13,7 @@ display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back t
 </div>
 
 <div class="bench-lang-panel is-active" data-lang-panel="en">
-  <h2>Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back to the Real Runtime</h2>
-
-  <p>Today we are open-sourcing OpenClawProBench.</p>
+  <p>Today I am open-sourcing OpenClawProBench.</p>
 
   <p>This is not a small benchmark where a model solves a few static tasks, calls a couple of functions, and returns some JSON. It is a <strong>live-first benchmark</strong>: the model has to operate inside the real OpenClaw runtime, read from the workspace, choose tools, handle constraints, recover from failures, stay within safety boundaries, and leave behind execution evidence that can actually be inspected.</p>
 
@@ -137,9 +135,7 @@ python3 run.py inventory --benchmark-profile native --json</code></pre>
 </div>
 
 <div class="bench-lang-panel" data-lang-panel="zh">
-  <h2>开源 OpenClawProBench：把 Agent Benchmark 拉回真实运行时</h2>
-
-  <p>今天我们开源 OpenClawProBench。</p>
+  <p>今天我开源 OpenClawProBench。</p>
 
   <p>它不是一个让模型做几道静态题、调几次函数、交一段 JSON 的小测验。它是一个 <strong>live-first benchmark</strong>：模型要在真实的 OpenClaw runtime 里完成任务，读取工作区、选择工具、处理约束、从失败里恢复、守住安全边界，然后留下可检查的执行痕迹。</p>
 
