@@ -43,6 +43,7 @@ permalink: /bench/
               <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="price_usd_input">Price <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_efficiency_score_per_1k">Cost Efficiency <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="openclaw_version">OpenClaw <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="released_at">Released <span class="bench-sort-indicator"></span></th>
@@ -83,6 +84,14 @@ permalink: /bench/
               <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
               <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
               <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
+              <td data-value="{{ row.price_usd_input }}">
+                <div class="bench-price-cell">
+                  <strong>${{ row.price_usd_input }} / ${{ row.price_usd_output }}</strong>
+                  {% if row.price_cny_input and row.price_cny_output %}
+                  <span>¥{{ row.price_cny_input }} / ¥{{ row.price_cny_output }}</span>
+                  {% endif %}
+                </div>
+              </td>
               <td data-value="{{ row.cost_efficiency_score_per_1k }}">{{ row.cost_efficiency_score_per_1k | round: 4 }}</td>
               <td data-value="{{ row.openclaw_version }}">v{{ row.openclaw_version }}</td>
               <td data-value="{{ row.released_at }}">{{ row.released_at | slice: 0, 10 }}</td>

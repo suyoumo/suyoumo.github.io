@@ -1422,6 +1422,23 @@ main {
   word-break: break-word;
 }
 
+.bench-price-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 120px;
+}
+
+.bench-price-cell strong {
+  font-size: 0.92rem;
+  color: $black;
+}
+
+.bench-price-cell span {
+  font-size: 0.82rem;
+  color: $gray;
+}
+
 .bench-pass-cell {
   display: grid;
   grid-template-columns: minmax(140px, 1fr) auto;
