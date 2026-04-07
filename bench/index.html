@@ -268,6 +268,7 @@ permalink: /bench/
               data-error_recovery_score="{{ row.error_recovery_score }}"
               data-synthesis_score="{{ row.synthesis_score }}"
               data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
+              data-cost_usd="{{ row.cost_usd }}"
             >
               <span class="bench-scatter-dot"></span>
               <span class="bench-scatter-line"></span>
@@ -278,6 +279,68 @@ permalink: /bench/
           <div class="bench-scatter-x-axis" id="leaderboard-scatter-x-axis"></div>
         </div>
         <div class="bench-scatter-x-title">Avg. Seconds per Task</div>
+      </div>
+    </div>
+
+    <div class="bench-card bench-chart-card bench-scatter-card" id="leaderboard-cost-scatter-section">
+      <div class="bench-chart-head">
+        <div>
+          <h2>Score <span>vs Cost</span></h2>
+          <p>Compare model scores against benchmark cost. The x-axis is Cost, and the y-axis can be switched across score fields.</p>
+        </div>
+        <div class="bench-chart-toolbar">
+          <label class="bench-chart-filter" for="leaderboard-cost-scatter-metric">
+            <span>Score Axis</span>
+            <select id="leaderboard-cost-scatter-metric">
+              <option value="pass_at_3" data-format="percent" selected>Pass@3</option>
+              <option value="pass3" data-format="percent">Pass^3</option>
+              <option value="overall_score" data-format="percent">Avg Score</option>
+              <option value="capability_score" data-format="percent">Capability</option>
+              <option value="efficiency_score" data-format="percent">Efficiency</option>
+              <option value="planning_score" data-format="percent">Planning</option>
+              <option value="safety_score" data-format="percent">Safety</option>
+              <option value="tool_use_score" data-format="percent">Tool Use</option>
+              <option value="constraints_score" data-format="percent">Constraints</option>
+              <option value="error_recovery_score" data-format="percent">Error Recovery</option>
+              <option value="synthesis_score" data-format="percent">Synthesis</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="bench-scatter-frame" id="leaderboard-cost-scatter-frame">
+        <div class="bench-scatter-y-title" id="leaderboard-cost-scatter-y-title">Pass@3</div>
+        <div class="bench-scatter-plot-wrap">
+          <div class="bench-scatter-plot" id="leaderboard-cost-scatter-plot">
+            <div class="bench-scatter-grid"></div>
+            {% for row in site.data.bench.leaderboard %}
+            <a
+              class="bench-scatter-point"
+              href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
+              data-model-name="{{ row.model_name | escape }}"
+              data-pass3="{{ row.pass3 }}"
+              data-pass_at_3="{{ row.pass_at_3 }}"
+              data-overall_score="{{ row.overall_score }}"
+              data-capability_score="{{ row.capability_score }}"
+              data-efficiency_score="{{ row.efficiency_score }}"
+              data-planning_score="{{ row.planning_score }}"
+              data-safety_score="{{ row.safety_score }}"
+              data-tool_use_score="{{ row.tool_use_score }}"
+              data-constraints_score="{{ row.constraints_score }}"
+              data-error_recovery_score="{{ row.error_recovery_score }}"
+              data-synthesis_score="{{ row.synthesis_score }}"
+              data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
+              data-cost_usd="{{ row.cost_usd }}"
+            >
+              <span class="bench-scatter-dot"></span>
+              <span class="bench-scatter-line"></span>
+              <span class="bench-scatter-name">{{ row.model_name }}</span>
+            </a>
+            {% endfor %}
+          </div>
+          <div class="bench-scatter-x-axis" id="leaderboard-cost-scatter-x-axis"></div>
+        </div>
+        <div class="bench-scatter-x-title">Cost (USD)</div>
       </div>
     </div>
   </div>

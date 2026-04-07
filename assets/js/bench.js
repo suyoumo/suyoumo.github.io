@@ -175,88 +175,94 @@ document.addEventListener('DOMContentLoaded', function () {
     renderChart();
   }
 
-  const scatterPlot = document.getElementById('leaderboard-scatter-plot');
-  const scatterMetric = document.getElementById('leaderboard-scatter-metric');
-  const scatterTitle = document.getElementById('leaderboard-scatter-y-title');
-  const scatterXAxis = document.getElementById('leaderboard-scatter-x-axis');
-  if (scatterPlot && scatterMetric && scatterTitle && scatterXAxis) {
-    const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
-    const scatterViewport = scatterPlot.parentElement;
-    let scatterResizeFrame = 0;
+  function toSnakeCase(key) {
+    return String(key || '')
+      .replace(/([A-Z])/g, '_$1')
+      .replace(/-/g, '_')
+      .toLowerCase()
+      .replace(/^_/, '');
+  }
 
-    function toSnakeCase(key) {
-      return String(key || '')
-        .replace(/([A-Z])/g, '_$1')
-        .replace(/-/g, '_')
-        .toLowerCase()
-        .replace(/^_/, '');
-    }
+  function toCamelCase(key) {
+    return toSnakeCase(key).replace(/_([a-z0-9])/g, function (_, letter) {
+      return letter.toUpperCase();
+    });
+  }
 
-    function toCamelCase(key) {
-      return toSnakeCase(key).replace(/_([a-z0-9])/g, function (_, letter) {
-        return letter.toUpperCase();
+  function toKebabCase(key) {
+    return toSnakeCase(key).replace(/_/g, '-');
+  }
+
+  function readDataValue(element, key) {
+    const snakeKey = toSnakeCase(key);
+    const camelKey = toCamelCase(key);
+    const kebabKey = toKebabCase(key);
+
+    if (element.dataset[key] !== undefined) return element.dataset[key];
+    if (element.dataset[snakeKey] !== undefined) return element.dataset[snakeKey];
+    if (element.dataset[camelKey] !== undefined) return element.dataset[camelKey];
+
+    const kebabAttr = element.getAttribute('data-' + kebabKey);
+    if (kebabAttr !== null) return kebabAttr;
+
+    const snakeAttr = element.getAttribute('data-' + snakeKey);
+    if (snakeAttr !== null) return snakeAttr;
+
+    return '';
+  }
+
+  function scatterValue(point, key) {
+    const parsed = Number(readDataValue(point, key) || 0);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  function scatterFormat(value, format) {
+    if (format === 'percent') return (value * 100).toFixed(1) + '%';
+    if (format === 'currency') return '$' + value.toFixed(4);
+    return String(value);
+  }
+
+  function renderScatterXAxisTicks(xAxis, minX, maxX, visibleMaxX, tickFormatter) {
+    const tickCount = 6;
+    const ticks = [];
+    const rangeX = maxX - minX || 1;
+    const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
+
+    for (let value = minX; value < maxX; value += step) {
+      ticks.push({
+        value: value,
+        left: ((value - minX) / rangeX) * 100
       });
     }
 
-    function toKebabCase(key) {
-      return toSnakeCase(key).replace(/_/g, '-');
+    if (!ticks.length || ticks[ticks.length - 1].value < maxX) {
+      ticks.push({
+        value: maxX,
+        left: 100
+      });
     }
 
-    function readDataValue(element, key) {
-      const snakeKey = toSnakeCase(key);
-      const camelKey = toCamelCase(key);
-      const kebabKey = toKebabCase(key);
+    xAxis.innerHTML = ticks.map(function (tick, index) {
+      const classes = ['bench-scatter-x-tick'];
+      if (index === 0) classes.push('is-edge-left');
+      if (index === ticks.length - 1) classes.push('is-edge-right');
+      return '<span class="' + classes.join(' ') + '" style="left:' + tick.left + '%">' + tickFormatter(tick.value) + '</span>';
+    }).join('');
+  }
 
-      if (element.dataset[key] !== undefined) return element.dataset[key];
-      if (element.dataset[snakeKey] !== undefined) return element.dataset[snakeKey];
-      if (element.dataset[camelKey] !== undefined) return element.dataset[camelKey];
+  function initScatterChart(options) {
+    const scatterPlot = document.getElementById(options.plotId);
+    const scatterMetric = document.getElementById(options.metricId);
+    const scatterTitle = document.getElementById(options.titleId);
+    const scatterXAxis = document.getElementById(options.xAxisId);
+    if (!scatterPlot || !scatterMetric || !scatterTitle || !scatterXAxis) return;
 
-      const kebabAttr = element.getAttribute('data-' + kebabKey);
-      if (kebabAttr !== null) return kebabAttr;
-
-      const snakeAttr = element.getAttribute('data-' + snakeKey);
-      if (snakeAttr !== null) return snakeAttr;
-
-      return '';
-    }
-
-    function scatterValue(point, key) {
-      const parsed = Number(readDataValue(point, key) || 0);
-      return Number.isFinite(parsed) ? parsed : 0;
-    }
-
-    function scatterFormat(value, format) {
-      if (format === 'percent') return (value * 100).toFixed(1) + '%';
-      return String(value);
-    }
-
-    function renderXAxisTicks(minX, maxX, visibleMaxX) {
-      const tickCount = 6;
-      const ticks = [];
-      const rangeX = maxX - minX || 1;
-      const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
-
-      for (let value = minX; value < maxX; value += step) {
-        ticks.push({
-          value: Math.round(value),
-          left: ((value - minX) / rangeX) * 100
-        });
-      }
-
-      if (!ticks.length || ticks[ticks.length - 1].value < Math.round(maxX)) {
-        ticks.push({
-          value: Math.round(maxX),
-          left: 100
-        });
-      }
-
-      scatterXAxis.innerHTML = ticks.map(function (tick, index) {
-        const classes = ['bench-scatter-x-tick'];
-        if (index === 0) classes.push('is-edge-left');
-        if (index === ticks.length - 1) classes.push('is-edge-right');
-        return '<span class="' + classes.join(' ') + '" style="left:' + tick.left + '%">' + tick.value + 's</span>';
-      }).join('');
-    }
+    const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
+    const scatterViewport = scatterPlot.parentElement;
+    const xMetric = options.xMetric;
+    const xAxisFormatter = options.xAxisFormatter || function (value) { return String(Math.round(value)); };
+    const xValueFormatter = options.xValueFormatter || function (value) { return String(value); };
+    let scatterResizeFrame = 0;
 
     function renderScatter() {
       const selected = scatterMetric.options[scatterMetric.selectedIndex];
@@ -264,13 +270,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const format = selected.dataset.format || 'percent';
       scatterTitle.textContent = selected.text;
 
-      const xs = points.map(function (point) { return scatterValue(point, 'avg_latency_seconds'); }).sort(function (a, b) { return a - b; });
+      const xs = points.map(function (point) { return scatterValue(point, xMetric); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const maxDataX = xs[xs.length - 1] || 200;
-      const defaultMinX = 70;
-      const visibleMaxX = 200;
-      const minX = defaultMinX;
-      const maxX = Math.max(visibleMaxX, Math.ceil(maxDataX / 10) * 10);
+      const maxDataX = xs[xs.length - 1] || options.visibleMaxX;
+      const minX = options.minX;
+      const visibleMaxX = options.visibleMaxX;
+      const maxX = Math.max(visibleMaxX, Math.ceil(maxDataX / options.roundStep) * options.roundStep);
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       const minVisibleWidth = isMobile ? 760 : 980;
       const visibleWidth = Math.max((scatterViewport && scatterViewport.clientWidth) || 0, minVisibleWidth);
@@ -283,10 +288,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       scatterPlot.style.width = plotWidth + 'px';
       scatterXAxis.style.width = plotWidth + 'px';
-      renderXAxisTicks(minX, maxX, visibleMaxX);
+      renderScatterXAxisTicks(scatterXAxis, minX, maxX, visibleMaxX, xAxisFormatter);
 
       points.forEach(function (point) {
-        const x = scatterValue(point, 'avg_latency_seconds');
+        const x = scatterValue(point, xMetric);
         const y = scatterValue(point, metric);
         const left = Math.max(0, Math.min(100, ((x - minX) / rangeX) * 100));
         const bottom = 10 + ((y - minY) / rangeY) * 74;
@@ -294,8 +299,8 @@ document.addEventListener('DOMContentLoaded', function () {
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
         point.classList.toggle('bench-scatter-point-flip', left > 84);
-        point.setAttribute('aria-label', modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's');
-        point.title = modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's';
+        point.setAttribute('aria-label', modelName + ' · ' + scatterFormat(y, format) + ' · ' + xValueFormatter(x));
+        point.title = modelName + ' · ' + scatterFormat(y, format) + ' · ' + xValueFormatter(x);
       });
     }
 
@@ -309,6 +314,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     renderScatter();
   }
+
+  initScatterChart({
+    plotId: 'leaderboard-scatter-plot',
+    metricId: 'leaderboard-scatter-metric',
+    titleId: 'leaderboard-scatter-y-title',
+    xAxisId: 'leaderboard-scatter-x-axis',
+    xMetric: 'avg_latency_seconds',
+    minX: 70,
+    visibleMaxX: 200,
+    roundStep: 10,
+    xAxisFormatter: function (value) {
+      return Math.round(value) + 's';
+    },
+    xValueFormatter: function (value) {
+      return value.toFixed(2) + 's';
+    }
+  });
+
+  initScatterChart({
+    plotId: 'leaderboard-cost-scatter-plot',
+    metricId: 'leaderboard-cost-scatter-metric',
+    titleId: 'leaderboard-cost-scatter-y-title',
+    xAxisId: 'leaderboard-cost-scatter-x-axis',
+    xMetric: 'cost_usd',
+    minX: 0,
+    visibleMaxX: 50,
+    roundStep: 10,
+    xAxisFormatter: function (value) {
+      return '$' + Math.round(value);
+    },
+    xValueFormatter: function (value) {
+      return '$' + value.toFixed(4);
+    }
+  });
 
   const taskGrid = document.getElementById('task-grid');
   if (taskGrid) {
