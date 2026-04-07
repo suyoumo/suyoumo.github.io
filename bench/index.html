@@ -92,10 +92,10 @@ permalink: /bench/
                   <div class="bench-token-item"><span class="bench-token-label">output:</span><span class="bench-token-value">{{ row.output_tokens | round: 0 }}</span></div>
                   {% endif %}
                   {% if row.cache_read_tokens != nil and row.cache_read_tokens != 0 %}
-                  <div class="bench-token-item"><span class="bench-token-label">cache read:</span><span class="bench-token-value">{{ row.cache_read_tokens | round: 0 }}</span></div>
+                  <div class="bench-token-item"><span class="bench-token-label">cacheread:</span><span class="bench-token-value">{{ row.cache_read_tokens | round: 0 }}</span></div>
                   {% endif %}
                   {% if row.cache_write_tokens != nil and row.cache_write_tokens != 0 %}
-                  <div class="bench-token-item"><span class="bench-token-label">cache write:</span><span class="bench-token-value">{{ row.cache_write_tokens | round: 0 }}</span></div>
+                  <div class="bench-token-item"><span class="bench-token-label">cachewrite:</span><span class="bench-token-value">{{ row.cache_write_tokens | round: 0 }}</span></div>
                   {% endif %}
                 </div>
               </td>
@@ -120,7 +120,7 @@ permalink: /bench/
 
     <div class="bench-leaderboard-note">
       <span>Notes:</span>
-      <span>USD/CNY quick reference uses approximately <code>1 USD ≈ 7 CNY</code>.</span>
+      <span>USD/CNY quick reference uses approximately <code>1($)≈ 6.8826(¥)</code>.</span>
       <span><code>cache_read_tokens</code> and <code>cache_write_tokens</code> are billed at <code>0.5x</code> the input-token price.</span>
       <span><code>cost_usd = (input_tokens + 0.5 * (cache_read_tokens + cache_write_tokens)) * price_usd_input / 1e6 + output_tokens * price_usd_output / 1e6</code></span>
     </div>
