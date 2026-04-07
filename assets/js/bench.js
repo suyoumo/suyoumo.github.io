@@ -195,12 +195,15 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderXAxisTicks(minX, maxX) {
       const tickCount = 6;
       const ticks = [];
-      const step = (maxX - minX) / (tickCount - 1);
+      const step = (maxX - minX) / (tickCount - 1 || 1);
       for (let i = 0; i < tickCount; i += 1) {
-        ticks.push(Math.round(minX + step * i));
+        ticks.push({
+          value: Math.round(minX + step * i),
+          left: (i / (tickCount - 1 || 1)) * 100
+        });
       }
       scatterXAxis.innerHTML = ticks.map(function (tick) {
-        return '<span>' + tick + 's</span>';
+        return '<span style="left:' + tick.left + '%">' + tick.value + 's</span>';
       }).join('');
     }
 
@@ -212,10 +215,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const p10Index = Math.max(0, Math.floor(xs.length * 0.1) - 1);
-      const p90Index = Math.max(0, Math.floor(xs.length * 0.9) - 1);
-      const minX = Math.max(0, Math.floor((xs[p10Index] || xs[0] || 0) / 10) * 10);
-      const maxX = Math.ceil((xs[p90Index] || xs[xs.length - 1] || 200) / 10) * 10;
+      const minX = Math.floor((xs[0] || 0) / 10) * 10;
+      const maxX = Math.ceil((xs[xs.length - 1] || 200) / 10) * 10;
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
@@ -226,8 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
       points.forEach(function (point) {
         const x = scatterValue(point, 'avgLatencySeconds');
         const y = scatterValue(point, metric);
-        const clampedX = Math.max(minX, Math.min(x, maxX));
-        const left = ((clampedX - minX) / rangeX) * 100;
+        const left = ((x - minX) / rangeX) * 100;
         const bottom = 10 + ((y - minY) / rangeY) * 74;
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
