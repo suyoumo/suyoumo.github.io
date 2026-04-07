@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const leaderboardChart = document.getElementById('leaderboard-chart-bars');
   const leaderboardMetric = document.getElementById('leaderboard-chart-metric');
   if (leaderboardChart && leaderboardMetric) {
+    const leaderboardLimit = document.getElementById('leaderboard-chart-limit');
     const bars = Array.from(leaderboardChart.querySelectorAll('.bench-chart-bar'));
 
     function parseChartNumber(value) {
@@ -122,6 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
       return raw;
     }
 
+    function chartLimit() {
+      if (!leaderboardLimit || leaderboardLimit.value === 'all') return bars.length;
+      const parsed = Number(leaderboardLimit.value);
+      return Number.isFinite(parsed) ? parsed : bars.length;
+    }
+
     function renderChart() {
       const selectedOption = leaderboardMetric.options[leaderboardMetric.selectedIndex];
       const metric = selectedOption.value;
@@ -132,14 +139,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const bv = metricValue(b, metric);
         return direction === 'asc' ? av - bv : bv - av;
       });
-      const values = sorted.map(function (bar) {
+      const visibleBars = sorted.slice(0, chartLimit());
+      const values = visibleBars.map(function (bar) {
         return metricValue(bar, metric);
       });
-      const max = Math.max.apply(null, values);
-      const min = Math.min.apply(null, values);
+      const max = values.length ? Math.max.apply(null, values) : 0;
+      const min = values.length ? Math.min.apply(null, values) : 0;
       const range = max - min || 1;
 
       sorted.forEach(function (bar, index) {
+        const isVisible = index < visibleBars.length;
         const value = metricValue(bar, metric);
         const normalized = direction === 'asc' ? (max - value) / range : (value - min) / range;
         const height = 72 + normalized * 188;
@@ -148,15 +157,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const valueNode = bar.querySelector('.bench-chart-value');
         const label = bar.querySelector('.bench-chart-label');
         if (fill) fill.style.height = height + 'px';
-        if (rank) rank.textContent = index + 1;
-        if (valueNode) valueNode.textContent = formatMetricValue(metric, format, bar);
+        if (rank) rank.textContent = isVisible ? index + 1 : '';
+        if (valueNode) valueNode.textContent = isVisible ? formatMetricValue(metric, format, bar) : '';
         bar.style.order = index;
         bar.dataset.activeMetric = metric;
+        bar.hidden = !isVisible;
         if (label) label.title = (bar.dataset.modelName || '') + ' · ' + (bar.dataset.provider || '') + ' · ' + (bar.dataset.platform || '');
       });
     }
 
     leaderboardMetric.addEventListener('change', renderChart);
+    if (leaderboardLimit) leaderboardLimit.addEventListener('change', renderChart);
     renderChart();
   }
 
