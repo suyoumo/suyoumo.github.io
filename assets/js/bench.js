@@ -222,24 +222,34 @@ document.addEventListener('DOMContentLoaded', function () {
     return String(value);
   }
 
-  function renderScatterXAxisTicks(xAxis, minX, maxX, visibleMaxX, tickFormatter) {
-    const tickCount = 6;
-    const ticks = [];
+  function renderScatterXAxisTicks(xAxis, minX, maxX, visibleMaxX, tickFormatter, tickValues) {
+    let ticks = [];
     const rangeX = maxX - minX || 1;
-    const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
 
-    for (let value = minX; value < maxX; value += step) {
-      ticks.push({
-        value: value,
-        left: ((value - minX) / rangeX) * 100
+    if (Array.isArray(tickValues) && tickValues.length) {
+      ticks = tickValues.map(function (value) {
+        return {
+          value: value,
+          left: ((value - minX) / rangeX) * 100
+        };
       });
-    }
+    } else {
+      const tickCount = 6;
+      const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
 
-    if (!ticks.length || ticks[ticks.length - 1].value < maxX) {
-      ticks.push({
-        value: maxX,
-        left: 100
-      });
+      for (let value = minX; value < maxX; value += step) {
+        ticks.push({
+          value: value,
+          left: ((value - minX) / rangeX) * 100
+        });
+      }
+
+      if (!ticks.length || ticks[ticks.length - 1].value < maxX) {
+        ticks.push({
+          value: maxX,
+          left: 100
+        });
+      }
     }
 
     xAxis.innerHTML = ticks.map(function (tick, index) {
@@ -262,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const xMetric = options.xMetric;
     const xAxisFormatter = options.xAxisFormatter || function (value) { return String(Math.round(value)); };
     const xValueFormatter = options.xValueFormatter || function (value) { return String(value); };
+    const tickValues = options.tickValues || null;
     let scatterResizeFrame = 0;
 
     function renderScatter() {
@@ -275,7 +286,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const maxDataX = xs[xs.length - 1] || options.visibleMaxX;
       const minX = options.minX;
       const visibleMaxX = options.visibleMaxX;
-      const maxX = Math.max(visibleMaxX, Math.ceil(maxDataX / options.roundStep) * options.roundStep);
+      const maxX = options.fixedMaxX !== undefined
+        ? options.fixedMaxX
+        : Math.max(visibleMaxX, Math.ceil(maxDataX / options.roundStep) * options.roundStep);
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       const minVisibleWidth = isMobile ? 760 : 980;
       const visibleWidth = Math.max((scatterViewport && scatterViewport.clientWidth) || 0, minVisibleWidth);
@@ -288,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       scatterPlot.style.width = plotWidth + 'px';
       scatterXAxis.style.width = plotWidth + 'px';
-      renderScatterXAxisTicks(scatterXAxis, minX, maxX, visibleMaxX, xAxisFormatter);
+      renderScatterXAxisTicks(scatterXAxis, minX, maxX, visibleMaxX, xAxisFormatter, tickValues);
 
       points.forEach(function (point) {
         const x = scatterValue(point, xMetric);
@@ -339,8 +352,10 @@ document.addEventListener('DOMContentLoaded', function () {
     xAxisId: 'leaderboard-cost-scatter-x-axis',
     xMetric: 'cost_usd',
     minX: 0,
-    visibleMaxX: 50,
+    visibleMaxX: 115,
+    fixedMaxX: 115,
     roundStep: 10,
+    tickValues: [0, 20, 40, 60, 80, 100, 115],
     xAxisFormatter: function (value) {
       return '$' + Math.round(value);
     },

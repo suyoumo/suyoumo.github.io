@@ -1358,10 +1358,14 @@ main {
   @include mobile {
     flex-direction: column;
     align-items: flex-start;
+
+    h2 {
+      margin-left: 0;
+    }
   }
 
   h2 {
-    margin: 0 0 6px;
+    margin: 0 0 6px -3px;
     font-family: $sans;
     font-size: 2rem;
     font-weight: 800;
@@ -1601,6 +1605,25 @@ main {
 
 .bench-scatter-card {
   margin-top: 32px;
+
+  .bench-chart-head h2 {
+    margin-left: -3px;
+  }
+
+  .bench-chart-head p {
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  @include mobile {
+    .bench-chart-head h2 {
+      margin-left: 0;
+    }
+
+    .bench-chart-head p {
+      white-space: normal;
+    }
+  }
 }
 
 .bench-scatter-frame {
