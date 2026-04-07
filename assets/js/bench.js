@@ -178,7 +178,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const scatterPlot = document.getElementById('leaderboard-scatter-plot');
   const scatterMetric = document.getElementById('leaderboard-scatter-metric');
   const scatterTitle = document.getElementById('leaderboard-scatter-y-title');
-  if (scatterPlot && scatterMetric && scatterTitle) {
+  const scatterXAxis = document.getElementById('leaderboard-scatter-x-axis');
+  if (scatterPlot && scatterMetric && scatterTitle && scatterXAxis) {
     const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
 
     function scatterValue(point, key) {
@@ -191,25 +192,42 @@ document.addEventListener('DOMContentLoaded', function () {
       return String(value);
     }
 
+    function renderXAxisTicks(minX, maxX) {
+      const tickCount = 6;
+      const ticks = [];
+      const step = (maxX - minX) / (tickCount - 1);
+      for (let i = 0; i < tickCount; i += 1) {
+        ticks.push(Math.round(minX + step * i));
+      }
+      scatterXAxis.innerHTML = ticks.map(function (tick) {
+        return '<span>' + tick + 's</span>';
+      }).join('');
+    }
+
     function renderScatter() {
       const selected = scatterMetric.options[scatterMetric.selectedIndex];
       const metric = selected.value;
       const format = selected.dataset.format || 'percent';
       scatterTitle.textContent = selected.text;
 
+      const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const minX = 60;
-      const maxX = 220;
+      const p10Index = Math.max(0, Math.floor(xs.length * 0.1) - 1);
+      const p90Index = Math.max(0, Math.floor(xs.length * 0.9) - 1);
+      const minX = Math.max(0, Math.floor((xs[p10Index] || xs[0] || 0) / 10) * 10);
+      const maxX = Math.ceil((xs[p90Index] || xs[xs.length - 1] || 200) / 10) * 10;
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
       const rangeY = maxY - minY || 1;
 
+      renderXAxisTicks(minX, maxX);
+
       points.forEach(function (point) {
         const x = scatterValue(point, 'avgLatencySeconds');
         const y = scatterValue(point, metric);
         const clampedX = Math.max(minX, Math.min(x, maxX));
-        const left = 4 + ((clampedX - minX) / rangeX) * 88;
+        const left = ((clampedX - minX) / rangeX) * 100;
         const bottom = 10 + ((y - minY) / rangeY) * 74;
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';

@@ -1596,19 +1596,36 @@ main {
   transform-origin: left top;
 }
 
+.bench-scatter-plot-wrap {
+  min-width: 980px;
+}
+
 .bench-scatter-x-title {
   margin-top: 18px;
   text-align: center;
 }
 
+.bench-scatter-x-axis {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin-top: 10px;
+  color: $gray;
+  font-size: 0.85rem;
+}
+
+.bench-scatter-x-axis span {
+  text-align: center;
+}
+
 .bench-scatter-plot {
   position: relative;
+  width: 100%;
   min-width: 980px;
   height: 380px;
   border-left: 2px solid rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   background: rgba(250, 247, 242, 0.58);
-  overflow: visible;
+  overflow: hidden;
 }
 
 .bench-scatter-grid {
@@ -1626,7 +1643,7 @@ main {
   align-items: center;
   color: $black;
   text-decoration: none;
-  transform: translate(-6px, 6px);
+  transform: translate(-5px, 5px);
   z-index: 2;
 }
 
@@ -1644,11 +1661,19 @@ main {
   display: none;
 }
 
+.bench-scatter-point:nth-child(6n + 1) .bench-scatter-dot { background: #5ea95d; }
+.bench-scatter-point:nth-child(6n + 2) .bench-scatter-dot { background: #242424; }
+.bench-scatter-point:nth-child(6n + 3) .bench-scatter-dot { background: #467bde; }
+.bench-scatter-point:nth-child(6n + 4) .bench-scatter-dot { background: #c78462; }
+.bench-scatter-point:nth-child(6n + 5) .bench-scatter-dot { background: #d84b74; }
+.bench-scatter-point:nth-child(6n + 6) .bench-scatter-dot { background: #f17a28; }
+
 @include mobile {
   .bench-scatter-frame {
     padding: 16px 18px 28px 54px;
   }
 
+  .bench-scatter-plot-wrap,
   .bench-scatter-plot {
     min-width: 760px;
   }

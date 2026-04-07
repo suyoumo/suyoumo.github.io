@@ -232,31 +232,34 @@ permalink: /bench/
 
       <div class="bench-scatter-frame" id="leaderboard-scatter-frame">
         <div class="bench-scatter-y-title" id="leaderboard-scatter-y-title">Pass@3</div>
-        <div class="bench-scatter-plot" id="leaderboard-scatter-plot">
-          <div class="bench-scatter-grid"></div>
-          {% for row in site.data.bench.leaderboard %}
-          <a
-            class="bench-scatter-point"
-            href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
-            data-model-name="{{ row.model_name | escape }}"
-            data-pass3="{{ row.pass3 }}"
-            data-pass_at_3="{{ row.pass_at_3 }}"
-            data-overall_score="{{ row.overall_score }}"
-            data-capability_score="{{ row.capability_score }}"
-            data-efficiency_score="{{ row.efficiency_score }}"
-            data-planning_score="{{ row.planning_score }}"
-            data-safety_score="{{ row.safety_score }}"
-            data-tool_use_score="{{ row.tool_use_score }}"
-            data-constraints_score="{{ row.constraints_score }}"
-            data-error_recovery_score="{{ row.error_recovery_score }}"
-            data-synthesis_score="{{ row.synthesis_score }}"
-            data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
-          >
-            <span class="bench-scatter-dot"></span>
-            <span class="bench-scatter-line"></span>
-            <span class="bench-scatter-name">{{ row.model_name }}</span>
-          </a>
-          {% endfor %}
+        <div class="bench-scatter-plot-wrap">
+          <div class="bench-scatter-plot" id="leaderboard-scatter-plot">
+            <div class="bench-scatter-grid"></div>
+            {% for row in site.data.bench.leaderboard %}
+            <a
+              class="bench-scatter-point"
+              href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
+              data-model-name="{{ row.model_name | escape }}"
+              data-pass3="{{ row.pass3 }}"
+              data-pass_at_3="{{ row.pass_at_3 }}"
+              data-overall_score="{{ row.overall_score }}"
+              data-capability_score="{{ row.capability_score }}"
+              data-efficiency_score="{{ row.efficiency_score }}"
+              data-planning_score="{{ row.planning_score }}"
+              data-safety_score="{{ row.safety_score }}"
+              data-tool_use_score="{{ row.tool_use_score }}"
+              data-constraints_score="{{ row.constraints_score }}"
+              data-error_recovery_score="{{ row.error_recovery_score }}"
+              data-synthesis_score="{{ row.synthesis_score }}"
+              data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
+            >
+              <span class="bench-scatter-dot"></span>
+              <span class="bench-scatter-line"></span>
+              <span class="bench-scatter-name">{{ row.model_name }}</span>
+            </a>
+            {% endfor %}
+          </div>
+          <div class="bench-scatter-x-axis" id="leaderboard-scatter-x-axis"></div>
         </div>
         <div class="bench-scatter-x-title">Avg. Seconds per Task</div>
       </div>
