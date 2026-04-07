@@ -1315,6 +1315,218 @@ main {
   padding: 8px 0;
 }
 
+.bench-chart-card {
+  margin-top: 32px;
+  padding: 28px 28px 32px;
+  overflow: hidden;
+}
+
+.bench-chart-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  h2 {
+    margin: 0 0 10px;
+    font-family: $sans;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+
+    span {
+      color: #4d6cf0;
+    }
+  }
+
+  p {
+    margin: 0;
+    color: $gray;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 860px;
+  }
+}
+
+.bench-chart-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bench-chart-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+
+  span {
+    color: $gray;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    color: $black;
+    font-size: 0.95rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  }
+}
+
+.bench-chart-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+}
+
+.bench-chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  min-width: max-content;
+  padding: 12px 4px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.bench-chart-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 68px;
+  min-width: 68px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.bench-chart-rank,
+.bench-chart-value {
+  width: 100%;
+  text-align: center;
+  color: $black;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.bench-chart-rank {
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  color: $gray;
+}
+
+.bench-chart-value {
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+}
+
+.bench-chart-column {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  height: 268px;
+  padding: 0 6px;
+}
+
+.bench-chart-fill {
+  display: block;
+  width: 100%;
+  min-height: 72px;
+  border-radius: 10px 10px 6px 6px;
+  background: linear-gradient(180deg, #5ea95d 0%, #4f9850 100%);
+  box-shadow: 0 8px 20px rgba(77, 108, 240, 0.12);
+  transition: height 0.24s ease;
+}
+
+.bench-chart-bar:nth-child(6n + 1) .bench-chart-fill {
+  background: linear-gradient(180deg, #5ea95d 0%, #58a859 100%);
+}
+
+.bench-chart-bar:nth-child(6n + 2) .bench-chart-fill {
+  background: linear-gradient(180deg, #242424 0%, #1d1d1d 100%);
+}
+
+.bench-chart-bar:nth-child(6n + 3) .bench-chart-fill {
+  background: linear-gradient(180deg, #467bde 0%, #3f73d4 100%);
+}
+
+.bench-chart-bar:nth-child(6n + 4) .bench-chart-fill {
+  background: linear-gradient(180deg, #c78462 0%, #bf7a57 100%);
+}
+
+.bench-chart-bar:nth-child(6n + 5) .bench-chart-fill {
+  background: linear-gradient(180deg, #d84b74 0%, #ca3e67 100%);
+}
+
+.bench-chart-bar:nth-child(6n + 6) .bench-chart-fill {
+  background: linear-gradient(180deg, #f17a28 0%, #eb6e18 100%);
+}
+
+.bench-chart-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.bench-chart-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.bench-chart-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  width: 100%;
+
+  strong,
+  span {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    word-break: break-word;
+  }
+
+  strong {
+    color: $black;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.3;
+    -webkit-line-clamp: 3;
+  }
+
+  span {
+    color: $gray;
+    font-size: 0.74rem;
+    line-height: 1.25;
+    -webkit-line-clamp: 2;
+  }
+}
+
 .bench-table-wrap {
   overflow-x: auto;
 }

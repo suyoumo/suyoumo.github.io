@@ -79,6 +79,87 @@ document.addEventListener('DOMContentLoaded', function () {
     sortRows(currentKey, currentDirection);
   }
 
+  const leaderboardChart = document.getElementById('leaderboard-chart-bars');
+  const leaderboardMetric = document.getElementById('leaderboard-chart-metric');
+  if (leaderboardChart && leaderboardMetric) {
+    const bars = Array.from(leaderboardChart.querySelectorAll('.bench-chart-bar'));
+
+    function parseChartNumber(value) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function parseVersion(value) {
+      return String(value || '')
+        .split('.')
+        .reduce(function (total, part, index) {
+          return total + parseChartNumber(part) / Math.pow(1000, index);
+        }, 0);
+    }
+
+    function parseDate(value) {
+      const timestamp = Date.parse(value);
+      return Number.isFinite(timestamp) ? timestamp : 0;
+    }
+
+    function metricValue(bar, metric) {
+      const raw = bar.dataset[metric] || '';
+      if (metric === 'openclaw_version') return parseVersion(raw);
+      if (metric === 'released_at' || metric === 'updated_at') return parseDate(raw);
+      return parseChartNumber(raw);
+    }
+
+    function formatMetricValue(metric, format, bar) {
+      const raw = bar.dataset[metric] || '';
+      const value = metricValue(bar, metric);
+      if (format === 'percent') return (value * 100).toFixed(1) + '%';
+      if (format === 'runtime') return value.toFixed(2) + 's';
+      if (format === 'tokens') return Math.round(value).toLocaleString('en-US');
+      if (format === 'currency') return '$' + value.toFixed(4);
+      if (format === 'decimal4') return value.toFixed(4);
+      if (format === 'version') return 'v' + raw;
+      if (format === 'date') return String(raw).slice(0, 10);
+      return raw;
+    }
+
+    function renderChart() {
+      const selectedOption = leaderboardMetric.options[leaderboardMetric.selectedIndex];
+      const metric = selectedOption.value;
+      const direction = selectedOption.dataset.direction || 'desc';
+      const format = selectedOption.dataset.format || 'percent';
+      const sorted = bars.slice().sort(function (a, b) {
+        const av = metricValue(a, metric);
+        const bv = metricValue(b, metric);
+        return direction === 'asc' ? av - bv : bv - av;
+      });
+      const values = sorted.map(function (bar) {
+        return metricValue(bar, metric);
+      });
+      const max = Math.max.apply(null, values);
+      const min = Math.min.apply(null, values);
+      const range = max - min || 1;
+
+      sorted.forEach(function (bar, index) {
+        const value = metricValue(bar, metric);
+        const normalized = direction === 'asc' ? (max - value) / range : (value - min) / range;
+        const height = 72 + normalized * 188;
+        const fill = bar.querySelector('.bench-chart-fill');
+        const rank = bar.querySelector('.bench-chart-rank');
+        const valueNode = bar.querySelector('.bench-chart-value');
+        const label = bar.querySelector('.bench-chart-label');
+        if (fill) fill.style.height = height + 'px';
+        if (rank) rank.textContent = index + 1;
+        if (valueNode) valueNode.textContent = formatMetricValue(metric, format, bar);
+        bar.style.order = index;
+        bar.dataset.activeMetric = metric;
+        if (label) label.title = (bar.dataset.modelName || '') + ' · ' + (bar.dataset.provider || '') + ' · ' + (bar.dataset.platform || '');
+      });
+    }
+
+    leaderboardMetric.addEventListener('change', renderChart);
+    renderChart();
+  }
+
   const taskGrid = document.getElementById('task-grid');
   if (taskGrid) {
     const cards = Array.from(taskGrid.querySelectorAll('.bench-task-card'));

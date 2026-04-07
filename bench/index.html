@@ -106,6 +106,94 @@ permalink: /bench/
         </table>
       </div>
     </div>
+
+    <div class="bench-card bench-chart-card" id="leaderboard-chart-section">
+      <div class="bench-chart-head">
+        <div>
+          <h2>Visual <span>Leaderboard</span></h2>
+          <p>用图形化方式查看 leaderboard 全部指标。切换不同维度后，下方柱状榜单会按对应字段重新排序。</p>
+        </div>
+        <div class="bench-chart-toolbar">
+          <label class="bench-chart-filter" for="leaderboard-chart-metric">
+            <span>Metric</span>
+            <select id="leaderboard-chart-metric">
+              <option value="pass3" data-direction="desc" data-format="percent">Pass^3</option>
+              <option value="pass_at_3" data-direction="desc" data-format="percent">Pass@3</option>
+              <option value="overall_score" data-direction="desc" data-format="percent">Avg Score</option>
+              <option value="capability_score" data-direction="desc" data-format="percent">Capability</option>
+              <option value="efficiency_score" data-direction="desc" data-format="percent">Efficiency</option>
+              <option value="planning_score" data-direction="desc" data-format="percent">Planning</option>
+              <option value="safety_score" data-direction="desc" data-format="percent">Safety</option>
+              <option value="tool_use_score" data-direction="desc" data-format="percent">Tool Use</option>
+              <option value="constraints_score" data-direction="desc" data-format="percent">Constraints</option>
+              <option value="error_recovery_score" data-direction="desc" data-format="percent">Error Recovery</option>
+              <option value="synthesis_score" data-direction="desc" data-format="percent">Synthesis</option>
+              <option value="avg_latency_seconds" data-direction="asc" data-format="runtime">Avg Runtime</option>
+              <option value="avg_tokens" data-direction="asc" data-format="tokens">Avg Tokens</option>
+              <option value="input_tokens" data-direction="asc" data-format="tokens">Input Tokens</option>
+              <option value="output_tokens" data-direction="asc" data-format="tokens">Output Tokens</option>
+              <option value="cost_usd" data-direction="asc" data-format="currency">Cost</option>
+              <option value="price_usd_input" data-direction="asc" data-format="currency">Price</option>
+              <option value="cost_efficiency_score_per_1k" data-direction="desc" data-format="decimal4">Cost Efficiency</option>
+              <option value="openclaw_version" data-direction="desc" data-format="version">OpenClaw</option>
+              <option value="released_at" data-direction="desc" data-format="date">Released</option>
+              <option value="updated_at" data-direction="desc" data-format="date">Updated</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="bench-chart-scroll">
+        <div class="bench-chart-bars" id="leaderboard-chart-bars">
+          {% for row in site.data.bench.leaderboard %}
+          <a
+            class="bench-chart-bar"
+            href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
+            data-model-name="{{ row.model_name | escape }}"
+            data-provider="{{ row.provider_key | escape }}"
+            data-platform="{{ row.platform | escape }}"
+            data-logo="{% if row.logo %}{{ site.baseurl }}/assets/images/bench/{{ row.logo }}{% endif %}"
+            data-pass3="{{ row.pass3 }}"
+            data-pass_at_3="{{ row.pass_at_3 }}"
+            data-overall_score="{{ row.overall_score }}"
+            data-capability_score="{{ row.capability_score }}"
+            data-efficiency_score="{{ row.efficiency_score }}"
+            data-planning_score="{{ row.planning_score }}"
+            data-safety_score="{{ row.safety_score }}"
+            data-tool_use_score="{{ row.tool_use_score }}"
+            data-constraints_score="{{ row.constraints_score }}"
+            data-error_recovery_score="{{ row.error_recovery_score }}"
+            data-synthesis_score="{{ row.synthesis_score }}"
+            data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
+            data-avg_tokens="{{ row.avg_tokens }}"
+            data-input_tokens="{{ row.input_tokens }}"
+            data-output_tokens="{{ row.output_tokens }}"
+            data-cost_usd="{{ row.cost_usd }}"
+            data-price_usd_input="{{ row.price_usd_input }}"
+            data-cost_efficiency_score_per_1k="{{ row.cost_efficiency_score_per_1k }}"
+            data-openclaw_version="{{ row.openclaw_version }}"
+            data-released_at="{{ row.released_at }}"
+            data-updated_at="{{ row.updated_at }}"
+          >
+            <span class="bench-chart-rank"></span>
+            <span class="bench-chart-value"></span>
+            <span class="bench-chart-column">
+              <span class="bench-chart-fill"></span>
+            </span>
+            <span class="bench-chart-meta">
+              {% if row.logo %}
+              <img class="bench-chart-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
+              {% endif %}
+              <span class="bench-chart-label">
+                <strong>{{ row.model_name }}</strong>
+                <span>{{ row.provider_key }} · {{ row.platform }}</span>
+              </span>
+            </span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
