@@ -215,8 +215,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const minX = Math.floor((xs[0] || 0) / 10) * 10;
-      const maxX = Math.ceil((xs[xs.length - 1] || 200) / 10) * 10;
+      const minDataX = xs[0] || 0;
+      const maxDataX = xs[xs.length - 1] || 200;
+      const defaultMinX = 70;
+      const defaultMaxX = Math.max(200, Math.ceil(maxDataX / 10) * 10);
+      const minX = Math.min(defaultMinX, Math.floor(minDataX / 10) * 10);
+      const maxX = defaultMaxX;
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
