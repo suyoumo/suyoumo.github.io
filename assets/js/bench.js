@@ -175,6 +175,52 @@ document.addEventListener('DOMContentLoaded', function () {
     renderChart();
   }
 
+  const scatterPlot = document.getElementById('leaderboard-scatter-plot');
+  const scatterMetric = document.getElementById('leaderboard-scatter-metric');
+  const scatterTitle = document.getElementById('leaderboard-scatter-y-title');
+  if (scatterPlot && scatterMetric && scatterTitle) {
+    const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
+
+    function scatterValue(point, key) {
+      const parsed = Number(point.dataset[key] || 0);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function scatterFormat(value, format) {
+      if (format === 'percent') return (value * 100).toFixed(1) + '%';
+      return String(value);
+    }
+
+    function renderScatter() {
+      const selected = scatterMetric.options[scatterMetric.selectedIndex];
+      const metric = selected.value;
+      const format = selected.dataset.format || 'percent';
+      scatterTitle.textContent = selected.text;
+
+      const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); });
+      const ys = points.map(function (point) { return scatterValue(point, metric); });
+      const minX = Math.min.apply(null, xs);
+      const maxX = Math.max.apply(null, xs);
+      const minY = Math.min.apply(null, ys);
+      const maxY = Math.max.apply(null, ys);
+      const rangeX = maxX - minX || 1;
+      const rangeY = maxY - minY || 1;
+
+      points.forEach(function (point) {
+        const x = scatterValue(point, 'avgLatencySeconds');
+        const y = scatterValue(point, metric);
+        const left = 8 + ((x - minX) / rangeX) * 84;
+        const bottom = 10 + ((y - minY) / rangeY) * 78;
+        point.style.left = left + '%';
+        point.style.bottom = bottom + '%';
+        point.title = point.dataset.modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's';
+      });
+    }
+
+    scatterMetric.addEventListener('change', renderScatter);
+    renderScatter();
+  }
+
   const taskGrid = document.getElementById('task-grid');
   if (taskGrid) {
     const cards = Array.from(taskGrid.querySelectorAll('.bench-task-card'));

@@ -1572,6 +1572,104 @@ main {
   overflow-x: auto;
 }
 
+.bench-scatter-card {
+  margin-top: 32px;
+}
+
+.bench-scatter-frame {
+  position: relative;
+  padding: 18px 32px 30px 72px;
+  min-height: 520px;
+}
+
+.bench-scatter-y-title,
+.bench-scatter-x-title {
+  color: $gray;
+  font-weight: 700;
+}
+
+.bench-scatter-y-title {
+  position: absolute;
+  left: 26px;
+  top: 250px;
+  transform: rotate(-90deg);
+  transform-origin: left top;
+}
+
+.bench-scatter-x-title {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.bench-scatter-plot {
+  position: relative;
+  min-width: 980px;
+  height: 380px;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  background: rgba(250, 247, 242, 0.58);
+  overflow: visible;
+}
+
+.bench-scatter-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 16.666% 20%;
+}
+
+.bench-scatter-point {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $black;
+  text-decoration: none;
+  transform: translate(-8px, 8px);
+  z-index: 2;
+}
+
+.bench-scatter-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #4d6cf0;
+  box-shadow: 0 0 0 4px rgba(77, 108, 240, 0.12);
+  flex: 0 0 12px;
+}
+
+.bench-scatter-point:nth-child(6n + 1) .bench-scatter-dot { background: #5ea95d; }
+.bench-scatter-point:nth-child(6n + 2) .bench-scatter-dot { background: #242424; }
+.bench-scatter-point:nth-child(6n + 3) .bench-scatter-dot { background: #467bde; }
+.bench-scatter-point:nth-child(6n + 4) .bench-scatter-dot { background: #c78462; }
+.bench-scatter-point:nth-child(6n + 5) .bench-scatter-dot { background: #d84b74; }
+.bench-scatter-point:nth-child(6n + 6) .bench-scatter-dot { background: #f17a28; }
+
+.bench-scatter-name {
+  max-width: 150px;
+  color: $black;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+@include mobile {
+  .bench-scatter-frame {
+    padding: 16px 18px 28px 54px;
+  }
+
+  .bench-scatter-plot {
+    min-width: 760px;
+  }
+}
+
+.bench-table-wrap {
+  overflow-x: auto;
+}
+
 .bench-table {
   width: 100%;
   border-collapse: collapse;
