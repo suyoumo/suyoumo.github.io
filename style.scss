@@ -1900,6 +1900,36 @@ main {
   color: $gray;
 }
 
+.bench-token-column {
+  min-width: 248px;
+}
+
+.bench-token-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.bench-token-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
+  white-space: nowrap;
+  font-size: 0.96rem;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+
+.bench-token-label {
+  color: $gray;
+  margin-right: 0;
+}
+
+.bench-token-value {
+  color: $black;
+}
+
 .bench-pass-cell {
   display: grid;
   grid-template-columns: minmax(140px, 1fr) auto;

@@ -42,7 +42,7 @@ permalink: /bench/
               <th data-sort-key="synthesis_score">Synthesis <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="total_tokens">Total Token <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="token_breakdown">Token <span class="bench-sort-indicator"></span></th>
+              <th class="bench-token-column" data-sort-key="token_breakdown">Token <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="price_usd_input">Price <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="openclaw_version">OpenClaw <span class="bench-sort-indicator"></span></th>
@@ -83,19 +83,19 @@ permalink: /bench/
               <td data-value="{{ row.synthesis_score }}">{{ row.synthesis_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
               <td data-value="{{ row.total_tokens }}">{{ row.total_tokens | round: 0 }}</td>
-              <td data-value="{{ row.total_tokens }}">
+              <td class="bench-token-column" data-value="{{ row.total_tokens }}">
                 <div class="bench-token-stack">
                   {% if row.input_tokens != nil and row.input_tokens != 0 %}
-                  <div>input {{ row.input_tokens | round: 0 }}</div>
+                  <div class="bench-token-item"><span class="bench-token-label">input:</span><span class="bench-token-value">{{ row.input_tokens | round: 0 }}</span></div>
                   {% endif %}
                   {% if row.output_tokens != nil and row.output_tokens != 0 %}
-                  <div>output {{ row.output_tokens | round: 0 }}</div>
+                  <div class="bench-token-item"><span class="bench-token-label">output:</span><span class="bench-token-value">{{ row.output_tokens | round: 0 }}</span></div>
                   {% endif %}
                   {% if row.cache_read_tokens != nil and row.cache_read_tokens != 0 %}
-                  <div>cache read {{ row.cache_read_tokens | round: 0 }}</div>
+                  <div class="bench-token-item"><span class="bench-token-label">cache read:</span><span class="bench-token-value">{{ row.cache_read_tokens | round: 0 }}</span></div>
                   {% endif %}
                   {% if row.cache_write_tokens != nil and row.cache_write_tokens != 0 %}
-                  <div>cache write {{ row.cache_write_tokens | round: 0 }}</div>
+                  <div class="bench-token-item"><span class="bench-token-label">cache write:</span><span class="bench-token-value">{{ row.cache_write_tokens | round: 0 }}</span></div>
                   {% endif %}
                 </div>
               </td>
