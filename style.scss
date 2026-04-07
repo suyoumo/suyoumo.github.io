@@ -1496,20 +1496,24 @@ main {
   align-items: flex-start;
   justify-content: center;
   width: 100%;
-  padding-top: 14px;
+  min-height: 152px;
+  padding-top: 18px;
+  overflow: visible;
 }
 
 .bench-chart-meta {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 120px;
+  overflow: visible;
 }
 
 .bench-chart-logo {
   width: 30px;
   height: 30px;
+  flex: 0 0 30px;
   object-fit: cover;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
@@ -1522,9 +1526,8 @@ main {
   align-items: flex-start;
   gap: 3px;
   width: 110px;
-  transform: rotate(-62deg);
-  transform-origin: top center;
-  margin-top: 6px;
+  transform: translate(38px, 4px) rotate(-62deg);
+  transform-origin: 0 0;
 
   strong,
   span {
@@ -1568,9 +1571,14 @@ main {
     width: 102px;
   }
 
+  .bench-chart-bottom {
+    min-height: 140px;
+    padding-top: 16px;
+  }
+
   .bench-chart-label {
     width: 92px;
-    transform: rotate(-58deg);
+    transform: translate(34px, 4px) rotate(-58deg);
   }
 }
 
