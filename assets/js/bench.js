@@ -250,8 +250,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
 
-      scatterXAxis.innerHTML = ticks.map(function (tick) {
-        return '<span style="left:' + tick.left + '%">' + tick.value + 's</span>';
+      scatterXAxis.innerHTML = ticks.map(function (tick, index) {
+        const classes = ['bench-scatter-x-tick'];
+        if (index === 0) classes.push('is-edge-left');
+        if (index === ticks.length - 1) classes.push('is-edge-right');
+        return '<span class="' + classes.join(' ') + '" style="left:' + tick.left + '%">' + tick.value + 's</span>';
       }).join('');
     }
 
@@ -287,9 +290,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const y = scatterValue(point, metric);
         const left = Math.max(0, Math.min(100, ((x - minX) / rangeX) * 100));
         const bottom = 10 + ((y - minY) / rangeY) * 74;
+        const modelName = readDataValue(point, 'model_name') || (point.querySelector('.bench-scatter-name') || {}).textContent || 'Unknown model';
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
-        point.title = point.dataset.modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's';
+        point.classList.toggle('bench-scatter-point-flip', left > 84);
+        point.setAttribute('aria-label', modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's');
+        point.title = modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's';
       });
     }
 

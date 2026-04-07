@@ -1627,6 +1627,14 @@ main {
   white-space: nowrap;
 }
 
+.bench-scatter-x-axis span.is-edge-left {
+  transform: none;
+}
+
+.bench-scatter-x-axis span.is-edge-right {
+  transform: translateX(-100%);
+}
+
 .bench-scatter-plot {
   position: relative;
   width: 100%;
@@ -1655,6 +1663,7 @@ main {
   text-decoration: none;
   transform: translate(-5px, 5px);
   z-index: 2;
+  overflow: visible;
 }
 
 .bench-scatter-dot {
@@ -1668,7 +1677,58 @@ main {
 
 .bench-scatter-line,
 .bench-scatter-name {
-  display: none;
+  position: absolute;
+  top: 50%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.16s ease, visibility 0.16s ease;
+}
+
+.bench-scatter-line {
+  left: 14px;
+  width: 18px;
+  height: 1px;
+  background: rgba(25, 25, 24, 0.22);
+  transform: translateY(-50%);
+}
+
+.bench-scatter-name {
+  left: 36px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 22px rgba(25, 25, 24, 0.12);
+  color: $black;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.bench-scatter-point:hover,
+.bench-scatter-point:focus-visible {
+  z-index: 4;
+}
+
+.bench-scatter-point:hover .bench-scatter-line,
+.bench-scatter-point:hover .bench-scatter-name,
+.bench-scatter-point:focus-visible .bench-scatter-line,
+.bench-scatter-point:focus-visible .bench-scatter-name {
+  opacity: 1;
+  visibility: visible;
+}
+
+.bench-scatter-point.bench-scatter-point-flip .bench-scatter-line {
+  left: auto;
+  right: 14px;
+}
+
+.bench-scatter-point.bench-scatter-point-flip .bench-scatter-name {
+  left: auto;
+  right: 36px;
 }
 
 .bench-scatter-point:nth-child(6n + 1) .bench-scatter-dot { background: #5ea95d; }
