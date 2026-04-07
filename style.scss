@@ -1449,11 +1449,13 @@ main {
 .bench-chart-value {
   position: absolute;
   left: 50%;
+  bottom: 0;
   transform: translateX(-50%);
   margin: 0;
   font-size: 0.92rem;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .bench-chart-fill {
