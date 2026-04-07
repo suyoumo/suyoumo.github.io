@@ -192,14 +192,15 @@ document.addEventListener('DOMContentLoaded', function () {
       return String(value);
     }
 
-    function renderXAxisTicks(minX, maxX) {
+    function renderXAxisTicks(minX, maxX, visibleMaxX) {
       const tickCount = 6;
       const ticks = [];
-      const step = (maxX - minX) / (tickCount - 1 || 1);
+      const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
       for (let i = 0; i < tickCount; i += 1) {
+        const value = minX + step * i;
         ticks.push({
-          value: Math.round(minX + step * i),
-          left: (i / (tickCount - 1 || 1)) * 100
+          value: Math.round(value),
+          left: ((value - minX) / (maxX - minX || 1)) * 100
         });
       }
       scatterXAxis.innerHTML = ticks.map(function (tick) {
@@ -218,15 +219,20 @@ document.addEventListener('DOMContentLoaded', function () {
       const minDataX = xs[0] || 0;
       const maxDataX = xs[xs.length - 1] || 200;
       const defaultMinX = 70;
-      const defaultMaxX = Math.max(200, Math.ceil(maxDataX / 10) * 10);
+      const visibleMaxX = 200;
+      const pxPerSecond = 7;
       const minX = Math.min(defaultMinX, Math.floor(minDataX / 10) * 10);
-      const maxX = defaultMaxX;
+      const maxX = Math.max(visibleMaxX, Math.ceil(maxDataX / 10) * 10);
+      const minPlotWidth = 980;
+      const plotWidth = Math.max(minPlotWidth, Math.round((maxX - minX) * pxPerSecond));
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
       const rangeY = maxY - minY || 1;
 
-      renderXAxisTicks(minX, maxX);
+      scatterPlot.style.width = plotWidth + 'px';
+      scatterXAxis.style.width = plotWidth + 'px';
+      renderXAxisTicks(minX, maxX, visibleMaxX);
 
       points.forEach(function (point) {
         const x = scatterValue(point, 'avgLatencySeconds');
