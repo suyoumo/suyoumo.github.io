@@ -1398,7 +1398,7 @@ main {
 .bench-chart-scroll {
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 168px;
+  padding-bottom: 24px;
 }
 
 .bench-chart-bars {
@@ -1413,7 +1413,7 @@ main {
 .bench-chart-bar {
   position: relative;
   display: grid;
-  grid-template-rows: 30px 36px 268px 0;
+  grid-template-rows: 30px 36px 268px 152px;
   align-items: start;
   justify-items: center;
   width: 88px;
@@ -1492,21 +1492,19 @@ main {
 }
 
 .bench-chart-bottom {
-  position: relative;
-  height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
+  padding-top: 14px;
 }
 
 .bench-chart-meta {
-  position: absolute;
-  top: 14px;
-  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   width: 120px;
-  transform: translateX(-50%);
 }
 
 .bench-chart-logo {
@@ -1558,7 +1556,7 @@ main {
   .bench-chart-bar {
     width: 74px;
     min-width: 74px;
-    grid-template-rows: 28px 34px 248px 0;
+    grid-template-rows: 28px 34px 248px 140px;
   }
 
   .bench-chart-column {

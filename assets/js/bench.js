@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (valueNode) valueNode.textContent = isVisible ? formatMetricValue(metric, format, bar) : '';
         bar.style.order = index;
         bar.dataset.activeMetric = metric;
-        bar.hidden = !isVisible;
+        bar.style.display = isVisible ? '' : 'none';
         if (label) label.title = (bar.dataset.modelName || '') + ' · ' + (bar.dataset.provider || '') + ' · ' + (bar.dataset.platform || '');
       });
     }
