@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (valueNode) {
           valueNode.textContent = isVisible ? formatMetricValue(metric, format, bar) : '';
           valueNode.style.top = '';
-          valueNode.style.bottom = (height + 6) + 'px';
+          valueNode.style.bottom = (height + 2) + 'px';
         }
         bar.style.order = index;
         bar.dataset.activeMetric = metric;
