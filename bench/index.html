@@ -184,18 +184,22 @@ permalink: /bench/
             data-released_at="{{ row.released_at }}"
             data-updated_at="{{ row.updated_at }}"
           >
-            <span class="bench-chart-rank"></span>
-            <span class="bench-chart-value"></span>
+            <span class="bench-chart-top">
+              <span class="bench-chart-rank"></span>
+              <span class="bench-chart-value"></span>
+            </span>
             <span class="bench-chart-column">
               <span class="bench-chart-fill"></span>
             </span>
-            <span class="bench-chart-meta">
-              {% if row.logo %}
-              <img class="bench-chart-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
-              {% endif %}
-              <span class="bench-chart-label">
-                <strong>{{ row.model_name }}</strong>
-                <span>{{ row.provider_key }} · {{ row.platform }}</span>
+            <span class="bench-chart-bottom">
+              <span class="bench-chart-meta">
+                {% if row.logo %}
+                <img class="bench-chart-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
+                {% endif %}
+                <span class="bench-chart-label">
+                  <strong>{{ row.model_name }}</strong>
+                  <span>{{ row.provider_key }} · {{ row.platform }}</span>
+                </span>
               </span>
             </span>
           </a>
