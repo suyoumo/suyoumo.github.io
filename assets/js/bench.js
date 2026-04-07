@@ -364,6 +364,13 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    function updateScenarioRanks(sortedRows) {
+      sortedRows.forEach(function (row, idx) {
+        const rankCell = row.children[0];
+        if (rankCell) rankCell.textContent = idx + 1;
+      });
+    }
+
     function applyScenarioSort() {
       const index = headers.findIndex(function (header) {
         return header.dataset.sortKey === sortKey;
@@ -379,6 +386,7 @@ document.addEventListener('DOMContentLoaded', function () {
       sorted.forEach(function (row) {
         tbody.appendChild(row);
       });
+      updateScenarioRanks(sorted);
       updateScenarioIndicators();
     }
 
