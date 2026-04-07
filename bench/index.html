@@ -153,10 +153,10 @@ permalink: /bench/
       </div>
 
       <div class="bench-chart-scroll">
-        <div class="bench-chart-bars" id="leaderboard-chart-bars">
+        <div class="bench-chart-grid" id="leaderboard-chart-bars">
           {% for row in site.data.bench.leaderboard %}
           <a
-            class="bench-chart-bar"
+            class="bench-chart-item"
             href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
             data-model-name="{{ row.model_name | escape }}"
             data-provider="{{ row.provider_key | escape }}"
@@ -184,14 +184,12 @@ permalink: /bench/
             data-released_at="{{ row.released_at }}"
             data-updated_at="{{ row.updated_at }}"
           >
-            <span class="bench-chart-top">
-              <span class="bench-chart-rank"></span>
-              <span class="bench-chart-value"></span>
-            </span>
+            <span class="bench-chart-rank"></span>
+            <span class="bench-chart-value"></span>
             <span class="bench-chart-column">
               <span class="bench-chart-fill"></span>
             </span>
-            <span class="bench-chart-bottom">
+            <span class="bench-chart-label-track">
               {% if row.logo %}
               <img class="bench-chart-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_key }} logo" />
               {% endif %}

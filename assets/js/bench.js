@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const leaderboardMetric = document.getElementById('leaderboard-chart-metric');
   if (leaderboardChart && leaderboardMetric) {
     const leaderboardLimit = document.getElementById('leaderboard-chart-limit');
-    const bars = Array.from(leaderboardChart.querySelectorAll('.bench-chart-bar'));
+    const bars = Array.from(leaderboardChart.querySelectorAll('.bench-chart-item'));
 
     function parseChartNumber(value) {
       const parsed = Number(value);
