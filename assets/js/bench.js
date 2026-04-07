@@ -158,7 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const label = bar.querySelector('.bench-chart-label');
         if (fill) fill.style.height = height + 'px';
         if (rank) rank.textContent = isVisible ? index + 1 : '';
-        if (valueNode) valueNode.textContent = isVisible ? formatMetricValue(metric, format, bar) : '';
+        if (valueNode) {
+          valueNode.textContent = isVisible ? formatMetricValue(metric, format, bar) : '';
+          valueNode.style.top = (58 + (268 - height) - 10) + 'px';
+        }
         bar.style.order = index;
         bar.dataset.activeMetric = metric;
         bar.style.display = isVisible ? '' : 'none';
