@@ -1607,7 +1607,7 @@ main {
   height: 380px;
   border-left: 2px solid rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  background: rgba(250, 247, 242, 0.58);
+  background: linear-gradient(180deg, rgba(248, 241, 221, 0.35) 0%, rgba(255, 255, 255, 0) 28%), rgba(250, 247, 242, 0.58);
   overflow: visible;
 }
 
@@ -1624,20 +1624,28 @@ main {
   position: absolute;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   color: $black;
   text-decoration: none;
-  transform: translate(-8px, 8px);
+  transform: translate(-6px, 6px);
   z-index: 2;
 }
 
 .bench-scatter-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #4d6cf0;
   box-shadow: 0 0 0 4px rgba(77, 108, 240, 0.12);
-  flex: 0 0 12px;
+  flex: 0 0 10px;
+}
+
+.bench-scatter-line {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.18);
+  transform-origin: left center;
 }
 
 .bench-scatter-point:nth-child(6n + 1) .bench-scatter-dot { background: #5ea95d; }
@@ -1648,12 +1656,16 @@ main {
 .bench-scatter-point:nth-child(6n + 6) .bench-scatter-dot { background: #f17a28; }
 
 .bench-scatter-name {
-  max-width: 150px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 180px;
   color: $black;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  line-height: 1.2;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+  line-height: 1.15;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.92);
+  white-space: normal;
 }
 
 @include mobile {
