@@ -1315,6 +1315,33 @@ main {
   padding: 8px 0;
 }
 
+.bench-leaderboard-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 14px 8px 0;
+  color: $gray;
+  font-size: 0.82rem;
+  line-height: 1.6;
+
+  span:first-child {
+    color: $black;
+    font-weight: 700;
+  }
+
+  code {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.045);
+    color: $black;
+    font-size: 0.78rem;
+  }
+
+  @include mobile {
+    margin: 14px 4px 0;
+  }
+}
+
 .bench-chart-card {
   margin-top: 32px;
   padding: 22px 24px 30px 20px;

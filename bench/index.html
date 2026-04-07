@@ -17,7 +17,7 @@ permalink: /bench/
     <div class="bench-section-head">
       <div>
         <h2>Benchmark <span>Leaderboard</span></h2>
-        <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, tokens, OpenClaw version, and update time.</p>
+        <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, total token usage, token breakdown, OpenClaw version, and update time.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
     </div>
@@ -41,12 +41,10 @@ permalink: /bench/
               <th data-sort-key="error_recovery_score">Error Recovery <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="synthesis_score">Synthesis <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="input_tokens">Input Tokens <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="output_tokens">Output Tokens <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="total_tokens">Total Token <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="token_breakdown">Token <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="price_usd_input">Price <span class="bench-sort-indicator"></span></th>
-              <th data-sort-key="cost_efficiency_score_per_1k">Cost Efficiency <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="openclaw_version">OpenClaw <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="released_at">Released <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="updated_at">Updated <span class="bench-sort-indicator"></span></th>
@@ -84,9 +82,23 @@ permalink: /bench/
               <td data-value="{{ row.error_recovery_score }}">{{ row.error_recovery_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.synthesis_score }}">{{ row.synthesis_score | times: 100 | round: 1 }}</td>
               <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
-              <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
-              <td data-value="{{ row.input_tokens }}">{{ row.input_tokens | round: 0 }}</td>
-              <td data-value="{{ row.output_tokens }}">{{ row.output_tokens | round: 0 }}</td>
+              <td data-value="{{ row.total_tokens }}">{{ row.total_tokens | round: 0 }}</td>
+              <td data-value="{{ row.total_tokens }}">
+                <div class="bench-token-stack">
+                  {% if row.input_tokens != nil and row.input_tokens != 0 %}
+                  <div>input {{ row.input_tokens | round: 0 }}</div>
+                  {% endif %}
+                  {% if row.output_tokens != nil and row.output_tokens != 0 %}
+                  <div>output {{ row.output_tokens | round: 0 }}</div>
+                  {% endif %}
+                  {% if row.cache_read_tokens != nil and row.cache_read_tokens != 0 %}
+                  <div>cache read {{ row.cache_read_tokens | round: 0 }}</div>
+                  {% endif %}
+                  {% if row.cache_write_tokens != nil and row.cache_write_tokens != 0 %}
+                  <div>cache write {{ row.cache_write_tokens | round: 0 }}</div>
+                  {% endif %}
+                </div>
+              </td>
               <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
               <td data-value="{{ row.price_usd_input }}">
                 <div class="bench-price-cell">
@@ -96,7 +108,6 @@ permalink: /bench/
                   {% endif %}
                 </div>
               </td>
-              <td data-value="{{ row.cost_efficiency_score_per_1k }}">{{ row.cost_efficiency_score_per_1k | round: 4 }}</td>
               <td data-value="{{ row.openclaw_version }}">v{{ row.openclaw_version }}</td>
               <td data-value="{{ row.released_at }}">{{ row.released_at | slice: 0, 10 }}</td>
               <td data-value="{{ row.updated_at }}">{{ row.updated_at | slice: 0, 10 }}</td>
@@ -105,6 +116,13 @@ permalink: /bench/
           </tbody>
         </table>
       </div>
+    </div>
+
+    <div class="bench-leaderboard-note">
+      <span>Notes:</span>
+      <span>USD/CNY quick reference uses approximately <code>1 USD ≈ 7 CNY</code>.</span>
+      <span><code>cache_read_tokens</code> and <code>cache_write_tokens</code> are billed at <code>0.5x</code> the input-token price.</span>
+      <span><code>cost_usd = (input_tokens + 0.5 * (cache_read_tokens + cache_write_tokens)) * price_usd_input / 1e6 + output_tokens * price_usd_output / 1e6</code></span>
     </div>
 
     <div class="bench-card bench-chart-card" id="leaderboard-chart-section">
@@ -129,12 +147,9 @@ permalink: /bench/
               <option value="error_recovery_score" data-direction="desc" data-format="percent">Error Recovery</option>
               <option value="synthesis_score" data-direction="desc" data-format="percent">Synthesis</option>
               <option value="avg_latency_seconds" data-direction="asc" data-format="runtime">Avg Runtime</option>
-              <option value="avg_tokens" data-direction="asc" data-format="tokens">Avg Tokens</option>
-              <option value="input_tokens" data-direction="asc" data-format="tokens">Input Tokens</option>
-              <option value="output_tokens" data-direction="asc" data-format="tokens">Output Tokens</option>
+              <option value="total_tokens" data-direction="asc" data-format="tokens">Total Token</option>
               <option value="cost_usd" data-direction="asc" data-format="currency">Cost</option>
               <option value="price_usd_input" data-direction="asc" data-format="currency">Price</option>
-              <option value="cost_efficiency_score_per_1k" data-direction="desc" data-format="decimal4">Cost Efficiency</option>
               <option value="openclaw_version" data-direction="desc" data-format="version">OpenClaw</option>
               <option value="released_at" data-direction="desc" data-format="date">Released</option>
               <option value="updated_at" data-direction="desc" data-format="date">Updated</option>
@@ -174,12 +189,13 @@ permalink: /bench/
             data-error_recovery_score="{{ row.error_recovery_score }}"
             data-synthesis_score="{{ row.synthesis_score }}"
             data-avg_latency_seconds="{{ row.avg_latency_seconds }}"
-            data-avg_tokens="{{ row.avg_tokens }}"
+            data-total_tokens="{{ row.total_tokens }}"
             data-input_tokens="{{ row.input_tokens }}"
             data-output_tokens="{{ row.output_tokens }}"
+            data-cache_read_tokens="{{ row.cache_read_tokens }}"
+            data-cache_write_tokens="{{ row.cache_write_tokens }}"
             data-cost_usd="{{ row.cost_usd }}"
             data-price_usd_input="{{ row.price_usd_input }}"
-            data-cost_efficiency_score_per_1k="{{ row.cost_efficiency_score_per_1k }}"
             data-openclaw_version="{{ row.openclaw_version }}"
             data-released_at="{{ row.released_at }}"
             data-updated_at="{{ row.updated_at }}"

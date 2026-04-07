@@ -22,7 +22,7 @@ title: MiniMax-M2.1
         <div class="bench-stat-card"><span>Capability</span><strong>{{ model.capability_score | times: 100 | round: 1 }}</strong></div>
         <div class="bench-stat-card"><span>Efficiency</span><strong>{{ model.efficiency_score | times: 100 | round: 1 }}</strong></div>
         <div class="bench-stat-card"><span>Avg Runtime</span><strong>{{ model.avg_latency_seconds | round: 2 }}s</strong></div>
-        <div class="bench-stat-card"><span>Avg Tokens</span><strong>{{ model.avg_tokens | round: 0 }}</strong></div>
+        <div class="bench-stat-card"><span>Total Token</span><strong>{{ model.total_tokens | round: 0 }}</strong></div>
         <div class="bench-stat-card"><span>Cost</span><strong>${{ model.cost_usd | round: 4 }}</strong></div>
         <div class="bench-stat-card"><span>Cost Efficiency</span><strong>{{ model.cost_efficiency_score_per_1k | round: 4 }}</strong></div>
       </div>
