@@ -1413,7 +1413,7 @@ main {
 .bench-chart-bar {
   position: relative;
   display: grid;
-  grid-template-rows: 30px 36px 268px 164px;
+  grid-template-rows: 30px 36px 268px 112px;
   align-items: start;
   justify-items: center;
   width: 104px;
@@ -1498,9 +1498,9 @@ main {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  min-height: 164px;
+  min-height: 112px;
   padding-top: 14px;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .bench-chart-logo {
@@ -1511,37 +1511,40 @@ main {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .bench-chart-label {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 3px;
-  width: 112px;
-  transform: rotate(-62deg);
-  transform-origin: top center;
+  width: 100%;
+  text-align: center;
 
   strong,
   span {
-    display: block;
+    display: -webkit-box;
     width: 100%;
-    overflow: visible;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
     word-break: break-word;
   }
 
   strong {
     color: $black;
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     font-weight: 700;
     line-height: 1.16;
+    -webkit-line-clamp: 3;
   }
 
   span {
     color: $gray;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     line-height: 1.15;
+    -webkit-line-clamp: 2;
   }
 }
 
@@ -1553,7 +1556,7 @@ main {
   .bench-chart-bar {
     width: 84px;
     min-width: 84px;
-    grid-template-rows: 28px 34px 248px 150px;
+    grid-template-rows: 28px 34px 248px 108px;
   }
 
   .bench-chart-column {
@@ -1562,13 +1565,12 @@ main {
   }
 
   .bench-chart-bottom {
-    min-height: 150px;
+    min-height: 108px;
     padding-top: 12px;
   }
 
-  .bench-chart-label {
-    width: 94px;
-    transform: rotate(-58deg);
+  .bench-chart-label strong {
+    font-size: 0.78rem;
   }
 }
 
