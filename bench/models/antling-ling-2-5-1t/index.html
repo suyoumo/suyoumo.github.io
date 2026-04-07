@@ -111,6 +111,42 @@ title: Ling-2.5-1T
           <div><span>Strict Pass Rate</span><strong>{{ model.strict_pass_rate | times: 100 | round: 1 }}%</strong></div>
         </div>
       </section>
+
+      <section class="bench-card bench-card-full">
+        <h2>Scenario Scores</h2>
+        <div class="bench-table-wrap">
+          <table class="bench-table bench-scenario-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Dimension</th>
+                <th>Difficulty</th>
+                <th data-sort-key="avg_score">Avg Score <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="strict_pass_k">Strict Pass^3 <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="cost_usd">Cost <span class="bench-sort-indicator"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in model.scenario_rows %}
+              <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.dimension }}</td>
+                <td>{{ row.difficulty }}</td>
+                <td data-value="{{ row.avg_score }}">{{ row.avg_score | times: 100 | round: 1 }}</td>
+                <td data-value="{{ row.strict_pass_k }}">{% if row.strict_pass_k %}Yes{% else %}No{% endif %}</td>
+                <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
+                <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
+                <td data-value="{{ row.cost_usd }}">${{ row.cost_usd | round: 4 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   </div>
 </section>
+
+<script src="{{ site.baseurl }}/assets/js/bench.js"></script>
