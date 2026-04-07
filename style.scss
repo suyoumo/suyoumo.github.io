@@ -1413,11 +1413,11 @@ main {
 .bench-chart-bar {
   position: relative;
   display: grid;
-  grid-template-rows: 30px 36px 268px 152px;
+  grid-template-rows: 30px 36px 268px 164px;
   align-items: start;
   justify-items: center;
-  width: 88px;
-  min-width: 88px;
+  width: 104px;
+  min-width: 104px;
   color: inherit;
   text-decoration: none;
 }
@@ -1445,6 +1445,7 @@ main {
 .bench-chart-value {
   align-self: end;
   margin-top: 2px;
+  margin-bottom: 6px;
   font-size: 0.92rem;
 }
 
@@ -1493,20 +1494,12 @@ main {
 
 .bench-chart-bottom {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  min-height: 152px;
-  padding-top: 18px;
-  overflow: visible;
-}
-
-.bench-chart-meta {
-  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  width: 120px;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 164px;
+  padding-top: 14px;
   overflow: visible;
 }
 
@@ -1518,6 +1511,7 @@ main {
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(0, 0, 0, 0.06);
+  margin-bottom: 10px;
 }
 
 .bench-chart-label {
@@ -1525,15 +1519,15 @@ main {
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
-  width: 110px;
-  transform: translate(38px, 4px) rotate(-62deg);
-  transform-origin: 0 0;
+  width: 112px;
+  transform: rotate(-62deg);
+  transform-origin: top center;
 
   strong,
   span {
     display: block;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
     word-break: break-word;
   }
 
@@ -1557,9 +1551,9 @@ main {
   }
 
   .bench-chart-bar {
-    width: 74px;
-    min-width: 74px;
-    grid-template-rows: 28px 34px 248px 140px;
+    width: 84px;
+    min-width: 84px;
+    grid-template-rows: 28px 34px 248px 150px;
   }
 
   .bench-chart-column {
@@ -1567,18 +1561,14 @@ main {
     padding: 0 8px;
   }
 
-  .bench-chart-meta {
-    width: 102px;
-  }
-
   .bench-chart-bottom {
-    min-height: 140px;
-    padding-top: 16px;
+    min-height: 150px;
+    padding-top: 12px;
   }
 
   .bench-chart-label {
-    width: 92px;
-    transform: translate(34px, 4px) rotate(-58deg);
+    width: 94px;
+    transform: rotate(-58deg);
   }
 }
 
