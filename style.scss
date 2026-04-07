@@ -1580,6 +1580,7 @@ main {
   position: relative;
   padding: 18px 32px 30px 72px;
   min-height: 520px;
+  overflow: hidden;
 }
 
 .bench-scatter-y-title,
@@ -1597,7 +1598,13 @@ main {
 }
 
 .bench-scatter-plot-wrap {
-  min-width: 980px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
 }
 
 .bench-scatter-x-title {
@@ -1611,6 +1618,7 @@ main {
   margin-top: 10px;
   color: $gray;
   font-size: 0.85rem;
+  min-width: 980px;
 }
 
 .bench-scatter-x-axis span {
@@ -1675,7 +1683,7 @@ main {
     padding: 16px 18px 28px 54px;
   }
 
-  .bench-scatter-plot-wrap,
+  .bench-scatter-x-axis,
   .bench-scatter-plot {
     min-width: 760px;
   }

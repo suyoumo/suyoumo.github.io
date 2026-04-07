@@ -181,9 +181,47 @@ document.addEventListener('DOMContentLoaded', function () {
   const scatterXAxis = document.getElementById('leaderboard-scatter-x-axis');
   if (scatterPlot && scatterMetric && scatterTitle && scatterXAxis) {
     const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
+    const scatterViewport = scatterPlot.parentElement;
+    let scatterResizeFrame = 0;
+
+    function toSnakeCase(key) {
+      return String(key || '')
+        .replace(/([A-Z])/g, '_$1')
+        .replace(/-/g, '_')
+        .toLowerCase()
+        .replace(/^_/, '');
+    }
+
+    function toCamelCase(key) {
+      return toSnakeCase(key).replace(/_([a-z0-9])/g, function (_, letter) {
+        return letter.toUpperCase();
+      });
+    }
+
+    function toKebabCase(key) {
+      return toSnakeCase(key).replace(/_/g, '-');
+    }
+
+    function readDataValue(element, key) {
+      const snakeKey = toSnakeCase(key);
+      const camelKey = toCamelCase(key);
+      const kebabKey = toKebabCase(key);
+
+      if (element.dataset[key] !== undefined) return element.dataset[key];
+      if (element.dataset[snakeKey] !== undefined) return element.dataset[snakeKey];
+      if (element.dataset[camelKey] !== undefined) return element.dataset[camelKey];
+
+      const kebabAttr = element.getAttribute('data-' + kebabKey);
+      if (kebabAttr !== null) return kebabAttr;
+
+      const snakeAttr = element.getAttribute('data-' + snakeKey);
+      if (snakeAttr !== null) return snakeAttr;
+
+      return '';
+    }
 
     function scatterValue(point, key) {
-      const parsed = Number(point.dataset[key] || 0);
+      const parsed = Number(readDataValue(point, key) || 0);
       return Number.isFinite(parsed) ? parsed : 0;
     }
 
@@ -195,14 +233,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderXAxisTicks(minX, maxX, visibleMaxX) {
       const tickCount = 6;
       const ticks = [];
+      const rangeX = maxX - minX || 1;
       const step = (visibleMaxX - minX) / (tickCount - 1 || 1);
-      for (let i = 0; i < tickCount; i += 1) {
-        const value = minX + step * i;
+
+      for (let value = minX; value < maxX; value += step) {
         ticks.push({
           value: Math.round(value),
-          left: ((value - minX) / (maxX - minX || 1)) * 100
+          left: ((value - minX) / rangeX) * 100
         });
       }
+
+      if (!ticks.length || ticks[ticks.length - 1].value < Math.round(maxX)) {
+        ticks.push({
+          value: Math.round(maxX),
+          left: 100
+        });
+      }
+
       scatterXAxis.innerHTML = ticks.map(function (tick) {
         return '<span style="left:' + tick.left + '%">' + tick.value + 's</span>';
       }).join('');
@@ -214,17 +261,18 @@ document.addEventListener('DOMContentLoaded', function () {
       const format = selected.dataset.format || 'percent';
       scatterTitle.textContent = selected.text;
 
-      const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); }).sort(function (a, b) { return a - b; });
+      const xs = points.map(function (point) { return scatterValue(point, 'avg_latency_seconds'); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const minDataX = xs[0] || 0;
       const maxDataX = xs[xs.length - 1] || 200;
       const defaultMinX = 70;
       const visibleMaxX = 200;
-      const pxPerSecond = 7;
-      const minX = Math.min(defaultMinX, Math.floor(minDataX / 10) * 10);
+      const minX = defaultMinX;
       const maxX = Math.max(visibleMaxX, Math.ceil(maxDataX / 10) * 10);
-      const minPlotWidth = 980;
-      const plotWidth = Math.max(minPlotWidth, Math.round((maxX - minX) * pxPerSecond));
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const minVisibleWidth = isMobile ? 760 : 980;
+      const visibleWidth = Math.max((scatterViewport && scatterViewport.clientWidth) || 0, minVisibleWidth);
+      const visibleRangeX = visibleMaxX - minX || 1;
+      const plotWidth = Math.max(visibleWidth, Math.round(visibleWidth * ((maxX - minX) / visibleRangeX)));
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
@@ -235,9 +283,9 @@ document.addEventListener('DOMContentLoaded', function () {
       renderXAxisTicks(minX, maxX, visibleMaxX);
 
       points.forEach(function (point) {
-        const x = scatterValue(point, 'avgLatencySeconds');
+        const x = scatterValue(point, 'avg_latency_seconds');
         const y = scatterValue(point, metric);
-        const left = ((x - minX) / rangeX) * 100;
+        const left = Math.max(0, Math.min(100, ((x - minX) / rangeX) * 100));
         const bottom = 10 + ((y - minY) / rangeY) * 74;
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
@@ -246,6 +294,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     scatterMetric.addEventListener('change', renderScatter);
+    window.addEventListener('resize', function () {
+      if (scatterResizeFrame) window.cancelAnimationFrame(scatterResizeFrame);
+      scatterResizeFrame = window.requestAnimationFrame(function () {
+        scatterResizeFrame = 0;
+        renderScatter();
+      });
+    });
     renderScatter();
   }
 
