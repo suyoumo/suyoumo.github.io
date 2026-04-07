@@ -180,16 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const scatterTitle = document.getElementById('leaderboard-scatter-y-title');
   if (scatterPlot && scatterMetric && scatterTitle) {
     const points = Array.from(scatterPlot.querySelectorAll('.bench-scatter-point'));
-    const labelOffsets = [
-      { x: 18, y: 10 },
-      { x: 18, y: -28 },
-      { x: -120, y: -28 },
-      { x: -120, y: 10 },
-      { x: 22, y: -52 },
-      { x: -130, y: -52 },
-      { x: 18, y: 26 },
-      { x: -120, y: 26 }
-    ];
 
     function scatterValue(point, key) {
       const parsed = Number(point.dataset[key] || 0);
@@ -207,45 +197,23 @@ document.addEventListener('DOMContentLoaded', function () {
       const format = selected.dataset.format || 'percent';
       scatterTitle.textContent = selected.text;
 
-      const xs = points.map(function (point) { return scatterValue(point, 'avgLatencySeconds'); }).sort(function (a, b) { return a - b; });
       const ys = points.map(function (point) { return scatterValue(point, metric); });
-      const minX = Math.min.apply(null, xs);
-      const p90Index = Math.max(0, Math.floor(xs.length * 0.9) - 1);
-      const maxX = xs[p90Index] || Math.max.apply(null, xs);
+      const minX = 60;
+      const maxX = 220;
       const minY = Math.min.apply(null, ys);
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
       const rangeY = maxY - minY || 1;
 
-      const ranked = points.slice().sort(function (a, b) {
-        return scatterValue(b, metric) - scatterValue(a, metric);
-      });
-      const labeled = new Set(ranked.slice(0, Math.min(10, ranked.length)));
-
-      points.forEach(function (point, index) {
+      points.forEach(function (point) {
         const x = scatterValue(point, 'avgLatencySeconds');
         const y = scatterValue(point, metric);
-        const clampedX = Math.min(x, maxX);
-        const left = 8 + ((clampedX - minX) / rangeX) * 84;
-        const bottom = 8 + ((y - minY) / rangeY) * 74;
-        const label = point.querySelector('.bench-scatter-name');
-        const line = point.querySelector('.bench-scatter-line');
-        const showLabel = labeled.has(point);
-        const offset = labelOffsets[index % labelOffsets.length];
-
+        const clampedX = Math.max(minX, Math.min(x, maxX));
+        const left = 4 + ((clampedX - minX) / rangeX) * 88;
+        const bottom = 10 + ((y - minY) / rangeY) * 74;
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
         point.title = point.dataset.modelName + ' · ' + scatterFormat(y, format) + ' · ' + x.toFixed(2) + 's';
-
-        if (label) {
-          label.style.display = showLabel ? '' : 'none';
-          label.style.transform = showLabel ? 'translate(' + offset.x + 'px, ' + offset.y + 'px)' : '';
-        }
-        if (line) {
-          line.style.display = showLabel ? '' : 'none';
-          line.style.width = Math.abs(offset.x) + 'px';
-          line.style.transform = 'translate(' + (offset.x > 0 ? 10 : offset.x) + 'px, ' + (offset.y > 0 ? 8 : offset.y + 8) + 'px) rotate(' + Math.atan2(offset.y, offset.x || 1) + 'rad)';
-        }
       });
     }
 

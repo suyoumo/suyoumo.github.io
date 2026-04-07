@@ -1607,7 +1607,7 @@ main {
   height: 380px;
   border-left: 2px solid rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  background: linear-gradient(180deg, rgba(248, 241, 221, 0.35) 0%, rgba(255, 255, 255, 0) 28%), rgba(250, 247, 242, 0.58);
+  background: rgba(250, 247, 242, 0.58);
   overflow: visible;
 }
 
@@ -1639,33 +1639,9 @@ main {
   flex: 0 0 10px;
 }
 
-.bench-scatter-line {
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.18);
-  transform-origin: left center;
-}
-
-.bench-scatter-point:nth-child(6n + 1) .bench-scatter-dot { background: #5ea95d; }
-.bench-scatter-point:nth-child(6n + 2) .bench-scatter-dot { background: #242424; }
-.bench-scatter-point:nth-child(6n + 3) .bench-scatter-dot { background: #467bde; }
-.bench-scatter-point:nth-child(6n + 4) .bench-scatter-dot { background: #c78462; }
-.bench-scatter-point:nth-child(6n + 5) .bench-scatter-dot { background: #d84b74; }
-.bench-scatter-point:nth-child(6n + 6) .bench-scatter-dot { background: #f17a28; }
-
+.bench-scatter-line,
 .bench-scatter-name {
-  position: absolute;
-  left: 0;
-  top: 0;
-  max-width: 180px;
-  color: $black;
-  font-size: 0.82rem;
-  font-weight: 700;
-  line-height: 1.15;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.92);
-  white-space: normal;
+  display: none;
 }
 
 @include mobile {
