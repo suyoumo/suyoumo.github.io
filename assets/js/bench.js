@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const leaderboardNote = document.querySelector('.bench-leaderboard-note');
     const leaderboardDownloadButton = document.getElementById('leaderboard-download-image');
     const leaderboardDownloadLabel = leaderboardDownloadButton ? leaderboardDownloadButton.querySelector('.bench-button-label') : null;
+    const leaderboardShareButton = document.getElementById('leaderboard-share-x');
     const leaderboardExportPanel = document.getElementById('leaderboard-export-panel');
     const leaderboardExportColumns = document.getElementById('leaderboard-export-columns');
     const leaderboardExportSelectAll = document.getElementById('leaderboard-export-select-all');
@@ -367,6 +368,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedColumnIndices = getSelectedColumnIndices();
         closeExportPanel();
         exportLeaderboardImage(selectedColumnIndices);
+      });
+    }
+
+    if (leaderboardShareButton) {
+      leaderboardShareButton.addEventListener('click', function () {
+        closeExportPanel();
+        const shareText = 'Check out OpenClawProBench — a transparent benchmark for true intelligence in real-world AI agents. Explore it here: https://suyoumo.github.io/bench/';
+        window.open(
+          'https://x.com/intent/tweet?text=' + encodeURIComponent(shareText),
+          '_blank',
+          'noopener,noreferrer'
+        );
       });
     }
 
