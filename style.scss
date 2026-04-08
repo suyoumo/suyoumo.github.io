@@ -1292,9 +1292,26 @@ main {
   }
 }
 
-.bench-ghost-link {
+.bench-section-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-left: auto;
+
+  @include mobile {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+}
+
+.bench-ghost-link,
+.bench-ghost-button {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   white-space: nowrap;
   padding: 14px 18px;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -1302,6 +1319,42 @@ main {
   background: rgba(255, 255, 255, 0.75);
   color: $gray;
   font-weight: 600;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, opacity 0.16s ease;
+}
+
+.bench-ghost-link {
+  &:hover,
+  &:focus-visible {
+    color: $black;
+    border-color: rgba(0, 0, 0, 0.14);
+    background: rgba(255, 255, 255, 0.92);
+  }
+}
+
+.bench-ghost-button {
+  appearance: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: $black;
+    border-color: rgba(0, 0, 0, 0.14);
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  &:disabled {
+    opacity: 0.72;
+    cursor: wait;
+  }
+}
+
+.bench-button-icon {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .bench-card {
@@ -1362,6 +1415,10 @@ main {
     h2 {
       margin-left: 0;
     }
+
+    p {
+      padding-left: 0;
+    }
   }
 
   h2 {
@@ -1378,6 +1435,7 @@ main {
 
   p {
     margin: 0;
+    padding-left: 18px;
     color: $gray;
     font-size: 1rem;
     line-height: 1.65;

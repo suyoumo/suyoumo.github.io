@@ -1,9 +1,75 @@
 document.addEventListener('DOMContentLoaded', function () {
+  let html2canvasPromise = null;
+
+  function loadHtml2Canvas() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    if (html2canvasPromise) return html2canvasPromise;
+
+    html2canvasPromise = new Promise(function (resolve, reject) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+      script.onload = function () {
+        if (window.html2canvas) {
+          resolve(window.html2canvas);
+        } else {
+          reject(new Error('html2canvas loaded without exposing window.html2canvas'));
+        }
+      };
+      script.onerror = function () {
+        reject(new Error('Failed to load html2canvas'));
+      };
+      document.head.appendChild(script);
+    });
+
+    return html2canvasPromise;
+  }
+
+  function waitForImages(root) {
+    const images = Array.from(root.querySelectorAll('img'));
+    return Promise.all(images.map(function (image) {
+      return new Promise(function (resolve) {
+        if (image.complete && image.naturalWidth > 0) {
+          resolve();
+          return;
+        }
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', resolve, { once: true });
+      });
+    }));
+  }
+
+  function slugifyValue(value) {
+    return String(value || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'leaderboard';
+  }
+
+  function triggerBlobDownload(blob, filename) {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function () {
+      window.URL.revokeObjectURL(url);
+    }, 1000);
+  }
+
   const table = document.getElementById('leaderboard-table');
   if (table) {
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
     const headers = Array.from(table.querySelectorAll('th[data-sort-key]'));
+    const leaderboardSectionHead = document.getElementById('leaderboard-section-head');
+    const leaderboardCard = document.getElementById('leaderboard-card');
+    const leaderboardNote = document.querySelector('.bench-leaderboard-note');
+    const leaderboardDownloadButton = document.getElementById('leaderboard-download-image');
+    const leaderboardDownloadLabel = leaderboardDownloadButton ? leaderboardDownloadButton.querySelector('.bench-button-label') : null;
+    const defaultDownloadLabel = leaderboardDownloadLabel ? leaderboardDownloadLabel.textContent : 'Image';
     let currentKey = 'pass3';
     let currentDirection = 'desc';
 
@@ -38,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const index = headers.findIndex(function (header) {
         return header.dataset.sortKey === key;
       }) + 1;
+      const activeHeader = headers[index - 1];
 
       const sorted = rows.slice().sort(function (a, b) {
         const av = parseValue(a, key, index);
@@ -52,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
       sorted.forEach(function (row) {
         tbody.appendChild(row);
       });
+      table.dataset.sortKey = key;
+      table.dataset.sortDirection = direction;
+      table.dataset.sortLabel = activeHeader ? activeHeader.textContent.replace(/[↕↑↓]/g, '').trim() : key;
       updateSortIndicators();
     }
 
@@ -75,6 +145,128 @@ document.addEventListener('DOMContentLoaded', function () {
         if (href) window.location.href = href;
       });
     });
+
+    function setLeaderboardExportState(isLoading, label) {
+      if (!leaderboardDownloadButton) return;
+      leaderboardDownloadButton.disabled = isLoading;
+      leaderboardDownloadButton.classList.toggle('is-loading', isLoading);
+      if (leaderboardDownloadLabel) {
+        leaderboardDownloadLabel.textContent = label || defaultDownloadLabel;
+      }
+    }
+
+    function buildLeaderboardExportSurface() {
+      if (!leaderboardSectionHead || !leaderboardCard) return null;
+
+      const exportHost = document.createElement('div');
+      const exportWidth = Math.max(table.scrollWidth + 64, 1720);
+      exportHost.style.position = 'fixed';
+      exportHost.style.left = '-20000px';
+      exportHost.style.top = '0';
+      exportHost.style.opacity = '0';
+      exportHost.style.pointerEvents = 'none';
+      exportHost.style.zIndex = '-1';
+      exportHost.style.width = exportWidth + 'px';
+      exportHost.style.padding = '24px';
+      exportHost.style.boxSizing = 'border-box';
+
+      const exportSurface = document.createElement('div');
+      exportSurface.style.width = exportWidth + 'px';
+      exportSurface.style.padding = '36px 32px 40px';
+      exportSurface.style.boxSizing = 'border-box';
+      exportSurface.style.borderRadius = '32px';
+      exportSurface.style.background = 'linear-gradient(180deg, #faf6ef 0%, #f2ecdf 100%)';
+      exportSurface.style.color = '#191918';
+      exportSurface.style.fontFamily = window.getComputedStyle(document.body).fontFamily;
+
+      const headClone = leaderboardSectionHead.cloneNode(true);
+      const clonedDownloadButton = headClone.querySelector('#leaderboard-download-image');
+      if (clonedDownloadButton) clonedDownloadButton.remove();
+
+      const cardClone = leaderboardCard.cloneNode(true);
+      const clonedTable = cardClone.querySelector('table');
+      const clonedTbody = clonedTable ? clonedTable.querySelector('tbody') : null;
+      const clonedTableWrap = cardClone.querySelector('.bench-table-wrap');
+      if (clonedTable) clonedTable.removeAttribute('id');
+      if (clonedTableWrap) {
+        clonedTableWrap.style.overflow = 'visible';
+        clonedTableWrap.style.maxWidth = 'none';
+      }
+      if (clonedTbody) {
+        clonedTbody.innerHTML = '';
+        Array.from(tbody.querySelectorAll('tr')).forEach(function (row) {
+          const clone = row.cloneNode(true);
+          clone.removeAttribute('data-href');
+          clonedTbody.appendChild(clone);
+        });
+      }
+
+      exportSurface.appendChild(headClone);
+      exportSurface.appendChild(cardClone);
+      if (leaderboardNote) {
+        exportSurface.appendChild(leaderboardNote.cloneNode(true));
+      }
+      exportHost.appendChild(exportSurface);
+      document.body.appendChild(exportHost);
+
+      return {
+        host: exportHost,
+        surface: exportSurface
+      };
+    }
+
+    async function exportLeaderboardImage() {
+      const exportNodes = buildLeaderboardExportSurface();
+      if (!exportNodes) return;
+
+      try {
+        setLeaderboardExportState(true, 'Rendering...');
+        const html2canvas = await loadHtml2Canvas();
+        const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready.catch(function () {}) : Promise.resolve();
+        await Promise.all([fontsReady, waitForImages(exportNodes.surface)]);
+
+        const canvas = await html2canvas(exportNodes.surface, {
+          backgroundColor: '#f2ecdf',
+          scale: Math.min(2, window.devicePixelRatio || 1),
+          useCORS: true,
+          logging: false,
+          width: exportNodes.surface.scrollWidth,
+          height: exportNodes.surface.scrollHeight,
+          windowWidth: exportNodes.surface.scrollWidth,
+          windowHeight: exportNodes.surface.scrollHeight,
+          scrollX: 0,
+          scrollY: 0
+        });
+
+        const sortKey = slugifyValue(table.dataset.sortKey || 'pass3');
+        const sortDirection = slugifyValue(table.dataset.sortDirection || 'desc');
+        const modelCount = tbody.querySelectorAll('tr').length;
+        const filename = 'openclawprobench-leaderboard-' + sortKey + '-' + sortDirection + '-' + modelCount + '-models.png';
+
+        await new Promise(function (resolve, reject) {
+          canvas.toBlob(function (blob) {
+            if (!blob) {
+              reject(new Error('Failed to render leaderboard image'));
+              return;
+            }
+            triggerBlobDownload(blob, filename);
+            resolve();
+          }, 'image/png');
+        });
+      } catch (error) {
+        console.error(error);
+        window.alert('Failed to download the leaderboard image. Please try again.');
+      } finally {
+        exportNodes.host.remove();
+        setLeaderboardExportState(false, defaultDownloadLabel);
+      }
+    }
+
+    if (leaderboardDownloadButton) {
+      leaderboardDownloadButton.addEventListener('click', function () {
+        exportLeaderboardImage();
+      });
+    }
 
     sortRows(currentKey, currentDirection);
   }

@@ -14,15 +14,21 @@ permalink: /bench/
 
 <section class="bench-section">
   <div class="container-wide bench-shell">
-    <div class="bench-section-head">
+    <div class="bench-section-head" id="leaderboard-section-head">
       <div>
         <h2>Benchmark <span>Leaderboard</span></h2>
         <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, total token usage, token breakdown, OpenClaw version, and update time.</p>
       </div>
-      <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
+      <div class="bench-section-actions">
+        <button class="bench-ghost-button" id="leaderboard-download-image" type="button">
+          <span class="bench-button-icon" aria-hidden="true">↓</span>
+          <span class="bench-button-label">Image</span>
+        </button>
+        <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
+      </div>
     </div>
 
-    <div class="bench-card bench-leaderboard-card">
+    <div class="bench-card bench-leaderboard-card" id="leaderboard-card">
       <div class="bench-table-wrap">
         <table class="bench-table bench-table-rich" id="leaderboard-table">
           <thead>
@@ -346,4 +352,4 @@ permalink: /bench/
   </div>
 </section>
 
-<script src="{{ site.baseurl }}/assets/js/bench.js?v=20260408-cost-axis"></script>
+<script src="{{ site.baseurl }}/assets/js/bench.js?v=20260408-leaderboard-export"></script>
