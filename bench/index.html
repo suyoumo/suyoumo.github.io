@@ -20,10 +20,24 @@ permalink: /bench/
         <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, total token usage, token breakdown, OpenClaw version, and update time.</p>
       </div>
       <div class="bench-section-actions">
-        <button class="bench-ghost-button" id="leaderboard-download-image" type="button">
+        <button class="bench-ghost-button" id="leaderboard-download-image" type="button" aria-expanded="false" aria-controls="leaderboard-export-panel">
           <span class="bench-button-icon" aria-hidden="true">↓</span>
           <span class="bench-button-label">Image</span>
         </button>
+        <div class="bench-export-panel" id="leaderboard-export-panel" hidden>
+          <div class="bench-export-panel-head">
+            <strong>Choose Columns</strong>
+            <span>Current sorting will be preserved.</span>
+          </div>
+          <div class="bench-export-panel-actions">
+            <button class="bench-export-text-button" id="leaderboard-export-select-all" type="button">Select All</button>
+          </div>
+          <div class="bench-export-column-list" id="leaderboard-export-columns"></div>
+          <div class="bench-export-panel-footer">
+            <button class="bench-export-secondary" id="leaderboard-export-cancel" type="button">Cancel</button>
+            <button class="bench-export-primary" id="leaderboard-export-confirm" type="button">Download</button>
+          </div>
+        </div>
         <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/tasks/">Browse Tasks →</a>
       </div>
     </div>

@@ -1296,6 +1296,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
   gap: 12px;
   flex-wrap: wrap;
   margin-left: auto;
@@ -1355,6 +1356,129 @@ main {
 .bench-button-icon {
   font-size: 1rem;
   line-height: 1;
+}
+
+.bench-export-panel[hidden] {
+  display: none;
+}
+
+.bench-export-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: 360px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 18px 40px rgba(25, 25, 24, 0.14);
+  z-index: 20;
+}
+
+.bench-export-panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+
+  strong {
+    color: $black;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  span {
+    color: $gray;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+}
+
+.bench-export-panel-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.bench-export-text-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: #4d6cf0;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bench-export-column-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.bench-export-column-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: $black;
+  font-size: 0.86rem;
+  line-height: 1.35;
+
+  input {
+    margin-top: 2px;
+    flex: 0 0 auto;
+  }
+
+  span {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.bench-export-column-item.is-required {
+  opacity: 0.78;
+}
+
+.bench-export-required-note {
+  color: $gray;
+  font-size: 0.72rem;
+}
+
+.bench-export-panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.bench-export-secondary,
+.bench-export-primary {
+  appearance: none;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.bench-export-secondary {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  color: $gray;
+}
+
+.bench-export-primary {
+  border: 1px solid transparent;
+  background: #4d6cf0;
+  color: #fff;
 }
 
 .bench-card {

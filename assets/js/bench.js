@@ -64,12 +64,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const tbody = table.querySelector('tbody');
     const rows = Array.from(tbody.querySelectorAll('tr'));
     const headers = Array.from(table.querySelectorAll('th[data-sort-key]'));
+    const exportHeaders = Array.from(table.querySelectorAll('thead th'));
+    const requiredColumnIndices = new Set([0, 1]);
     const leaderboardSectionHead = document.getElementById('leaderboard-section-head');
     const leaderboardCard = document.getElementById('leaderboard-card');
     const leaderboardNote = document.querySelector('.bench-leaderboard-note');
     const leaderboardDownloadButton = document.getElementById('leaderboard-download-image');
     const leaderboardDownloadLabel = leaderboardDownloadButton ? leaderboardDownloadButton.querySelector('.bench-button-label') : null;
+    const leaderboardExportPanel = document.getElementById('leaderboard-export-panel');
+    const leaderboardExportColumns = document.getElementById('leaderboard-export-columns');
+    const leaderboardExportSelectAll = document.getElementById('leaderboard-export-select-all');
+    const leaderboardExportCancel = document.getElementById('leaderboard-export-cancel');
+    const leaderboardExportConfirm = document.getElementById('leaderboard-export-confirm');
     const defaultDownloadLabel = leaderboardDownloadLabel ? leaderboardDownloadLabel.textContent : 'Image';
+    const columnOptions = exportHeaders.map(function (header, index) {
+      return {
+        index: index,
+        label: header.textContent.replace(/[↕↑↓]/g, '').trim(),
+        required: requiredColumnIndices.has(index)
+      };
+    });
     let currentKey = 'pass3';
     let currentDirection = 'desc';
 
@@ -153,25 +167,81 @@ document.addEventListener('DOMContentLoaded', function () {
       if (leaderboardDownloadLabel) {
         leaderboardDownloadLabel.textContent = label || defaultDownloadLabel;
       }
+      if (leaderboardExportConfirm) {
+        leaderboardExportConfirm.disabled = isLoading;
+        leaderboardExportConfirm.textContent = isLoading ? 'Rendering...' : 'Download';
+      }
     }
 
-    function buildLeaderboardExportSurface() {
+    function getSelectedColumnIndices() {
+      if (!leaderboardExportColumns) return columnOptions.map(function (option) { return option.index; });
+      return Array.from(leaderboardExportColumns.querySelectorAll('input[type="checkbox"]'))
+        .filter(function (input) { return input.checked; })
+        .map(function (input) { return Number(input.value); });
+    }
+
+    function renderExportColumnOptions() {
+      if (!leaderboardExportColumns) return;
+      leaderboardExportColumns.innerHTML = columnOptions.map(function (option) {
+        const requiredNote = option.required ? '<span class="bench-export-required-note">Required</span>' : '';
+        return (
+          '<label class="bench-export-column-item' + (option.required ? ' is-required' : '') + '">' +
+            '<input type="checkbox" value="' + option.index + '"' + (option.required ? ' checked disabled' : ' checked') + ' />' +
+            '<span>' +
+              '<span>' + option.label + '</span>' +
+              requiredNote +
+            '</span>' +
+          '</label>'
+        );
+      }).join('');
+    }
+
+    function openExportPanel() {
+      if (!leaderboardExportPanel) return;
+      if (!leaderboardExportColumns || !leaderboardExportColumns.children.length) {
+        renderExportColumnOptions();
+      }
+      leaderboardExportPanel.hidden = false;
+      if (leaderboardDownloadButton) {
+        leaderboardDownloadButton.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    function closeExportPanel() {
+      if (!leaderboardExportPanel) return;
+      leaderboardExportPanel.hidden = true;
+      if (leaderboardDownloadButton) {
+        leaderboardDownloadButton.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function pruneExportTableColumns(tableNode, selectedColumnIndices) {
+      if (!tableNode) return;
+      const selected = new Set(selectedColumnIndices);
+      Array.from(tableNode.querySelectorAll('tr')).forEach(function (row) {
+        Array.from(row.children).forEach(function (cell, index) {
+          if (!selected.has(index)) {
+            cell.remove();
+          }
+        });
+      });
+    }
+
+    function buildLeaderboardExportSurface(selectedColumnIndices) {
       if (!leaderboardSectionHead || !leaderboardCard) return null;
 
       const exportHost = document.createElement('div');
-      const exportWidth = Math.max(table.scrollWidth + 64, 1720);
       exportHost.style.position = 'fixed';
       exportHost.style.left = '-20000px';
       exportHost.style.top = '0';
       exportHost.style.opacity = '0';
       exportHost.style.pointerEvents = 'none';
       exportHost.style.zIndex = '-1';
-      exportHost.style.width = exportWidth + 'px';
       exportHost.style.padding = '24px';
       exportHost.style.boxSizing = 'border-box';
 
       const exportSurface = document.createElement('div');
-      exportSurface.style.width = exportWidth + 'px';
+      exportSurface.style.display = 'inline-block';
       exportSurface.style.padding = '36px 32px 40px';
       exportSurface.style.boxSizing = 'border-box';
       exportSurface.style.borderRadius = '32px';
@@ -180,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
       exportSurface.style.fontFamily = window.getComputedStyle(document.body).fontFamily;
 
       const headClone = leaderboardSectionHead.cloneNode(true);
-      const clonedDownloadButton = headClone.querySelector('#leaderboard-download-image');
-      if (clonedDownloadButton) clonedDownloadButton.remove();
+      const clonedActions = headClone.querySelector('.bench-section-actions');
+      if (clonedActions) clonedActions.remove();
 
       const cardClone = leaderboardCard.cloneNode(true);
       const clonedTable = cardClone.querySelector('table');
@@ -200,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
           clonedTbody.appendChild(clone);
         });
       }
+      pruneExportTableColumns(clonedTable, selectedColumnIndices);
 
       exportSurface.appendChild(headClone);
       exportSurface.appendChild(cardClone);
@@ -209,14 +280,18 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
+      const exportWidth = Math.max(exportSurface.scrollWidth, 960);
+      exportHost.style.width = exportWidth + 'px';
+      exportSurface.style.width = exportWidth + 'px';
+
       return {
         host: exportHost,
         surface: exportSurface
       };
     }
 
-    async function exportLeaderboardImage() {
-      const exportNodes = buildLeaderboardExportSurface();
+    async function exportLeaderboardImage(selectedColumnIndices) {
+      const exportNodes = buildLeaderboardExportSurface(selectedColumnIndices);
       if (!exportNodes) return;
 
       try {
@@ -264,9 +339,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (leaderboardDownloadButton) {
       leaderboardDownloadButton.addEventListener('click', function () {
-        exportLeaderboardImage();
+        if (leaderboardExportPanel && !leaderboardExportPanel.hidden) {
+          closeExportPanel();
+        } else {
+          openExportPanel();
+        }
       });
     }
+
+    if (leaderboardExportSelectAll) {
+      leaderboardExportSelectAll.addEventListener('click', function () {
+        if (!leaderboardExportColumns) return;
+        Array.from(leaderboardExportColumns.querySelectorAll('input[type="checkbox"]')).forEach(function (input) {
+          input.checked = true;
+        });
+      });
+    }
+
+    if (leaderboardExportCancel) {
+      leaderboardExportCancel.addEventListener('click', function () {
+        closeExportPanel();
+      });
+    }
+
+    if (leaderboardExportConfirm) {
+      leaderboardExportConfirm.addEventListener('click', function () {
+        const selectedColumnIndices = getSelectedColumnIndices();
+        closeExportPanel();
+        exportLeaderboardImage(selectedColumnIndices);
+      });
+    }
+
+    document.addEventListener('click', function (event) {
+      if (!leaderboardExportPanel || leaderboardExportPanel.hidden) return;
+      const withinActions = event.target.closest('.bench-section-actions');
+      if (!withinActions) {
+        closeExportPanel();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeExportPanel();
+      }
+    });
 
     sortRows(currentKey, currentDirection);
   }
