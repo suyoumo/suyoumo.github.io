@@ -1540,7 +1540,9 @@ main {
   }
 
   > .bench-chart-toolbar {
-    flex: 0 0 auto;
+    flex: 0 0 372px;
+    min-width: 372px;
+    justify-content: flex-end;
   }
 
   @include mobile {
@@ -1550,6 +1552,8 @@ main {
     > div:first-child,
     > .bench-chart-toolbar {
       width: 100%;
+      min-width: 0;
+      flex-basis: auto;
     }
 
     h2 {
@@ -1590,11 +1594,13 @@ main {
 .bench-chart-toolbar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
 
   @include mobile {
     width: 100%;
     flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }
 
