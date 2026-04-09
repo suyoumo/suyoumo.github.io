@@ -1260,6 +1260,12 @@ main {
   padding: 16px 0 0;
 }
 
+.bench-head-copy {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 860px;
+}
+
 .bench-section-head {
   display: flex;
   align-items: flex-end;
@@ -1270,6 +1276,11 @@ main {
   @include mobile {
     flex-direction: column;
     align-items: flex-start;
+
+    .bench-head-copy {
+      width: 100%;
+      max-width: none;
+    }
   }
 
   h2 {
@@ -1534,6 +1545,11 @@ main {
   gap: 20px;
   margin-bottom: 18px;
 
+  > .bench-head-copy {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
   > div:first-child {
     flex: 1 1 0;
     min-width: 0;
@@ -1549,6 +1565,7 @@ main {
     flex-direction: column;
     align-items: flex-start;
 
+    > .bench-head-copy,
     > div:first-child,
     > .bench-chart-toolbar {
       width: 100%;
