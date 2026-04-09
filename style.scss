@@ -1829,7 +1829,12 @@ main {
 }
 
 .bench-scatter-card {
+  --bench-scatter-head-offset: calc(var(--bench-scatter-y-column, 36px) + 12px);
   margin-top: 32px;
+
+  .bench-chart-head > .bench-head-copy {
+    padding-left: var(--bench-scatter-head-offset);
+  }
 
   .bench-chart-head p {
     padding-left: 0;
