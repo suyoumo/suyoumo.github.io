@@ -1803,13 +1803,23 @@ main {
 
 .bench-scatter-card {
   margin-top: 32px;
+
+  .bench-chart-head p {
+    padding-left: 0;
+  }
 }
 
 .bench-scatter-frame {
-  position: relative;
-  padding: 18px 32px 30px 40px;
+  --bench-scatter-y-column: 36px;
+  display: grid;
+  grid-template-columns: var(--bench-scatter-y-column) minmax(0, 1fr);
+  grid-template-areas:
+    'y plot'
+    '. x-title';
+  column-gap: 12px;
+  row-gap: 18px;
+  align-items: center;
   min-height: 520px;
-  overflow: hidden;
 }
 
 .bench-scatter-y-title,
@@ -1819,14 +1829,16 @@ main {
 }
 
 .bench-scatter-y-title {
-  position: absolute;
-  left: 18px;
-  top: 250px;
+  grid-area: y;
+  justify-self: center;
+  align-self: center;
   transform: rotate(-90deg);
-  transform-origin: left top;
+  transform-origin: center;
+  white-space: nowrap;
 }
 
 .bench-scatter-plot-wrap {
+  grid-area: plot;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
@@ -1837,7 +1849,8 @@ main {
 }
 
 .bench-scatter-x-title {
-  margin-top: 18px;
+  grid-area: x-title;
+  margin-top: 0;
   text-align: center;
 }
 
@@ -1969,7 +1982,7 @@ main {
 
 @include mobile {
   .bench-scatter-frame {
-    padding: 16px 18px 28px 36px;
+    --bench-scatter-y-column: 28px;
   }
 
   .bench-scatter-x-axis,
