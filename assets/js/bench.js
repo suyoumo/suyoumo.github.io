@@ -185,9 +185,10 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!leaderboardExportColumns) return;
       leaderboardExportColumns.innerHTML = columnOptions.map(function (option) {
         const requiredNote = option.required ? '<span class="bench-export-required-note">Required</span>' : '';
+        const defaultSelected = option.required || [2, 3, 4, 13, 16].includes(option.index);
         return (
           '<label class="bench-export-column-item' + (option.required ? ' is-required' : '') + '">' +
-            '<input type="checkbox" value="' + option.index + '"' + (option.required ? ' checked disabled' : ' checked') + ' />' +
+            '<input type="checkbox" value="' + option.index + '"' + (option.required ? ' checked disabled' : (defaultSelected ? ' checked' : '')) + ' />' +
             '<span>' +
               '<span>' + option.label + '</span>' +
               requiredNote +
@@ -274,6 +275,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       }
       pruneExportTableColumns(clonedTable, selectedColumnIndices);
+      if (clonedTable) {
+        Array.from(clonedTable.querySelectorAll('.bench-pass-bar')).forEach(function (bar) {
+          bar.remove();
+        });
+        Array.from(clonedTable.querySelectorAll('.bench-pass-cell')).forEach(function (cell) {
+          cell.style.display = 'block';
+          cell.style.minWidth = '0';
+          cell.style.gap = '0';
+          cell.style.gridTemplateColumns = 'none';
+        });
+      }
 
       exportSurface.appendChild(headClone);
       exportSurface.appendChild(cardClone);
