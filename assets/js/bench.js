@@ -242,8 +242,9 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.style.boxSizing = 'border-box';
 
       const exportSurface = document.createElement('div');
+      exportSurface.className = 'bench-export-surface';
       exportSurface.style.display = 'inline-block';
-      exportSurface.style.padding = '36px 32px 40px';
+      exportSurface.style.padding = '28px 20px 32px';
       exportSurface.style.boxSizing = 'border-box';
       exportSurface.style.borderRadius = '32px';
       exportSurface.style.background = 'linear-gradient(180deg, #faf6ef 0%, #f2ecdf 100%)';
@@ -255,6 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (clonedActions) clonedActions.remove();
 
       const cardClone = leaderboardCard.cloneNode(true);
+      cardClone.classList.add('bench-export-card');
       const clonedTable = cardClone.querySelector('table');
       const clonedTbody = clonedTable ? clonedTable.querySelector('tbody') : null;
       const clonedTableWrap = cardClone.querySelector('.bench-table-wrap');
