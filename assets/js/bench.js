@@ -301,8 +301,26 @@ document.addEventListener('DOMContentLoaded', function () {
           return 'metric';
         });
         if (clonedTable.tHead) {
+          const exportHeaderLabels = {
+            pass3: 'Pass^3',
+            pass_at_3: 'Pass@3',
+            overall_score: 'Avg',
+            avg_latency_seconds: 'Runtime',
+            cost_usd: 'Cost',
+            total_tokens: 'Tokens',
+            price_usd_input: 'Price',
+            openclaw_version: 'OC Ver',
+            released_at: 'Released',
+            updated_at: 'Updated'
+          };
           Array.from(clonedTable.tHead.querySelectorAll('.bench-sort-indicator')).forEach(function (indicator) {
             indicator.remove();
+          });
+          Array.from(clonedTable.tHead.querySelectorAll('th')).forEach(function (cell) {
+            const sortKey = cell.dataset.sortKey;
+            if (sortKey && exportHeaderLabels[sortKey]) {
+              cell.textContent = exportHeaderLabels[sortKey];
+            }
           });
         }
         Array.from(clonedTable.querySelectorAll('tr')).forEach(function (row) {
