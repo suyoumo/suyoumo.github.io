@@ -319,9 +319,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       exportSurface.appendChild(headClone);
       exportSurface.appendChild(cardClone);
-      if (leaderboardNote) {
-        exportSurface.appendChild(leaderboardNote.cloneNode(true));
-      }
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
