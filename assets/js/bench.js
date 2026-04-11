@@ -239,20 +239,25 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.style.opacity = '0';
       exportHost.style.pointerEvents = 'none';
       exportHost.style.zIndex = '-1';
-      exportHost.style.padding = '24px';
+      exportHost.style.padding = '12px';
       exportHost.style.boxSizing = 'border-box';
 
       const exportSurface = document.createElement('div');
       exportSurface.className = 'bench-export-surface';
       exportSurface.style.display = 'inline-block';
-      exportSurface.style.padding = '28px 20px 32px';
+      exportSurface.style.padding = '18px 12px 22px';
       exportSurface.style.boxSizing = 'border-box';
-      exportSurface.style.borderRadius = '32px';
+      exportSurface.style.borderRadius = '28px';
       exportSurface.style.background = 'linear-gradient(180deg, #faf6ef 0%, #f2ecdf 100%)';
       exportSurface.style.color = '#191918';
       exportSurface.style.fontFamily = window.getComputedStyle(document.body).fontFamily;
 
       const headClone = leaderboardSectionHead.cloneNode(true);
+      headClone.style.marginBottom = '10px';
+      const clonedHeadCopy = headClone.querySelector('.bench-head-copy');
+      if (clonedHeadCopy) {
+        clonedHeadCopy.style.maxWidth = 'none';
+      }
       const clonedActions = headClone.querySelector('.bench-section-actions');
       if (clonedActions) clonedActions.remove();
 
@@ -265,7 +270,9 @@ document.addEventListener('DOMContentLoaded', function () {
       if (clonedTableWrap) {
         clonedTableWrap.style.overflow = 'visible';
         clonedTableWrap.style.maxWidth = 'none';
+        clonedTableWrap.style.padding = '0';
       }
+      cardClone.style.padding = '8px 0 0';
       if (clonedTbody) {
         clonedTbody.innerHTML = '';
         Array.from(tbody.querySelectorAll('tr')).forEach(function (row) {
@@ -296,22 +303,30 @@ document.addEventListener('DOMContentLoaded', function () {
           Array.from(row.children).forEach(function (cell, index) {
             const kind = exportedColumnKinds[index] || 'metric';
             if (kind === 'rank') {
-              cell.style.width = '28px';
-              cell.style.minWidth = '28px';
-              cell.style.maxWidth = '28px';
+              cell.style.width = '24px';
+              cell.style.minWidth = '24px';
+              cell.style.maxWidth = '24px';
+              cell.style.paddingLeft = '4px';
+              cell.style.paddingRight = '4px';
               cell.style.textAlign = 'center';
             } else if (kind === 'model') {
-              cell.style.width = '168px';
-              cell.style.minWidth = '168px';
-              cell.style.maxWidth = '168px';
+              cell.style.width = '132px';
+              cell.style.minWidth = '132px';
+              cell.style.maxWidth = '132px';
+              cell.style.paddingLeft = '6px';
+              cell.style.paddingRight = '6px';
               cell.style.textAlign = 'left';
               cell.style.whiteSpace = 'normal';
+              cell.style.wordBreak = 'break-word';
             } else {
-              cell.style.width = '56px';
-              cell.style.minWidth = '56px';
-              cell.style.maxWidth = '56px';
+              cell.style.width = '46px';
+              cell.style.minWidth = '46px';
+              cell.style.maxWidth = '46px';
+              cell.style.paddingLeft = '3px';
+              cell.style.paddingRight = '3px';
               cell.style.textAlign = 'center';
-              cell.style.whiteSpace = 'nowrap';
+              cell.style.whiteSpace = 'normal';
+              cell.style.wordBreak = 'break-word';
             }
           });
         });
@@ -322,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
-      const exportWidth = Math.max(exportSurface.scrollWidth, 760);
+      const exportWidth = Math.max(exportSurface.scrollWidth, 640);
       exportHost.style.width = exportWidth + 'px';
       exportSurface.style.width = exportWidth + 'px';
 
