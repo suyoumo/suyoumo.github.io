@@ -325,8 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
               cell.style.paddingLeft = '3px';
               cell.style.paddingRight = '3px';
               cell.style.textAlign = 'center';
-              cell.style.whiteSpace = 'normal';
-              cell.style.wordBreak = 'break-word';
+              cell.style.whiteSpace = 'nowrap';
             }
           });
         });
@@ -337,9 +336,8 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
-      const exportWidth = Math.max(exportSurface.scrollWidth, 640);
+      const exportWidth = exportSurface.scrollWidth;
       exportHost.style.width = exportWidth + 'px';
-      exportSurface.style.width = exportWidth + 'px';
 
       return {
         host: exportHost,
