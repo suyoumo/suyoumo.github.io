@@ -2141,15 +2141,56 @@ main {
 
 .bench-export-surface .bench-table th,
 .bench-export-surface .bench-table td {
-  padding: 12px 8px;
+  padding: 8px 4px;
+  font-size: 0.82rem;
+}
+
+.bench-export-surface .bench-table th {
+  white-space: nowrap;
+}
+
+.bench-export-surface .bench-table td {
+  white-space: nowrap;
 }
 
 .bench-export-surface .bench-model-column {
-  min-width: 190px;
+  min-width: 168px;
+}
+
+.bench-export-surface .bench-model-cell-rich {
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 8px;
+}
+
+.bench-export-surface .bench-model-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.bench-export-surface .bench-model-meta {
+  gap: 1px;
+}
+
+.bench-export-surface .bench-model-meta strong {
+  font-size: 0.92rem;
+}
+
+.bench-export-surface .bench-model-meta span {
+  font-size: 0.72rem;
 }
 
 .bench-export-surface .bench-token-column {
-  min-width: 180px;
+  min-width: 132px;
+}
+
+.bench-export-surface .bench-token-stack {
+  gap: 2px;
+}
+
+.bench-export-surface .bench-token-item {
+  font-size: 0.78rem;
+  line-height: 1.2;
 }
 
 .bench-export-surface .bench-pass-cell {
@@ -2166,7 +2207,7 @@ main {
 }
 
 .bench-export-surface .bench-price-cell {
-  min-width: 92px;
+  min-width: 72px;
 }
 
 .bench-token-column {

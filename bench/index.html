@@ -146,6 +146,7 @@ permalink: /bench/
       <span>USD/CNY quick reference uses approximately <code>1($)≈ 6.8826(¥)</code>.</span>
       <span><code>cache_read_tokens</code> and <code>cache_write_tokens</code> are billed at <code>0.5x</code> the input-token price.</span>
       <span><code>cost_usd = (input_tokens + 0.5 * (cache_read_tokens + cache_write_tokens)) * price_usd_input / 1e6 + output_tokens * price_usd_output / 1e6</code></span>
+      <span><code>pass^3 = weighted_pass_at_k_all</code>, while <code>strict_pass_rate = unweighted_pass_at_k_all</code>.</span>
     </div>
 
     <div class="bench-card bench-chart-card" id="leaderboard-chart-section">

@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
-      const exportWidth = Math.max(exportSurface.scrollWidth, 960);
+      const exportWidth = Math.max(exportSurface.scrollWidth, 760);
       exportHost.style.width = exportWidth + 'px';
       exportSurface.style.width = exportWidth + 'px';
 
