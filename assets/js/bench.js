@@ -276,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       pruneExportTableColumns(clonedTable, selectedColumnIndices);
       if (clonedTable) {
+        clonedTable.style.tableLayout = 'auto';
+        clonedTable.style.width = 'auto';
         Array.from(clonedTable.querySelectorAll('.bench-pass-bar')).forEach(function (bar) {
           bar.remove();
         });
@@ -284,6 +286,26 @@ document.addEventListener('DOMContentLoaded', function () {
           cell.style.minWidth = '0';
           cell.style.gap = '0';
           cell.style.gridTemplateColumns = 'none';
+        });
+        Array.from(clonedTable.querySelectorAll('tr')).forEach(function (row) {
+          Array.from(row.children).forEach(function (cell, index) {
+            if (index === 0) {
+              cell.style.width = '28px';
+              cell.style.minWidth = '28px';
+              cell.style.maxWidth = '28px';
+              cell.style.textAlign = 'center';
+            } else if (index === 1) {
+              cell.style.width = '168px';
+              cell.style.minWidth = '168px';
+              cell.style.maxWidth = '168px';
+            } else {
+              cell.style.width = '56px';
+              cell.style.minWidth = '56px';
+              cell.style.maxWidth = '56px';
+              cell.style.textAlign = 'center';
+              cell.style.whiteSpace = 'nowrap';
+            }
+          });
         });
       }
 
