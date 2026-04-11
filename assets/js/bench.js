@@ -233,13 +233,14 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!leaderboardSectionHead || !leaderboardCard) return null;
 
       const exportHost = document.createElement('div');
-      exportHost.style.position = 'fixed';
-      exportHost.style.left = '-20000px';
+      exportHost.style.position = 'absolute';
+      exportHost.style.left = '0';
       exportHost.style.top = '0';
       exportHost.style.opacity = '0';
       exportHost.style.pointerEvents = 'none';
       exportHost.style.zIndex = '-1';
-      exportHost.style.padding = '12px';
+      exportHost.style.width = 'auto';
+      exportHost.style.padding = '0';
       exportHost.style.boxSizing = 'border-box';
 
       const exportSurface = document.createElement('div');
@@ -336,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
       exportHost.appendChild(exportSurface);
       document.body.appendChild(exportHost);
 
-      const exportWidth = exportSurface.scrollWidth;
+      const exportWidth = exportSurface.getBoundingClientRect().width;
       exportHost.style.width = exportWidth + 'px';
 
       return {
@@ -360,10 +361,8 @@ document.addEventListener('DOMContentLoaded', function () {
           scale: Math.min(2, window.devicePixelRatio || 1),
           useCORS: true,
           logging: false,
-          width: exportNodes.surface.scrollWidth,
-          height: exportNodes.surface.scrollHeight,
-          windowWidth: exportNodes.surface.scrollWidth,
-          windowHeight: exportNodes.surface.scrollHeight,
+          width: Math.ceil(exportNodes.surface.getBoundingClientRect().width),
+          height: Math.ceil(exportNodes.surface.getBoundingClientRect().height),
           scrollX: 0,
           scrollY: 0
         });
