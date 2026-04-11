@@ -287,17 +287,25 @@ document.addEventListener('DOMContentLoaded', function () {
           cell.style.gap = '0';
           cell.style.gridTemplateColumns = 'none';
         });
+        const exportedColumnKinds = selectedColumnIndices.map(function (originalIndex) {
+          if (originalIndex === 0) return 'rank';
+          if (originalIndex === 1) return 'model';
+          return 'metric';
+        });
         Array.from(clonedTable.querySelectorAll('tr')).forEach(function (row) {
           Array.from(row.children).forEach(function (cell, index) {
-            if (index === 0) {
+            const kind = exportedColumnKinds[index] || 'metric';
+            if (kind === 'rank') {
               cell.style.width = '28px';
               cell.style.minWidth = '28px';
               cell.style.maxWidth = '28px';
               cell.style.textAlign = 'center';
-            } else if (index === 1) {
+            } else if (kind === 'model') {
               cell.style.width = '168px';
               cell.style.minWidth = '168px';
               cell.style.maxWidth = '168px';
+              cell.style.textAlign = 'left';
+              cell.style.whiteSpace = 'normal';
             } else {
               cell.style.width = '56px';
               cell.style.minWidth = '56px';
