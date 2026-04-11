@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const exportSurface = document.createElement('div');
       exportSurface.className = 'bench-export-surface';
       exportSurface.style.display = 'inline-block';
-      exportSurface.style.padding = '18px 12px 22px';
+      exportSurface.style.padding = '22px 18px 30px';
       exportSurface.style.boxSizing = 'border-box';
       exportSurface.style.borderRadius = '28px';
       exportSurface.style.background = 'linear-gradient(180deg, #faf6ef 0%, #f2ecdf 100%)';
@@ -311,20 +311,20 @@ document.addEventListener('DOMContentLoaded', function () {
               cell.style.paddingRight = '4px';
               cell.style.textAlign = 'center';
             } else if (kind === 'model') {
-              cell.style.width = '132px';
-              cell.style.minWidth = '132px';
-              cell.style.maxWidth = '132px';
-              cell.style.paddingLeft = '6px';
-              cell.style.paddingRight = '6px';
+              cell.style.width = '152px';
+              cell.style.minWidth = '152px';
+              cell.style.maxWidth = '152px';
+              cell.style.paddingLeft = '8px';
+              cell.style.paddingRight = '8px';
               cell.style.textAlign = 'left';
               cell.style.whiteSpace = 'normal';
               cell.style.wordBreak = 'break-word';
             } else {
-              cell.style.width = '46px';
-              cell.style.minWidth = '46px';
-              cell.style.maxWidth = '46px';
-              cell.style.paddingLeft = '3px';
-              cell.style.paddingRight = '3px';
+              cell.style.width = '58px';
+              cell.style.minWidth = '58px';
+              cell.style.maxWidth = '58px';
+              cell.style.paddingLeft = '5px';
+              cell.style.paddingRight = '5px';
               cell.style.textAlign = 'center';
               cell.style.whiteSpace = 'nowrap';
             }
@@ -356,13 +356,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready.catch(function () {}) : Promise.resolve();
         await Promise.all([fontsReady, waitForImages(exportNodes.surface)]);
 
+        const exportRect = exportNodes.surface.getBoundingClientRect();
         const canvas = await html2canvas(exportNodes.surface, {
           backgroundColor: '#f2ecdf',
           scale: Math.min(2, window.devicePixelRatio || 1),
           useCORS: true,
           logging: false,
-          width: Math.ceil(exportNodes.surface.getBoundingClientRect().width),
-          height: Math.ceil(exportNodes.surface.getBoundingClientRect().height),
+          width: Math.ceil(exportRect.width),
+          height: Math.ceil(Math.max(exportRect.height, exportNodes.surface.scrollHeight)),
           scrollX: 0,
           scrollY: 0
         });
