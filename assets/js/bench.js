@@ -300,7 +300,13 @@ document.addEventListener('DOMContentLoaded', function () {
           if (originalIndex === 1) return 'model';
           return 'metric';
         });
+        if (clonedTable.tHead) {
+          Array.from(clonedTable.tHead.querySelectorAll('.bench-sort-indicator')).forEach(function (indicator) {
+            indicator.remove();
+          });
+        }
         Array.from(clonedTable.querySelectorAll('tr')).forEach(function (row) {
+          const isHeaderRow = row.parentElement && row.parentElement.tagName.toLowerCase() === 'thead';
           Array.from(row.children).forEach(function (cell, index) {
             const kind = exportedColumnKinds[index] || 'metric';
             if (kind === 'rank') {
@@ -326,7 +332,9 @@ document.addEventListener('DOMContentLoaded', function () {
               cell.style.paddingLeft = '5px';
               cell.style.paddingRight = '5px';
               cell.style.textAlign = 'center';
-              cell.style.whiteSpace = 'nowrap';
+              cell.style.whiteSpace = isHeaderRow ? 'normal' : 'nowrap';
+              cell.style.wordBreak = isHeaderRow ? 'break-word' : 'normal';
+              cell.style.lineHeight = isHeaderRow ? '1.15' : '';
             }
           });
         });
