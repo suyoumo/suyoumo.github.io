@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clonedTableWrap.style.maxWidth = 'none';
         clonedTableWrap.style.padding = '0';
       }
-      cardClone.style.padding = '8px 0 0';
+      cardClone.style.padding = '8px 14px 0';
       if (clonedTbody) {
         clonedTbody.innerHTML = '';
         Array.from(tbody.querySelectorAll('tr')).forEach(function (row) {
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
       pruneExportTableColumns(clonedTable, selectedColumnIndices);
       if (clonedTable) {
         clonedTable.style.tableLayout = 'auto';
-        clonedTable.style.width = 'auto';
+        clonedTable.style.width = '100%';
         Array.from(clonedTable.querySelectorAll('.bench-pass-bar')).forEach(function (bar) {
           bar.remove();
         });
