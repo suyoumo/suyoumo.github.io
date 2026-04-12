@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const sortKey = slugifyValue(table.dataset.sortKey || 'pass3');
         const sortDirection = slugifyValue(table.dataset.sortDirection || 'desc');
         const modelCount = tbody.querySelectorAll('tr').length;
-        const filename = 'openclawprobench-leaderboard-' + sortKey + '-' + sortDirection + '-' + modelCount + '-models.png';
+        const filename = 'clawprobench-leaderboard-' + sortKey + '-' + sortDirection + '-' + modelCount + '-models.png';
 
         await new Promise(function (resolve, reject) {
           canvas.toBlob(function (blob) {
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (leaderboardShareButton) {
       leaderboardShareButton.addEventListener('click', function () {
         closeExportPanel();
-        const shareText = 'Check out OpenClawProBench — a transparent benchmark for true intelligence in real-world AI agents. Explore it here: https://suyoumo.github.io/bench/';
+        const shareText = 'Check out ClawProBench — a transparent benchmark for true intelligence in real-world AI agents. Explore it here: https://suyoumo.github.io/bench/';
         window.open(
           'https://x.com/intent/tweet?text=' + encodeURIComponent(shareText),
           '_blank',

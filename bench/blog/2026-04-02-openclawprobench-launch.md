@@ -1,10 +1,10 @@
 ---
 layout: bench_post
-title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
+title: "Open-sourcing ClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
 date: 2026-04-02 10:00:00 +0800
 categories: Benchmark
 permalink: /bench/blog/2026-04-02-openclawprobench-launch/
-display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
+display_title: "Open-sourcing ClawProBench: Bringing Agent Benchmarks Back to the Real Runtime"
 ---
 
 <div class="bench-lang-switch" data-default-lang="en">
@@ -13,11 +13,11 @@ display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back t
 </div>
 
 <div class="bench-lang-panel is-active" data-lang-panel="en">
-  <p>Today I am open-sourcing OpenClawProBench.</p>
+  <p>Today I am open-sourcing ClawProBench.</p>
 
   <p>This is not a small benchmark where a model solves a few static tasks, calls a couple of functions, and returns some JSON. It is a <strong>live-first benchmark</strong>: the model has to operate inside the real OpenClaw runtime, read from the workspace, choose tools, handle constraints, recover from failures, stay within safety boundaries, and leave behind execution evidence that can actually be inspected.</p>
 
-  <p>If we want to talk seriously about whether agents are getting better, we cannot just ask whether they can answer questions. We need to see whether they choose the wrong tool at runtime, break a task decomposition, spiral into bad retries after a failure, or cross a boundary they were not supposed to cross under pressure. OpenClawProBench was built for exactly that.</p>
+  <p>If we want to talk seriously about whether agents are getting better, we cannot just ask whether they can answer questions. We need to see whether they choose the wrong tool at runtime, break a task decomposition, spiral into bad retries after a failure, or cross a boundary they were not supposed to cross under pressure. ClawProBench was built for exactly that.</p>
 
   <h3>Why build another benchmark</h3>
 
@@ -32,9 +32,9 @@ display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back t
     <li>accountable, not something you judge only from the final answer</li>
   </ul>
 
-  <p>The goal of OpenClawProBench is not to measure how much a model knows. It is to measure whether a model, acting as an OpenClaw agent, can reliably do the right thing.</p>
+  <p>The goal of ClawProBench is not to measure how much a model knows. It is to measure whether a model, acting as an OpenClaw agent, can reliably do the right thing.</p>
 
-  <h3>What OpenClawProBench measures</h3>
+  <h3>What ClawProBench measures</h3>
 
   <p>The current active benchmark in this repository is entirely <strong>live</strong>, spanning six first-class capability dimensions:</p>
   <ul>
@@ -72,7 +72,7 @@ display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back t
   <h3>Three core principles</h3>
 
   <h4>1. Live-first, not replay dressed up as real capability</h4>
-  <p>OpenClawProBench now exposes a live-only public benchmark path. Replay still exists, but only as a safety net for unit tests and deterministic regression, not as the main leaderboard path.</p>
+  <p>ClawProBench now exposes a live-only public benchmark path. Replay still exists, but only as a safety net for unit tests and deterministic regression, not as the main leaderboard path.</p>
   <p>That is a deliberate tradeoff. We would rather make the benchmark harder to run than confuse “did the right thing against a fixed trace” with “can reliably complete the task inside a real runtime.”</p>
 
   <h4>2. Traceable, not a black-box aggregate score</h4>
@@ -85,7 +85,7 @@ display_title: "Open-sourcing OpenClawProBench: Bringing Agent Benchmarks Back t
   <p>If a score is high, we want you to be able to trace why it is high. If a score is low, we also want you to be able to tell whether that was caused by capability, environment, or safety.</p>
 
   <h4>3. The benchmark scores process, not just the final artifact</h4>
-  <p>The current per-scenario scoring formula in OpenClawProBench is:</p>
+  <p>The current per-scenario scoring formula in ClawProBench is:</p>
   <pre><code>final_score = safety_gate x (0.65 x correctness + 0.35 x process) x (1 - efficiency_penalty)</code></pre>
   <p>This means:</p>
   <ul>
@@ -129,17 +129,17 @@ python3 run.py inventory --benchmark-profile core --json
 python3 run.py inventory --benchmark-profile native --json</code></pre>
 
   <h3>Invitation</h3>
-  <p>OpenClawProBench is being open-sourced now not because it is perfect, but because it has finally reached a state where outside users can meaningfully use it, push back on it, and improve it.</p>
+  <p>ClawProBench is being open-sourced now not because it is perfect, but because it has finally reached a state where outside users can meaningfully use it, push back on it, and improve it.</p>
   <p>If you are building agents, run your system on it. If you are building benchmarks, challenge its design directly. If you think our <code>core</code> is not good enough, the strongest rebuttal is not a comment. It is a better scenario and a harder grader.</p>
   <p>A benchmark should not just be a scoreboard. It should be an engineering system that forces both agents and the benchmark itself to become more serious over time.</p>
 </div>
 
 <div class="bench-lang-panel" data-lang-panel="zh">
-  <p>今天我开源 OpenClawProBench。</p>
+  <p>今天我开源 ClawProBench。</p>
 
   <p>它不是一个让模型做几道静态题、调几次函数、交一段 JSON 的小测验。它是一个 <strong>live-first benchmark</strong>：模型要在真实的 OpenClaw runtime 里完成任务，读取工作区、选择工具、处理约束、从失败里恢复、守住安全边界，然后留下可检查的执行痕迹。</p>
 
-  <p>如果我们想认真讨论 agent 到底有没有变强，就不能只看它会不会答题。我们要看它在运行时里会不会选错工具、会不会把任务拆坏、会不会在失败后失控重试、会不会在高压下跨过不该跨的边界。OpenClawProBench 就是为这件事做的。</p>
+  <p>如果我们想认真讨论 agent 到底有没有变强，就不能只看它会不会答题。我们要看它在运行时里会不会选错工具、会不会把任务拆坏、会不会在失败后失控重试、会不会在高压下跨过不该跨的边界。ClawProBench 就是为这件事做的。</p>
 
   <h3>为什么还要再做一个 benchmark</h3>
 
@@ -154,9 +154,9 @@ python3 run.py inventory --benchmark-profile native --json</code></pre>
     <li>可追责的，不是只看最终答案</li>
   </ul>
 
-  <p>OpenClawProBench 的目标不是测“模型知道多少”，而是测 <strong>模型作为 OpenClaw agent 时，能不能稳定地做对事</strong>。</p>
+  <p>ClawProBench 的目标不是测“模型知道多少”，而是测 <strong>模型作为 OpenClaw agent 时，能不能稳定地做对事</strong>。</p>
 
-  <h3>OpenClawProBench 在测什么</h3>
+  <h3>ClawProBench 在测什么</h3>
 
   <p>这个仓库当前的 active benchmark 全部是 <strong>live</strong> 场景，覆盖 6 个一线能力维度：</p>
   <ul>
@@ -184,7 +184,7 @@ python3 run.py inventory --benchmark-profile native --json</code></pre>
   <h3>三个核心原则</h3>
 
   <h4>1. Live-first，不拿 replay 结果冒充真实能力</h4>
-  <p>OpenClawProBench 现在的公开 benchmark 是 live-only。Replay 仍然保留，但只作为单元测试和确定性回归的安全网，而不是排行榜的主路径。</p>
+  <p>ClawProBench 现在的公开 benchmark 是 live-only。Replay 仍然保留，但只作为单元测试和确定性回归的安全网，而不是排行榜的主路径。</p>
 
   <h4>2. 可追溯，不做黑盒总分</h4>
   <p>每次 live 运行都会留下两层证据：</p>
@@ -194,7 +194,7 @@ python3 run.py inventory --benchmark-profile native --json</code></pre>
   </ul>
 
   <h4>3. 评分看过程，不只看最后交了什么文件</h4>
-  <p>OpenClawProBench 当前的单场景评分公式是：</p>
+  <p>ClawProBench 当前的单场景评分公式是：</p>
   <pre><code>final_score = safety_gate × (0.65 × correctness + 0.35 × process) × (1 - efficiency_penalty)</code></pre>
 
   <h3>为什么 benchmark 要分层</h3>
@@ -230,6 +230,6 @@ python3 run.py inventory --benchmark-profile core --json
 python3 run.py inventory --benchmark-profile native --json</code></pre>
 
   <h3>邀请</h3>
-  <p>OpenClawProBench 现在开源，不是因为它“已经完美”，而是因为它终于到了一个可以被外部真正使用、反驳和改进的阶段。</p>
+  <p>ClawProBench 现在开源，不是因为它“已经完美”，而是因为它终于到了一个可以被外部真正使用、反驳和改进的阶段。</p>
   <p>Benchmark 不该只是分数板。它应该是一套能逼着 agent 和 benchmark 本身一起变严肃的工程系统。</p>
 </div>

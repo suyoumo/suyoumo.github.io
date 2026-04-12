@@ -1,10 +1,10 @@
 ---
 layout: bench_post
-title: "My Feelings During the Development of OpenClawProBench"
+title: "My Feelings During the Development of ClawProBench"
 date: 2026-04-02 12:00:00 +0800
 categories: Development
 permalink: /bench/blog/2026-04-02-why-pass3-matters/
-display_title: "My Feelings During the Development of OpenClawProBench"
+display_title: "My Feelings During the Development of ClawProBench"
 ---
 
 <div class="bench-lang-switch" data-default-lang="en">
