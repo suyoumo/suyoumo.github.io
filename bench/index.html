@@ -46,7 +46,17 @@ permalink: /bench/
     </div>
 
     <div class="bench-card bench-leaderboard-card" id="leaderboard-card">
-      <div class="bench-table-wrap">
+      <div class="bench-table-top-scrollbar" id="leaderboard-top-scrollbar" hidden aria-hidden="true">
+        <div class="bench-table-top-scrollbar-track" id="leaderboard-top-scrollbar-track">
+          <div class="bench-table-top-scrollbar-inner" id="leaderboard-top-scrollbar-inner"></div>
+        </div>
+      </div>
+      <div class="bench-table-sticky-head" id="leaderboard-sticky-head" hidden aria-hidden="true">
+        <div class="bench-table-sticky-head-viewport" id="leaderboard-sticky-head-viewport">
+          <table class="bench-table bench-table-rich bench-table-sticky-head-table" id="leaderboard-sticky-head-table" aria-hidden="true"></table>
+        </div>
+      </div>
+      <div class="bench-table-wrap bench-table-wrap-leaderboard" id="leaderboard-table-wrap">
         <table class="bench-table bench-table-rich" id="leaderboard-table">
           <thead>
             <tr>

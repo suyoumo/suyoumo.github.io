@@ -68,6 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const requiredColumnIndices = new Set([0, 1]);
     const leaderboardSectionHead = document.getElementById('leaderboard-section-head');
     const leaderboardCard = document.getElementById('leaderboard-card');
+    const leaderboardTableWrap = document.getElementById('leaderboard-table-wrap');
+    const leaderboardTopScrollbar = document.getElementById('leaderboard-top-scrollbar');
+    const leaderboardTopScrollbarTrack = document.getElementById('leaderboard-top-scrollbar-track');
+    const leaderboardTopScrollbarInner = document.getElementById('leaderboard-top-scrollbar-inner');
+    const leaderboardStickyHead = document.getElementById('leaderboard-sticky-head');
+    const leaderboardStickyHeadViewport = document.getElementById('leaderboard-sticky-head-viewport');
+    const leaderboardStickyHeadTable = document.getElementById('leaderboard-sticky-head-table');
+    const siteHeader = document.querySelector('.site-header');
     const leaderboardNote = document.querySelector('.bench-leaderboard-note');
     const leaderboardDownloadButton = document.getElementById('leaderboard-download-image');
     const leaderboardDownloadLabel = leaderboardDownloadButton ? leaderboardDownloadButton.querySelector('.bench-button-label') : null;
@@ -87,6 +95,100 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     let currentKey = 'pass3';
     let currentDirection = 'desc';
+    let syncingTopScrollbar = false;
+    let syncingTableWrap = false;
+    let syncingStickyViewport = false;
+
+    function buildStickyHeader() {
+      if (!leaderboardStickyHeadTable || !table.tHead) return;
+      leaderboardStickyHeadTable.innerHTML = '';
+      leaderboardStickyHeadTable.appendChild(table.tHead.cloneNode(true));
+      Array.from(leaderboardStickyHeadTable.querySelectorAll('th[data-sort-key]')).forEach(function (stickyHeader) {
+        stickyHeader.classList.add('bench-sortable');
+        stickyHeader.addEventListener('click', function () {
+          const sourceHeader = headers.find(function (header) {
+            return header.dataset.sortKey === stickyHeader.dataset.sortKey;
+          });
+          if (sourceHeader) sourceHeader.click();
+        });
+      });
+    }
+
+    function syncStickyHeaderWidths() {
+      if (!leaderboardStickyHeadTable || !leaderboardStickyHeadViewport) return;
+      const sourceHeadRow = table.tHead ? table.tHead.rows[0] : null;
+      const stickyHeadRow = leaderboardStickyHeadTable.tHead ? leaderboardStickyHeadTable.tHead.rows[0] : null;
+      if (!sourceHeadRow || !stickyHeadRow) return;
+
+      Array.from(sourceHeadRow.cells).forEach(function (cell, index) {
+        const stickyCell = stickyHeadRow.cells[index];
+        if (!stickyCell) return;
+        const width = Math.ceil(cell.getBoundingClientRect().width);
+        stickyCell.style.width = width + 'px';
+        stickyCell.style.minWidth = width + 'px';
+        stickyCell.style.maxWidth = width + 'px';
+      });
+
+      leaderboardStickyHeadViewport.style.width = leaderboardTableWrap ? leaderboardTableWrap.clientWidth + 'px' : '';
+      leaderboardStickyHeadTable.style.width = table.scrollWidth + 'px';
+      leaderboardStickyHeadViewport.scrollLeft = leaderboardTableWrap ? leaderboardTableWrap.scrollLeft : 0;
+    }
+
+    function setStickyOffsets() {
+      if (!leaderboardTableWrap) return;
+      const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const scrollbarHeight = leaderboardTopScrollbar && leaderboardTopScrollbar.classList.contains('is-visible')
+        ? leaderboardTopScrollbar.getBoundingClientRect().height
+        : 0;
+      const stickyHeadHeight = leaderboardStickyHead && leaderboardStickyHead.classList.contains('is-visible')
+        ? leaderboardStickyHead.getBoundingClientRect().height
+        : 0;
+      const rankCell = table.querySelector('thead th:first-child');
+      const rankWidth = rankCell ? Math.ceil(rankCell.getBoundingClientRect().width) : 84;
+      leaderboardTableWrap.style.setProperty('--bench-sticky-table-top', Math.ceil(headerHeight + scrollbarHeight + 8) + 'px');
+      leaderboardTableWrap.style.setProperty('--bench-sticky-rank-width', rankWidth + 'px');
+      if (leaderboardTopScrollbar) {
+        leaderboardTopScrollbar.style.top = Math.ceil(headerHeight + 8) + 'px';
+      }
+      if (leaderboardStickyHead) {
+        leaderboardStickyHead.style.top = Math.ceil(headerHeight + scrollbarHeight + 8) + 'px';
+      }
+      if (leaderboardTableWrap) {
+        leaderboardTableWrap.style.setProperty('--bench-sticky-table-body-top', Math.ceil(headerHeight + scrollbarHeight + stickyHeadHeight + 8) + 'px');
+      }
+    }
+
+    function syncTopScrollbarWidth() {
+      if (!leaderboardTableWrap || !leaderboardTopScrollbarInner || !leaderboardTopScrollbarTrack || !leaderboardTopScrollbar) return;
+      leaderboardTopScrollbar.style.width = leaderboardTableWrap.clientWidth + 'px';
+      leaderboardTopScrollbarInner.style.width = table.scrollWidth + 'px';
+      leaderboardTopScrollbarTrack.scrollLeft = leaderboardTableWrap.scrollLeft;
+      syncStickyHeaderWidths();
+      setStickyOffsets();
+    }
+
+    function updateTopScrollbarVisibility() {
+      if (!leaderboardTableWrap || !leaderboardTopScrollbar || !leaderboardTopScrollbarTrack || !leaderboardCard) return;
+
+      const canScrollX = table.scrollWidth - leaderboardTableWrap.clientWidth > 2;
+      const cardRect = leaderboardCard.getBoundingClientRect();
+      const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const shouldShow = canScrollX && cardRect.top <= headerHeight + 20 && cardRect.bottom >= headerHeight + 84;
+      const headRect = leaderboardTableWrap.getBoundingClientRect();
+      const stickyHeadTop = headerHeight + (shouldShow ? (leaderboardTopScrollbar ? leaderboardTopScrollbar.getBoundingClientRect().height : 0) : 0) + 8;
+      const shouldShowStickyHead = headRect.top <= stickyHeadTop && cardRect.bottom >= stickyHeadTop + 56;
+
+      leaderboardTopScrollbar.hidden = !shouldShow;
+      leaderboardTopScrollbar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+      leaderboardTopScrollbar.classList.toggle('is-visible', shouldShow);
+      if (leaderboardStickyHead) {
+        leaderboardStickyHead.hidden = !shouldShowStickyHead;
+        leaderboardStickyHead.setAttribute('aria-hidden', shouldShowStickyHead ? 'false' : 'true');
+        leaderboardStickyHead.classList.toggle('is-visible', shouldShowStickyHead);
+      }
+      syncStickyHeaderWidths();
+      setStickyOffsets();
+    }
 
     function parseValue(row, key, index) {
       const cell = row.children[index];
@@ -113,6 +215,19 @@ document.addEventListener('DOMContentLoaded', function () {
           indicator.textContent = currentDirection === 'asc' ? '↑' : '↓';
         }
       });
+
+      if (leaderboardStickyHeadTable) {
+        Array.from(leaderboardStickyHeadTable.querySelectorAll('th[data-sort-key]')).forEach(function (header) {
+          const indicator = header.querySelector('.bench-sort-indicator');
+          header.classList.remove('bench-sort-active', 'bench-sort-asc', 'bench-sort-desc');
+          if (!indicator) return;
+          indicator.textContent = '↕';
+          if (header.dataset.sortKey === currentKey) {
+            header.classList.add('bench-sort-active', currentDirection === 'asc' ? 'bench-sort-asc' : 'bench-sort-desc');
+            indicator.textContent = currentDirection === 'asc' ? '↑' : '↓';
+          }
+        });
+      }
     }
 
     function sortRows(key, direction) {
@@ -138,6 +253,8 @@ document.addEventListener('DOMContentLoaded', function () {
       table.dataset.sortDirection = direction;
       table.dataset.sortLabel = activeHeader ? activeHeader.textContent.replace(/[↕↑↓]/g, '').trim() : key;
       updateSortIndicators();
+      syncTopScrollbarWidth();
+      updateTopScrollbarVisibility();
     }
 
     headers.forEach(function (header) {
@@ -154,12 +271,74 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+    buildStickyHeader();
+
     rows.forEach(function (row) {
       row.addEventListener('click', function () {
         const href = row.dataset.href;
         if (href) window.location.href = href;
       });
     });
+
+    if (leaderboardTableWrap && leaderboardTopScrollbarTrack) {
+      leaderboardTableWrap.addEventListener('scroll', function () {
+        if (syncingTableWrap) return;
+        syncingTopScrollbar = true;
+        leaderboardTopScrollbarTrack.scrollLeft = leaderboardTableWrap.scrollLeft;
+        if (leaderboardStickyHeadViewport) {
+          syncingStickyViewport = true;
+          leaderboardStickyHeadViewport.scrollLeft = leaderboardTableWrap.scrollLeft;
+          window.requestAnimationFrame(function () {
+            syncingStickyViewport = false;
+          });
+        }
+        window.requestAnimationFrame(function () {
+          syncingTopScrollbar = false;
+        });
+      }, { passive: true });
+
+      leaderboardTopScrollbarTrack.addEventListener('scroll', function () {
+        if (syncingTopScrollbar) return;
+        syncingTableWrap = true;
+        leaderboardTableWrap.scrollLeft = leaderboardTopScrollbarTrack.scrollLeft;
+        window.requestAnimationFrame(function () {
+          syncingTableWrap = false;
+        });
+      }, { passive: true });
+
+      if (leaderboardStickyHeadViewport) {
+        leaderboardStickyHeadViewport.addEventListener('scroll', function () {
+          if (syncingStickyViewport) return;
+          syncingTableWrap = true;
+          syncingTopScrollbar = true;
+          leaderboardTableWrap.scrollLeft = leaderboardStickyHeadViewport.scrollLeft;
+          leaderboardTopScrollbarTrack.scrollLeft = leaderboardStickyHeadViewport.scrollLeft;
+          window.requestAnimationFrame(function () {
+            syncingTableWrap = false;
+            syncingTopScrollbar = false;
+          });
+        }, { passive: true });
+      }
+
+      window.addEventListener('scroll', updateTopScrollbarVisibility, { passive: true });
+      window.addEventListener('resize', function () {
+        syncTopScrollbarWidth();
+        updateTopScrollbarVisibility();
+      }, { passive: true });
+      window.addEventListener('load', function () {
+        syncTopScrollbarWidth();
+        updateTopScrollbarVisibility();
+      });
+
+      if (window.ResizeObserver) {
+        const resizeObserver = new window.ResizeObserver(function () {
+          syncTopScrollbarWidth();
+          updateTopScrollbarVisibility();
+        });
+        resizeObserver.observe(leaderboardTableWrap);
+        resizeObserver.observe(table);
+      }
+    }
 
     function setLeaderboardExportState(isLoading, label) {
       if (!leaderboardDownloadButton) return;
@@ -478,6 +657,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     sortRows(currentKey, currentDirection);
+    syncTopScrollbarWidth();
+    updateTopScrollbarVisibility();
   }
 
   const leaderboardChart = document.getElementById('leaderboard-chart-bars');
