@@ -301,6 +301,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (syncingTopScrollbar) return;
         syncingTableWrap = true;
         leaderboardTableWrap.scrollLeft = leaderboardTopScrollbarTrack.scrollLeft;
+        if (leaderboardStickyHeadViewport) {
+          syncingStickyViewport = true;
+          leaderboardStickyHeadViewport.scrollLeft = leaderboardTopScrollbarTrack.scrollLeft;
+          window.requestAnimationFrame(function () {
+            syncingStickyViewport = false;
+          });
+        }
         window.requestAnimationFrame(function () {
           syncingTableWrap = false;
         });
