@@ -99,6 +99,34 @@ document.addEventListener('DOMContentLoaded', function () {
     let syncingTableWrap = false;
     let syncingStickyViewport = false;
 
+    function releaseHorizontalSyncFlag(flagName) {
+      window.requestAnimationFrame(function () {
+        if (flagName === 'top') syncingTopScrollbar = false;
+        if (flagName === 'table') syncingTableWrap = false;
+        if (flagName === 'sticky') syncingStickyViewport = false;
+      });
+    }
+
+    function syncLeaderboardHorizontalScroll(left, source) {
+      if (leaderboardTableWrap && source !== 'table') {
+        syncingTableWrap = true;
+        leaderboardTableWrap.scrollLeft = left;
+        releaseHorizontalSyncFlag('table');
+      }
+
+      if (leaderboardTopScrollbarTrack && source !== 'top') {
+        syncingTopScrollbar = true;
+        leaderboardTopScrollbarTrack.scrollLeft = left;
+        releaseHorizontalSyncFlag('top');
+      }
+
+      if (leaderboardStickyHeadViewport && source !== 'sticky') {
+        syncingStickyViewport = true;
+        leaderboardStickyHeadViewport.scrollLeft = left;
+        releaseHorizontalSyncFlag('sticky');
+      }
+    }
+
     function buildStickyHeader() {
       if (!leaderboardStickyHeadTable || !table.tHead) return;
       leaderboardStickyHeadTable.innerHTML = '';
@@ -119,11 +147,32 @@ document.addEventListener('DOMContentLoaded', function () {
       const sourceHeadRow = table.tHead ? table.tHead.rows[0] : null;
       const stickyHeadRow = leaderboardStickyHeadTable.tHead ? leaderboardStickyHeadTable.tHead.rows[0] : null;
       if (!sourceHeadRow || !stickyHeadRow) return;
+      let colgroup = leaderboardStickyHeadTable.querySelector('colgroup');
+
+      if (!colgroup) {
+        colgroup = document.createElement('colgroup');
+        leaderboardStickyHeadTable.insertBefore(colgroup, leaderboardStickyHeadTable.firstChild);
+      }
+
+      if (colgroup.children.length !== sourceHeadRow.cells.length) {
+        colgroup.innerHTML = '';
+        Array.from(sourceHeadRow.cells).forEach(function () {
+          colgroup.appendChild(document.createElement('col'));
+        });
+      }
+
+      const stickyCols = Array.from(colgroup.children);
 
       Array.from(sourceHeadRow.cells).forEach(function (cell, index) {
         const stickyCell = stickyHeadRow.cells[index];
+        const stickyCol = stickyCols[index];
         if (!stickyCell) return;
         const width = Math.ceil(cell.getBoundingClientRect().width);
+        if (stickyCol) {
+          stickyCol.style.width = width + 'px';
+          stickyCol.style.minWidth = width + 'px';
+          stickyCol.style.maxWidth = width + 'px';
+        }
         stickyCell.style.width = width + 'px';
         stickyCell.style.minWidth = width + 'px';
         stickyCell.style.maxWidth = width + 'px';
@@ -131,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       leaderboardStickyHeadViewport.style.width = leaderboardTableWrap ? leaderboardTableWrap.clientWidth + 'px' : '';
       leaderboardStickyHeadTable.style.width = table.scrollWidth + 'px';
-      leaderboardStickyHeadViewport.scrollLeft = leaderboardTableWrap ? leaderboardTableWrap.scrollLeft : 0;
+      leaderboardStickyHeadTable.style.tableLayout = 'fixed';
+      syncLeaderboardHorizontalScroll(leaderboardTableWrap ? leaderboardTableWrap.scrollLeft : 0, 'table');
     }
 
     function setStickyOffsets() {
@@ -162,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!leaderboardTableWrap || !leaderboardTopScrollbarInner || !leaderboardTopScrollbarTrack || !leaderboardTopScrollbar) return;
       leaderboardTopScrollbar.style.width = leaderboardTableWrap.clientWidth + 'px';
       leaderboardTopScrollbarInner.style.width = table.scrollWidth + 'px';
-      leaderboardTopScrollbarTrack.scrollLeft = leaderboardTableWrap.scrollLeft;
+      syncLeaderboardHorizontalScroll(leaderboardTableWrap.scrollLeft, 'table');
       syncStickyHeaderWidths();
       setStickyOffsets();
     }
@@ -283,47 +333,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (leaderboardTableWrap && leaderboardTopScrollbarTrack) {
       leaderboardTableWrap.addEventListener('scroll', function () {
         if (syncingTableWrap) return;
-        syncingTopScrollbar = true;
-        leaderboardTopScrollbarTrack.scrollLeft = leaderboardTableWrap.scrollLeft;
-        if (leaderboardStickyHeadViewport) {
-          syncingStickyViewport = true;
-          leaderboardStickyHeadViewport.scrollLeft = leaderboardTableWrap.scrollLeft;
-          window.requestAnimationFrame(function () {
-            syncingStickyViewport = false;
-          });
-        }
-        window.requestAnimationFrame(function () {
-          syncingTopScrollbar = false;
-        });
+        syncLeaderboardHorizontalScroll(leaderboardTableWrap.scrollLeft, 'table');
       }, { passive: true });
 
       leaderboardTopScrollbarTrack.addEventListener('scroll', function () {
         if (syncingTopScrollbar) return;
-        syncingTableWrap = true;
-        leaderboardTableWrap.scrollLeft = leaderboardTopScrollbarTrack.scrollLeft;
-        if (leaderboardStickyHeadViewport) {
-          syncingStickyViewport = true;
-          leaderboardStickyHeadViewport.scrollLeft = leaderboardTopScrollbarTrack.scrollLeft;
-          window.requestAnimationFrame(function () {
-            syncingStickyViewport = false;
-          });
-        }
-        window.requestAnimationFrame(function () {
-          syncingTableWrap = false;
-        });
+        syncLeaderboardHorizontalScroll(leaderboardTopScrollbarTrack.scrollLeft, 'top');
       }, { passive: true });
 
       if (leaderboardStickyHeadViewport) {
         leaderboardStickyHeadViewport.addEventListener('scroll', function () {
           if (syncingStickyViewport) return;
-          syncingTableWrap = true;
-          syncingTopScrollbar = true;
-          leaderboardTableWrap.scrollLeft = leaderboardStickyHeadViewport.scrollLeft;
-          leaderboardTopScrollbarTrack.scrollLeft = leaderboardStickyHeadViewport.scrollLeft;
-          window.requestAnimationFrame(function () {
-            syncingTableWrap = false;
-            syncingTopScrollbar = false;
-          });
+          syncLeaderboardHorizontalScroll(leaderboardStickyHeadViewport.scrollLeft, 'sticky');
         }, { passive: true });
       }
 
