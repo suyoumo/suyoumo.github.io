@@ -1,0 +1,116 @@
+---
+layout: bench
+permalink: /bench/models/deepseek-deepseek-v4-pro/
+title: deepseek-v4-pro
+---
+
+{% assign model = site.data.bench.models | where: 'id', 'deepseek__deepseek-v4-pro' | first %}
+
+<section class="bench-section bench-detail-page">
+  <div class="container-wide bench-shell">
+    <a class="bench-back-link" href="{{ site.baseurl }}/bench/">← Leaderboard</a>
+
+    <div class="bench-detail-hero bench-detail-hero-wide">
+      <div class="bench-detail-title-block">
+        <p class="bench-kicker">Model Profile</p>
+        <h1>{{ model.model_name }}</h1>
+        <p class="bench-intro">Platform: {{ model.platform }} · Provider key: {{ model.provider_key }} · OpenClaw v{{ model.openclaw_version }} · Updated: {{ model.updated_at | slice: 0, 10 }}</p>
+      </div>
+      <div class="bench-stat-grid bench-stat-grid-wide">
+        <div class="bench-stat-card"><span>Pass^3</span><strong>{{ model.pass3 | times: 100 | round: 1 }}%</strong></div>
+        <div class="bench-stat-card"><span>Avg Score</span><strong>{{ model.overall_score | times: 100 | round: 1 }}</strong></div>
+        <div class="bench-stat-card"><span>Capability</span><strong>{{ model.capability_score | times: 100 | round: 1 }}</strong></div>
+        <div class="bench-stat-card"><span>Efficiency</span><strong>{{ model.efficiency_score | times: 100 | round: 1 }}</strong></div>
+        <div class="bench-stat-card"><span>Avg Runtime</span><strong>{{ model.avg_latency_seconds | round: 2 }}s</strong></div>
+        <div class="bench-stat-card"><span>Total Token</span><strong>{{ model.total_tokens | round: 0 }}</strong></div>
+        <div class="bench-stat-card"><span>Cost</span><strong>${{ model.cost_usd | round: 4 }}</strong></div>
+        <div class="bench-stat-card"><span>Cost Efficiency</span><strong>{{ model.cost_efficiency_score_per_1k | round: 4 }}</strong></div>
+      </div>
+    </div>
+
+    <div class="bench-summary-strip bench-card">
+      <div class="bench-summary-strip-grid">
+        <div><span>Pass@3</span><strong>{{ model.pass_at_3 | times: 100 | round: 1 }}%</strong></div>
+        <div><span>Strict pass rate</span><strong>{{ model.strict_pass_rate | times: 100 | round: 1 }}%</strong></div>
+        <div><span>Planning</span><strong>{{ model.planning_score | times: 100 | round: 1 }}</strong></div>
+        <div><span>Safety</span><strong>{{ model.safety_score | times: 100 | round: 1 }}</strong></div>
+        <div><span>Tool Use</span><strong>{{ model.tool_use_score | times: 100 | round: 1 }}</strong></div>
+        <div><span>Constraints</span><strong>{{ model.constraints_score | times: 100 | round: 1 }}</strong></div>
+        <div><span>Error Recovery</span><strong>{{ model.error_recovery_score | times: 100 | round: 1 }}</strong></div>
+        <div><span>Synthesis</span><strong>{{ model.synthesis_score | times: 100 | round: 1 }}</strong></div>
+      </div>
+    </div>
+
+    <div class="bench-detail-grid bench-detail-grid-expanded">
+      <section class="bench-card">
+        <h2>Dimension overview</h2>
+        <div class="bench-bar-list">
+          <div class="bench-bar-row"><span>Planning</span><div class="bench-inline-bar"><span style="width: {{ model.planning_score | times: 100 }}%"></span></div><strong>{{ model.planning_score | times: 100 | round: 1 }}</strong></div>
+          <div class="bench-bar-row"><span>Safety</span><div class="bench-inline-bar"><span style="width: {{ model.safety_score | times: 100 }}%"></span></div><strong>{{ model.safety_score | times: 100 | round: 1 }}</strong></div>
+          <div class="bench-bar-row"><span>Tool Use</span><div class="bench-inline-bar"><span style="width: {{ model.tool_use_score | times: 100 }}%"></span></div><strong>{{ model.tool_use_score | times: 100 | round: 1 }}</strong></div>
+          <div class="bench-bar-row"><span>Constraints</span><div class="bench-inline-bar"><span style="width: {{ model.constraints_score | times: 100 }}%"></span></div><strong>{{ model.constraints_score | times: 100 | round: 1 }}</strong></div>
+          <div class="bench-bar-row"><span>Error Recovery</span><div class="bench-inline-bar"><span style="width: {{ model.error_recovery_score | times: 100 }}%"></span></div><strong>{{ model.error_recovery_score | times: 100 | round: 1 }}</strong></div>
+          <div class="bench-bar-row"><span>Synthesis</span><div class="bench-inline-bar"><span style="width: {{ model.synthesis_score | times: 100 }}%"></span></div><strong>{{ model.synthesis_score | times: 100 | round: 1 }}</strong></div>
+        </div>
+      </section>
+
+      <section class="bench-card">
+        <h2>Reliability</h2>
+        <div class="bench-dimension-list">
+          <div><span>Pass@1</span><strong>{{ model.pass_at_1 | times: 100 | round: 1 }}%</strong></div>
+          <div><span>Pass@3</span><strong>{{ model.pass_at_3 | times: 100 | round: 1 }}%</strong></div>
+          <div><span>Strict pass rate</span><strong>{{ model.strict_pass_rate | times: 100 | round: 1 }}%</strong></div>
+          <div><span>Score stddev</span><strong>{{ model.reliability.avg_score_stddev | round: 4 }}</strong></div>
+          <div><span>Trials per task</span><strong>{{ model.trials_per_scenario }}</strong></div>
+          <div><span>Tasks passed</span><strong>{{ model.passed_scenarios }}/{{ model.total_scenarios }}</strong></div>
+        </div>
+      </section>
+
+      <section class="bench-card bench-card-full">
+        <h2>Per-task breakdown</h2>
+        <div class="bench-table-wrap">
+          <table class="bench-table bench-scenario-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Task</th>
+                <th>Dimension</th>
+                <th>Difficulty</th>
+                <th data-sort-key="avg_score">Score <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="strict_pass_k">Pass <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="avg_latency_seconds">Avg Runtime <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="avg_tokens">Avg Tokens <span class="bench-sort-indicator"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in model.scenario_rows %}
+              <tr>
+                <td>{{ forloop.index }}</td>
+                <td>
+                  <div class="bench-model-cell">
+                    <span>{{ row.scenario_id }}</span>
+                    <strong>{{ row.name }}</strong>
+                  </div>
+                </td>
+                <td>{{ row.dimension }}</td>
+                <td>{{ row.difficulty }}</td>
+                <td data-value="{{ row.avg_score }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-inline-bar"><span style="width: {{ row.avg_score | times: 100 }}%"></span></div>
+                    <strong>{{ row.avg_score | times: 100 | round: 1 }}</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.strict_pass_k }}">{% if row.strict_pass_k %}✓{% else %}–{% endif %}</td>
+                <td data-value="{{ row.avg_latency_seconds }}">{{ row.avg_latency_seconds | round: 2 }}s</td>
+                <td data-value="{{ row.avg_tokens }}">{{ row.avg_tokens | round: 0 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<script src="{{ site.baseurl }}/assets/js/bench.js"></script>
