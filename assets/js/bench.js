@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         required: requiredColumnIndices.has(index)
       };
     });
-    let currentKey = 'pass3';
+    let currentKey = 'final_score';
     let currentDirection = 'desc';
     let syncingTopScrollbar = false;
     let syncingTableWrap = false;
@@ -509,6 +509,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         if (clonedTable.tHead) {
           const exportHeaderLabels = {
+            final_score: 'Final Score',
             pass3: 'Pass^3',
             pass_at_3: 'Pass@3',
             overall_score: 'Avg',
@@ -601,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
           scrollY: 0
         });
 
-        const sortKey = slugifyValue(table.dataset.sortKey || 'pass3');
+        const sortKey = slugifyValue(table.dataset.sortKey || 'final_score');
         const sortDirection = slugifyValue(table.dataset.sortDirection || 'desc');
         const modelCount = tbody.querySelectorAll('tr').length;
         const filename = 'clawprobench-leaderboard-' + sortKey + '-' + sortDirection + '-' + modelCount + '-models.png';
@@ -724,6 +725,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const raw = bar.dataset[metric] || '';
       const value = metricValue(bar, metric);
       if (format === 'percent') return (value * 100).toFixed(1) + '%';
+      if (format === 'decimal2') return value.toFixed(2);
       if (format === 'runtime') return value.toFixed(2) + 's';
       if (format === 'tokens') return Math.round(value).toLocaleString('en-US');
       if (format === 'currency') return '$' + value.toFixed(4);

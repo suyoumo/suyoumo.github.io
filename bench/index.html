@@ -17,7 +17,7 @@ permalink: /bench/
     <div class="bench-section-head" id="leaderboard-section-head">
       <div class="bench-head-copy">
         <h2>Benchmark <span>Leaderboard</span></h2>
-        <p>Pass^3 remains the default rank signal. The table below shows score quality, efficiency, all six evaluation dimensions, average runtime, total token usage, token breakdown, OpenClaw version, and update time.</p>
+        <p>Final Score is the default rank signal. The table below shows the composite score, score quality, efficiency, all six evaluation dimensions, average runtime, total token usage, token breakdown, OpenClaw version, and update time.</p>
       </div>
       <div class="bench-section-actions">
         <button class="bench-ghost-button" id="leaderboard-download-image" type="button" aria-expanded="false" aria-controls="leaderboard-export-panel">
@@ -62,6 +62,7 @@ permalink: /bench/
             <tr>
               <th>#</th>
               <th data-sort-key="model_name">Model <span class="bench-sort-indicator"></span></th>
+              <th data-sort-key="final_score">Final Score <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="pass3">Pass^3 <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="pass_at_3">Pass@3 <span class="bench-sort-indicator"></span></th>
               <th data-sort-key="overall_score">Avg Score <span class="bench-sort-indicator"></span></th>
@@ -98,6 +99,7 @@ permalink: /bench/
                   </div>
                 </div>
               </td>
+              <td data-value="{{ row.final_score }}"><span class="bench-score">{{ row.final_score | round: 2 }}</span></td>
               <td data-value="{{ row.pass3 }}">
                 <div class="bench-pass-cell">
                   <div class="bench-pass-bar"><span style="width: {{ row.pass3 | times: 100 }}%"></span></div>
@@ -157,6 +159,7 @@ permalink: /bench/
       <span><code>cache_read_tokens</code> and <code>cache_write_tokens</code> are billed at <code>0.5x</code> the input-token price.</span>
       <span><code>cost_usd = (input_tokens + 0.5 * (cache_read_tokens + cache_write_tokens)) * price_usd_input / 1e6 + output_tokens * price_usd_output / 1e6</code></span>
       <span><code>pass^3 = weighted_pass_at_k_all</code>, while <code>strict_pass_rate = unweighted_pass_at_k_all</code>.</span>
+      <span><code>Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.45 × (1 - (1 - Pass@3)^(1/3))^0.15</code></span>
     </div>
 
     <div class="bench-card bench-chart-card" id="leaderboard-chart-section">
@@ -169,6 +172,7 @@ permalink: /bench/
           <label class="bench-chart-filter" for="leaderboard-chart-metric">
             <span>Metric</span>
             <select id="leaderboard-chart-metric">
+              <option value="final_score" data-direction="desc" data-format="decimal2" selected>Final Score</option>
               <option value="pass3" data-direction="desc" data-format="percent">Pass^3</option>
               <option value="pass_at_3" data-direction="desc" data-format="percent">Pass@3</option>
               <option value="overall_score" data-direction="desc" data-format="percent">Avg Score</option>
@@ -211,6 +215,7 @@ permalink: /bench/
             data-provider="{{ row.provider_key | escape }}"
             data-platform="{{ row.platform | escape }}"
             data-logo="{% if row.logo %}{{ site.baseurl }}/assets/images/bench/{{ row.logo }}{% endif %}"
+            data-final_score="{{ row.final_score }}"
             data-pass3="{{ row.pass3 }}"
             data-pass_at_3="{{ row.pass_at_3 }}"
             data-overall_score="{{ row.overall_score }}"
@@ -264,8 +269,9 @@ permalink: /bench/
           <label class="bench-chart-filter" for="leaderboard-scatter-metric">
             <span>Score Axis</span>
             <select id="leaderboard-scatter-metric">
+              <option value="final_score" data-format="decimal2" selected>Final Score</option>
               <option value="pass_at_3" data-format="percent">Pass@3</option>
-              <option value="pass3" data-format="percent" selected>Pass^3</option>
+              <option value="pass3" data-format="percent">Pass^3</option>
               <option value="overall_score" data-format="percent">Avg Score</option>
               <option value="capability_score" data-format="percent">Capability</option>
               <option value="efficiency_score" data-format="percent">Efficiency</option>
@@ -281,7 +287,7 @@ permalink: /bench/
       </div>
 
       <div class="bench-scatter-frame" id="leaderboard-scatter-frame">
-        <div class="bench-scatter-y-title" id="leaderboard-scatter-y-title">Pass^3</div>
+        <div class="bench-scatter-y-title" id="leaderboard-scatter-y-title">Final Score</div>
         <div class="bench-scatter-plot-wrap">
           <div class="bench-scatter-plot" id="leaderboard-scatter-plot">
             <div class="bench-scatter-grid"></div>
@@ -290,6 +296,7 @@ permalink: /bench/
               class="bench-scatter-point"
               href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
               data-model-name="{{ row.model_name | escape }}"
+              data-final_score="{{ row.final_score }}"
               data-pass3="{{ row.pass3 }}"
               data-pass_at_3="{{ row.pass_at_3 }}"
               data-overall_score="{{ row.overall_score }}"
@@ -326,8 +333,9 @@ permalink: /bench/
           <label class="bench-chart-filter" for="leaderboard-cost-scatter-metric">
             <span>Score Axis</span>
             <select id="leaderboard-cost-scatter-metric">
+              <option value="final_score" data-format="decimal2" selected>Final Score</option>
               <option value="pass_at_3" data-format="percent">Pass@3</option>
-              <option value="pass3" data-format="percent" selected>Pass^3</option>
+              <option value="pass3" data-format="percent">Pass^3</option>
               <option value="overall_score" data-format="percent">Avg Score</option>
               <option value="capability_score" data-format="percent">Capability</option>
               <option value="efficiency_score" data-format="percent">Efficiency</option>
@@ -343,7 +351,7 @@ permalink: /bench/
       </div>
 
       <div class="bench-scatter-frame" id="leaderboard-cost-scatter-frame">
-        <div class="bench-scatter-y-title" id="leaderboard-cost-scatter-y-title">Pass^3</div>
+        <div class="bench-scatter-y-title" id="leaderboard-cost-scatter-y-title">Final Score</div>
         <div class="bench-scatter-plot-wrap">
           <div class="bench-scatter-plot" id="leaderboard-cost-scatter-plot">
             <div class="bench-scatter-grid"></div>
@@ -352,6 +360,7 @@ permalink: /bench/
               class="bench-scatter-point"
               href="{{ site.baseurl }}/bench/models/{{ row.slug }}/"
               data-model-name="{{ row.model_name | escape }}"
+              data-final_score="{{ row.final_score }}"
               data-pass3="{{ row.pass3 }}"
               data-pass_at_3="{{ row.pass_at_3 }}"
               data-overall_score="{{ row.overall_score }}"
