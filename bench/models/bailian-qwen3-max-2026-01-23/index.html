@@ -60,6 +60,7 @@ title: qwen3-max-2026-01-23
           <div><span>Pass@1</span><strong>{{ model.pass_at_1 | times: 100 | round: 1 }}%</strong></div>
           <div><span>Pass@3</span><strong>{{ model.pass_at_3 | times: 100 | round: 1 }}%</strong></div>
           <div><span>Strict pass rate</span><strong>{{ model.strict_pass_rate | times: 100 | round: 1 }}%</strong></div>
+          <div><span>Score stddev</span><strong>{{ model.reliability.avg_score_stddev | round: 4 }}</strong></div>
           <div><span>Trials per task</span><strong>{{ model.trials_per_scenario }}</strong></div>
           <div><span>Tasks passed</span><strong>{{ model.passed_scenarios }}/{{ model.total_scenarios }}</strong></div>
         </div>
