@@ -422,9 +422,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openExportPanel() {
       if (!leaderboardExportPanel) return;
-      if (!leaderboardExportColumns || !leaderboardExportColumns.children.length) {
-        renderExportColumnOptions();
-      }
+      renderExportColumnOptions();
       leaderboardExportPanel.hidden = false;
       if (leaderboardDownloadButton) {
         leaderboardDownloadButton.setAttribute('aria-expanded', 'true');
