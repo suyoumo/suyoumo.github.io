@@ -86,10 +86,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const leaderboardExportCancel = document.getElementById('leaderboard-export-cancel');
     const leaderboardExportConfirm = document.getElementById('leaderboard-export-confirm');
     const defaultDownloadLabel = leaderboardDownloadLabel ? leaderboardDownloadLabel.textContent : 'Image';
+    const defaultExportSortKeys = new Set([
+      'final_score',
+      'pass3',
+      'pass_at_3',
+      'overall_score',
+      'planning_score',
+      'safety_score',
+      'tool_use_score',
+      'constraints_score',
+      'error_recovery_score',
+      'synthesis_score',
+      'avg_latency_seconds',
+      'cost_usd'
+    ]);
     const columnOptions = exportHeaders.map(function (header, index) {
       return {
         index: index,
         label: header.textContent.replace(/[↕↑↓]/g, '').trim(),
+        sortKey: header.dataset.sortKey || '',
         required: requiredColumnIndices.has(index)
       };
     });
@@ -392,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!leaderboardExportColumns) return;
       leaderboardExportColumns.innerHTML = columnOptions.map(function (option) {
         const requiredNote = option.required ? '<span class="bench-export-required-note">Required</span>' : '';
-        const defaultSelected = option.required || [2, 3, 4, 13, 16].includes(option.index);
+        const defaultSelected = option.required || defaultExportSortKeys.has(option.sortKey);
         return (
           '<label class="bench-export-column-item' + (option.required ? ' is-required' : '') + '">' +
             '<input type="checkbox" value="' + option.index + '"' + (option.required ? ' checked disabled' : (defaultSelected ? ' checked' : '')) + ' />' +
@@ -509,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         if (clonedTable.tHead) {
           const exportHeaderLabels = {
-            final_score: 'Final Score',
+            final_score: 'Final',
             pass3: 'Pass^3',
             pass_at_3: 'Pass@3',
             overall_score: 'Avg',
