@@ -566,7 +566,7 @@ document.addEventListener('DOMContentLoaded', function () {
               cell.style.whiteSpace = 'normal';
               cell.style.wordBreak = 'break-word';
             } else {
-              const metricWidth = sortKey === 'final_score' ? '82px' : '58px';
+              const metricWidth = sortKey === 'final_score' ? '96px' : '58px';
               cell.style.width = metricWidth;
               cell.style.minWidth = metricWidth;
               cell.style.maxWidth = metricWidth;
