@@ -91,12 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
       'pass3',
       'pass_at_3',
       'overall_score',
-      'planning_score',
-      'safety_score',
-      'tool_use_score',
-      'constraints_score',
-      'error_recovery_score',
-      'synthesis_score',
       'avg_latency_seconds',
       'cost_usd'
     ]);
