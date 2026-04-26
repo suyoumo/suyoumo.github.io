@@ -484,9 +484,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const cardClone = leaderboardCard.cloneNode(true);
       cardClone.classList.add('bench-export-card');
-      const clonedTable = cardClone.querySelector('table');
+      const clonedStickyHead = cardClone.querySelector('.bench-table-sticky-head');
+      const clonedTopScrollbar = cardClone.querySelector('.bench-table-top-scrollbar');
+      if (clonedStickyHead) clonedStickyHead.remove();
+      if (clonedTopScrollbar) clonedTopScrollbar.remove();
+      const clonedTable = cardClone.querySelector('#leaderboard-table');
       const clonedTbody = clonedTable ? clonedTable.querySelector('tbody') : null;
-      const clonedTableWrap = cardClone.querySelector('.bench-table-wrap');
+      const clonedTableWrap = cardClone.querySelector('#leaderboard-table-wrap');
       if (clonedTable) clonedTable.removeAttribute('id');
       if (clonedTableWrap) {
         clonedTableWrap.style.overflow = 'visible';
