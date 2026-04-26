@@ -545,7 +545,10 @@ document.addEventListener('DOMContentLoaded', function () {
         Array.from(clonedTable.querySelectorAll('tr')).forEach(function (row) {
           const isHeaderRow = row.parentElement && row.parentElement.tagName.toLowerCase() === 'thead';
           Array.from(row.children).forEach(function (cell, index) {
+            const originalIndex = selectedColumnIndices[index];
+            const originalHeader = exportHeaders[originalIndex];
             const kind = exportedColumnKinds[index] || 'metric';
+            const sortKey = originalHeader ? (originalHeader.dataset.sortKey || '') : (cell.dataset.sortKey || '');
             if (kind === 'rank') {
               cell.style.width = '24px';
               cell.style.minWidth = '24px';
@@ -563,9 +566,10 @@ document.addEventListener('DOMContentLoaded', function () {
               cell.style.whiteSpace = 'normal';
               cell.style.wordBreak = 'break-word';
             } else {
-              cell.style.width = '58px';
-              cell.style.minWidth = '58px';
-              cell.style.maxWidth = '58px';
+              const metricWidth = sortKey === 'final_score' ? '68px' : '58px';
+              cell.style.width = metricWidth;
+              cell.style.minWidth = metricWidth;
+              cell.style.maxWidth = metricWidth;
               cell.style.paddingLeft = '5px';
               cell.style.paddingRight = '5px';
               cell.style.textAlign = 'center';
