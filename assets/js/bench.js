@@ -925,6 +925,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const maxY = Math.max.apply(null, ys);
       const rangeX = maxX - minX || 1;
       const rangeY = maxY - minY || 1;
+      const overlapGroups = new Map();
 
       scatterPlot.style.width = plotWidth + 'px';
       scatterXAxis.style.width = plotWidth + 'px';
@@ -932,12 +933,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
       points.forEach(function (point) {
         const x = scatterValue(point, xMetric);
+        const key = x.toFixed(4);
+        if (!overlapGroups.has(key)) overlapGroups.set(key, []);
+        overlapGroups.get(key).push(point);
+      });
+
+      const overlapOffsets = new Map();
+      overlapGroups.forEach(function (group, key) {
+        const count = group.length;
+        group.forEach(function (point, index) {
+          if (count <= 1) {
+            overlapOffsets.set(point, 0);
+            return;
+          }
+          const centeredIndex = index - (count - 1) / 2;
+          overlapOffsets.set(point, centeredIndex * 12);
+        });
+      });
+
+      points.forEach(function (point) {
+        const x = scatterValue(point, xMetric);
         const y = scatterValue(point, metric);
         const left = Math.max(0, Math.min(100, ((x - minX) / rangeX) * 100));
         const bottom = 10 + ((y - minY) / rangeY) * 74;
+        const offsetX = overlapOffsets.get(point) || 0;
         const modelName = readDataValue(point, 'model_name') || (point.querySelector('.bench-scatter-name') || {}).textContent || 'Unknown model';
         point.style.left = left + '%';
         point.style.bottom = bottom + '%';
+        point.style.marginLeft = offsetX + 'px';
         point.classList.toggle('bench-scatter-point-flip', left > 84);
         point.setAttribute('aria-label', modelName + ' · ' + scatterFormat(y, format) + ' · ' + xValueFormatter(x));
         point.title = modelName + ' · ' + scatterFormat(y, format) + ' · ' + xValueFormatter(x);
@@ -961,7 +984,7 @@ document.addEventListener('DOMContentLoaded', function () {
     titleId: 'leaderboard-scatter-y-title',
     xAxisId: 'leaderboard-scatter-x-axis',
     xMetric: 'avg_latency_seconds',
-    minX: 70,
+    minX: 45,
     visibleMaxX: 200,
     roundStep: 10,
     xAxisFormatter: function (value) {
