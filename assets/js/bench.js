@@ -926,6 +926,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const rangeX = maxX - minX || 1;
       const rangeY = maxY - minY || 1;
       const overlapGroups = new Map();
+      const leftEdgeEpsilon = rangeX === 0 ? 0 : Math.max(rangeX * 0.001, 0.0001);
 
       scatterPlot.style.width = plotWidth + 'px';
       scatterXAxis.style.width = plotWidth + 'px';
@@ -941,9 +942,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const overlapOffsets = new Map();
       overlapGroups.forEach(function (group, key) {
         const count = group.length;
+        const groupX = Number(key);
+        const isLeftEdgeGroup = Number.isFinite(groupX) && groupX <= minX + leftEdgeEpsilon;
         group.forEach(function (point, index) {
           if (count <= 1) {
             overlapOffsets.set(point, 0);
+            return;
+          }
+          if (isLeftEdgeGroup) {
+            overlapOffsets.set(point, index * 12);
             return;
           }
           const centeredIndex = index - (count - 1) / 2;
