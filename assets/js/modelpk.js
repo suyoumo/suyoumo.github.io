@@ -15,11 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const selectA = document.getElementById('modelpk-model-a');
   const selectB = document.getElementById('modelpk-model-b');
+  const runButton = document.getElementById('modelpk-run');
   const swapButton = document.getElementById('modelpk-swap');
   const resetButton = document.getElementById('modelpk-reset');
   const warning = document.getElementById('modelpk-warning');
   const summaryGrid = document.getElementById('modelpk-summary-grid');
   const verdict = document.getElementById('modelpk-verdict');
+  const radar = document.getElementById('modelpk-radar');
   const dimensionGrid = document.getElementById('modelpk-dimension-grid');
   const dimensionFilter = document.getElementById('modelpk-dimension-filter');
   const taskSort = document.getElementById('modelpk-task-sort');
@@ -56,6 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (rankA !== rankB) return rankA - rankB;
     return String(a.model_name || '').localeCompare(String(b.model_name || ''));
   });
+  let currentModelA = null;
+  let currentModelB = null;
+  let currentRows = [];
 
   function renderFatalError(message) {
     if (!app) return;
@@ -90,6 +95,24 @@ document.addEventListener('DOMContentLoaded', function () {
     return (num * 100).toFixed(1);
   }
 
+  function calculateFinalScore(model) {
+    const score = toNumber(model.overall_score);
+    const pass3 = toNumber(model.pass3);
+    const passAt3 = toNumber(model.pass_at_3);
+    if (score <= 0 || pass3 <= 0 || passAt3 <= 0 || passAt3 > 1) return 0;
+    const rAll = Math.pow(pass3, 1 / 3);
+    const rAny = 1 - Math.pow(1 - passAt3, 1 / 3);
+    return 100 * Math.pow(score, 0.40) * Math.pow(rAll, 0.45) * Math.pow(rAny, 0.15);
+  }
+
+  function metricValue(model, key) {
+    if (key === 'final_score') {
+      const existing = toNumber(model.final_score);
+      return existing > 0 ? existing : calculateFinalScore(model);
+    }
+    return toNumber(model[key]);
+  }
+
   function formatDelta(value, type) {
     if (type === 'score') return signed(value, 2);
     return signed(value * 100, 1);
@@ -102,23 +125,23 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function iconSvg(name) {
-    const paths = {
-      route: '<path d="M5 19c4 0 4-14 8-14s4 14 8 14"/><circle cx="5" cy="19" r="2"/><circle cx="13" cy="5" r="2"/><circle cx="21" cy="19" r="2"/>',
-      shield: '<path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-5"/>',
-      tool: '<path d="M14.7 6.3a4 4 0 0 0 5 5L11 20l-4-4 8.7-8.7Z"/><path d="m7 16-3 3"/>',
-      lock: '<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
-      recover: '<path d="M4 12a8 8 0 1 1 2.3 5.7"/><path d="M4 18v-6h6"/>',
-      layers: '<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 18 9 5 9-5"/>',
-      trophy: '<path d="M8 4h8v4a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5a3 3 0 0 0 3 3"/><path d="M16 6h3a3 3 0 0 1-3 3"/><path d="M12 12v5"/><path d="M9 21h6"/><path d="M10 17h4"/>'
+    const labels = {
+      route: 'PL',
+      shield: 'SF',
+      tool: 'TU',
+      lock: 'CT',
+      recover: 'ER',
+      layers: 'SY',
+      trophy: 'PK'
     };
-    return '<svg viewBox="0 0 24 24" aria-hidden="true">' + (paths[name] || paths.trophy) + '</svg>';
+    return '<span class="modelpk-icon-glyph" aria-hidden="true">' + (labels[name] || 'PK') + '</span>';
   }
 
   function modelLogo(model) {
     if (!model || !model.logo) {
       return '<span class="modelpk-logo-placeholder">' + escapeHtml((model && model.model_name ? model.model_name[0] : '?').toUpperCase()) + '</span>';
     }
-    return '<img src="' + baseUrl + '/assets/images/bench/' + escapeHtml(model.logo) + '" alt="' + escapeHtml(model.provider_key || model.model_name || 'model') + ' logo" />';
+    return '<img width="48" height="48" style="width:48px;height:48px;object-fit:contain;border-radius:12px;" src="' + baseUrl + '/assets/images/bench/' + escapeHtml(model.logo) + '" alt="' + escapeHtml(model.provider_key || model.model_name || 'model') + ' logo" />';
   }
 
   function optionLabel(model) {
@@ -168,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function renderModelCard(model, side) {
     const metrics = coreMetrics.map(function (metric) {
-      return '<div><span>' + metric.label + '</span><strong>' + formatMetric(model[metric.key], metric.type) + '</strong></div>';
+      return '<div><span>' + metric.label + '</span><strong>' + formatMetric(metricValue(model, metric.key), metric.type) + '</strong></div>';
     }).join('');
     return [
       '<article class="bench-card modelpk-model-card modelpk-' + side + '">',
@@ -220,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return '<li><strong>' + escapeHtml(row.scenario_id) + '</strong><span>' + escapeHtml(leader) + ' leads by ' + Math.abs(row.delta * 100).toFixed(1) + '</span></li>';
       }).join('');
 
-    const finalDelta = toNumber(modelA.final_score) - toNumber(modelB.final_score);
+    const finalDelta = metricValue(modelA, 'final_score') - metricValue(modelB, 'final_score');
     const headline = Math.abs(finalDelta) < 0.0001
       ? 'Final Score is tied'
       : (finalDelta > 0 ? modelA.model_name : modelB.model_name) + ' leads Final Score by ' + Math.abs(finalDelta).toFixed(2);
@@ -236,6 +259,88 @@ document.addEventListener('DOMContentLoaded', function () {
       '  <div><span>Task ties</span><strong>' + taskWins.tie + '</strong></div>',
       '</div>',
       '<ul class="modelpk-biggest-gaps">' + biggest + '</ul>'
+    ].join('');
+  }
+
+  function radarPoint(index, value, radius) {
+    const angle = (-90 + (360 / dimensionDefs.length) * index) * Math.PI / 180;
+    const distance = radius * Math.max(0, Math.min(1, value));
+    return {
+      x: 160 + Math.cos(angle) * distance,
+      y: 160 + Math.sin(angle) * distance
+    };
+  }
+
+  function radarPolygon(model, radius) {
+    return dimensionDefs.map(function (def, index) {
+      const point = radarPoint(index, toNumber(model[def.key]), radius);
+      return point.x.toFixed(2) + ',' + point.y.toFixed(2);
+    }).join(' ');
+  }
+
+  function radarRingPoints(scale, radius) {
+    return dimensionDefs.map(function (_, index) {
+      const point = radarPoint(index, scale, radius);
+      return point.x.toFixed(2) + ',' + point.y.toFixed(2);
+    }).join(' ');
+  }
+
+  function renderRadar(modelA, modelB) {
+    const radius = 104;
+    const axes = dimensionDefs.map(function (def, index) {
+      const outer = radarPoint(index, 1, radius);
+      const label = radarPoint(index, 1.18, radius);
+      const anchor = label.x < 130 ? 'end' : label.x > 190 ? 'start' : 'middle';
+      return [
+        '<line stroke="rgba(16,17,20,0.12)" stroke-width="1" x1="160" y1="160" x2="' + outer.x.toFixed(2) + '" y2="' + outer.y.toFixed(2) + '" />',
+        '<text fill="#6f6a62" font-size="10" font-weight="800" x="' + label.x.toFixed(2) + '" y="' + label.y.toFixed(2) + '" text-anchor="' + anchor + '">' + escapeHtml(def.label) + '</text>'
+      ].join('');
+    }).join('');
+
+    const detailRows = dimensionDefs.map(function (def) {
+      const valueA = toNumber(modelA[def.key]);
+      const valueB = toNumber(modelB[def.key]);
+      const delta = valueA - valueB;
+      const deltaClass = delta > 0 ? 'positive' : delta < 0 ? 'negative' : 'neutral';
+      return [
+        '<div class="modelpk-radar-detail-row">',
+        '  <span>' + escapeHtml(def.label) + '</span>',
+        '  <strong>' + formatMetric(valueA, 'percent') + '</strong>',
+        '  <strong>' + formatMetric(valueB, 'percent') + '</strong>',
+        '  <em class="' + deltaClass + '">' + formatDelta(delta, 'percent') + '</em>',
+        '</div>'
+      ].join('');
+    }).join('');
+
+    radar.innerHTML = [
+      '<div class="modelpk-radar-copy">',
+      '  <p class="bench-kicker">Radar view</p>',
+      '  <h2>Six-Dimension Shape</h2>',
+      '  <p>The radar chart highlights where each model is balanced or spiky across planning, safety, tool use, constraints, error recovery, and synthesis.</p>',
+      '  <div class="modelpk-radar-legend">',
+      '    <span class="modelpk-radar-legend-a">' + escapeHtml(modelA.model_name) + '</span>',
+      '    <span class="modelpk-radar-legend-b">' + escapeHtml(modelB.model_name) + '</span>',
+      '  </div>',
+      '</div>',
+      '<div class="modelpk-radar-visual">',
+      '  <svg width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Dimension radar comparison">',
+      '    <g class="modelpk-radar-grid">',
+      '      <polygon fill="none" stroke="rgba(16,17,20,0.11)" stroke-width="1" points="' + radarRingPoints(0.25, radius) + '" />',
+      '      <polygon fill="none" stroke="rgba(16,17,20,0.11)" stroke-width="1" points="' + radarRingPoints(0.5, radius) + '" />',
+      '      <polygon fill="none" stroke="rgba(16,17,20,0.11)" stroke-width="1" points="' + radarRingPoints(0.75, radius) + '" />',
+      '      <polygon fill="none" stroke="rgba(16,17,20,0.11)" stroke-width="1" points="' + radarRingPoints(1, radius) + '" />',
+      axes,
+      '    </g>',
+      '    <polygon class="modelpk-radar-area modelpk-radar-area-a" fill="rgba(77,108,240,0.22)" stroke="#4d6cf0" stroke-width="3" stroke-linejoin="round" points="' + radarPolygon(modelA, radius) + '" />',
+      '    <polygon class="modelpk-radar-area modelpk-radar-area-b" fill="rgba(199,111,70,0.22)" stroke="#c76f46" stroke-width="3" stroke-linejoin="round" points="' + radarPolygon(modelB, radius) + '" />',
+      '    <polyline class="modelpk-radar-line modelpk-radar-line-a" fill="none" stroke="#4d6cf0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="' + radarPolygon(modelA, radius) + ' ' + radarPolygon(modelA, radius).split(' ')[0] + '" />',
+      '    <polyline class="modelpk-radar-line modelpk-radar-line-b" fill="none" stroke="#c76f46" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="' + radarPolygon(modelB, radius) + ' ' + radarPolygon(modelB, radius).split(' ')[0] + '" />',
+      '  </svg>',
+      '</div>',
+      '<div class="modelpk-radar-detail">',
+      '  <div class="modelpk-radar-detail-head"><span>Dimension</span><strong>A</strong><strong>B</strong><em>Delta</em></div>',
+      detailRows,
+      '</div>'
     ].join('');
   }
 
@@ -338,11 +443,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }).join('');
   }
 
+  function renderTaskFilters() {
+    if (!currentModelA || !currentModelB) return;
+    renderTasks(currentModelA, currentModelB, currentRows);
+  }
+
   function updateUrl(aId, bId) {
     const params = new URLSearchParams(window.location.search);
     params.set('a', aId);
     params.set('b', bId);
     window.history.replaceState({}, '', window.location.pathname + '?' + params.toString());
+  }
+
+  function clearResult() {
+    summaryGrid.innerHTML = '';
+    verdict.innerHTML = '';
+    radar.innerHTML = '';
+    dimensionGrid.innerHTML = '';
+    taskRows.innerHTML = '';
+    taskSummary.innerHTML = '';
+  }
+
+  function markPendingSelection() {
+    if (!currentModelA || !currentModelB) return;
+    if (selectA.value === currentModelA.id && selectB.value === currentModelB.id) {
+      runButton.classList.remove('is-pending');
+      warning.hidden = true;
+      return;
+    }
+    runButton.classList.add('is-pending');
+    warning.hidden = false;
+    warning.textContent = 'Selection changed. Click PK to refresh the comparison.';
   }
 
   function render() {
@@ -353,19 +484,24 @@ document.addEventListener('DOMContentLoaded', function () {
     if (modelA.id === modelB.id) {
       warning.hidden = false;
       warning.textContent = 'Choose two different models to compare.';
-      summaryGrid.innerHTML = '';
-      verdict.innerHTML = '';
-      dimensionGrid.innerHTML = '';
-      taskRows.innerHTML = '';
-      taskSummary.innerHTML = '';
+      runButton.classList.remove('is-pending');
+      currentModelA = null;
+      currentModelB = null;
+      currentRows = [];
+      clearResult();
       return;
     }
 
     warning.hidden = true;
+    runButton.classList.remove('is-pending');
+    currentModelA = modelA;
+    currentModelB = modelB;
     const rows = allScenarioRows(modelA, modelB);
+    currentRows = rows;
     populateDimensionFilter(rows);
     renderSummary(modelA, modelB);
     renderVerdict(modelA, modelB, rows);
+    renderRadar(modelA, modelB);
     renderDimensions(modelA, modelB);
     renderTasks(modelA, modelB, rows);
     updateUrl(modelA.id, modelB.id);
@@ -385,18 +521,19 @@ document.addEventListener('DOMContentLoaded', function () {
   setDefaultSelection();
   render();
 
-  selectA.addEventListener('change', render);
-  selectB.addEventListener('change', render);
-  dimensionFilter.addEventListener('change', render);
-  taskSort.addEventListener('change', render);
-  taskSearch.addEventListener('input', render);
-  diffOnly.addEventListener('change', render);
+  runButton.addEventListener('click', render);
+  selectA.addEventListener('change', markPendingSelection);
+  selectB.addEventListener('change', markPendingSelection);
+  dimensionFilter.addEventListener('change', renderTaskFilters);
+  taskSort.addEventListener('change', renderTaskFilters);
+  taskSearch.addEventListener('input', renderTaskFilters);
+  diffOnly.addEventListener('change', renderTaskFilters);
 
   swapButton.addEventListener('click', function () {
     const a = selectA.value;
     selectA.value = selectB.value;
     selectB.value = a;
-    render();
+    markPendingSelection();
   });
 
   resetButton.addEventListener('click', function () {

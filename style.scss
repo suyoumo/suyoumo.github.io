@@ -2915,6 +2915,7 @@ main {
 .modelpk-hero {
   position: relative;
   overflow: hidden;
+  padding: 56px 0 24px;
 
   &::before,
   &::after {
@@ -2942,34 +2943,54 @@ main {
   }
 }
 
+.modelpk-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  gap: 32px;
+  align-items: end;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modelpk-hero-copy {
+  min-width: 0;
+}
+
 .modelpk-hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 26px;
+  display: grid;
+  gap: 10px;
+  margin: 0;
 
   span {
     display: inline-flex;
     align-items: center;
-    gap: 9px;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.72);
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.78);
     border: 1px solid rgba(0,0,0,0.06);
     color: $black;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 700;
     box-shadow: 0 12px 30px rgba(25,25,24,0.05);
   }
 
-  svg {
-    width: 17px;
-    height: 17px;
-    fill: none;
-    stroke: #4d6cf0;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  i {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #101114;
+    color: $white;
+    font-style: normal;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
   }
 }
 
@@ -2979,6 +3000,7 @@ main {
 
 .modelpk-selector-card,
 .modelpk-verdict-card,
+.modelpk-radar-card,
 .modelpk-dimension-card,
 .modelpk-task-card {
   margin-bottom: 28px;
@@ -3020,7 +3042,7 @@ main {
 
 .modelpk-select-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 96px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 132px;
   gap: 18px;
   align-items: end;
 
@@ -3077,6 +3099,50 @@ main {
   font-weight: 900;
   letter-spacing: 0.08em;
   box-shadow: 0 16px 32px rgba(25,25,24,0.16);
+}
+
+.modelpk-primary-button {
+  appearance: none;
+  min-height: 52px;
+  border: 0;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #101114, #2e344b);
+  color: $white;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(25,25,24,0.16);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+
+  b {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.16);
+    color: inherit;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 40px rgba(25,25,24,0.20);
+  }
+
+  &.is-pending {
+    background: linear-gradient(135deg, #4d6cf0, #263fbb);
+  }
 }
 
 .modelpk-warning {
@@ -3276,15 +3342,19 @@ main {
   color: $white;
   border-radius: 18px;
 
-  svg {
-    width: 24px;
-    height: 24px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.9;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+}
+
+.modelpk-icon-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 12px;
+  color: currentColor;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
 .modelpk-verdict-icon {
@@ -3354,6 +3424,190 @@ main {
     margin-top: 4px;
     color: $gray;
     font-size: 0.84rem;
+  }
+}
+
+.modelpk-radar-card {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(300px, 0.95fr) minmax(280px, 0.9fr);
+  gap: 26px;
+  align-items: center;
+  padding: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(77,108,240,0.10), transparent 38%),
+    rgba(255,255,255,0.88);
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modelpk-radar-copy {
+  h2 {
+    margin: 0 0 12px;
+    padding: 0;
+    font-family: $sans;
+    font-size: 1.9rem;
+    letter-spacing: -0.045em;
+  }
+
+  p:not(.bench-kicker) {
+    margin: 0;
+    color: $gray;
+    line-height: 1.75;
+  }
+}
+
+.modelpk-radar-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: $black;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  span::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #4d6cf0;
+  }
+
+  .modelpk-radar-legend-b::before {
+    background: #c76f46;
+  }
+}
+
+.modelpk-radar-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 330px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.74), rgba(250,246,239,0.7)),
+    radial-gradient(circle, rgba(16,17,20,0.05), transparent 58%);
+  border: 1px solid rgba(0,0,0,0.045);
+
+  svg {
+    width: min(100%, 360px);
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.modelpk-radar-grid {
+  polygon {
+    fill: none;
+    stroke: rgba(16,17,20,0.11);
+    stroke-width: 1;
+  }
+
+  line {
+    stroke: rgba(16,17,20,0.12);
+    stroke-width: 1;
+  }
+
+  text {
+    fill: $gray;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+}
+
+.modelpk-radar-area {
+  stroke-linejoin: round;
+}
+
+.modelpk-radar-area-a {
+  fill: rgba(77,108,240,0.22);
+}
+
+.modelpk-radar-area-b {
+  fill: rgba(199,111,70,0.22);
+}
+
+.modelpk-radar-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.modelpk-radar-line-a {
+  stroke: #4d6cf0;
+}
+
+.modelpk-radar-line-b {
+  stroke: #c76f46;
+}
+
+.modelpk-radar-detail {
+  display: grid;
+  gap: 8px;
+}
+
+.modelpk-radar-detail-head,
+.modelpk-radar-detail-row {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) 48px 48px 56px;
+  align-items: center;
+  gap: 10px;
+}
+
+.modelpk-radar-detail-head {
+  color: $gray;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.modelpk-radar-detail-row {
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(0,0,0,0.04);
+
+  span {
+    color: $black;
+    font-size: 0.88rem;
+    font-weight: 800;
+  }
+
+  strong {
+    color: $black;
+    text-align: right;
+    font-size: 0.88rem;
+  }
+
+  em {
+    text-align: right;
+    font-style: normal;
+    font-size: 0.88rem;
+    font-weight: 900;
+  }
+
+  em.positive {
+    color: #355bd8;
+  }
+
+  em.negative {
+    color: #a65335;
+  }
+
+  em.neutral {
+    color: $gray;
   }
 }
 

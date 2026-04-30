@@ -6,22 +6,17 @@ permalink: /bench/modelpk/
 
 <section class="bench-hero modelpk-hero">
   <div class="container-wide bench-shell">
-    <p class="bench-kicker">Model to model comparison</p>
-    <h1>ModelPK</h1>
-    <p class="bench-intro">Pick two models and compare them across leaderboard metrics, six evaluation dimensions, and all 102 task-level scores.</p>
-    <div class="modelpk-hero-badges" aria-label="ModelPK feature summary">
-      <span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
-        Two-model PK
-      </span>
-      <span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-3 3 2 5-7"/></svg>
-        Dimension deltas
-      </span>
-      <span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
-        Per-task breakdown
-      </span>
+    <div class="modelpk-hero-grid">
+      <div class="modelpk-hero-copy">
+        <p class="bench-kicker">Model to model comparison</p>
+        <h1>ModelPK</h1>
+        <p class="bench-intro">Pick two models, click PK, then compare leaderboard metrics, six dimensions, radar shape, and all 102 task-level scores.</p>
+      </div>
+      <div class="modelpk-hero-badges" aria-label="ModelPK feature summary">
+        <span><i>01</i> Two-model PK</span>
+        <span><i>02</i> Radar comparison</span>
+        <span><i>03</i> Per-task breakdown</span>
+      </div>
     </div>
   </div>
 </section>
@@ -51,17 +46,21 @@ permalink: /bench/modelpk/
           <span>Model A</span>
           <select id="modelpk-model-a"></select>
         </label>
-        <div class="modelpk-versus" aria-hidden="true">PK</div>
         <label class="modelpk-select-field modelpk-b">
           <span>Model B</span>
           <select id="modelpk-model-b"></select>
         </label>
+        <button class="modelpk-primary-button" id="modelpk-run" type="button">
+          <span>PK</span>
+          <b aria-hidden="true">Go</b>
+        </button>
       </div>
       <p class="modelpk-warning" id="modelpk-warning" hidden></p>
     </div>
 
     <div class="modelpk-summary-grid" id="modelpk-summary-grid"></div>
     <div class="bench-card modelpk-verdict-card" id="modelpk-verdict"></div>
+    <div class="bench-card modelpk-radar-card" id="modelpk-radar"></div>
 
     <div class="bench-section-head modelpk-section-head">
       <div class="bench-head-copy">
