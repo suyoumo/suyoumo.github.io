@@ -1,0 +1,134 @@
+---
+layout: bench
+title: ModelPK
+permalink: /bench/modelpk/
+---
+
+<section class="bench-hero modelpk-hero">
+  <div class="container-wide bench-shell">
+    <p class="bench-kicker">Model to model comparison</p>
+    <h1>ModelPK</h1>
+    <p class="bench-intro">Pick two models and compare them across leaderboard metrics, six evaluation dimensions, and all 102 task-level scores.</p>
+    <div class="modelpk-hero-badges" aria-label="ModelPK feature summary">
+      <span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+        Two-model PK
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5M4 19h16M8 15l3-3 3 2 5-7"/></svg>
+        Dimension deltas
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14"/></svg>
+        Per-task breakdown
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="bench-section modelpk-page" id="modelpk-app" data-baseurl="{{ site.baseurl }}">
+  <div class="container-wide bench-shell">
+    <div class="bench-card modelpk-selector-card">
+      <div class="modelpk-selector-head">
+        <div>
+          <p class="bench-kicker">Choose contenders</p>
+          <h2>Compare Two Models</h2>
+        </div>
+        <div class="modelpk-selector-actions">
+          <button class="bench-ghost-button" id="modelpk-swap" type="button">
+            <span class="bench-button-icon" aria-hidden="true">↔</span>
+            <span class="bench-button-label">Swap</span>
+          </button>
+          <button class="bench-ghost-button" id="modelpk-reset" type="button">
+            <span class="bench-button-icon" aria-hidden="true">↺</span>
+            <span class="bench-button-label">Top Pair</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="modelpk-select-grid">
+        <label class="modelpk-select-field modelpk-a">
+          <span>Model A</span>
+          <select id="modelpk-model-a"></select>
+        </label>
+        <div class="modelpk-versus" aria-hidden="true">PK</div>
+        <label class="modelpk-select-field modelpk-b">
+          <span>Model B</span>
+          <select id="modelpk-model-b"></select>
+        </label>
+      </div>
+      <p class="modelpk-warning" id="modelpk-warning" hidden></p>
+    </div>
+
+    <div class="modelpk-summary-grid" id="modelpk-summary-grid"></div>
+    <div class="bench-card modelpk-verdict-card" id="modelpk-verdict"></div>
+
+    <div class="bench-section-head modelpk-section-head">
+      <div class="bench-head-copy">
+        <h2>Dimension <span>Comparison</span></h2>
+        <p>Scores are shown on a 0 to 100 scale. The delta column is Model A minus Model B.</p>
+      </div>
+    </div>
+
+    <div class="bench-card modelpk-dimension-card">
+      <div class="modelpk-dimension-grid" id="modelpk-dimension-grid"></div>
+    </div>
+
+    <div class="bench-section-head modelpk-section-head">
+      <div class="bench-head-copy">
+        <h2>Task-Level <span>Breakdown</span></h2>
+        <p>Each row compares the two models on the same task. Use search and filters to isolate dimensions, hard losses, or close calls.</p>
+      </div>
+      <div class="modelpk-task-controls">
+        <label>
+          <span>Dimension</span>
+          <select id="modelpk-dimension-filter">
+            <option value="all">All dimensions</option>
+          </select>
+        </label>
+        <label>
+          <span>Sort</span>
+          <select id="modelpk-task-sort">
+            <option value="delta_abs">Largest gap</option>
+            <option value="delta_a">Model A lead</option>
+            <option value="delta_b">Model B lead</option>
+            <option value="a_score">Model A score</option>
+            <option value="b_score">Model B score</option>
+            <option value="scenario">Scenario ID</option>
+          </select>
+        </label>
+        <label>
+          <span>Search</span>
+          <input id="modelpk-task-search" type="search" placeholder="scenario, name, difficulty" />
+        </label>
+        <label class="modelpk-check-field">
+          <input id="modelpk-diff-only" type="checkbox" />
+          <span>Only different</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="bench-card modelpk-task-card">
+      <div class="modelpk-task-summary" id="modelpk-task-summary"></div>
+      <div class="bench-table-wrap modelpk-table-wrap">
+        <table class="bench-table modelpk-task-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Dimension</th>
+              <th>Difficulty</th>
+              <th id="modelpk-task-head-a">Model A</th>
+              <th id="modelpk-task-head-b">Model B</th>
+              <th>Delta</th>
+              <th>Winner</th>
+            </tr>
+          </thead>
+          <tbody id="modelpk-task-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="modelpk-data">{{ site.data.bench.models | jsonify | replace: '</', '<\/' }}</script>
+  <script src="{{ site.baseurl }}/assets/js/modelpk.js"></script>
+</section>
