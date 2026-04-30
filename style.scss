@@ -3051,6 +3051,12 @@ main {
   }
 }
 
+.modelpk-action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
 .modelpk-select-field,
 .modelpk-task-controls label {
   display: flex;
@@ -3125,8 +3131,6 @@ main {
 
 .modelpk-primary-button {
   appearance: none;
-  grid-column: 1 / -1;
-  justify-self: center;
   min-width: 220px;
   min-height: 52px;
   padding: 0 32px;
@@ -3176,7 +3180,6 @@ main {
 
   @include mobile {
     width: 100%;
-    justify-self: stretch;
   }
 }
 

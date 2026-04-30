@@ -54,6 +54,8 @@ permalink: /bench/modelpk/
           <select id="modelpk-model-b"></select>
           <small id="modelpk-search-hint-b"></small>
         </label>
+      </div>
+      <div class="modelpk-action-row">
         <button class="modelpk-primary-button" id="modelpk-run" type="button">
           <span>PK</span>
           <b aria-hidden="true">Go</b>
@@ -134,5 +136,5 @@ permalink: /bench/modelpk/
   </div>
 
   <script type="application/json" id="modelpk-data">{{ site.data.bench.models | jsonify | replace: '</', '<\/' }}</script>
-  <script src="{{ site.baseurl }}/assets/js/modelpk.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/modelpk.js?v={{ site.time | date: '%s' }}"></script>
 </section>
