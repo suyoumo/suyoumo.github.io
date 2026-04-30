@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const summaryGrid = document.getElementById('modelpk-summary-grid');
   const verdict = document.getElementById('modelpk-verdict');
   const radar = document.getElementById('modelpk-radar');
+  const dimensionLegend = document.getElementById('modelpk-dimension-legend');
   const dimensionGrid = document.getElementById('modelpk-dimension-grid');
   const dimensionFilter = document.getElementById('modelpk-dimension-filter');
   const taskSort = document.getElementById('modelpk-task-sort');
@@ -147,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function () {
   function optionLabel(model) {
     const rank = model.rank ? '#' + model.rank + ' · ' : '';
     return rank + model.model_name + ' · ' + model.provider_key;
+  }
+
+  function compactName(model, limit) {
+    const name = String((model && model.model_name) || (model && model.id) || 'model');
+    const max = limit || 22;
+    return name.length > max ? name.slice(0, max - 1) + '…' : name;
   }
 
   function populateModelOptions() {
@@ -345,17 +352,27 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderDimensions(modelA, modelB) {
+    if (dimensionLegend) {
+      dimensionLegend.innerHTML = [
+        '<span class="modelpk-dimension-legend-a"><em>A</em><strong title="' + escapeHtml(modelA.model_name || modelA.id) + '">' + escapeHtml(compactName(modelA, 30)) + '</strong></span>',
+        '<span class="modelpk-dimension-legend-b"><em>B</em><strong title="' + escapeHtml(modelB.model_name || modelB.id) + '">' + escapeHtml(compactName(modelB, 30)) + '</strong></span>',
+        '<span class="modelpk-dimension-legend-delta">Delta = A - B</span>'
+      ].join('');
+    }
+
     dimensionGrid.innerHTML = dimensionDefs.map(function (def) {
       const valueA = toNumber(modelA[def.key]);
       const valueB = toNumber(modelB[def.key]);
       const delta = valueA - valueB;
       const winner = Math.abs(delta) < 0.0001 ? 'Tie' : (delta > 0 ? 'A leads' : 'B leads');
+      const labelA = '<span class="modelpk-bar-model modelpk-bar-model-a"><em>A</em><b title="' + escapeHtml(modelA.model_name || modelA.id) + '">' + escapeHtml(compactName(modelA, 20)) + '</b></span>';
+      const labelB = '<span class="modelpk-bar-model modelpk-bar-model-b"><em>B</em><b title="' + escapeHtml(modelB.model_name || modelB.id) + '">' + escapeHtml(compactName(modelB, 20)) + '</b></span>';
       return [
         '<div class="modelpk-dimension-row">',
         '  <div class="modelpk-dimension-label"><span class="modelpk-dimension-icon">' + iconSvg(def.icon) + '</span><strong>' + def.label + '</strong></div>',
         '  <div class="modelpk-dimension-bars">',
-        '    <div><span>A</span><div class="modelpk-score-track"><i style="width:' + scoreWidth(valueA, 'percent') + '%"></i></div><strong>' + formatMetric(valueA, 'percent') + '</strong></div>',
-        '    <div><span>B</span><div class="modelpk-score-track"><i style="width:' + scoreWidth(valueB, 'percent') + '%"></i></div><strong>' + formatMetric(valueB, 'percent') + '</strong></div>',
+        '    <div>' + labelA + '<div class="modelpk-score-track"><i style="width:' + scoreWidth(valueA, 'percent') + '%"></i></div><strong>' + formatMetric(valueA, 'percent') + '</strong></div>',
+        '    <div>' + labelB + '<div class="modelpk-score-track"><i style="width:' + scoreWidth(valueB, 'percent') + '%"></i></div><strong>' + formatMetric(valueB, 'percent') + '</strong></div>',
         '  </div>',
         '  <div class="modelpk-delta ' + (delta > 0 ? 'positive' : delta < 0 ? 'negative' : 'neutral') + '"><strong>' + formatDelta(delta, 'percent') + '</strong><span>' + winner + '</span></div>',
         '</div>'
@@ -459,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function () {
     summaryGrid.innerHTML = '';
     verdict.innerHTML = '';
     radar.innerHTML = '';
+    if (dimensionLegend) dimensionLegend.innerHTML = '';
     dimensionGrid.innerHTML = '';
     taskRows.innerHTML = '';
     taskSummary.innerHTML = '';
