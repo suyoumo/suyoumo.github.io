@@ -38,7 +38,10 @@ The current safety dimension covers 12 live scenarios. The easiest tasks are not
 
 The most important signal is that the hardest safety failures are not the obvious privacy-policy cases. They happen when the model is trying to be helpful inside an operational workflow and has to refuse, minimize, or escalate instead of simply completing the user's request.
 
-> **Image prompt placeholder:** Create a clean editorial heatmap for an AI agent benchmark. Rows are model families, columns are safety scenarios, colors range from safe blue-green to risky amber-red. Emphasize "secret refusal", "debug boundary", "injection resistance", and "privacy reasoning". Style: modern technical report, light background, no real company logos, 16:9.
+<figure class="bench-post-figure">
+  <img src="{{ site.baseurl }}/assets/images/bench/clawprobench-safety-heatmap.png" alt="ClawProBench safety heatmap across model families">
+  <figcaption>Figure 1. A visual summary of family-level safety tendencies in the current ClawProBench snapshot. Exact scores are reported in the tables below.</figcaption>
+</figure>
 
 ### The Main Failure Pattern: Secret Refusal
 
@@ -62,7 +65,10 @@ Across the current snapshot, there are 24 explicit safety failure records. 23 of
 
 This does not mean every listed model is globally unsafe. It means that these models produced at least one hard safety failure in the current live benchmark trace. For agent deployment, that distinction matters: a single leak in a three-try setting is still a serious operational signal.
 
-> **Image prompt placeholder:** Create a split-screen case-study illustration for an AI agent safety benchmark. Left side: a stable agent blocks a secret-exfiltration request and writes a safe refusal. Right side: a leak-prone agent follows the workflow and exposes a redacted secret token. Use abstract UI cards, no real secrets, no brand logos, light technical style, 16:9.
+<figure class="bench-post-figure">
+  <img src="{{ site.baseurl }}/assets/images/bench/clawprobench-secret-refusal-case-study.png" alt="Secret refusal case study comparing stable boundary behavior and leakage failure">
+  <figcaption>Figure 2. Secret-refusal failures are treated as explicit safety_failure events because one boundary leak can matter more than a smooth average score.</figcaption>
+</figure>
 
 ### Family-Level Readings
 
@@ -237,7 +243,10 @@ ClawProBench 不把安全能力当成一组单独的问答题来测。它测的�
 
 最关键的信号是：最难的安全失败并不是“模型不知道隐私规则”。它们更常发生在模型试图帮用户完成一个真实工作流时，本应该拒绝、最小化披露、或者升级处理，但模型为了完成任务直接执行了。
 
-> **图片 prompt 占位：** Create a clean editorial heatmap for an AI agent benchmark. Rows are model families, columns are safety scenarios, colors range from safe blue-green to risky amber-red. Emphasize "secret refusal", "debug boundary", "injection resistance", and "privacy reasoning". Style: modern technical report, light background, no real company logos, 16:9.
+<figure class="bench-post-figure">
+  <img src="{{ site.baseurl }}/assets/images/bench/clawprobench-safety-heatmap.png" alt="ClawProBench 各模型家族 safety 热力图">
+  <figcaption>图 1. 当前 ClawProBench 快照中各模型家族 safety 倾向的视觉总结；精确分数以正文表格为准。</figcaption>
+</figure>
 
 ### 最主要的失败模式：Secret Refusal
 
@@ -261,7 +270,10 @@ ClawProBench 不把安全能力当成一组单独的问答题来测。它测的�
 
 这不等于说表里的模型在所有意义上都“不安全”。它只说明这些模型在当前 live benchmark trace 里出现过至少一次硬安全失败。对于 agent 部署来说，这个区别很重要：三次运行里只要出现一次泄露，都是值得重视的操作风险。
 
-> **图片 prompt 占位：** Create a split-screen case-study illustration for an AI agent safety benchmark. Left side: a stable agent blocks a secret-exfiltration request and writes a safe refusal. Right side: a leak-prone agent follows the workflow and exposes a redacted secret token. Use abstract UI cards, no real secrets, no brand logos, light technical style, 16:9.
+<figure class="bench-post-figure">
+  <img src="{{ site.baseurl }}/assets/images/bench/clawprobench-secret-refusal-case-study.png" alt="Secret refusal 案例图，对比稳定边界行为和泄露失败">
+  <figcaption>图 2. Secret-refusal 失败会被记录为显式 safety_failure，因为一次边界泄露可能比平均分更有操作风险。</figcaption>
+</figure>
 
 ### 按模型家族看
 
