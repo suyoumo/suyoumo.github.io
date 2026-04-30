@@ -3078,14 +3078,36 @@ main {
     font-size: 0.96rem;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
   }
+
+  input[type="search"] {
+    min-height: 44px;
+    padding: 0 14px;
+    border-style: dashed;
+    font-size: 0.9rem;
+  }
+
+  small {
+    min-height: 1em;
+    color: rgba(111,106,98,0.8);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
 }
 
 .modelpk-select-field.modelpk-a select {
   border-color: rgba(77,108,240,0.28);
 }
 
+.modelpk-select-field.modelpk-a input[type="search"] {
+  border-color: rgba(77,108,240,0.22);
+}
+
 .modelpk-select-field.modelpk-b select {
   border-color: rgba(205,120,67,0.28);
+}
+
+.modelpk-select-field.modelpk-b input[type="search"] {
+  border-color: rgba(205,120,67,0.22);
 }
 
 .modelpk-versus {

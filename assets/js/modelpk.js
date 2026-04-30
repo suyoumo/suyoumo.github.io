@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const selectA = document.getElementById('modelpk-model-a');
   const selectB = document.getElementById('modelpk-model-b');
+  const searchA = document.getElementById('modelpk-search-a');
+  const searchB = document.getElementById('modelpk-search-b');
+  const searchHintA = document.getElementById('modelpk-search-hint-a');
+  const searchHintB = document.getElementById('modelpk-search-hint-b');
   const runButton = document.getElementById('modelpk-run');
   const swapButton = document.getElementById('modelpk-swap');
   const resetButton = document.getElementById('modelpk-reset');
@@ -150,6 +154,116 @@ document.addEventListener('DOMContentLoaded', function () {
     return rank + model.model_name + ' · ' + model.provider_key;
   }
 
+  function normalizeSearch(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[\u2010-\u2015]/g, '-')
+      .replace(/[_/\\.-]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function modelSearchText(model) {
+    return normalizeSearch([
+      model.id,
+      model.slug,
+      model.model,
+      model.model_name,
+      model.provider_key,
+      model.platform,
+      model.status,
+      model.rank ? 'rank ' + model.rank + ' #' + model.rank : ''
+    ].join(' '));
+  }
+
+  function fuzzySubsequenceScore(query, text) {
+    const compactQuery = query.replace(/\s+/g, '');
+    const compactText = text.replace(/\s+/g, '');
+    if (!compactQuery) return 0;
+
+    let position = 0;
+    let firstMatch = -1;
+    let lastMatch = -1;
+    let gaps = 0;
+
+    for (let i = 0; i < compactQuery.length; i += 1) {
+      const found = compactText.indexOf(compactQuery[i], position);
+      if (found === -1) return Infinity;
+      if (firstMatch === -1) firstMatch = found;
+      if (lastMatch !== -1) gaps += Math.max(0, found - lastMatch - 1);
+      lastMatch = found;
+      position = found + 1;
+    }
+
+    return 60 + firstMatch + gaps;
+  }
+
+  function modelMatchScore(model, query) {
+    const normalizedQuery = normalizeSearch(query);
+    if (!normalizedQuery) return (Number(model.rank) || 9999) / 10000;
+
+    const text = modelSearchText(model);
+    if (text.includes(normalizedQuery)) return text.indexOf(normalizedQuery);
+
+    const tokens = normalizedQuery.split(' ').filter(Boolean);
+    if (tokens.length && tokens.every(function (token) { return text.includes(token); })) {
+      return 25 + tokens.reduce(function (sum, token) { return sum + text.indexOf(token); }, 0);
+    }
+
+    return fuzzySubsequenceScore(normalizedQuery, text);
+  }
+
+  function matchingModels(query) {
+    return rankedModels
+      .map(function (model) {
+        return { model: model, score: modelMatchScore(model, query) };
+      })
+      .filter(function (entry) {
+        return Number.isFinite(entry.score);
+      })
+      .sort(function (a, b) {
+        if (a.score !== b.score) return a.score - b.score;
+        return (Number(a.model.rank) || 9999) - (Number(b.model.rank) || 9999);
+      })
+      .map(function (entry) {
+        return entry.model;
+      });
+  }
+
+  function populateSelect(select, searchInput, hint, selectedId) {
+    const query = searchInput ? searchInput.value : '';
+    const hasQuery = Boolean(normalizeSearch(query));
+    const matches = matchingModels(query);
+    const displayed = matches.slice(0, 35);
+    const selectedModel = modelById.get(selectedId);
+
+    if (!hasQuery && selectedModel && !displayed.some(function (model) { return model.id === selectedId; })) {
+      displayed.unshift(selectedModel);
+    }
+
+    if (!displayed.length) {
+      select.innerHTML = '<option value="">No matching models</option>';
+      select.disabled = true;
+      if (hint) hint.textContent = 'No matches';
+      return null;
+    }
+
+    select.disabled = false;
+    select.innerHTML = displayed.map(function (model) {
+      return '<option value="' + escapeHtml(model.id) + '">' + escapeHtml(optionLabel(model)) + '</option>';
+    }).join('');
+
+    const nextId = displayed.some(function (model) { return model.id === selectedId; }) ? selectedId : displayed[0].id;
+    select.value = nextId;
+
+    if (hint) {
+      const suffix = matches.length > displayed.length ? ' · showing top ' + displayed.length : '';
+      hint.textContent = matches.length + ' matches' + suffix;
+    }
+
+    return nextId;
+  }
+
   function compactName(model, limit) {
     const name = String((model && model.model_name) || (model && model.id) || 'model');
     const max = limit || 22;
@@ -157,11 +271,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function populateModelOptions() {
-    const html = rankedModels.map(function (model) {
-      return '<option value="' + escapeHtml(model.id) + '">' + escapeHtml(optionLabel(model)) + '</option>';
-    }).join('');
-    selectA.innerHTML = html;
-    selectB.innerHTML = html;
+    populateSelect(selectA, searchA, searchHintA, selectA.value);
+    populateSelect(selectB, searchB, searchHintB, selectB.value);
   }
 
   function scenarioMap(model) {
@@ -531,8 +642,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const bParam = params.get('b');
     const first = rankedModels[0] && rankedModels[0].id;
     const second = rankedModels[1] && rankedModels[1].id;
-    selectA.value = modelById.has(aParam) ? aParam : first;
-    selectB.value = modelById.has(bParam) && bParam !== selectA.value ? bParam : second;
+    const aId = modelById.has(aParam) ? aParam : first;
+    const bId = modelById.has(bParam) && bParam !== aId ? bParam : second;
+    populateSelect(selectA, searchA, searchHintA, aId);
+    populateSelect(selectB, searchB, searchHintB, bId);
   }
 
   populateModelOptions();
@@ -542,6 +655,14 @@ document.addEventListener('DOMContentLoaded', function () {
   runButton.addEventListener('click', render);
   selectA.addEventListener('change', markPendingSelection);
   selectB.addEventListener('change', markPendingSelection);
+  searchA.addEventListener('input', function () {
+    populateSelect(selectA, searchA, searchHintA, selectA.value);
+    markPendingSelection();
+  });
+  searchB.addEventListener('input', function () {
+    populateSelect(selectB, searchB, searchHintB, selectB.value);
+    markPendingSelection();
+  });
   dimensionFilter.addEventListener('change', renderTaskFilters);
   taskSort.addEventListener('change', renderTaskFilters);
   taskSearch.addEventListener('input', renderTaskFilters);
@@ -549,14 +670,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   swapButton.addEventListener('click', function () {
     const a = selectA.value;
-    selectA.value = selectB.value;
-    selectB.value = a;
+    const b = selectB.value;
+    if (searchA) searchA.value = '';
+    if (searchB) searchB.value = '';
+    populateSelect(selectA, searchA, searchHintA, b);
+    populateSelect(selectB, searchB, searchHintB, a);
     markPendingSelection();
   });
 
   resetButton.addEventListener('click', function () {
-    selectA.value = rankedModels[0] && rankedModels[0].id;
-    selectB.value = rankedModels[1] && rankedModels[1].id;
+    const first = rankedModels[0] && rankedModels[0].id;
+    const second = rankedModels[1] && rankedModels[1].id;
+    if (searchA) searchA.value = '';
+    if (searchB) searchB.value = '';
+    populateSelect(selectA, searchA, searchHintA, first);
+    populateSelect(selectB, searchB, searchHintB, second);
     dimensionFilter.value = 'all';
     taskSort.value = 'delta_abs';
     taskSearch.value = '';
