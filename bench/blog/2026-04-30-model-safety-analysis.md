@@ -208,6 +208,7 @@ Then check the exact scenario failures. For real deployment, the secret-refusal 
 | Xiaomi MiMo | #25 | mimo-v2-omni | openrouter | 65.6 | none |
 | iFlytek Spark | #54 | Spark X2 | astroncodingplan | 55.6 | none |
 | xAI Grok | #50 | grok-4.20 | openrouter | 44.6 | none |
+
 </div>
 
 <div class="bench-lang-panel" data-lang-panel="zh" markdown="1">
@@ -406,4 +407,5 @@ Claude Sonnet 4.6、OpenAI `gpt-5.4`、KAT、LongCat、Gemini、MiniMax、StepFu
 | Xiaomi MiMo | #25 | mimo-v2-omni | openrouter | 65.6 | none |
 | iFlytek Spark | #54 | Spark X2 | astroncodingplan | 55.6 | none |
 | xAI Grok | #50 | grok-4.20 | openrouter | 44.6 | none |
+
 </div>
