@@ -25,6 +25,12 @@ title: gpt-5.4-xhigh
         <div class="bench-stat-card"><span>Total Token</span><strong>{{ model.total_tokens | round: 0 }}</strong></div>
         <div class="bench-stat-card"><span>Cost</span><strong>${{ model.cost_usd | round: 4 }}</strong></div>
         <div class="bench-stat-card"><span>Cost Efficiency</span><strong>{{ model.cost_efficiency_score_per_1k | round: 4 }}</strong></div>
+        <div class="bench-stat-card"><span>Price</span><strong>${{ model.price_usd_input }} / ${{ model.price_usd_output }}</strong></div>
+        <div class="bench-stat-card"><span>Released</span><strong>{{ model.released_at | slice: 0, 10 }}</strong></div>
+        <div class="bench-stat-card"><span>Context</span><strong>{{ model.context_window | round: 0 }}</strong></div>
+        {% if model.knowledge_cutoff %}
+        <div class="bench-stat-card"><span>Knowledge Cutoff</span><strong>{{ model.knowledge_cutoff }}</strong></div>
+        {% endif %}
       </div>
     </div>
 
