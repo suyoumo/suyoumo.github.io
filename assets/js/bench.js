@@ -249,12 +249,21 @@ document.addEventListener('DOMContentLoaded', function () {
       setStickyOffsets();
     }
 
+    function parseDateValue(value) {
+      const timestamp = Date.parse(value);
+      return Number.isFinite(timestamp) ? timestamp : 0;
+    }
+
     function parseValue(row, key, index) {
       const cell = row.children[index];
-      if (key === 'model_name' || key === 'platform' || key === 'openclaw_version' || key === 'updated_at') {
+      if (key === 'released_at' || key === 'updated_at') {
+        return parseDateValue(cell.dataset.value || cell.innerText.trim());
+      }
+      if (key === 'model_name' || key === 'platform' || key === 'openclaw_version') {
         return cell.innerText.trim().toLowerCase();
       }
-      return Number(cell.dataset.value || cell.textContent.replace(/[^0-9.-]/g, ''));
+      const parsed = Number(cell.dataset.value || cell.textContent.replace(/[^0-9.-]/g, ''));
+      return Number.isFinite(parsed) ? parsed : 0;
     }
 
     function updateRanks(sortedRows) {
