@@ -3,7 +3,7 @@
   const DEFAULT_LANGUAGE = 'en';
 
   const zhText = {
-    Home: '首页',
+    Home: '主页',
     ModelPK: 'ModelPK',
     Tasks: '任务',
     Architecture: '架构',
@@ -284,6 +284,48 @@
     return DEFAULT_LANGUAGE;
   }
 
+  function languageUrl(url, language) {
+    const next = new URL(url, window.location.href);
+    if (language === 'zh') {
+      next.searchParams.set('lang', 'zh');
+    } else {
+      next.searchParams.delete('lang');
+    }
+    return next;
+  }
+
+  function isInternalBenchUrl(url) {
+    return url.origin === window.location.origin &&
+      (url.pathname === '/bench' ||
+        url.pathname.startsWith('/bench/') ||
+        url.pathname === '/about' ||
+        url.pathname.startsWith('/about/'));
+  }
+
+  function updateCurrentUrl() {
+    if (!window.history || !window.history.replaceState) return;
+    const next = languageUrl(window.location.href, currentLanguage);
+    const nextPath = next.pathname + next.search + next.hash;
+    const currentPath = window.location.pathname + window.location.search + window.location.hash;
+    if (nextPath !== currentPath) {
+      window.history.replaceState(null, '', nextPath);
+    }
+  }
+
+  function updateInternalLinks() {
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      if (link.target === '_blank') return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+
+      const url = new URL(href, window.location.href);
+      if (!isInternalBenchUrl(url)) return;
+
+      const next = languageUrl(url.href, currentLanguage);
+      link.setAttribute('href', next.pathname + next.search + next.hash);
+    });
+  }
+
   function rememberAttribute(element, attributeName, value) {
     let originals = attributeOriginals.get(element);
     if (!originals) {
@@ -387,6 +429,8 @@
     document.documentElement.setAttribute('data-bench-lang', currentLanguage);
     translateTree(document.body);
     updateToggle();
+    updateCurrentUrl();
+    updateInternalLinks();
 
     if (!options || options.persist !== false) {
       try {
@@ -406,6 +450,7 @@
           }
         });
       });
+      updateInternalLinks();
     });
     observer.observe(document.body, { childList: true, subtree: true });
   }
@@ -418,7 +463,7 @@
       });
     }
 
-    applyLanguage(readRequestedLanguage(), { persist: false });
+    applyLanguage(readRequestedLanguage());
     observeMutations();
   }
 
