@@ -6,6 +6,7 @@
     {% include meta.html %}
 
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css?v={{ site.time | date: '%s' }}" />
+    <script defer src="{{ site.baseurl }}/assets/js/bench-i18n.js?v=20260511"></script>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </head>
 
@@ -26,6 +27,7 @@
           <a href="{{ site.baseurl }}/bench/architecture/" {% if page.url contains '/bench/architecture' %}class="active"{% endif %}>Architecture</a>
           <a href="{{ site.baseurl }}/bench/blog/" {% if page.url contains '/bench/blog' %}class="active"{% endif %}>Blog</a>
           <a href="{{ site.baseurl }}/about">AboutMe</a>
+          <button class="bench-language-toggle" type="button" data-bench-language-toggle aria-label="切换到中文">中文</button>
           <a href="https://github.com/suyoumo/ClawProBench" target="_blank" rel="noopener">GitHub</a>
         </nav>
       </div>

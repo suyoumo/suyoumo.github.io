@@ -1212,9 +1212,42 @@ main {
   justify-content: flex-end;
 }
 
-.bench-nav a {
+.bench-nav a,
+.bench-language-toggle {
   font-size: 0.95rem;
   padding: 12px 18px;
+}
+
+.bench-language-toggle {
+  appearance: none;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(196, 90, 60, 0.1);
+  color: $black;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  transition: all 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $cream;
+    color: $black;
+  }
+}
+
+html[data-bench-lang="zh"] .bench-language-toggle {
+  background: $cream;
+}
+
+@include mobile {
+  .bench-language-toggle {
+    font-size: 0.82rem;
+    padding: 8px 10px;
+  }
 }
 
 .bench-shell {
