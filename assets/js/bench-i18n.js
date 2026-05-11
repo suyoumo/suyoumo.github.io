@@ -1,5 +1,4 @@
 (function () {
-  const STORAGE_KEY = 'clawprobench.language';
   const DEFAULT_LANGUAGE = 'en';
 
   const zhText = {
@@ -158,7 +157,7 @@
     'The runner creates controlled workspaces and the reporting layer records cost, latency, token usage, and execution metadata. This keeps the dataset tied to observable agent behavior rather than to abstract answer-only evaluation.': 'runner 创建受控工作区，reporting 层记录成本、延迟、token 使用和执行元数据。这让数据集绑定到可观察的 agent 行为，而不是抽象的 answer-only 评估。',
     'Coverage transparency': '覆盖透明度',
     'Partial runs remain interpretable': '部分运行仍然可解释',
-    'Reports expose coverage, covered weight, normalized capability, and normalized score on covered slices. That matters because serious benchmarking should show how much evidence exists, not just a headline number.': '报告展示 coverage、covered weight、normalized capability 和 covered slice 上的 normalized score。这很重要，因为严肃 benchmark 应展示证据量，而不只是标题数字。',
+    'Reports expose coverage, covered weight, normalized capability, and normalized score on covered slices. That matters because serious benchmarking should show how much evidence exists, not just a headline number.': '报告展示覆盖率、覆盖权重、归一化能力和已覆盖切片上的归一化分数。这很重要，因为严肃 benchmark 应展示证据量，而不只是标题数字。',
     Extensibility: '可扩展性',
     'New tasks can grow without rewriting the harness': '新增任务无需重写 harness',
     'Most benchmark growth happens declaratively through scenario YAML and optional custom checks. This keeps the benchmark flexible while preserving a clear boundary between content, execution, scoring, and reporting.': '大多数 benchmark 增长通过 scenario YAML 和可选 custom check 声明式完成。这让 benchmark 保持灵活，同时保持内容、执行、评分和报告之间的清晰边界。',
@@ -172,6 +171,17 @@
     'Repeated-trial views help distinguish stable capability from one-off success or environment luck.': '重复 trial 视图有助于区分稳定能力、偶然成功和环境运气。',
     'It keeps partial evidence honest': '它让部分证据保持诚实',
     'Coverage-aware reporting prevents subset runs from being mistaken for complete benchmark judgments.': '覆盖率感知报告避免把子集运行误认为完整 benchmark 判断。',
+    'It keeps benchmark maintenance legible': '它让 benchmark 维护保持清晰',
+    'Scenario metadata, custom checks, and structured reporting make the system easier to extend without hiding changes inside vague evaluation logic.': '场景元数据、自定义检查和结构化报告让系统更容易扩展，不会把变更隐藏在模糊的评估逻辑里。',
+    'It fits the OpenClaw system itself': '它适配 OpenClaw 系统本身',
+    'The benchmark is built around the actual OpenClaw runtime and its native surfaces, so the evaluation target is the system that users care about.': 'benchmark 围绕真实 OpenClaw 运行时及其原生表面构建，因此评估目标就是用户真正关心的系统。',
+    'deterministic scoring': '确定性评分',
+    'process-aware evaluation': '过程感知评估',
+    'safety gating': '安全门控',
+    'difficulty weighting': '难度加权',
+    'coverage-aware reporting': '覆盖率感知报告',
+    'live OpenClaw execution': '真实 OpenClaw 执行',
+    'tokens · cost · latency · strict pass': 'token · 成本 · 延迟 · strict pass',
 
     Task: '任务',
     Browser: '浏览器',
@@ -215,6 +225,36 @@
     'Model A score': '模型 A 分数',
     'Model B score': '模型 B 分数',
     'Scenario ID': '场景 ID',
+    ', and': ' 和',
+    Final: '最终分',
+    'Radar view': '雷达图',
+    'Six-Dimension Shape': '六维能力形状',
+    'The radar chart highlights where each model is balanced or spiky across planning, safety, tool use, constraints, error recovery, and synthesis.': '雷达图展示每个模型在规划、安全、工具使用、约束、错误恢复和综合能力上的均衡或突出现象。',
+    'Dimension radar comparison': '维度雷达图对比',
+    Delta: '差值',
+    'Delta = A - B': '差值 = A - B',
+    Tie: '持平',
+    'A leads': 'A 领先',
+    'B leads': 'B 领先',
+    'PK verdict': 'PK 结论',
+    'Final Score is tied': '最终分持平',
+    'Task wins A': 'A 任务胜出',
+    'Task wins B': 'B 任务胜出',
+    'Task ties': '任务持平',
+    'A wins': 'A 胜出',
+    'B wins': 'B 胜出',
+    Ties: '持平',
+    Showing: '显示',
+    tasks: '个任务',
+    strict: '严格',
+    soft: '宽松',
+    NA: '无',
+    'Open detail': '打开详情',
+    'No matching models': '没有匹配模型',
+    'No matches': '无匹配',
+    matches: '个匹配',
+    'Selection changed. Click PK to refresh the comparison.': '选择已更改。点击 PK 刷新对比。',
+    'Choose two different models to compare.': '请选择两个不同模型进行对比。',
 
     Bench: '基准',
     'Updates, benchmark notes, result interpretations, and design changes for ClawProBench.': 'ClawProBench 的更新、benchmark 记录、结果解读和设计变更。',
@@ -257,7 +297,22 @@
   const zhFragments = [
     ['Platform:', '平台：'],
     ['Provider key:', 'Provider key：'],
-    ['Updated:', '更新：']
+    ['Updated:', '更新：'],
+    [' leads Final Score by ', ' 最终分领先 '],
+    [' leads by ', ' 领先 '],
+    ['Dimension wins:', '维度胜出：'],
+    [', ties ', '，持平 '],
+    ['Rank #', '排名 #'],
+    ['release unknown', '发布日期未知'],
+    [' · showing top ', ' · 显示前 '],
+    [' matches', ' 个匹配'],
+    ['Difficulty weights are explicit: easy, medium, hard, and expert scale as ', '难度权重是显式的：easy、medium、hard 和 expert 按 '],
+    ['. This prevents the benchmark from being dominated by easy wins and lets more demanding scenarios carry proportionally more influence.', ' 缩放。这避免 benchmark 被简单任务主导，也让更高要求的场景拥有更大影响。'],
+    [' asks who is strongest on the main ranking path.', ' 关注主排名路径上谁最强。'],
+    [' asks about broader capability.', ' 关注更广能力。'],
+    [' tracks regression breadth.', ' 跟踪回归广度。'],
+    [' makes OpenClaw-native surfaces visible without forcing them to dominate the main leaderboard prematurely.', ' 让 OpenClaw 原生表面可见，而不让它们过早主导主排行榜。'],
+    [' expose different benchmark views without collapsing them into one opaque total.', ' 提供不同 benchmark 视图，而不是把它们压成一个不透明总分。']
   ];
 
   const textNodeOriginals = new WeakMap();
@@ -273,13 +328,6 @@
     const params = new URLSearchParams(window.location.search);
     const urlLang = params.get('lang');
     if (urlLang === 'zh' || urlLang === 'en') return urlLang;
-
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored === 'zh' || stored === 'en') return stored;
-    } catch (error) {
-      return DEFAULT_LANGUAGE;
-    }
 
     return DEFAULT_LANGUAGE;
   }
@@ -349,7 +397,7 @@
     }
 
     if (currentLanguage !== 'zh') {
-      node.nodeValue = original;
+      if (node.nodeValue !== original) node.nodeValue = original;
       return;
     }
 
@@ -359,13 +407,14 @@
       zhFragments.forEach(function (pair) {
         partial = partial.split(pair[0]).join(pair[1]);
       });
-      node.nodeValue = partial;
+      if (node.nodeValue !== partial) node.nodeValue = partial;
       return;
     }
 
     const leading = (original.match(/^\s*/) || [''])[0];
     const trailing = (original.match(/\s*$/) || [''])[0];
-    node.nodeValue = leading + zhText[key] + trailing;
+    const translated = leading + zhText[key] + trailing;
+    if (node.nodeValue !== translated) node.nodeValue = translated;
   }
 
   function translateAttributes(element) {
@@ -431,12 +480,6 @@
     updateToggle();
     updateCurrentUrl();
     updateInternalLinks();
-
-    if (!options || options.persist !== false) {
-      try {
-        window.localStorage.setItem(STORAGE_KEY, currentLanguage);
-      } catch (error) {}
-    }
   }
 
   function observeMutations() {
@@ -444,6 +487,10 @@
     observer = new MutationObserver(function (mutations) {
       if (currentLanguage !== 'zh') return;
       mutations.forEach(function (mutation) {
+        if (mutation.type === 'characterData') {
+          translateTextNode(mutation.target);
+          return;
+        }
         Array.from(mutation.addedNodes).forEach(function (node) {
           if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
             translateTree(node);
@@ -452,7 +499,7 @@
       });
       updateInternalLinks();
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
   }
 
   function initLanguageToggle() {
