@@ -30,16 +30,38 @@ layout: bench
           if (!switcher) return;
           const buttons = Array.from(switcher.querySelectorAll('.bench-lang-btn'));
           const panels = Array.from(document.querySelectorAll('[data-lang-panel]'));
-          function activate(lang) {
-            buttons.forEach(btn => btn.classList.toggle('is-active', btn.dataset.lang === lang));
-            panels.forEach(panel => panel.classList.toggle('is-active', panel.dataset.langPanel === lang));
+
+          function currentPageLanguage() {
+            const params = new URLSearchParams(window.location.search);
+            const urlLang = params.get('lang');
+            if (urlLang === 'zh' || urlLang === 'en') return urlLang;
+            if (window.ClawProBenchI18n && window.ClawProBenchI18n.language) {
+              return window.ClawProBenchI18n.language();
+            }
+            return switcher.dataset.defaultLang || 'en';
           }
+
+          function activate(lang) {
+            const nextLang = lang === 'zh' ? 'zh' : 'en';
+            buttons.forEach(btn => btn.classList.toggle('is-active', btn.dataset.lang === nextLang));
+            panels.forEach(panel => panel.classList.toggle('is-active', panel.dataset.langPanel === nextLang));
+            switcher.dataset.currentLang = nextLang;
+          }
+
           buttons.forEach(btn => {
             btn.addEventListener('click', function () {
               activate(btn.dataset.lang);
+              if (window.ClawProBenchI18n && window.ClawProBenchI18n.apply) {
+                window.ClawProBenchI18n.apply(btn.dataset.lang);
+              }
             });
           });
-          activate(switcher.dataset.defaultLang || 'en');
+
+          document.addEventListener('clawprobench:languagechange', function (event) {
+            activate(event.detail && event.detail.language);
+          });
+
+          activate(currentPageLanguage());
         });
       </script>
 

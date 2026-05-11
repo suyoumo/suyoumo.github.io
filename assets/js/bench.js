@@ -344,7 +344,11 @@ document.addEventListener('DOMContentLoaded', function () {
     rows.forEach(function (row) {
       row.addEventListener('click', function () {
         const href = row.dataset.href;
-        if (href) window.location.href = href;
+        if (!href) return;
+        const nextHref = window.ClawProBenchI18n && window.ClawProBenchI18n.url
+          ? window.ClawProBenchI18n.url(href)
+          : href;
+        window.location.href = nextHref;
       });
     });
 

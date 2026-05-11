@@ -378,17 +378,39 @@
     }
   }
 
+  function languageAwarePath(value) {
+    let url;
+    try {
+      url = new URL(value, window.location.href);
+    } catch (error) {
+      return null;
+    }
+    if (!isInternalBenchUrl(url)) return null;
+
+    const next = languageUrl(url.href, currentLanguage);
+    return next.pathname + next.search + next.hash;
+  }
+
   function updateInternalLinks() {
     document.querySelectorAll('a[href]').forEach(function (link) {
       if (link.target === '_blank') return;
       const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('mailto:')) return;
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
 
-      const url = new URL(href, window.location.href);
-      if (!isInternalBenchUrl(url)) return;
+      const nextPath = languageAwarePath(href);
+      if (!nextPath) return;
 
-      const next = languageUrl(url.href, currentLanguage);
-      link.setAttribute('href', next.pathname + next.search + next.hash);
+      link.setAttribute('href', nextPath);
+    });
+
+    document.querySelectorAll('[data-href]').forEach(function (element) {
+      const href = element.getAttribute('data-href');
+      if (!href || href.startsWith('#')) return;
+
+      const nextPath = languageAwarePath(href);
+      if (!nextPath) return;
+
+      element.setAttribute('data-href', nextPath);
     });
   }
 
@@ -536,6 +558,9 @@
     updateToggle();
     updateCurrentUrl();
     updateInternalLinks();
+    document.dispatchEvent(new CustomEvent('clawprobench:languagechange', {
+      detail: { language: currentLanguage }
+    }));
   }
 
   function observeMutations() {
@@ -580,6 +605,9 @@
     apply: applyLanguage,
     language: function () {
       return currentLanguage;
+    },
+    url: function (value) {
+      return languageAwarePath(value) || value;
     }
   };
 })();

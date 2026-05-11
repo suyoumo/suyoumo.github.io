@@ -81,6 +81,13 @@ document.addEventListener('DOMContentLoaded', function () {
       .replace(/'/g, '&#39;');
   }
 
+  function languageAwareUrl(href) {
+    if (window.ClawProBenchI18n && window.ClawProBenchI18n.url) {
+      return window.ClawProBenchI18n.url(href);
+    }
+    return href;
+  }
+
   function toNumber(value) {
     const num = Number(value);
     return Number.isFinite(num) ? num : 0;
@@ -327,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '    <span>' + escapeHtml(model.released_at || 'release unknown') + '</span>',
       '  </div>',
       '  <div class="modelpk-model-metrics">' + metrics + '</div>',
-      '  <a class="modelpk-model-link" href="' + baseUrl + '/bench/models/' + escapeHtml(model.slug || '') + '/">Open detail</a>',
+      '  <a class="modelpk-model-link" href="' + escapeHtml(languageAwareUrl(baseUrl + '/bench/models/' + (model.slug || '') + '/')) + '">Open detail</a>',
       '</article>'
     ].join('');
   }
