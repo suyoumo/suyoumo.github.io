@@ -315,8 +315,26 @@
     [' expose different benchmark views without collapsing them into one opaque total.', ' 提供不同 benchmark 视图，而不是把它们压成一个不透明总分。']
   ];
 
+  const zhRichHtml = {
+    'Difficulty weights are explicit: easy, medium, hard, and expert scale as 1 / 2 / 4 / 8. This prevents the benchmark from being dominated by easy wins and lets more demanding scenarios carry proportionally more influence.': '难度权重是显式的：easy、medium、hard 和 expert 按 <code>1 / 2 / 4 / 8</code> 缩放。这避免 benchmark 被简单任务主导，也让更高要求的场景拥有更大影响。',
+    'core, intelligence, coverage, and native expose different benchmark views without collapsing them into one opaque total.': '<code>core</code>、<code>intelligence</code>、<code>coverage</code> 和 <code>native</code> 提供不同 benchmark 视图，而不是把它们压成一个不透明总分。',
+    'core asks who is strongest on the main ranking path. intelligence asks about broader capability. coverage tracks regression breadth. native makes OpenClaw-native surfaces visible without forcing them to dominate the main leaderboard prematurely.': '<code>core</code> 关注主排名路径上谁最强。<code>intelligence</code> 关注更广能力。<code>coverage</code> 跟踪回归广度。<code>native</code> 让 OpenClaw 原生表面可见，而不让它们过早主导主排行榜。',
+    'Scenario metadata, custom checks, and structured reporting make the system easier to extend without hiding changes inside vague evaluation logic.': '场景元数据、自定义检查和结构化报告让系统更容易扩展，不会把变更隐藏在模糊的评估逻辑里。',
+    'The benchmark is built around the actual OpenClaw runtime and its native surfaces, so the evaluation target is the system that users care about.': 'benchmark 围绕真实 OpenClaw 运行时及其原生表面构建，因此评估目标就是用户真正关心的系统。',
+    'It keeps benchmark maintenance legible': '它让 benchmark 维护保持清晰',
+    'It fits the OpenClaw system itself': '它适配 OpenClaw 系统本身',
+    'deterministic scoring': '确定性评分',
+    'process-aware evaluation': '过程感知评估',
+    'safety gating': '安全门控',
+    'difficulty weighting': '难度加权',
+    'coverage-aware reporting': '覆盖率感知报告',
+    'live OpenClaw execution': '真实 OpenClaw 执行',
+    'tokens · cost · latency · strict pass': 'token · 成本 · 延迟 · strict pass'
+  };
+
   const textNodeOriginals = new WeakMap();
   const attributeOriginals = new WeakMap();
+  const richHtmlOriginals = new WeakMap();
   let currentLanguage = DEFAULT_LANGUAGE;
   let observer = null;
 
@@ -432,8 +450,46 @@
     });
   }
 
+  function translateRichElement(element) {
+    if (!element || element.nodeType !== Node.ELEMENT_NODE) return;
+    if (!element.matches('p, h3, .ocb-pill')) return;
+    if (element.closest('script, style, noscript, textarea, [data-i18n-skip]')) return;
+
+    const originalHtml = richHtmlOriginals.get(element);
+    if (currentLanguage !== 'zh') {
+      if (originalHtml !== undefined) {
+        element.innerHTML = originalHtml;
+        richHtmlOriginals.delete(element);
+      }
+      return;
+    }
+
+    if (originalHtml !== undefined) return;
+
+    const key = normalize(element.textContent);
+    const translatedHtml = zhRichHtml[key];
+    if (!translatedHtml) return;
+
+    richHtmlOriginals.set(element, element.innerHTML);
+    if (element.innerHTML !== translatedHtml) {
+      element.innerHTML = translatedHtml;
+    }
+  }
+
+  function translateRichTree(root) {
+    if (!root) return;
+    if (root.nodeType === Node.ELEMENT_NODE) {
+      translateRichElement(root);
+    }
+    if (root.querySelectorAll) {
+      root.querySelectorAll('p, h3, .ocb-pill').forEach(translateRichElement);
+    }
+  }
+
   function translateTree(root) {
     if (!root) return;
+
+    translateRichTree(root);
 
     if (root.nodeType === Node.ELEMENT_NODE) {
       translateAttributes(root);
