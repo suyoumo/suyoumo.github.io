@@ -1566,6 +1566,60 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   }
 }
 
+.bench-filter-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  > span {
+    color: $gray;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @include mobile {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+.bench-dataset-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.045);
+
+  button {
+    appearance: none;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: $gray;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  button.is-active {
+    background: $black;
+    color: $white;
+    box-shadow: 0 10px 24px rgba(25, 25, 24, 0.14);
+  }
+}
+
 .bench-chart-card {
   margin-top: 32px;
   padding: 22px 24px 30px 20px;
@@ -2265,6 +2319,45 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   }
 }
 
+.bench-closed-row {
+  cursor: default;
+  background: rgba(77, 108, 240, 0.045);
+
+  &:hover {
+    background: rgba(77, 108, 240, 0.07);
+  }
+
+  td {
+    border-bottom-color: rgba(77, 108, 240, 0.12);
+  }
+}
+
+.bench-table-rich tbody tr.bench-closed-row td:first-child,
+.bench-table-rich tbody tr.bench-closed-row td:nth-child(2) {
+  background: rgba(246, 248, 255, 0.98);
+}
+
+.bench-closed-only-row {
+  background: rgba(199, 132, 98, 0.07);
+}
+
+.bench-table-rich tbody tr.bench-closed-only-row td:first-child,
+.bench-table-rich tbody tr.bench-closed-only-row td:nth-child(2) {
+  background: rgba(253, 247, 240, 0.98);
+}
+
+.bench-closed-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(77, 108, 240, 0.12);
+  color: #3f58c8;
+  font-weight: 900;
+}
+
 .bench-model-cell {
   display: flex;
   flex-direction: column;
@@ -2304,6 +2397,14 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   display: block;
 }
 
+.bench-model-logo-placeholder-small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $black;
+  font-weight: 900;
+}
+
 .bench-model-meta {
   display: flex;
   flex-direction: column;
@@ -2314,6 +2415,23 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 
 .bench-model-meta strong {
   word-break: break-word;
+}
+
+.bench-dataset-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bench-dataset-pill-closed {
+  background: rgba(77, 108, 240, 0.12);
+  color: #3f58c8;
 }
 
 .bench-price-cell {
@@ -2692,7 +2810,7 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 
 .bench-filter-bar {
   display: grid;
-  grid-template-columns: 220px 220px minmax(260px, 1fr);
+  grid-template-columns: 260px 220px 220px minmax(260px, 1fr);
   gap: 16px;
   margin-bottom: 24px;
 
@@ -2700,7 +2818,8 @@ html[data-bench-lang="zh"] .bench-language-toggle {
     grid-template-columns: 1fr;
   }
 
-  label {
+  label,
+  .bench-filter-segment {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -2723,6 +2842,15 @@ html[data-bench-lang="zh"] .bench-language-toggle {
     background: rgba(255, 255, 255, 0.84);
     color: $black;
     font-size: 0.95rem;
+  }
+
+  .bench-dataset-tabs {
+    align-self: stretch;
+    min-height: 51px;
+  }
+
+  .bench-dataset-tabs button {
+    flex: 1 1 auto;
   }
 }
 
@@ -4647,10 +4775,25 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   max-width: 220px;
 }
 
+.bench-task-dataset-open {
+  background: rgba(63, 155, 84, 0.1);
+  color: #2f7d44;
+}
+
+.bench-task-dataset-closed {
+  background: rgba(77, 108, 240, 0.12);
+  color: #3f58c8;
+}
+
 .bench-task-card-compact {
   min-height: 420px;
   display: flex;
   flex-direction: column;
+}
+
+.bench-task-card-closed {
+  background: rgba(246, 248, 255, 0.86);
+  border-color: rgba(77, 108, 240, 0.12);
 }
 
 .bench-task-card-compact h3 {
@@ -4694,6 +4837,12 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 
 .bench-task-full {
   display: none;
+}
+
+.bench-task-closed-note {
+  margin-top: auto;
+  color: #6b6b65;
+  font-weight: 700;
 }
 
 .bench-task-card.is-expanded .bench-task-preview {

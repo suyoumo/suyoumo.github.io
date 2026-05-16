@@ -9,12 +9,20 @@ title: Tasks
     <div class="bench-section-head">
       <div>
         <h2>Task <span>Browser</span></h2>
-        <p>Browse the 102 active ClawProBench tasks. Each card shows the original task id, difficulty, dimension, and the actual task prompt preview by default.</p>
+        <p>Browse the 102 open ClawProBench tasks first, followed by the 68-task closed holdout dataset. Open cards include prompt previews; closed cards expose only task-level metadata.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
     </div>
 
     <div class="bench-filter-bar">
+      <div class="bench-filter-segment">
+        <span>Dataset</span>
+        <div class="bench-dataset-tabs" id="task-dataset-filter">
+          <button class="is-active" type="button" data-task-dataset="all">All</button>
+          <button type="button" data-task-dataset="open">Open</button>
+          <button type="button" data-task-dataset="closed">Closed</button>
+        </div>
+      </div>
       <label>
         <span>Dimension</span>
         <select id="task-dimension-filter">
@@ -53,13 +61,15 @@ title: Tasks
         | strip %}
       <article
         class="bench-task-card bench-task-card-compact"
+        data-dataset="open"
         data-dimension="{{ task.dimension | downcase }}"
         data-difficulty="{{ task.difficulty | downcase }}"
-        data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }}"
+        data-search="{{ task.id }} {{ task.name }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }} open public"
       >
         <div class="bench-task-header-row">
           <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">Open</span>
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
           </div>
           <div class="bench-task-chip-row bench-task-chip-row-bottom">
@@ -77,6 +87,32 @@ title: Tasks
         <div class="bench-task-preview">{{ task_preview }}</div>
         <div class="bench-task-full">{{ task_text }}</div>
         {% endif %}
+      </article>
+      {% endfor %}
+      {% for task in site.data.bench.closed_tasks %}
+      <article
+        class="bench-task-card bench-task-card-compact bench-task-card-closed"
+        data-dataset="closed"
+        data-dimension="{{ task.dimension | downcase }}"
+        data-difficulty="{{ task.difficulty | downcase }}"
+        data-search="{{ task.id }} {{ task.name }} {{ task.dimension }} {{ task.difficulty }} {{ task.category }} closed holdout 68"
+      >
+        <div class="bench-task-header-row">
+          <div class="bench-task-chip-row bench-task-chip-row-top">
+            <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-closed">Closed</span>
+            <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
+          </div>
+          <div class="bench-task-chip-row bench-task-chip-row-bottom">
+            <span class="bench-task-chip bench-task-difficulty">{{ task.difficulty }}</span>
+            {% if task.category %}
+            <span class="bench-task-chip bench-task-tag" title="{{ task.category }}">{{ task.category }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <h3>{{ task.name }}</h3>
+        <p class="bench-task-closed-note">Closed holdout prompt withheld.</p>
       </article>
       {% endfor %}
     </div>

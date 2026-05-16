@@ -62,10 +62,28 @@ document.addEventListener('DOMContentLoaded', function () {
   const table = document.getElementById('leaderboard-table');
   if (table) {
     const tbody = table.querySelector('tbody');
-    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const allRows = Array.from(tbody.querySelectorAll('tr'));
+    const openRows = allRows.filter(function (row) {
+      return row.dataset.dataset === 'open';
+    });
+    const closedRows = allRows.filter(function (row) {
+      return row.dataset.dataset === 'closed';
+    });
+    const closedRowsByParent = new Map();
+    const closedOnlyRows = [];
+    closedRows.forEach(function (row) {
+      const parentId = row.dataset.parentId || '';
+      if (parentId) {
+        if (!closedRowsByParent.has(parentId)) closedRowsByParent.set(parentId, []);
+        closedRowsByParent.get(parentId).push(row);
+      } else {
+        closedOnlyRows.push(row);
+      }
+    });
     const headers = Array.from(table.querySelectorAll('th[data-sort-key]'));
     const exportHeaders = Array.from(table.querySelectorAll('thead th'));
     const requiredColumnIndices = new Set([0, 1]);
+    const leaderboardDatasetFilter = document.getElementById('leaderboard-dataset-filter');
     const leaderboardSectionHead = document.getElementById('leaderboard-section-head');
     const leaderboardCard = document.getElementById('leaderboard-card');
     const leaderboardTableWrap = document.getElementById('leaderboard-table-wrap');
@@ -104,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     let currentKey = 'final_score';
     let currentDirection = 'desc';
+    let currentDatasetView = 'all';
     let syncingTopScrollbar = false;
     let syncingTableWrap = false;
     let syncingStickyViewport = false;
@@ -268,8 +287,61 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateRanks(sortedRows) {
       sortedRows.forEach(function (row, idx) {
+        if (row.dataset.dataset === 'closed') return;
         row.children[0].textContent = idx + 1;
       });
+    }
+
+    function rowIsVisible(row) {
+      return row.style.display !== 'none';
+    }
+
+    function visibleRows() {
+      return allRows.filter(rowIsVisible);
+    }
+
+    function compareRows(key, index, direction) {
+      return function (a, b) {
+        const av = parseValue(a, key, index);
+        const bv = parseValue(b, key, index);
+        if (typeof av === 'string' || typeof bv === 'string') {
+          return direction === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+        }
+        return direction === 'asc' ? av - bv : bv - av;
+      };
+    }
+
+    function closedRankValue(row) {
+      const parsed = Number(row.dataset.closedRank || row.children[0].dataset.value || 0);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    function appendOpenRowWithClosed(row) {
+      row.style.display = '';
+      tbody.appendChild(row);
+      if (currentDatasetView !== 'all') return;
+      const attachedClosedRows = closedRowsByParent.get(row.dataset.modelId || '') || [];
+      attachedClosedRows
+        .slice()
+        .sort(function (a, b) {
+          return closedRankValue(a) - closedRankValue(b);
+        })
+        .forEach(function (closedRow) {
+          closedRow.style.display = '';
+          tbody.appendChild(closedRow);
+        });
+    }
+
+    function appendClosedOnlyRows() {
+      closedOnlyRows
+        .slice()
+        .sort(function (a, b) {
+          return closedRankValue(a) - closedRankValue(b);
+        })
+        .forEach(function (row) {
+          row.style.display = '';
+          tbody.appendChild(row);
+        });
     }
 
     function updateSortIndicators() {
@@ -303,23 +375,29 @@ document.addEventListener('DOMContentLoaded', function () {
         return header.dataset.sortKey === key;
       }) + 1;
       const activeHeader = headers[index - 1];
+      const primaryRows = currentDatasetView === 'closed' ? closedRows : openRows;
 
-      const sorted = rows.slice().sort(function (a, b) {
-        const av = parseValue(a, key, index);
-        const bv = parseValue(b, key, index);
-        if (typeof av === 'string' || typeof bv === 'string') {
-          return direction === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
-        }
-        return direction === 'asc' ? av - bv : bv - av;
+      const sorted = primaryRows.slice().sort(compareRows(key, index, direction));
+
+      allRows.forEach(function (row) {
+        row.style.display = 'none';
       });
 
-      updateRanks(sorted);
-      sorted.forEach(function (row) {
-        tbody.appendChild(row);
-      });
+      if (currentDatasetView === 'closed') {
+        sorted.forEach(function (row) {
+          row.style.display = '';
+          tbody.appendChild(row);
+        });
+      } else {
+        updateRanks(sorted);
+        sorted.forEach(appendOpenRowWithClosed);
+        if (currentDatasetView === 'all') appendClosedOnlyRows();
+      }
+
       table.dataset.sortKey = key;
       table.dataset.sortDirection = direction;
       table.dataset.sortLabel = activeHeader ? activeHeader.textContent.replace(/[↕↑↓]/g, '').trim() : key;
+      table.dataset.datasetView = currentDatasetView;
       updateSortIndicators();
       syncTopScrollbarWidth();
       updateTopScrollbarVisibility();
@@ -341,7 +419,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     buildStickyHeader();
 
-    rows.forEach(function (row) {
+    if (leaderboardDatasetFilter) {
+      const datasetButtons = Array.from(leaderboardDatasetFilter.querySelectorAll('button[data-dataset-view]'));
+      datasetButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          currentDatasetView = button.dataset.datasetView || 'all';
+          datasetButtons.forEach(function (item) {
+            item.classList.toggle('is-active', item === button);
+          });
+          sortRows(currentKey, currentDirection);
+        });
+      });
+    }
+
+    allRows.forEach(function (row) {
       row.addEventListener('click', function () {
         const href = row.dataset.href;
         if (!href) return;
@@ -507,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function () {
       cardClone.style.padding = '8px 14px 0';
       if (clonedTbody) {
         clonedTbody.innerHTML = '';
-        Array.from(tbody.querySelectorAll('tr')).forEach(function (row) {
+        visibleRows().forEach(function (row) {
           const clone = row.cloneNode(true);
           clone.removeAttribute('data-href');
           clonedTbody.appendChild(clone);
@@ -632,8 +723,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const sortKey = slugifyValue(table.dataset.sortKey || 'final_score');
         const sortDirection = slugifyValue(table.dataset.sortDirection || 'desc');
-        const modelCount = tbody.querySelectorAll('tr').length;
-        const filename = 'clawprobench-leaderboard-' + sortKey + '-' + sortDirection + '-' + modelCount + '-models.png';
+        const datasetView = slugifyValue(table.dataset.datasetView || 'all');
+        const modelCount = visibleRows().length;
+        const filename = 'clawprobench-leaderboard-' + datasetView + '-' + sortKey + '-' + sortDirection + '-' + modelCount + '-rows.png';
 
         await new Promise(function (resolve, reject) {
           canvas.toBlob(function (blob) {
@@ -1037,9 +1129,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const taskGrid = document.getElementById('task-grid');
   if (taskGrid) {
     const cards = Array.from(taskGrid.querySelectorAll('.bench-task-card'));
+    const datasetFilter = document.getElementById('task-dataset-filter');
+    const datasetButtons = datasetFilter ? Array.from(datasetFilter.querySelectorAll('button[data-task-dataset]')) : [];
     const dimensionFilter = document.getElementById('task-dimension-filter');
     const difficultyFilter = document.getElementById('task-difficulty-filter');
     const searchInput = document.getElementById('task-search-input');
+    let taskDatasetValue = 'all';
 
     function applyTaskFilters() {
       const dimensionValue = (dimensionFilter.value || 'all').toLowerCase();
@@ -1047,12 +1142,23 @@ document.addEventListener('DOMContentLoaded', function () {
       const searchValue = (searchInput.value || '').trim().toLowerCase();
 
       cards.forEach(function (card) {
+        const matchesDataset = taskDatasetValue === 'all' || card.dataset.dataset === taskDatasetValue;
         const matchesDimension = dimensionValue === 'all' || card.dataset.dimension === dimensionValue;
         const matchesDifficulty = difficultyValue === 'all' || card.dataset.difficulty === difficultyValue;
         const matchesSearch = !searchValue || (card.dataset.search || '').toLowerCase().includes(searchValue);
-        card.style.display = matchesDimension && matchesDifficulty && matchesSearch ? '' : 'none';
+        card.style.display = matchesDataset && matchesDimension && matchesDifficulty && matchesSearch ? '' : 'none';
       });
     }
+
+    datasetButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        taskDatasetValue = button.dataset.taskDataset || 'all';
+        datasetButtons.forEach(function (item) {
+          item.classList.toggle('is-active', item === button);
+        });
+        applyTaskFilters();
+      });
+    });
 
     [dimensionFilter, difficultyFilter, searchInput].forEach(function (element) {
       element.addEventListener('input', applyTaskFilters);
