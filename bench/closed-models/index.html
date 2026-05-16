@@ -1,0 +1,15 @@
+---
+layout: bench
+title: Closed Dataset Model Profile
+permalink: /bench/closed-models/
+---
+
+<section class="bench-section bench-detail-page">
+  <div class="container-wide bench-shell">
+    <a class="bench-back-link" href="{{ site.baseurl }}/bench/">← Leaderboard</a>
+    <div id="closed-model-detail" data-baseurl="{{ site.baseurl }}"></div>
+  </div>
+
+  <script type="application/json" id="closed-model-data">{{ site.data.bench.closed_leaderboard | jsonify | replace: '</', '<\/' }}</script>
+  <script src="{{ site.baseurl }}/assets/js/closed-model.js?v={{ site.time | date: '%s' }}"></script>
+</section>

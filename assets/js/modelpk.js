@@ -1,18 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
   const app = document.getElementById('modelpk-app');
   const dataNode = document.getElementById('modelpk-data');
+  const closedDataNode = document.getElementById('modelpk-closed-data');
   if (!app || !dataNode) return;
 
   const baseUrl = app.dataset.baseurl || '';
-  let models = [];
+  let openModels = [];
+  let closedModels = [];
 
   try {
-    models = JSON.parse(dataNode.textContent || '[]');
+    openModels = JSON.parse(dataNode.textContent || '[]');
+    closedModels = closedDataNode ? JSON.parse(closedDataNode.textContent || '[]') : [];
   } catch (error) {
     renderFatalError('ModelPK data failed to load.');
     return;
   }
 
+  const datasetFilter = document.getElementById('modelpk-dataset-filter');
   const selectA = document.getElementById('modelpk-model-a');
   const selectB = document.getElementById('modelpk-model-b');
   const searchA = document.getElementById('modelpk-search-a');
@@ -36,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const taskRows = document.getElementById('modelpk-task-rows');
   const taskHeadA = document.getElementById('modelpk-task-head-a');
   const taskHeadB = document.getElementById('modelpk-task-head-b');
+  const taskSectionHead = document.getElementById('modelpk-task-section-head');
+  const taskCard = document.getElementById('modelpk-task-card');
 
   const dimensionDefs = [
     { key: 'planning_score', label: 'Planning', dimension: 'planning', icon: 'route' },
@@ -53,19 +59,36 @@ document.addEventListener('DOMContentLoaded', function () {
     { key: 'pass_at_3', label: 'Pass@3', type: 'percent' }
   ];
 
-  const modelById = new Map(models.map(function (model) {
-    return [model.id, model];
-  }));
-
-  const rankedModels = models.slice().sort(function (a, b) {
-    const rankA = Number(a.rank) || 9999;
-    const rankB = Number(b.rank) || 9999;
-    if (rankA !== rankB) return rankA - rankB;
-    return String(a.model_name || '').localeCompare(String(b.model_name || ''));
-  });
+  let currentDataset = 'open';
+  let models = [];
+  let modelById = new Map();
+  let rankedModels = [];
   let currentModelA = null;
   let currentModelB = null;
   let currentRows = [];
+
+  function normalizeModels(source, dataset) {
+    return (source || []).map(function (model) {
+      model.dataset_type = dataset;
+      return model;
+    });
+  }
+
+  openModels = normalizeModels(openModels, 'open');
+  closedModels = normalizeModels(closedModels, 'closed');
+
+  function refreshModelCollections() {
+    models = currentDataset === 'closed' ? closedModels : openModels;
+    modelById = new Map(models.map(function (model) {
+      return [model.id, model];
+    }));
+    rankedModels = models.slice().sort(function (a, b) {
+      const rankA = Number(a.rank) || 9999;
+      const rankB = Number(b.rank) || 9999;
+      if (rankA !== rankB) return rankA - rankB;
+      return String(a.model_name || '').localeCompare(String(b.model_name || ''));
+    });
+  }
 
   function renderFatalError(message) {
     if (!app) return;
@@ -173,12 +196,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function modelSearchText(model) {
     return normalizeSearch([
       model.id,
+      model.source_id,
       model.slug,
       model.model,
       model.model_name,
       model.provider_key,
       model.platform,
       model.status,
+      model.dataset_type,
       model.rank ? 'rank ' + model.rank + ' #' + model.rank : ''
     ].join(' '));
   }
@@ -318,6 +343,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const metrics = coreMetrics.map(function (metric) {
       return '<div><span>' + metric.label + '</span><strong>' + formatMetric(metricValue(model, metric.key), metric.type) + '</strong></div>';
     }).join('');
+    const rankLabel = currentDataset === 'closed' ? 'Closed Rank #' : 'Rank #';
+    const datasetLabel = currentDataset === 'closed' ? 'Closed Dataset' : 'Open Dataset';
+    const detailHref = currentDataset === 'open'
+      ? baseUrl + '/bench/models/' + (model.slug || '') + '/'
+      : baseUrl + '/bench/closed-models/?id=' + encodeURIComponent(model.id || '');
+    const detailLabel = currentDataset === 'open' ? 'Open detail' : 'Closed detail';
+    const detailLink = model.slug || currentDataset === 'closed'
+      ? '  <a class="modelpk-model-link" href="' + escapeHtml(languageAwareUrl(detailHref)) + '">' + detailLabel + '</a>'
+      : '';
     return [
       '<article class="bench-card modelpk-model-card modelpk-' + side + '">',
       '  <div class="modelpk-model-head">',
@@ -329,12 +363,13 @@ document.addEventListener('DOMContentLoaded', function () {
       '    </div>',
       '  </div>',
       '  <div class="modelpk-model-meta">',
-      '    <span>Rank #' + escapeHtml(model.rank || 'NA') + '</span>',
+      '    <span>' + rankLabel + escapeHtml(model.rank || 'NA') + '</span>',
+      '    <span>' + datasetLabel + '</span>',
       '    <span>' + escapeHtml(model.status || 'unknown') + '</span>',
       '    <span>' + escapeHtml(model.released_at || 'release unknown') + '</span>',
       '  </div>',
       '  <div class="modelpk-model-metrics">' + metrics + '</div>',
-      '  <a class="modelpk-model-link" href="' + escapeHtml(languageAwareUrl(baseUrl + '/bench/models/' + (model.slug || '') + '/')) + '">Open detail</a>',
+      detailLink,
       '</article>'
     ].join('');
   }
@@ -344,6 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function renderVerdict(modelA, modelB, taskRowsForPair) {
+    const hasTaskBreakdown = currentDataset === 'open' && taskRowsForPair.length > 0;
     const dimensionWins = dimensionDefs.reduce(function (acc, def) {
       const delta = toNumber(modelA[def.key]) - toNumber(modelB[def.key]);
       if (Math.abs(delta) < 0.0001) acc.tie += 1;
@@ -352,26 +388,51 @@ document.addEventListener('DOMContentLoaded', function () {
       return acc;
     }, { a: 0, b: 0, tie: 0 });
 
-    const taskWins = taskRowsForPair.reduce(function (acc, row) {
+    const taskWins = hasTaskBreakdown ? taskRowsForPair.reduce(function (acc, row) {
       if (row.scoreA == null || row.scoreB == null || Math.abs(row.delta) < 0.0001) acc.tie += 1;
       else if (row.delta > 0) acc.a += 1;
       else acc.b += 1;
       return acc;
-    }, { a: 0, b: 0, tie: 0 });
+    }, { a: 0, b: 0, tie: 0 }) : { a: 0, b: 0, tie: 0 };
 
-    const biggest = taskRowsForPair
-      .filter(function (row) { return row.scoreA != null && row.scoreB != null; })
-      .sort(function (a, b) { return Math.abs(b.delta) - Math.abs(a.delta); })
-      .slice(0, 3)
-      .map(function (row) {
-        const leader = row.delta > 0 ? modelA.model_name : modelB.model_name;
-        return '<li><strong>' + escapeHtml(row.scenario_id) + '</strong><span>' + escapeHtml(leader) + ' leads by ' + Math.abs(row.delta * 100).toFixed(1) + '</span></li>';
-      }).join('');
+    const biggest = hasTaskBreakdown
+      ? taskRowsForPair
+        .filter(function (row) { return row.scoreA != null && row.scoreB != null; })
+        .sort(function (a, b) { return Math.abs(b.delta) - Math.abs(a.delta); })
+        .slice(0, 3)
+        .map(function (row) {
+          const leader = row.delta > 0 ? modelA.model_name : modelB.model_name;
+          return '<li><strong>' + escapeHtml(row.scenario_id) + '</strong><span>' + escapeHtml(leader) + ' leads by ' + Math.abs(row.delta * 100).toFixed(1) + '</span></li>';
+        }).join('')
+      : dimensionDefs
+        .map(function (def) {
+          return {
+            label: def.label,
+            delta: toNumber(modelA[def.key]) - toNumber(modelB[def.key])
+          };
+        })
+        .sort(function (a, b) { return Math.abs(b.delta) - Math.abs(a.delta); })
+        .slice(0, 3)
+        .map(function (item) {
+          const leader = Math.abs(item.delta) < 0.0001 ? 'Tie' : (item.delta > 0 ? modelA.model_name : modelB.model_name);
+          const detail = Math.abs(item.delta) < 0.0001
+            ? 'is tied'
+            : escapeHtml(leader) + ' leads by ' + Math.abs(item.delta * 100).toFixed(1);
+          return '<li><strong>' + escapeHtml(item.label) + '</strong><span>' + detail + '</span></li>';
+        }).join('');
 
     const finalDelta = metricValue(modelA, 'final_score') - metricValue(modelB, 'final_score');
     const headline = Math.abs(finalDelta) < 0.0001
       ? 'Final Score is tied'
       : (finalDelta > 0 ? modelA.model_name : modelB.model_name) + ' leads Final Score by ' + Math.abs(finalDelta).toFixed(2);
+    const verdictStats = hasTaskBreakdown ? [
+      '  <div><span>Task wins A</span><strong>' + taskWins.a + '</strong></div>',
+      '  <div><span>Task wins B</span><strong>' + taskWins.b + '</strong></div>',
+      '  <div><span>Task ties</span><strong>' + taskWins.tie + '</strong></div>'
+    ].join('') : coreMetrics.slice(0, 3).map(function (metric) {
+      const delta = metricValue(modelA, metric.key) - metricValue(modelB, metric.key);
+      return '<div><span>' + escapeHtml(metric.label) + ' Delta</span><strong>' + formatDelta(delta, metric.type) + '</strong></div>';
+    }).join('');
 
     verdict.innerHTML = [
       '<div class="modelpk-verdict-main">',
@@ -379,9 +440,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '  <div><p class="bench-kicker">PK verdict</p><h2>' + escapeHtml(headline) + '</h2><p>Dimension wins: ' + escapeHtml(modelA.model_name) + ' ' + dimensionWins.a + ', ' + escapeHtml(modelB.model_name) + ' ' + dimensionWins.b + ', ties ' + dimensionWins.tie + '.</p></div>',
       '</div>',
       '<div class="modelpk-verdict-stats">',
-      '  <div><span>Task wins A</span><strong>' + taskWins.a + '</strong></div>',
-      '  <div><span>Task wins B</span><strong>' + taskWins.b + '</strong></div>',
-      '  <div><span>Task ties</span><strong>' + taskWins.tie + '</strong></div>',
+      verdictStats,
       '</div>',
       '<ul class="modelpk-biggest-gaps">' + biggest + '</ul>'
     ].join('');
@@ -542,6 +601,11 @@ document.addEventListener('DOMContentLoaded', function () {
     ].join('');
   }
 
+  function setTaskSectionVisible(isVisible) {
+    if (taskSectionHead) taskSectionHead.hidden = !isVisible;
+    if (taskCard) taskCard.hidden = !isVisible;
+  }
+
   function renderTasks(modelA, modelB, rows) {
     const filtered = filteredTaskRows(rows);
     taskHeadA.textContent = modelA.model_name;
@@ -585,6 +649,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateUrl(aId, bId) {
     const params = new URLSearchParams(window.location.search);
+    if (currentDataset === 'closed') {
+      params.set('dataset', 'closed');
+    } else {
+      params.delete('dataset');
+    }
     params.set('a', aId);
     params.set('b', bId);
     window.history.replaceState({}, '', window.location.pathname + '?' + params.toString());
@@ -632,21 +701,28 @@ document.addEventListener('DOMContentLoaded', function () {
     runButton.classList.remove('is-pending');
     currentModelA = modelA;
     currentModelB = modelB;
-    const rows = allScenarioRows(modelA, modelB);
+    const rows = currentDataset === 'open' ? allScenarioRows(modelA, modelB) : [];
     currentRows = rows;
-    populateDimensionFilter(rows);
+    setTaskSectionVisible(currentDataset === 'open');
+    if (currentDataset === 'open') populateDimensionFilter(rows);
     renderSummary(modelA, modelB);
     renderVerdict(modelA, modelB, rows);
     renderRadar(modelA, modelB);
     renderDimensions(modelA, modelB);
-    renderTasks(modelA, modelB, rows);
+    if (currentDataset === 'open') {
+      renderTasks(modelA, modelB, rows);
+    } else {
+      taskRows.innerHTML = '';
+      taskSummary.innerHTML = '';
+    }
     updateUrl(modelA.id, modelB.id);
   }
 
-  function setDefaultSelection() {
+  function setDefaultSelection(useUrlParams) {
     const params = new URLSearchParams(window.location.search);
-    const aParam = params.get('a');
-    const bParam = params.get('b');
+    const shouldUseUrlParams = useUrlParams !== false;
+    const aParam = shouldUseUrlParams ? params.get('a') : null;
+    const bParam = shouldUseUrlParams ? params.get('b') : null;
     const first = rankedModels[0] && rankedModels[0].id;
     const second = rankedModels[1] && rankedModels[1].id;
     const aId = modelById.has(aParam) ? aParam : first;
@@ -655,9 +731,29 @@ document.addEventListener('DOMContentLoaded', function () {
     populateSelect(selectB, searchB, searchHintB, bId);
   }
 
-  populateModelOptions();
-  setDefaultSelection();
-  render();
+  function updateDatasetButtons() {
+    if (!datasetFilter) return;
+    Array.from(datasetFilter.querySelectorAll('button[data-modelpk-dataset]')).forEach(function (button) {
+      button.classList.toggle('is-active', (button.dataset.modelpkDataset || 'open') === currentDataset);
+    });
+  }
+
+  function setDataset(nextDataset, useUrlParams) {
+    currentDataset = nextDataset === 'closed' ? 'closed' : 'open';
+    refreshModelCollections();
+    updateDatasetButtons();
+    if (searchA) searchA.value = '';
+    if (searchB) searchB.value = '';
+    dimensionFilter.value = 'all';
+    taskSort.value = 'delta_abs';
+    taskSearch.value = '';
+    diffOnly.checked = false;
+    setDefaultSelection(useUrlParams);
+    render();
+  }
+
+  const initialParams = new URLSearchParams(window.location.search);
+  setDataset(initialParams.get('dataset') === 'closed' ? 'closed' : 'open', true);
 
   runButton.addEventListener('click', render);
   selectA.addEventListener('change', markPendingSelection);
@@ -674,6 +770,14 @@ document.addEventListener('DOMContentLoaded', function () {
   taskSort.addEventListener('change', renderTaskFilters);
   taskSearch.addEventListener('input', renderTaskFilters);
   diffOnly.addEventListener('change', renderTaskFilters);
+
+  if (datasetFilter) {
+    Array.from(datasetFilter.querySelectorAll('button[data-modelpk-dataset]')).forEach(function (button) {
+      button.addEventListener('click', function () {
+        setDataset(button.dataset.modelpkDataset || 'open', false);
+      });
+    });
+  }
 
   swapButton.addEventListener('click', function () {
     const a = selectA.value;

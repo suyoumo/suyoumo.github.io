@@ -1735,6 +1735,20 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   min-width: 140px;
 }
 
+.bench-chart-dataset-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  > span {
+    color: $gray;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
 .bench-chart-scroll {
   overflow-x: auto;
   overflow-y: hidden;
@@ -3276,6 +3290,16 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.modelpk-dataset-strip {
+  margin: 0 0 12px;
+}
+
+.modelpk-dataset-note {
+  margin: 0 0 20px;
+  color: $gray;
+  font-size: 0.88rem;
 }
 
 .modelpk-select-grid {

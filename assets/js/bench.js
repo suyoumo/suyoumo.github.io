@@ -334,18 +334,39 @@ document.addEventListener('DOMContentLoaded', function () {
       return sourceRows.slice().sort(compareRows('final_score', index, 'desc'));
     }
 
+    function currentBenchLanguage() {
+      if (window.ClawProBenchI18n && window.ClawProBenchI18n.language) {
+        return window.ClawProBenchI18n.language();
+      }
+      return document.documentElement.getAttribute('data-bench-lang') || 'en';
+    }
+
     function pairedRankText(openPairedRank, closedPairedRank, openGlobalRank, closedGlobalRank) {
       const delta = closedPairedRank - openPairedRank;
-      let movement = '持平';
-      if (delta > 0) movement = '双榜内下降 ' + delta;
-      if (delta < 0) movement = '双榜内上升 ' + Math.abs(delta);
+      if (currentBenchLanguage() === 'zh') {
+        let movement = '持平';
+        if (delta > 0) movement = '双榜内下降 ' + delta;
+        if (delta < 0) movement = '双榜内上升 ' + Math.abs(delta);
+        return (
+          '双榜内排名：开源 #' + openPairedRank +
+          ' / 闭源 #' + closedPairedRank +
+          ' · ' + movement +
+          '；全榜名次：开源 #' + openGlobalRank +
+          '/' + openRows.length +
+          '，闭源 #' + closedGlobalRank + '/' + closedRows.length
+        );
+      }
+
+      let movement = 'unchanged';
+      if (delta > 0) movement = 'down ' + delta + ' among paired models';
+      if (delta < 0) movement = 'up ' + Math.abs(delta) + ' among paired models';
       return (
-        '双榜内排名：开源 #' + openPairedRank +
-        ' / 闭源 #' + closedPairedRank +
+        'Paired ranks: open #' + openPairedRank +
+        ' / closed #' + closedPairedRank +
         ' · ' + movement +
-        '；全榜名次：开源 #' + openGlobalRank +
+        '; full ranks: open #' + openGlobalRank +
         '/' + openRows.length +
-        '，闭源 #' + closedGlobalRank + '/' + closedRows.length
+        ', closed #' + closedGlobalRank + '/' + closedRows.length
       );
     }
 
@@ -489,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     buildStickyHeader();
     syncPairedRankData();
+    document.addEventListener('clawprobench:languagechange', syncPairedRankData);
 
     if (leaderboardDatasetFilter) {
       const datasetButtons = Array.from(leaderboardDatasetFilter.querySelectorAll('button[data-dataset-view]'));
@@ -881,6 +903,34 @@ document.addEventListener('DOMContentLoaded', function () {
     updateTopScrollbarVisibility();
   }
 
+  let currentChartDataset = 'open';
+  const chartRenderers = [];
+  const chartDatasetFilters = Array.from(document.querySelectorAll('.leaderboard-chart-dataset-filter'));
+  const chartDatasetButtons = chartDatasetFilters.reduce(function (buttons, filter) {
+    return buttons.concat(Array.from(filter.querySelectorAll('button[data-chart-dataset]')));
+  }, []);
+
+  function updateChartDatasetButtons() {
+    chartDatasetButtons.forEach(function (button) {
+      button.classList.toggle('is-active', (button.dataset.chartDataset || 'open') === currentChartDataset);
+    });
+  }
+
+  function renderDatasetCharts() {
+    chartRenderers.forEach(function (render) {
+      render();
+    });
+  }
+
+  chartDatasetButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      currentChartDataset = button.dataset.chartDataset === 'closed' ? 'closed' : 'open';
+      updateChartDatasetButtons();
+      renderDatasetCharts();
+    });
+  });
+  updateChartDatasetButtons();
+
   const leaderboardChart = document.getElementById('leaderboard-chart-bars');
   const leaderboardMetric = document.getElementById('leaderboard-chart-metric');
   if (leaderboardChart && leaderboardMetric) {
@@ -926,10 +976,10 @@ document.addEventListener('DOMContentLoaded', function () {
       return raw;
     }
 
-    function chartLimit() {
-      if (!leaderboardLimit || leaderboardLimit.value === 'all') return bars.length;
+    function chartLimit(activeCount) {
+      if (!leaderboardLimit || leaderboardLimit.value === 'all') return activeCount;
       const parsed = Number(leaderboardLimit.value);
-      return Number.isFinite(parsed) ? parsed : bars.length;
+      return Number.isFinite(parsed) ? parsed : activeCount;
     }
 
     function renderChart() {
@@ -937,18 +987,25 @@ document.addEventListener('DOMContentLoaded', function () {
       const metric = selectedOption.value;
       const direction = selectedOption.dataset.direction || 'desc';
       const format = selectedOption.dataset.format || 'percent';
-      const sorted = bars.slice().sort(function (a, b) {
+      const activeBars = bars.filter(function (bar) {
+        return (bar.dataset.dataset || 'open') === currentChartDataset;
+      });
+      const sorted = activeBars.slice().sort(function (a, b) {
         const av = metricValue(a, metric);
         const bv = metricValue(b, metric);
         return direction === 'asc' ? av - bv : bv - av;
       });
-      const visibleBars = sorted.slice(0, chartLimit());
+      const visibleBars = sorted.slice(0, chartLimit(activeBars.length));
       const values = visibleBars.map(function (bar) {
         return metricValue(bar, metric);
       });
       const max = values.length ? Math.max.apply(null, values) : 0;
       const min = values.length ? Math.min.apply(null, values) : 0;
       const range = max - min || 1;
+
+      bars.forEach(function (bar) {
+        bar.style.display = 'none';
+      });
 
       sorted.forEach(function (bar, index) {
         const isVisible = index < visibleBars.length;
@@ -975,6 +1032,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     leaderboardMetric.addEventListener('change', renderChart);
     if (leaderboardLimit) leaderboardLimit.addEventListener('change', renderChart);
+    chartRenderers.push(renderChart);
     renderChart();
   }
 
@@ -1084,8 +1142,16 @@ document.addEventListener('DOMContentLoaded', function () {
       const format = selected.dataset.format || 'percent';
       scatterTitle.textContent = selected.text;
 
-      const xs = points.map(function (point) { return scatterValue(point, xMetric); }).sort(function (a, b) { return a - b; });
-      const ys = points.map(function (point) { return scatterValue(point, metric); });
+      const activePoints = points.filter(function (point) {
+        return (point.dataset.dataset || 'open') === currentChartDataset;
+      });
+      points.forEach(function (point) {
+        point.style.display = activePoints.includes(point) ? '' : 'none';
+      });
+      if (!activePoints.length) return;
+
+      const xs = activePoints.map(function (point) { return scatterValue(point, xMetric); }).sort(function (a, b) { return a - b; });
+      const ys = activePoints.map(function (point) { return scatterValue(point, metric); });
       const maxDataX = xs[xs.length - 1] || options.visibleMaxX;
       const minX = options.minX;
       const visibleMaxX = options.visibleMaxX;
@@ -1108,7 +1174,7 @@ document.addEventListener('DOMContentLoaded', function () {
       scatterXAxis.style.width = plotWidth + 'px';
       renderScatterXAxisTicks(scatterXAxis, minX, maxX, visibleMaxX, xAxisFormatter, tickValues);
 
-      points.forEach(function (point) {
+      activePoints.forEach(function (point) {
         const x = scatterValue(point, xMetric);
         const key = x.toFixed(4);
         if (!overlapGroups.has(key)) overlapGroups.set(key, []);
@@ -1134,7 +1200,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       });
 
-      points.forEach(function (point) {
+      activePoints.forEach(function (point) {
         const x = scatterValue(point, xMetric);
         const y = scatterValue(point, metric);
         const left = Math.max(0, Math.min(100, ((x - minX) / rangeX) * 100));
@@ -1158,6 +1224,7 @@ document.addEventListener('DOMContentLoaded', function () {
         renderScatter();
       });
     });
+    chartRenderers.push(renderScatter);
     renderScatter();
   }
 

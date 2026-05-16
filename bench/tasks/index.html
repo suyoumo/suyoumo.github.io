@@ -9,18 +9,18 @@ title: Tasks
     <div class="bench-section-head">
       <div>
         <h2>Task <span>Browser</span></h2>
-        <p>Browse the 102-task 开源数据集 first, followed by the 68-task 闭源数据集. Each card shows the task id, difficulty, dimension, and prompt preview.</p>
+        <p>Browse the 102-task open dataset first, followed by the 68-task closed dataset. Each card shows the task id, difficulty, dimension, and prompt preview.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
     </div>
 
     <div class="bench-filter-bar">
       <div class="bench-filter-segment">
-        <span>数据集</span>
+        <span>Dataset</span>
         <div class="bench-dataset-tabs" id="task-dataset-filter">
-          <button class="is-active" type="button" data-task-dataset="all">全部数据集</button>
-          <button type="button" data-task-dataset="open">开源数据集</button>
-          <button type="button" data-task-dataset="closed">闭源数据集</button>
+          <button class="is-active" type="button" data-task-dataset="all">All Datasets</button>
+          <button type="button" data-task-dataset="open">Open Dataset</button>
+          <button type="button" data-task-dataset="closed">Closed Dataset</button>
         </div>
       </div>
       <label>
@@ -69,7 +69,7 @@ title: Tasks
         <div class="bench-task-header-row">
           <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
-            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">开源数据集</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">Open Dataset</span>
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
           </div>
           <div class="bench-task-chip-row bench-task-chip-row-bottom">
@@ -110,7 +110,7 @@ title: Tasks
         <div class="bench-task-header-row">
           <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
-            <span class="bench-task-chip bench-task-dataset bench-task-dataset-closed">闭源数据集</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-closed">Closed Dataset</span>
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
           </div>
           <div class="bench-task-chip-row bench-task-chip-row-bottom">

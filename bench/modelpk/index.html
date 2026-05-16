@@ -10,12 +10,12 @@ permalink: /bench/modelpk/
       <div class="modelpk-hero-copy">
         <p class="bench-kicker">Model to model comparison</p>
         <h1>ModelPK</h1>
-        <p class="bench-intro">Pick two models, click PK, then compare leaderboard metrics, six dimensions, radar shape, and all 102 task-level scores.</p>
+        <p class="bench-intro">Pick two models, choose open or closed dataset, then compare leaderboard metrics, six dimensions, and radar shape. The open dataset also supports task-level PK.</p>
       </div>
       <div class="modelpk-hero-badges" aria-label="ModelPK feature summary">
         <span><i>01</i> Two-model PK</span>
-        <span><i>02</i> Radar comparison</span>
-        <span><i>03</i> Per-task breakdown</span>
+        <span><i>02</i> Dataset switch</span>
+        <span><i>03</i> Radar comparison</span>
       </div>
     </div>
   </div>
@@ -40,6 +40,15 @@ permalink: /bench/modelpk/
           </button>
         </div>
       </div>
+
+      <div class="bench-filter-strip modelpk-dataset-strip" aria-label="ModelPK dataset filter">
+        <span>Dataset</span>
+        <div class="bench-dataset-tabs" id="modelpk-dataset-filter">
+          <button class="is-active" type="button" data-modelpk-dataset="open">Open Dataset</button>
+          <button type="button" data-modelpk-dataset="closed">Closed Dataset</button>
+        </div>
+      </div>
+      <p class="modelpk-dataset-note">Closed dataset PK compares model-level scores only; per-task PK is intentionally hidden.</p>
 
       <div class="modelpk-select-grid">
         <label class="modelpk-select-field modelpk-a">
@@ -80,7 +89,7 @@ permalink: /bench/modelpk/
       <div class="modelpk-dimension-grid" id="modelpk-dimension-grid"></div>
     </div>
 
-    <div class="bench-section-head modelpk-section-head">
+    <div class="bench-section-head modelpk-section-head" id="modelpk-task-section-head">
       <div class="bench-head-copy">
         <h2>Task-Level <span>Breakdown</span></h2>
         <p>Each row compares the two models on the same task. Use search and filters to isolate dimensions, hard losses, or close calls.</p>
@@ -114,7 +123,7 @@ permalink: /bench/modelpk/
       </div>
     </div>
 
-    <div class="bench-card modelpk-task-card">
+    <div class="bench-card modelpk-task-card" id="modelpk-task-card">
       <div class="modelpk-task-summary" id="modelpk-task-summary"></div>
       <div class="bench-table-wrap modelpk-table-wrap">
         <table class="bench-table modelpk-task-table">
@@ -136,5 +145,6 @@ permalink: /bench/modelpk/
   </div>
 
   <script type="application/json" id="modelpk-data">{{ site.data.bench.models | jsonify | replace: '</', '<\/' }}</script>
+  <script type="application/json" id="modelpk-closed-data">{{ site.data.bench.closed_leaderboard | jsonify | replace: '</', '<\/' }}</script>
   <script src="{{ site.baseurl }}/assets/js/modelpk.js?v={{ site.time | date: '%s' }}"></script>
 </section>
