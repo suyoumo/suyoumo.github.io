@@ -2434,6 +2434,24 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   color: #3f58c8;
 }
 
+.bench-dataset-pill-open {
+  background: rgba(63, 155, 84, 0.1);
+  color: #2f7d44;
+}
+
+.bench-paired-rank-data {
+  display: none;
+  margin-top: 3px;
+  color: #3f58c8;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.bench-table[data-dataset-view="paired"] .bench-paired-rank-data {
+  display: block;
+}
+
 .bench-price-cell {
   display: flex;
   flex-direction: column;

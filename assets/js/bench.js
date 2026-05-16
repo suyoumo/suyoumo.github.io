@@ -311,6 +311,74 @@ document.addEventListener('DOMContentLoaded', function () {
       };
     }
 
+    function finalScoreIndex() {
+      return headers.findIndex(function (header) {
+        return header.dataset.sortKey === 'final_score';
+      }) + 1;
+    }
+
+    function pairedOpenRows() {
+      return openRows.filter(function (row) {
+        return row.dataset.hasClosed === 'true';
+      });
+    }
+
+    function pairedClosedRows() {
+      return closedRows.filter(function (row) {
+        return row.dataset.parentId;
+      });
+    }
+
+    function rankRowsByFinalScore(sourceRows) {
+      const index = finalScoreIndex();
+      return sourceRows.slice().sort(compareRows('final_score', index, 'desc'));
+    }
+
+    function pairedRankText(openPairedRank, closedPairedRank, openGlobalRank, closedGlobalRank) {
+      const delta = closedPairedRank - openPairedRank;
+      let movement = '持平';
+      if (delta > 0) movement = '双榜内下降 ' + delta;
+      if (delta < 0) movement = '双榜内上升 ' + Math.abs(delta);
+      return (
+        '双榜内排名：开源 #' + openPairedRank +
+        ' / 闭源 #' + closedPairedRank +
+        ' · ' + movement +
+        '；全榜名次：开源 #' + openGlobalRank +
+        '/' + openRows.length +
+        '，闭源 #' + closedGlobalRank + '/' + closedRows.length
+      );
+    }
+
+    function syncPairedRankData() {
+      const openPairedRankByModel = new Map();
+      rankRowsByFinalScore(pairedOpenRows()).forEach(function (row, index) {
+        openPairedRankByModel.set(row.dataset.modelId || '', index + 1);
+      });
+
+      const closedPairedRankByModel = new Map();
+      rankRowsByFinalScore(pairedClosedRows()).forEach(function (row, index) {
+        closedPairedRankByModel.set(row.dataset.parentId || '', index + 1);
+      });
+
+      pairedClosedRows().forEach(function (row) {
+        const modelId = row.dataset.parentId || '';
+        const target = row.querySelector('.bench-paired-rank-data');
+        if (!target) return;
+        const openPairedRank = openPairedRankByModel.get(modelId);
+        const closedPairedRank = closedPairedRankByModel.get(modelId);
+        if (!openPairedRank || !closedPairedRank) {
+          target.textContent = '';
+          return;
+        }
+        target.textContent = pairedRankText(
+          openPairedRank,
+          closedPairedRank,
+          row.dataset.openRank || '?',
+          row.dataset.closedRank || '?'
+        );
+      });
+    }
+
     function closedRankValue(row) {
       const parsed = Number(row.dataset.closedRank || row.children[0].dataset.value || 0);
       return Number.isFinite(parsed) ? parsed : 0;
@@ -319,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function appendOpenRowWithClosed(row) {
       row.style.display = '';
       tbody.appendChild(row);
-      if (currentDatasetView !== 'all') return;
+      if (currentDatasetView !== 'all' && currentDatasetView !== 'paired') return;
       const attachedClosedRows = closedRowsByParent.get(row.dataset.modelId || '') || [];
       attachedClosedRows
         .slice()
@@ -375,7 +443,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return header.dataset.sortKey === key;
       }) + 1;
       const activeHeader = headers[index - 1];
-      const primaryRows = currentDatasetView === 'closed' ? closedRows : openRows;
+      const primaryRows = currentDatasetView === 'closed'
+        ? closedRows
+        : (currentDatasetView === 'paired' ? pairedOpenRows() : openRows);
 
       const sorted = primaryRows.slice().sort(compareRows(key, index, direction));
 
@@ -418,6 +488,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     buildStickyHeader();
+    syncPairedRankData();
 
     if (leaderboardDatasetFilter) {
       const datasetButtons = Array.from(leaderboardDatasetFilter.querySelectorAll('button[data-dataset-view]'));

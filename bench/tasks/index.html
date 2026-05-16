@@ -9,18 +9,18 @@ title: Tasks
     <div class="bench-section-head">
       <div>
         <h2>Task <span>Browser</span></h2>
-        <p>Browse the 102 open ClawProBench tasks first, followed by the 68-task closed holdout dataset. Open cards include prompt previews; closed cards expose only task-level metadata.</p>
+        <p>Browse the 102-task 开源数据集 first, followed by the 68-task 闭源数据集. Each card shows the task id, difficulty, dimension, and prompt preview.</p>
       </div>
       <a class="bench-ghost-link" href="{{ site.baseurl }}/bench/">← Back to Leaderboard</a>
     </div>
 
     <div class="bench-filter-bar">
       <div class="bench-filter-segment">
-        <span>Dataset</span>
+        <span>数据集</span>
         <div class="bench-dataset-tabs" id="task-dataset-filter">
-          <button class="is-active" type="button" data-task-dataset="all">All</button>
-          <button type="button" data-task-dataset="open">Open</button>
-          <button type="button" data-task-dataset="closed">Closed</button>
+          <button class="is-active" type="button" data-task-dataset="all">全部数据集</button>
+          <button type="button" data-task-dataset="open">开源数据集</button>
+          <button type="button" data-task-dataset="closed">闭源数据集</button>
         </div>
       </div>
       <label>
@@ -69,7 +69,7 @@ title: Tasks
         <div class="bench-task-header-row">
           <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
-            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">Open</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">开源数据集</span>
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
           </div>
           <div class="bench-task-chip-row bench-task-chip-row-bottom">
@@ -90,17 +90,27 @@ title: Tasks
       </article>
       {% endfor %}
       {% for task in site.data.bench.closed_tasks %}
+      {% assign task_text = task.prompt_preview | default: task.objective | default: task.description %}
+      {% assign task_preview = task_text
+        | replace: '" >', '"'
+        | replace: ' >', ''
+        | replace: '” >', '”'
+        | replace: '”>', '”'
+        | replace: '" >', '"'
+        | replace: "' >", "'"
+        | replace: '&gt;', ''
+        | strip %}
       <article
         class="bench-task-card bench-task-card-compact bench-task-card-closed"
         data-dataset="closed"
         data-dimension="{{ task.dimension | downcase }}"
         data-difficulty="{{ task.difficulty | downcase }}"
-        data-search="{{ task.id }} {{ task.name }} {{ task.dimension }} {{ task.difficulty }} {{ task.category }} closed holdout 68"
+        data-search="{{ task.id }} {{ task.name }} {{ task.dimension }} {{ task.difficulty }} {{ task.category }} {{ task.description }} {{ task.objective }} {{ task.prompt_preview }} closed holdout 68 闭源数据集"
       >
         <div class="bench-task-header-row">
           <div class="bench-task-chip-row bench-task-chip-row-top">
             <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
-            <span class="bench-task-chip bench-task-dataset bench-task-dataset-closed">Closed</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-closed">闭源数据集</span>
             <span class="bench-task-chip bench-task-tag" title="{{ task.dimension }}">{{ task.dimension }}</span>
           </div>
           <div class="bench-task-chip-row bench-task-chip-row-bottom">
@@ -112,7 +122,12 @@ title: Tasks
         </div>
 
         <h3>{{ task.name }}</h3>
-        <p class="bench-task-closed-note">Closed holdout prompt withheld.</p>
+
+        {% if task_preview %}
+        <button type="button" class="bench-task-toggle" aria-expanded="false">Read full task objective</button>
+        <div class="bench-task-preview">{{ task_preview }}</div>
+        <div class="bench-task-full">{{ task_text }}</div>
+        {% endif %}
       </article>
       {% endfor %}
     </div>
