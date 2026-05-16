@@ -1274,7 +1274,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fixedMaxX: 115,
     roundStep: 10,
     tickValues: [0, 20, 40, 60, 80, 100, 115],
-    closedVisibleMaxX: 30,
+    closedVisibleMaxX: 6,
     closedFixedMaxX: 30,
     closedTickValues: [0, 5, 10, 15, 20, 25, 30],
     xAxisFormatter: function (value) {
