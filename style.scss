@@ -2814,6 +2814,265 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   }
 }
 
+.closed-detail-profile {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.closed-detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
+  gap: 28px;
+  align-items: stretch;
+  padding: 30px;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    padding: 22px;
+  }
+}
+
+.closed-detail-title-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-width: 0;
+}
+
+.closed-detail-title-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+
+  h1 {
+    margin: 0 0 8px;
+    padding: 0;
+    font-family: $sans;
+    font-size: clamp(2.2rem, 4vw, 4.2rem);
+    letter-spacing: 0;
+    line-height: 0.95;
+  }
+
+  .bench-intro {
+    margin: 0;
+    max-width: 760px;
+  }
+}
+
+.closed-detail-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+}
+
+.closed-detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(184, 108, 57, 0.1);
+    color: #7d4a2c;
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+}
+
+.closed-detail-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.closed-detail-stat,
+.closed-detail-metric,
+.closed-detail-meta-item {
+  min-width: 0;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.028);
+}
+
+.closed-detail-stat {
+  padding: 18px;
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    margin-bottom: 8px;
+    color: $gray;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: $black;
+    font-size: 1.65rem;
+    line-height: 1.05;
+  }
+}
+
+.closed-detail-stat-primary {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(184, 108, 57, 0.13), rgba(217, 154, 87, 0.1));
+
+  strong {
+    font-size: 2.35rem;
+  }
+}
+
+.closed-detail-reliability {
+  padding: 22px;
+}
+
+.closed-detail-metric-grid,
+.closed-detail-token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.closed-detail-metric {
+  padding: 14px 16px;
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    margin-bottom: 6px;
+    color: $gray;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: $black;
+    font-size: 1.28rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+}
+
+.closed-detail-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 24px;
+  align-items: start;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.closed-detail-panel {
+  padding: 26px;
+
+  h2 {
+    margin: 0 0 22px;
+    padding: 0;
+    font-family: $sans;
+    font-size: 1.45rem;
+    letter-spacing: 0;
+  }
+}
+
+.closed-detail-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.closed-detail-bar-row {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr) 54px;
+  align-items: center;
+  gap: 16px;
+
+  span {
+    color: $gray;
+  }
+
+  strong {
+    color: $black;
+    text-align: right;
+  }
+}
+
+.closed-detail-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.closed-detail-meta-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+
+  span {
+    color: $gray;
+  }
+
+  strong {
+    color: $black;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}
+
+.closed-detail-token-panel {
+  grid-column: 1 / -1;
+}
+
+.closed-detail-token-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.closed-detail-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  color: $gray;
+  font-size: 0.95rem;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.closed-detail-action {
+  margin: 0;
+}
+
 .bench-scenario-table {
   min-width: 1200px;
 }

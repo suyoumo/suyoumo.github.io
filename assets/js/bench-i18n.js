@@ -70,7 +70,7 @@
     ', while': '，',
     'strict_pass_rate = unweighted_pass_at_k_all.': 'strict_pass_rate = unweighted_pass_at_k_all。',
     'Open Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.45 × (1 - (1 - Pass@3)^(1/3))^0.15': '开源 Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.45 × (1 - (1 - Pass@3)^(1/3))^0.15',
-    'Closed Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.35 × (1 - (1 - Pass@3)^(1/3))^0.25': '闭源 Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.35 × (1 - (1 - Pass@3)^(1/3))^0.25',
+    'Closed Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.25 × (1 - (1 - Pass@3)^(1/3))^0.35': '闭源 Final Score = 100 × AvgScore^0.40 × ((Pass^3)^(1/3))^0.25 × (1 - (1 - Pass@3)^(1/3))^0.35',
     Visual: '可视化',
     'View the full leaderboard in chart form. When you switch metrics, the bar ranking below re-sorts by the selected field.': '用图表查看完整排行榜。切换指标后，下方柱状排名会按所选字段重新排序。',
     Metric: '指标',
