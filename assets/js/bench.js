@@ -1133,8 +1133,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const xMetric = options.xMetric;
     const xAxisFormatter = options.xAxisFormatter || function (value) { return String(Math.round(value)); };
     const xValueFormatter = options.xValueFormatter || function (value) { return String(value); };
-    const tickValues = options.tickValues || null;
     let scatterResizeFrame = 0;
+
+    function optionValue(key) {
+      const datasetKey = currentChartDataset + key.charAt(0).toUpperCase() + key.slice(1);
+      return options[datasetKey] !== undefined ? options[datasetKey] : options[key];
+    }
 
     function renderScatter() {
       const selected = scatterMetric.options[scatterMetric.selectedIndex];
@@ -1152,12 +1156,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const xs = activePoints.map(function (point) { return scatterValue(point, xMetric); }).sort(function (a, b) { return a - b; });
       const ys = activePoints.map(function (point) { return scatterValue(point, metric); });
-      const maxDataX = xs[xs.length - 1] || options.visibleMaxX;
-      const minX = options.minX;
-      const visibleMaxX = options.visibleMaxX;
-      const maxX = options.fixedMaxX !== undefined
-        ? options.fixedMaxX
-        : Math.max(visibleMaxX, Math.ceil(maxDataX / options.roundStep) * options.roundStep);
+      const minX = optionValue('minX');
+      const visibleMaxX = optionValue('visibleMaxX');
+      const roundStep = optionValue('roundStep') || 10;
+      const fixedMaxX = optionValue('fixedMaxX');
+      const tickValues = optionValue('tickValues') || null;
+      const maxDataX = xs[xs.length - 1] || visibleMaxX;
+      const maxX = fixedMaxX !== undefined
+        ? fixedMaxX
+        : Math.max(visibleMaxX, Math.ceil(maxDataX / roundStep) * roundStep);
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       const minVisibleWidth = isMobile ? 760 : 980;
       const visibleWidth = Math.max((scatterViewport && scatterViewport.clientWidth) || 0, minVisibleWidth);
@@ -1256,6 +1263,9 @@ document.addEventListener('DOMContentLoaded', function () {
     fixedMaxX: 115,
     roundStep: 10,
     tickValues: [0, 20, 40, 60, 80, 100, 115],
+    closedVisibleMaxX: 30,
+    closedFixedMaxX: 30,
+    closedTickValues: [0, 5, 10, 15, 20, 25, 30],
     xAxisFormatter: function (value) {
       return '$' + Math.round(value);
     },
