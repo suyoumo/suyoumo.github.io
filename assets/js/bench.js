@@ -922,6 +922,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function selectedDatasetForChart(element) {
+    const chartCard = element && element.closest ? element.closest('.bench-chart-card') : null;
+    const activeButton = chartCard
+      ? chartCard.querySelector('.leaderboard-chart-dataset-filter button.is-active[data-chart-dataset]')
+      : null;
+    if (activeButton) return activeButton.dataset.chartDataset === 'closed' ? 'closed' : 'open';
+    return currentChartDataset;
+  }
+
   chartDatasetButtons.forEach(function (button) {
     button.addEventListener('click', function () {
       currentChartDataset = button.dataset.chartDataset === 'closed' ? 'closed' : 'open';
@@ -987,8 +996,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const metric = selectedOption.value;
       const direction = selectedOption.dataset.direction || 'desc';
       const format = selectedOption.dataset.format || 'percent';
+      const activeDataset = selectedDatasetForChart(leaderboardChart);
       const activeBars = bars.filter(function (bar) {
-        return (bar.dataset.dataset || 'open') === currentChartDataset;
+        return (bar.dataset.dataset || 'open') === activeDataset;
       });
       const sorted = activeBars.slice().sort(function (a, b) {
         const av = metricValue(a, metric);
@@ -1135,8 +1145,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const xValueFormatter = options.xValueFormatter || function (value) { return String(value); };
     let scatterResizeFrame = 0;
 
-    function optionValue(key) {
-      const datasetKey = currentChartDataset + key.charAt(0).toUpperCase() + key.slice(1);
+    function optionValue(key, activeDataset) {
+      const datasetKey = activeDataset + key.charAt(0).toUpperCase() + key.slice(1);
       return options[datasetKey] !== undefined ? options[datasetKey] : options[key];
     }
 
@@ -1144,10 +1154,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const selected = scatterMetric.options[scatterMetric.selectedIndex];
       const metric = selected.value;
       const format = selected.dataset.format || 'percent';
+      const activeDataset = selectedDatasetForChart(scatterPlot);
       scatterTitle.textContent = selected.text;
 
       const activePoints = points.filter(function (point) {
-        return (point.dataset.dataset || 'open') === currentChartDataset;
+        return (point.dataset.dataset || 'open') === activeDataset;
       });
       points.forEach(function (point) {
         point.style.display = activePoints.includes(point) ? '' : 'none';
@@ -1156,11 +1167,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const xs = activePoints.map(function (point) { return scatterValue(point, xMetric); }).sort(function (a, b) { return a - b; });
       const ys = activePoints.map(function (point) { return scatterValue(point, metric); });
-      const minX = optionValue('minX');
-      const visibleMaxX = optionValue('visibleMaxX');
-      const roundStep = optionValue('roundStep') || 10;
-      const fixedMaxX = optionValue('fixedMaxX');
-      const tickValues = optionValue('tickValues') || null;
+      const minX = optionValue('minX', activeDataset);
+      const visibleMaxX = optionValue('visibleMaxX', activeDataset);
+      const roundStep = optionValue('roundStep', activeDataset) || 10;
+      const fixedMaxX = optionValue('fixedMaxX', activeDataset);
+      const tickValues = optionValue('tickValues', activeDataset) || null;
       const maxDataX = xs[xs.length - 1] || visibleMaxX;
       const maxX = fixedMaxX !== undefined
         ? fixedMaxX
