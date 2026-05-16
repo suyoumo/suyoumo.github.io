@@ -1173,7 +1173,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const fixedMaxX = optionValue('fixedMaxX', activeDataset);
       const tickValues = optionValue('tickValues', activeDataset) || null;
       const maxDataX = xs[xs.length - 1] || visibleMaxX;
-      const maxX = fixedMaxX !== undefined
+      const maxX = fixedMaxX !== undefined && fixedMaxX !== null
         ? fixedMaxX
         : Math.max(visibleMaxX, Math.ceil(maxDataX / roundStep) * roundStep);
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
@@ -1274,9 +1274,9 @@ document.addEventListener('DOMContentLoaded', function () {
     fixedMaxX: 115,
     roundStep: 10,
     tickValues: [0, 20, 40, 60, 80, 100, 115],
-    closedVisibleMaxX: 6,
-    closedFixedMaxX: 30,
-    closedTickValues: [0, 5, 10, 15, 20, 25, 30],
+    closedVisibleMaxX: 30,
+    closedFixedMaxX: null,
+    closedTickValues: null,
     xAxisFormatter: function (value) {
       return '$' + Math.round(value);
     },
