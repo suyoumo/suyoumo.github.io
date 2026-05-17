@@ -602,8 +602,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function setTaskSectionVisible(isVisible) {
-    if (taskSectionHead) taskSectionHead.hidden = !isVisible;
-    if (taskCard) taskCard.hidden = !isVisible;
+    [taskSectionHead, taskCard].forEach(function (element) {
+      if (!element) return;
+      element.hidden = !isVisible;
+      element.style.display = isVisible ? '' : 'none';
+    });
   }
 
   function renderTasks(modelA, modelB, rows) {
@@ -742,6 +745,7 @@ document.addEventListener('DOMContentLoaded', function () {
     currentDataset = nextDataset === 'closed' ? 'closed' : 'open';
     refreshModelCollections();
     updateDatasetButtons();
+    setTaskSectionVisible(currentDataset === 'open');
     if (searchA) searchA.value = '';
     if (searchB) searchB.value = '';
     dimensionFilter.value = 'all';
