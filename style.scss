@@ -1644,8 +1644,8 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   }
 
   > .bench-chart-toolbar {
-    flex: 0 0 372px;
-    min-width: 372px;
+    flex: 0 1 auto;
+    min-width: 0;
     justify-content: flex-end;
   }
 
@@ -1696,11 +1696,11 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 12px;
 
   @include mobile {
     width: 100%;
-    flex-wrap: wrap;
     justify-content: flex-start;
   }
 }
@@ -1738,7 +1738,9 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 .bench-chart-dataset-filter {
   display: flex;
   flex-direction: column;
+  flex: 0 0 auto;
   gap: 8px;
+  min-width: 172px;
 
   > span {
     color: $gray;
@@ -1746,6 +1748,19 @@ html[data-bench-lang="zh"] .bench-language-toggle {
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+  }
+
+  .bench-dataset-tabs {
+    align-self: flex-start;
+    flex-wrap: nowrap;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .bench-dataset-tabs button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    word-break: keep-all;
   }
 }
 
