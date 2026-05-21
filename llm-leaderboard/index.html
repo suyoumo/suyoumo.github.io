@@ -72,7 +72,7 @@ permalink: /llm-leaderboard/
                 <strong>{{ row.model }}</strong>
                 <span>{{ row.company }}</span>
               </td>
-              <td>{{ row.mode }}</td>
+              <td>{% if row.mode and row.mode != "" %}{{ row.mode }}{% else %}--{% endif %}</td>
               <td>{% if row.released and row.released != "" %}{{ row.released }}{% else %}--{% endif %}</td>
               <td>
                 <div class="llm-source-list">
