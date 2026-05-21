@@ -13,15 +13,16 @@ permalink: /llm-leaderboard/
 
 <section class="llm-board-page">
   <div class="llm-board-shell">
+    <div class="leaderboard-family-switch llm-family-switch" aria-label="Leaderboard family">
+      <span>Leaderboard Family:</span>
+      <a href="{{ site.baseurl }}/bench/">ClawProBench ↗</a>
+      <a class="is-active" href="{{ site.baseurl }}/llm-leaderboard/" aria-current="page">LLMLeadBoard <strong>CURRENT</strong></a>
+    </div>
+
     <div class="llm-board-hero">
       <p class="llm-board-kicker">Report-sourced model scores</p>
       <h1>LLMLeadBoard</h1>
       <p>按“模型 + 推理模式”合并公开报告中的 benchmark 分数。同一个 benchmark 来自不同报告且分数不一致时，会在同一个格子里列出多个分数；未出现在报告中的分数显示为 <code>--</code>。</p>
-      <div class="leaderboard-family-switch" aria-label="Leaderboard family">
-        <span>Leaderboard Family:</span>
-        <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
-        <a class="is-active" href="{{ site.baseurl }}/llm-leaderboard/" aria-current="page">LLMLeadBoard <strong>CURRENT</strong></a>
-      </div>
     </div>
 
     <div class="llm-board-summary">
@@ -41,8 +42,8 @@ permalink: /llm-leaderboard/
 
     <div class="llm-board-table-card">
       <div class="llm-board-table-meta">
-        <span>横向滚动查看全部 benchmark</span>
-        <span>Score values are copied from each linked report.</span>
+        <span>包含报告中的目标模型与对比模型；横向滚动查看全部 benchmark</span>
+        <span>Different scores from different reports are stacked in one cell.</span>
       </div>
       <div class="llm-board-table-wrap">
         <table class="llm-board-table">

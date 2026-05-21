@@ -291,18 +291,18 @@ hr {
 .leaderboard-family-switch {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-top: 18px;
-  padding: 6px;
+  padding: 8px;
   border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 10px 28px rgba(60, 42, 28, 0.06);
 
   span {
-    padding: 0 10px;
+    padding: 0 12px;
     color: $gray;
-    font-size: 0.88rem;
+    font-size: 0.95rem;
     font-weight: 700;
     white-space: nowrap;
   }
@@ -312,13 +312,13 @@ hr {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    min-height: 38px;
-    padding: 0 16px;
+    min-height: 44px;
+    padding: 0 22px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.74);
     color: $darkGray;
-    font-size: 0.92rem;
+    font-size: 1rem;
     font-weight: 800;
     white-space: nowrap;
 
@@ -348,12 +348,18 @@ hr {
 }
 
 .llm-board-page {
-  padding: 46px 0 72px;
+  padding: 28px 0 72px;
 }
 
 .llm-board-shell {
-  width: min(100% - 96px, 1800px);
+  width: min(calc(100vw - 64px), 1960px);
   margin: 0 auto;
+}
+
+.llm-family-switch {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 34px;
 }
 
 .llm-board-hero {
