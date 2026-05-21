@@ -1,0 +1,381 @@
+metadata_columns:
+  - Model
+  - Mode
+  - Released
+  - Source
+
+categories:
+  - name: Coding Agent
+    columns:
+      - key: terminal_bench_2
+        label: Terminal Bench 2.0
+      - key: swe_verified
+        label: SWE-Verified
+      - key: swe_pro
+        label: SWE-Pro
+      - key: swe_multilingual
+        label: SWE-Multilingual
+      - key: nl2repo
+        label: NL2Repo
+      - key: scicode
+        label: SciCode
+      - key: qwen_web_bench
+        label: QwenWebBench
+      - key: qwen_svg
+        label: QwenSVG
+      - key: claw_eval_avg
+        label: ClawEval Avg
+      - key: claw_eval_pass3
+        label: ClawEval Pass^3
+      - key: skillsbench
+        label: SkillsBench
+      - key: qwenclawbench
+        label: QwenClawBench
+      - key: coworkbench
+        label: CoWorkBench
+
+  - name: General Agent
+    columns:
+      - key: tau3_bench
+        label: TAU3-Bench
+      - key: vita_bench
+        label: VITA-Bench
+      - key: deepplanning
+        label: DeepPlanning
+      - key: tool_decathlon
+        label: Tool Decathlon
+      - key: toolathlon
+        label: Toolathlon
+      - key: bfcl_v4
+        label: BFCL-V4
+      - key: mcp_mark
+        label: MCP-Mark
+      - key: mcp_atlas
+        label: MCP-Atlas
+      - key: hle_tools
+        label: HLE w/ tools
+      - key: browsecomp
+        label: BrowseComp
+      - key: gdpval_aa
+        label: GDPval-AA
+      - key: widesearch
+        label: WideSearch
+      - key: spreadsheetbench_v1
+        label: SpreadSheetBench-v1
+      - key: kernel_bench_l3
+        label: Kernel Bench L3
+      - key: qwenworldbench
+        label: QwenWorldBench
+
+  - name: Knowledge & Reasoning
+    columns:
+      - key: mmlu_pro
+        label: MMLU-Pro
+      - key: mmlu_redux
+        label: MMLU-Redux
+      - key: supergpqa
+        label: SuperGPQA
+      - key: c_eval
+        label: C-Eval
+      - key: simpleqa_verified
+        label: SimpleQA-Verified
+      - key: chinese_simpleqa
+        label: Chinese-SimpleQA
+      - key: gpqa
+        label: GPQA
+      - key: hle
+        label: HLE
+      - key: livecodebench
+        label: LiveCodeBench
+      - key: codeforces
+        label: Codeforces
+      - key: hmmt_2026_feb
+        label: HMMT 2026 Feb
+      - key: hmmt_2025_feb
+        label: HMMT 2025 Feb
+      - key: hmmt_2025_nov
+        label: HMMT 2025 Nov
+      - key: imoanswerbench
+        label: IMOAnswerBench
+      - key: critpt
+        label: CritPT
+      - key: apex
+        label: Apex
+      - key: apex_shortlist
+        label: Apex Shortlist
+      - key: aime26
+        label: AIME26
+
+  - name: Long Context
+    columns:
+      - key: mrcr_v2_128k
+        label: MRCR-v2 128k
+      - key: mrcr_1m
+        label: MRCR 1M
+      - key: corpusqa_1m
+        label: CorpusQA 1M
+      - key: aa_lcr
+        label: AA-LCR
+      - key: longbench_v2
+        label: LongBench v2
+
+  - name: Instruction & Multilingual
+    columns:
+      - key: ifeval
+        label: IFEval
+      - key: ifbench
+        label: IFBench
+      - key: wmt24pp
+        label: WMT24++
+      - key: maxife
+        label: MAXIFE
+      - key: mmmlu
+        label: MMMLU
+      - key: mmlu_prox
+        label: MMLU-ProX
+      - key: nova63
+        label: NOVA-63
+      - key: include
+        label: INCLUDE
+      - key: global_piqa
+        label: Global PIQA
+      - key: polymath
+        label: PolyMATH
+
+  - name: Multimodal
+    columns:
+      - key: mmmu
+        label: MMMU
+      - key: mmmu_pro
+        label: MMMU-Pro
+      - key: mathvision
+        label: MathVision
+      - key: we_math
+        label: We-Math
+      - key: dynamath
+        label: DynaMath
+      - key: realworldqa
+        label: RealWorldQA
+      - key: mmstar
+        label: MMStar
+      - key: simplevqa
+        label: SimpleVQA
+      - key: omnidocbench15
+        label: OmniDocBench1.5
+      - key: charxiv_rq
+        label: CharXiv(RQ)
+      - key: mmlongbench_doc
+        label: MMLongBench-Doc
+      - key: cc_ocr
+        label: CC-OCR
+      - key: ai2d_test
+        label: AI2D_TEST
+      - key: countbench
+        label: CountBench
+      - key: refcoco_avg
+        label: RefCOCO(avg)
+      - key: odinw13
+        label: ODinW13
+      - key: erqa
+        label: ERQA
+      - key: v_star
+        label: V*
+      - key: videomme_w_sub
+        label: VideoMME(w sub.)
+      - key: videomme_wo_sub
+        label: VideoMME(w/o sub.)
+      - key: videommmu
+        label: VideoMMMU
+      - key: mlvu_mavg
+        label: MLVU (M-Avg)
+      - key: screenspot_pro
+        label: ScreenSpot Pro
+      - key: tir_bench
+        label: TIR-Bench
+      - key: osworld_verified
+        label: OSWorld-Verified
+
+rows:
+  - company: Qwen
+    model: Qwen3.7-Max
+    mode: Official report
+    released: "2026-05-20"
+    source_label: Qwen3.7 report
+    source_url: https://qwen.ai/blog?id=qwen3.7
+    scores:
+      terminal_bench_2: "69.7"
+      swe_verified: "80.4"
+      swe_pro: "60.6"
+      swe_multilingual: "78.3"
+      nl2repo: "47.2"
+      scicode: "53.5"
+      qwen_web_bench: "1568"
+      qwen_svg: "1608"
+      claw_eval_avg: "65.2"
+      skillsbench: "59.2"
+      qwenclawbench: "64.3"
+      coworkbench: "67.2"
+      vita_bench: "47.9"
+      bfcl_v4: "75.0"
+      mcp_mark: "60.8"
+      mcp_atlas: "76.4"
+      hle_tools: "53.5"
+      spreadsheetbench_v1: "87.0"
+      kernel_bench_l3: "1.98/96%"
+      qwenworldbench: "57.3"
+      mmlu_pro: "89.6"
+      mmlu_redux: "95.0"
+      supergpqa: "73.6"
+      gpqa: "92.4"
+      hle: "41.4"
+      livecodebench: "91.6"
+      hmmt_2026_feb: "97.1"
+      imoanswerbench: "90.0"
+      critpt: "11.4"
+      apex: "44.5"
+      mrcr_v2_128k: "90.4"
+      ifeval: "94.3"
+      ifbench: "79.1"
+      wmt24pp: "85.8"
+      maxife: "89.2"
+      mmmlu: "90.3"
+      mmlu_prox: "87.0"
+      nova63: "59.0"
+      include: "86.2"
+      global_piqa: "91.4"
+      polymath: "86.5"
+
+  - company: DeepSeek
+    model: DeepSeek-V4-Pro
+    mode: Max reasoning effort
+    released: "2026-04-24"
+    source_label: DeepSeek-V4 preview report
+    source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    scores:
+      terminal_bench_2: "67.9"
+      swe_verified: "80.6"
+      swe_pro: "55.4"
+      swe_multilingual: "76.2"
+      toolathlon: "51.8"
+      mcp_atlas: "73.6"
+      hle_tools: "48.2"
+      browsecomp: "83.4"
+      gdpval_aa: "1554"
+      mmlu_pro: "87.5"
+      simpleqa_verified: "57.9"
+      chinese_simpleqa: "84.4"
+      gpqa: "90.1"
+      hle: "37.7"
+      livecodebench: "93.5"
+      codeforces: "3206"
+      hmmt_2026_feb: "95.2"
+      imoanswerbench: "89.8"
+      apex: "38.3"
+      apex_shortlist: "90.2"
+      mrcr_1m: "83.5"
+      corpusqa_1m: "62.0"
+
+  - company: DeepSeek
+    model: DeepSeek-V4-Flash
+    mode: Max reasoning effort
+    released: "2026-04-24"
+    source_label: DeepSeek-V4 preview report
+    source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    scores:
+      terminal_bench_2: "56.9"
+      swe_verified: "79.0"
+      swe_pro: "52.6"
+      swe_multilingual: "73.3"
+      toolathlon: "47.8"
+      mcp_atlas: "69.0"
+      hle_tools: "45.1"
+      browsecomp: "73.2"
+      gdpval_aa: "1395"
+      mmlu_pro: "86.2"
+      simpleqa_verified: "34.1"
+      chinese_simpleqa: "78.9"
+      gpqa: "88.1"
+      hle: "34.8"
+      livecodebench: "91.6"
+      codeforces: "3052"
+      hmmt_2026_feb: "94.8"
+      imoanswerbench: "88.4"
+      apex: "33.0"
+      apex_shortlist: "85.7"
+      mrcr_1m: "78.7"
+      corpusqa_1m: "60.5"
+
+  - company: Qwen
+    model: Qwen3.6-Plus
+    mode: Official report
+    released: "2026-04-02"
+    source_label: Qwen3.6-Plus report
+    source_url: https://qwen.ai/blog?id=qwen3.6
+    scores:
+      terminal_bench_2: "61.6"
+      swe_verified: "78.8"
+      swe_pro: "56.6"
+      swe_multilingual: "73.8"
+      nl2repo: "37.9"
+      qwen_web_bench: "1501.7"
+      claw_eval_avg: "74.8"
+      claw_eval_pass3: "58.7"
+      skillsbench: "45.7"
+      qwenclawbench: "57.2"
+      tau3_bench: "70.7"
+      vita_bench: "44.3"
+      deepplanning: "41.5"
+      tool_decathlon: "39.8"
+      mcp_mark: "48.2"
+      mcp_atlas: "74.1"
+      hle_tools: "50.6"
+      widesearch: "74.3"
+      mmlu_pro: "88.5"
+      mmlu_redux: "94.5"
+      supergpqa: "71.6"
+      c_eval: "93.3"
+      gpqa: "90.4"
+      hle: "28.8"
+      livecodebench: "87.1"
+      hmmt_2026_feb: "87.8"
+      hmmt_2025_feb: "96.7"
+      hmmt_2025_nov: "94.6"
+      imoanswerbench: "83.8"
+      aime26: "95.3"
+      aa_lcr: "68.3"
+      longbench_v2: "62.0"
+      ifeval: "94.3"
+      ifbench: "74.2"
+      wmt24pp: "84.3"
+      maxife: "88.2"
+      mmmlu: "89.5"
+      mmlu_prox: "84.7"
+      nova63: "57.9"
+      include: "85.1"
+      global_piqa: "89.8"
+      polymath: "77.4"
+      mmmu: "86.0"
+      mmmu_pro: "78.8"
+      mathvision: "88.0"
+      we_math: "89.0"
+      dynamath: "88.0"
+      realworldqa: "85.4"
+      mmstar: "83.3"
+      simplevqa: "67.3"
+      omnidocbench15: "91.2"
+      charxiv_rq: "81.5"
+      mmlongbench_doc: "62.0"
+      cc_ocr: "83.4"
+      ai2d_test: "94.4"
+      countbench: "97.6"
+      refcoco_avg: "93.5"
+      odinw13: "51.8"
+      erqa: "65.7"
+      v_star: "96.9/90.5"
+      videomme_w_sub: "87.8"
+      videomme_wo_sub: "84.2"
+      videommmu: "84.0"
+      mlvu_mavg: "86.7"
+      screenspot_pro: "68.2"
+      tir_bench: "61.6/43.7"
+      osworld_verified: "62.5"

@@ -1,0 +1,90 @@
+---
+layout: default
+title: LLMLeadBoard
+permalink: /llm-leaderboard/
+---
+
+{% assign board = site.data.llm_leaderboard %}
+{% assign source_count = board.rows | map: "source_url" | uniq | size %}
+{% assign metric_count = 0 %}
+{% for group in board.categories %}
+  {% assign metric_count = metric_count | plus: group.columns.size %}
+{% endfor %}
+
+<section class="llm-board-page">
+  <div class="container-wide">
+    <div class="llm-board-hero">
+      <p class="llm-board-kicker">Report-sourced model scores</p>
+      <h1>LLMLeadBoard</h1>
+      <p>按“模型 + 推理模式 + 来源报告”记录公开报告中的 benchmark 分数。相同模型如果来自不同报告，可以作为不同行继续追加；未出现在该报告中的分数显示为 <code>--</code>。</p>
+    </div>
+
+    <div class="llm-board-summary">
+      <div>
+        <span>Models</span>
+        <strong>{{ board.rows | size }}</strong>
+      </div>
+      <div>
+        <span>Sources</span>
+        <strong>{{ source_count }}</strong>
+      </div>
+      <div>
+        <span>Benchmarks</span>
+        <strong>{{ metric_count }}</strong>
+      </div>
+    </div>
+
+    <div class="llm-board-table-card">
+      <div class="llm-board-table-meta">
+        <span>横向滚动查看全部 benchmark</span>
+        <span>Score values are copied from each linked report.</span>
+      </div>
+      <div class="llm-board-table-wrap">
+        <table class="llm-board-table">
+          <thead>
+            <tr>
+              <th class="llm-sticky-col" rowspan="2">Model</th>
+              <th rowspan="2">Mode</th>
+              <th rowspan="2">Released</th>
+              <th rowspan="2">Source</th>
+              {% for group in board.categories %}
+              <th class="llm-board-group" colspan="{{ group.columns | size }}">{{ group.name }}</th>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for group in board.categories %}
+                {% for metric in group.columns %}
+                <th>{{ metric.label }}</th>
+                {% endfor %}
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in board.rows %}
+            <tr>
+              <td class="llm-sticky-col llm-model-cell">
+                <strong>{{ row.model }}</strong>
+                <span>{{ row.company }}</span>
+              </td>
+              <td>{{ row.mode }}</td>
+              <td>{{ row.released }}</td>
+              <td><a href="{{ row.source_url }}" target="_blank" rel="noopener">{{ row.source_label }}</a></td>
+              {% for group in board.categories %}
+                {% for metric in group.columns %}
+                  {% assign score = row.scores[metric.key] %}
+                  <td class="{% unless score %}llm-empty-score{% endunless %}">{% if score %}{{ score }}{% else %}--{% endif %}</td>
+                {% endfor %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="llm-board-notes">
+      <h2>Notes</h2>
+      <p>DeepSeek-V4-Pro 与 DeepSeek-V4-Flash 这里记录的是 DeepSeek 报告中的 Max reasoning effort 分数。Qwen3.6-Plus 分数来自 Qwen3.6-Plus 报告正文表格，并与本地截图核对。不同报告可能使用不同 harness 或 metric，表格用来源链接保留上下文。</p>
+    </div>
+  </div>
+</section>
