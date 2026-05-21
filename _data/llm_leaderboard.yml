@@ -4,6 +4,20 @@ metadata_columns:
   - Released
   - Source
 
+sources:
+  - id: qwen37
+    label: Qwen3.7 report
+    short_label: Qwen3.7
+    url: https://qwen.ai/blog?id=qwen3.7
+  - id: qwen36
+    label: Qwen3.6-Plus report
+    short_label: Qwen3.6
+    url: https://qwen.ai/blog?id=qwen3.6
+  - id: deepseek_v4
+    label: DeepSeek-V4 preview report
+    short_label: DeepSeek-V4
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+
 categories:
   - name: Coding Agent
     columns:
@@ -196,186 +210,3122 @@ categories:
         label: OSWorld-Verified
 
 rows:
-  - company: Qwen
-    model: Qwen3.7-Max
-    mode: Official report
+  - company: "Qwen"
+    model: "Qwen3.7-Max"
+    mode: "Official report"
     released: "2026-05-20"
-    source_label: Qwen3.7 report
-    source_url: https://qwen.ai/blog?id=qwen3.7
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
     scores:
-      terminal_bench_2: "69.7"
-      swe_verified: "80.4"
-      swe_pro: "60.6"
-      swe_multilingual: "78.3"
-      nl2repo: "47.2"
-      scicode: "53.5"
-      qwen_web_bench: "1568"
-      qwen_svg: "1608"
-      claw_eval_avg: "65.2"
-      skillsbench: "59.2"
-      qwenclawbench: "64.3"
-      coworkbench: "67.2"
-      vita_bench: "47.9"
-      bfcl_v4: "75.0"
-      mcp_mark: "60.8"
-      mcp_atlas: "76.4"
-      hle_tools: "53.5"
-      spreadsheetbench_v1: "87.0"
-      kernel_bench_l3: "1.98/96%"
-      qwenworldbench: "57.3"
-      mmlu_pro: "89.6"
-      mmlu_redux: "95.0"
-      supergpqa: "73.6"
-      gpqa: "92.4"
-      hle: "41.4"
-      livecodebench: "91.6"
-      hmmt_2026_feb: "97.1"
-      imoanswerbench: "90.0"
-      critpt: "11.4"
-      apex: "44.5"
-      mrcr_v2_128k: "90.4"
-      ifeval: "94.3"
-      ifbench: "79.1"
-      wmt24pp: "85.8"
-      maxife: "89.2"
-      mmmlu: "90.3"
-      mmlu_prox: "87.0"
-      nova63: "59.0"
-      include: "86.2"
-      global_piqa: "91.4"
-      polymath: "86.5"
+      terminal_bench_2:
+        - value: "69.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_verified:
+        - value: "80.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "60.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_multilingual:
+        - value: "78.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nl2repo:
+        - value: "47.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      scicode:
+        - value: "53.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_web_bench:
+        - value: "1568"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_svg:
+        - value: "1608"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "64.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "67.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "65.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      skillsbench:
+        - value: "59.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "75.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "60.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "76.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      vita_bench:
+        - value: "47.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      spreadsheetbench_v1:
+        - value: "87.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "1.98/96%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "53.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenworldbench:
+        - value: "57.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "92.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "41.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      livecodebench:
+        - value: "91.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "97.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "90.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "11.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "44.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "89.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_redux:
+        - value: "95.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "73.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "94.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "79.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "90.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "85.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "89.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "90.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "87.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "59.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "86.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "91.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "86.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
 
-  - company: DeepSeek
-    model: DeepSeek-V4-Pro
-    mode: Max reasoning effort
-    released: "2026-04-24"
-    source_label: DeepSeek-V4 preview report
-    source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    scores:
-      terminal_bench_2: "67.9"
-      swe_verified: "80.6"
-      swe_pro: "55.4"
-      swe_multilingual: "76.2"
-      toolathlon: "51.8"
-      mcp_atlas: "73.6"
-      hle_tools: "48.2"
-      browsecomp: "83.4"
-      gdpval_aa: "1554"
-      mmlu_pro: "87.5"
-      simpleqa_verified: "57.9"
-      chinese_simpleqa: "84.4"
-      gpqa: "90.1"
-      hle: "37.7"
-      livecodebench: "93.5"
-      codeforces: "3206"
-      hmmt_2026_feb: "95.2"
-      imoanswerbench: "89.8"
-      apex: "38.3"
-      apex_shortlist: "90.2"
-      mrcr_1m: "83.5"
-      corpusqa_1m: "62.0"
-
-  - company: DeepSeek
-    model: DeepSeek-V4-Flash
-    mode: Max reasoning effort
-    released: "2026-04-24"
-    source_label: DeepSeek-V4 preview report
-    source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    scores:
-      terminal_bench_2: "56.9"
-      swe_verified: "79.0"
-      swe_pro: "52.6"
-      swe_multilingual: "73.3"
-      toolathlon: "47.8"
-      mcp_atlas: "69.0"
-      hle_tools: "45.1"
-      browsecomp: "73.2"
-      gdpval_aa: "1395"
-      mmlu_pro: "86.2"
-      simpleqa_verified: "34.1"
-      chinese_simpleqa: "78.9"
-      gpqa: "88.1"
-      hle: "34.8"
-      livecodebench: "91.6"
-      codeforces: "3052"
-      hmmt_2026_feb: "94.8"
-      imoanswerbench: "88.4"
-      apex: "33.0"
-      apex_shortlist: "85.7"
-      mrcr_1m: "78.7"
-      corpusqa_1m: "60.5"
-
-  - company: Qwen
-    model: Qwen3.6-Plus
-    mode: Official report
+  - company: "Qwen"
+    model: "Qwen3.6-Plus"
+    mode: "Official report"
     released: "2026-04-02"
-    source_label: Qwen3.6-Plus report
-    source_url: https://qwen.ai/blog?id=qwen3.6
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
     scores:
-      terminal_bench_2: "61.6"
-      swe_verified: "78.8"
-      swe_pro: "56.6"
-      swe_multilingual: "73.8"
-      nl2repo: "37.9"
-      qwen_web_bench: "1501.7"
-      claw_eval_avg: "74.8"
-      claw_eval_pass3: "58.7"
-      skillsbench: "45.7"
-      qwenclawbench: "57.2"
-      tau3_bench: "70.7"
-      vita_bench: "44.3"
-      deepplanning: "41.5"
-      tool_decathlon: "39.8"
-      mcp_mark: "48.2"
-      mcp_atlas: "74.1"
-      hle_tools: "50.6"
-      widesearch: "74.3"
-      mmlu_pro: "88.5"
-      mmlu_redux: "94.5"
-      supergpqa: "71.6"
-      c_eval: "93.3"
-      gpqa: "90.4"
-      hle: "28.8"
-      livecodebench: "87.1"
-      hmmt_2026_feb: "87.8"
-      hmmt_2025_feb: "96.7"
-      hmmt_2025_nov: "94.6"
-      imoanswerbench: "83.8"
-      aime26: "95.3"
-      aa_lcr: "68.3"
-      longbench_v2: "62.0"
-      ifeval: "94.3"
-      ifbench: "74.2"
-      wmt24pp: "84.3"
-      maxife: "88.2"
-      mmmlu: "89.5"
-      mmlu_prox: "84.7"
-      nova63: "57.9"
-      include: "85.1"
-      global_piqa: "89.8"
-      polymath: "77.4"
-      mmmu: "86.0"
-      mmmu_pro: "78.8"
-      mathvision: "88.0"
-      we_math: "89.0"
-      dynamath: "88.0"
-      realworldqa: "85.4"
-      mmstar: "83.3"
-      simplevqa: "67.3"
-      omnidocbench15: "91.2"
-      charxiv_rq: "81.5"
-      mmlongbench_doc: "62.0"
-      cc_ocr: "83.4"
-      ai2d_test: "94.4"
-      countbench: "97.6"
-      refcoco_avg: "93.5"
-      odinw13: "51.8"
-      erqa: "65.7"
-      v_star: "96.9/90.5"
-      videomme_w_sub: "87.8"
-      videomme_wo_sub: "84.2"
-      videommmu: "84.0"
-      mlvu_mavg: "86.7"
-      screenspot_pro: "68.2"
-      tir_bench: "61.6/43.7"
-      osworld_verified: "62.5"
+      terminal_bench_2:
+        - value: "61.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_verified:
+        - value: "78.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "56.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_multilingual:
+        - value: "73.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nl2repo:
+        - value: "34.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "37.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      scicode:
+        - value: "41.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_web_bench:
+        - value: "1500"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "1501.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwen_svg:
+        - value: "1432"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "57.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "64.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "57.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "74.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      skillsbench:
+        - value: "45.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "68.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "48.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "74.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      vita_bench:
+        - value: "42.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "44.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      spreadsheetbench_v1:
+        - value: "80.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "1.03/48%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "50.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "50.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwenworldbench:
+        - value: "47.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "90.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "28.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      livecodebench:
+        - value: "87.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "87.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "83.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "2.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "8.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "88.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_redux:
+        - value: "94.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "71.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "94.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "74.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "85.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "84.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "88.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "89.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "84.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "57.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "85.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "89.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "77.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_pass3:
+        - value: "58.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tau3_bench:
+        - value: "70.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      deepplanning:
+        - value: "41.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tool_decathlon:
+        - value: "39.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      widesearch:
+        - value: "74.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      c_eval:
+        - value: "93.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aa_lcr:
+        - value: "68.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      longbench_v2:
+        - value: "62.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_feb:
+        - value: "96.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_nov:
+        - value: "94.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aime26:
+        - value: "95.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu:
+        - value: "86.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "78.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "88.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "89.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "88.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "85.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "83.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "67.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "91.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "81.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlongbench_doc:
+        - value: "62.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "83.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "94.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "97.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      refcoco_avg:
+        - value: "93.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      odinw13:
+        - value: "51.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      erqa:
+        - value: "65.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "96.9/90.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "87.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "84.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "84.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "86.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      screenspot_pro:
+        - value: "68.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tir_bench:
+        - value: "61.6/43.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      osworld_verified:
+        - value: "62.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Pro"
+    mode: "Max reasoning effort"
+    released: "2026-04-24"
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      terminal_bench_2:
+        - value: "67.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_verified:
+        - value: "80.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "59.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "55.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "76.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nl2repo:
+        - value: "35.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_web_bench:
+        - value: "1570"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_svg:
+        - value: "1506"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "59.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "66.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "58.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      skillsbench:
+        - value: "52.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "70.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "57.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "73.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      vita_bench:
+        - value: "51.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      spreadsheetbench_v1:
+        - value: "84.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "1.07/54%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "48.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenworldbench:
+        - value: "52.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "90.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "37.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      livecodebench:
+        - value: "93.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "95.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "89.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "12.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "38.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "87.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_redux:
+        - value: "94.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "69.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "91.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "77.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "74.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "82.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "88.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "87.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "83.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "52.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "86.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "90.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "72.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      simpleqa_verified:
+        - value: "57.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "84.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "3206"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "90.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "83.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "62.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "83.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1554"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "51.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Pro"
+    mode: "High reasoning effort"
+    released: "2026-04-24"
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "87.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "46.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "77.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "89.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "34.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "89.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "2919"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "94.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "88.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "27.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "85.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "83.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "56.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "63.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "79.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "54.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "74.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "80.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle_tools:
+        - value: "44.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "74.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "49.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Pro"
+    mode: "Non-think"
+    released: "2026-04-24"
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "82.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "45.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "75.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "72.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "7.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "56.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "31.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "35.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "0.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "9.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "44.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "35.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "59.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "73.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "52.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "69.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "69.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "46.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Flash"
+    mode: "Max reasoning effort"
+    released: "2026-04-24"
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "86.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "34.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "78.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "88.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "34.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "91.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "3052"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "94.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "88.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "33.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "85.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "78.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "60.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "56.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "79.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "52.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "73.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "73.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle_tools:
+        - value: "45.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "69.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1395"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "47.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Flash"
+    mode: "High reasoning effort"
+    released: "2026-04-24"
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "86.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "28.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "73.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "87.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "29.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "88.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "2816"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "91.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "85.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "19.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "72.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "76.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "59.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "56.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "78.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "52.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "70.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "53.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle_tools:
+        - value: "40.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "67.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "43.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "DeepSeek"
+    model: "DeepSeek-V4-Flash"
+    mode: "Non-think"
+    released: "2026-04-24"
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "83.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "23.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "71.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "71.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "8.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "55.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "40.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "41.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "1.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "9.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "37.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "15.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "49.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "73.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "49.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "69.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "64.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "40.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "Anthropic"
+    model: "Claude Opus 4.6"
+    mode: "Max"
+    released: ""
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      terminal_bench_2:
+        - value: "65.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_verified:
+        - value: "80.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "57.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_multilingual:
+        - value: "77.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nl2repo:
+        - value: "47.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      scicode:
+        - value: "51.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_web_bench:
+        - value: "1617"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_svg:
+        - value: "1541"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "65.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "68.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "70.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "76.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "56.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "75.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "73.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      spreadsheetbench_v1:
+        - value: "89.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "2.63/98%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "53.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "53.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      qwenworldbench:
+        - value: "56.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "91.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "40.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      livecodebench:
+        - value: "88.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "96.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "75.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "12.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "34.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "89.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "89.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mmlu_redux:
+        - value: "95.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "72.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "91.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "62.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "84.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "82.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "81.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "90.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "86.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "59.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "87.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "91.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "80.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      simpleqa_verified:
+        - value: "46.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "76.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "85.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "92.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "71.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "83.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1619"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "47.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "Anthropic"
+    model: "Claude Opus 4.5"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      swe_verified:
+        - value: "80.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_multilingual:
+        - value: "77.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_pro:
+        - value: "57.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      terminal_bench_2:
+        - value: "59.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_avg:
+        - value: "76.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_pass3:
+        - value: "59.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      skillsbench:
+        - value: "45.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwenclawbench:
+        - value: "52.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nl2repo:
+        - value: "43.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwen_web_bench:
+        - value: "1517.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tau3_bench:
+        - value: "70.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      vita_bench:
+        - value: "50.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      deepplanning:
+        - value: "33.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tool_decathlon:
+        - value: "43.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_mark:
+        - value: "42.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_atlas:
+        - value: "71.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle_tools:
+        - value: "43.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      widesearch:
+        - value: "76.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_pro:
+        - value: "89.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_redux:
+        - value: "95.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      supergpqa:
+        - value: "70.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      c_eval:
+        - value: "92.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifeval:
+        - value: "90.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifbench:
+        - value: "58.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aa_lcr:
+        - value: "74.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      longbench_v2:
+        - value: "64.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      gpqa:
+        - value: "87.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle:
+        - value: "30.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      livecodebench:
+        - value: "84.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_feb:
+        - value: "92.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_nov:
+        - value: "93.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2026_feb:
+        - value: "85.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      imoanswerbench:
+        - value: "84.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aime26:
+        - value: "95.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmlu:
+        - value: "90.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_prox:
+        - value: "85.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nova63:
+        - value: "56.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      include:
+        - value: "86.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      global_piqa:
+        - value: "91.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      polymath:
+        - value: "79.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      wmt24pp:
+        - value: "79.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      maxife:
+        - value: "79.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu:
+        - value: "80.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "70.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "74.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "70.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "79.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "77.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "73.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "65.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "87.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "68.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlongbench_doc:
+        - value: "61.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "76.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "87.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "90.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      erqa:
+        - value: "46.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "67.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "77.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "81.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "84.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "81.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      screenspot_pro:
+        - value: "45.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tir_bench:
+        - value: "32.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      osworld_verified:
+        - value: "66.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "OpenAI"
+    model: "GPT-5.4"
+    mode: "xHigh"
+    released: ""
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "87.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "45.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "76.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "93.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "39.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "3168"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "97.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "91.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "54.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "78.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "75.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "57.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "82.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle_tools:
+        - value: "52.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1674"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "67.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "54.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "OpenAI"
+    model: "GPT-5.2"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      mmmu:
+        - value: "86.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "79.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "83.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "79.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "86.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "83.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "77.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "55.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "85.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "82.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "70.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "92.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "91.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      erqa:
+        - value: "59.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "75.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "86.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "85.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "85.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "85.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      osworld_verified:
+        - value: "38.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "Google"
+    model: "Gemini 3.1 Pro"
+    mode: "High"
+    released: ""
+    sources:
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      mmlu_pro:
+        - value: "91.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      simpleqa_verified:
+        - value: "75.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "85.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gpqa:
+        - value: "94.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle:
+        - value: "44.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      livecodebench:
+        - value: "91.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      codeforces:
+        - value: "3052"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hmmt_2026_feb:
+        - value: "94.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      imoanswerbench:
+        - value: "81.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex:
+        - value: "60.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "89.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mrcr_1m:
+        - value: "76.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      corpusqa_1m:
+        - value: "53.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      terminal_bench_2:
+        - value: "68.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_verified:
+        - value: "80.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_pro:
+        - value: "54.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "85.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      hle_tools:
+        - value: "51.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1314"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mcp_atlas:
+        - value: "69.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "48.8"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "Google"
+    model: "Gemini 3 Pro"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      mmmu:
+        - value: "87.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "81.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "86.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "86.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "85.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "83.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "83.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "73.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "88.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "81.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlongbench_doc:
+        - value: "60.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "79.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "94.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "97.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      refcoco_avg:
+        - value: "84.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      odinw13:
+        - value: "46.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      erqa:
+        - value: "70.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "88.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "88.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "87.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "87.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "83.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      screenspot_pro:
+        - value: "72.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tir_bench:
+        - value: "47.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "Moonshot"
+    model: "Kimi K2.6"
+    mode: "Thinking"
+    released: ""
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      terminal_bench_2:
+        - value: "66.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_verified:
+        - value: "80.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "59.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "58.6"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "76.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nl2repo:
+        - value: "42.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      scicode:
+        - value: "52.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_svg:
+        - value: "1325"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "54.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "58.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "61.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      skillsbench:
+        - value: "56.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "71.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "55.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "66.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      vita_bench:
+        - value: "39.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      spreadsheetbench_v1:
+        - value: "84.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "1.41/80%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "54.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenworldbench:
+        - value: "50.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "90.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "36.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      livecodebench:
+        - value: "89.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "92.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "86.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "8.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "24.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "87.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_redux:
+        - value: "95.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "71.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "94.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "76.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "63.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "81.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "87.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "87.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "83.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "56.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "84.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "89.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "82.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      simpleqa_verified:
+        - value: "36.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "75.9"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "75.5"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "83.2"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1482"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "50.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "Moonshot"
+    model: "Kimi K2.5"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      swe_verified:
+        - value: "76.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_multilingual:
+        - value: "73.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_pro:
+        - value: "53.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      terminal_bench_2:
+        - value: "50.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_avg:
+        - value: "71.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_pass3:
+        - value: "52.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      skillsbench:
+        - value: "42.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwenclawbench:
+        - value: "54.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nl2repo:
+        - value: "32.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwen_web_bench:
+        - value: "1159.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tau3_bench:
+        - value: "65.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      vita_bench:
+        - value: "36.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      deepplanning:
+        - value: "14.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tool_decathlon:
+        - value: "27.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_mark:
+        - value: "29.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_atlas:
+        - value: "59.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle_tools:
+        - value: "50.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      widesearch:
+        - value: "72.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_pro:
+        - value: "87.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_redux:
+        - value: "94.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      supergpqa:
+        - value: "69.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      c_eval:
+        - value: "94.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifeval:
+        - value: "93.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifbench:
+        - value: "70.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aa_lcr:
+        - value: "70.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      longbench_v2:
+        - value: "61.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      gpqa:
+        - value: "87.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle:
+        - value: "30.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      livecodebench:
+        - value: "85.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_feb:
+        - value: "95.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_nov:
+        - value: "91.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2026_feb:
+        - value: "87.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      imoanswerbench:
+        - value: "81.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aime26:
+        - value: "95.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmlu:
+        - value: "86.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_prox:
+        - value: "82.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nova63:
+        - value: "56.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      include:
+        - value: "83.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      global_piqa:
+        - value: "89.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      polymath:
+        - value: "43.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      wmt24pp:
+        - value: "77.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      maxife:
+        - value: "72.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu:
+        - value: "84.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "78.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "84.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "84.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "84.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "81.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "80.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "71.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "88.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "77.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlongbench_doc:
+        - value: "58.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "79.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "90.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "94.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      refcoco_avg:
+        - value: "87.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "77.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "87.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "83.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "86.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "85.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tir_bench:
+        - value: "29.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      osworld_verified:
+        - value: "63.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "Zhipu AI"
+    model: "GLM-5.1"
+    mode: "Thinking"
+    released: ""
+    sources:
+      - label: "Qwen3.7 report"
+        url: "https://qwen.ai/blog?id=qwen3.7"
+      - label: "DeepSeek-V4 preview report"
+        url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+    scores:
+      terminal_bench_2:
+        - value: "63.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      swe_pro:
+        - value: "58.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "58.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      nl2repo:
+        - value: "41.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      scicode:
+        - value: "45.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_web_bench:
+        - value: "1564"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwen_svg:
+        - value: "1605"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      qwenclawbench:
+        - value: "58.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      coworkbench:
+        - value: "66.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      claw_eval_avg:
+        - value: "62.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      skillsbench:
+        - value: "53.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      bfcl_v4:
+        - value: "70.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_mark:
+        - value: "57.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mcp_atlas:
+        - value: "71.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      vita_bench:
+        - value: "45.1"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      spreadsheetbench_v1:
+        - value: "85.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      kernel_bench_l3:
+        - value: "2.00/78%"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle_tools:
+        - value: "52.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "50.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      qwenworldbench:
+        - value: "50.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      gpqa:
+        - value: "86.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hle:
+        - value: "34.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      hmmt_2026_feb:
+        - value: "89.4"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      imoanswerbench:
+        - value: "83.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      critpt:
+        - value: "4.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      apex:
+        - value: "11.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_pro:
+        - value: "86.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+        - value: "86.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      mmlu_redux:
+        - value: "94.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      supergpqa:
+        - value: "68.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifeval:
+        - value: "94.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      ifbench:
+        - value: "76.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mrcr_v2_128k:
+        - value: "62.0"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      wmt24pp:
+        - value: "81.8"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      maxife:
+        - value: "87.7"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmmlu:
+        - value: "87.2"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      mmlu_prox:
+        - value: "83.9"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      nova63:
+        - value: "54.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      include:
+        - value: "84.3"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      global_piqa:
+        - value: "89.5"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      polymath:
+        - value: "67.6"
+          source_label: "Qwen3.7"
+          source_url: "https://qwen.ai/blog?id=qwen3.7"
+      simpleqa_verified:
+        - value: "38.1"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      chinese_simpleqa:
+        - value: "75.0"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      apex_shortlist:
+        - value: "72.4"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      swe_multilingual:
+        - value: "73.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      browsecomp:
+        - value: "79.3"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      gdpval_aa:
+        - value: "1535"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+      toolathlon:
+        - value: "40.7"
+          source_label: "DeepSeek-V4"
+          source_url: "https://api-docs.deepseek.com/zh-cn/news/news260424"
+
+  - company: "Zhipu AI"
+    model: "GLM-5"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      swe_verified:
+        - value: "77.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_multilingual:
+        - value: "73.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_pro:
+        - value: "55.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      terminal_bench_2:
+        - value: "56.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_avg:
+        - value: "73.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_pass3:
+        - value: "57.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      skillsbench:
+        - value: "47.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwenclawbench:
+        - value: "54.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nl2repo:
+        - value: "35.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwen_web_bench:
+        - value: "1315.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tau3_bench:
+        - value: "65.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      vita_bench:
+        - value: "37.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      deepplanning:
+        - value: "14.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tool_decathlon:
+        - value: "38.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_mark:
+        - value: "31.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_atlas:
+        - value: "69.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle_tools:
+        - value: "50.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      widesearch:
+        - value: "69.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_pro:
+        - value: "85.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_redux:
+        - value: "94.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      supergpqa:
+        - value: "66.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      c_eval:
+        - value: "92.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifeval:
+        - value: "92.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifbench:
+        - value: "72.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aa_lcr:
+        - value: "63.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      longbench_v2:
+        - value: "60.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      gpqa:
+        - value: "86.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle:
+        - value: "27.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      livecodebench:
+        - value: "85.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_feb:
+        - value: "97.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_nov:
+        - value: "96.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2026_feb:
+        - value: "86.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      imoanswerbench:
+        - value: "82.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aime26:
+        - value: "95.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmlu:
+        - value: "86.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_prox:
+        - value: "83.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nova63:
+        - value: "55.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      include:
+        - value: "84.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      global_piqa:
+        - value: "89.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      polymath:
+        - value: "65.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      wmt24pp:
+        - value: "82.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      maxife:
+        - value: "85.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+
+  - company: "Qwen"
+    model: "Qwen3.5-397B-A17B"
+    mode: "Official report"
+    released: ""
+    sources:
+      - label: "Qwen3.6-Plus report"
+        url: "https://qwen.ai/blog?id=qwen3.6"
+    scores:
+      swe_verified:
+        - value: "76.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_multilingual:
+        - value: "69.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      swe_pro:
+        - value: "50.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      terminal_bench_2:
+        - value: "52.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_avg:
+        - value: "70.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      claw_eval_pass3:
+        - value: "48.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      skillsbench:
+        - value: "30.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwenclawbench:
+        - value: "51.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nl2repo:
+        - value: "32.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      qwen_web_bench:
+        - value: "1162.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tau3_bench:
+        - value: "68.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      vita_bench:
+        - value: "43.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      deepplanning:
+        - value: "37.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tool_decathlon:
+        - value: "38.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_mark:
+        - value: "46.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mcp_atlas:
+        - value: "74.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle_tools:
+        - value: "48.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      widesearch:
+        - value: "74.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_pro:
+        - value: "87.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_redux:
+        - value: "94.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      supergpqa:
+        - value: "70.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      c_eval:
+        - value: "93.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifeval:
+        - value: "92.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ifbench:
+        - value: "76.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aa_lcr:
+        - value: "68.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      longbench_v2:
+        - value: "63.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      gpqa:
+        - value: "88.4"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hle:
+        - value: "28.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      livecodebench:
+        - value: "83.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_feb:
+        - value: "94.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2025_nov:
+        - value: "92.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      hmmt_2026_feb:
+        - value: "87.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      imoanswerbench:
+        - value: "80.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      aime26:
+        - value: "93.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmlu:
+        - value: "88.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlu_prox:
+        - value: "84.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      nova63:
+        - value: "59.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      include:
+        - value: "85.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      global_piqa:
+        - value: "89.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      polymath:
+        - value: "73.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      wmt24pp:
+        - value: "78.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      maxife:
+        - value: "88.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu:
+        - value: "85.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmmu_pro:
+        - value: "79.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mathvision:
+        - value: "88.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      we_math:
+        - value: "87.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      dynamath:
+        - value: "86.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      realworldqa:
+        - value: "83.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmstar:
+        - value: "83.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      simplevqa:
+        - value: "67.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      omnidocbench15:
+        - value: "90.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      charxiv_rq:
+        - value: "80.8"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mmlongbench_doc:
+        - value: "61.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      cc_ocr:
+        - value: "82.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      ai2d_test:
+        - value: "93.9"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      countbench:
+        - value: "97.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      refcoco_avg:
+        - value: "92.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      odinw13:
+        - value: "47.0"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      erqa:
+        - value: "67.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      v_star:
+        - value: "95.8/91.1"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_w_sub:
+        - value: "87.5"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videomme_wo_sub:
+        - value: "83.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      videommmu:
+        - value: "84.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      mlvu_mavg:
+        - value: "86.7"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      screenspot_pro:
+        - value: "65.6"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      tir_bench:
+        - value: "62.5/42.3"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"
+      osworld_verified:
+        - value: "62.2"
+          source_label: "Qwen3.6"
+          source_url: "https://qwen.ai/blog?id=qwen3.6"

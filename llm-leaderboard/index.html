@@ -5,18 +5,23 @@ permalink: /llm-leaderboard/
 ---
 
 {% assign board = site.data.llm_leaderboard %}
-{% assign source_count = board.rows | map: "source_url" | uniq | size %}
+{% assign source_count = board.sources | size %}
 {% assign metric_count = 0 %}
 {% for group in board.categories %}
   {% assign metric_count = metric_count | plus: group.columns.size %}
 {% endfor %}
 
 <section class="llm-board-page">
-  <div class="container-wide">
+  <div class="llm-board-shell">
     <div class="llm-board-hero">
       <p class="llm-board-kicker">Report-sourced model scores</p>
       <h1>LLMLeadBoard</h1>
-      <p>按“模型 + 推理模式 + 来源报告”记录公开报告中的 benchmark 分数。相同模型如果来自不同报告，可以作为不同行继续追加；未出现在该报告中的分数显示为 <code>--</code>。</p>
+      <p>按“模型 + 推理模式”合并公开报告中的 benchmark 分数。同一个 benchmark 来自不同报告且分数不一致时，会在同一个格子里列出多个分数；未出现在报告中的分数显示为 <code>--</code>。</p>
+      <div class="leaderboard-family-switch" aria-label="Leaderboard family">
+        <span>Leaderboard Family:</span>
+        <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
+        <a class="is-active" href="{{ site.baseurl }}/llm-leaderboard/" aria-current="page">LLMLeadBoard <strong>CURRENT</strong></a>
+      </div>
     </div>
 
     <div class="llm-board-summary">
@@ -67,12 +72,31 @@ permalink: /llm-leaderboard/
                 <span>{{ row.company }}</span>
               </td>
               <td>{{ row.mode }}</td>
-              <td>{{ row.released }}</td>
-              <td><a href="{{ row.source_url }}" target="_blank" rel="noopener">{{ row.source_label }}</a></td>
+              <td>{% if row.released and row.released != "" %}{{ row.released }}{% else %}--{% endif %}</td>
+              <td>
+                <div class="llm-source-list">
+                  {% for source in row.sources %}
+                  <a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.label }}</a>
+                  {% endfor %}
+                </div>
+              </td>
               {% for group in board.categories %}
                 {% for metric in group.columns %}
-                  {% assign score = row.scores[metric.key] %}
-                  <td class="{% unless score %}llm-empty-score{% endunless %}">{% if score %}{{ score }}{% else %}--{% endif %}</td>
+                  {% assign score_items = row.scores[metric.key] %}
+                  <td class="{% unless score_items %}llm-empty-score{% endunless %}">
+                    {% if score_items %}
+                    <div class="llm-score-stack">
+                      {% for score in score_items %}
+                      <a class="llm-score-entry" href="{{ score.source_url }}" target="_blank" rel="noopener">
+                        <strong>{{ score.value }}</strong>
+                        {% if score_items.size > 1 %}<span>{{ score.source_label }}</span>{% endif %}
+                      </a>
+                      {% endfor %}
+                    </div>
+                    {% else %}
+                    --
+                    {% endif %}
+                  </td>
                 {% endfor %}
               {% endfor %}
             </tr>
@@ -84,7 +108,7 @@ permalink: /llm-leaderboard/
 
     <div class="llm-board-notes">
       <h2>Notes</h2>
-      <p>DeepSeek-V4-Pro 与 DeepSeek-V4-Flash 这里记录的是 DeepSeek 报告中的 Max reasoning effort 分数。Qwen3.6-Plus 分数来自 Qwen3.6-Plus 报告正文表格，并与本地截图核对。不同报告可能使用不同 harness 或 metric，表格用来源链接保留上下文。</p>
+      <p>同一模型与模式只保留一行；同一个 benchmark 如果在多个报告中出现不同分数，会在同一个单元格内纵向列出并链接到对应来源。多个报告给出相同分数时只保留一个分数。不同报告可能使用不同 harness 或 metric，表格用来源链接保留上下文。</p>
     </div>
   </div>
 </section>

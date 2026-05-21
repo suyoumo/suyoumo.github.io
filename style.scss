@@ -288,8 +288,72 @@ hr {
 /* LLM LEADERBOARD   */
 /*********************/
 
+.leaderboard-family-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 28px rgba(60, 42, 28, 0.06);
+
+  span {
+    padding: 0 10px;
+    color: $gray;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 0 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.74);
+    color: $darkGray;
+    font-size: 0.92rem;
+    font-weight: 800;
+    white-space: nowrap;
+
+    &:hover {
+      color: $black;
+      background: $white;
+    }
+  }
+
+  a.is-active {
+    border-color: rgba(196, 90, 60, 0.32);
+    background: rgba(196, 90, 60, 0.1);
+    color: $primary;
+
+    strong {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: $primary;
+      color: $white;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+  }
+}
+
 .llm-board-page {
   padding: 46px 0 72px;
+}
+
+.llm-board-shell {
+  width: min(100% - 96px, 1800px);
+  margin: 0 auto;
 }
 
 .llm-board-hero {
@@ -432,6 +496,50 @@ hr {
   }
 }
 
+.llm-source-list,
+.llm-score-stack {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+}
+
+.llm-source-list a {
+  display: inline-flex;
+  color: $primary;
+  font-family: $sans;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.llm-score-entry {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  color: $darkGray;
+  line-height: 1.25;
+
+  strong {
+    color: $darkGray;
+    font-weight: 700;
+  }
+
+  span {
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(196, 90, 60, 0.1);
+    color: $primary;
+    font-family: $sans;
+    font-size: 0.66rem;
+    font-weight: 800;
+  }
+
+  &:hover strong {
+    color: $primary;
+  }
+}
+
 .llm-board-table .llm-sticky-col {
   position: sticky;
   left: 0;
@@ -489,6 +597,10 @@ hr {
     padding-top: 32px;
   }
 
+  .llm-board-shell {
+    width: calc(100% - 28px);
+  }
+
   .llm-board-hero h1 {
     font-size: 1.8rem;
   }
@@ -500,6 +612,12 @@ hr {
   .llm-board-table-meta {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .leaderboard-family-switch {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
   }
 }
 
@@ -516,23 +634,42 @@ hr {
   }
 
   .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
     margin-top: 24px;
   }
 
-  .primary-link {
+  .primary-link,
+  .secondary-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 12px 18px;
     border-radius: 999px;
-    background: $black;
-    color: $white;
     font-size: 0.95rem;
     font-weight: 600;
+  }
+
+  .primary-link {
+    background: $black;
+    color: $white;
 
     &:hover {
       color: $white;
       background: lighten($black, 8%);
+    }
+  }
+
+  .secondary-link {
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    background: $white;
+    color: $darkGray;
+
+    &:hover {
+      color: $primary;
+      border-color: rgba(196, 90, 60, 0.28);
     }
   }
 }

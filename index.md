@@ -12,6 +12,7 @@ permalink: /index.html
     <p class="hero-subtitle">点击标题即可进入 benchmark 页面查看 architecture、dataset、scoring 与 leaderboard。这里继续保留我的文章内容与更新。</p>
     <div class="hero-actions">
       <a class="primary-link" href="{{ site.baseurl }}/bench/">进入 ClawProBench →</a>
+      <a class="secondary-link" href="{{ site.baseurl }}/llm-leaderboard/">进入 LLMLeadBoard →</a>
     </div>
   </div>
 </div>
