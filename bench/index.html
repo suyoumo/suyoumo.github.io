@@ -234,7 +234,11 @@ permalink: /bench/
               <td data-value="{{ closed.rank }}"><span class="bench-closed-rank">#{{ closed.rank }}</span></td>
               <td class="bench-model-column">
                 <div class="bench-model-cell bench-model-cell-rich">
+                  {% if closed.logo %}
+                  <img class="bench-model-logo" src="{{ site.baseurl }}/assets/images/bench/{{ closed.logo }}" alt="{{ closed.provider_key }} logo" />
+                  {% else %}
                   <div class="bench-model-logo bench-model-logo-placeholder-small">{{ closed.model_name | slice: 0, 1 | upcase }}</div>
+                  {% endif %}
                   <div class="bench-model-meta">
                     <strong>{{ closed.model_name }}</strong>
                     <span><span class="bench-dataset-pill bench-dataset-pill-closed">Closed Dataset</span> {{ closed.provider_key }} · {{ closed.platform }}</span>
