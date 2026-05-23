@@ -20,6 +20,18 @@ sources:
   label: Seed2.0 model card
   short_label: Seed2.0
   url: https://seed.bytedance.com/en/seed2
+- id: longcat2601
+  label: LongCat-Flash-Thinking-2601 model card
+  short_label: LongCat 2601
+  url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+- id: hunyuan3preview
+  label: Hunyuan 3 Preview report
+  short_label: HY3
+  url: https://hy.tencent.com/research/hy3
+- id: hunyuan2think
+  label: Hunyuan 2.0 Think report
+  short_label: HY2 Think
+  url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
 categories:
 - name: Coding Agent
   columns:
@@ -29,6 +41,12 @@ categories:
     label: SWE-Verified
   - key: swe_pro
     label: SWE-Pro
+  - key: hy_backend
+    label: Hy-Backend
+  - key: hy_vibe
+    label: Hy-Vibe
+  - key: hy_swe_max
+    label: Hy-SWE Max
   - key: swe_multilingual
     label: SWE-Multilingual
   - key: nl2repo
@@ -43,18 +61,28 @@ categories:
     label: ClawEval Avg
   - key: claw_eval_pass3
     label: ClawEval Pass^3
+  - key: wildclawbench
+    label: WildClawBench
   - key: skillsbench
     label: SkillsBench
   - key: qwenclawbench
     label: QwenClawBench
   - key: coworkbench
     label: CoWorkBench
+  - key: ojbench
+    label: OJBench
+  - key: oibench_en
+    label: OIBench EN
 - name: General Agent
   columns:
   - key: tau3_bench
     label: TAU3-Bench
   - key: vita_bench
     label: VITA-Bench
+  - key: vita_bench_noise
+    label: VitaBench-Noise
+  - key: random_complex_tasks
+    label: Random Complex Tasks
   - key: deepplanning
     label: DeepPlanning
   - key: tool_decathlon
@@ -71,10 +99,14 @@ categories:
     label: HLE w/ tools
   - key: browsecomp
     label: BrowseComp
+  - key: rw_search
+    label: RW Search
   - key: gdpval_aa
     label: GDPval-AA
   - key: widesearch
     label: WideSearch
+  - key: webarena
+    label: WebArena
   - key: spreadsheetbench_v1
     label: SpreadSheetBench-v1
   - key: kernel_bench_l3
@@ -107,10 +139,16 @@ categories:
     label: HMMT 2026 Feb
   - key: hmmt_2025_feb
     label: HMMT 2025 Feb
+  - key: hmmt_2025
+    label: HMMT 2025
   - key: hmmt_2025_nov
     label: HMMT 2025 Nov
   - key: imoanswerbench
     label: IMOAnswerBench
+  - key: amo_bench_en
+    label: AMO-Bench EN
+  - key: amo_bench_ch
+    label: AMO-Bench CH
   - key: critpt
     label: CritPT
   - key: apex
@@ -119,6 +157,12 @@ categories:
     label: Apex Shortlist
   - key: aime26
     label: AIME26
+  - key: tsinghua_math_phd_qual
+    label: Tsinghua Math PhD Qual
+  - key: princeton_phys_phd_qual
+    label: Princeton Phys PhD Qual
+  - key: china_hs_bio_olympiad
+    label: China HS Bio Olympiad
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -131,10 +175,14 @@ categories:
     label: AA-LCR
   - key: longbench_v2
     label: LongBench v2
+  - key: cl_bench_life
+    label: CLBench-life
 - name: Instruction & Multilingual
   columns:
   - key: ifeval
     label: IFEval
+  - key: advancedif
+    label: AdvancedIF
   - key: ifbench
     label: IFBench
   - key: wmt24pp
@@ -435,10 +483,18 @@ categories:
     label: DeepSearchQA
   - key: seal_0
     label: Seal-0
+  - key: seal_o_260320
+    label: Seal-O-260320
   - key: tau2_bench_retail
     label: τ2-Bench (retail)
+  - key: tau2_bench_airline
+    label: τ2-Bench (airline)
   - key: tau2_bench_telecom
     label: τ2-Bench (telecom)
+  - key: tau2_bench_avg
+    label: τ2-Bench Avg
+  - key: tau2_bench_noise
+    label: τ2-Bench Noise
   - key: deepconsult
     label: DeepConsult
   - key: deepresearchbench
@@ -977,6 +1033,270 @@ rows:
     - value: '62.5'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+- company: Meituan
+  model: LongCat-Flash-Thinking-2601
+  mode: Thinking
+  released: '2026-01-16'
+  sources:
+  - label: LongCat-Flash-Thinking-2601 model card
+    url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+  scores:
+    aime_2025:
+    - value: 99.6 / 100.0‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    hmmt_2025:
+    - value: 93.4 / 97.5‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    imoanswerbench:
+    - value: 78.6 / 86.8‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    amo_bench_en:
+    - value: 61.6 / 66.0‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    amo_bench_ch:
+    - value: 56.8 / 67.5‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    browsecomp:
+    - value: 56.6 / 73.1
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    browsecomp_zh:
+    - value: 69.0 / 77.7
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    rw_search:
+    - value: '79.5'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    tau2_bench_retail:
+    - value: '88.6'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    tau2_bench_airline:
+    - value: '76.5'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    tau2_bench_telecom:
+    - value: '99.3'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    tau2_bench_avg:
+    - value: '88.2'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    tau2_bench_noise:
+    - value: '67.1'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    vita_bench:
+    - value: '29.3'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    vita_bench_noise:
+    - value: '20.5'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    random_complex_tasks:
+    - value: '35.8'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    hle:
+    - value: '25.2'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    gpqa:
+    - value: 80.5 / 85.2‡
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    livecodebench:
+    - value: '82.8'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    ojbench:
+    - value: '42.2'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    oibench_en:
+    - value: '47.7'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+    swe_verified:
+    - value: '70.0'
+      source_label: LongCat 2601
+      source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+- company: Tencent
+  model: Hunyuan 3 Preview
+  mode: Preview
+  released: '2026-04-23'
+  sources:
+  - label: Hunyuan 3 Preview report
+    url: https://hy.tencent.com/research/hy3
+  scores:
+    gpqa:
+    - value: '87.2'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    hle:
+    - value: '30.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    phybench:
+    - value: '71.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    frontiersci_olympiad:
+    - value: '70.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    imoanswerbench:
+    - value: '84.3'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    arc_agi_1:
+    - value: '62.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    tsinghua_math_phd_qual:
+    - value: '88.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    princeton_phys_phd_qual:
+    - value: '77.5'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    china_hs_bio_olympiad:
+    - value: '87.8'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    swe_multilingual:
+    - value: '68.3'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    swe_verified:
+    - value: '74.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    swe_pro:
+    - value: '46.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    terminal_bench_2:
+    - value: '54.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    hy_backend:
+    - value: '54.7'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    hy_vibe:
+    - value: '50.5'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    hy_swe_max:
+    - value: '30.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    browsecomp:
+    - value: '67.1'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    widesearch:
+    - value: '70.2'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    finsearchcomp:
+    - value: '62.2'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    seal_o_260320:
+    - value: '55.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    tau2_bench_avg:
+    - value: '86.1'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    webarena:
+    - value: '56.2'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    claw_eval_pass3:
+    - value: '55.0'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    wildclawbench:
+    - value: '45.3'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    skillsbench:
+    - value: '25.6'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    advancedif:
+    - value: '79.5'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    aa_lcr:
+    - value: '66.3'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    longbench_v2:
+    - value: '65.4'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    cl_bench:
+    - value: '22.8'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+    cl_bench_life:
+    - value: '15.7'
+      source_label: HY3
+      source_url: https://hy.tencent.com/research/hy3
+- company: Tencent
+  model: Hunyuan 2.0 Think
+  mode: Think
+  released: '2025-12-05'
+  sources:
+  - label: Hunyuan 2.0 Think report
+    url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+  scores:
+    imoanswerbench:
+    - value: '73.4'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    hmmt_2025:
+    - value: '85.8'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    hle:
+    - value: '18.8'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    arc_agi_1:
+    - value: '52.9'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    multichallenge:
+    - value: '62.6'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    terminal_bench_2:
+    - value: '34.6'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    swe_verified:
+    - value: '53.0'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+    tau2_bench_avg:
+    - value: '72.4'
+      source_label: HY2 Think
+      source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
 - company: Doubao
   model: Seed2.0 Pro
   mode: ''
