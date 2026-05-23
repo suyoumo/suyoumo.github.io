@@ -32,6 +32,14 @@ sources:
   label: Hunyuan 2.0 Think report
   short_label: HY2 Think
   url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+- id: ernie50
+  label: ERNIE 5.0 technical report
+  short_label: ERNIE 5.0
+  url: https://ernie.baidu.com/blog/posts/ernie5.0/
+- id: ernie51
+  label: ERNIE 5.1 release report
+  short_label: ERNIE 5.1
+  url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
 categories:
 - name: Coding Agent
   columns:
@@ -73,6 +81,14 @@ categories:
     label: OJBench
   - key: oibench_en
     label: OIBench EN
+  - key: humaneval_plus
+    label: HumanEval+
+  - key: mbpp_plus
+    label: MBPP+
+  - key: cruxeval_i
+    label: CRUXEval-I
+  - key: cruxeval_o
+    label: CRUXEval-O
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -91,6 +107,10 @@ categories:
     label: Toolathlon
   - key: bfcl_v4
     label: BFCL-V4
+  - key: acebench_en
+    label: ACEBench-en
+  - key: acebench_zh
+    label: ACEBench-zh
   - key: mcp_mark
     label: MCP-Mark
   - key: mcp_atlas
@@ -117,14 +137,40 @@ categories:
   columns:
   - key: mmlu_pro
     label: MMLU-Pro
+  - key: mmcu
+    label: MMCU
+  - key: agieval
+    label: AGIEval
+  - key: mmlu
+    label: MMLU
   - key: mmlu_redux
     label: MMLU-Redux
   - key: supergpqa
     label: SuperGPQA
   - key: c_eval
     label: C-Eval
+  - key: cmmlu
+    label: CMMLU
+  - key: bbh
+    label: BBH
+  - key: winogrande
+    label: WinoGrande
+  - key: math_cot
+    label: MATH (CoT)
+  - key: zebralogic
+    label: ZebraLogic
+  - key: bbeh
+    label: BBEH
   - key: simpleqa_verified
     label: SimpleQA-Verified
+  - key: precisewikiqa
+    label: PreciseWikiQA
+  - key: popqa
+    label: PopQA
+  - key: hotpotqa
+    label: HotPotQA
+  - key: simpleqa
+    label: SimpleQA
   - key: chinese_simpleqa
     label: Chinese-SimpleQA
   - key: gpqa
@@ -157,6 +203,8 @@ categories:
     label: Apex Shortlist
   - key: aime26
     label: AIME26
+  - key: aime26_tools
+    label: AIME26 w/tools
   - key: tsinghua_math_phd_qual
     label: Tsinghua Math PhD Qual
   - key: princeton_phys_phd_qual
@@ -181,6 +229,8 @@ categories:
   columns:
   - key: ifeval
     label: IFEval
+  - key: multi_if
+    label: Multi-IF
   - key: advancedif
     label: AdvancedIF
   - key: ifbench
@@ -209,6 +259,10 @@ categories:
     label: MMMU-Pro
   - key: mathvision
     label: MathVision
+  - key: mathverse
+    label: MathVerse
+  - key: visualpuzzle
+    label: VisualPuzzle
   - key: we_math
     label: We-Math
   - key: dynamath
@@ -223,6 +277,12 @@ categories:
     label: OmniDocBench1.5
   - key: charxiv_rq
     label: CharXiv(RQ)
+  - key: chartqa
+    label: ChartQA
+  - key: docvqa_eval
+    label: DocVQAEval
+  - key: ocrbench
+    label: OCRBench
   - key: mmlongbench_doc
     label: MMLongBench-Doc
   - key: cc_ocr
@@ -231,6 +291,8 @@ categories:
     label: AI2D_TEST
   - key: countbench
     label: CountBench
+  - key: cv_bench
+    label: CV-Bench
   - key: refcoco_avg
     label: RefCOCO(avg)
   - key: odinw13
@@ -253,6 +315,56 @@ categories:
     label: TIR-Bench
   - key: osworld_verified
     label: OSWorld-Verified
+- name: Generation
+  columns:
+  - key: geneval
+    label: GenEval
+  - key: vbench_quality
+    label: VBench Quality
+  - key: vbench_semantic
+    label: VBench Semantic
+  - key: vbench_overall
+    label: VBench Overall
+- name: Audio
+  columns:
+  - key: aishell_1
+    label: AISHELL-1↓
+  - key: aishell_2
+    label: AISHELL-2↓
+  - key: wenetspeech
+    label: WenetSpeech↓
+  - key: librispeech
+    label: LibriSpeech↓
+  - key: fleurs_en
+    label: Fleurs-en↓
+  - key: fleurs_zh
+    label: Fleurs-zh↓
+  - key: voicebench_alpacaeval
+    label: VoiceBench AlpacaEval
+  - key: voicebench_commoneval
+    label: VoiceBench CommonEval
+  - key: voicebench_sdqa
+    label: VoiceBench SD-QA
+  - key: voicebench_mmsu
+    label: VoiceBench MMSU
+  - key: voicebench_openbookqa
+    label: VoiceBench OpenBookQA
+  - key: voicebench_ifeval
+    label: VoiceBench IFEval
+  - key: voicebench_advbench
+    label: VoiceBench AdvBench
+  - key: mmau
+    label: MMAU
+  - key: tut2017
+    label: TUT2017
+  - key: cochlscene
+    label: CochlScene
+  - key: clothoaqa
+    label: ClothoAQA
+  - key: vocalsound
+    label: VocalSound
+  - key: seed_tts_zh_en
+    label: SEED-TTS (zh/en)↓
 - name: Seed2.0 Vision & Video
   columns:
   - key: mathvista
@@ -1297,6 +1409,400 @@ rows:
     - value: '72.4'
       source_label: HY2 Think
       source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
+- company: Baidu
+  model: ERNIE 5.0
+  mode: ''
+  released: '2026-02-06'
+  sources:
+  - label: ERNIE 5.0 technical report
+    url: https://ernie.baidu.com/blog/posts/ernie5.0/
+  scores:
+    precisewikiqa:
+    - value: '74.48'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    popqa:
+    - value: '65.24'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    hotpotqa:
+    - value: '67.08'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    chinese_simpleqa:
+    - value: '90.09'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '86.03'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmlu_pro:
+    - value: '75.58'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '83.80'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmcu:
+    - value: '93.92'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    agieval:
+    - value: '80.22'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmlu:
+    - value: '90.58'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmlu_redux:
+    - value: '92.19'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    c_eval:
+    - value: '91.98'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    cmmlu:
+    - value: '89.69'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    bbh:
+    - value: '75.69'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    winogrande:
+    - value: '92.66'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    math_cot:
+    - value: '73.89'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    gpqa:
+    - value: '57.30'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '86.36'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    livecodebench:
+    - value: '31.94'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '76.21'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    humaneval_plus:
+    - value: '80.86'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '94.48'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mbpp_plus:
+    - value: '79.10'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    - value: '82.54'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    cruxeval_i:
+    - value: '79.75'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    cruxeval_o:
+    - value: '84.01'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmmlu:
+    - value: '78.94'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    include:
+    - value: '77.81'
+      source_label: ERNIE 5.0 Base
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    simpleqa:
+    - value: '74.01'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    hle:
+    - value: '25.81'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    aime_2025:
+    - value: '89.06'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    hmmt_2025:
+    - value: '79.58'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    zebralogic:
+    - value: '96.50'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    bbeh:
+    - value: '66.63'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    ifeval:
+    - value: '93.35'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    multichallenge:
+    - value: '65.98'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    multi_if:
+    - value: '85.56'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    tau2_bench_avg:
+    - value: '78.79'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    acebench_en:
+    - value: '87.70'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    acebench_zh:
+    - value: '89.60'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    bfcl_v4:
+    - value: '66.47'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    browsecomp_zh:
+    - value: '64.71'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    spreadsheetbench_v1:
+    - value: '40.08'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmmu_pro:
+    - value: '68.63'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mathvista:
+    - value: '84.80'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mathverse:
+    - value: '85.13'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mathvision:
+    - value: '74.34'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    visualpuzzle:
+    - value: '64.82'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    visulogic:
+    - value: '32.00'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    vlms_are_blind:
+    - value: '91.38'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    chartqa:
+    - value: '87.80'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    ai2d_test:
+    - value: '96.89'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    docvqa_eval:
+    - value: '95.45'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    ocrbench:
+    - value: '878'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    charxiv_rq:
+    - value: '67.10'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    charxiv_dq:
+    - value: '89.05'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    simplevqa:
+    - value: '67.64'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    hallusionbench:
+    - value: '63.87'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmstar:
+    - value: '75.54'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    blink:
+    - value: '70.02'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    cv_bench:
+    - value: '87.19'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    countbench:
+    - value: '96.54'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    videomme_w_sub:
+    - value: '81.35'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    videommmu:
+    - value: '81.11'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmvu:
+    - value: '72.24'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    geneval:
+    - value: '90.1'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    vbench_quality:
+    - value: '84.40'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    vbench_semantic:
+    - value: '83.40'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    vbench_overall:
+    - value: '84.20'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    aishell_1:
+    - value: '0.31'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    aishell_2:
+    - value: '2.64'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    wenetspeech:
+    - value: 7.27 / 7.36
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    librispeech:
+    - value: 1.16 / 2.61
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    fleurs_en:
+    - value: '3.14'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    fleurs_zh:
+    - value: '0.83'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_alpacaeval:
+    - value: '4.62'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_commoneval:
+    - value: '3.74'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_sdqa:
+    - value: '77.58'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_mmsu:
+    - value: '84.68'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_openbookqa:
+    - value: '92.97'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_ifeval:
+    - value: '72.67'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    voicebench_advbench:
+    - value: '99.23'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    mmau:
+    - value: '80.40'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    tut2017:
+    - value: '68.09'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    cochlscene:
+    - value: '82.77'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    clothoaqa:
+    - value: '73.68'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    vocalsound:
+    - value: '90.73'
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+    seed_tts_zh_en:
+    - value: 1.35 / 1.54
+      source_label: ERNIE 5.0
+      source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
+- company: Baidu
+  model: ERNIE 5.1
+  mode: ''
+  released: '2026-05-09'
+  sources:
+  - label: ERNIE 5.1 release report
+    url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+  scores:
+    aime26_tools:
+    - value: '99.6'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    tau3_bench:
+    - value: '67.9'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    deepsearchqa:
+    - value: '77.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    spreadsheetbench_verified:
+    - value: '72.5'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    aime26:
+    - value: '95.0'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    gpqa:
+    - value: '91.0'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    mmlu_pro:
+    - value: '84.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    advancedif:
+    - value: '72.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
 - company: Doubao
   model: Seed2.0 Pro
   mode: ''
