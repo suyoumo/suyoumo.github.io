@@ -40,6 +40,10 @@ sources:
   label: ERNIE 5.1 release report
   short_label: ERNIE 5.1
   url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+- id: ernie45
+  label: ERNIE 4.5 technical report
+  short_label: ERNIE 4.5
+  url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
 categories:
 - name: Coding Agent
   columns:
@@ -85,6 +89,10 @@ categories:
     label: HumanEval+
   - key: mbpp_plus
     label: MBPP+
+  - key: fullstackbench
+    label: FullStackBench
+  - key: multiple_e
+    label: MultiPL-E
   - key: cruxeval_i
     label: CRUXEval-I
   - key: cruxeval_o
@@ -153,10 +161,34 @@ categories:
     label: CMMLU
   - key: bbh
     label: BBH
+  - key: musr
+    label: MUSR
+  - key: drop
+    label: DROP
+  - key: arc_easy
+    label: ARC-Easy
+  - key: arc_challenge
+    label: ARC-Challenge
+  - key: hellaswag
+    label: HellaSwag
+  - key: piqa
+    label: PIQA
+  - key: cluewsc
+    label: CLUEWSC
   - key: winogrande
     label: WinoGrande
   - key: math_cot
     label: MATH (CoT)
+  - key: gsm8k
+    label: GSM8K
+  - key: math_500
+    label: MATH-500
+  - key: cmath
+    label: CMATH
+  - key: olympic_arena
+    label: OlympicArena
+  - key: aime_2024
+    label: AIME'24
   - key: zebralogic
     label: ZebraLogic
   - key: bbeh
@@ -171,6 +203,8 @@ categories:
     label: HotPotQA
   - key: simpleqa
     label: SimpleQA
+  - key: livebench
+    label: LiveBench
   - key: chinese_simpleqa
     label: Chinese-SimpleQA
   - key: gpqa
@@ -211,6 +245,18 @@ categories:
     label: Princeton Phys PhD Qual
   - key: china_hs_bio_olympiad
     label: China HS Bio Olympiad
+  - key: math
+    label: MATH
+  - key: cm17k
+    label: CM17K
+  - key: mgsm
+    label: MGSM
+  - key: asdiv
+    label: ASDIV
+  - key: mathqa
+    label: MATHQA
+  - key: svamp
+    label: SVAMP
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -231,6 +277,8 @@ categories:
     label: IFEval
   - key: multi_if
     label: Multi-IF
+  - key: sysbench
+    label: Sysbench
   - key: advancedif
     label: AdvancedIF
   - key: ifbench
@@ -1803,6 +1851,210 @@ rows:
     - value: '72.3'
       source_label: ERNIE 5.1
       source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+- company: Baidu
+  model: ERNIE 4.5
+  mode: ''
+  released: '2025-06-30'
+  sources:
+  - label: ERNIE 4.5 technical report
+    url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+  scores:
+    c_eval:
+    - value: '90.6'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '91.5'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    cmmlu:
+    - value: '90.2'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '91.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mmlu:
+    - value: '86.5'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '87.4'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mmlu_pro:
+    - value: '78.4'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '69.5'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    livebench:
+    - value: '68.9'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    simpleqa:
+    - value: '45.9'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '38.4'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    chinese_simpleqa:
+    - value: '77.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '72.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    bbh:
+    - value: '94.3'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '89.4'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    musr:
+    - value: '69.9'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    drop:
+    - value: '91.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '82.8'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    zebralogic:
+    - value: '58.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    math_500:
+    - value: '96.4'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    gsm8k:
+    - value: '96.6'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '91.8'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    cmath:
+    - value: '96.7'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '96.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    olympic_arena:
+    - value: '75.3'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    aime_2024:
+    - value: '54.8'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    aime_2025:
+    - value: '35.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    livecodebench:
+    - value: '38.8'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    humaneval_plus:
+    - value: '92.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '84.8'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mbpp_plus:
+    - value: '81.0'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    - value: '74.9'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    fullstackbench:
+    - value: '67.1'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    ifeval:
+    - value: '88.0'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    multi_if:
+    - value: '76.6'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    sysbench:
+    - value: '69.8'
+      source_label: ERNIE 4.5
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mmcu:
+    - value: '95.9'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    agieval:
+    - value: '78.4'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mmlu_redux:
+    - value: '89.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    arc_easy:
+    - value: '99.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    arc_challenge:
+    - value: '96.3'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    hellaswag:
+    - value: '96.6'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    piqa:
+    - value: '94.6'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    winogrande:
+    - value: '88.3'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    cluewsc:
+    - value: '79.9'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    math:
+    - value: '69.1'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    cm17k:
+    - value: '86.4'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mgsm:
+    - value: '88.6'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    asdiv:
+    - value: '90.2'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    mathqa:
+    - value: '83.0'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    svamp:
+    - value: '90.0'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+    multiple_e:
+    - value: '68.6'
+      source_label: ERNIE 4.5 Base
+      source_url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
 - company: Doubao
   model: Seed2.0 Pro
   mode: ''
