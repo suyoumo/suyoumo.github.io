@@ -76,6 +76,42 @@ sources:
   label: Claude Opus 4.5 announcement
   short_label: Opus 4.5
   url: https://www.anthropic.com/news/claude-opus-4-5
+- id: gemini25flash
+  label: Gemini 2.5 Flash report
+  short_label: Gemini 2.5 Flash
+  url: https://deepmind.google/models/gemini/flash/
+- id: gemini3flash
+  label: Gemini 3 Flash report
+  short_label: Gemini 3 Flash
+  url: https://deepmind.google/models/gemini/flash/
+- id: gemini31pro
+  label: Gemini 3.1 Pro report
+  short_label: Gemini 3.1 Pro
+  url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+- id: gemini35flash
+  label: Gemini 3.5 Flash report
+  short_label: Gemini 3.5 Flash
+  url: https://deepmind.google/models/gemini/flash/
+- id: gemma4
+  label: Gemma 4 report
+  short_label: Gemma 4
+  url: https://deepmind.google/models/gemma/
+- id: gpt52
+  label: GPT-5.2 report
+  short_label: GPT-5.2
+  url: https://openai.com/index/gpt-5-2/
+- id: gpt53
+  label: GPT-5.3-Codex report
+  short_label: GPT-5.3
+  url: https://openai.com/index/gpt-5-3-codex/
+- id: gpt54
+  label: GPT-5.4 report
+  short_label: GPT-5.4
+  url: https://openai.com/index/gpt-5-4/
+- id: gpt55
+  label: GPT-5.5 report
+  short_label: GPT-5.5
+  url: https://openai.com/index/gpt-5-5/
 categories:
 - name: Coding Agent
   columns:
@@ -1249,6 +1285,372 @@ rows:
     - value: '62.5'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+- company: Qwen
+  model: Qwen3.5-397B-A17B
+  mode: ''
+  released: '2026-02-16'
+  sources:
+  - label: Qwen3.5 report
+    url: https://qwen.ai/blog?id=qwen3.5
+  - label: Qwen3.6-Plus report
+    url: https://qwen.ai/blog?id=qwen3.6
+  scores:
+    swe_verified:
+    - value: '76.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '76.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    swe_multilingual:
+    - value: '69.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    swe_pro:
+    - value: '50.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    terminal_bench_2:
+    - value: '52.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    claw_eval_avg:
+    - value: '70.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    claw_eval_pass3:
+    - value: '48.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    skillsbench:
+    - value: '30.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    qwenclawbench:
+    - value: '51.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    nl2repo:
+    - value: '32.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    qwen_web_bench:
+    - value: '1162.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    tau3_bench:
+    - value: '68.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    vita_bench:
+    - value: '43.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    deepplanning:
+    - value: '37.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    tool_decathlon:
+    - value: '38.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mcp_mark:
+    - value: '46.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mcp_atlas:
+    - value: '74.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    hle_tools:
+    - value: '48.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    widesearch:
+    - value: '74.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlu_pro:
+    - value: '87.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlu_redux:
+    - value: '94.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    supergpqa:
+    - value: '70.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    c_eval:
+    - value: '93.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ifeval:
+    - value: '92.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ifbench:
+    - value: '76.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    aa_lcr:
+    - value: '68.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    longbench_v2:
+    - value: '63.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    gpqa:
+    - value: '88.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    hle:
+    - value: '28.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    livecodebench:
+    - value: '83.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    hmmt_2025_feb:
+    - value: '94.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    hmmt_2025_nov:
+    - value: '92.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    hmmt_2026_feb:
+    - value: '87.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    imoanswerbench:
+    - value: '80.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    aime26:
+    - value: '91.3'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '93.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmlu:
+    - value: '88.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlu_prox:
+    - value: '84.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    nova63:
+    - value: '59.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    include:
+    - value: '85.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    global_piqa:
+    - value: '89.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    polymath:
+    - value: '73.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    wmt24pp:
+    - value: '78.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    maxife:
+    - value: '88.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmu:
+    - value: '85.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmu_pro:
+    - value: '79.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mathvision:
+    - value: '84.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '88.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    we_math:
+    - value: '87.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    dynamath:
+    - value: '86.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '86.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '83.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmstar:
+    - value: '83.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '83.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    simplevqa:
+    - value: '73.0'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '67.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    omnidocbench15:
+    - value: '90.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    charxiv_rq:
+    - value: '80.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '80.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlongbench_doc:
+    - value: '60.5'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    - value: '61.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    cc_ocr:
+    - value: '82.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ai2d_test:
+    - value: '93.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    countbench:
+    - value: '97.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    refcoco_avg:
+    - value: '92.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    odinw13:
+    - value: '47.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    erqa:
+    - value: '67.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    v_star:
+    - value: 95.8/91.1
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_w_sub:
+    - value: '87.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_wo_sub:
+    - value: '83.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videommmu:
+    - value: '84.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mlvu_mavg:
+    - value: '86.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    screenspot_pro:
+    - value: '65.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    tir_bench:
+    - value: 62.5/42.3
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    osworld_verified:
+    - value: '62.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    multichallenge:
+    - value: '67.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    hle_verified_seed:
+    - value: '37.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    bfcl_v4:
+    - value: '72.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    tau2_bench_avg:
+    - value: '86.7'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    browsecomp:
+    - value: 69.0/78.6
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    browsecomp_zh:
+    - value: '70.3'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    seal_0:
+    - value: '46.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    mathvista:
+    - value: '87.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    zerobench_main:
+    - value: '12'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    zerobench_sub:
+    - value: '32.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    babyvision:
+    - value: 52.3/43.3
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    hallusionbench:
+    - value: '71.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    ocrbench:
+    - value: '93.1'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    refspatialbench:
+    - value: '73.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    lvbench:
+    - value: '75.5'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    mmvu:
+    - value: '75.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
 - company: Meituan
   model: LongCat-Flash-Thinking-2601
   mode: Thinking
@@ -1514,9 +1916,49 @@ rows:
       source_label: HY2 Think
       source_url: https://mp.weixin.qq.com/s/bIZq1KOEVUJIrBRgHiyZkA
 - company: Baidu
+  model: ERNIE 5.1
+  mode: ''
+  released: '2026-05-09'
+  sources:
+  - label: ERNIE 5.1 release report
+    url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+  scores:
+    aime26_tools:
+    - value: '99.6'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    tau3_bench:
+    - value: '67.9'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    deepsearchqa:
+    - value: '77.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    spreadsheetbench_verified:
+    - value: '72.5'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    aime26:
+    - value: '95.0'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    gpqa:
+    - value: '91.0'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    mmlu_pro:
+    - value: '84.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    advancedif:
+    - value: '72.3'
+      source_label: ERNIE 5.1
+      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+- company: Baidu
   model: ERNIE 5.0
   mode: ''
-  released: '2026-02-06'
+  released: '2026-01-22'
   sources:
   - label: ERNIE 5.0 technical report
     url: https://ernie.baidu.com/blog/posts/ernie5.0/
@@ -1868,46 +2310,6 @@ rows:
       source_label: ERNIE 5.0
       source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
 - company: Baidu
-  model: ERNIE 5.1
-  mode: ''
-  released: '2026-05-09'
-  sources:
-  - label: ERNIE 5.1 release report
-    url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-  scores:
-    aime26_tools:
-    - value: '99.6'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    tau3_bench:
-    - value: '67.9'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    deepsearchqa:
-    - value: '77.3'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    spreadsheetbench_verified:
-    - value: '72.5'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    aime26:
-    - value: '95.0'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    gpqa:
-    - value: '91.0'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    mmlu_pro:
-    - value: '84.3'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-    advancedif:
-    - value: '72.3'
-      source_label: ERNIE 5.1
-      source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
-- company: Baidu
   model: ERNIE 4.5
   mode: ''
   released: '2025-06-30'
@@ -2114,7 +2516,7 @@ rows:
 - company: Doubao
   model: Seed2.0 Pro
   mode: ''
-  released: ''
+  released: '2026-02-14'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -2808,7 +3210,7 @@ rows:
 - company: Doubao
   model: Seed2.0 Lite
   mode: ''
-  released: ''
+  released: '2026-02-14'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -3492,7 +3894,7 @@ rows:
 - company: Doubao
   model: Seed2.0 Mini
   mode: ''
-  released: ''
+  released: '2026-02-26'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -3992,7 +4394,7 @@ rows:
 - company: Doubao
   model: Seed1.8
   mode: ''
-  released: ''
+  released: '2025-12-01'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -4380,6 +4782,18 @@ rows:
     - value: '89.1'
       source_label: Seed1.6 (Thinking)
       source_url: https://seed.bytedance.com/en/seed1_6
+- company: Doubao
+  model: Seed-1.5 Prover
+  mode: ''
+  released: '2025-05-01'
+  sources:
+  - label: Seed2.0 model card
+    url: https://seed.bytedance.com/en/seed2
+  scores:
+    putnam_200:
+    - value: '26.5'
+      source_label: Seed2.0 T5
+      source_url: https://seed.bytedance.com/en/seed2
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Max reasoning effort
@@ -4590,178 +5004,6 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
 - company: DeepSeek
-  model: DeepSeek-V4-Pro
-  mode: High reasoning effort
-  released: '2026-04-24'
-  sources:
-  - label: DeepSeek-V4 preview report
-    url: https://api-docs.deepseek.com/zh-cn/news/news260424
-  scores:
-    mmlu_pro:
-    - value: '87.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    simpleqa_verified:
-    - value: '46.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    chinese_simpleqa:
-    - value: '77.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    gpqa:
-    - value: '89.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hle:
-    - value: '34.5'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    livecodebench:
-    - value: '89.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    codeforces:
-    - value: '2919'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hmmt_2026_feb:
-    - value: '94.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    imoanswerbench:
-    - value: '88.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    apex:
-    - value: '27.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    apex_shortlist:
-    - value: '85.5'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mrcr_1m:
-    - value: '83.3'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    corpusqa_1m:
-    - value: '56.5'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    terminal_bench_2:
-    - value: '63.3'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_verified:
-    - value: '79.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_pro:
-    - value: '54.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_multilingual:
-    - value: '74.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    browsecomp:
-    - value: '80.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hle_tools:
-    - value: '44.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mcp_atlas:
-    - value: '74.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    toolathlon:
-    - value: '49.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-- company: DeepSeek
-  model: DeepSeek-V4-Pro
-  mode: Non-think
-  released: '2026-04-24'
-  sources:
-  - label: DeepSeek-V4 preview report
-    url: https://api-docs.deepseek.com/zh-cn/news/news260424
-  scores:
-    mmlu_pro:
-    - value: '82.9'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    simpleqa_verified:
-    - value: '45.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    chinese_simpleqa:
-    - value: '75.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    gpqa:
-    - value: '72.9'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hle:
-    - value: '7.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    livecodebench:
-    - value: '56.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hmmt_2026_feb:
-    - value: '31.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    imoanswerbench:
-    - value: '35.3'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    apex:
-    - value: '0.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    apex_shortlist:
-    - value: '9.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mrcr_1m:
-    - value: '44.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    corpusqa_1m:
-    - value: '35.6'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    terminal_bench_2:
-    - value: '59.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_verified:
-    - value: '73.6'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_pro:
-    - value: '52.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_multilingual:
-    - value: '69.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mcp_atlas:
-    - value: '69.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    toolathlon:
-    - value: '46.3'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-- company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
   released: '2026-04-24'
@@ -4858,6 +5100,98 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
 - company: DeepSeek
+  model: DeepSeek-V4-Pro
+  mode: High reasoning effort
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '87.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '46.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '77.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '89.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '34.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '89.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    codeforces:
+    - value: '2919'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '94.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '88.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '27.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '85.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '83.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '56.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '63.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '79.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '54.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '74.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    browsecomp:
+    - value: '80.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle_tools:
+    - value: '44.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '74.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '49.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+- company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: High reasoning effort
   released: '2026-04-24'
@@ -4950,6 +5284,86 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
 - company: DeepSeek
+  model: DeepSeek-V4-Pro
+  mode: Non-think
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '82.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '45.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '75.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '72.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '7.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '56.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '31.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '35.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '0.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '9.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '44.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '35.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '59.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '73.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '52.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '69.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '69.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '46.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+- company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Non-think
   released: '2026-04-24'
@@ -5029,10 +5443,22 @@ rows:
     - value: '40.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+- company: DeepSeek
+  model: Deepseek-Prover-V2
+  mode: ''
+  released: '2025-04-30'
+  sources:
+  - label: Seed2.0 model card
+    url: https://seed.bytedance.com/en/seed2
+  scores:
+    putnam_200:
+    - value: <4.0
+      source_label: Seed2.0 T5
+      source_url: https://seed.bytedance.com/en/seed2
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
-  released: '2026-05-29'
+  released: '2026-05-28'
   sources:
   - label: Claude Opus 4.8 announcement
     url: https://www.anthropic.com/news/claude-opus-4-8
@@ -5068,7 +5494,7 @@ rows:
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
-  released: '2026-05-15'
+  released: '2026-04-16'
   sources:
   - label: Claude Opus 4.7 announcement
     url: https://www.anthropic.com/news/claude-opus-4-7
@@ -5172,7 +5598,7 @@ rows:
 - company: Anthropic
   model: Claude Opus 4.6
   mode: Max
-  released: ''
+  released: '2026-02-05'
   sources:
   - label: Claude Opus 4.6 announcement
     url: https://www.anthropic.com/news/claude-opus-4-6
@@ -6288,7 +6714,7 @@ rows:
 - company: Anthropic
   model: Claude Sonnet 4.6
   mode: ''
-  released: '2026-05-01'
+  released: '2026-02-17'
   sources:
   - label: Claude Sonnet 4.6 announcement
     url: https://www.anthropic.com/news/claude-sonnet-4-6
@@ -6344,7 +6770,7 @@ rows:
 - company: Anthropic
   model: Claude Sonnet 4.5
   mode: ''
-  released: ''
+  released: '2025-09-29'
   sources:
   - label: Claude Sonnet 4.5 announcement
     url: https://www.anthropic.com/news/claude-sonnet-4-5
@@ -6769,12 +7195,54 @@ rows:
       source_label: Opus 4.6 (1M)
       source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: OpenAI
+  model: GPT-5.5
+  mode: xHigh
+  released: '2026-05-10'
+  sources:
+  - label: GPT-5.5 report
+    url: https://openai.com/index/gpt-5-5/
+  scores:
+    swe_pro:
+    - value: '58.6'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    terminal_bench_2:
+    - value: '82.7'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    osworld_verified:
+    - value: '78.7'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    mmmu_pro:
+    - value: '81.2'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    browsecomp:
+    - value: '84.4'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    mcp_atlas:
+    - value: '75.3'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    toolathlon:
+    - value: '55.6'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    tau2_bench_telecom:
+    - value: '98.0'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+- company: OpenAI
   model: GPT-5.4
   mode: xHigh
-  released: ''
+  released: '2026-03-05'
   sources:
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: GPT-5.4 report
+    url: https://openai.com/index/gpt-5-4/
   scores:
     mmlu_pro:
     - value: '87.5'
@@ -6792,10 +7260,16 @@ rows:
     - value: '93.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '92.8'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     hle:
     - value: '39.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '39.8'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     codeforces:
     - value: '3168'
       source_label: DeepSeek-V4
@@ -6820,18 +7294,30 @@ rows:
     - value: '75.1'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '75.1'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     swe_pro:
     - value: '57.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '57.7'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     browsecomp:
     - value: '82.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '82.7'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     hle_tools:
     - value: '52.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '52.1'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     gdpval_aa:
     - value: '1674'
       source_label: DeepSeek-V4
@@ -6840,17 +7326,69 @@ rows:
     - value: '67.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '70.6'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
     toolathlon:
     - value: '54.6'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '54.6'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    osworld_verified:
+    - value: '75.0'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    mmmu_pro:
+    - value: '81.2'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    frontiersci_research:
+    - value: '33.0'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    tau2_bench_telecom:
+    - value: '92.8'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+- company: OpenAI
+  model: GPT-5.3-Codex
+  mode: xHigh
+  released: '2026-01-22'
+  sources:
+  - label: GPT-5.3-Codex report
+    url: https://openai.com/index/gpt-5-3-codex/
+  scores:
+    swe_pro:
+    - value: '56.8'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    terminal_bench_2:
+    - value: '77.3'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    osworld_verified:
+    - value: '64.7'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    gpqa:
+    - value: '92.6'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    swe_lancer:
+    - value: '81.4'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
 - company: OpenAI
   model: GPT-5.2
   mode: High
-  released: ''
+  released: '2025-12-11'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
+  - label: GPT-5.2 report
+    url: https://openai.com/index/gpt-5-2/
   scores:
     mmlu_pro:
     - value: '85.9'
@@ -7403,10 +7941,34 @@ rows:
     - value: '32.67'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    videommmu:
+    - value: '85.9'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    screenspot_pro:
+    - value: '86.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mcp_atlas:
+    - value: '60.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    toolathlon:
+    - value: '46.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    hle_tools:
+    - value: '45.5'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    osworld_verified:
+    - value: '47.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
 - company: OpenAI
   model: GPT-5.2
   mode: ''
-  released: ''
+  released: '2025-12-11'
   sources:
   - label: Qwen3.6-Plus report
     url: https://qwen.ai/blog?id=qwen3.6
@@ -7494,7 +8056,7 @@ rows:
 - company: OpenAI
   model: GPT-5 mini
   mode: High
-  released: ''
+  released: '2025-08-07'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -7858,10 +8420,12 @@ rows:
 - company: Google
   model: Gemini 3.1 Pro
   mode: High
-  released: ''
+  released: '2026-02-19'
   sources:
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: Gemini 3.1 Pro report
+    url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
   scores:
     mmlu_pro:
     - value: '91.0'
@@ -7879,10 +8443,16 @@ rows:
     - value: '94.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '94.3'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     hle:
     - value: '44.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '44.4'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     livecodebench:
     - value: '91.7'
       source_label: DeepSeek-V4
@@ -7903,6 +8473,9 @@ rows:
     - value: '60.9'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '33.5'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     apex_shortlist:
     - value: '89.1'
       source_label: DeepSeek-V4
@@ -7911,6 +8484,9 @@ rows:
     - value: '76.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '26.3'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     corpusqa_1m:
     - value: '53.8'
       source_label: DeepSeek-V4
@@ -7919,38 +8495,87 @@ rows:
     - value: '68.5'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '68.5'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     swe_verified:
     - value: '80.6'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '80.6'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     swe_pro:
     - value: '54.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '54.2'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     browsecomp:
     - value: '85.9'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '85.9'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     hle_tools:
     - value: '51.6'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '51.4'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     gdpval_aa:
     - value: '1314'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '1317'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     mcp_atlas:
     - value: '69.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '69.2'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     toolathlon:
     - value: '48.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    arc_agi_2:
+    - value: '77.1'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    scicode:
+    - value: '59'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    tau2_bench_retail:
+    - value: '90.8'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    tau2_bench_telecom:
+    - value: '99.3'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    mmmu_pro:
+    - value: '80.5'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    mmmlu:
+    - value: '92.6'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    mrcr_v2_128k:
+    - value: '84.9'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
 - company: Google
   model: Gemini 3 Pro
   mode: High
-  released: ''
+  released: '2025-11-18'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -8523,210 +9148,14 @@ rows:
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
 - company: Google
-  model: Gemini 3 Pro
-  mode: ''
-  released: ''
-  sources:
-  - label: Qwen3.6-Plus report
-    url: https://qwen.ai/blog?id=qwen3.6
-  - label: Seed2.0 model card
-    url: https://seed.bytedance.com/en/seed2
-  scores:
-    mmmu:
-    - value: '87.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu_pro:
-    - value: '81.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mathvision:
-    - value: '86.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    we_math:
-    - value: '86.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    dynamath:
-    - value: '85.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    realworldqa:
-    - value: '83.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmstar:
-    - value: '83.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    simplevqa:
-    - value: '73.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    omnidocbench15:
-    - value: '88.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    charxiv_rq:
-    - value: '81.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlongbench_doc:
-    - value: '60.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    cc_ocr:
-    - value: '79.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    ai2d_test:
-    - value: '94.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    countbench:
-    - value: '97.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    refcoco_avg:
-    - value: '84.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    odinw13:
-    - value: '46.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    erqa:
-    - value: '70.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    v_star:
-    - value: '88.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_w_sub:
-    - value: '88.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_wo_sub:
-    - value: '87.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videommmu:
-    - value: '87.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mlvu_mavg:
-    - value: '83.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    screenspot_pro:
-    - value: '72.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    tir_bench:
-    - value: '47.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    putnam_200:
-    - value: '26.5'
-      source_label: Seed2.0 T5
-      source_url: https://seed.bytedance.com/en/seed2
-    mmvu:
-    - value: '76.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videosimpleqa:
-    - value: '71.9'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoreasonbench:
-    - value: '59.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    morse_500:
-    - value: '33.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoholmes:
-    - value: '64.2'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    minerva_video:
-    - value: '65.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    tvbench:
-    - value: '71.1'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    contphy:
-    - value: '58.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    tempcompass:
-    - value: '88.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    egotempo:
-    - value: '65.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    motionbench:
-    - value: '70.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    tomato:
-    - value: '59.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videomme_seed:
-    - value: '88.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    cgbench:
-    - value: '65.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    longvideobench:
-    - value: '76.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoeval_pro:
-    - value: '52.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    crossvid:
-    - value: '53.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    ovbench:
-    - value: '62.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    livesports_3k:
-    - value: '74.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    ovobench:
-    - value: '70.1'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    odvbench:
-    - value: '63.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    vispeak:
-    - value: '89.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-- company: Google
   model: Gemini 3 Flash
   mode: High
-  released: ''
+  released: '2025-12-17'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
+  - label: Gemini 3 Flash report
+    url: https://deepmind.google/models/gemini/flash/
   scores:
     mmlu_pro:
     - value: '87.8'
@@ -9092,10 +9521,256 @@ rows:
     - value: '13.3'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
+    arc_agi_2:
+    - value: '33.6'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmu_pro:
+    - value: '81.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    screenspot_pro:
+    - value: '69.1'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    charxiv_rq:
+    - value: '80.3'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    omnidocbench15:
+    - value: '0.121'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mcp_atlas:
+    - value: '57.4'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    toolathlon:
+    - value: '49.4'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    tau2_bench_avg:
+    - value: '90.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    vending_bench_2:
+    - value: '3635'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    global_piqa:
+    - value: '92.8'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmlu:
+    - value: '91.8'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_v2_128k:
+    - value: '67.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+- company: Google
+  model: Gemini 3 Pro
+  mode: ''
+  released: '2025-11-18'
+  sources:
+  - label: Qwen3.6-Plus report
+    url: https://qwen.ai/blog?id=qwen3.6
+  - label: Seed2.0 model card
+    url: https://seed.bytedance.com/en/seed2
+  scores:
+    mmmu:
+    - value: '87.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmu_pro:
+    - value: '81.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mathvision:
+    - value: '86.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    we_math:
+    - value: '86.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    dynamath:
+    - value: '85.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '83.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmstar:
+    - value: '83.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    simplevqa:
+    - value: '73.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    omnidocbench15:
+    - value: '88.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    charxiv_rq:
+    - value: '81.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlongbench_doc:
+    - value: '60.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    cc_ocr:
+    - value: '79.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ai2d_test:
+    - value: '94.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    countbench:
+    - value: '97.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    refcoco_avg:
+    - value: '84.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    odinw13:
+    - value: '46.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    erqa:
+    - value: '70.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    v_star:
+    - value: '88.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_w_sub:
+    - value: '88.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_wo_sub:
+    - value: '87.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videommmu:
+    - value: '87.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mlvu_mavg:
+    - value: '83.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    screenspot_pro:
+    - value: '72.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    tir_bench:
+    - value: '47.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    putnam_200:
+    - value: '26.5'
+      source_label: Seed2.0 T5
+      source_url: https://seed.bytedance.com/en/seed2
+    mmvu:
+    - value: '76.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videosimpleqa:
+    - value: '71.9'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoreasonbench:
+    - value: '59.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    morse_500:
+    - value: '33.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoholmes:
+    - value: '64.2'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    minerva_video:
+    - value: '65.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tvbench:
+    - value: '71.1'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    contphy:
+    - value: '58.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tempcompass:
+    - value: '88.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    egotempo:
+    - value: '65.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    motionbench:
+    - value: '70.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tomato:
+    - value: '59.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videomme_seed:
+    - value: '88.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    cgbench:
+    - value: '65.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    longvideobench:
+    - value: '76.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoeval_pro:
+    - value: '52.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    crossvid:
+    - value: '53.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovbench:
+    - value: '62.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    livesports_3k:
+    - value: '74.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovobench:
+    - value: '70.1'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    odvbench:
+    - value: '63.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    vispeak:
+    - value: '89.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
 - company: Google
   model: Gemini 3 Flash
   mode: ''
-  released: ''
+  released: '2025-12-17'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
@@ -9196,10 +9871,174 @@ rows:
     - value: '86.0'
       source_label: Seed2.0 T9
       source_url: https://seed.bytedance.com/en/seed2
+- company: Google
+  model: Gemini 2.5 Flash
+  mode: High
+  released: '2025-05-20'
+  sources:
+  - label: Gemini 2.5 Flash report
+    url: https://deepmind.google/models/gemini/flash/
+  scores:
+    hle:
+    - value: '11.0'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    gpqa:
+    - value: '82.8'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    aime_2025:
+    - value: '72.0'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    livecodebench:
+    - value: '55.8'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    aider_polyglot:
+    - value: '56.7'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    swe_verified:
+    - value: '48.9'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    simpleqa:
+    - value: '26.9'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmu:
+    - value: '79.7'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    vibeeval:
+    - value: '65.4'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_v2_128k:
+    - value: '54.3'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_1m:
+    - value: '21.0'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+- company: Google
+  model: Gemini 3.5 Flash
+  mode: High
+  released: '2026-04-15'
+  sources:
+  - label: Gemini 3.5 Flash report
+    url: https://deepmind.google/models/gemini/flash/
+  scores:
+    hle:
+    - value: '44.4'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    hle_tools:
+    - value: '51.4'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    arc_agi_2:
+    - value: '77.1'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    gpqa:
+    - value: '94.3'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    terminal_bench_2:
+    - value: '68.5'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    swe_verified:
+    - value: '80.6'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    swe_pro:
+    - value: '54.2'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    scicode:
+    - value: '59'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    apex:
+    - value: '33.5'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    gdpval_aa:
+    - value: '1317'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    tau2_bench_retail:
+    - value: '90.8'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    tau2_bench_telecom:
+    - value: '99.3'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mcp_atlas:
+    - value: '69.2'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    browsecomp:
+    - value: '85.9'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmu_pro:
+    - value: '80.5'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmlu:
+    - value: '92.6'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_v2_128k:
+    - value: '84.9'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_1m:
+    - value: '26.3'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+- company: Google
+  model: Gemma 4 31B IT
+  mode: High
+  released: '2026-04-02'
+  sources:
+  - label: Gemma 4 report
+    url: https://deepmind.google/models/gemma/
+  scores:
+    mmlu:
+    - value: '85.2'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    mmmu_pro:
+    - value: '76.9'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    aime26:
+    - value: '89.2'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    livecodebench:
+    - value: '80.0'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    gpqa:
+    - value: '84.3'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    tau2_bench_retail:
+    - value: '86.4'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
 - company: Moonshot
   model: Kimi K2.6
   mode: Thinking
-  released: ''
+  released: '2026-04-20'
   sources:
   - label: Qwen3.7 report
     url: https://qwen.ai/blog?id=qwen3.7
@@ -9396,7 +10235,7 @@ rows:
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
-  released: ''
+  released: '2026-01-27'
   sources:
   - label: Qwen3.6-Plus report
     url: https://qwen.ai/blog?id=qwen3.6
@@ -9660,7 +10499,7 @@ rows:
 - company: Zhipu AI
   model: GLM-5.1
   mode: Thinking
-  released: ''
+  released: '2026-03-27'
   sources:
   - label: Qwen3.7 report
     url: https://qwen.ai/blog?id=qwen3.7
@@ -9859,7 +10698,7 @@ rows:
 - company: Zhipu AI
   model: GLM-5
   mode: ''
-  released: ''
+  released: '2026-02-11'
   sources:
   - label: Qwen3.6-Plus report
     url: https://qwen.ai/blog?id=qwen3.6
@@ -10032,393 +10871,3 @@ rows:
     - value: '85.6'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
-- company: Qwen
-  model: Qwen3.5-397B-A17B
-  mode: ''
-  released: '2026-03-01'
-  sources:
-  - label: Qwen3.5 report
-    url: https://qwen.ai/blog?id=qwen3.5
-  - label: Qwen3.6-Plus report
-    url: https://qwen.ai/blog?id=qwen3.6
-  scores:
-    swe_verified:
-    - value: '76.4'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '76.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    swe_multilingual:
-    - value: '69.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    swe_pro:
-    - value: '50.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    terminal_bench_2:
-    - value: '52.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    claw_eval_avg:
-    - value: '70.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    claw_eval_pass3:
-    - value: '48.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    skillsbench:
-    - value: '30.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    qwenclawbench:
-    - value: '51.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    nl2repo:
-    - value: '32.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    qwen_web_bench:
-    - value: '1162.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    tau3_bench:
-    - value: '68.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    vita_bench:
-    - value: '43.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    deepplanning:
-    - value: '37.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    tool_decathlon:
-    - value: '38.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mcp_mark:
-    - value: '46.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mcp_atlas:
-    - value: '74.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    hle_tools:
-    - value: '48.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    widesearch:
-    - value: '74.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlu_pro:
-    - value: '87.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlu_redux:
-    - value: '94.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    supergpqa:
-    - value: '70.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    c_eval:
-    - value: '93.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    ifeval:
-    - value: '92.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    ifbench:
-    - value: '76.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    aa_lcr:
-    - value: '68.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    longbench_v2:
-    - value: '63.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    gpqa:
-    - value: '88.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    hle:
-    - value: '28.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    livecodebench:
-    - value: '83.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    hmmt_2025_feb:
-    - value: '94.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    hmmt_2025_nov:
-    - value: '92.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    hmmt_2026_feb:
-    - value: '87.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    imoanswerbench:
-    - value: '80.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    aime26:
-    - value: '91.3'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '93.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmlu:
-    - value: '88.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlu_prox:
-    - value: '84.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    nova63:
-    - value: '59.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    include:
-    - value: '85.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    global_piqa:
-    - value: '89.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    polymath:
-    - value: '73.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    wmt24pp:
-    - value: '78.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    maxife:
-    - value: '88.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu:
-    - value: '85.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu_pro:
-    - value: '79.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mathvision:
-    - value: '84.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '88.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    we_math:
-    - value: '87.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    dynamath:
-    - value: '86.4'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '86.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    realworldqa:
-    - value: '83.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmstar:
-    - value: '83.9'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '83.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    simplevqa:
-    - value: '73.0'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '67.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    omnidocbench15:
-    - value: '90.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    charxiv_rq:
-    - value: '80.9'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '80.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlongbench_doc:
-    - value: '60.5'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    - value: '61.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    cc_ocr:
-    - value: '82.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    ai2d_test:
-    - value: '93.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    countbench:
-    - value: '97.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    refcoco_avg:
-    - value: '92.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    odinw13:
-    - value: '47.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    erqa:
-    - value: '67.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    v_star:
-    - value: 95.8/91.1
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_w_sub:
-    - value: '87.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_wo_sub:
-    - value: '83.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videommmu:
-    - value: '84.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mlvu_mavg:
-    - value: '86.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    screenspot_pro:
-    - value: '65.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    tir_bench:
-    - value: 62.5/42.3
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    osworld_verified:
-    - value: '62.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    multichallenge:
-    - value: '67.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    hle_verified_seed:
-    - value: '37.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    bfcl_v4:
-    - value: '72.9'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    tau2_bench_avg:
-    - value: '86.7'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    browsecomp:
-    - value: 69.0/78.6
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    browsecomp_zh:
-    - value: '70.3'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    seal_0:
-    - value: '46.9'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    mathvista:
-    - value: '87.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    zerobench_main:
-    - value: '12'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    zerobench_sub:
-    - value: '32.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    babyvision:
-    - value: 52.3/43.3
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    hallusionbench:
-    - value: '71.4'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    ocrbench:
-    - value: '93.1'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    refspatialbench:
-    - value: '73.6'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    lvbench:
-    - value: '75.5'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-    mmvu:
-    - value: '75.4'
-      source_label: Qwen3.5
-      source_url: https://qwen.ai/blog?id=qwen3.5
-- company: DeepSeek
-  model: Deepseek-Prover-V2
-  mode: ''
-  released: ''
-  sources:
-  - label: Seed2.0 model card
-    url: https://seed.bytedance.com/en/seed2
-  scores:
-    putnam_200:
-    - value: <4.0
-      source_label: Seed2.0 T5
-      source_url: https://seed.bytedance.com/en/seed2
-- company: Doubao
-  model: Seed-1.5 Prover
-  mode: ''
-  released: ''
-  sources:
-  - label: Seed2.0 model card
-    url: https://seed.bytedance.com/en/seed2
-  scores:
-    putnam_200:
-    - value: '26.5'
-      source_label: Seed2.0 T5
-      source_url: https://seed.bytedance.com/en/seed2
