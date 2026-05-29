@@ -48,6 +48,22 @@ sources:
   label: ERNIE 4.5 technical report
   short_label: ERNIE 4.5
   url: https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf
+- id: claude_opus47
+  label: Claude Opus 4.7 announcement
+  short_label: Opus 4.7
+  url: https://www.anthropic.com/news/claude-opus-4-7
+- id: claude_sonnet46
+  label: Claude Sonnet 4.6 announcement
+  short_label: Sonnet 4.6
+  url: https://www.anthropic.com/news/claude-sonnet-4-6
+- id: claude_sonnet45
+  label: Claude Sonnet 4.5 announcement
+  short_label: Sonnet 4.5
+  url: https://www.anthropic.com/news/claude-sonnet-4-5
+- id: seed16
+  label: Seed1.6 model card
+  short_label: Seed1.6
+  url: https://seed.bytedance.com/en/seed1_6
 categories:
 - name: Coding Agent
   columns:
@@ -4253,6 +4269,81 @@ rows:
     - value: '79.0'
       source_label: Seed2.0 T9
       source_url: https://seed.bytedance.com/en/seed2
+- company: Doubao
+  model: Seed1.6
+  mode: Thinking
+  released: '2025-06-11'
+  sources:
+  - label: Seed1.6 model card
+    url: https://seed.bytedance.com/en/seed1_6
+  scores:
+    mmlu:
+    - value: '88.83'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    mmlu_pro:
+    - value: '69.98'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    supergpqa:
+    - value: '45.08'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    bbh:
+    - value: '92.08'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    gpqa:
+    - value: '81.5'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    - value: '43.43'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    gsm8k:
+    - value: '93.10'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    math:
+    - value: '72.86'
+      source_label: Seed1.6 (Base)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    aime_2024:
+    - value: '90.0'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    aime_2025:
+    - value: '86.0'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    beyondaime:
+    - value: '56.3'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    livecodebench:
+    - value: '64.0'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    mmmu:
+    - value: '74.8'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    mmmu_pro:
+    - value: '66.4'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    mathvision:
+    - value: '70.3'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    realworldqa:
+    - value: '77.8'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
+    chartqa:
+    - value: '89.1'
+      source_label: Seed1.6 (Thinking)
+      source_url: https://seed.bytedance.com/en/seed1_6
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Max reasoning effort
@@ -4902,6 +4993,74 @@ rows:
     - value: '40.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+- company: Anthropic
+  model: Claude Opus 4.7
+  mode: ''
+  released: '2026-05-15'
+  sources:
+  - label: Claude Opus 4.7 announcement
+    url: https://www.anthropic.com/news/claude-opus-4-7
+  scores:
+    swe_verified:
+    - value: '64.3'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    swe_multilingual:
+    - value: '80.5'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    terminal_bench_2:
+    - value: '80.8'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    hle:
+    - value: '46.9'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    hle_tools:
+    - value: '54.7'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    browsecomp:
+    - value: '79.3'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    mcp_atlas:
+    - value: '73.5'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    osworld_verified:
+    - value: '78.0'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    gpqa:
+    - value: '94.2'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    charxiv_rq:
+    - value: '82.1'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    mmmlu:
+    - value: '91.5'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    gdpval_aa:
+    - value: '1753'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    screenspot_pro:
+    - value: '87.6'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    graphwalks_parents_128k:
+    - value: '75.1'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    graphwalks_bfs_128k:
+    - value: '58.6'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
 - company: Anthropic
   model: Claude Opus 4.6
   mode: Max
@@ -5857,10 +6016,70 @@ rows:
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
 - company: Anthropic
+  model: Claude Sonnet 4.6
+  mode: ''
+  released: '2026-05-01'
+  sources:
+  - label: Claude Sonnet 4.6 announcement
+    url: https://www.anthropic.com/news/claude-sonnet-4-6
+  scores:
+    terminal_bench_2:
+    - value: '59.1'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    swe_verified:
+    - value: '79.6'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    osworld_verified:
+    - value: '72.5'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    mcp_atlas:
+    - value: '61.3'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    browsecomp:
+    - value: '74.7'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    hle:
+    - value: '33.2'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    hle_tools:
+    - value: '49.0'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    gdpval_aa:
+    - value: '1633'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    arc_agi_2:
+    - value: '58.3'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    gpqa:
+    - value: '89.9'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    mmmu_pro:
+    - value: '74.5'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    mmmlu:
+    - value: '89.3'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+- company: Anthropic
   model: Claude Sonnet 4.5
   mode: ''
   released: ''
   sources:
+  - label: Claude Sonnet 4.5 announcement
+    url: https://www.anthropic.com/news/claude-sonnet-4-5
+  - label: Claude Sonnet 4.6 announcement
+    url: https://www.anthropic.com/news/claude-sonnet-4-6
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
   scores:
@@ -6208,6 +6427,33 @@ rows:
     - value: '10.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    terminal_bench_2:
+    - value: '51.0'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    - value: '50.0'
+      source_label: Sonnet 4.5
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-5
+    osworld_verified:
+    - value: '61.4'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    mcp_atlas:
+    - value: '86.2'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    gdpval_aa:
+    - value: '1276'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    arc_agi_2:
+    - value: '13.6'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    mmmu_pro:
+    - value: '63.4'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
