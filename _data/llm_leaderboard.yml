@@ -12,6 +12,10 @@ sources:
   label: Qwen3.6-Plus report
   short_label: Qwen3.6
   url: https://qwen.ai/blog?id=qwen3.6
+- id: qwen35
+  label: Qwen3.5 report
+  short_label: Qwen3.5
+  url: https://qwen.ai/blog?id=qwen3.5
 - id: deepseek_v4
   label: DeepSeek-V4 preview report
   short_label: DeepSeek-V4
@@ -9471,12 +9475,17 @@ rows:
 - company: Qwen
   model: Qwen3.5-397B-A17B
   mode: ''
-  released: ''
+  released: '2026-03-01'
   sources:
+  - label: Qwen3.5 report
+    url: https://qwen.ai/blog?id=qwen3.5
   - label: Qwen3.6-Plus report
     url: https://qwen.ai/blog?id=qwen3.6
   scores:
     swe_verified:
+    - value: '76.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '76.2'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9609,6 +9618,9 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     aime26:
+    - value: '91.3'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '93.3'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9653,6 +9665,9 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     mathvision:
+    - value: '84.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '88.6'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9661,6 +9676,9 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     dynamath:
+    - value: '86.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '86.3'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9669,10 +9687,16 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     mmstar:
+    - value: '83.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '83.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     simplevqa:
+    - value: '73.0'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '67.1'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9681,10 +9705,16 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     charxiv_rq:
+    - value: '80.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '80.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     mmlongbench_doc:
+    - value: '60.5'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
     - value: '61.5'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
@@ -9744,6 +9774,70 @@ rows:
     - value: '62.2'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    multichallenge:
+    - value: '67.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    hle_verified_seed:
+    - value: '37.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    bfcl_v4:
+    - value: '72.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    tau2_bench_avg:
+    - value: '86.7'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    browsecomp:
+    - value: 69.0/78.6
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    browsecomp_zh:
+    - value: '70.3'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    seal_0:
+    - value: '46.9'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    mathvista:
+    - value: '87.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    zerobench_main:
+    - value: '12'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    zerobench_sub:
+    - value: '32.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    babyvision:
+    - value: 52.3/43.3
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    hallusionbench:
+    - value: '71.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    ocrbench:
+    - value: '93.1'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    refspatialbench:
+    - value: '73.6'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    lvbench:
+    - value: '75.5'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
+    mmvu:
+    - value: '75.4'
+      source_label: Qwen3.5
+      source_url: https://qwen.ai/blog?id=qwen3.5
 - company: DeepSeek
   model: Deepseek-Prover-V2
   mode: ''
