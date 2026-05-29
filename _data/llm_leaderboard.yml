@@ -64,6 +64,18 @@ sources:
   label: Seed1.6 model card
   short_label: Seed1.6
   url: https://seed.bytedance.com/en/seed1_6
+- id: claude_opus48
+  label: Claude Opus 4.8 announcement
+  short_label: Opus 4.8
+  url: https://www.anthropic.com/news/claude-opus-4-8
+- id: claude_opus46
+  label: Claude Opus 4.6 announcement
+  short_label: Opus 4.6
+  url: https://www.anthropic.com/news/claude-opus-4-6
+- id: claude_opus45
+  label: Claude Opus 4.5 announcement
+  short_label: Opus 4.5
+  url: https://www.anthropic.com/news/claude-opus-4-5
 categories:
 - name: Coding Agent
   columns:
@@ -117,6 +129,12 @@ categories:
     label: CRUXEval-I
   - key: cruxeval_o
     label: CRUXEval-O
+  - key: terminal_bench_2_1
+    label: Terminal-Bench 2.1
+  - key: swe_bench_multimodal
+    label: SWE-bench Multimodal
+  - key: openrca
+    label: OpenRCA
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -161,6 +179,24 @@ categories:
     label: Kernel Bench L3
   - key: qwenworldbench
     label: QwenWorldBench
+  - key: browsecomp_plus
+    label: BrowseComp-Plus
+  - key: finance_agent_v1
+    label: Finance Agent v1.1
+  - key: finance_agent_v2
+    label: Finance Agent v2
+  - key: vending_bench
+    label: Vending-Bench
+  - key: vending_bench_2
+    label: Vending-Bench 2
+  - key: officeqa_pro
+    label: OfficeQA Pro
+  - key: cybergym
+    label: CyberGym
+  - key: biopipelinebench
+    label: BioPipelineBench
+  - key: structural_biology
+    label: Structural Biology
 - name: Knowledge & Reasoning
   columns:
   - key: mmlu_pro
@@ -4994,6 +5030,42 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
 - company: Anthropic
+  model: Claude Opus 4.8
+  mode: ''
+  released: '2026-05-29'
+  sources:
+  - label: Claude Opus 4.8 announcement
+    url: https://www.anthropic.com/news/claude-opus-4-8
+  scores:
+    swe_pro:
+    - value: '69.2'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    terminal_bench_2_1:
+    - value: '74.6'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    hle:
+    - value: '49.8'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    hle_tools:
+    - value: '57.9'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    osworld_verified:
+    - value: '83.4'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    gdpval_aa:
+    - value: '1890'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    finance_agent_v2:
+    - value: '53.9'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+- company: Anthropic
   model: Claude Opus 4.7
   mode: ''
   released: '2026-05-15'
@@ -5061,11 +5133,49 @@ rows:
     - value: '58.6'
       source_label: Opus 4.7
       source_url: https://www.anthropic.com/news/claude-opus-4-7
+    swe_pro:
+    - value: '64.3'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    terminal_bench_2_1:
+    - value: '66.1'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    finance_agent_v1:
+    - value: '64.4'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    finance_agent_v2:
+    - value: '51.5'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    cybergym:
+    - value: '73.1'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    structural_biology:
+    - value: '74.0'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    vending_bench_2:
+    - value: '10937'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    officeqa_pro:
+    - value: '65.0'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    swe_bench_multimodal:
+    - value: '34.5'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
 - company: Anthropic
   model: Claude Opus 4.6
   mode: Max
   released: ''
   sources:
+  - label: Claude Opus 4.6 announcement
+    url: https://www.anthropic.com/news/claude-opus-4-6
   - label: Qwen3.7 report
     url: https://qwen.ai/blog?id=qwen3.7
   - label: DeepSeek-V4 preview report
@@ -5268,11 +5378,95 @@ rows:
     - value: '47.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gdpval_aa:
+    - value: '1606'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    browsecomp:
+    - value: '84.0'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    osworld_verified:
+    - value: '72.7'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mcp_atlas:
+    - value: '59.5'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    hle:
+    - value: '40.0'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    hle_tools:
+    - value: '53.1'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    finance_agent_v1:
+    - value: '60.7'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    arc_agi_2:
+    - value: '68.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    gpqa:
+    - value: '91.3'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mmmu_pro:
+    - value: '73.9'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mmmlu:
+    - value: '91.1'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mrcr_v2_8_needle:
+    - value: '93.0'
+      source_label: Opus 4.6 (256k)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mrcr_v2_128k:
+    - value: '76.0'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    graphwalks_parents_128k:
+    - value: '72.0'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    graphwalks_bfs_128k:
+    - value: '38.7'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    openrca:
+    - value: '34.9'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    swe_multilingual:
+    - value: '77.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    vending_bench_2:
+    - value: '8017.59'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    cybergym:
+    - value: '66.6'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    biopipelinebench:
+    - value: '53.1'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: Anthropic
   model: Claude Opus 4.5
   mode: ''
-  released: ''
+  released: '2025-11-24'
   sources:
+  - label: Claude Opus 4.5 announcement
+    url: https://www.anthropic.com/news/claude-opus-4-5
+  - label: Claude Opus 4.6 announcement
+    url: https://www.anthropic.com/news/claude-opus-4-6
   - label: Qwen3.6-Plus report
     url: https://qwen.ai/blog?id=qwen3.6
   - label: Seed2.0 model card
@@ -6015,6 +6209,82 @@ rows:
     - value: '21.3'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    osworld_verified:
+    - value: '66.3'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    mcp_atlas:
+    - value: '62.3'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    arc_agi_2:
+    - value: '37.6'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    gpqa:
+    - value: '87.0'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    mmmu:
+    - value: '80.7'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    mmmlu:
+    - value: '90.8'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    aider_polyglot:
+    - value: '89.4'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    browsecomp_plus:
+    - value: '72.9'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    vending_bench:
+    - value: '4967.06'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    gdpval_aa:
+    - value: '1416'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    browsecomp:
+    - value: '67.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    hle:
+    - value: '30.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    hle_tools:
+    - value: '43.4'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    finance_agent_v1:
+    - value: '55.9'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mmmu_pro:
+    - value: '70.6'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    openrca:
+    - value: '26.9'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    vending_bench_2:
+    - value: '4967.06'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    cybergym:
+    - value: '51.0'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    biopipelinebench:
+    - value: '28.5'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: Anthropic
   model: Claude Sonnet 4.6
   mode: ''
@@ -6454,6 +6724,50 @@ rows:
     - value: '63.4'
       source_label: Sonnet 4.6
       source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    aider_polyglot:
+    - value: '78.8'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    browsecomp_plus:
+    - value: '67.2'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    vending_bench:
+    - value: '3849.74'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
+    vending_bench_2:
+    - value: '3838.74'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    openrca:
+    - value: '12.9'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    cybergym:
+    - value: '29.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    biopipelinebench:
+    - value: '19.3'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mrcr_v2_8_needle:
+    - value: '10.8'
+      source_label: Opus 4.6 (256k)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    mrcr_v2_128k:
+    - value: '18.5'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    graphwalks_parents_128k:
+    - value: '50.2'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    graphwalks_bfs_128k:
+    - value: '25.6'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
