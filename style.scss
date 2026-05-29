@@ -447,6 +447,91 @@ hr {
 .llm-board-table-wrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+}
+
+.llm-board-top-scrollbar {
+  position: sticky;
+  top: 72px;
+  z-index: 35;
+  display: none;
+  padding: 0 0 8px;
+  margin-bottom: 2px;
+  pointer-events: none;
+}
+
+.llm-board-top-scrollbar.is-visible {
+  display: block;
+}
+
+.llm-board-top-scrollbar-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(244, 239, 231, 0.96);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 28px rgba(25, 25, 24, 0.08);
+  pointer-events: auto;
+}
+
+.llm-board-top-scrollbar-track::-webkit-scrollbar {
+  height: 12px;
+}
+
+.llm-board-top-scrollbar-track::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(199, 132, 98, 0.9);
+}
+
+.llm-board-top-scrollbar-track::-webkit-scrollbar-track {
+  background: rgba(244, 239, 231, 0.96);
+  border-radius: 999px;
+}
+
+.llm-board-top-scrollbar-inner {
+  height: 1px;
+}
+
+.llm-board-sticky-head {
+  position: sticky;
+  top: 136px;
+  z-index: 34;
+  display: none;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 14px 30px rgba(25, 25, 24, 0.08);
+}
+
+.llm-board-sticky-head.is-visible {
+  display: block;
+}
+
+.llm-board-sticky-head-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.llm-board-sticky-head-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.llm-board-sticky-head-table {
+  margin: 0;
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.llm-board-sticky-head-table thead th {
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: none;
+}
+
+.llm-board-sticky-head-table tbody {
+  display: none;
 }
 
 .llm-board-table {

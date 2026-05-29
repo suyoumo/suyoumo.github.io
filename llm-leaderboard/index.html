@@ -40,13 +40,23 @@ permalink: /llm-leaderboard/
       </div>
     </div>
 
-    <div class="llm-board-table-card">
+    <div class="llm-board-table-card" id="llm-board-card">
       <div class="llm-board-table-meta">
         <span>包含报告中的目标模型与对比模型；横向滚动查看全部 benchmark</span>
         <span>Different scores from different reports are stacked in one cell.</span>
       </div>
-      <div class="llm-board-table-wrap">
-        <table class="llm-board-table">
+      <div class="llm-board-top-scrollbar" id="llm-board-top-scrollbar" hidden aria-hidden="true">
+        <div class="llm-board-top-scrollbar-track" id="llm-board-top-scrollbar-track">
+          <div class="llm-board-top-scrollbar-inner" id="llm-board-top-scrollbar-inner"></div>
+        </div>
+      </div>
+      <div class="llm-board-sticky-head" id="llm-board-sticky-head" hidden aria-hidden="true">
+        <div class="llm-board-sticky-head-viewport" id="llm-board-sticky-head-viewport">
+          <table class="llm-board-table llm-board-sticky-head-table" id="llm-board-sticky-head-table" aria-hidden="true"></table>
+        </div>
+      </div>
+      <div class="llm-board-table-wrap" id="llm-board-table-wrap">
+        <table class="llm-board-table" id="llm-board-table">
           <thead>
             <tr>
               <th class="llm-sticky-col" rowspan="2">Model</th>
@@ -113,3 +123,5 @@ permalink: /llm-leaderboard/
     </div>
   </div>
 </section>
+
+<script src="{{ '/assets/js/llm-leaderboard.js' | relative_url }}" defer></script>
