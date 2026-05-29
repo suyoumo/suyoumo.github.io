@@ -171,6 +171,10 @@ categories:
     label: SWE-bench Multimodal
   - key: openrca
     label: OpenRCA
+  - key: expert_swe
+    label: Expert-SWE
+  - key: livecodebench_pro
+    label: LiveCodeBench Pro
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -233,6 +237,16 @@ categories:
     label: BioPipelineBench
   - key: structural_biology
     label: Structural Biology
+  - key: gdpval_winrate
+    label: GDPval Win-or-Tie
+  - key: ib_spreadsheet
+    label: IB Spreadsheet
+  - key: cybersecurity_ctf
+    label: Cybersecurity CTF
+  - key: browsecomp_lc_128k
+    label: BrowseComp LC 128k
+  - key: browsecomp_lc_256k
+    label: BrowseComp LC 256k
 - name: Knowledge & Reasoning
   columns:
   - key: mmlu_pro
@@ -349,6 +363,16 @@ categories:
     label: MATHQA
   - key: svamp
     label: SVAMP
+  - key: frontiermath_t13
+    label: FrontierMath T1-3
+  - key: frontiermath_t4
+    label: FrontierMath T4
+  - key: arena_ai_text
+    label: Arena AI (text)
+  - key: facts_grounding
+    label: FACTS Grounding
+  - key: facts_suite
+    label: FACTS Suite
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -363,6 +387,18 @@ categories:
     label: LongBench v2
   - key: cl_bench_life
     label: CLBench-life
+  - key: mrcr_v2_4_8k
+    label: MRCRv2 8N 4-8k
+  - key: mrcr_v2_8_16k
+    label: MRCRv2 8N 8-16k
+  - key: mrcr_v2_16_32k
+    label: MRCRv2 8N 16-32k
+  - key: mrcr_v2_32_64k
+    label: MRCRv2 8N 32-64k
+  - key: mrcr_v2_64_128k
+    label: MRCRv2 8N 64-128k
+  - key: mrcr_v2_128_256k
+    label: MRCRv2 8N 128-256k
 - name: Instruction & Multilingual
   columns:
   - key: ifeval
@@ -391,6 +427,8 @@ categories:
     label: Global PIQA
   - key: polymath
     label: PolyMATH
+  - key: global_mmlu_lite
+    label: Global MMLU (Lite)
 - name: Multimodal
   columns:
   - key: mmmu
@@ -7234,6 +7272,18 @@ rows:
     - value: '98.0'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    expert_swe:
+    - value: '73.1'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    gdpval_winrate:
+    - value: '84.9'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    ib_spreadsheet:
+    - value: '88.5'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -7352,6 +7402,26 @@ rows:
     - value: '92.8'
       source_label: GPT-5.4
       source_url: https://openai.com/index/gpt-5-4/
+    expert_swe:
+    - value: '68.5'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    gdpval_winrate:
+    - value: '83.0'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    ib_spreadsheet:
+    - value: '87.3'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    frontiermath_t13:
+    - value: '47.6'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    frontiermath_t4:
+    - value: '27.1'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
 - company: OpenAI
   model: GPT-5.3-Codex
   mode: xHigh
@@ -7378,6 +7448,14 @@ rows:
       source_url: https://openai.com/index/gpt-5-3-codex/
     swe_lancer:
     - value: '81.4'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    cybersecurity_ctf:
+    - value: '77.6'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    gdpval_winrate:
+    - value: '70.9'
       source_label: GPT-5.3
       source_url: https://openai.com/index/gpt-5-3-codex/
 - company: OpenAI
@@ -7963,6 +8041,54 @@ rows:
       source_url: https://openai.com/index/gpt-5-2/
     osworld_verified:
     - value: '47.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    gdpval_winrate:
+    - value: '70.9'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    ib_spreadsheet:
+    - value: '68.4'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    frontiermath_t13:
+    - value: '40.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    frontiermath_t4:
+    - value: '14.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    browsecomp_lc_128k:
+    - value: '92.0'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    browsecomp_lc_256k:
+    - value: '89.8'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_4_8k:
+    - value: '98.2'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_8_16k:
+    - value: '89.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_16_32k:
+    - value: '95.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_32_64k:
+    - value: '92.0'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_64_128k:
+    - value: '85.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_128_256k:
+    - value: '77.0'
       source_label: GPT-5.2
       source_url: https://openai.com/index/gpt-5-2/
 - company: OpenAI
@@ -8570,6 +8696,10 @@ rows:
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     mrcr_v2_128k:
     - value: '84.9'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    livecodebench_pro:
+    - value: '2887'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
 - company: Google
@@ -9569,6 +9699,14 @@ rows:
     - value: '67.2'
       source_label: Gemini 3 Flash
       source_url: https://deepmind.google/models/gemini/flash/
+    livecodebench_pro:
+    - value: '2316'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    facts_suite:
+    - value: '61.9'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
 - company: Google
   model: Gemini 3 Pro
   mode: ''
@@ -9923,6 +10061,14 @@ rows:
     - value: '21.0'
       source_label: Gemini 2.5 Flash
       source_url: https://deepmind.google/models/gemini/flash/
+    facts_grounding:
+    - value: '85.3'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    global_mmlu_lite:
+    - value: '88.4'
+      source_label: Gemini 2.5 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
 - company: Google
   model: Gemini 3.5 Flash
   mode: High
@@ -10033,6 +10179,10 @@ rows:
       source_url: https://deepmind.google/models/gemma/
     tau2_bench_retail:
     - value: '86.4'
+      source_label: Gemma 4
+      source_url: https://deepmind.google/models/gemma/
+    arena_ai_text:
+    - value: '1452'
       source_label: Gemma 4
       source_url: https://deepmind.google/models/gemma/
 - company: Moonshot
