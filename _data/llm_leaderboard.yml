@@ -91,7 +91,7 @@ sources:
 - id: gemini35flash
   label: Gemini 3.5 Flash report
   short_label: Gemini 3.5 Flash
-  url: https://deepmind.google/models/gemini/flash/
+  url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
 - id: gemma4
   label: Gemma 4 report
   short_label: Gemma 4
@@ -773,6 +773,8 @@ categories:
     label: WorldVQA
   - key: bc_vl
     label: BC-VL
+  - key: blueprint_bench_2
+    label: Blueprint-Bench 2
   - key: infovqa_val
     label: InfoVQA (val)
   - key: zerobench_main_tools
@@ -5990,11 +5992,11 @@ rows:
       source_label: MiMo-V2.5-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
     hle:
-    - value: '48.0'
+    - value: '40.0'
       source_label: MiMo-V2.5-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
     hle_tools:
-    - value: '40.0'
+    - value: '48.0'
       source_label: MiMo-V2.5-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
     mimo_coding_bench:
@@ -6103,6 +6105,10 @@ rows:
       source_url: https://github.com/XiaomiMiMo/MiMo
     arena_hard_creative:
     - value: '86.2'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mrcr_v2_128k:
+    - value: '45.7'
       source_label: MiMo-V2-Flash
       source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
@@ -8756,6 +8762,14 @@ rows:
     - value: '88.5'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    finance_agent_v1:
+    - value: '60.0'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    officeqa_pro:
+    - value: '54.1'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -8892,6 +8906,14 @@ rows:
       source_url: https://openai.com/index/gpt-5-4/
     frontiermath_t4:
     - value: '27.1'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    finance_agent_v1:
+    - value: '56.0'
+      source_label: GPT-5.4
+      source_url: https://openai.com/index/gpt-5-4/
+    officeqa_pro:
+    - value: '53.2'
       source_label: GPT-5.4
       source_url: https://openai.com/index/gpt-5-4/
 - company: OpenAI
@@ -11547,80 +11569,64 @@ rows:
   released: '2026-04-15'
   sources:
   - label: Gemini 3.5 Flash report
-    url: https://deepmind.google/models/gemini/flash/
+    url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
   scores:
-    hle:
-    - value: '44.4'
+    terminal_bench_2_1:
+    - value: '76.2'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    hle_tools:
-    - value: '51.4'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    arc_agi_2:
-    - value: '77.1'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    gpqa:
-    - value: '94.3'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    terminal_bench_2:
-    - value: '68.5'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    swe_verified:
-    - value: '80.6'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
     swe_pro:
-    - value: '54.2'
+    - value: '55.1'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    scicode:
-    - value: '59'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    apex:
-    - value: '33.5'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    gdpval_aa:
-    - value: '1317'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    tau2_bench_retail:
-    - value: '90.8'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    tau2_bench_telecom:
-    - value: '99.3'
-      source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
     mcp_atlas:
-    - value: '69.2'
+    - value: '83.6'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    browsecomp:
-    - value: '85.9'
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    toolathlon:
+    - value: '56.5'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    osworld_verified:
+    - value: '78.4'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    finance_agent_v2:
+    - value: '57.9'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    gdpval_aa:
+    - value: '1656'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    charxiv_rq:
+    - value: '84.2'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
     mmmu_pro:
-    - value: '80.5'
+    - value: '83.6'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mmmlu:
-    - value: '92.6'
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    blueprint_bench_2:
+    - value: '33.6'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
     mrcr_v2_128k:
-    - value: '84.9'
+    - value: '77.3'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
     mrcr_1m:
-    - value: '26.3'
+    - value: '26.6'
       source_label: Gemini 3.5 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    hle:
+    - value: '40.2'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    arc_agi_2:
+    - value: '72.1'
+      source_label: Gemini 3.5 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
 - company: Google
   model: Gemma 4 31B IT
   mode: High
