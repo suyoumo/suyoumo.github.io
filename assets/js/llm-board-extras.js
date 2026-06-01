@@ -168,6 +168,13 @@
 
     function buildBenchesPanel() {
       const body = document.getElementById('llm-board-filter-benches-body');
+      // Same natural-sort comparator as the chart dropdown.
+      function bSortKey(label) {
+        return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+      }
+      function bCmp(a, b) {
+        return bSortKey(a.label).localeCompare(bSortKey(b.label), 'en', { numeric: true, sensitivity: 'base' });
+      }
       const frag = document.createDocumentFragment();
       (board.categories || []).forEach(function (cat) {
         const grp = document.createElement('div');
@@ -195,7 +202,14 @@
         grp.appendChild(head);
         const list = document.createElement('div');
         list.className = 'llm-board-filter-group-items';
-        (cat.columns || []).forEach(function (col) {
+        // Sort columns alphabetically within this category, with the
+        // same punctuation-normalised, numeric-aware comparator we use
+        // for the chart dropdown so "Terminal-Bench 2.0",
+        // "Terminal-Bench 2.0 (Claude Code)" and "Terminal-Bench 2.1"
+        // all sort together instead of being scattered around by yml
+        // insertion order.
+        const sortedCols = (cat.columns || []).slice().sort(bCmp);
+        sortedCols.forEach(function (col) {
           const lab = document.createElement('label');
           lab.className = 'llm-board-filter-item';
           lab.dataset.searchKey = (col.label + ' ' + col.key).toLowerCase();
@@ -288,6 +302,18 @@
           gth.colSpan = cnt;
         }
       });
+
+      // Adjust the table's min-width to match the count of visible
+      // columns. Without this, the hard-coded 7600px in the CSS keeps
+      // the table that wide even when most benchmarks are hidden, and
+      // the sticky Model column expands to fill, blowing it out across
+      // the viewport.
+      const totalCols = 4 + visibleBenches;
+      // ~200px for Model + Mode + Released + Source averaged at 120px,
+      // bench cells min-width 106px from CSS. Round up a bit so cells
+      // aren't squashed.
+      const targetMinWidth = Math.max(640, 200 + 120 * 3 + 110 * visibleBenches);
+      if (table) table.style.minWidth = targetMinWidth + 'px';
 
       // Update counters
       if (modelsCountEl) {
