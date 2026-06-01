@@ -373,8 +373,12 @@ categories:
     label: PinchBench
   - key: deepsearch_qa
     label: DeepSearch QA-F1
+  - key: deepsearch_qa_ctx
+    label: DeepSearch QA-F1 (w/ctx)
   - key: gdpval_mm
     label: GDPval-MM
+  - key: gdpval_aa_pct
+    label: GDPval-AA (percentage)
   - key: gaia
     label: GAIA
   - key: xbench_deepsearch
@@ -6175,6 +6179,10 @@ rows:
     - value: '50'
       source_label: MiniMax M2.7
       source_url: https://www.minimaxi.com/
+    gdpval_aa_pct:
+    - value: '50'
+      source_label: MiniMax M2.7
+      source_url: https://www.minimaxi.com/
 - company: MiniMax
   model: MiniMax-M2.5
   mode: Thinking
@@ -6197,10 +6205,6 @@ rows:
       source_url: https://www.minimaxi.com/
     vibe_pro:
     - value: '54.2'
-      source_label: MiniMax M2.5
-      source_url: https://www.minimaxi.com/
-    browsecomp:
-    - value: '76.3'
       source_label: MiniMax M2.5
       source_url: https://www.minimaxi.com/
     bfcl_v4:
@@ -6297,6 +6301,10 @@ rows:
       source_url: https://www.minimaxi.com/
     artificial_analysis:
     - value: '42'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    gdpval_aa_pct:
+    - value: '35'
       source_label: MiniMax M2.5
       source_url: https://www.minimaxi.com/
 - company: MiniMax
@@ -6468,6 +6476,10 @@ rows:
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
     deepsearch_qa:
+    - value: '81.7'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    deepsearch_qa_ctx:
     - value: '92.8'
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
@@ -6509,10 +6521,6 @@ rows:
       source_url: https://stepfun.com/
     gaia:
     - value: '84.5'
-      source_label: Step 3.5 Flash
-      source_url: https://stepfun.com/
-    xbench_deepsearch:
-    - value: '83.7'
       source_label: Step 3.5 Flash
       source_url: https://stepfun.com/
     researchrubrics:
