@@ -40,6 +40,15 @@ permalink: /llm-leaderboard/
       </div>
     </div>
 
+    <div class="llm-board-toolbar" id="llm-board-toolbar">
+      <label class="llm-board-filter-label">
+        <span>Filter models</span>
+        <input type="search" id="llm-board-filter" placeholder="模型名 / 厂商" autocomplete="off" />
+      </label>
+      <span class="llm-board-filter-counter" id="llm-board-filter-counter" aria-live="polite"></span>
+      <button class="llm-board-filter-reset" id="llm-board-filter-reset" type="button">Reset</button>
+    </div>
+
     <div class="llm-board-table-card" id="llm-board-card">
       <div class="llm-board-table-meta">
         <span>包含报告中的目标模型与对比模型；横向滚动查看全部 benchmark</span>
@@ -164,7 +173,37 @@ permalink: /llm-leaderboard/
       <h2>Notes</h2>
       <p>同一模型与模式只保留一行；同一个 benchmark 如果在多个报告中出现不同分数，会在同一个单元格内纵向列出并链接到对应来源。多个报告给出相同分数时只保留一个分数。不同报告可能使用不同 harness 或 metric，表格用来源链接保留上下文。</p>
     </div>
+
+    <div class="llm-chart-card" id="llm-chart-card">
+      <div class="llm-chart-head">
+        <div class="llm-chart-copy">
+          <p class="llm-board-kicker">Per-benchmark</p>
+          <h2>Pick a benchmark, rank the models</h2>
+          <p>选一个 benchmark，下面会按分数排序展示所有报告里有该 benchmark 分数的模型。同一模型多份报告时取最高的一份。</p>
+        </div>
+        <div class="llm-chart-toolbar">
+          <label class="llm-chart-filter">
+            <span>Benchmark</span>
+            <select id="llm-chart-benchmark"></select>
+          </label>
+          <label class="llm-chart-filter llm-chart-filter-compact">
+            <span>View</span>
+            <select id="llm-chart-limit">
+              <option value="10">Top 10</option>
+              <option value="20" selected>Top 20</option>
+              <option value="50">Top 50</option>
+              <option value="all">All</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="llm-chart-empty" id="llm-chart-empty" hidden>No models have a recorded score for this benchmark.</div>
+      <div class="llm-chart-bars" id="llm-chart-bars"></div>
+    </div>
   </div>
 </section>
 
+<script id="llm-board-data" type="application/json">{{ board | jsonify }}</script>
+
 <script src="{{ '/assets/js/llm-leaderboard.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/llm-board-extras.js' | relative_url }}" defer></script>

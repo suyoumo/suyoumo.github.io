@@ -817,6 +817,310 @@ hr {
   }
 }
 
+/* ========== Filter toolbar (above table) ========== */
+.llm-board-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(60, 42, 28, 0.04);
+  flex-wrap: wrap;
+}
+
+.llm-board-filter-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  > span {
+    color: $gray;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  input {
+    flex: 1 1 220px;
+    min-width: 0;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(245, 240, 234, 0.55);
+    color: $black;
+    font-family: $sans;
+    font-size: 0.92rem;
+    transition: border-color 0.15s ease, background 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: rgba(196, 90, 60, 0.45);
+      background: rgba(255, 255, 255, 0.96);
+    }
+  }
+}
+
+.llm-board-filter-counter {
+  color: $primary;
+  font-family: $sans;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.llm-board-filter-reset {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  color: $darkGray;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: $sans;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: rgba(196, 90, 60, 0.1);
+    color: $primary;
+    border-color: rgba(196, 90, 60, 0.32);
+  }
+}
+
+/* ========== Per-benchmark bar chart ========== */
+.llm-chart-card {
+  margin-top: 32px;
+  padding: 24px 26px 32px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(60, 42, 28, 0.07);
+}
+
+.llm-chart-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  h2 {
+    margin: 0 0 8px;
+    font-family: $sans;
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: $black;
+  }
+
+  p {
+    margin: 0;
+    color: $gray;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 640px;
+  }
+}
+
+.llm-chart-copy {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.llm-chart-toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.llm-chart-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+
+  span {
+    color: $gray;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  select {
+    appearance: none;
+    width: 100%;
+    padding: 10px 36px 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(245, 240, 234, 0.6) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236b6b65' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 12px center;
+    color: $black;
+    font-family: $sans;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: rgba(196, 90, 60, 0.45);
+    }
+  }
+}
+
+.llm-chart-filter-compact {
+  min-width: 140px;
+}
+
+.llm-chart-empty {
+  padding: 28px;
+  text-align: center;
+  color: $gray;
+  font-size: 0.9rem;
+}
+
+.llm-chart-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.llm-chart-item {
+  display: grid;
+  grid-template-columns: 36px minmax(150px, 220px) 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: rgba(245, 240, 234, 0.45);
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    background: rgba(196, 90, 60, 0.08);
+    transform: translateX(2px);
+  }
+}
+
+.llm-chart-rank {
+  color: $primary;
+  font-family: $sans;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.llm-chart-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-family: $sans;
+  min-width: 0;
+
+  strong {
+    color: $black;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  > span {
+    color: $gray;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.llm-chart-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  overflow: visible;
+}
+
+.llm-chart-fill {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #c45a3c 0%, #a84a31 100%);
+  box-shadow: 0 2px 6px rgba(196, 90, 60, 0.18);
+  transition: width 0.28s ease;
+}
+
+.llm-chart-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $black;
+  font-family: $sans;
+  font-size: 0.95rem;
+  font-weight: 800;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
+}
+
+.llm-chart-meta {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  color: $primary;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+@include mobile {
+  .llm-board-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .llm-board-filter-label {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .llm-chart-card {
+    padding: 18px;
+  }
+
+  .llm-chart-item {
+    grid-template-columns: 30px minmax(120px, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: 8px;
+  }
+
+  .llm-chart-bar {
+    grid-column: 1 / -1;
+  }
+}
+
 @include mobile {
   .llm-board-page {
     padding-top: 32px;
