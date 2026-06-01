@@ -710,6 +710,67 @@
     const showAllToggle = document.getElementById('llm-progress-show-all');
     const sortSelect = document.getElementById('llm-progress-sort');
 
+    // Shared, instant-show tooltip for velocity-chart dots. Native
+    // title= has a 1-2s OS delay; this one fires on mouseenter so the
+    // model name + score + release date appear immediately.
+    let progressTip = document.getElementById('llm-progress-tip');
+    if (!progressTip) {
+      progressTip = document.createElement('div');
+      progressTip.id = 'llm-progress-tip';
+      progressTip.className = 'llm-progress-tip';
+      progressTip.hidden = true;
+      document.body.appendChild(progressTip);
+    }
+    function fmtDateNice(d) {
+      if (!d || isNaN(d.getTime())) return '';
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function fmtYearMonth(d) {
+      if (!d || isNaN(d.getTime())) return '';
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    }
+    function showProgressTip(target, info, color) {
+      progressTip.innerHTML = '';
+      const head = document.createElement('div');
+      head.className = 'llm-progress-tip-head';
+      const swatch = document.createElement('span');
+      swatch.className = 'llm-progress-tip-swatch';
+      swatch.style.background = color || '#888';
+      const name = document.createElement('strong');
+      name.textContent = info.model;
+      head.appendChild(swatch);
+      head.appendChild(name);
+      progressTip.appendChild(head);
+      const body = document.createElement('div');
+      body.className = 'llm-progress-tip-body';
+      const scoreLine = document.createElement('div');
+      scoreLine.innerHTML = '<span>score</span> <strong>' + (Math.round(info.score * 100) / 100) + '</strong>';
+      const dateLine = document.createElement('div');
+      dateLine.innerHTML = '<span>released</span> <strong>' + fmtDateNice(info.date) + '</strong>';
+      body.appendChild(scoreLine);
+      body.appendChild(dateLine);
+      if (info.frontier) {
+        const tag = document.createElement('div');
+        tag.className = 'llm-progress-tip-tag';
+        tag.textContent = 'frontier';
+        body.appendChild(tag);
+      }
+      progressTip.appendChild(body);
+      progressTip.hidden = false;
+      // Position next to the dot, clamped to viewport
+      const rect = target.getBoundingClientRect();
+      const tipRect = progressTip.getBoundingClientRect();
+      let left = rect.left + rect.width / 2 - tipRect.width / 2 + window.scrollX;
+      let top = rect.top - tipRect.height - 10 + window.scrollY;
+      if (top < window.scrollY + 4) top = rect.bottom + 10 + window.scrollY;
+      const maxLeft = window.scrollX + window.innerWidth - tipRect.width - 8;
+      if (left > maxLeft) left = maxLeft;
+      if (left < window.scrollX + 8) left = window.scrollX + 8;
+      progressTip.style.left = left + 'px';
+      progressTip.style.top = top + 'px';
+    }
+    function hideProgressTip() { progressTip.hidden = true; }
+
     const companyColors = {
       'Anthropic': '#c45a3c',
       'OpenAI':    '#4f9850',
@@ -895,7 +956,8 @@
             dot.className = 'llm-progress-dot llm-progress-dot-faint';
             dot.style.left = pct(r.score) + '%';
             dot.style.background = color;
-            dot.title = r.model + ' · ' + r.score;
+            dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
+            dot.addEventListener('mouseleave', hideProgressTip);
             track.appendChild(dot);
           });
         }
@@ -907,7 +969,8 @@
           if (idx === d.frontier.length - 1) dot.classList.add('llm-progress-dot-final');
           dot.style.left = pct(r.score) + '%';
           dot.style.background = color;
-          dot.title = r.model + ' · ' + r.score;
+          dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
+          dot.addEventListener('mouseleave', hideProgressTip);
           // Inline label for the final dot
           if (idx === d.frontier.length - 1) {
             const lab = document.createElement('span');
@@ -935,8 +998,20 @@
         } else {
           subEl.textContent = '';
         }
+        // Date range row (e.g. 2025-07 → 2026-04). Makes it obvious
+        // when two families' velocities were measured over completely
+        // different windows — comparing "+5/mo in 2025-Q3" vs
+        // "+5/mo in 2026-Q1" is otherwise misleading.
+        const dateEl = document.createElement('span');
+        dateEl.className = 'llm-progress-row-dates';
+        if (d.first && d.last && d.first !== d.last) {
+          dateEl.textContent = fmtYearMonth(d.first.date) + ' → ' + fmtYearMonth(d.last.date);
+        } else if (d.last) {
+          dateEl.textContent = fmtYearMonth(d.last.date);
+        }
         stats.appendChild(veloEl);
         stats.appendChild(subEl);
+        if (dateEl.textContent) stats.appendChild(dateEl);
         head.appendChild(stats);
 
         row.appendChild(head);
