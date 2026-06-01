@@ -211,6 +211,12 @@ categories:
     label: Expert-SWE
   - key: livecodebench_pro
     label: LiveCodeBench Pro
+  - key: mimo_coding_bench
+    label: MiMo Coding Bench
+  - key: frontiersweimpl
+    label: FrontierSWE (rank)
+  - key: claw_eval_text
+    label: Claw-Eval Text
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -283,6 +289,10 @@ categories:
     label: BrowseComp LC 128k
   - key: browsecomp_lc_256k
     label: BrowseComp LC 256k
+  - key: pinchbench
+    label: PinchBench
+  - key: deepsearch_qa
+    label: DeepSearch QA-F1
 - name: Knowledge & Reasoning
   columns:
   - key: mmlu_pro
@@ -409,6 +419,12 @@ categories:
     label: FACTS Grounding
   - key: facts_suite
     label: FACTS Suite
+  - key: codeforces_percentile
+    label: Codeforces (percentile)
+  - key: arena_hard
+    label: Arena-Hard
+  - key: arena_hard_creative
+    label: Arena-Hard (Creative)
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -529,6 +545,8 @@ categories:
     label: TIR-Bench
   - key: osworld_verified
     label: OSWorld-Verified
+  - key: futureomni
+    label: FutureOmni
 - name: Generation
   columns:
   - key: geneval
@@ -579,6 +597,10 @@ categories:
     label: VocalSound
   - key: seed_tts_zh_en
     label: SEED-TTS (zh/en)↓
+  - key: mmau_pro
+    label: MMAU-Pro
+  - key: bigbench_audio
+    label: BigBench Audio
 - name: Seed2.0 Vision & Video
   columns:
   - key: mathvista
@@ -5673,6 +5695,10 @@ rows:
     - value: '49.2'
       source_label: DeepSeek-R1
       source_url: https://github.com/deepseek-ai/DeepSeek-R1
+    codeforces_percentile:
+    - value: '96.3'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
 - company: MiMo
   model: MiMo-V2.5-Pro
   mode: Thinking
@@ -5709,6 +5735,14 @@ rows:
     - value: '40.0'
       source_label: MiMo-V2.5-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_coding_bench:
+    - value: '73.7'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    frontiersweimpl:
+    - value: '#3.4'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
   model: MiMo-V2.5
   mode: Thinking
@@ -5725,6 +5759,14 @@ rows:
     - value: '65.8'
       source_label: MiMo-V2.5
       source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_coding_bench:
+    - value: '71.8'
+      source_label: MiMo-V2.5
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    claw_eval_text:
+    - value: '62.3'
+      source_label: MiMo-V2.5
+      source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
   model: MiMo-V2-Omni
   mode: ''
@@ -5733,7 +5775,7 @@ rows:
   - label: MiMo-V2-Omni report
     url: https://github.com/XiaomiMiMo/MiMo
   scores:
-    mmau:
+    mmau_pro:
     - value: '69.4'
       source_label: MiMo-V2-Omni
       source_url: https://github.com/XiaomiMiMo/MiMo
@@ -5747,6 +5789,14 @@ rows:
       source_url: https://github.com/XiaomiMiMo/MiMo
     videomme_w_sub:
     - value: '85.3'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    bigbench_audio:
+    - value: '94.0'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    futureomni:
+    - value: '66.7'
       source_label: MiMo-V2-Omni
       source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
@@ -5785,6 +5835,14 @@ rows:
     - value: '60.6'
       source_label: MiMo-V2-Flash
       source_url: https://github.com/XiaomiMiMo/MiMo
+    arena_hard:
+    - value: '54.1'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    arena_hard_creative:
+    - value: '86.2'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
   model: MiMo-V2-Pro
   mode: Thinking
@@ -5815,6 +5873,14 @@ rows:
       source_url: https://github.com/XiaomiMiMo/MiMo
     terminal_bench_2:
     - value: '57.1'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    pinchbench:
+    - value: '81.0'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    deepsearch_qa:
+    - value: '86.7'
       source_label: MiMo-V2-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
 - company: Anthropic
