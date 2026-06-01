@@ -703,13 +703,13 @@
     });
     if (limitSelect) limitSelect.addEventListener('change', renderChart);
 
-    /* ============ Iteration-speed (frontier) chart ============ */
-    const progressContainer = document.getElementById('llm-progress-chart');
+    /* ============ Iteration-velocity chart ============ */
+    const progressRows = document.getElementById('llm-progress-rows');
     const progressEmpty = document.getElementById('llm-progress-empty');
     const progressLegend = document.getElementById('llm-progress-legend');
     const showAllToggle = document.getElementById('llm-progress-show-all');
+    const sortSelect = document.getElementById('llm-progress-sort');
 
-    // Fixed color per company; falls back to a small palette when unknown.
     const companyColors = {
       'Anthropic': '#c45a3c',
       'OpenAI':    '#4f9850',
@@ -737,7 +737,7 @@
       return progressFallbackPalette[h % progressFallbackPalette.length];
     }
 
-    function prepareProgressData(key) {
+    function prepareVelocityData(key) {
       const byCompany = new Map();
       (board.rows || []).forEach(function (row) {
         if (!row.released || row.released === '') return;
@@ -745,7 +745,6 @@
         if (isNaN(dt.getTime())) return;
         const arr = (row.scores || {})[key];
         if (!arr) return;
-        // Pick best numeric score (across modes/sources) for this row.
         let best = NaN;
         arr.forEach(function (s) {
           const v = parseScore(s.value);
@@ -753,49 +752,55 @@
         });
         if (isNaN(best)) return;
         if (!byCompany.has(row.company)) byCompany.set(row.company, []);
-        byCompany.get(row.company).push({
-          model: row.model,
-          date: dt,
-          score: best
-        });
+        byCompany.get(row.company).push({ model: row.model, date: dt, score: best });
       });
-      // Sort within each company and mark the frontier (cumulative max).
-      byCompany.forEach(function (list) {
+
+      const out = [];
+      byCompany.forEach(function (list, co) {
         list.sort(function (a, b) { return a.date - b.date; });
         let running = -Infinity;
         list.forEach(function (it) {
-          if (it.score > running) {
-            it.frontier = true;
-            running = it.score;
-          } else {
-            it.frontier = false;
-          }
+          if (it.score > running) { it.frontier = true; running = it.score; }
+          else { it.frontier = false; }
+        });
+        const frontier = list.filter(function (it) { return it.frontier; });
+        const first = frontier[0];
+        const last = frontier[frontier.length - 1];
+        const months = first && last && first !== last
+          ? (last.date - first.date) / (1000 * 60 * 60 * 24 * 30.44)
+          : 0;
+        const delta = last.score - first.score;
+        // Velocity in points per month. If only one frontier point, use 0
+        // (we still render the row to show the best score).
+        const velocity = months > 0 ? delta / months : 0;
+        out.push({
+          company: co,
+          releases: list,
+          frontier: frontier,
+          first: first,
+          last: last,
+          best: last ? last.score : 0,
+          minScore: list.length ? Math.min.apply(null, list.map(function (r) { return r.score; })) : 0,
+          months: months,
+          delta: delta,
+          velocity: velocity
         });
       });
-      return byCompany;
-    }
-
-    function svgEl(tag, attrs) {
-      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
-      if (attrs) Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
-      return el;
-    }
-
-    function fmtMonth(d) {
-      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      return out;
     }
 
     function renderProgressChart() {
-      if (!progressContainer) return;
+      if (!progressRows) return;
       const key = select.value;
       const showAll = showAllToggle && showAllToggle.checked;
-      const byCompany = prepareProgressData(key);
+      const sortMode = sortSelect ? sortSelect.value : 'velocity';
 
-      // Collect visible companies (legend toggle aware).
-      const companies = Array.from(byCompany.keys()).sort();
-      // Build legend regardless (so user can turn things back on).
+      const data = prepareVelocityData(key);
+
+      // Legend (built from all companies regardless of filter; click to toggle)
+      const allCompanies = data.map(function (d) { return d.company; }).sort();
       progressLegend.innerHTML = '';
-      companies.forEach(function (co) {
+      allCompanies.forEach(function (co) {
         const chip = document.createElement('button');
         chip.type = 'button';
         chip.className = 'llm-progress-legend-chip';
@@ -815,186 +820,133 @@
         progressLegend.appendChild(chip);
       });
 
-      // Filter out hidden companies.
-      const visibleByCompany = new Map();
-      byCompany.forEach(function (list, co) {
-        if (!hiddenCompanies.has(co)) visibleByCompany.set(co, list);
-      });
-
-      const allItems = [];
-      visibleByCompany.forEach(function (list) {
-        list.forEach(function (it) { allItems.push(it); });
-      });
-      if (!allItems.length) {
-        progressContainer.innerHTML = '';
+      // Filter to visible families
+      const visible = data.filter(function (d) { return !hiddenCompanies.has(d.company); });
+      if (!visible.length) {
+        progressRows.innerHTML = '';
         if (progressEmpty) progressEmpty.hidden = false;
         return;
       }
       if (progressEmpty) progressEmpty.hidden = true;
 
-      // X axis range: minDate to maxDate
-      const dates = allItems.map(function (i) { return i.date.getTime(); });
-      let minTs = Math.min.apply(null, dates);
-      let maxTs = Math.max.apply(null, dates);
-      // Add ~3% padding on each side so points don't touch the axis.
-      const tsPad = (maxTs - minTs) * 0.03 || 1000 * 60 * 60 * 24 * 14;
-      minTs -= tsPad;
-      maxTs += tsPad;
-
-      // Y axis range: from the frontier scores (or all scores if showAll).
-      const yScores = allItems.filter(function (it) { return showAll || it.frontier; }).map(function (it) { return it.score; });
-      let yMin = Math.min.apply(null, yScores);
-      let yMax = Math.max.apply(null, yScores);
-      if (!isFinite(yMin)) { yMin = 0; yMax = 100; }
-      const yPad = (yMax - yMin) * 0.15 || 5;
-      yMin = Math.max(0, yMin - yPad);
-      yMax = yMax + yPad;
-
-      // Round y axis to nicer numbers.
-      const niceStep = function (range) {
-        const rough = range / 4;
-        const mag = Math.pow(10, Math.floor(Math.log10(rough)));
-        const norm = rough / mag;
-        const step = norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10;
-        return step * mag;
-      };
-      const step = niceStep(yMax - yMin);
-      yMin = Math.floor(yMin / step) * step;
-      yMax = Math.ceil(yMax / step) * step;
-
-      // SVG sizing.
-      const W = Math.max(600, progressContainer.clientWidth || 800);
-      const H = 480;
-      const pad = { top: 24, right: 36, bottom: 56, left: 60 };
-
-      function x(ts) { return pad.left + ((ts - minTs) / (maxTs - minTs)) * (W - pad.left - pad.right); }
-      function y(s) { return pad.top + (1 - (s - yMin) / (yMax - yMin)) * (H - pad.top - pad.bottom); }
-
-      const svg = svgEl('svg', {
-        viewBox: '0 0 ' + W + ' ' + H,
-        preserveAspectRatio: 'xMidYMid meet',
-        width: '100%',
-        height: H + 'px',
-        class: 'llm-progress-svg'
+      // Sort
+      visible.sort(function (a, b) {
+        if (sortMode === 'best') return b.best - a.best;
+        if (sortMode === 'delta') return b.delta - a.delta;
+        return b.velocity - a.velocity;
       });
 
-      // Grid + Y axis labels
-      for (let v = yMin; v <= yMax + 0.01; v += step) {
-        const yy = y(v);
-        svg.appendChild(svgEl('line', {
-          x1: pad.left, x2: W - pad.right,
-          y1: yy, y2: yy,
-          stroke: 'rgba(0,0,0,0.06)', 'stroke-width': 1
-        }));
-        const txt = svgEl('text', {
-          x: pad.left - 8, y: yy + 4,
-          'text-anchor': 'end',
-          'font-size': 11, 'font-family': 'sans-serif',
-          fill: '#6b6b65'
-        });
-        txt.textContent = Math.round(v * 100) / 100;
-        svg.appendChild(txt);
-      }
+      // Normalise the X scale: 0 -> max(best across visible families, 100)
+      const trackMin = 0;
+      const trackMax = Math.max(100, Math.max.apply(null, visible.map(function (d) { return d.best; }) ));
 
-      // X axis labels: pick ~5 evenly spaced months.
-      const numTicks = 5;
-      for (let t = 0; t <= numTicks; t++) {
-        const tsVal = minTs + (maxTs - minTs) * t / numTicks;
-        const xx = x(tsVal);
-        svg.appendChild(svgEl('line', {
-          x1: xx, x2: xx,
-          y1: pad.top, y2: H - pad.bottom,
-          stroke: 'rgba(0,0,0,0.03)', 'stroke-width': 1
-        }));
-        const txt = svgEl('text', {
-          x: xx, y: H - pad.bottom + 18,
-          'text-anchor': 'middle',
-          'font-size': 11, 'font-family': 'sans-serif',
-          fill: '#6b6b65'
-        });
-        txt.textContent = fmtMonth(new Date(tsVal));
-        svg.appendChild(txt);
-      }
+      // Render
+      progressRows.innerHTML = '';
+      visible.forEach(function (d) {
+        const color = colorForCompany(d.company);
 
-      // Axis frame
-      svg.appendChild(svgEl('line', {
-        x1: pad.left, x2: W - pad.right,
-        y1: H - pad.bottom, y2: H - pad.bottom,
-        stroke: 'rgba(0,0,0,0.18)', 'stroke-width': 1
-      }));
-      svg.appendChild(svgEl('line', {
-        x1: pad.left, x2: pad.left,
-        y1: pad.top, y2: H - pad.bottom,
-        stroke: 'rgba(0,0,0,0.18)', 'stroke-width': 1
-      }));
+        const row = document.createElement('div');
+        row.className = 'llm-progress-row';
+        row.style.setProperty('--row-color', color);
 
-      // Lines + dots per company
-      visibleByCompany.forEach(function (list, company) {
-        const color = colorForCompany(company);
-        const frontier = list.filter(function (it) { return it.frontier; });
+        // Family name + count
+        const head = document.createElement('div');
+        head.className = 'llm-progress-row-head';
+        const nameWrap = document.createElement('div');
+        nameWrap.className = 'llm-progress-row-name';
+        const sw = document.createElement('span');
+        sw.className = 'llm-progress-row-swatch';
+        sw.style.background = color;
+        const nameStrong = document.createElement('strong');
+        nameStrong.textContent = d.company;
+        const nameSub = document.createElement('span');
+        nameSub.textContent = d.releases.length + ' release' + (d.releases.length === 1 ? '' : 's');
+        nameWrap.appendChild(sw);
+        nameWrap.appendChild(nameStrong);
+        nameWrap.appendChild(nameSub);
+        head.appendChild(nameWrap);
 
-        // Optional dim background dots for non-frontier releases.
+        // Track (background bar + filled segment + dots + final dot)
+        const track = document.createElement('div');
+        track.className = 'llm-progress-track';
+
+        const trackBg = document.createElement('div');
+        trackBg.className = 'llm-progress-track-bg';
+        track.appendChild(trackBg);
+
+        function pct(v) { return ((v - trackMin) / (trackMax - trackMin)) * 100; }
+
+        // Filled segment from family's minimum (or first) score → best
+        const fromPct = pct(d.first ? d.first.score : 0);
+        const toPct = pct(d.best);
+        if (toPct > fromPct) {
+          const fill = document.createElement('div');
+          fill.className = 'llm-progress-track-fill';
+          fill.style.left = fromPct + '%';
+          fill.style.width = (toPct - fromPct) + '%';
+          fill.style.background = color;
+          track.appendChild(fill);
+        }
+
+        // Non-frontier dots (only when toggle on)
         if (showAll) {
-          list.filter(function (it) { return !it.frontier; }).forEach(function (it) {
-            svg.appendChild(svgEl('circle', {
-              cx: x(it.date.getTime()), cy: y(it.score), r: 3,
-              fill: color, 'fill-opacity': 0.28
-            }));
+          d.releases.filter(function (r) { return !r.frontier; }).forEach(function (r) {
+            const dot = document.createElement('span');
+            dot.className = 'llm-progress-dot llm-progress-dot-faint';
+            dot.style.left = pct(r.score) + '%';
+            dot.style.background = color;
+            dot.title = r.model + ' · ' + r.score;
+            track.appendChild(dot);
           });
         }
 
-        // Frontier polyline
-        if (frontier.length >= 2) {
-          const pts = frontier.map(function (it) { return x(it.date.getTime()) + ',' + y(it.score); }).join(' ');
-          svg.appendChild(svgEl('polyline', {
-            points: pts,
-            fill: 'none',
-            stroke: color,
-            'stroke-width': 2.4,
-            'stroke-linecap': 'round',
-            'stroke-linejoin': 'round'
-          }));
-        }
-
-        // Frontier dots + labels
-        frontier.forEach(function (it) {
-          const cx = x(it.date.getTime());
-          const cy = y(it.score);
-          svg.appendChild(svgEl('circle', {
-            cx: cx, cy: cy, r: 5,
-            fill: color,
-            stroke: '#fff', 'stroke-width': 2
-          }));
-          // Score above the dot
-          const valText = svgEl('text', {
-            x: cx, y: cy - 12,
-            'text-anchor': 'middle',
-            'font-size': 12, 'font-weight': 800,
-            'font-family': 'sans-serif',
-            fill: '#191918'
-          });
-          valText.textContent = Math.round(it.score * 100) / 100;
-          svg.appendChild(valText);
-          // Model name below the dot
-          const nameText = svgEl('text', {
-            x: cx, y: cy + 18,
-            'text-anchor': 'middle',
-            'font-size': 10, 'font-weight': 700,
-            'font-family': 'sans-serif',
-            fill: color
-          });
-          nameText.textContent = it.model;
-          svg.appendChild(nameText);
+        // Frontier dots
+        d.frontier.forEach(function (r, idx) {
+          const dot = document.createElement('span');
+          dot.className = 'llm-progress-dot';
+          if (idx === d.frontier.length - 1) dot.classList.add('llm-progress-dot-final');
+          dot.style.left = pct(r.score) + '%';
+          dot.style.background = color;
+          dot.title = r.model + ' · ' + r.score;
+          // Inline label for the final dot
+          if (idx === d.frontier.length - 1) {
+            const lab = document.createElement('span');
+            lab.className = 'llm-progress-dot-label';
+            lab.textContent = r.model + ' · ' + (Math.round(r.score * 100) / 100);
+            dot.appendChild(lab);
+          }
+          track.appendChild(dot);
         });
-      });
 
-      progressContainer.innerHTML = '';
-      progressContainer.appendChild(svg);
+        head.appendChild(track);
+
+        // Stats column
+        const stats = document.createElement('div');
+        stats.className = 'llm-progress-row-stats';
+        const velStr = (d.velocity > 0 ? '+' : '') + (Math.round(d.velocity * 100) / 100) + ' /mo';
+        const monthStr = d.months > 0 ? (Math.round(d.months * 10) / 10 + ' mo') : '—';
+        const veloEl = document.createElement('strong');
+        veloEl.textContent = d.velocity > 0 ? velStr : '—';
+        const subEl = document.createElement('span');
+        if (d.first && d.last && d.first !== d.last) {
+          subEl.textContent = (Math.round(d.first.score * 10) / 10) + ' → ' + (Math.round(d.last.score * 10) / 10) + ' · ' + monthStr;
+        } else if (d.last) {
+          subEl.textContent = 'only ' + d.last.model;
+        } else {
+          subEl.textContent = '';
+        }
+        stats.appendChild(veloEl);
+        stats.appendChild(subEl);
+        head.appendChild(stats);
+
+        row.appendChild(head);
+        progressRows.appendChild(row);
+      });
     }
 
     if (showAllToggle) showAllToggle.addEventListener('change', renderProgressChart);
+    if (sortSelect) sortSelect.addEventListener('change', renderProgressChart);
     window.addEventListener('resize', function () {
-      // Debounce reflow re-renders so a continuous drag isn't expensive.
       clearTimeout(renderProgressChart._t);
       renderProgressChart._t = setTimeout(renderProgressChart, 120);
     });
