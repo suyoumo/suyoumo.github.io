@@ -345,6 +345,8 @@ categories:
     label: MM-ClawBench
   - key: artificial_analysis
     label: Artificial Analysis
+  - key: terminal_bench_2_claude_code
+    label: Terminal-Bench 2.0 (Claude Code)
   - key: terminal_bench_hard
     label: Terminal-Bench Hard
   - key: oj_bench
@@ -611,6 +613,32 @@ categories:
     label: LIFEBench
   - key: arcprize
     label: ARCPrize
+  - key: hle_heavy
+    label: HLE (heavy)
+  - key: aime_2025_python
+    label: AIME 2025 (w/ Python)
+  - key: aime_2025_heavy
+    label: AIME 2025 (heavy)
+  - key: aime_2025_tools
+    label: AIME 2025 (w/ Tools)
+  - key: hmmt_2025_feb_python
+    label: HMMT 2025 Feb (w/ Python)
+  - key: hmmt_2025_feb_heavy
+    label: HMMT 2025 Feb (heavy)
+  - key: gpqa_tools
+    label: GPQA (w/ Tools)
+  - key: livecodebench_tools
+    label: LiveCodeBench (w/ Tools)
+  - key: browsecomp_tools
+    label: BrowseComp (w/ Tools)
+  - key: swe_verified_tools
+    label: SWE-Verified (w/ Tools)
+  - key: terminal_bench_2_tools
+    label: Terminal-Bench 2.0 (w/ Tools)
+  - key: tau2_bench_avg_tools
+    label: TAU2-Bench (w/ Tools)
+  - key: claw_eval_pass2
+    label: ClawEval (pass^2)
   - key: usamo_2026
     label: USAMO 2026
   - key: imo_2025
@@ -741,6 +769,10 @@ categories:
     label: WorldVQA
   - key: bc_vl
     label: BC-VL
+  - key: infovqa_val
+    label: InfoVQA (val)
+  - key: zerobench_main_tools
+    label: ZeroBench (w/tools)
 - name: Generation
   columns:
   - key: geneval
@@ -11595,10 +11627,16 @@ rows:
     - value: '66.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '66.7'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     swe_verified:
     - value: '80.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '80.2'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     swe_pro:
     - value: '59.5'
       source_label: Qwen3.7
@@ -11606,10 +11644,16 @@ rows:
     - value: '58.6'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '58.6'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     swe_multilingual:
     - value: '76.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '76.7'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     nl2repo:
     - value: '42.8'
       source_label: Qwen3.7
@@ -11618,6 +11662,9 @@ rows:
     - value: '52.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '52.2'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     qwen_svg:
     - value: '1325'
       source_label: Qwen3.7
@@ -11634,6 +11681,9 @@ rows:
     - value: '61.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '80.9'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     skillsbench:
     - value: '56.2'
       source_label: Qwen3.7
@@ -11646,6 +11696,9 @@ rows:
     - value: '55.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '55.9'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     mcp_atlas:
     - value: '66.6'
       source_label: Qwen3.7
@@ -11666,6 +11719,9 @@ rows:
     - value: '54.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '54.0'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     qwenworldbench:
     - value: '50.9'
       source_label: Qwen3.7
@@ -11698,6 +11754,9 @@ rows:
     - value: '24.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '27.9'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     mmlu_pro:
     - value: '87.1'
       source_label: Qwen3.7
@@ -11770,6 +11829,9 @@ rows:
     - value: '83.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '83.2'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     gdpval_aa:
     - value: '1482'
       source_label: DeepSeek-V4
@@ -11778,6 +11840,9 @@ rows:
     - value: '50.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '50.0'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
     deepsearch_qa:
     - value: '92.5'
       source_label: K2.6
@@ -11794,6 +11859,10 @@ rows:
     - value: '73.1'
       source_label: K2.6
       source_url: https://moonshotai.github.io/Kimi-K2/
+    claw_eval_pass3:
+    - value: '62.3'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
@@ -11806,14 +11875,23 @@ rows:
     - value: '76.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '76.8'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     swe_multilingual:
     - value: '73.0'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '73.0'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     swe_pro:
     - value: '53.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '50.7'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     terminal_bench_2:
     - value: '50.8'
       source_label: Qwen3.6
@@ -11870,6 +11948,9 @@ rows:
     - value: '50.2'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '50.2'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     widesearch:
     - value: '72.7'
       source_label: Qwen3.6
@@ -11878,6 +11959,9 @@ rows:
     - value: '87.1'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '87.1'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     mmlu_redux:
     - value: '94.5'
       source_label: Qwen3.6
@@ -11910,10 +11994,16 @@ rows:
     - value: '87.6'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '87.6'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     hle:
     - value: '30.1'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '30.1'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     livecodebench:
     - value: '85.0'
       source_label: Qwen3.6
@@ -11922,6 +12012,9 @@ rows:
     - value: '95.4'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '99.4'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     hmmt_2025_nov:
     - value: '91.1'
       source_label: Qwen3.6
@@ -11934,6 +12027,9 @@ rows:
     - value: '81.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '81.8'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     aime26:
     - value: '95.8'
       source_label: Qwen3.6
@@ -12098,6 +12194,22 @@ rows:
     - value: '75.9'
       source_label: K2.5
       source_url: https://moonshotai.github.io/Kimi-K2/
+    infovqa_val:
+    - value: '92.6'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    zerobench_main_tools:
+    - value: '11'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    aime_2025:
+    - value: '96.1'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    scicode:
+    - value: '48.7'
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
 - company: Moonshot
   model: Kimi K2 Thinking
   mode: Heavy
@@ -12194,6 +12306,26 @@ rows:
     - value: '47.1'
       source_label: K2 Thinking
       source_url: https://moonshotai.github.io/Kimi-K2/
+    hle_heavy:
+    - value: '51.0'
+      source_label: K2 Thinking
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    aime_2025_python:
+    - value: '99.1'
+      source_label: K2 Thinking
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    aime_2025_heavy:
+    - value: '100.0'
+      source_label: K2 Thinking
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    hmmt_2025_feb_python:
+    - value: '95.1'
+      source_label: K2 Thinking
+      source_url: https://moonshotai.github.io/Kimi-K2/
+    hmmt_2025_feb_heavy:
+    - value: '97.5'
+      source_label: K2 Thinking
+      source_url: https://moonshotai.github.io/Kimi-K2/
 - company: Zhipu AI
   model: GLM-5.1
   mode: Thinking
@@ -12208,6 +12340,9 @@ rows:
     - value: '63.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '63.5'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     swe_pro:
     - value: '58.8'
       source_label: Qwen3.7
@@ -12215,10 +12350,16 @@ rows:
     - value: '58.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '58.4'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     nl2repo:
     - value: '41.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '42.7'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     scicode:
     - value: '45.1'
       source_label: Qwen3.7
@@ -12259,6 +12400,9 @@ rows:
     - value: '71.8'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '71.8'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     vita_bench:
     - value: '45.1'
       source_label: Qwen3.7
@@ -12278,6 +12422,9 @@ rows:
     - value: '50.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '52.3'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     qwenworldbench:
     - value: '50.2'
       source_label: Qwen3.7
@@ -12286,18 +12433,30 @@ rows:
     - value: '86.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '86.2'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     hle:
     - value: '34.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '31.0'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     hmmt_2026_feb:
     - value: '89.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '82.6'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     imoanswerbench:
     - value: '83.8'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '83.8'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     critpt:
     - value: '4.6'
       source_label: Qwen3.7
@@ -12385,6 +12544,9 @@ rows:
     - value: '79.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '68.0'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
     gdpval_aa:
     - value: '1535'
       source_label: DeepSeek-V4
@@ -12429,10 +12591,16 @@ rows:
     - value: '77.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '77.8'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     swe_multilingual:
     - value: '73.3'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '73.3'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     swe_pro:
     - value: '55.1'
       source_label: Qwen3.6
@@ -12441,6 +12609,9 @@ rows:
     - value: '56.2'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '56.2'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     claw_eval_avg:
     - value: '73.0'
       source_label: Qwen3.6
@@ -12489,10 +12660,16 @@ rows:
     - value: '69.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '67.8'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     hle_tools:
     - value: '50.4'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '50.4'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     widesearch:
     - value: '69.5'
       source_label: Qwen3.6
@@ -12533,10 +12710,16 @@ rows:
     - value: '86.0'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '86.0'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     hle:
     - value: '27.2'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '30.5'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     livecodebench:
     - value: '85.5'
       source_label: Qwen3.6
@@ -12549,6 +12732,9 @@ rows:
     - value: '96.9'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '96.9'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     hmmt_2026_feb:
     - value: '86.4'
       source_label: Qwen3.6
@@ -12557,10 +12743,16 @@ rows:
     - value: '82.5'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '82.5'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     aime26:
     - value: '95.8'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '92.7'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
     mmmlu:
     - value: '86.6'
       source_label: Qwen3.6
@@ -12731,5 +12923,37 @@ rows:
       source_url: https://z.ai/blog/glm-4-6
     tau2_bench_avg:
     - value: '67.5'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    aime_2025_tools:
+    - value: '98.6'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    gpqa_tools:
+    - value: '82.9'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    livecodebench_tools:
+    - value: '84.5'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    hle_tools:
+    - value: '30.4'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    browsecomp_tools:
+    - value: '45.1'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    swe_verified_tools:
+    - value: '68.0'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    terminal_bench_2_tools:
+    - value: '40.5'
+      source_label: GLM-4.6
+      source_url: https://z.ai/blog/glm-4-6
+    tau2_bench_avg_tools:
+    - value: '75.9'
       source_label: GLM-4.6
       source_url: https://z.ai/blog/glm-4-6
