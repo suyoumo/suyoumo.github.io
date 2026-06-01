@@ -59,17 +59,20 @@
       const stickyRows = stickyHead.rows;
       if (!sourceRows.length || !stickyRows.length) return;
 
-      // Use the body's first row to count + measure every visible column.
-      // The header's "leaf" row only has the benchmark cells (since the
-      // first 4 cells of header row 0 use rowspan=2 and the rest use
-      // colspan), so counting from the header undercounts by the 4
-      // metadata columns (Model / Mode / Released / Source) and shifts
-      // the entire <colgroup> to the wrong side. Body rows have every
-      // column flat — one TD per column — so they're the safe ruler.
+      // Use the body's first VISIBLE row to measure every column.
+      // (display:none rows from the filter must be skipped — they
+      // report 0-width cells which would collapse the sticky head.)
       const sourceBody = table.tBodies[0];
-      const measureRow = sourceBody && sourceBody.rows.length
-        ? sourceBody.rows[0]
-        : null;
+      let measureRow = null;
+      if (sourceBody) {
+        for (let i = 0; i < sourceBody.rows.length; i++) {
+          const r = sourceBody.rows[i];
+          if (r.offsetParent !== null && r.cells.length) {
+            measureRow = r;
+            break;
+          }
+        }
+      }
       if (!measureRow) return;
 
       const totalCols = measureRow.cells.length;
@@ -87,34 +90,31 @@
       }
       const cols = colgroup.children;
 
+      // Use EXACT widths (no rounding). Math.ceil on 326 columns
+      // accumulates ~5-10 px of drift, which is why "SWE-Pro" in the
+      // sticky header was sitting a touch left of its data column.
+      // Also track the precise sum so the sticky table width matches
+      // what the colgroup is asking for, not the source table's
+      // rounded scrollWidth.
+      let totalWidth = 0;
       Array.from(measureRow.cells).forEach(function (cell, idx) {
-        const w = Math.ceil(cell.getBoundingClientRect().width);
+        const w = cell.getBoundingClientRect().width;
         const col = cols[idx];
         if (col) {
           col.style.width = w + 'px';
           col.style.minWidth = w + 'px';
           col.style.maxWidth = w + 'px';
         }
+        totalWidth += w;
       });
 
-      // Also propagate per-cell widths to the cloned header cells so
-      // rowspan / colspan cells render with the right combined width.
-      for (let r = 0; r < sourceRows.length; r++) {
-        const srcRow = sourceRows[r];
-        const dstRow = stickyRows[r];
-        if (!dstRow) continue;
-        Array.from(srcRow.cells).forEach(function (cell, idx) {
-          const dstCell = dstRow.cells[idx];
-          if (!dstCell) return;
-          const w = Math.ceil(cell.getBoundingClientRect().width);
-          dstCell.style.width = w + 'px';
-          dstCell.style.minWidth = w + 'px';
-          dstCell.style.maxWidth = w + 'px';
-        });
-      }
+      // We deliberately do NOT set per-cell widths in the cloned thead.
+      // With table-layout: fixed + a precise colgroup, the cells inherit
+      // their widths from <col>; adding cell-level width hints
+      // re-introduces the same rounding drift.
 
       stickyHeadViewport.style.width = tableWrap.clientWidth + 'px';
-      stickyHeadTable.style.width = table.scrollWidth + 'px';
+      stickyHeadTable.style.width = totalWidth + 'px';
       stickyHeadTable.style.tableLayout = 'fixed';
       syncHorizontal(tableWrap.scrollLeft, 'table');
     }
