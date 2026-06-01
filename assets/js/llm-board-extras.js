@@ -1001,9 +1001,8 @@
         return b.velocity - a.velocity;
       });
 
-      // Normalise the X scale: 0 -> max(best across visible families, 100)
-      const trackMin = 0;
-      const trackMax = Math.max(100, Math.max.apply(null, visible.map(function (d) { return d.best; }) ));
+      // (No global X scale needed any more — each family lays its
+      // dots out evenly along its own row, see posFor() below.)
 
       // Render
       progressRows.innerHTML = '';
@@ -1039,12 +1038,26 @@
         trackBg.className = 'llm-progress-track-bg';
         track.appendChild(trackBg);
 
-        function pct(v) { return ((v - trackMin) / (trackMax - trackMin)) * 100; }
+        // Position each release evenly along the row by chronological
+        // order, NOT by raw score. The velocity row's job is to show
+        // the iteration journey (first → last), not absolute score
+        // position — and packing dots by score causes severe overlap
+        // when a family's releases land in a narrow score band.
+        // The actual scores are still on the labels and in the right
+        // column stats. Score progression is conveyed by the filled
+        // segment (which spans frontier first → frontier last).
+        const releases = d.releases;
+        const total = releases.length;
+        function posFor(release) {
+          const idx = releases.indexOf(release);
+          if (total <= 1) return 50;
+          return 6 + (idx / (total - 1)) * 88;
+        }
 
-        // Filled segment from family's minimum (or first) score → best
-        const fromPct = pct(d.first ? d.first.score : 0);
-        const toPct = pct(d.best);
-        if (toPct > fromPct) {
+        // Filled segment between first and last frontier dot
+        if (d.first && d.last && d.first !== d.last) {
+          const fromPct = posFor(d.first);
+          const toPct = posFor(d.last);
           const fill = document.createElement('div');
           fill.className = 'llm-progress-track-fill';
           fill.style.left = fromPct + '%';
@@ -1058,7 +1071,7 @@
           d.releases.filter(function (r) { return !r.frontier; }).forEach(function (r) {
             const dot = document.createElement('span');
             dot.className = 'llm-progress-dot llm-progress-dot-faint';
-            dot.style.left = pct(r.score) + '%';
+            dot.style.left = posFor(r) + '%';
             dot.style.background = color;
             dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
             dot.addEventListener('mouseleave', hideProgressTip);
@@ -1075,7 +1088,7 @@
           dot.className = 'llm-progress-dot';
           const isLast = idx === d.frontier.length - 1;
           if (isLast) dot.classList.add('llm-progress-dot-final');
-          dot.style.left = pct(r.score) + '%';
+          dot.style.left = posFor(r) + '%';
           dot.style.background = color;
           dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
           dot.addEventListener('mouseleave', hideProgressTip);
@@ -1091,7 +1104,7 @@
           lab.appendChild(labMeta);
           track.appendChild(lab);
 
-          frontierInfo.push({ dot: dot, lab: lab, r: r, isLast: isLast, pctX: pct(r.score) });
+          frontierInfo.push({ dot: dot, lab: lab, r: r, isLast: isLast, pctX: posFor(r) });
         });
 
         // Defer layout to next frame so we can read clientWidth.

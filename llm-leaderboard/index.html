@@ -10,6 +10,8 @@ permalink: /llm-leaderboard/
 {% for group in board.categories %}
   {% assign metric_count = metric_count | plus: group.columns.size %}
 {% endfor %}
+{% assign unique_models = board.rows | map: "model" | uniq %}
+{% assign model_count = unique_models | size %}
 
 <section class="llm-board-page">
   <div class="llm-board-shell">
@@ -28,7 +30,7 @@ permalink: /llm-leaderboard/
     <div class="llm-board-summary">
       <div>
         <span>Models</span>
-        <strong>{{ board.rows | size }}</strong>
+        <strong>{{ model_count }}</strong>
       </div>
       <div>
         <span>Sources</span>
