@@ -76,32 +76,71 @@ permalink: /llm-leaderboard/
             </tr>
           </thead>
           <tbody>
-            {% for row in board.rows %}
+            {% assign grouped = board.rows | group_by: "model" %}
+            {% for group in grouped %}
+              {% assign rows_in_group = group.items %}
+              {% assign first_row = rows_in_group | first %}
+              {% assign is_merged = false %}
+              {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
             <tr>
               <td class="llm-sticky-col llm-model-cell">
-                <strong>{{ row.model }}</strong>
-                <span>{{ row.company }}</span>
+                <strong>{{ first_row.model }}</strong>
+                <span>{{ first_row.company }}</span>
               </td>
-              <td>{% if row.mode and row.mode != "" %}{{ row.mode }}{% else %}--{% endif %}</td>
-              <td>{% if row.released and row.released != "" %}{{ row.released }}{% else %}--{% endif %}</td>
+              <td>
+                {% if is_merged %}
+                <div class="llm-mode-stack">
+                  {% for r in rows_in_group %}
+                  <span class="llm-mode-chip">{% if r.mode and r.mode != "" %}{{ r.mode }}{% else %}--{% endif %}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {% if first_row.mode and first_row.mode != "" %}{{ first_row.mode }}{% else %}--{% endif %}
+                {% endif %}
+              </td>
+              <td>
+                {% if first_row.released and first_row.released != "" %}{{ first_row.released }}{% else %}--{% endif %}
+              </td>
               <td>
                 <div class="llm-source-list">
-                  {% for source in row.sources %}
+                  {% assign seen_urls = "" %}
+                  {% for r in rows_in_group %}
+                    {% for source in r.sources %}
+                      {% unless seen_urls contains source.url %}
+                        {% assign seen_urls = seen_urls | append: source.url | append: "|" %}
                   <a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.label }}</a>
+                      {% endunless %}
+                    {% endfor %}
                   {% endfor %}
                 </div>
               </td>
-              {% for group in board.categories %}
-                {% for metric in group.columns %}
-                  {% assign score_items = row.scores[metric.key] %}
-                  <td class="{% unless score_items %}llm-empty-score{% endunless %}">
-                    {% if score_items %}
+              {% for group_cat in board.categories %}
+                {% for metric in group_cat.columns %}
+                  {% assign cell_has_any = false %}
+                  {% for r in rows_in_group %}
+                    {% if r.scores[metric.key] %}{% assign cell_has_any = true %}{% endif %}
+                  {% endfor %}
+                  <td class="{% unless cell_has_any %}llm-empty-score{% endunless %}">
+                    {% if cell_has_any %}
                     <div class="llm-score-stack">
-                      {% for score in score_items %}
-                      <a class="llm-score-entry" href="{{ score.source_url }}" target="_blank" rel="noopener">
-                        <strong>{{ score.value }}</strong>
-                        {% if score_items.size > 1 %}<span>{{ score.source_label }}</span>{% endif %}
-                      </a>
+                      {% for r in rows_in_group %}
+                        {% assign score_items = r.scores[metric.key] %}
+                        {% if score_items %}
+                          {% for score in score_items %}
+                          <a class="llm-score-entry" href="{{ score.source_url }}" target="_blank" rel="noopener">
+                            <strong>{{ score.value }}</strong>
+                            {% if is_merged %}
+                              {% if r.mode and r.mode != "" %}
+                                <span>{{ r.mode }}{% if score_items.size > 1 %} · {{ score.source_label }}{% endif %}</span>
+                              {% else %}
+                                <span>{{ score.source_label }}</span>
+                              {% endif %}
+                            {% elsif score_items.size > 1 %}
+                              <span>{{ score.source_label }}</span>
+                            {% endif %}
+                          </a>
+                          {% endfor %}
+                        {% endif %}
                       {% endfor %}
                     </div>
                     {% else %}

@@ -779,6 +779,27 @@ hr {
   color: rgba(107, 107, 101, 0.4) !important;
 }
 
+.llm-mode-stack {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.llm-mode-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(196, 90, 60, 0.1);
+  color: $primary;
+  font-family: $sans;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
 .llm-board-notes {
   max-width: 850px;
   margin-top: 28px;
