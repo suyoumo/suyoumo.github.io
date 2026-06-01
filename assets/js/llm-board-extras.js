@@ -431,11 +431,22 @@
       select.innerHTML = '';
       const q = (query || '').trim().toLowerCase();
 
-      // Popular group — always sorted alphabetically; filter by query.
+      // Sort comparator: strip non-alphanumeric so "Terminal Bench 2.0",
+      // "Terminal-Bench 2.0 (Claude Code)", and "Terminal-Bench 2.1"
+      // group together as expected instead of being split by ASCII
+      // differences between space (0x20), dash (0x2D), and parens.
+      function sortKey(label) {
+        return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+      }
+      function cmp(a, b) {
+        return sortKey(a.label).localeCompare(sortKey(b.label), 'en', { numeric: true, sensitivity: 'base' });
+      }
+
+      // Popular group — always sorted; filter by query.
       const popularItems = chartBenches
         .filter(function (b) { return popularKeys.indexOf(b.key) !== -1; })
         .filter(function (b) { return !q || b.label.toLowerCase().indexOf(q) !== -1 || b.key.toLowerCase().indexOf(q) !== -1; })
-        .sort(function (a, b) { return a.label.localeCompare(b.label, 'en', { sensitivity: 'base' }); });
+        .sort(cmp);
 
       if (popularItems.length && !q) {
         const og = document.createElement('optgroup');
@@ -454,7 +465,7 @@
         const items = (cat.columns || [])
           .filter(function (col) { return !q || col.label.toLowerCase().indexOf(q) !== -1 || col.key.toLowerCase().indexOf(q) !== -1; })
           .slice()
-          .sort(function (a, b) { return a.label.localeCompare(b.label, 'en', { sensitivity: 'base' }); });
+          .sort(cmp);
         if (!items.length) return;
         const og = document.createElement('optgroup');
         og.label = cat.name;
