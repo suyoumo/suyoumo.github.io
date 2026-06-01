@@ -240,6 +240,25 @@ permalink: /llm-leaderboard/
       <div class="llm-chart-empty" id="llm-chart-empty" hidden>No models have a recorded score for this benchmark.</div>
       <div class="llm-chart-bars" id="llm-chart-bars"></div>
     </div>
+
+    <div class="llm-progress-card" id="llm-progress-card">
+      <div class="llm-chart-head">
+        <div class="llm-chart-copy">
+          <p class="llm-board-kicker">Iteration Speed</p>
+          <h2>How fast is each family improving?</h2>
+          <p>同一 benchmark 下，每家厂商按发布时间画一条「前沿线」。线只在新模型超过自家上一份成绩时往上跳，所以反映的是「这家最强模型在该 bench 上的进展轨迹」。点击图例可单独隐藏某家。</p>
+        </div>
+        <div class="llm-progress-toolbar">
+          <label class="llm-progress-toggle">
+            <input type="checkbox" id="llm-progress-show-all" />
+            <span>Show all releases</span>
+          </label>
+        </div>
+      </div>
+      <div class="llm-progress-empty" id="llm-progress-empty" hidden>这个 benchmark 没有足够带发布日期的模型分数可画。</div>
+      <div class="llm-progress-chart" id="llm-progress-chart"></div>
+      <div class="llm-progress-legend" id="llm-progress-legend"></div>
+    </div>
   </div>
 </section>
 
