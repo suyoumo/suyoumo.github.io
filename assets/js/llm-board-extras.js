@@ -848,11 +848,12 @@
         const w = estW(info.r);
         let chosen = null;
 
-        // Final dot: first try a right-of-dot slot at the bar's height.
+        // Final dot: try a right-of-dot slot at the bar's height,
+        // but only when it fits without bleeding into the stats column.
         if (info.isLast) {
           const rx = cx + 12;
           const ry = barY - labelH / 2;
-          if (rx + w <= trackW + 80) {  // allow slight overflow into track's right margin
+          if (rx + w <= trackW + 18) {
             const r = { x: rx, y: ry, w: w, h: labelH };
             if (!collides(r)) {
               chosen = r;
@@ -1004,25 +1005,29 @@
       // (No global X scale needed any more — each family lays its
       // dots out evenly along its own row, see posFor() below.)
 
-      // Global time range across all visible families. Every dot is
-      // placed by its real release date on this shared axis, so the
-      // leftmost area is filled by whichever family started iterating
-      // earliest and rows are now directly comparable in time.
-      let globalMinTs = Infinity, globalMaxTs = -Infinity;
-      visible.forEach(function (d) {
-        d.releases.forEach(function (r) {
-          const ts = r.date.getTime();
-          if (ts < globalMinTs) globalMinTs = ts;
-          if (ts > globalMaxTs) globalMaxTs = ts;
-        });
-      });
-      if (!isFinite(globalMinTs) || !isFinite(globalMaxTs) || globalMinTs === globalMaxTs) {
-        // degenerate — give a small spread so divisions don't blow up
-        globalMaxTs = globalMinTs + 1000 * 60 * 60 * 24 * 30;
-      }
+      // Global time range across all visible families. We use the
+      // 20th percentile of family-first dates as the floor so a single
+      // very-early outlier (e.g. one family that started 6+ months
+      // before everyone else) doesn't pull the axis back and squeeze
+      // every other family's dots into the right 40% of the row.
+      // Releases earlier than the floor clamp to the left edge.
+      const firstDates = visible.map(function (d) { return d.first ? d.first.date.getTime() : null; })
+                                .filter(function (t) { return t !== null; })
+                                .sort(function (a, b) { return a - b; });
+      const lastDates = [];
+      visible.forEach(function (d) { d.releases.forEach(function (r) { lastDates.push(r.date.getTime()); }); });
+      let globalMinTs = firstDates.length ? firstDates[Math.floor(firstDates.length * 0.2)] : Date.now();
+      let globalMaxTs = lastDates.length ? Math.max.apply(null, lastDates) : Date.now();
+      // Pad the visible time window so dots aren't flush against the
+      // edges and the right side has room for the last dot's label.
+      const rangeSpan = Math.max(globalMaxTs - globalMinTs, 1000 * 60 * 60 * 24 * 30);
+      globalMinTs -= rangeSpan * 0.03;
+      globalMaxTs += rangeSpan * 0.12;
       function timePct(date) {
         const ts = date.getTime();
-        return 4 + ((ts - globalMinTs) / (globalMaxTs - globalMinTs)) * 92;
+        const raw = ((ts - globalMinTs) / (globalMaxTs - globalMinTs)) * 100;
+        // Clamp to [0, 100] so early outliers stack neatly on the left edge.
+        return Math.max(0, Math.min(100, raw));
       }
 
       // Render
@@ -1040,7 +1045,7 @@
         const ts = globalMinTs + (globalMaxTs - globalMinTs) * i / numTicks;
         const tick = document.createElement('span');
         tick.className = 'llm-progress-ruler-tick';
-        tick.style.left = (4 + (i / numTicks) * 92) + '%';
+        tick.style.left = ((i / numTicks) * 100) + '%';
         const dateObj = new Date(ts);
         tick.textContent = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0');
         rulerBar.appendChild(tick);
