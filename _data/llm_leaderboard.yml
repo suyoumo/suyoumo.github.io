@@ -112,6 +112,42 @@ sources:
   label: GPT-5.5 report
   short_label: GPT-5.5
   url: https://openai.com/index/gpt-5-5/
+- id: deepseek_r1
+  label: DeepSeek-R1 report
+  short_label: DeepSeek-R1
+  url: https://github.com/deepseek-ai/DeepSeek-R1
+- id: deepseek_r1_0528
+  label: DeepSeek-R1-0528 report
+  short_label: DeepSeek-R1-0528
+  url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+- id: deepseek_v3_0324
+  label: DeepSeek-V3-0324 report
+  short_label: DeepSeek-V3-0324
+  url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+- id: deepseek_v32
+  label: DeepSeek-V3.2 report
+  short_label: DeepSeek-V3.2
+  url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+- id: mimo_v2_pro
+  label: MiMo-V2-Pro report
+  short_label: MiMo-V2-Pro
+  url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v2_flash
+  label: MiMo-V2-Flash report
+  short_label: MiMo-V2-Flash
+  url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v2_omni
+  label: MiMo-V2-Omni report
+  short_label: MiMo-V2-Omni
+  url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v25
+  label: MiMo-V2.5 report
+  short_label: MiMo-V2.5
+  url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v25_pro
+  label: MiMo-V2.5-Pro report
+  short_label: MiMo-V2.5-Pro
+  url: https://github.com/XiaomiMiMo/MiMo
 categories:
 - name: Coding Agent
   columns:
@@ -5493,6 +5529,294 @@ rows:
     - value: <4.0
       source_label: Seed2.0 T5
       source_url: https://seed.bytedance.com/en/seed2
+- company: DeepSeek
+  model: DeepSeek-V3.2
+  mode: Thinking
+  released: '2025-09-29'
+  sources:
+  - label: DeepSeek-V3.2 report
+    url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+  scores:
+    mmlu_pro:
+    - value: '85.0'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    gpqa:
+    - value: '83.5'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    hle:
+    - value: '12.5'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    livecodebench:
+    - value: '79.0'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    codeforces:
+    - value: '2280'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    hmmt_2025_feb:
+    - value: '92.8'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    terminal_bench_2:
+    - value: '39.5'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    swe_verified:
+    - value: '64.5'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    browsecomp:
+    - value: '11.6'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    mcp_atlas:
+    - value: '32.2'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    tau2_bench_retail:
+    - value: '65.7'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+    tau2_bench_telecom:
+    - value: '38.2'
+      source_label: DeepSeek-V3.2
+      source_url: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp
+- company: DeepSeek
+  model: DeepSeek-R1-0528
+  mode: Thinking
+  released: '2025-05-28'
+  sources:
+  - label: DeepSeek-R1-0528 report
+    url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+  scores:
+    aime_2024:
+    - value: '91.4'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+    aime_2025:
+    - value: '87.5'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+    gpqa:
+    - value: '81.0'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+    livecodebench:
+    - value: '73.3'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+    aider_polyglot:
+    - value: '71.6'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+    hle:
+    - value: '17.7'
+      source_label: DeepSeek-R1-0528
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+- company: DeepSeek
+  model: DeepSeek-V3-0324
+  mode: ''
+  released: '2025-03-24'
+  sources:
+  - label: DeepSeek-V3-0324 report
+    url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+  scores:
+    mmlu_pro:
+    - value: '81.2'
+      source_label: DeepSeek-V3-0324
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+    gpqa:
+    - value: '68.4'
+      source_label: DeepSeek-V3-0324
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+    math_500:
+    - value: '94.0'
+      source_label: DeepSeek-V3-0324
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+    aime_2024:
+    - value: '59.4'
+      source_label: DeepSeek-V3-0324
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+    livecodebench:
+    - value: '49.2'
+      source_label: DeepSeek-V3-0324
+      source_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+- company: DeepSeek
+  model: DeepSeek-R1
+  mode: Thinking
+  released: '2025-01-20'
+  sources:
+  - label: DeepSeek-R1 report
+    url: https://github.com/deepseek-ai/DeepSeek-R1
+  scores:
+    aime_2024:
+    - value: '79.8'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
+    gpqa:
+    - value: '71.5'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
+    math_500:
+    - value: '97.3'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
+    mmlu:
+    - value: '90.8'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
+    swe_verified:
+    - value: '49.2'
+      source_label: DeepSeek-R1
+      source_url: https://github.com/deepseek-ai/DeepSeek-R1
+- company: MiMo
+  model: MiMo-V2.5-Pro
+  mode: Thinking
+  released: '2026-04-15'
+  sources:
+  - label: MiMo-V2.5-Pro report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    swe_pro:
+    - value: '57.2'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_2:
+    - value: '68.4'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    gdpval_aa:
+    - value: '1581'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    tau3_bench:
+    - value: '72.9'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    claw_eval_pass3:
+    - value: '63.8'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    hle:
+    - value: '48.0'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    hle_tools:
+    - value: '40.0'
+      source_label: MiMo-V2.5-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+- company: MiMo
+  model: MiMo-V2.5
+  mode: Thinking
+  released: '2026-03-15'
+  sources:
+  - label: MiMo-V2.5 report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    swe_pro:
+    - value: '56.1'
+      source_label: MiMo-V2.5
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_2:
+    - value: '65.8'
+      source_label: MiMo-V2.5
+      source_url: https://github.com/XiaomiMiMo/MiMo
+- company: MiMo
+  model: MiMo-V2-Omni
+  mode: ''
+  released: '2026-01-20'
+  sources:
+  - label: MiMo-V2-Omni report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    mmau:
+    - value: '69.4'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mmmu_pro:
+    - value: '76.8'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    charxiv_rq:
+    - value: '80.1'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    videomme_w_sub:
+    - value: '85.3'
+      source_label: MiMo-V2-Omni
+      source_url: https://github.com/XiaomiMiMo/MiMo
+- company: MiMo
+  model: MiMo-V2-Flash
+  mode: Thinking
+  released: '2025-12-20'
+  sources:
+  - label: MiMo-V2-Flash report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    mmlu_pro:
+    - value: '84.9'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    gpqa:
+    - value: '83.7'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    hle:
+    - value: '22.1'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    aime_2025:
+    - value: '94.1'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    hmmt_2025_feb:
+    - value: '84.4'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    livecodebench:
+    - value: '80.6'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    longbench_v2:
+    - value: '60.6'
+      source_label: MiMo-V2-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+- company: MiMo
+  model: MiMo-V2-Pro
+  mode: Thinking
+  released: '2025-11-20'
+  sources:
+  - label: MiMo-V2-Pro report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    claw_eval_avg:
+    - value: '61.5'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    gdpval_aa:
+    - value: '1426'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    tau2_bench_telecom:
+    - value: '96.8'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    swe_verified:
+    - value: '78.0'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    swe_multilingual:
+    - value: '71.7'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_2:
+    - value: '57.1'
+      source_label: MiMo-V2-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
