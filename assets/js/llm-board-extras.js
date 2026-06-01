@@ -951,6 +951,323 @@
       renderProgressChart._t = setTimeout(renderProgressChart, 120);
     });
 
+    /* ============ Per-family history chart ============ */
+    // Independent of the bar chart / velocity card. Pick a single
+    // provider + benchmark, draw an SVG scatter with X = release date
+    // and Y = score. Every model release in that family becomes a
+    // labelled dot.
+    const histFamilySel = document.getElementById('llm-history-family');
+    const histBenchSel = document.getElementById('llm-history-bench');
+    const histBenchSearch = document.getElementById('llm-history-bench-search');
+    const histFrontier = document.getElementById('llm-history-frontier');
+    const histChart = document.getElementById('llm-history-chart');
+    const histEmpty = document.getElementById('llm-history-empty');
+
+    function svgElH(tag, attrs) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      if (attrs) Object.keys(attrs).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+      return el;
+    }
+
+    function fmtMonth(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    }
+
+    // Build family select once.
+    (function buildFamilyOptions() {
+      if (!histFamilySel) return;
+      const seen = new Map();
+      (board.rows || []).forEach(function (row) {
+        if (!seen.has(row.company)) seen.set(row.company, 0);
+        seen.set(row.company, seen.get(row.company) + 1);
+      });
+      const ordered = Array.from(seen.entries()).sort(function (a, b) { return b[1] - a[1]; });
+      ordered.forEach(function (pair) {
+        const opt = document.createElement('option');
+        opt.value = pair[0];
+        opt.textContent = pair[0] + ' (' + pair[1] + ')';
+        histFamilySel.appendChild(opt);
+      });
+      // Default to the family with the most rows.
+      if (ordered.length) histFamilySel.value = ordered[0][0];
+    })();
+
+    // Build benchmark select with the same natural-sort + search.
+    function rebuildHistBenchSelect(query) {
+      if (!histBenchSel) return;
+      histBenchSel.innerHTML = '';
+      const q = (query || '').trim().toLowerCase();
+      function bSortKey(label) { return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+      function bCmp(a, b) { return bSortKey(a.label).localeCompare(bSortKey(b.label), 'en', { numeric: true, sensitivity: 'base' }); }
+      const popularItems = chartBenches
+        .filter(function (b) { return popularKeys.indexOf(b.key) !== -1; })
+        .filter(function (b) { return !q || b.label.toLowerCase().indexOf(q) !== -1 || b.key.toLowerCase().indexOf(q) !== -1; })
+        .sort(bCmp);
+      if (popularItems.length && !q) {
+        const og = document.createElement('optgroup');
+        og.label = '★ Popular';
+        popularItems.forEach(function (b) {
+          const opt = document.createElement('option');
+          opt.value = b.key;
+          opt.textContent = b.label;
+          og.appendChild(opt);
+        });
+        histBenchSel.appendChild(og);
+      }
+      (board.categories || []).forEach(function (cat) {
+        const items = (cat.columns || [])
+          .filter(function (col) { return !q || col.label.toLowerCase().indexOf(q) !== -1 || col.key.toLowerCase().indexOf(q) !== -1; })
+          .slice()
+          .sort(bCmp);
+        if (!items.length) return;
+        const og = document.createElement('optgroup');
+        og.label = cat.name;
+        items.forEach(function (col) {
+          const opt = document.createElement('option');
+          opt.value = col.key;
+          opt.textContent = col.label;
+          og.appendChild(opt);
+        });
+        histBenchSel.appendChild(og);
+      });
+    }
+    rebuildHistBenchSelect('');
+    // Default to a sensible bench: try gpqa, then aime_2025, then first option
+    (function setDefaultHistBench() {
+      if (!histBenchSel) return;
+      const prefs = ['gpqa', 'aime_2025', 'swe_verified', 'hle'];
+      for (let i = 0; i < prefs.length; i++) {
+        for (let j = 0; j < histBenchSel.options.length; j++) {
+          if (histBenchSel.options[j].value === prefs[i]) {
+            histBenchSel.value = prefs[i];
+            return;
+          }
+        }
+      }
+      for (let i = 0; i < histBenchSel.options.length; i++) {
+        if (histBenchSel.options[i].value) {
+          histBenchSel.value = histBenchSel.options[i].value;
+          return;
+        }
+      }
+    })();
+
+    function renderHistoryChart() {
+      if (!histChart || !histFamilySel || !histBenchSel) return;
+      const family = histFamilySel.value;
+      const benchKey = histBenchSel.value;
+      const showFrontier = histFrontier && histFrontier.checked;
+
+      // Collect data points for that family + bench
+      const points = [];
+      (board.rows || []).forEach(function (row) {
+        if (row.company !== family) return;
+        if (!row.released) return;
+        const dt = new Date(row.released);
+        if (isNaN(dt.getTime())) return;
+        const arr = (row.scores || {})[benchKey];
+        if (!arr) return;
+        let best = NaN;
+        arr.forEach(function (s) {
+          const v = parseScore(s.value);
+          if (!isNaN(v) && (isNaN(best) || v > best)) best = v;
+        });
+        if (isNaN(best)) return;
+        points.push({ model: row.model, date: dt, score: best });
+      });
+
+      if (!points.length) {
+        histChart.innerHTML = '';
+        if (histEmpty) histEmpty.hidden = false;
+        return;
+      }
+      if (histEmpty) histEmpty.hidden = true;
+
+      points.sort(function (a, b) { return a.date - b.date; });
+
+      // Frontier subset (cumulative max)
+      let running = -Infinity;
+      points.forEach(function (p) {
+        if (p.score > running) { p.frontier = true; running = p.score; }
+        else p.frontier = false;
+      });
+      const frontier = points.filter(function (p) { return p.frontier; });
+
+      // Axis ranges
+      const dates = points.map(function (p) { return p.date.getTime(); });
+      let minTs = Math.min.apply(null, dates);
+      let maxTs = Math.max.apply(null, dates);
+      const tsPad = (maxTs - minTs) * 0.06 || 1000 * 60 * 60 * 24 * 30;
+      minTs -= tsPad;
+      maxTs += tsPad;
+
+      const yScores = points.map(function (p) { return p.score; });
+      let yMin = Math.min.apply(null, yScores);
+      let yMax = Math.max.apply(null, yScores);
+      if (yMin === yMax) { yMin = Math.max(0, yMin - 5); yMax = yMax + 5; }
+      const yPad = (yMax - yMin) * 0.2 || 5;
+      yMin = Math.max(0, yMin - yPad);
+      yMax = yMax + yPad;
+      const niceStep = function (range) {
+        const rough = range / 5;
+        const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+        const norm = rough / mag;
+        const step = norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10;
+        return step * mag;
+      };
+      const step = niceStep(yMax - yMin);
+      yMin = Math.floor(yMin / step) * step;
+      yMax = Math.ceil(yMax / step) * step;
+
+      const W = Math.max(640, histChart.clientWidth || 800);
+      const H = 440;
+      const pad = { top: 30, right: 36, bottom: 56, left: 60 };
+      function x(ts) { return pad.left + ((ts - minTs) / (maxTs - minTs)) * (W - pad.left - pad.right); }
+      function y(s) { return pad.top + (1 - (s - yMin) / (yMax - yMin)) * (H - pad.top - pad.bottom); }
+
+      const color = colorForCompany(family);
+      const lightColor = color + '33'; // ~20% alpha hex suffix
+
+      const svg = svgElH('svg', {
+        viewBox: '0 0 ' + W + ' ' + H,
+        preserveAspectRatio: 'xMidYMid meet',
+        width: '100%',
+        height: H + 'px',
+        class: 'llm-history-svg'
+      });
+
+      // Y grid + labels
+      for (let v = yMin; v <= yMax + 0.01; v += step) {
+        const yy = y(v);
+        svg.appendChild(svgElH('line', {
+          x1: pad.left, x2: W - pad.right,
+          y1: yy, y2: yy,
+          stroke: 'rgba(0,0,0,0.06)', 'stroke-width': 1
+        }));
+        const t = svgElH('text', {
+          x: pad.left - 8, y: yy + 4,
+          'text-anchor': 'end',
+          'font-size': 11, 'font-family': 'sans-serif',
+          fill: '#6b6b65'
+        });
+        t.textContent = Math.round(v * 100) / 100;
+        svg.appendChild(t);
+      }
+
+      // X grid + labels
+      const numTicks = 5;
+      for (let t = 0; t <= numTicks; t++) {
+        const tsVal = minTs + (maxTs - minTs) * t / numTicks;
+        const xx = x(tsVal);
+        svg.appendChild(svgElH('line', {
+          x1: xx, x2: xx,
+          y1: pad.top, y2: H - pad.bottom,
+          stroke: 'rgba(0,0,0,0.03)', 'stroke-width': 1
+        }));
+        const tx = svgElH('text', {
+          x: xx, y: H - pad.bottom + 18,
+          'text-anchor': 'middle',
+          'font-size': 11, 'font-family': 'sans-serif',
+          fill: '#6b6b65'
+        });
+        tx.textContent = fmtMonth(new Date(tsVal));
+        svg.appendChild(tx);
+      }
+
+      // Axis frame
+      svg.appendChild(svgElH('line', {
+        x1: pad.left, x2: W - pad.right,
+        y1: H - pad.bottom, y2: H - pad.bottom,
+        stroke: 'rgba(0,0,0,0.18)', 'stroke-width': 1
+      }));
+      svg.appendChild(svgElH('line', {
+        x1: pad.left, x2: pad.left,
+        y1: pad.top, y2: H - pad.bottom,
+        stroke: 'rgba(0,0,0,0.18)', 'stroke-width': 1
+      }));
+
+      // Optional frontier polyline
+      if (showFrontier && frontier.length >= 2) {
+        const pts = frontier.map(function (p) { return x(p.date.getTime()) + ',' + y(p.score); }).join(' ');
+        svg.appendChild(svgElH('polyline', {
+          points: pts,
+          fill: 'none',
+          stroke: color,
+          'stroke-width': 2.5,
+          'stroke-dasharray': '6 4',
+          opacity: 0.7
+        }));
+      }
+
+      // All release dots + labels
+      // Stagger labels above / below alternately so they don't pile up.
+      points.forEach(function (p, idx) {
+        const cx = x(p.date.getTime());
+        const cy = y(p.score);
+        const isFront = p.frontier;
+        svg.appendChild(svgElH('circle', {
+          cx: cx, cy: cy, r: isFront ? 6 : 5,
+          fill: color,
+          'fill-opacity': isFront ? 1 : 0.5,
+          stroke: '#fff', 'stroke-width': 2
+        }));
+        // Alternate above/below to reduce overlap
+        const above = idx % 2 === 0;
+        const labelY = above ? cy - 12 : cy + 24;
+        const valText = svgElH('text', {
+          x: cx, y: labelY,
+          'text-anchor': 'middle',
+          'font-size': 11.5, 'font-weight': 800,
+          'font-family': 'sans-serif',
+          fill: '#191918'
+        });
+        valText.textContent = Math.round(p.score * 100) / 100;
+        svg.appendChild(valText);
+        const nameText = svgElH('text', {
+          x: cx, y: labelY + (above ? -12 : 12),
+          'text-anchor': 'middle',
+          'font-size': 10, 'font-weight': 700,
+          'font-family': 'sans-serif',
+          fill: color
+        });
+        nameText.textContent = p.model;
+        svg.appendChild(nameText);
+      });
+
+      histChart.innerHTML = '';
+      histChart.appendChild(svg);
+    }
+
+    if (histFamilySel) histFamilySel.addEventListener('change', renderHistoryChart);
+    if (histBenchSel) histBenchSel.addEventListener('change', renderHistoryChart);
+    if (histFrontier) histFrontier.addEventListener('change', renderHistoryChart);
+    if (histBenchSearch) {
+      let t = null;
+      histBenchSearch.addEventListener('input', function () {
+        if (t) clearTimeout(t);
+        t = setTimeout(function () {
+          const prev = histBenchSel.value;
+          rebuildHistBenchSelect(histBenchSearch.value);
+          let found = false;
+          for (let i = 0; i < histBenchSel.options.length; i++) {
+            if (histBenchSel.options[i].value === prev) { found = true; break; }
+          }
+          if (found) histBenchSel.value = prev;
+          else {
+            for (let i = 0; i < histBenchSel.options.length; i++) {
+              if (histBenchSel.options[i].value) { histBenchSel.value = histBenchSel.options[i].value; break; }
+            }
+          }
+          renderHistoryChart();
+        }, 100);
+      });
+    }
+    window.addEventListener('resize', function () {
+      clearTimeout(renderHistoryChart._t);
+      renderHistoryChart._t = setTimeout(renderHistoryChart, 120);
+    });
+    renderHistoryChart();
+
     // Wire up the chart-side search input: filter the <select>, then
     // auto-select the first surviving option and re-render.
     const chartSearch = document.getElementById('llm-chart-search');

@@ -244,21 +244,21 @@ permalink: /llm-leaderboard/
     <div class="llm-progress-card" id="llm-progress-card">
       <div class="llm-chart-head">
         <div class="llm-chart-copy">
-          <p class="llm-board-kicker">Iteration Speed</p>
-          <h2>Which family is improving fastest?</h2>
+          <p class="llm-board-kicker">迭代速度</p>
+          <h2>哪家迭代得最快？</h2>
           <p>横向排序每家厂商在该 benchmark 上的「迭代速度」。每行右边是「<strong>分/月</strong>」分数：取该家所有 release 的前沿（累计最高），用最新前沿减最早前沿、除以两者间隔月数。轨道上的小圆点是每次 release 的分数，最右边那个粗圆点是当前最强模型。</p>
         </div>
         <div class="llm-progress-toolbar">
           <label class="llm-progress-toggle">
             <input type="checkbox" id="llm-progress-show-all" />
-            <span>Show non-frontier releases</span>
+            <span>显示所有 release</span>
           </label>
           <label class="llm-progress-sort">
-            <span>Sort by</span>
+            <span>排序方式</span>
             <select id="llm-progress-sort">
-              <option value="velocity" selected>Velocity (pts/mo)</option>
-              <option value="best">Current best</option>
-              <option value="delta">Total improvement</option>
+              <option value="velocity" selected>速度（分/月）</option>
+              <option value="best">当前最强</option>
+              <option value="delta">总提升</option>
             </select>
           </label>
         </div>
@@ -266,6 +266,33 @@ permalink: /llm-leaderboard/
       <div class="llm-progress-empty" id="llm-progress-empty" hidden>这个 benchmark 没有足够带发布日期的模型分数可画。</div>
       <div class="llm-progress-rows" id="llm-progress-rows"></div>
       <div class="llm-progress-legend" id="llm-progress-legend"></div>
+    </div>
+
+    <div class="llm-history-card" id="llm-history-card">
+      <div class="llm-chart-head">
+        <div class="llm-chart-copy">
+          <p class="llm-board-kicker">迭代轨迹</p>
+          <h2>某家厂商在某个 benchmark 上的进步</h2>
+          <p>独立选择厂商和 benchmark，看这家所有模型在该 bench 上的得分随时间变化的轨迹。横坐标是发布日期，纵坐标是分数。每个圆点是一次 release，旁边标注模型名和分数。同一天发布的多个档位（Pro / Flash / Mini）会按 Y 轴自然分层。</p>
+        </div>
+        <div class="llm-history-toolbar">
+          <label class="llm-history-field">
+            <span>厂商</span>
+            <select id="llm-history-family"></select>
+          </label>
+          <label class="llm-history-field">
+            <span>Benchmark</span>
+            <input type="search" id="llm-history-bench-search" placeholder="找 benchmark..." autocomplete="off" />
+            <select id="llm-history-bench"></select>
+          </label>
+          <label class="llm-history-toggle">
+            <input type="checkbox" id="llm-history-frontier" />
+            <span>叠加前沿连线</span>
+          </label>
+        </div>
+      </div>
+      <div class="llm-history-empty" id="llm-history-empty" hidden>这家厂商在该 benchmark 上的数据不够（至少需要 1 个带日期 + 分数的模型）。</div>
+      <div class="llm-history-chart" id="llm-history-chart"></div>
     </div>
   </div>
 </section>
