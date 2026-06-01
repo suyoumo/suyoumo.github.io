@@ -245,6 +245,52 @@ categories:
     label: VIBE-Pro
   - key: mewc
     label: MEWC
+  - key: vibe_avg
+    label: VIBE (Average)
+  - key: vibe_web
+    label: VIBE-Web
+  - key: vibe_simulation
+    label: VIBE-Simulation
+  - key: vibe_android
+    label: VIBE-Android
+  - key: vibe_ios
+    label: VIBE-iOS
+  - key: vibe_backend
+    label: VIBE-Backend
+  - key: vibe_v2
+    label: VIBE-V2
+  - key: swe_verified_droid
+    label: SWE-Verified (Droid)
+  - key: swe_verified_mini_swe_agent
+    label: SWE-Verified (mini-swe-agent)
+  - key: swt_bench
+    label: SWT-bench
+  - key: swe_perf
+    label: SWE-Perf
+  - key: swe_review
+    label: SWE-Review
+  - key: octocodingbench
+    label: OctoCodingbench
+  - key: swe_atlas_qna
+    label: SWE Atlas-QnA
+  - key: swe_atlas_text_writing
+    label: SWE Atlas-Text Writing
+  - key: swe_rficiency
+    label: SWE-rficiency
+  - key: livesglbench
+    label: LiveSGLBench
+  - key: svg_bench
+    label: SVG-bench
+  - key: psof_train
+    label: PsofTrainBench
+  - key: kernelbench_hard
+    label: KernelBench Hard
+  - key: paperbench
+    label: PaperBench
+  - key: clawval_11
+    label: ClawEval-1.1
+  - key: t3_bench
+    label: t3-bench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -327,6 +373,32 @@ categories:
     label: GAIA
   - key: xbench_deepsearch
     label: xbench-DeepSearch
+  - key: xbench_deepsearch_2025_05
+    label: xbench-DeepSearch (2025.05)
+  - key: xbench_deepsearch_2025_10
+    label: xbench-DeepSearch (2025.10)
+  - key: wide_search
+    label: WideSearch
+  - key: rise
+    label: RISE
+  - key: gdpval_stirrup
+    label: GDPval-Stirrup
+  - key: gdpval_rubrics
+    label: GDPval Rubrics
+  - key: draco
+    label: DRACO
+  - key: bankertoolbench
+    label: BankerToolBench
+  - key: yc_bench
+    label: YC-Bench
+  - key: loca_bench_256k
+    label: LOCA-Bench (256k)
+  - key: finance_modeling
+    label: Finance Modeling
+  - key: browsecomp_ctx
+    label: BrowseComp (w/ctx)
+  - key: browsecomp_zh_ctx
+    label: BrowseComp-ZH (w/ctx)
 - name: Knowledge & Reasoning
   columns:
   - key: mmlu_pro
@@ -459,6 +531,10 @@ categories:
     label: Arena-Hard
   - key: arena_hard_creative
     label: Arena-Hard (Creative)
+  - key: usamo_2026
+    label: USAMO 2026
+  - key: imo_2025
+    label: IMO 2025
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -581,6 +657,10 @@ categories:
     label: OSWorld-Verified
   - key: futureomni
     label: FutureOmni
+  - key: worldvqa
+    label: WorldVQA
+  - key: bc_vl
+    label: BC-VL
 - name: Generation
   columns:
   - key: geneval
@@ -5941,6 +6021,118 @@ rows:
     - value: '20.48'
       source_label: MiniMax M3
       source_url: https://www.minimaxi.com/
+    swe_atlas_qna:
+    - value: '37.9'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    nl2repo:
+    - value: '42.13'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    swe_atlas_text_writing:
+    - value: '30.83'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    swe_rficiency:
+    - value: '34.8'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    livesglbench:
+    - value: '40.17'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    vibe_v2:
+    - value: '50.12'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    svg_bench:
+    - value: '63.7'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    psof_train:
+    - value: '77.1'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    kernelbench_hard:
+    - value: '28.8'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    paperbench:
+    - value: '52.6'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    browsecomp:
+    - value: '83.52'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    draco:
+    - value: '73.23'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    gdpval_rubrics:
+    - value: '74.78'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    bankertoolbench:
+    - value: '76.12'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    officeqa_pro:
+    - value: '45.1'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    spreadsheetbench_v1:
+    - value: '89.35'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    yc_bench:
+    - value: 2.10M
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    loca_bench_256k:
+    - value: '49.3'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    mcp_atlas:
+    - value: '74.2'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    apex:
+    - value: '27.7'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    claw_eval_avg:
+    - value: '74.5'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    osworld_verified:
+    - value: '70.06'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    omnidocbench15:
+    - value: '91.6'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    mmmu_pro:
+    - value: '78.1'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    videommmu:
+    - value: '84.6'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    videomme_w_sub:
+    - value: '85.4'
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    imo_2025:
+    - value: 35/42
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
+    usamo_2026:
+    - value: 36/42
+      source_label: MiniMax M3
+      source_url: https://www.minimaxi.com/
 - company: MiniMax
   model: MiniMax-M2.7
   mode: Thinking
@@ -6001,6 +6193,74 @@ rows:
     - value: '59'
       source_label: MiniMax M2.5
       source_url: https://www.minimaxi.com/
+    terminal_bench_2:
+    - value: '51.7'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    swe_multilingual:
+    - value: '74.1'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    vibe_web:
+    - value: '36.9'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    vibe_simulation:
+    - value: '81.4'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    vibe_android:
+    - value: '50.6'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    vibe_ios:
+    - value: '47.9'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    browsecomp_ctx:
+    - value: '76.3'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    wide_search:
+    - value: '70.3'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    rise:
+    - value: '50.2'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    tau2_bench_telecom:
+    - value: '97.8'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    finance_modeling:
+    - value: '21.6'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    aime_2025:
+    - value: '86.3'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    gpqa:
+    - value: '85.2'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    hle:
+    - value: '19.4'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    scicode:
+    - value: '44.4'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    ifbench:
+    - value: '70.0'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
+    aa_lcr:
+    - value: '69.5'
+      source_label: MiniMax M2.5
+      source_url: https://www.minimaxi.com/
 - company: MiniMax
   model: MiniMax-M2.1
   mode: Thinking
@@ -6025,6 +6285,102 @@ rows:
     - value: '47.9'
       source_label: MiniMax M2.1
       source_url: https://www.minimaxi.com/
+    swe_verified_droid:
+    - value: '71.3'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    swe_verified_mini_swe_agent:
+    - value: '67.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    swt_bench:
+    - value: '69.3'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    swe_perf:
+    - value: '3.1'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    swe_review:
+    - value: '8.9'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    octocodingbench:
+    - value: '26.1'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_avg:
+    - value: '88.6'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_web:
+    - value: '91.5'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_simulation:
+    - value: '87.1'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_android:
+    - value: '89.7'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_ios:
+    - value: '88.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    vibe_backend:
+    - value: '86.7'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    toolathlon:
+    - value: '43.5'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    browsecomp:
+    - value: '47.4'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    browsecomp_ctx:
+    - value: '62.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    aime_2025:
+    - value: '81.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    mmlu_pro:
+    - value: '88.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    gpqa:
+    - value: '81.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    hle:
+    - value: '22.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    livecodebench:
+    - value: '78.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    scicode:
+    - value: '39.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    ifbench:
+    - value: '70.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    aa_lcr:
+    - value: '62.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
+    tau2_bench_telecom:
+    - value: '87.0'
+      source_label: MiniMax M2.1
+      source_url: https://www.minimaxi.com/
 - company: StepFun
   model: Step 3.7 Flash
   mode: Thinking
@@ -6047,6 +6403,54 @@ rows:
       source_url: https://stepfun.com/
     v_star:
     - value: '95.3'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    toolathlon:
+    - value: '49.5'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    clawval_11:
+    - value: '67.1'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    hle_tools:
+    - value: '47.2'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    worldvqa:
+    - value: '58.10'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    bc_vl:
+    - value: '58.96'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    browsecomp:
+    - value: '75.8'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    deepsearch_qa:
+    - value: '92.8'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    researchrubrics:
+    - value: '71.7'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    gdpval_stirrup:
+    - value: '1415.8'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    swe_multilingual:
+    - value: '72.4'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    swe_verified:
+    - value: '76.5'
+      source_label: Step 3.7 Flash
+      source_url: https://stepfun.com/
+    aa_lcr:
+    - value: '63.9'
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
 - company: StepFun
@@ -6075,6 +6479,54 @@ rows:
       source_url: https://stepfun.com/
     researchrubrics:
     - value: '65.3'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    t3_bench:
+    - value: '88.2'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    browsecomp_ctx:
+    - value: '69.0'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    browsecomp_zh_ctx:
+    - value: '73.7'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    xbench_deepsearch_2025_05:
+    - value: '83.7'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    xbench_deepsearch_2025_10:
+    - value: '56.3'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    aime_2025:
+    - value: '97.3'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    hmmt_2025_feb:
+    - value: '98.4'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    hmmt_2025_nov:
+    - value: '94.0'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    imoanswerbench:
+    - value: '85.4'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    livecodebench:
+    - value: '86.4'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    swe_verified:
+    - value: '74.4'
+      source_label: Step 3.5 Flash
+      source_url: https://stepfun.com/
+    terminal_bench_2:
+    - value: '51.0'
       source_label: Step 3.5 Flash
       source_url: https://stepfun.com/
 - company: Anthropic
