@@ -1,6 +1,5 @@
 (function () {
   document.addEventListener('DOMContentLoaded', function () {
-    // -------- Data load --------
     const dataEl = document.getElementById('llm-board-data');
     if (!dataEl) return;
     let board;
@@ -11,56 +10,363 @@
       return;
     }
 
-    // -------- Filter: model search --------
-    const filterInput = document.getElementById('llm-board-filter');
-    const filterCounter = document.getElementById('llm-board-filter-counter');
-    const filterReset = document.getElementById('llm-board-filter-reset');
-    const tbody = document.querySelector('#llm-board-table tbody');
+    /* ============ Filter state ============ */
+    const state = {
+      searchQuery: '',
+      hiddenModels: new Set(),
+      hiddenBenches: new Set()
+    };
 
-    function applyFilter() {
-      if (!tbody) return;
-      const q = (filterInput.value || '').trim().toLowerCase();
-      const rows = tbody.querySelectorAll('tr');
-      let shown = 0;
-      rows.forEach(function (tr) {
-        const cell = tr.querySelector('.llm-model-cell');
-        if (!cell) return;
-        const text = cell.textContent.toLowerCase();
-        const match = !q || text.indexOf(q) !== -1;
-        tr.style.display = match ? '' : 'none';
-        if (match) shown++;
+    const tbody = document.querySelector('#llm-board-table tbody');
+    const table = document.getElementById('llm-board-table');
+    const filterCounter = document.getElementById('llm-board-filter-counter');
+    const modelsCountEl = document.getElementById('llm-board-filter-models-count');
+    const benchesCountEl = document.getElementById('llm-board-filter-benches-count');
+
+    const allModels = Array.from(tbody.querySelectorAll('tr[data-model-name]'))
+      .map(function (tr) { return { model: tr.dataset.modelName, company: tr.dataset.company || '' }; });
+
+    const allBenches = [];
+    (board.categories || []).forEach(function (cat) {
+      (cat.columns || []).forEach(function (col) {
+        allBenches.push({ key: col.key, label: col.label, cat: cat.name });
       });
-      if (filterCounter) {
-        filterCounter.textContent = q
-          ? shown + ' / ' + rows.length + ' models'
-          : rows.length + ' models';
+    });
+
+    /* ============ URL hash sync ============ */
+    function readHash() {
+      const h = (window.location.hash || '').replace(/^#/, '');
+      if (!h) return;
+      const params = new URLSearchParams(h);
+      const xm = params.get('xm');
+      const xb = params.get('xb');
+      if (xm) state.hiddenModels = new Set(xm.split('|').filter(Boolean));
+      if (xb) state.hiddenBenches = new Set(xb.split('|').filter(Boolean));
+    }
+    function writeHash() {
+      const params = new URLSearchParams();
+      if (state.hiddenModels.size) params.set('xm', Array.from(state.hiddenModels).join('|'));
+      if (state.hiddenBenches.size) params.set('xb', Array.from(state.hiddenBenches).join('|'));
+      const s = params.toString();
+      const newHash = s ? '#' + s : '';
+      if (newHash !== (window.location.hash || '')) {
+        try { history.replaceState(null, '', window.location.pathname + window.location.search + newHash); }
+        catch (e) { window.location.hash = newHash.replace(/^#/, ''); }
       }
     }
 
-    if (filterInput) {
-      filterInput.addEventListener('input', applyFilter);
+    /* ============ Build popover bodies ============ */
+    function buildModelsPanel() {
+      const body = document.getElementById('llm-board-filter-models-body');
+      const byCompany = new Map();
+      allModels.forEach(function (m) {
+        if (!byCompany.has(m.company)) byCompany.set(m.company, []);
+        byCompany.get(m.company).push(m);
+      });
+      const frag = document.createDocumentFragment();
+      byCompany.forEach(function (models, company) {
+        const grp = document.createElement('div');
+        grp.className = 'llm-board-filter-group';
+        grp.dataset.company = company;
+        const head = document.createElement('div');
+        head.className = 'llm-board-filter-group-head';
+        const lbl = document.createElement('strong');
+        lbl.textContent = company || 'Other';
+        head.appendChild(lbl);
+        const allBtn = document.createElement('button');
+        allBtn.type = 'button';
+        allBtn.textContent = 'toggle';
+        allBtn.addEventListener('click', function () {
+          const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
+          const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
+          checkboxes.forEach(function (c) {
+            c.checked = anyUnchecked;
+            const k = c.value;
+            if (anyUnchecked) state.hiddenModels.delete(k); else state.hiddenModels.add(k);
+          });
+          afterChange();
+        });
+        head.appendChild(allBtn);
+        grp.appendChild(head);
+        const list = document.createElement('div');
+        list.className = 'llm-board-filter-group-items';
+        models.forEach(function (m) {
+          const lab = document.createElement('label');
+          lab.className = 'llm-board-filter-item';
+          lab.dataset.searchKey = (m.model + ' ' + m.company).toLowerCase();
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = m.model;
+          cb.checked = !state.hiddenModels.has(m.model);
+          cb.addEventListener('change', function () {
+            if (cb.checked) state.hiddenModels.delete(m.model);
+            else state.hiddenModels.add(m.model);
+            afterChange();
+          });
+          const span = document.createElement('span');
+          span.textContent = m.model;
+          lab.appendChild(cb);
+          lab.appendChild(span);
+          list.appendChild(lab);
+        });
+        grp.appendChild(list);
+        frag.appendChild(grp);
+      });
+      body.innerHTML = '';
+      body.appendChild(frag);
+    }
+
+    function buildBenchesPanel() {
+      const body = document.getElementById('llm-board-filter-benches-body');
+      const frag = document.createDocumentFragment();
+      (board.categories || []).forEach(function (cat) {
+        const grp = document.createElement('div');
+        grp.className = 'llm-board-filter-group';
+        grp.dataset.category = cat.name;
+        const head = document.createElement('div');
+        head.className = 'llm-board-filter-group-head';
+        const lbl = document.createElement('strong');
+        lbl.textContent = cat.name;
+        head.appendChild(lbl);
+        const allBtn = document.createElement('button');
+        allBtn.type = 'button';
+        allBtn.textContent = 'toggle';
+        allBtn.addEventListener('click', function () {
+          const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
+          const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
+          checkboxes.forEach(function (c) {
+            c.checked = anyUnchecked;
+            const k = c.value;
+            if (anyUnchecked) state.hiddenBenches.delete(k); else state.hiddenBenches.add(k);
+          });
+          afterChange();
+        });
+        head.appendChild(allBtn);
+        grp.appendChild(head);
+        const list = document.createElement('div');
+        list.className = 'llm-board-filter-group-items';
+        (cat.columns || []).forEach(function (col) {
+          const lab = document.createElement('label');
+          lab.className = 'llm-board-filter-item';
+          lab.dataset.searchKey = (col.label + ' ' + col.key).toLowerCase();
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = col.key;
+          cb.checked = !state.hiddenBenches.has(col.key);
+          cb.addEventListener('change', function () {
+            if (cb.checked) state.hiddenBenches.delete(col.key);
+            else state.hiddenBenches.add(col.key);
+            afterChange();
+          });
+          const span = document.createElement('span');
+          span.textContent = col.label;
+          lab.appendChild(cb);
+          lab.appendChild(span);
+          list.appendChild(lab);
+        });
+        grp.appendChild(list);
+        frag.appendChild(grp);
+      });
+      body.innerHTML = '';
+      body.appendChild(frag);
+    }
+
+    /* ============ Apply filter to table ============ */
+    function applyFilter() {
+      const q = state.searchQuery.toLowerCase();
+      // Hide rows
+      let visibleModels = 0;
+      Array.from(tbody.querySelectorAll('tr[data-model-name]')).forEach(function (tr) {
+        const m = tr.dataset.modelName || '';
+        const c = tr.dataset.company || '';
+        const passSearch = !q || (m + ' ' + c).toLowerCase().indexOf(q) !== -1;
+        const passSelected = !state.hiddenModels.has(m);
+        const show = passSearch && passSelected;
+        tr.style.display = show ? '' : 'none';
+        if (show) visibleModels++;
+      });
+
+      // Hide benchmark columns
+      let visibleBenches = 0;
+      allBenches.forEach(function (b) {
+        const hide = state.hiddenBenches.has(b.key);
+        if (!hide) visibleBenches++;
+        const cells = table.querySelectorAll('[data-bench-key="' + cssEscape(b.key) + '"]');
+        cells.forEach(function (c) { c.style.display = hide ? 'none' : ''; });
+      });
+
+      // Adjust category group <th> colspan: count visible benches per category
+      const visiblePerCat = new Map();
+      allBenches.forEach(function (b) {
+        if (!state.hiddenBenches.has(b.key)) {
+          visiblePerCat.set(b.cat, (visiblePerCat.get(b.cat) || 0) + 1);
+        }
+      });
+      Array.from(table.querySelectorAll('[data-cat-name].llm-board-group')).forEach(function (gth) {
+        const cnt = visiblePerCat.get(gth.dataset.catName) || 0;
+        if (cnt === 0) {
+          gth.style.display = 'none';
+        } else {
+          gth.style.display = '';
+          gth.colSpan = cnt;
+        }
+      });
+
+      // Update counters
+      if (modelsCountEl) {
+        const total = allModels.length;
+        modelsCountEl.textContent = state.hiddenModels.size === 0 ? 'all ' + total : visibleModels + '/' + total;
+      }
+      if (benchesCountEl) {
+        const total = allBenches.length;
+        benchesCountEl.textContent = state.hiddenBenches.size === 0 ? 'all ' + total : visibleBenches + '/' + total;
+      }
+      if (filterCounter) {
+        filterCounter.textContent = visibleModels + ' models · ' + visibleBenches + ' benchmarks';
+      }
+
+      // Resync sticky head widths (the global llm-leaderboard.js exposes
+      // nothing, but it does observe ResizeObserver on table — toggling
+      // display triggers reflow and the observer will re-run).
+      // As a belt-and-suspenders, dispatch a synthetic resize:
+      window.dispatchEvent(new Event('resize'));
+    }
+
+    function cssEscape(s) {
+      if (window.CSS && window.CSS.escape) return window.CSS.escape(s);
+      return String(s).replace(/[^a-zA-Z0-9_-]/g, function (ch) { return '\\' + ch; });
+    }
+
+    function afterChange() {
+      writeHash();
       applyFilter();
     }
-    if (filterReset) {
-      filterReset.addEventListener('click', function () {
-        if (filterInput) filterInput.value = '';
+
+    /* ============ Toolbar wiring ============ */
+    const searchInput = document.getElementById('llm-board-filter');
+    const resetBtn = document.getElementById('llm-board-filter-reset');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        state.searchQuery = searchInput.value || '';
         applyFilter();
-        filterInput && filterInput.focus();
+      });
+    }
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        state.hiddenModels.clear();
+        state.hiddenBenches.clear();
+        state.searchQuery = '';
+        if (searchInput) searchInput.value = '';
+        // Re-tick all checkboxes
+        document.querySelectorAll('.llm-board-filter-panel input[type="checkbox"]').forEach(function (c) { c.checked = true; });
+        afterChange();
       });
     }
 
-    // -------- Chart: per-benchmark bars --------
+    /* ============ Popover open/close ============ */
+    function openPanel(name) {
+      ['models', 'benches'].forEach(function (n) {
+        const panel = document.getElementById('llm-board-filter-' + n + '-panel');
+        const btn = document.getElementById('llm-board-filter-' + n + '-btn');
+        if (n === name) {
+          const isOpen = !panel.hidden;
+          panel.hidden = isOpen;
+          btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        } else {
+          panel.hidden = true;
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+    document.getElementById('llm-board-filter-models-btn').addEventListener('click', function (e) {
+      e.stopPropagation(); openPanel('models');
+    });
+    document.getElementById('llm-board-filter-benches-btn').addEventListener('click', function (e) {
+      e.stopPropagation(); openPanel('benches');
+    });
+
+    ['models', 'benches'].forEach(function (name) {
+      const panel = document.getElementById('llm-board-filter-' + name + '-panel');
+      // Outside click / Escape close
+      document.addEventListener('click', function (e) {
+        if (panel.hidden) return;
+        if (!panel.contains(e.target) && !document.getElementById('llm-board-filter-' + name + '-btn').contains(e.target)) {
+          panel.hidden = true;
+        }
+      });
+      // Action buttons inside head
+      panel.querySelectorAll('[data-action]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const action = btn.dataset.action;
+          if (action === 'close') {
+            panel.hidden = true;
+          } else if (action === 'all') {
+            // Select all (visible after search)
+            panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
+              if (lab.style.display === 'none') return;
+              const cb = lab.querySelector('input[type="checkbox"]');
+              if (!cb.checked) {
+                cb.checked = true;
+                const k = cb.value;
+                if (name === 'models') state.hiddenModels.delete(k);
+                else state.hiddenBenches.delete(k);
+              }
+            });
+            afterChange();
+          } else if (action === 'none') {
+            panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
+              if (lab.style.display === 'none') return;
+              const cb = lab.querySelector('input[type="checkbox"]');
+              if (cb.checked) {
+                cb.checked = false;
+                const k = cb.value;
+                if (name === 'models') state.hiddenModels.add(k);
+                else state.hiddenBenches.add(k);
+              }
+            });
+            afterChange();
+          }
+        });
+      });
+      // Inner search input
+      const searchEl = document.getElementById('llm-board-filter-' + name + '-search');
+      if (searchEl) {
+        searchEl.addEventListener('input', function () {
+          const q = (searchEl.value || '').toLowerCase().trim();
+          panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
+            const k = lab.dataset.searchKey || '';
+            lab.style.display = (!q || k.indexOf(q) !== -1) ? '' : 'none';
+          });
+          panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
+            const visible = Array.from(g.querySelectorAll('.llm-board-filter-item')).some(function (lab) { return lab.style.display !== 'none'; });
+            g.style.display = visible ? '' : 'none';
+          });
+        });
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.llm-board-filter-panel').forEach(function (p) { p.hidden = true; });
+      }
+    });
+
+    /* ============ Init ============ */
+    readHash();
+    buildModelsPanel();
+    buildBenchesPanel();
+    applyFilter();
+
+    /* ============ Chart (per-benchmark bar chart, unchanged behavior) ============ */
     const select = document.getElementById('llm-chart-benchmark');
     const limitSelect = document.getElementById('llm-chart-limit');
     const bars = document.getElementById('llm-chart-bars');
     const empty = document.getElementById('llm-chart-empty');
     if (!select || !bars) return;
 
-    // Build benchmark options grouped by category, with a few popular defaults at top.
     const popularKeys = ['gpqa', 'hle', 'aime_2025', 'swe_verified', 'livecodebench', 'mmlu_pro', 'mmmu_pro'];
     const seenKeys = new Set();
-
-    // Top group: popular benchmarks
     const popularGroup = document.createElement('optgroup');
     popularGroup.label = '★ Popular';
     (board.categories || []).forEach(function (cat) {
@@ -75,8 +381,6 @@
       });
     });
     if (popularGroup.children.length) select.appendChild(popularGroup);
-
-    // Category groups
     (board.categories || []).forEach(function (cat) {
       const og = document.createElement('optgroup');
       og.label = cat.name;
@@ -89,7 +393,6 @@
       if (og.children.length) select.appendChild(og);
     });
 
-    // Group rows by model name (same as the table's merge logic)
     const groupedRows = (function () {
       const seen = new Map();
       (board.rows || []).forEach(function (row) {
@@ -103,9 +406,7 @@
 
     function parseScore(s) {
       if (s == null) return NaN;
-      // strip commas, percent, $, # etc.
       const cleaned = String(s).replace(/[,%$#]/g, '').trim();
-      // values like '52.3/43.3' — take the first number
       const m = cleaned.match(/-?\d+(\.\d+)?/);
       return m ? parseFloat(m[0]) : NaN;
     }
@@ -142,7 +443,6 @@
       const limit = limitRaw === 'all' ? Infinity : parseInt(limitRaw, 10);
       if (!key) return;
 
-      // Compute best score per model
       const items = [];
       groupedRows.forEach(function (g) {
         const best = bestNumeric(g.rows, key);
@@ -156,17 +456,12 @@
         }
       });
 
-      // Sort desc by numeric
       items.sort(function (a, b) { return b.numeric - a.numeric; });
-
       const visible = isFinite(limit) ? items.slice(0, limit) : items;
       bars.innerHTML = '';
 
-      if (!visible.length) {
-        empty && (empty.hidden = false);
-        return;
-      }
-      empty && (empty.hidden = true);
+      if (!visible.length) { if (empty) empty.hidden = false; return; }
+      if (empty) empty.hidden = true;
 
       const max = visible[0].numeric;
       visible.forEach(function (item, idx) {
@@ -177,7 +472,6 @@
           a.target = '_blank';
           a.rel = 'noopener';
         }
-
         const rank = document.createElement('span');
         rank.className = 'llm-chart-rank';
         rank.textContent = '#' + (idx + 1);
@@ -217,12 +511,10 @@
         }
         barWrap.appendChild(value);
         a.appendChild(barWrap);
-
         bars.appendChild(a);
       });
     }
 
-    // Default to first popular benchmark that has data; fall back to first option
     let defaultKey = null;
     for (let i = 0; i < select.options.length; i++) {
       const opt = select.options[i];

@@ -41,12 +41,48 @@ permalink: /llm-leaderboard/
     </div>
 
     <div class="llm-board-toolbar" id="llm-board-toolbar">
+      <button class="llm-board-filter-button" id="llm-board-filter-models-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+        <span class="llm-board-filter-button-label">Models</span>
+        <span class="llm-board-filter-button-count" id="llm-board-filter-models-count">all</span>
+        <span class="llm-board-filter-button-caret" aria-hidden="true">▾</span>
+      </button>
+      <button class="llm-board-filter-button" id="llm-board-filter-benches-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
+        <span class="llm-board-filter-button-label">Benchmarks</span>
+        <span class="llm-board-filter-button-count" id="llm-board-filter-benches-count">all</span>
+        <span class="llm-board-filter-button-caret" aria-hidden="true">▾</span>
+      </button>
       <label class="llm-board-filter-label">
-        <span>Filter models</span>
+        <span>Quick search</span>
         <input type="search" id="llm-board-filter" placeholder="模型名 / 厂商" autocomplete="off" />
       </label>
       <span class="llm-board-filter-counter" id="llm-board-filter-counter" aria-live="polite"></span>
       <button class="llm-board-filter-reset" id="llm-board-filter-reset" type="button">Reset</button>
+    </div>
+
+    <!-- Model picker popover -->
+    <div class="llm-board-filter-panel" id="llm-board-filter-models-panel" role="dialog" aria-label="Filter models" hidden>
+      <div class="llm-board-filter-panel-head">
+        <input type="search" id="llm-board-filter-models-search" placeholder="Search models / providers..." autocomplete="off" />
+        <div class="llm-board-filter-panel-actions">
+          <button type="button" data-action="all">Select all</button>
+          <button type="button" data-action="none">Clear</button>
+          <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="llm-board-filter-panel-body" id="llm-board-filter-models-body"></div>
+    </div>
+
+    <!-- Benchmark picker popover -->
+    <div class="llm-board-filter-panel" id="llm-board-filter-benches-panel" role="dialog" aria-label="Filter benchmarks" hidden>
+      <div class="llm-board-filter-panel-head">
+        <input type="search" id="llm-board-filter-benches-search" placeholder="Search benchmarks..." autocomplete="off" />
+        <div class="llm-board-filter-panel-actions">
+          <button type="button" data-action="all">Select all</button>
+          <button type="button" data-action="none">Clear</button>
+          <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+        </div>
+      </div>
+      <div class="llm-board-filter-panel-body" id="llm-board-filter-benches-body"></div>
     </div>
 
     <div class="llm-board-table-card" id="llm-board-card">
@@ -73,13 +109,13 @@ permalink: /llm-leaderboard/
               <th rowspan="2">Released</th>
               <th rowspan="2">Source</th>
               {% for group in board.categories %}
-              <th class="llm-board-group" colspan="{{ group.columns | size }}">{{ group.name }}</th>
+              <th class="llm-board-group" colspan="{{ group.columns | size }}" data-cat-name="{{ group.name }}" data-original-colspan="{{ group.columns | size }}">{{ group.name }}</th>
               {% endfor %}
             </tr>
             <tr>
               {% for group in board.categories %}
                 {% for metric in group.columns %}
-                <th>{{ metric.label }}</th>
+                <th data-bench-key="{{ metric.key }}" data-cat-name="{{ group.name }}">{{ metric.label }}</th>
                 {% endfor %}
               {% endfor %}
             </tr>
@@ -94,7 +130,7 @@ permalink: /llm-leaderboard/
                 {% assign first_row = rows_in_group | first %}
                 {% assign is_merged = false %}
                 {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
-            <tr>
+            <tr data-model-name="{{ first_row.model }}" data-company="{{ first_row.company }}">
               <td class="llm-sticky-col llm-model-cell">
                 <strong>{{ first_row.model }}</strong>
                 <span>{{ first_row.company }}</span>
@@ -132,7 +168,7 @@ permalink: /llm-leaderboard/
                   {% for r in rows_in_group %}
                     {% if r.scores[metric.key] %}{% assign cell_has_any = true %}{% endif %}
                   {% endfor %}
-                  <td class="{% unless cell_has_any %}llm-empty-score{% endunless %}">
+                  <td data-bench-key="{{ metric.key }}" class="{% unless cell_has_any %}llm-empty-score{% endunless %}">
                     {% if cell_has_any %}
                     <div class="llm-score-stack">
                       {% for r in rows_in_group %}

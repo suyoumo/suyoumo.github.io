@@ -819,11 +819,12 @@ hr {
 
 /* ========== Filter toolbar (above table) ========== */
 .llm-board-toolbar {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 16px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 12px;
@@ -831,16 +832,58 @@ hr {
   flex-wrap: wrap;
 }
 
+.llm-board-filter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+  color: $darkerGray;
+  border-radius: 999px;
+  font-family: $sans;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    border-color: rgba(196, 90, 60, 0.4);
+    background: rgba(196, 90, 60, 0.06);
+  }
+
+  &[aria-expanded="true"] {
+    border-color: $primary;
+    background: rgba(196, 90, 60, 0.1);
+    color: $primary;
+  }
+}
+
+.llm-board-filter-button-count {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(196, 90, 60, 0.15);
+  color: $primary;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.llm-board-filter-button-caret {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
 .llm-board-filter-label {
   display: flex;
   align-items: center;
   gap: 10px;
   flex: 1 1 auto;
-  min-width: 0;
+  min-width: 200px;
 
   > span {
     color: $gray;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -848,16 +891,15 @@ hr {
   }
 
   input {
-    flex: 1 1 220px;
+    flex: 1 1 200px;
     min-width: 0;
-    padding: 9px 14px;
+    padding: 8px 14px;
     border-radius: 999px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background: rgba(245, 240, 234, 0.55);
     color: $black;
     font-family: $sans;
     font-size: 0.92rem;
-    transition: border-color 0.15s ease, background 0.15s ease;
 
     &:focus {
       outline: none;
@@ -870,9 +912,8 @@ hr {
 .llm-board-filter-counter {
   color: $primary;
   font-family: $sans;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 0.01em;
 }
 
 .llm-board-filter-reset {
@@ -880,10 +921,10 @@ hr {
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.85);
   color: $darkGray;
-  padding: 8px 14px;
+  padding: 7px 14px;
   border-radius: 999px;
   font-family: $sans;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
@@ -892,6 +933,170 @@ hr {
     background: rgba(196, 90, 60, 0.1);
     color: $primary;
     border-color: rgba(196, 90, 60, 0.32);
+  }
+}
+
+/* ========== Filter popover panel ========== */
+.llm-board-filter-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 14px;
+  right: 14px;
+  z-index: 50;
+  max-height: 540px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.99);
+  border: 1px solid rgba(196, 90, 60, 0.2);
+  border-radius: 14px;
+  box-shadow: 0 24px 56px rgba(60, 42, 28, 0.18);
+  overflow: hidden;
+
+  &[hidden] { display: none; }
+}
+
+.llm-board-filter-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, rgba(245, 240, 234, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+
+  input {
+    flex: 1 1 auto;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.96);
+    font-family: $sans;
+    font-size: 0.88rem;
+
+    &:focus {
+      outline: none;
+      border-color: rgba(196, 90, 60, 0.5);
+    }
+  }
+}
+
+.llm-board-filter-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  button {
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.96);
+    color: $darkGray;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-family: $sans;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      border-color: rgba(196, 90, 60, 0.4);
+      color: $primary;
+    }
+
+    &.close {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      font-size: 1.05rem;
+    }
+  }
+}
+
+.llm-board-filter-panel-body {
+  overflow-y: auto;
+  padding: 12px 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.llm-board-filter-group {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  background: rgba(250, 244, 236, 0.45);
+  overflow: hidden;
+}
+
+.llm-board-filter-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(196, 90, 60, 0.08);
+  color: $primary;
+
+  strong {
+    font-family: $sans;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: $primary;
+    font-family: $sans;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 6px;
+
+    &:hover {
+      background: rgba(196, 90, 60, 0.14);
+    }
+  }
+}
+
+.llm-board-filter-group-items {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 8px 8px;
+  gap: 2px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.llm-board-filter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: $darkGray;
+  font-family: $sans;
+  font-size: 0.82rem;
+  transition: background 0.12s ease, color 0.12s ease;
+
+  &:hover {
+    background: rgba(196, 90, 60, 0.06);
+    color: $primary;
+  }
+
+  input {
+    accent-color: $primary;
+    flex: 0 0 auto;
+  }
+
+  span {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
