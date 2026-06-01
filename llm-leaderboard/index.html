@@ -76,12 +76,15 @@ permalink: /llm-leaderboard/
             </tr>
           </thead>
           <tbody>
-            {% assign grouped = board.rows | group_by: "model" %}
-            {% for group in grouped %}
-              {% assign rows_in_group = group.items %}
-              {% assign first_row = rows_in_group | first %}
-              {% assign is_merged = false %}
-              {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
+            {% assign seen_models = "" %}
+            {% for row in board.rows %}
+              {% capture model_marker %}|{{ row.model }}|{% endcapture %}
+              {% unless seen_models contains model_marker %}
+                {% assign seen_models = seen_models | append: model_marker %}
+                {% assign rows_in_group = board.rows | where: "model", row.model %}
+                {% assign first_row = rows_in_group | first %}
+                {% assign is_merged = false %}
+                {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
             <tr>
               <td class="llm-sticky-col llm-model-cell">
                 <strong>{{ first_row.model }}</strong>
@@ -150,6 +153,7 @@ permalink: /llm-leaderboard/
                 {% endfor %}
               {% endfor %}
             </tr>
+              {% endunless %}
             {% endfor %}
           </tbody>
         </table>
