@@ -348,7 +348,10 @@ hr {
 }
 
 .llm-board-page {
-  padding: 28px 0 72px;
+  padding: 36px 0 80px;
+  background:
+    radial-gradient(1100px 520px at 12% -10%, rgba(196, 90, 60, 0.06), transparent 60%),
+    radial-gradient(900px 480px at 92% 8%, rgba(196, 90, 60, 0.045), transparent 60%);
 }
 
 .llm-board-shell {
@@ -359,18 +362,23 @@ hr {
 .llm-family-switch {
   display: flex;
   width: fit-content;
-  margin: 0 auto 34px;
+  margin: 0 auto 36px;
 }
 
 .llm-board-hero {
-  max-width: 860px;
-  margin-bottom: 28px;
+  max-width: 880px;
+  margin-bottom: 32px;
 
   h1 {
     margin: 0 0 14px;
     font-family: $sans;
-    font-size: 2.35rem;
-    letter-spacing: 0;
+    font-size: 2.55rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, $black 0%, $darkerGray 55%, $primary 130%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   p {
@@ -379,28 +387,76 @@ hr {
     font-size: 1rem;
     line-height: 1.75;
   }
+
+  code {
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: rgba(196, 90, 60, 0.08);
+    color: $primary;
+    font-family: $mono;
+    font-size: 0.86em;
+  }
 }
 
 .llm-board-kicker {
-  margin: 0 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(196, 90, 60, 0.1);
   color: $primary;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $primary;
+    box-shadow: 0 0 0 3px rgba(196, 90, 60, 0.22);
+  }
 }
 
 .llm-board-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
 
   div {
+    position: relative;
+    padding: 18px 20px;
     border: 1px solid rgba(0, 0, 0, 0.07);
-    background: rgba(255, 255, 255, 0.78);
-    border-radius: 8px;
-    padding: 16px 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(245, 240, 234, 0.78) 100%);
+    border-radius: 14px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(135deg, rgba(196, 90, 60, 0) 60%, rgba(196, 90, 60, 0.08) 100%);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(60, 42, 28, 0.08);
+      border-color: rgba(196, 90, 60, 0.22);
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
   }
 
   span,
@@ -409,27 +465,30 @@ hr {
   }
 
   span {
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     color: $gray;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
   strong {
     color: $black;
-    font-size: 1.25rem;
+    font-family: $sans;
+    font-size: 1.65rem;
     font-weight: 800;
+    letter-spacing: -0.01em;
   }
 }
 
 .llm-board-table-card {
+  position: relative;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.86);
-  border-radius: 8px;
-  box-shadow: 0 18px 45px rgba(60, 42, 28, 0.08);
-  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(60, 42, 28, 0.07);
+  overflow: visible; /* CRITICAL: lets sticky scrollbar + sticky header escape the card */
 }
 
 .llm-board-table-meta {
@@ -437,8 +496,10 @@ hr {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 18px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(180deg, rgba(245, 240, 234, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
   color: $gray;
   font-size: 0.86rem;
   font-weight: 600;
@@ -446,8 +507,22 @@ hr {
 
 .llm-board-table-wrap {
   overflow-x: auto;
+  border-radius: 0 0 16px 16px;
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable both-edges;
+}
+
+.llm-board-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+
+.llm-board-table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(196, 90, 60, 0.45);
+  border-radius: 999px;
+}
+
+.llm-board-table-wrap::-webkit-scrollbar-track {
+  background: rgba(245, 240, 234, 0.5);
 }
 
 .llm-board-top-scrollbar {
@@ -470,9 +545,9 @@ hr {
   width: 100%;
   height: 18px;
   border-radius: 999px;
-  background: rgba(244, 239, 231, 0.96);
+  background: rgba(245, 240, 234, 0.96);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 12px 28px rgba(25, 25, 24, 0.08);
+  box-shadow: 0 12px 28px rgba(25, 25, 24, 0.1);
   pointer-events: auto;
 }
 
@@ -482,11 +557,11 @@ hr {
 
 .llm-board-top-scrollbar-track::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgba(199, 132, 98, 0.9);
+  background: rgba(196, 90, 60, 0.9);
 }
 
 .llm-board-top-scrollbar-track::-webkit-scrollbar-track {
-  background: rgba(244, 239, 231, 0.96);
+  background: rgba(245, 240, 234, 0.96);
   border-radius: 999px;
 }
 
@@ -500,9 +575,9 @@ hr {
   z-index: 34;
   display: none;
   overflow: hidden;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  background: rgba(255, 255, 255, 0.97);
-  box-shadow: 0 14px 30px rgba(25, 25, 24, 0.08);
+  border-bottom: 1px solid rgba(196, 90, 60, 0.18);
+  background: rgba(255, 255, 255, 0.985);
+  box-shadow: 0 14px 30px rgba(60, 42, 28, 0.1);
 }
 
 .llm-board-sticky-head.is-visible {
@@ -522,11 +597,11 @@ hr {
 
 .llm-board-sticky-head-table {
   margin: 0;
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.985);
 }
 
 .llm-board-sticky-head-table thead th {
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(255, 255, 255, 0.985);
   border-bottom: none;
 }
 
@@ -544,9 +619,9 @@ hr {
   td {
     min-width: 106px;
     padding: 12px 14px;
-    border-right: 1px solid rgba(0, 0, 0, 0.06);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    background: rgba(255, 255, 255, 0.96);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: #fff;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
@@ -556,21 +631,27 @@ hr {
     position: sticky;
     top: 0;
     z-index: 2;
-    background: #f0e9fb;
+    background: linear-gradient(180deg, #faf4ec 0%, #f5ede0 100%);
     color: $darkerGray;
     font-size: 0.78rem;
     font-weight: 800;
     line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: rgba(250, 244, 236, 0.5);
   }
 
   tbody td {
     color: $darkGray;
     font-family: $mono;
     font-size: 0.9rem;
+    transition: background-color 0.12s ease;
   }
 
   tbody tr:hover td {
-    background: #fffaf4;
+    background: rgba(196, 90, 60, 0.06);
   }
 
   a {
@@ -579,11 +660,14 @@ hr {
   }
 
   .llm-board-group {
-    background: #e6daf7;
-    color: #743ee7;
+    background: linear-gradient(180deg, rgba(196, 90, 60, 0.16) 0%, rgba(196, 90, 60, 0.09) 100%);
+    color: $primary;
     font-family: $sans;
     font-size: 0.86rem;
+    font-weight: 800;
     text-align: left;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(196, 90, 60, 0.18);
   }
 }
 
@@ -601,15 +685,22 @@ hr {
   font-size: 0.82rem;
   font-weight: 800;
   line-height: 1.3;
+  transition: color 0.12s ease;
+
+  &:hover {
+    color: darken($primary, 8%);
+    text-decoration: underline;
+  }
 }
 
 .llm-score-entry {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
+  gap: 2px;
   color: $darkGray;
   line-height: 1.25;
+  transition: transform 0.12s ease;
 
   strong {
     color: $darkGray;
@@ -617,13 +708,18 @@ hr {
   }
 
   span {
-    padding: 1px 6px;
+    padding: 1px 7px;
     border-radius: 999px;
     background: rgba(196, 90, 60, 0.1);
     color: $primary;
     font-family: $sans;
     font-size: 0.66rem;
     font-weight: 800;
+    letter-spacing: 0.02em;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
   }
 
   &:hover strong {
@@ -635,14 +731,26 @@ hr {
   position: sticky;
   left: 0;
   z-index: 3;
-  min-width: 190px;
+  min-width: 200px;
   text-align: left;
-  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.07);
+  box-shadow: 1px 0 0 rgba(196, 90, 60, 0.18);
+}
+
+.llm-board-table tbody .llm-sticky-col {
+  background: rgba(255, 255, 255, 0.985);
+}
+
+.llm-board-table tbody tr:nth-child(even) .llm-sticky-col {
+  background: linear-gradient(180deg, rgba(250, 244, 236, 0.94) 0%, rgba(250, 244, 236, 0.94) 100%);
+}
+
+.llm-board-table tbody tr:hover .llm-sticky-col {
+  background: rgba(245, 235, 224, 0.94);
 }
 
 .llm-board-table thead .llm-sticky-col {
   z-index: 4;
-  background: #eadff9;
+  background: linear-gradient(180deg, #f7ead8 0%, #f1e0c8 100%);
 }
 
 .llm-model-cell {
@@ -657,6 +765,7 @@ hr {
     color: $black;
     font-size: 0.95rem;
     line-height: 1.35;
+    letter-spacing: -0.005em;
   }
 
   span {
@@ -667,19 +776,23 @@ hr {
 }
 
 .llm-empty-score {
-  color: rgba(107, 107, 101, 0.48) !important;
+  color: rgba(107, 107, 101, 0.4) !important;
 }
 
 .llm-board-notes {
   max-width: 850px;
-  margin-top: 24px;
+  margin-top: 28px;
   color: $gray;
 
   h2 {
-    margin: 0 0 8px;
+    margin: 0 0 10px;
     font-family: $sans;
     font-size: 1.2rem;
     letter-spacing: 0;
+  }
+
+  p {
+    line-height: 1.7;
   }
 }
 
@@ -693,7 +806,7 @@ hr {
   }
 
   .llm-board-hero h1 {
-    font-size: 1.8rem;
+    font-size: 1.85rem;
   }
 
   .llm-board-summary {
