@@ -438,21 +438,28 @@
       return m ? parseFloat(m[0]) : NaN;
     }
 
-    function bestNumeric(rows, key) {
-      let best = NaN;
-      let bestEntry = null;
+    function allNumeric(rows, key) {
+      // Return EVERY numeric entry for this key across the merged
+      // model's rows (any mode, any source). Each one becomes its own
+      // bar in the chart.
+      const out = [];
       rows.forEach(function (row) {
         const arr = (row.scores || {})[key];
         if (!arr) return;
         arr.forEach(function (entry) {
           const v = parseScore(entry.value);
-          if (!isNaN(v) && (isNaN(best) || v > best)) {
-            best = v;
-            bestEntry = { value: entry.value, source_label: entry.source_label, source_url: entry.source_url, mode: row.mode };
+          if (!isNaN(v)) {
+            out.push({
+              value: entry.value,
+              source_label: entry.source_label,
+              source_url: entry.source_url,
+              mode: row.mode,
+              numeric: v
+            });
           }
         });
       });
-      return bestEntry;
+      return out;
     }
 
     const palette = [
@@ -472,15 +479,15 @@
 
       const items = [];
       groupedRows.forEach(function (g) {
-        const best = bestNumeric(g.rows, key);
-        if (best && !isNaN(parseScore(best.value))) {
+        const entries = allNumeric(g.rows, key);
+        entries.forEach(function (entry) {
           items.push({
             model: g.model,
             company: g.company,
-            numeric: parseScore(best.value),
-            entry: best
+            numeric: entry.numeric,
+            entry: entry
           });
-        }
+        });
       });
 
       items.sort(function (a, b) { return b.numeric - a.numeric; });
