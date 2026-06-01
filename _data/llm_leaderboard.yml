@@ -639,6 +639,8 @@ categories:
     label: TAU2-Bench (w/ Tools)
   - key: claw_eval_pass2
     label: ClawEval (pass^2)
+  - key: browsecomp_agent_swarm
+    label: BrowseComp (agent swarm)
   - key: usamo_2026
     label: USAMO 2026
   - key: imo_2025
@@ -6753,6 +6755,10 @@ rows:
     - value: '80.37'
       source_label: Ling 2.6
       source_url: https://huggingface.co/inclusionAI
+    claw_eval_pass2:
+    - value: '51.00'
+      source_label: Ling 2.6
+      source_url: https://huggingface.co/inclusionAI
 - company: InclusionAI
   model: Ring-2.5-1T
   mode: Thinking
@@ -6762,15 +6768,19 @@ rows:
     url: https://huggingface.co/inclusionAI
   scores:
     imoanswerbench:
-    - value: '79.0'
+    - value: '81.80'
+      source_label: Ring 2.5
+      source_url: https://huggingface.co/inclusionAI
+    aime26:
+    - value: '90.62'
       source_label: Ring 2.5
       source_url: https://huggingface.co/inclusionAI
     hmmt_2025_nov:
-    - value: '90.34'
+    - value: '91.51'
       source_label: Ring 2.5
       source_url: https://huggingface.co/inclusionAI
     livecodebench:
-    - value: '78.21'
+    - value: '87.00'
       source_label: Ring 2.5
       source_url: https://huggingface.co/inclusionAI
     gaia2_search:
@@ -11863,6 +11873,10 @@ rows:
     - value: '62.3'
       source_label: K2.6
       source_url: https://moonshotai.github.io/Kimi-K2/
+    browsecomp_agent_swarm:
+    - value: '86.3'
+      source_label: K2.6
+      source_url: https://moonshotai.github.io/Kimi-K2/
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
@@ -12579,6 +12593,10 @@ rows:
     - value: '5634.41'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    terminal_bench_2_claude_code:
+    - value: '69.0'
+      source_label: GLM-5.1
+      source_url: https://z.ai/blog/glm-5-1
 - company: Zhipu AI
   model: GLM-5
   mode: ''
@@ -12807,6 +12825,10 @@ rows:
       source_url: https://z.ai/blog/glm-5
     vending_bench_2:
     - value: '4432.12'
+      source_label: GLM-5
+      source_url: https://z.ai/blog/glm-5
+    terminal_bench_2_claude_code:
+    - value: '56.2'
       source_label: GLM-5
       source_url: https://z.ai/blog/glm-5
 - company: Zhipu AI
