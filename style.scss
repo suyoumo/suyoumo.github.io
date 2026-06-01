@@ -1501,7 +1501,7 @@ hr {
 
 .llm-progress-track {
   position: relative;
-  height: 36px;
+  height: 76px;
   margin: 0 32px 0 12px;
 }
 
@@ -1563,6 +1563,59 @@ hr {
   font-weight: 800;
   white-space: nowrap;
   text-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
+}
+
+/* Always-visible stacked label (model+score / yyyy-mm) on each
+   frontier dot. Final dot uses .is-right (rendered to the right of
+   the track for prominence); intermediate dots alternate above/below
+   so adjacent labels don't pile up. */
+.llm-progress-dot-stack {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+  font-family: $sans;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
+
+  > strong {
+    color: $black;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: -0.005em;
+  }
+
+  > span {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-top: 1px;
+  }
+}
+
+.llm-progress-dot-stack.is-above {
+  bottom: calc(50% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.llm-progress-dot-stack.is-below {
+  top: calc(50% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.llm-progress-dot-stack.is-right {
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  align-items: flex-start;
+
+  > strong { font-size: 0.78rem; }
+  > span { font-size: 0.66rem; }
 }
 
 .llm-progress-row-stats {

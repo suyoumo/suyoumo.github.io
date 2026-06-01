@@ -966,18 +966,32 @@
         d.frontier.forEach(function (r, idx) {
           const dot = document.createElement('span');
           dot.className = 'llm-progress-dot';
-          if (idx === d.frontier.length - 1) dot.classList.add('llm-progress-dot-final');
+          const isLast = idx === d.frontier.length - 1;
+          const isFirst = idx === 0;
+          if (isLast) dot.classList.add('llm-progress-dot-final');
           dot.style.left = pct(r.score) + '%';
           dot.style.background = color;
           dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
           dot.addEventListener('mouseleave', hideProgressTip);
-          // Inline label for the final dot
-          if (idx === d.frontier.length - 1) {
-            const lab = document.createElement('span');
-            lab.className = 'llm-progress-dot-label';
-            lab.textContent = r.model + ' · ' + (Math.round(r.score * 100) / 100);
-            dot.appendChild(lab);
-          }
+
+          // Always-visible label. Final dot's label goes to the RIGHT
+          // of the track (prominent, like before); other frontier dots
+          // get stacked labels above/below, alternating by index to
+          // reduce collisions when dots are clustered.
+          const lab = document.createElement('span');
+          lab.className = 'llm-progress-dot-stack';
+          if (isLast) lab.classList.add('is-right');
+          else if (idx % 2 === 0) lab.classList.add('is-above');
+          else lab.classList.add('is-below');
+          const labMain = document.createElement('strong');
+          labMain.textContent = r.model + ' · ' + (Math.round(r.score * 100) / 100);
+          const labMeta = document.createElement('span');
+          labMeta.textContent = fmtYearMonth(r.date);
+          lab.appendChild(labMain);
+          lab.appendChild(labMeta);
+          // For start dot we don't add an extra prefix — model name already
+          // makes it obvious. Frontier flag is conveyed by dot weight.
+          dot.appendChild(lab);
           track.appendChild(dot);
         });
 
