@@ -224,6 +224,14 @@
     /* ============ Apply filter to table ============ */
     function applyFilter() {
       const q = state.searchQuery.toLowerCase();
+
+      // Set of bench keys still visible (= NOT in hiddenBenches)
+      const visibleBenchKeys = new Set();
+      allBenches.forEach(function (b) {
+        if (!state.hiddenBenches.has(b.key)) visibleBenchKeys.add(b.key);
+      });
+      const hasBenchFilter = state.hiddenBenches.size > 0;
+
       // Hide rows
       let visibleModels = 0;
       Array.from(tbody.querySelectorAll('tr[data-model-name]')).forEach(function (tr) {
@@ -231,7 +239,26 @@
         const c = tr.dataset.company || '';
         const passSearch = !q || (m + ' ' + c).toLowerCase().indexOf(q) !== -1;
         const passSelected = !state.hiddenModels.has(m);
-        const show = passSearch && passSelected;
+
+        // Bench data filter: if benchmarks have been filtered down, only
+        // show this row when it has at least one non-empty score for
+        // one of the still-visible benchmarks. Empty cells carry the
+        // .llm-empty-score class set by the Liquid template, so we just
+        // need to find one bench cell that's both visible AND not empty.
+        let passBenchData = true;
+        if (hasBenchFilter) {
+          passBenchData = false;
+          const cells = tr.querySelectorAll('td[data-bench-key]');
+          for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            if (visibleBenchKeys.has(cell.dataset.benchKey) && !cell.classList.contains('llm-empty-score')) {
+              passBenchData = true;
+              break;
+            }
+          }
+        }
+
+        const show = passSearch && passSelected && passBenchData;
         tr.style.display = show ? '' : 'none';
         if (show) visibleModels++;
       });
