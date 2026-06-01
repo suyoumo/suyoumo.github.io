@@ -1082,45 +1082,81 @@
     })();
 
     // Build benchmark select with the same natural-sort + search.
-    function rebuildHistBenchSelect(query) {
+    // When `familyFilter` is provided, only benches that the selected
+    // family has at least one (date + score) data point for are kept;
+    // each option label gets a " (N)" suffix showing release count so
+    // it's obvious whether the bench is sparse or dense.
+    function familyBenchCounts(family) {
+      const counts = new Map();
+      if (!family) return counts;
+      (board.rows || []).forEach(function (row) {
+        if (row.company !== family) return;
+        if (!row.released) return;
+        const dt = new Date(row.released);
+        if (isNaN(dt.getTime())) return;
+        Object.keys(row.scores || {}).forEach(function (k) {
+          const arr = row.scores[k];
+          if (!arr || !arr.length) return;
+          let ok = false;
+          for (let i = 0; i < arr.length; i++) {
+            if (!isNaN(parseScore(arr[i].value))) { ok = true; break; }
+          }
+          if (!ok) return;
+          counts.set(k, (counts.get(k) || 0) + 1);
+        });
+      });
+      return counts;
+    }
+
+    function rebuildHistBenchSelect(query, familyFilter) {
       if (!histBenchSel) return;
       histBenchSel.innerHTML = '';
       const q = (query || '').trim().toLowerCase();
+      const counts = familyFilter ? familyBenchCounts(familyFilter) : null;
       function bSortKey(label) { return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
-      function bCmp(a, b) { return bSortKey(a.label).localeCompare(bSortKey(b.label), 'en', { numeric: true, sensitivity: 'base' }); }
-      const popularItems = chartBenches
-        .filter(function (b) { return popularKeys.indexOf(b.key) !== -1; })
-        .filter(function (b) { return !q || b.label.toLowerCase().indexOf(q) !== -1 || b.key.toLowerCase().indexOf(q) !== -1; })
-        .sort(bCmp);
+      function bCmp(a, b) {
+        if (counts) {
+          const ca = counts.get(a.key) || 0;
+          const cb = counts.get(b.key) || 0;
+          if (ca !== cb) return cb - ca; // more releases first
+        }
+        return bSortKey(a.label).localeCompare(bSortKey(b.label), 'en', { numeric: true, sensitivity: 'base' });
+      }
+      function passes(b) {
+        if (counts && !counts.has(b.key)) return false;
+        if (!q) return true;
+        return b.label.toLowerCase().indexOf(q) !== -1 || b.key.toLowerCase().indexOf(q) !== -1;
+      }
+      function optLabel(b) {
+        return counts ? (b.label + ' (' + counts.get(b.key) + ')') : b.label;
+      }
+      const popularItems = chartBenches.filter(function (b) { return popularKeys.indexOf(b.key) !== -1; }).filter(passes).sort(bCmp);
       if (popularItems.length && !q) {
         const og = document.createElement('optgroup');
         og.label = '★ Popular';
         popularItems.forEach(function (b) {
           const opt = document.createElement('option');
           opt.value = b.key;
-          opt.textContent = b.label;
+          opt.textContent = optLabel(b);
           og.appendChild(opt);
         });
         histBenchSel.appendChild(og);
       }
       (board.categories || []).forEach(function (cat) {
-        const items = (cat.columns || [])
-          .filter(function (col) { return !q || col.label.toLowerCase().indexOf(q) !== -1 || col.key.toLowerCase().indexOf(q) !== -1; })
-          .slice()
-          .sort(bCmp);
+        const items = (cat.columns || []).filter(passes).slice().sort(bCmp);
         if (!items.length) return;
         const og = document.createElement('optgroup');
         og.label = cat.name;
         items.forEach(function (col) {
           const opt = document.createElement('option');
           opt.value = col.key;
-          opt.textContent = col.label;
+          opt.textContent = optLabel(col);
           og.appendChild(opt);
         });
         histBenchSel.appendChild(og);
       });
     }
-    rebuildHistBenchSelect('');
+    rebuildHistBenchSelect('', histFamilySel && histFamilySel.value);
     // Default to a sensible bench: try gpqa, then aime_2025, then first option
     (function setDefaultHistBench() {
       if (!histBenchSel) return;
@@ -1427,7 +1463,26 @@
       histChart.appendChild(svg);
     }
 
-    if (histFamilySel) histFamilySel.addEventListener('change', renderHistoryChart);
+    if (histFamilySel) histFamilySel.addEventListener('change', function () {
+      // When family changes, rebuild bench select to only show benches
+      // that family has data for. Preserve current bench if still
+      // available; otherwise fall back to first option.
+      const prevBench = histBenchSel ? histBenchSel.value : null;
+      rebuildHistBenchSelect(histBenchSearch ? histBenchSearch.value : '', histFamilySel.value);
+      if (histBenchSel) {
+        let found = false;
+        for (let i = 0; i < histBenchSel.options.length; i++) {
+          if (histBenchSel.options[i].value === prevBench) { found = true; break; }
+        }
+        if (found) histBenchSel.value = prevBench;
+        else {
+          for (let i = 0; i < histBenchSel.options.length; i++) {
+            if (histBenchSel.options[i].value) { histBenchSel.value = histBenchSel.options[i].value; break; }
+          }
+        }
+      }
+      renderHistoryChart();
+    });
     if (histBenchSel) histBenchSel.addEventListener('change', renderHistoryChart);
     if (histFrontier) histFrontier.addEventListener('change', renderHistoryChart);
     if (histBenchSearch) {
@@ -1436,7 +1491,7 @@
         if (t) clearTimeout(t);
         t = setTimeout(function () {
           const prev = histBenchSel.value;
-          rebuildHistBenchSelect(histBenchSearch.value);
+          rebuildHistBenchSelect(histBenchSearch.value, histFamilySel && histFamilySel.value);
           let found = false;
           for (let i = 0; i < histBenchSel.options.length; i++) {
             if (histBenchSel.options[i].value === prev) { found = true; break; }
