@@ -798,6 +798,110 @@
       return progressFallbackPalette[h % progressFallbackPalette.length];
     }
 
+    /* Greedy label layout for the velocity track.
+       Labels are siblings of dots inside the track. We try 4 vertical
+       tiers (near-above, near-below, far-above, far-below) and 5
+       horizontal shifts per tier; the first non-colliding slot wins.
+       Frontier rendering uses CSS-driven height and assumes the track's
+       horizontal bar sits at vertical centre (50%). */
+    function layoutFrontierLabels(track, infos, color) {
+      const trackW = track.clientWidth;
+      const trackH = track.clientHeight;
+      if (!trackW || !trackH) return;
+      const barY = trackH / 2;
+      // Remove any leaders from a previous layout (re-renders pile up otherwise)
+      track.querySelectorAll('.llm-progress-leader').forEach(function (el) { el.remove(); });
+
+      const placed = [];
+      const labelH = 26;
+      const gap = 4;
+      const tiers = [
+        { y: barY - gap - labelH },                    // near-above
+        { y: barY + gap },                             // near-below
+        { y: Math.max(2, barY - gap * 2 - labelH * 2) }, // far-above
+        { y: Math.min(trackH - labelH - 2, barY + gap * 2 + labelH) }, // far-below
+      ];
+
+      function estW(r) {
+        const main = r.model + ' · ' + (Math.round(r.score * 100) / 100);
+        const meta = fmtYearMonth(r.date);
+        return Math.max(main.length * 6.4, meta.length * 5.6) + 10;
+      }
+      function collides(a) {
+        for (let i = 0; i < placed.length; i++) {
+          const b = placed[i];
+          if (!(a.x + a.w < b.x || b.x + b.w < a.x || a.y + a.h < b.y || b.y + b.h < a.y)) return true;
+        }
+        return false;
+      }
+
+      // Sort: process LAST dot first (wants right-of-track placement),
+      // then frontier dots by x position so neighbours fight for slots
+      // in a stable order.
+      const sorted = infos.slice().sort(function (a, b) {
+        if (a.isLast !== b.isLast) return a.isLast ? -1 : 1;
+        return a.pctX - b.pctX;
+      });
+
+      sorted.forEach(function (info) {
+        const cx = (info.pctX / 100) * trackW;
+        const w = estW(info.r);
+        let chosen = null;
+
+        // Final dot: first try a right-of-dot slot at the bar's height.
+        if (info.isLast) {
+          const rx = cx + 12;
+          const ry = barY - labelH / 2;
+          if (rx + w <= trackW + 80) {  // allow slight overflow into track's right margin
+            const r = { x: rx, y: ry, w: w, h: labelH };
+            if (!collides(r)) {
+              chosen = r;
+              info.lab.classList.add('is-right');
+            }
+          }
+        }
+
+        if (!chosen) {
+          const xShifts = [0, w * 0.45, -w * 0.45, w * 0.9, -w * 0.9, w * 1.2, -w * 1.2];
+          for (let t = 0; t < tiers.length && !chosen; t++) {
+            for (let s = 0; s < xShifts.length && !chosen; s++) {
+              const x = cx - w / 2 + xShifts[s];
+              if (x < 0 || x + w > trackW) continue;
+              const r = { x: x, y: tiers[t].y, w: w, h: labelH };
+              if (!collides(r)) chosen = r;
+            }
+          }
+        }
+
+        if (!chosen) {
+          // Last resort: stack on near-above default; overlap accepted.
+          chosen = { x: Math.max(0, Math.min(trackW - w, cx - w / 2)), y: tiers[0].y, w: w, h: labelH };
+        }
+
+        placed.push(chosen);
+        info.lab.style.left = chosen.x + 'px';
+        info.lab.style.top = chosen.y + 'px';
+
+        // Draw a leader if the label centre is far from the dot's x.
+        const labelCx = chosen.x + w / 2;
+        const dx = labelCx - cx;
+        if (Math.abs(dx) > 4 && !info.lab.classList.contains('is-right')) {
+          const labelEdgeY = chosen.y < barY ? chosen.y + labelH : chosen.y;
+          const dy = labelEdgeY - barY;
+          const len = Math.sqrt(dx * dx + dy * dy);
+          const ang = Math.atan2(dy, dx) * 180 / Math.PI;
+          const leader = document.createElement('span');
+          leader.className = 'llm-progress-leader';
+          leader.style.left = cx + 'px';
+          leader.style.top = barY + 'px';
+          leader.style.width = len + 'px';
+          leader.style.transform = 'rotate(' + ang + 'deg)';
+          leader.style.background = color;
+          track.appendChild(leader);
+        }
+      });
+    }
+
     function prepareVelocityData(key) {
       const byCompany = new Map();
       (board.rows || []).forEach(function (row) {
@@ -962,38 +1066,38 @@
           });
         }
 
-        // Frontier dots
+        // Frontier dots. Labels are placed as siblings of dots so a
+        // JS layout pass below can position them in 4 tiers
+        // (near/far × above/below) with collision avoidance.
+        const frontierInfo = [];
         d.frontier.forEach(function (r, idx) {
           const dot = document.createElement('span');
           dot.className = 'llm-progress-dot';
           const isLast = idx === d.frontier.length - 1;
-          const isFirst = idx === 0;
           if (isLast) dot.classList.add('llm-progress-dot-final');
           dot.style.left = pct(r.score) + '%';
           dot.style.background = color;
           dot.addEventListener('mouseenter', function () { showProgressTip(dot, r, color); });
           dot.addEventListener('mouseleave', hideProgressTip);
+          track.appendChild(dot);
 
-          // Always-visible label. Final dot's label goes to the RIGHT
-          // of the track (prominent, like before); other frontier dots
-          // get stacked labels above/below, alternating by index to
-          // reduce collisions when dots are clustered.
           const lab = document.createElement('span');
           lab.className = 'llm-progress-dot-stack';
-          if (isLast) lab.classList.add('is-right');
-          else if (idx % 2 === 0) lab.classList.add('is-above');
-          else lab.classList.add('is-below');
           const labMain = document.createElement('strong');
           labMain.textContent = r.model + ' · ' + (Math.round(r.score * 100) / 100);
           const labMeta = document.createElement('span');
           labMeta.textContent = fmtYearMonth(r.date);
           lab.appendChild(labMain);
           lab.appendChild(labMeta);
-          // For start dot we don't add an extra prefix — model name already
-          // makes it obvious. Frontier flag is conveyed by dot weight.
-          dot.appendChild(lab);
-          track.appendChild(dot);
+          track.appendChild(lab);
+
+          frontierInfo.push({ dot: dot, lab: lab, r: r, isLast: isLast, pctX: pct(r.score) });
         });
+
+        // Defer layout to next frame so we can read clientWidth.
+        if (frontierInfo.length) {
+          requestAnimationFrame(function () { layoutFrontierLabels(track, frontierInfo, color); });
+        }
 
         head.appendChild(track);
 
