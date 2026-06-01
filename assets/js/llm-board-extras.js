@@ -366,32 +366,59 @@
     if (!select || !bars) return;
 
     const popularKeys = ['gpqa', 'hle', 'aime_2025', 'swe_verified', 'livecodebench', 'mmlu_pro', 'mmmu_pro'];
-    const seenKeys = new Set();
-    const popularGroup = document.createElement('optgroup');
-    popularGroup.label = '★ Popular';
+
+    // Keep a flat list of all (key, label, cat) for the chart so we can
+    // rebuild the <select> dynamically when the user types in the chart
+    // search box.
+    const chartBenches = [];
     (board.categories || []).forEach(function (cat) {
       (cat.columns || []).forEach(function (col) {
-        if (popularKeys.indexOf(col.key) !== -1 && !seenKeys.has(col.key)) {
-          seenKeys.add(col.key);
+        chartBenches.push({ key: col.key, label: col.label, cat: cat.name });
+      });
+    });
+
+    function rebuildBenchSelect(query) {
+      select.innerHTML = '';
+      const q = (query || '').trim().toLowerCase();
+
+      // Popular group — always sorted alphabetically; filter by query.
+      const popularItems = chartBenches
+        .filter(function (b) { return popularKeys.indexOf(b.key) !== -1; })
+        .filter(function (b) { return !q || b.label.toLowerCase().indexOf(q) !== -1 || b.key.toLowerCase().indexOf(q) !== -1; })
+        .sort(function (a, b) { return a.label.localeCompare(b.label, 'en', { sensitivity: 'base' }); });
+
+      if (popularItems.length && !q) {
+        const og = document.createElement('optgroup');
+        og.label = '★ Popular';
+        popularItems.forEach(function (b) {
+          const opt = document.createElement('option');
+          opt.value = b.key;
+          opt.textContent = b.label;
+          og.appendChild(opt);
+        });
+        select.appendChild(og);
+      }
+
+      // Per-category groups, items sorted A→Z within each, filtered by query.
+      (board.categories || []).forEach(function (cat) {
+        const items = (cat.columns || [])
+          .filter(function (col) { return !q || col.label.toLowerCase().indexOf(q) !== -1 || col.key.toLowerCase().indexOf(q) !== -1; })
+          .slice()
+          .sort(function (a, b) { return a.label.localeCompare(b.label, 'en', { sensitivity: 'base' }); });
+        if (!items.length) return;
+        const og = document.createElement('optgroup');
+        og.label = cat.name;
+        items.forEach(function (col) {
           const opt = document.createElement('option');
           opt.value = col.key;
           opt.textContent = col.label;
-          popularGroup.appendChild(opt);
-        }
+          og.appendChild(opt);
+        });
+        select.appendChild(og);
       });
-    });
-    if (popularGroup.children.length) select.appendChild(popularGroup);
-    (board.categories || []).forEach(function (cat) {
-      const og = document.createElement('optgroup');
-      og.label = cat.name;
-      (cat.columns || []).forEach(function (col) {
-        const opt = document.createElement('option');
-        opt.value = col.key;
-        opt.textContent = col.label;
-        og.appendChild(opt);
-      });
-      if (og.children.length) select.appendChild(og);
-    });
+    }
+
+    rebuildBenchSelect('');
 
     const groupedRows = (function () {
       const seen = new Map();
@@ -523,6 +550,34 @@
     if (defaultKey) select.value = defaultKey;
     select.addEventListener('change', renderChart);
     if (limitSelect) limitSelect.addEventListener('change', renderChart);
+
+    // Wire up the chart-side search input: filter the <select>, then
+    // auto-select the first surviving option and re-render.
+    const chartSearch = document.getElementById('llm-chart-search');
+    if (chartSearch) {
+      let searchTimer = null;
+      chartSearch.addEventListener('input', function () {
+        if (searchTimer) clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () {
+          const prev = select.value;
+          rebuildBenchSelect(chartSearch.value);
+          // Preserve current selection if still present; otherwise pick first.
+          let foundPrev = false;
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value === prev) { foundPrev = true; break; }
+          }
+          if (foundPrev) {
+            select.value = prev;
+          } else {
+            for (let i = 0; i < select.options.length; i++) {
+              if (select.options[i].value) { select.value = select.options[i].value; break; }
+            }
+          }
+          renderChart();
+        }, 100);
+      });
+    }
+
     renderChart();
   });
 })();

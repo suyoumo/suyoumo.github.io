@@ -218,6 +218,10 @@ permalink: /llm-leaderboard/
           <p>选一个 benchmark，下面会按分数排序展示所有报告里有该 benchmark 分数的模型。同一模型多份报告时取最高的一份。</p>
         </div>
         <div class="llm-chart-toolbar">
+          <label class="llm-chart-filter llm-chart-search">
+            <span>Search</span>
+            <input type="search" id="llm-chart-search" placeholder="找 benchmark..." autocomplete="off" />
+          </label>
           <label class="llm-chart-filter">
             <span>Benchmark</span>
             <select id="llm-chart-benchmark"></select>
