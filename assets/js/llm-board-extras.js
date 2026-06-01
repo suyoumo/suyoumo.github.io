@@ -33,6 +33,56 @@
       });
     });
 
+    /* ============ Merge identical scores in table cells ============ */
+    // If a single cell has multiple <a.llm-score-entry> with the same
+    // <strong> value (e.g., 94.3 from DeepSeek-V4 report AND from
+    // Gemini 3.1 Pro report), collapse them into one entry whose <span>
+    // is "labelA · labelB · labelC". The first entry's href is kept.
+    function dedupScoreCells() {
+      const stacks = document.querySelectorAll('.llm-score-stack');
+      stacks.forEach(function (stack) {
+        const entries = Array.from(stack.querySelectorAll('.llm-score-entry'));
+        if (entries.length < 2) return;
+        const byValue = new Map();
+        entries.forEach(function (e) {
+          const strong = e.querySelector('strong');
+          if (!strong) return;
+          const key = strong.textContent.trim();
+          if (!byValue.has(key)) byValue.set(key, []);
+          byValue.get(key).push(e);
+        });
+        byValue.forEach(function (group) {
+          if (group.length < 2) return;
+          const labels = group.map(function (e) {
+            const sp = e.querySelector('span');
+            return sp ? sp.textContent.trim() : '';
+          }).filter(Boolean);
+          // Dedup labels (same source/mode combo could repeat if data added twice)
+          const seen = new Set();
+          const dedupedLabels = labels.filter(function (l) {
+            if (seen.has(l)) return false;
+            seen.add(l);
+            return true;
+          });
+          let firstSpan = group[0].querySelector('span');
+          if (!firstSpan && dedupedLabels.length) {
+            firstSpan = document.createElement('span');
+            group[0].appendChild(firstSpan);
+          }
+          if (firstSpan) firstSpan.textContent = dedupedLabels.join(' · ');
+          // If we joined N source labels, mark the chip wider so it doesn't truncate.
+          if (dedupedLabels.length > 1 && firstSpan) {
+            firstSpan.classList.add('llm-score-multi-source');
+          }
+          for (let i = 1; i < group.length; i++) {
+            group[i].remove();
+          }
+        });
+      });
+    }
+
+    dedupScoreCells();
+
     /* ============ URL hash sync ============ */
     function readHash() {
       const h = (window.location.hash || '').replace(/^#/, '');
@@ -480,12 +530,42 @@
       const items = [];
       groupedRows.forEach(function (g) {
         const entries = allNumeric(g.rows, key);
+        // Merge entries that share the same numeric value within this
+        // model. The chart should show one bar per distinct score, with
+        // the source labels joined by ·.
+        const byValue = new Map();
         entries.forEach(function (entry) {
+          // Use the raw string value as the merge key so 94.3 from
+          // different reports collapses but 94.3 vs 94 stays separate.
+          const k = String(entry.value);
+          if (!byValue.has(k)) byValue.set(k, []);
+          byValue.get(k).push(entry);
+        });
+        byValue.forEach(function (group) {
+          const first = group[0];
+          const labels = group.map(function (e) {
+            const parts = [];
+            if (e.mode) parts.push(e.mode);
+            if (e.source_label) parts.push(e.source_label);
+            return parts.join(' · ');
+          }).filter(Boolean);
+          const seen = new Set();
+          const dedup = labels.filter(function (l) {
+            if (seen.has(l)) return false;
+            seen.add(l);
+            return true;
+          });
           items.push({
             model: g.model,
             company: g.company,
-            numeric: entry.numeric,
-            entry: entry
+            numeric: first.numeric,
+            entry: {
+              value: first.value,
+              source_url: first.source_url,
+              // Pre-rendered label string with all sources merged.
+              merged_label: dedup.join('  ·  '),
+              source_count: dedup.length
+            }
           });
         });
       });
@@ -534,13 +614,11 @@
         const value = document.createElement('span');
         value.className = 'llm-chart-value';
         value.textContent = item.entry.value;
-        if (item.entry.mode || item.entry.source_label) {
+        if (item.entry.merged_label) {
           const meta = document.createElement('span');
           meta.className = 'llm-chart-meta';
-          const parts = [];
-          if (item.entry.mode) parts.push(item.entry.mode);
-          if (item.entry.source_label) parts.push(item.entry.source_label);
-          meta.textContent = parts.join(' · ');
+          if (item.entry.source_count > 1) meta.classList.add('llm-chart-meta-multi');
+          meta.textContent = item.entry.merged_label;
           value.appendChild(meta);
         }
         barWrap.appendChild(value);

@@ -1299,6 +1299,21 @@ hr {
   letter-spacing: 0.02em;
 }
 
+.llm-chart-meta-multi {
+  background: rgba(196, 90, 60, 0.18);
+  color: darken($primary, 5%);
+  padding: 2px 10px;
+}
+
+/* When a table cell's <span> shows multiple report names joined by · */
+.llm-score-multi-source {
+  white-space: normal !important;
+  line-height: 1.35;
+  max-width: 220px;
+  background: rgba(196, 90, 60, 0.18) !important;
+  padding: 2px 8px !important;
+}
+
 @include mobile {
   .llm-board-toolbar {
     flex-direction: column;

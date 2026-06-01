@@ -57,32 +57,32 @@ permalink: /llm-leaderboard/
       </label>
       <span class="llm-board-filter-counter" id="llm-board-filter-counter" aria-live="polite"></span>
       <button class="llm-board-filter-reset" id="llm-board-filter-reset" type="button">Reset</button>
-    </div>
 
-    <!-- Model picker popover -->
-    <div class="llm-board-filter-panel" id="llm-board-filter-models-panel" role="dialog" aria-label="Filter models" hidden>
-      <div class="llm-board-filter-panel-head">
-        <input type="search" id="llm-board-filter-models-search" placeholder="Search models / providers..." autocomplete="off" />
-        <div class="llm-board-filter-panel-actions">
-          <button type="button" data-action="all">Select all</button>
-          <button type="button" data-action="none">Clear</button>
-          <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+      <!-- Model picker popover (anchored to toolbar via position:absolute) -->
+      <div class="llm-board-filter-panel" id="llm-board-filter-models-panel" role="dialog" aria-label="Filter models" hidden>
+        <div class="llm-board-filter-panel-head">
+          <input type="search" id="llm-board-filter-models-search" placeholder="Search models / providers..." autocomplete="off" />
+          <div class="llm-board-filter-panel-actions">
+            <button type="button" data-action="all">Select all</button>
+            <button type="button" data-action="none">Clear</button>
+            <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+          </div>
         </div>
+        <div class="llm-board-filter-panel-body" id="llm-board-filter-models-body"></div>
       </div>
-      <div class="llm-board-filter-panel-body" id="llm-board-filter-models-body"></div>
-    </div>
 
-    <!-- Benchmark picker popover -->
-    <div class="llm-board-filter-panel" id="llm-board-filter-benches-panel" role="dialog" aria-label="Filter benchmarks" hidden>
-      <div class="llm-board-filter-panel-head">
-        <input type="search" id="llm-board-filter-benches-search" placeholder="Search benchmarks..." autocomplete="off" />
-        <div class="llm-board-filter-panel-actions">
-          <button type="button" data-action="all">Select all</button>
-          <button type="button" data-action="none">Clear</button>
-          <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+      <!-- Benchmark picker popover -->
+      <div class="llm-board-filter-panel" id="llm-board-filter-benches-panel" role="dialog" aria-label="Filter benchmarks" hidden>
+        <div class="llm-board-filter-panel-head">
+          <input type="search" id="llm-board-filter-benches-search" placeholder="Search benchmarks..." autocomplete="off" />
+          <div class="llm-board-filter-panel-actions">
+            <button type="button" data-action="all">Select all</button>
+            <button type="button" data-action="none">Clear</button>
+            <button type="button" data-action="close" class="close" aria-label="Close">×</button>
+          </div>
         </div>
+        <div class="llm-board-filter-panel-body" id="llm-board-filter-benches-body"></div>
       </div>
-      <div class="llm-board-filter-panel-body" id="llm-board-filter-benches-body"></div>
     </div>
 
     <div class="llm-board-table-card" id="llm-board-card">
