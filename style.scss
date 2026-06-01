@@ -1450,6 +1450,47 @@ hr {
   margin-top: 8px;
 }
 
+/* Top time-axis ruler, aligned with the track column in each row. */
+.llm-progress-ruler {
+  display: grid;
+  grid-template-columns: 180px 1fr 150px;
+  align-items: center;
+  gap: 16px;
+  padding: 0 12px;
+  margin-bottom: -2px;
+}
+
+.llm-progress-ruler-track {
+  grid-column: 2;
+  position: relative;
+  height: 22px;
+  margin: 0 32px 0 12px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+}
+
+.llm-progress-ruler-tick {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-family: $sans;
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.02em;
+  padding-bottom: 4px;
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 1px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.18);
+  }
+}
+
 .llm-progress-row {
   --row-color: #c45a3c;
   padding: 10px 12px;

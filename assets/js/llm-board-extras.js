@@ -1004,8 +1004,50 @@
       // (No global X scale needed any more — each family lays its
       // dots out evenly along its own row, see posFor() below.)
 
+      // Global time range across all visible families. Every dot is
+      // placed by its real release date on this shared axis, so the
+      // leftmost area is filled by whichever family started iterating
+      // earliest and rows are now directly comparable in time.
+      let globalMinTs = Infinity, globalMaxTs = -Infinity;
+      visible.forEach(function (d) {
+        d.releases.forEach(function (r) {
+          const ts = r.date.getTime();
+          if (ts < globalMinTs) globalMinTs = ts;
+          if (ts > globalMaxTs) globalMaxTs = ts;
+        });
+      });
+      if (!isFinite(globalMinTs) || !isFinite(globalMaxTs) || globalMinTs === globalMaxTs) {
+        // degenerate — give a small spread so divisions don't blow up
+        globalMaxTs = globalMinTs + 1000 * 60 * 60 * 24 * 30;
+      }
+      function timePct(date) {
+        const ts = date.getTime();
+        return 4 + ((ts - globalMinTs) / (globalMaxTs - globalMinTs)) * 92;
+      }
+
       // Render
       progressRows.innerHTML = '';
+
+      // Top time-axis ruler. Same horizontal padding (180px left for
+      // family name, 32px right for the right margin) as the rows
+      // below so ticks line up with dot positions.
+      const ruler = document.createElement('div');
+      ruler.className = 'llm-progress-ruler';
+      const rulerBar = document.createElement('div');
+      rulerBar.className = 'llm-progress-ruler-track';
+      const numTicks = 6;
+      for (let i = 0; i <= numTicks; i++) {
+        const ts = globalMinTs + (globalMaxTs - globalMinTs) * i / numTicks;
+        const tick = document.createElement('span');
+        tick.className = 'llm-progress-ruler-tick';
+        tick.style.left = (4 + (i / numTicks) * 92) + '%';
+        const dateObj = new Date(ts);
+        tick.textContent = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0');
+        rulerBar.appendChild(tick);
+      }
+      ruler.appendChild(rulerBar);
+      progressRows.appendChild(ruler);
+
       visible.forEach(function (d) {
         const color = colorForCompany(d.company);
 
@@ -1038,20 +1080,13 @@
         trackBg.className = 'llm-progress-track-bg';
         track.appendChild(trackBg);
 
-        // Position each release evenly along the row by chronological
-        // order, NOT by raw score. The velocity row's job is to show
-        // the iteration journey (first → last), not absolute score
-        // position — and packing dots by score causes severe overlap
-        // when a family's releases land in a narrow score band.
-        // The actual scores are still on the labels and in the right
-        // column stats. Score progression is conveyed by the filled
-        // segment (which spans frontier first → frontier last).
-        const releases = d.releases;
-        const total = releases.length;
+        // Position each release by its real release date on a
+        // GLOBAL time axis shared by every visible family. The first
+        // family to ship sits on the left edge, the latest on the
+        // right. Within a family, time intervals between releases are
+        // now visually accurate (close-in-time = close-on-x).
         function posFor(release) {
-          const idx = releases.indexOf(release);
-          if (total <= 1) return 50;
-          return 6 + (idx / (total - 1)) * 88;
+          return timePct(release.date);
         }
 
         // Filled segment between first and last frontier dot
