@@ -59,27 +59,35 @@
       const stickyRows = stickyHead.rows;
       if (!sourceRows.length || !stickyRows.length) return;
 
-      // Build/refresh <colgroup> on the cloned table based on the deepest header row
-      // (whichever row has the most cells — usually the second/leaf row).
-      let leafRow = sourceRows[0];
-      for (let i = 1; i < sourceRows.length; i++) {
-        if (sourceRows[i].cells.length > leafRow.cells.length) leafRow = sourceRows[i];
-      }
+      // Use the body's first row to count + measure every visible column.
+      // The header's "leaf" row only has the benchmark cells (since the
+      // first 4 cells of header row 0 use rowspan=2 and the rest use
+      // colspan), so counting from the header undercounts by the 4
+      // metadata columns (Model / Mode / Released / Source) and shifts
+      // the entire <colgroup> to the wrong side. Body rows have every
+      // column flat — one TD per column — so they're the safe ruler.
+      const sourceBody = table.tBodies[0];
+      const measureRow = sourceBody && sourceBody.rows.length
+        ? sourceBody.rows[0]
+        : null;
+      if (!measureRow) return;
+
+      const totalCols = measureRow.cells.length;
 
       let colgroup = stickyHeadTable.querySelector('colgroup');
       if (!colgroup) {
         colgroup = document.createElement('colgroup');
         stickyHeadTable.insertBefore(colgroup, stickyHeadTable.firstChild);
       }
-      if (colgroup.children.length !== leafRow.cells.length) {
+      if (colgroup.children.length !== totalCols) {
         colgroup.innerHTML = '';
-        for (let i = 0; i < leafRow.cells.length; i++) {
+        for (let i = 0; i < totalCols; i++) {
           colgroup.appendChild(document.createElement('col'));
         }
       }
       const cols = colgroup.children;
 
-      Array.from(leafRow.cells).forEach(function (cell, idx) {
+      Array.from(measureRow.cells).forEach(function (cell, idx) {
         const w = Math.ceil(cell.getBoundingClientRect().width);
         const col = cols[idx];
         if (col) {
@@ -89,7 +97,8 @@
         }
       });
 
-      // Also propagate widths to the cloned header cells (group + leaf rows)
+      // Also propagate per-cell widths to the cloned header cells so
+      // rowspan / colspan cells render with the right combined width.
       for (let r = 0; r < sourceRows.length; r++) {
         const srcRow = sourceRows[r];
         const dstRow = stickyRows[r];
