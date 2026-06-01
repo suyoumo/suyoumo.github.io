@@ -1275,7 +1275,8 @@
         stroke: 'rgba(0,0,0,0.18)', 'stroke-width': 1
       }));
 
-      // Optional frontier polyline
+      // Frontier polyline (default ON now — user wants to see the
+      // "highest-point" connection by default).
       if (showFrontier && frontier.length >= 2) {
         const pts = frontier.map(function (p) { return x(p.date.getTime()) + ',' + y(p.score); }).join(' ');
         svg.appendChild(svgElH('polyline', {
@@ -1288,23 +1289,122 @@
         }));
       }
 
-      // All release dots + labels
-      // Stagger labels above / below alternately so they don't pile up.
-      points.forEach(function (p, idx) {
-        const cx = x(p.date.getTime());
-        const cy = y(p.score);
+      // ---- Draw dots ----
+      // When multiple releases share the same date (e.g. Pro / Flash /
+      // Mini), their circles otherwise stack right on top of each other.
+      // Group by exact date and apply a tiny horizontal jitter so each
+      // dot is individually clickable.
+      const sameDayGroups = new Map();
+      points.forEach(function (p) {
+        const k = p.date.getTime();
+        if (!sameDayGroups.has(k)) sameDayGroups.set(k, []);
+        sameDayGroups.get(k).push(p);
+      });
+      sameDayGroups.forEach(function (group) {
+        group.sort(function (a, b) { return b.score - a.score; });
+        group.forEach(function (p, i) { p._jitter = (group.length > 1 ? (i - (group.length - 1) / 2) * 6 : 0); });
+      });
+
+      const dotPositions = points.map(function (p) {
+        return {
+          p: p,
+          cx: x(p.date.getTime()) + p._jitter,
+          cy: y(p.score)
+        };
+      });
+
+      dotPositions.forEach(function (d) {
+        const p = d.p, cx = d.cx, cy = d.cy;
         const isFront = p.frontier;
         svg.appendChild(svgElH('circle', {
-          cx: cx, cy: cy, r: isFront ? 6 : 5,
+          cx: cx, cy: cy, r: isFront ? 6 : 4.5,
           fill: color,
-          'fill-opacity': isFront ? 1 : 0.5,
+          'fill-opacity': isFront ? 1 : 0.45,
           stroke: '#fff', 'stroke-width': 2
         }));
-        // Alternate above/below to reduce overlap
-        const above = idx % 2 === 0;
-        const labelY = above ? cy - 12 : cy + 24;
+      });
+
+      // ---- Greedy label placement with collision avoidance ----
+      // Approximate text widths so we can place rects without measuring DOM.
+      function estLabelWidth(p) {
+        const top = String(Math.round(p.score * 100) / 100);
+        const bot = p.model;
+        return Math.max(top.length * 7, bot.length * 6.2) + 6;
+      }
+      const labelH = 26; // two-line block height
+      const placed = [];
+      function overlaps(a, b) {
+        return !(a.x + a.w < b.x || b.x + b.w < a.x || a.y + a.h < b.y || b.y + b.h < a.y);
+      }
+      function tryPlace(rect) {
+        for (let i = 0; i < placed.length; i++) {
+          if (overlaps(rect, placed[i])) return false;
+        }
+        placed.push(rect);
+        return true;
+      }
+
+      // Process frontier dots first so their labels get priority slots
+      // (they're more important than dominated points).
+      const orderedDots = dotPositions.slice().sort(function (a, b) {
+        if (a.p.frontier !== b.p.frontier) return a.p.frontier ? -1 : 1;
+        return a.cx - b.cx;
+      });
+
+      orderedDots.forEach(function (d) {
+        const p = d.p, cx = d.cx, cy = d.cy;
+        const w = estLabelWidth(p);
+        // Candidate slots: above-near, below-near, above-far, below-far,
+        // each at small left/right shifts to thread between neighbors.
+        const slots = [];
+        const yAbove = cy - 14 - labelH;
+        const yBelow = cy + 14;
+        const yAboveFar = cy - 30 - labelH;
+        const yBelowFar = cy + 36;
+        const xShifts = [0, w * 0.45, -w * 0.45, w * 0.85, -w * 0.85];
+        // Frontier dots prefer ABOVE (above the line); others below.
+        const yOrder = p.frontier
+          ? [yAbove, yAboveFar, yBelow, yBelowFar]
+          : [yBelow, yBelowFar, yAbove, yAboveFar];
+        yOrder.forEach(function (yy) {
+          xShifts.forEach(function (dx) { slots.push({ x: cx - w / 2 + dx, y: yy, w: w, h: labelH }); });
+        });
+        // Clamp inside chart area
+        const minX = pad.left + 2;
+        const maxX = W - pad.right - 2;
+        const minY = pad.top + 2;
+        const maxY = H - pad.bottom - 2 - labelH;
+        let chosen = null;
+        for (let s = 0; s < slots.length; s++) {
+          const r = slots[s];
+          if (r.x < minX || r.x + r.w > maxX || r.y < minY || r.y > maxY) continue;
+          if (tryPlace(r)) { chosen = r; break; }
+        }
+        // Last resort: stack just above the dot regardless of collisions
+        if (!chosen) {
+          chosen = { x: cx - w / 2, y: cy - 14 - labelH, w: w, h: labelH };
+          placed.push(chosen);
+        }
+
+        const labelCx = chosen.x + w / 2;
+        const labelTopY = chosen.y + 12;
+        const labelBotY = chosen.y + 23;
+
+        // Optional leader line if label is far from the dot
+        const dotMidY = cy;
+        const farThreshold = 18;
+        const labelMidY = chosen.y + labelH / 2;
+        if (Math.abs(labelMidY - dotMidY) > farThreshold || Math.abs(labelCx - cx) > 4) {
+          const lineEndY = labelMidY < dotMidY ? chosen.y + labelH : chosen.y;
+          svg.appendChild(svgElH('line', {
+            x1: cx, y1: cy,
+            x2: labelCx, y2: lineEndY,
+            stroke: color, 'stroke-width': 0.8, opacity: 0.35
+          }));
+        }
+
         const valText = svgElH('text', {
-          x: cx, y: labelY,
+          x: labelCx, y: labelTopY,
           'text-anchor': 'middle',
           'font-size': 11.5, 'font-weight': 800,
           'font-family': 'sans-serif',
@@ -1313,11 +1413,11 @@
         valText.textContent = Math.round(p.score * 100) / 100;
         svg.appendChild(valText);
         const nameText = svgElH('text', {
-          x: cx, y: labelY + (above ? -12 : 12),
+          x: labelCx, y: labelBotY,
           'text-anchor': 'middle',
-          'font-size': 10, 'font-weight': 700,
+          'font-size': 10, 'font-weight': p.frontier ? 700 : 600,
           'font-family': 'sans-serif',
-          fill: color
+          fill: p.frontier ? color : '#6b6b65'
         });
         nameText.textContent = p.model;
         svg.appendChild(nameText);
