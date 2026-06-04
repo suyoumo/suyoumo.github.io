@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: bench
 title: CodeAgentBench
 permalink: /code-agent-bench/
 ---
@@ -10,18 +10,17 @@ permalink: /code-agent-bench/
 
 <section class="code-agent-page">
   <div class="container-wide code-agent-shell">
-    <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
-      <span>Leaderboard Family:</span>
-      <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
-      <a class="is-active" href="{{ site.baseurl }}/code-agent-bench/" aria-current="page">CodeAgentBench <strong>CURRENT</strong></a>
-      <a href="{{ site.baseurl }}/llm-leaderboard/">LLMLeadBoard</a>
-    </div>
-
     <section class="code-agent-hero">
       <div class="code-agent-hero-copy">
         <p class="bench-kicker">SWE-Bench-Pro agent results</p>
         <h1>CodeAgentBench</h1>
-        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task, and {{ meta.total_attempts }} scoreable attempts in total. Rankings use strict-clean exports and sort by Pass@3 by default.</p>
+        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task, and {{ meta.total_attempts }} scoreable attempts in total. Rankings include all completed 453/453 runs and sort by Pass@3 by default.</p>
+        <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
+          <span>Leaderboard Family:</span>
+          <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
+          <a class="is-active" href="{{ site.baseurl }}/code-agent-bench/" aria-current="page">CodeAgentBench <strong>CURRENT</strong></a>
+          <a href="{{ site.baseurl }}/llm-leaderboard/">LLMLeadBoard</a>
+        </div>
       </div>
       <div class="code-agent-summary-grid" aria-label="CodeAgentBench summary">
         <div>
@@ -30,9 +29,9 @@ permalink: /code-agent-bench/
           <em>{{ top.agent_label }} - {{ top.model_name }}</em>
         </div>
         <div>
-          <span>Strict Models</span>
-          <strong>{{ meta.strict_model_count }}</strong>
-          <em>{{ meta.legacy_model_count }} legacy kept out of ranking</em>
+          <span>Completed Models</span>
+          <strong>{{ meta.completed_model_count }}</strong>
+          <em>All rows have 453 scoreable attempts</em>
         </div>
         <div>
           <span>Scoreable Attempts</span>
@@ -51,7 +50,7 @@ permalink: /code-agent-bench/
       <div class="bench-section-head">
         <div class="bench-head-copy">
           <h2>Benchmark <span>Leaderboard</span></h2>
-          <p>Pass@3 is the primary ranking signal. The table also shows Pass^3, per-attempt solve rate, solved tasks, solved attempts, and strict coverage status for each agent/model pair.</p>
+          <p>Pass@3 is the primary ranking signal. The table also shows Pass^3, per-attempt solve rate, solved tasks, solved attempts, and 453/453 coverage status for each agent/model pair.</p>
         </div>
       </div>
 
@@ -136,7 +135,7 @@ permalink: /code-agent-bench/
                 </td>
                 <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
                 <td data-value="{{ row.solved_attempts }}">{{ row.solved_attempts }}/{{ row.scoreable_attempts }}</td>
-                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">Strict-clean</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
+                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">453/453</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
                 <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
                 <td data-value="{{ row.full_run_tree_size_mb }}">{{ row.full_run_tree_size_mb }} MB</td>
                 <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
@@ -155,7 +154,7 @@ permalink: /code-agent-bench/
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
-        <span>Legacy/pending exports are excluded from ranking until they pass the strict retryable gate.</span>
+        <span>Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.</span>
       </div>
     </section>
 

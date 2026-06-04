@@ -2837,38 +2837,39 @@ main {
 /*********************/
 
 .code-agent-page {
-  padding: 36px 0 84px;
+  padding: 72px 0 84px;
   background:
     linear-gradient(180deg, #faf7f2 0%, #f6efe7 100%);
 }
 
 .code-agent-shell {
-  width: min(88vw, 1560px);
+  width: min(96vw, 2340px);
   margin: 0 auto;
 }
 
 .code-agent-family-switch {
-  display: flex;
+  display: inline-flex;
   width: fit-content;
   max-width: 100%;
-  margin: 0 auto 34px;
+  margin-top: 26px;
   overflow-x: auto;
 }
 
 .code-agent-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 620px);
-  gap: 28px;
+  grid-template-columns: minmax(720px, 0.92fr) minmax(620px, 1fr);
+  gap: 40px;
   align-items: end;
-  margin-bottom: 34px;
+  margin-bottom: 42px;
 
   h1 {
     margin: 0 0 18px;
     font-family: $sans;
-    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-size: clamp(2.8rem, 5vw, 4.85rem);
     font-weight: 900;
     line-height: 0.98;
     letter-spacing: 0;
+    white-space: nowrap;
   }
 }
 
@@ -2944,7 +2945,7 @@ main {
 }
 
 .code-agent-table {
-  min-width: 1540px;
+  min-width: 2310px;
 
   th,
   td {
@@ -2954,7 +2955,7 @@ main {
 }
 
 .code-agent-model-cell {
-  min-width: 310px;
+  min-width: 390px;
 }
 
 .code-agent-pill {
@@ -2968,22 +2969,37 @@ main {
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.03em;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .code-agent-pill-codex {
-  background: #1f2937;
+  background: #111827;
 }
 
 .code-agent-pill-opencode {
-  background: #bf6f3b;
+  background: #9a4f16;
 }
 
 .code-agent-pill-claude-code {
-  background: #7c4f35;
+  background: #5f3b22;
 }
 
 .code-agent-pill-qwen {
-  background: #2563eb;
+  background: #1d4ed8;
+}
+
+.code-agent-pill-deepseek {
+  background: #075985;
+}
+
+.bench-model-cell .code-agent-pill,
+.bench-model-cell .code-agent-pill-codex,
+.bench-model-cell .code-agent-pill-opencode,
+.bench-model-cell .code-agent-pill-claude-code,
+.bench-model-cell .code-agent-pill-qwen,
+.bench-model-cell .code-agent-pill-deepseek {
+  color: #fff;
 }
 
 .code-agent-gate {
@@ -3045,6 +3061,11 @@ main {
   background: linear-gradient(180deg, #3478f6 0%, #235dd4 100%);
 }
 
+.code-agent-chart-item[data-agent="deepseek"] .bench-chart-fill,
+.code-agent-scatter-point[data-agent="deepseek"] .bench-scatter-dot {
+  background: linear-gradient(180deg, #0ea5e9 0%, #0369a1 100%);
+}
+
 .code-agent-scatter-card {
   margin-top: 34px;
 }
@@ -3069,9 +3090,13 @@ main {
   box-shadow: 0 0 0 4px rgba(52, 120, 246, 0.14);
 }
 
+.code-agent-scatter-point[data-agent="deepseek"] .bench-scatter-dot {
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.14);
+}
+
 @include mobile {
   .code-agent-page {
-    padding-top: 24px;
+    padding-top: 42px;
   }
 
   .code-agent-shell {
@@ -3090,6 +3115,10 @@ main {
   .code-agent-hero {
     grid-template-columns: 1fr;
     align-items: start;
+
+    h1 {
+      white-space: normal;
+    }
   }
 
   .code-agent-summary-grid {
@@ -3101,7 +3130,7 @@ main {
   }
 
   .code-agent-table {
-    min-width: 1320px;
+    min-width: 1600px;
   }
 }
 
