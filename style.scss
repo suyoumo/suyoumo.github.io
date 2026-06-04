@@ -2850,23 +2850,36 @@ main {
 }
 
 .code-agent-family-switch {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: fit-content;
   max-width: 100%;
+  gap: 10px;
   margin-top: 26px;
+  padding: 10px;
   overflow: visible;
 
   > span {
-    grid-column: 1 / -1;
-    padding: 0 6px 2px;
+    flex: 0 0 100%;
+    padding: 0 4px 2px;
   }
 
   > a {
-    min-width: 0;
-    padding: 0 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    min-width: 180px;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 12px;
+  }
+
+  > a.is-active {
+    min-width: 236px;
+    justify-content: space-between;
+  }
+
+  strong {
+    flex: 0 0 auto;
+    margin-left: 10px;
   }
 }
 
@@ -3163,9 +3176,11 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
 
   .code-agent-family-switch {
     margin-bottom: 24px;
-    grid-template-columns: 1fr;
+    width: 100%;
 
     a {
+      flex: 1 1 100%;
+      min-width: 0;
       padding: 0 14px;
       font-size: 0.9rem;
     }
