@@ -2850,11 +2850,24 @@ main {
 }
 
 .code-agent-family-switch {
-  display: inline-flex;
-  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
   max-width: 100%;
   margin-top: 26px;
-  overflow-x: auto;
+  overflow: visible;
+
+  > span {
+    grid-column: 1 / -1;
+    padding: 0 6px 2px;
+  }
+
+  > a {
+    min-width: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .code-agent-hero {
@@ -3150,6 +3163,7 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
 
   .code-agent-family-switch {
     margin-bottom: 24px;
+    grid-template-columns: 1fr;
 
     a {
       padding: 0 14px;
