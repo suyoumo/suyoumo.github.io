@@ -12,7 +12,7 @@ from pathlib import Path
 AGENT_LABELS = {
     "claude-code": "Claude Code",
     "codex": "Codex",
-    "deepseek": "DeepSeek",
+    "deepseek": "deepseek-tui",
     "opencode": "OpenCode",
     "qwen": "Qwen",
 }
