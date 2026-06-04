@@ -1,0 +1,74 @@
+---
+layout: bench
+permalink: /code-agent-bench/tasks/
+title: CodeAgentBench Tasks
+---
+
+{% assign task_data = site.data.code_agent_tasks %}
+
+<section class="bench-section code-agent-tasks-page">
+  <div class="container-wide bench-shell">
+    <div class="bench-section-head">
+      <div>
+        <p class="bench-kicker">SWE-Bench-Pro task list</p>
+        <h2>SWE-Bench-Pro <span>Tasks</span></h2>
+        <p>Browse the {{ task_data.metadata.task_count }} tasks used by CodeAgentBench. Each card shows the repository, base commit, and bilingual task prompt used for the 151-task pass@3 run.</p>
+      </div>
+      <a class="bench-ghost-link" href="{{ site.baseurl }}/code-agent-bench/">Back to Leaderboard</a>
+    </div>
+
+    <div class="bench-filter-bar code-agent-task-filter-bar">
+      <label>
+        <span>Repository</span>
+        <select id="code-agent-task-repo-filter">
+          <option value="all">All Repositories</option>
+          {% for repo in task_data.repos %}
+          <option value="{{ repo.key }}">{{ repo.label }} ({{ repo.count }})</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="bench-search-field">
+        <span>Search</span>
+        <input id="code-agent-task-search-input" type="search" placeholder="Search task id, repository, or prompt" />
+      </label>
+    </div>
+
+    <div class="bench-task-list bench-task-list-compact code-agent-task-list" id="code-agent-task-grid">
+      {% for task in task_data.tasks %}
+      <article
+        class="bench-task-card bench-task-card-compact code-agent-task-card"
+        data-repo="{{ task.repo_slug }}"
+        data-search="{{ task.search_text | escape }}"
+      >
+        <div class="bench-task-header-row">
+          <div class="bench-task-chip-row bench-task-chip-row-top">
+            <span class="bench-task-chip bench-task-id" title="{{ task.id }}">{{ task.id }}</span>
+            <span class="bench-task-chip bench-task-dataset bench-task-dataset-open">SWE-Bench-Pro</span>
+          </div>
+          <div class="bench-task-chip-row bench-task-chip-row-bottom">
+            <span class="bench-task-chip bench-task-tag" title="{{ task.repo }}">{{ task.repo }}</span>
+            <span class="bench-task-chip bench-task-difficulty" title="{{ task.base_commit }}">{{ task.base_commit_short }}</span>
+          </div>
+        </div>
+
+        <h3>
+          <span class="bench-lang-en" data-i18n-skip>{{ task.title_en | escape }}</span>
+          <span class="bench-lang-zh" data-i18n-skip>{{ task.title_zh | escape }}</span>
+        </h3>
+
+        <button type="button" class="bench-task-toggle code-agent-task-toggle" aria-expanded="false">Read full task objective</button>
+        <div class="bench-task-preview">
+          <span class="bench-lang-en" data-i18n-skip>{{ task.problem_statement_en | escape }}</span>
+          <span class="bench-lang-zh" data-i18n-skip>{{ task.problem_statement_zh | escape }}</span>
+        </div>
+        <div class="bench-task-full">
+          <span class="bench-lang-en" data-i18n-skip>{{ task.prompt_en | escape }}</span>
+          <span class="bench-lang-zh" data-i18n-skip>{{ task.prompt_zh | escape }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script src="{{ site.baseurl }}/assets/js/code-agent-tasks.js?v={{ site.time | date: '%s' }}"></script>

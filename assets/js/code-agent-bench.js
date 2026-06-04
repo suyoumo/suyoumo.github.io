@@ -108,9 +108,13 @@
       const limitValue = limitSelect.value;
       const limit = limitValue === 'all' ? Infinity : Number.parseInt(limitValue, 10);
       const sorted = sortedChartItems(metric);
-      const maxValue = Math.max.apply(null, sorted.map(function (item) {
+      const visible = sorted.slice(0, limit);
+      const values = visible.map(function (item) {
         return getNumeric(item, metric);
-      }).concat([0.001]));
+      });
+      const maxValue = values.length ? Math.max.apply(null, values) : 0;
+      const minValue = values.length ? Math.min.apply(null, values) : 0;
+      const range = maxValue - minValue || 1;
 
       chartItems.forEach(function (item) {
         item.hidden = true;
@@ -125,11 +129,15 @@
         const rank = item.querySelector('.bench-chart-rank');
         const label = item.querySelector('.bench-chart-value');
         const fill = item.querySelector('.bench-chart-fill');
+        const normalized = (value - minValue) / range;
+        const height = 72 + normalized * 188;
 
         chart.appendChild(item);
         if (rank) rank.textContent = '#' + (index + 1);
         if (label) label.textContent = formatValue(value, format);
-        if (fill) fill.style.height = Math.max(18, (value / maxValue) * 100) + '%';
+        if (label) label.style.bottom = (height + 2) + 'px';
+        if (fill) fill.style.height = height + 'px';
+        item.style.order = index;
       });
     }
 

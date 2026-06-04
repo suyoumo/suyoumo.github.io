@@ -9,6 +9,7 @@
     Blog: '博客',
     AboutMe: '关于我',
     GitHub: 'GitHub',
+    CodeAgentBench: 'CodeAgentBench',
 
     'A benchmark for OpenClaw agents': 'OpenClaw agent 评测基准',
     'A benchmark designed to measure how different models perform under OpenClaw when they need to reason, plan, use tools, and stay reliable across repeated runs.': '用于衡量不同模型在 OpenClaw 中进行推理、规划、使用工具，并在重复运行中保持可靠性时的真实表现。',
@@ -308,18 +309,65 @@
     'Tasks passed': '通过任务数',
     'Per-task breakdown': '逐任务拆解',
     Pass: '通过',
-    'Avg Tokens': '平均 Token'
+    'Avg Tokens': '平均 Token',
+
+    'SWE-Bench-Pro agent results': 'SWE-Bench-Pro agent 结果',
+    'A leaderboard for coding agents on SWE-Bench-Pro: 151 tasks, 3 attempts per task, and 453 scoreable attempts in total. Rankings include all completed 453/453 runs and sort by Pass@3 by default.': 'CodeAgentBench 是面向 coding agent 的 SWE-Bench-Pro 排行榜：共 151 题，每题 3 次尝试，总计 453 次可计分尝试。榜单纳入所有完成 453/453 的运行，并默认按 Pass@3 排名。',
+    'Leaderboard Family:': '排行榜系列：',
+    CURRENT: '当前',
+    'Best Pass@3': '最佳 Pass@3',
+    'Completed Models': '已完成模型',
+    'Scoreable Attempts': '可计分尝试',
+    Exported: '导出时间',
+    'All rows have 453 scoreable attempts': '所有行均有 453 次可计分尝试',
+    '151 tasks x 3 tries': '151 题 x 3 次尝试',
+    'SWEPro 151 zh pass@3': 'SWEPro 151 中文 pass@3',
+    'Benchmark Leaderboard': '基准排行榜',
+    'Pass@3 is the primary ranking signal. The table also shows Pass^3, per-attempt solve rate, solved tasks, solved attempts, and 453/453 coverage status for each agent/model pair.': 'Pass@3 是主要排名信号。表格同时展示每个 agent/model 组合的 Pass^3、单次尝试解题率、解出任务数、解出尝试数和 453/453 覆盖状态。',
+    Agent: '智能体',
+    'All Agents': '全部智能体',
+    'Agent / Model': '智能体 / 模型',
+    'Attempt Score': '尝试得分',
+    'Solved Tasks': '解出任务',
+    'Solved Attempts': '解出尝试',
+    Coverage: '覆盖率',
+    'Log Archive': '日志归档',
+    'Full Tree': '完整目录',
+    'Model Dir': '模型目录',
+    'counts tasks solved at least once across 3 attempts.': '统计 3 次尝试中至少解出 1 次的任务数。',
+    'counts tasks solved in all 3 attempts.': '统计 3 次尝试全部解出的任务数。',
+    'is solved scoreable attempts divided by 453.': '等于解出的可计分尝试数除以 453。',
+    'Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.': '当导出 summary 同时报告 453 次完成和 453 次可计分尝试时，该行会进入榜单。',
+    'Visual Leaderboard': '可视化排行榜',
+    'Switch metrics to compare the same agent/model pairs by reach, consistency, and per-attempt solve rate.': '切换指标后，可以按覆盖能力、一致性和单次尝试解题率比较相同的 agent/model 组合。',
+    'Top 8': '前 8',
+    'Top 12': '前 12',
+    Reach: '覆盖能力',
+    'vs Consistency': 'vs 一致性',
+    'Reach vs Consistency': '覆盖能力 vs 一致性',
+    'Pass@3 shows whether an agent can solve a task at least once; Pass^3 shows whether it solves the same task all three times. The gap is useful when comparing stochastic or retry-sensitive agents.': 'Pass@3 反映 agent 是否至少能解出某题一次；Pass^3 反映它是否三次都能解出同一题。两者的差距适合比较带随机性或对重试敏感的 agent。',
+    'SWE-Bench-Pro task list': 'SWE-Bench-Pro 任务列表',
+    'Browse the 151 tasks used by CodeAgentBench. Each card shows the repository, base commit, and bilingual task prompt used for the 151-task pass@3 run.': '浏览 CodeAgentBench 使用的 151 道任务。每张卡片展示 repository、base commit，以及 151 题 pass@3 运行使用的中英双语任务 prompt。',
+    'Back to Leaderboard': '返回排行榜',
+    Repository: '仓库',
+    'All Repositories': '全部仓库',
+    Search: '搜索',
+    'Read full task objective': '阅读完整任务目标'
   };
 
   const zhAttributes = {
     'Share leaderboard on X': '分享到 X',
     'Search by task id or name': '按任务 ID 或名称搜索',
+    'Search task id, repository, or prompt': '搜索任务 ID、repository 或 prompt',
     'Search name, provider, rank...': '搜索名称、provider、排名...',
     'scenario, name, difficulty': '场景、名称、难度',
     'ModelPK feature summary': 'ModelPK 功能摘要',
     'OpenClawBench architecture pipeline illustration': 'OpenClawBench 架构流水线示意图',
     'OpenClawBench structured dataset design illustration': 'OpenClawBench 结构化数据集设计示意图',
-    'OpenClawBench trust and evidence illustration': 'OpenClawBench 可信证据示意图'
+    'OpenClawBench trust and evidence illustration': 'OpenClawBench 可信证据示意图',
+    'Leaderboard family': '排行榜系列',
+    'CodeAgentBench summary': 'CodeAgentBench 概览',
+    'CodeAgentBench agent filter': 'CodeAgentBench agent 筛选'
   };
 
   const zhFragments = [
@@ -393,6 +441,10 @@
     return url.origin === window.location.origin &&
       (url.pathname === '/bench' ||
         url.pathname.startsWith('/bench/') ||
+        url.pathname === '/code-agent-bench' ||
+        url.pathname.startsWith('/code-agent-bench/') ||
+        url.pathname === '/llm-leaderboard' ||
+        url.pathname.startsWith('/llm-leaderboard/') ||
         url.pathname === '/about' ||
         url.pathname.startsWith('/about/'));
   }

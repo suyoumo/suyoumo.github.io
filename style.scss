@@ -2843,8 +2843,10 @@ main {
 }
 
 .code-agent-shell {
-  width: min(96vw, 2340px);
   margin: 0 auto;
+  max-width: 1420px;
+  padding: 0 24px;
+  width: 100%;
 }
 
 .code-agent-family-switch {
@@ -2857,7 +2859,7 @@ main {
 
 .code-agent-hero {
   display: grid;
-  grid-template-columns: minmax(720px, 0.92fr) minmax(620px, 1fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
   gap: 40px;
   align-items: end;
   margin-bottom: 42px;
@@ -2978,19 +2980,19 @@ main {
 }
 
 .code-agent-pill-opencode {
-  background: #9a4f16;
+  background: #047857;
 }
 
 .code-agent-pill-claude-code {
-  background: #5f3b22;
+  background: #6d28d9;
 }
 
 .code-agent-pill-qwen {
-  background: #1d4ed8;
+  background: #2563eb;
 }
 
 .code-agent-pill-deepseek {
-  background: #075985;
+  background: #0891b2;
 }
 
 .bench-model-cell .code-agent-pill,
@@ -3041,6 +3043,11 @@ main {
   min-height: 412px;
 }
 
+.code-agent-chart-item .bench-chart-value {
+  bottom: 74px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
 .code-agent-chart-item[data-agent="codex"] .bench-chart-fill,
 .code-agent-scatter-point[data-agent="codex"] .bench-scatter-dot {
   background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
@@ -3048,12 +3055,12 @@ main {
 
 .code-agent-chart-item[data-agent="opencode"] .bench-chart-fill,
 .code-agent-scatter-point[data-agent="opencode"] .bench-scatter-dot {
-  background: linear-gradient(180deg, #d0834c 0%, #b86231 100%);
+  background: linear-gradient(180deg, #10b981 0%, #047857 100%);
 }
 
 .code-agent-chart-item[data-agent="claude-code"] .bench-chart-fill,
 .code-agent-scatter-point[data-agent="claude-code"] .bench-scatter-dot {
-  background: linear-gradient(180deg, #9a6a45 0%, #744829 100%);
+  background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
 }
 
 .code-agent-chart-item[data-agent="qwen"] .bench-chart-fill,
@@ -3063,7 +3070,7 @@ main {
 
 .code-agent-chart-item[data-agent="deepseek"] .bench-chart-fill,
 .code-agent-scatter-point[data-agent="deepseek"] .bench-scatter-dot {
-  background: linear-gradient(180deg, #0ea5e9 0%, #0369a1 100%);
+  background: linear-gradient(180deg, #22d3ee 0%, #0891b2 100%);
 }
 
 .code-agent-scatter-card {
@@ -3079,11 +3086,11 @@ main {
 }
 
 .code-agent-scatter-point[data-agent="opencode"] .bench-scatter-dot {
-  box-shadow: 0 0 0 4px rgba(208, 131, 76, 0.16);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.16);
 }
 
 .code-agent-scatter-point[data-agent="claude-code"] .bench-scatter-dot {
-  box-shadow: 0 0 0 4px rgba(154, 106, 69, 0.16);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.16);
 }
 
 .code-agent-scatter-point[data-agent="qwen"] .bench-scatter-dot {
@@ -3091,7 +3098,45 @@ main {
 }
 
 .code-agent-scatter-point[data-agent="deepseek"] .bench-scatter-dot {
-  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.14);
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.16);
+}
+
+.code-agent-task-filter-bar {
+  grid-template-columns: minmax(220px, 320px) minmax(280px, 1fr);
+}
+
+.code-agent-task-list {
+  margin-top: 28px;
+}
+
+.code-agent-task-card {
+  min-height: 460px;
+}
+
+.code-agent-task-card .bench-task-preview {
+  min-height: 15em;
+}
+
+.bench-lang-zh {
+  display: none;
+}
+
+.bench-task-preview .bench-lang-en,
+.bench-task-full .bench-lang-en {
+  display: block;
+}
+
+html[data-bench-lang="zh"] .bench-lang-en {
+  display: none !important;
+}
+
+html[data-bench-lang="zh"] .bench-lang-zh {
+  display: inline;
+}
+
+html[data-bench-lang="zh"] .bench-task-preview .bench-lang-zh,
+html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
+  display: block;
 }
 
 @include mobile {
@@ -3100,7 +3145,7 @@ main {
   }
 
   .code-agent-shell {
-    width: min(92vw, 1560px);
+    padding: 0 18px;
   }
 
   .code-agent-family-switch {
@@ -3131,6 +3176,10 @@ main {
 
   .code-agent-table {
     min-width: 1600px;
+  }
+
+  .code-agent-task-filter-bar {
+    grid-template-columns: 1fr;
   }
 }
 

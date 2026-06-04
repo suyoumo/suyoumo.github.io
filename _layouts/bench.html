@@ -1,7 +1,19 @@
 <!DOCTYPE html>
+{% assign is_code_agent_bench = page.url contains '/code-agent-bench' %}
+{% if is_code_agent_bench %}
+  {% assign bench_brand_name = 'CodeAgentBench' %}
+  {% assign bench_home_url = '/code-agent-bench/' %}
+  {% assign bench_tasks_url = '/code-agent-bench/tasks/' %}
+  {% assign bench_github_url = 'https://github.com/suyoumo/ClawProBench' %}
+{% else %}
+  {% assign bench_brand_name = 'ClawProBench' %}
+  {% assign bench_home_url = '/bench/' %}
+  {% assign bench_tasks_url = '/bench/tasks/' %}
+  {% assign bench_github_url = 'https://github.com/suyoumo/ClawProBench' %}
+{% endif %}
 <html lang="en">
   <head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}ClawProBench</title>
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ bench_brand_name }}</title>
 
     {% include meta.html %}
 
@@ -13,21 +25,23 @@
   <body class="bench-body">
     <header class="site-header bench-header">
       <div class="container-wide header-inner bench-header-inner">
-        <a class="bench-brand" href="{{ site.baseurl }}/bench/">
+        <a class="bench-brand" href="{{ site.baseurl }}{{ bench_home_url }}">
           <span class="bench-brand-logo-wrap">
-            <img class="bench-brand-logo bench-brand-logo-default" src="{{ site.baseurl }}/assets/images/bench/logo-crab.png" alt="ClawProBench logo" />
-            <img class="bench-brand-logo bench-brand-logo-hover" src="{{ site.baseurl }}/assets/images/bench/logo-longxia.png" alt="ClawProBench hover logo" />
+            <img class="bench-brand-logo bench-brand-logo-default" src="{{ site.baseurl }}/assets/images/bench/logo-crab.png" alt="{{ bench_brand_name }} logo" />
+            <img class="bench-brand-logo bench-brand-logo-hover" src="{{ site.baseurl }}/assets/images/bench/logo-longxia.png" alt="{{ bench_brand_name }} hover logo" />
           </span>
-          <span class="bench-brand-text">ClawProBench</span>
+          <span class="bench-brand-text">{{ bench_brand_name }}</span>
         </a>
         <nav class="site-nav bench-nav">
           <button class="bench-language-toggle" type="button" data-bench-language-toggle aria-label="切换到中文">中文</button>
-          <a href="{{ site.baseurl }}/bench/" {% if page.url == '/bench/' or page.url == '/bench/index.html' %}class="active"{% endif %}>Home</a>
+          <a href="{{ site.baseurl }}{{ bench_home_url }}" {% if page.url == bench_home_url or page.url == '/bench/index.html' or page.url == '/code-agent-bench/index.html' %}class="active"{% endif %}>Home</a>
+          {% unless is_code_agent_bench %}
           <a href="{{ site.baseurl }}/code-agent-bench/" {% if page.url contains '/code-agent-bench' %}class="active"{% endif %}>CodeAgentBench</a>
-          <a href="{{ site.baseurl }}/bench/tasks/" {% if page.url contains '/bench/tasks' %}class="active"{% endif %}>Tasks</a>
+          {% endunless %}
+          <a href="{{ site.baseurl }}{{ bench_tasks_url }}" {% if page.url contains bench_tasks_url %}class="active"{% endif %}>Tasks</a>
           <a href="{{ site.baseurl }}/bench/blog/" {% if page.url contains '/bench/blog' %}class="active"{% endif %}>Blog</a>
           <a href="{{ site.baseurl }}/about">AboutMe</a>
-          <a href="https://github.com/suyoumo/ClawProBench" target="_blank" rel="noopener">GitHub</a>
+          <a href="{{ bench_github_url }}" target="_blank" rel="noopener">GitHub</a>
         </nav>
       </div>
     </header>
