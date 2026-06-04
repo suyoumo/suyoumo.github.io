@@ -47,6 +47,17 @@ LOGOS = {
     "zai-coding-plan": "logo-glm.png",
 }
 
+MODEL_DISPLAY_OVERRIDES = {
+    "opencode-deepseek-v4-flash-max": {
+        "model_raw": "deepseek/deepseek-v4-pro#variant=max",
+        "model_name": "DeepSeek v4 pro (max)",
+    },
+    "opencode-deepseek-v4-pro-max": {
+        "model_raw": "deepseek/deepseek-v4-flash#variant=max",
+        "model_name": "DeepSeek v4 flash (max)",
+    },
+}
+
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
@@ -152,6 +163,9 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
     agent = score_summary.get("agent") or item.get("agent") or "unknown"
     raw_model = score_summary.get("model") or item.get("model") or model_dir
     provider_key, provider_label, model_label = split_model(raw_model)
+    display_override = MODEL_DISPLAY_OVERRIDES.get(model_dir, {})
+    display_raw_model = display_override.get("model_raw", raw_model)
+    display_model_label = display_override.get("model_name", model_label)
     attempts = int(score_summary.get("planned_task_attempts") or item.get("planned_task_attempts") or 0)
     tasks = int(score_summary.get("planned_unique_tasks") or score_summary.get("scoreable_unique_tasks") or 151)
     scoreable_attempts = int(score_summary.get("scoreable_attempts") or item.get("scoreable_attempts") or 0)
@@ -175,8 +189,8 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "agent_slug": slugify(agent),
         "provider": provider_key,
         "provider_label": provider_label,
-        "model_raw": raw_model,
-        "model_name": model_label,
+        "model_raw": display_raw_model,
+        "model_name": display_model_label,
         "logo": LOGOS.get(provider_key, ""),
         "group": "completed_453",
         "status": score_summary.get("score_coverage_status") or item.get("score_coverage_status") or "",
