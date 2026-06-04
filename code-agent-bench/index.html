@@ -1,0 +1,267 @@
+---
+layout: default
+title: CodeAgentBench
+permalink: /code-agent-bench/
+---
+
+{% assign board = site.data.code_agent_bench %}
+{% assign meta = board.metadata %}
+{% assign top = board.rows | first %}
+
+<section class="code-agent-page">
+  <div class="container-wide code-agent-shell">
+    <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
+      <span>Leaderboard Family:</span>
+      <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
+      <a class="is-active" href="{{ site.baseurl }}/code-agent-bench/" aria-current="page">CodeAgentBench <strong>CURRENT</strong></a>
+      <a href="{{ site.baseurl }}/llm-leaderboard/">LLMLeadBoard</a>
+    </div>
+
+    <section class="code-agent-hero">
+      <div class="code-agent-hero-copy">
+        <p class="bench-kicker">SWE-Bench-Pro agent results</p>
+        <h1>CodeAgentBench</h1>
+        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task, and {{ meta.total_attempts }} scoreable attempts in total. Rankings use strict-clean exports and sort by Pass@3 by default.</p>
+      </div>
+      <div class="code-agent-summary-grid" aria-label="CodeAgentBench summary">
+        <div>
+          <span>Best Pass@3</span>
+          <strong>{{ top.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
+          <em>{{ top.agent_label }} - {{ top.model_name }}</em>
+        </div>
+        <div>
+          <span>Strict Models</span>
+          <strong>{{ meta.strict_model_count }}</strong>
+          <em>{{ meta.legacy_model_count }} legacy kept out of ranking</em>
+        </div>
+        <div>
+          <span>Scoreable Attempts</span>
+          <strong>{{ meta.total_attempts }}</strong>
+          <em>{{ meta.task_count }} tasks x {{ meta.attempts_per_task }} tries</em>
+        </div>
+        <div>
+          <span>Exported</span>
+          <strong>{{ meta.exported_at | slice: 0, 10 }}</strong>
+          <em>{{ meta.suite }}</em>
+        </div>
+      </div>
+    </section>
+
+    <section class="bench-section code-agent-board-section">
+      <div class="bench-section-head">
+        <div class="bench-head-copy">
+          <h2>Benchmark <span>Leaderboard</span></h2>
+          <p>Pass@3 is the primary ranking signal. The table also shows Pass^3, per-attempt solve rate, solved tasks, solved attempts, and strict coverage status for each agent/model pair.</p>
+        </div>
+      </div>
+
+      <div class="bench-filter-strip code-agent-filter-strip" aria-label="CodeAgentBench agent filter">
+        <span>Agent</span>
+        <div class="bench-dataset-tabs" id="code-agent-filter">
+          <button class="is-active" type="button" data-code-agent-filter="all">All Agents</button>
+          {% for agent in board.agents %}
+          <button type="button" data-code-agent-filter="{{ agent.key }}">{{ agent.label }} ({{ agent.count }})</button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="bench-card code-agent-leaderboard-card" id="code-agent-card">
+        <div class="bench-table-wrap code-agent-table-wrap">
+          <table class="bench-table bench-table-rich code-agent-table" id="code-agent-table">
+            <thead>
+              <tr>
+                <th data-sort-key="rank" data-sort-type="number"># <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="model-name" data-sort-type="text">Agent / Model <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="attempt-score" data-sort-type="number">Attempt Score <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="solved-attempts" data-sort-type="number">Solved Attempts <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="scoreable-attempt-coverage" data-sort-type="number">Coverage <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="archive-size-mb" data-sort-type="number">Log Archive <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="full-run-tree-size-mb" data-sort-type="number">Full Tree <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="exported-at" data-sort-type="text">Exported <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="model-dir" data-sort-type="text">Model Dir <span class="bench-sort-indicator"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in board.rows %}
+              <tr
+                data-agent="{{ row.agent }}"
+                data-agent-label="{{ row.agent_label | escape }}"
+                data-rank="{{ row.rank }}"
+                data-model-name="{{ row.model_name | escape }}"
+                data-model-dir="{{ row.model_dir | escape }}"
+                data-pass-at-3-rate="{{ row.pass_at_3_rate }}"
+                data-pass-3-rate="{{ row.pass_3_rate }}"
+                data-attempt-score="{{ row.attempt_score }}"
+                data-solved-unique-tasks="{{ row.solved_unique_tasks }}"
+                data-solved-attempts="{{ row.solved_attempts }}"
+                data-scoreable-attempt-coverage="{{ row.scoreable_attempt_coverage }}"
+                data-archive-size-mb="{{ row.archive_size_mb }}"
+                data-full-run-tree-size-mb="{{ row.full_run_tree_size_mb }}"
+                data-exported-at="{{ row.exported_at | escape }}"
+              >
+                <td data-value="{{ row.rank }}">{{ row.rank }}</td>
+                <td class="bench-model-column">
+                  <div class="bench-model-cell bench-model-cell-rich code-agent-model-cell">
+                    {% if row.logo %}
+                    <img class="bench-model-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_label }} logo" />
+                    {% else %}
+                    <div class="bench-model-logo bench-model-logo-placeholder-small">{{ row.provider_label | slice: 0, 1 | upcase }}</div>
+                    {% endif %}
+                    <div class="bench-model-meta">
+                      <strong>{{ row.model_name }}</strong>
+                      <span><span class="code-agent-pill code-agent-pill-{{ row.agent_slug }}">{{ row.agent_label }}</span>{{ row.provider_label }} - {{ row.model_raw }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td data-value="{{ row.pass_at_3_rate }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-pass-bar"><span style="width: {{ row.pass_at_3_rate | times: 100 }}%"></span></div>
+                    <strong>{{ row.pass_at_3_count }}/{{ row.task_count }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.pass_3_rate }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-pass-bar"><span style="width: {{ row.pass_3_rate | times: 100 }}%"></span></div>
+                    <strong>{{ row.pass_3_count }}/{{ row.task_count }} - {{ row.pass_3_rate | times: 100 | round: 1 }}%</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.attempt_score }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-pass-bar"><span style="width: {{ row.attempt_score | times: 100 }}%"></span></div>
+                    <strong>{{ row.solved_attempts }}/{{ row.scoreable_attempts }} - {{ row.attempt_score | times: 100 | round: 1 }}%</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
+                <td data-value="{{ row.solved_attempts }}">{{ row.solved_attempts }}/{{ row.scoreable_attempts }}</td>
+                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">Strict-clean</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
+                <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
+                <td data-value="{{ row.full_run_tree_size_mb }}">{{ row.full_run_tree_size_mb }} MB</td>
+                <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
+                <td data-value="{{ row.model_dir }}">
+                  <code class="code-agent-model-dir">{{ row.model_dir }}</code>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="bench-leaderboard-note code-agent-note">
+        <span>Notes:</span>
+        <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
+        <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
+        <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
+        <span>Legacy/pending exports are excluded from ranking until they pass the strict retryable gate.</span>
+      </div>
+    </section>
+
+    <section class="bench-card bench-chart-card code-agent-chart-card" id="code-agent-chart-section">
+      <div class="bench-chart-head">
+        <div class="bench-head-copy">
+          <h2>Visual <span>Leaderboard</span></h2>
+          <p>Switch metrics to compare the same agent/model pairs by reach, consistency, and per-attempt solve rate.</p>
+        </div>
+        <div class="bench-chart-toolbar">
+          <label class="bench-chart-filter" for="code-agent-chart-metric">
+            <span>Metric</span>
+            <select id="code-agent-chart-metric">
+              <option value="pass-at-3-rate" data-format="percent" selected>Pass@3</option>
+              <option value="pass-3-rate" data-format="percent">Pass^3</option>
+              <option value="attempt-score" data-format="percent">Attempt Score</option>
+              <option value="solved-unique-tasks" data-format="integer">Solved Tasks</option>
+              <option value="solved-attempts" data-format="integer">Solved Attempts</option>
+              <option value="archive-size-mb" data-format="size">Log Archive</option>
+              <option value="full-run-tree-size-mb" data-format="size">Full Tree</option>
+            </select>
+          </label>
+          <label class="bench-chart-filter bench-chart-filter-compact" for="code-agent-chart-limit">
+            <span>View</span>
+            <select id="code-agent-chart-limit">
+              <option value="8">Top 8</option>
+              <option value="12">Top 12</option>
+              <option value="all" selected>All</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="bench-chart-scroll">
+        <div class="bench-chart-grid code-agent-chart-grid" id="code-agent-chart-bars">
+          {% for row in board.rows %}
+          <div
+            class="bench-chart-item code-agent-chart-item"
+            data-agent="{{ row.agent }}"
+            data-agent-label="{{ row.agent_label | escape }}"
+            data-model-name="{{ row.model_name | escape }}"
+            data-provider="{{ row.provider_label | escape }}"
+            data-logo="{% if row.logo %}{{ site.baseurl }}/assets/images/bench/{{ row.logo }}{% endif %}"
+            data-pass-at-3-rate="{{ row.pass_at_3_rate }}"
+            data-pass-3-rate="{{ row.pass_3_rate }}"
+            data-attempt-score="{{ row.attempt_score }}"
+            data-solved-unique-tasks="{{ row.solved_unique_tasks }}"
+            data-solved-attempts="{{ row.solved_attempts }}"
+            data-archive-size-mb="{{ row.archive_size_mb }}"
+            data-full-run-tree-size-mb="{{ row.full_run_tree_size_mb }}"
+          >
+            <span class="bench-chart-rank"></span>
+            <span class="bench-chart-column">
+              <span class="bench-chart-value"></span>
+              <span class="bench-chart-fill"></span>
+            </span>
+            <span class="bench-chart-label-track">
+              {% if row.logo %}
+              <img class="bench-chart-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_label }} logo" />
+              {% endif %}
+              <span class="bench-chart-label">
+                <strong>{{ row.model_name }}</strong>
+                <span>{{ row.agent_label }} - {{ row.provider_label }}</span>
+              </span>
+            </span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="bench-card bench-chart-card bench-scatter-card code-agent-scatter-card" id="code-agent-scatter-section">
+      <div class="bench-chart-head">
+        <div class="bench-head-copy">
+          <h2>Reach <span>vs Consistency</span></h2>
+          <p>Pass@3 shows whether an agent can solve a task at least once; Pass^3 shows whether it solves the same task all three times. The gap is useful when comparing stochastic or retry-sensitive agents.</p>
+        </div>
+      </div>
+
+      <div class="bench-scatter-frame code-agent-scatter-frame">
+        <div class="bench-scatter-y-title">Pass@3</div>
+        <div class="bench-scatter-plot-wrap">
+          <div class="bench-scatter-plot" id="code-agent-scatter-plot">
+            <div class="bench-scatter-grid"></div>
+            {% for row in board.rows %}
+            <div
+              class="bench-scatter-point code-agent-scatter-point"
+              data-agent="{{ row.agent }}"
+              data-agent-label="{{ row.agent_label | escape }}"
+              data-model-name="{{ row.model_name | escape }}"
+              data-pass-at-3-rate="{{ row.pass_at_3_rate }}"
+              data-pass-3-rate="{{ row.pass_3_rate }}"
+              data-attempt-score="{{ row.attempt_score }}"
+            >
+              <span class="bench-scatter-dot"></span>
+              <span class="bench-scatter-line"></span>
+              <span class="bench-scatter-name">{{ row.agent_label }} - {{ row.model_name }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="bench-scatter-x-axis" id="code-agent-scatter-x-axis"></div>
+        </div>
+        <div class="bench-scatter-x-title">Pass^3</div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script src="{{ site.baseurl }}/assets/js/code-agent-bench.js?v={{ site.time | date: '%s' }}"></script>

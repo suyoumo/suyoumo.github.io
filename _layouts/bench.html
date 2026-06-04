@@ -23,6 +23,7 @@
         <nav class="site-nav bench-nav">
           <button class="bench-language-toggle" type="button" data-bench-language-toggle aria-label="切换到中文">中文</button>
           <a href="{{ site.baseurl }}/bench/" {% if page.url == '/bench/' or page.url == '/bench/index.html' %}class="active"{% endif %}>Home</a>
+          <a href="{{ site.baseurl }}/code-agent-bench/" {% if page.url contains '/code-agent-bench' %}class="active"{% endif %}>CodeAgentBench</a>
           <a href="{{ site.baseurl }}/bench/modelpk/" {% if page.url contains '/bench/modelpk' %}class="active"{% endif %}>ModelPK</a>
           <a href="{{ site.baseurl }}/bench/tasks/" {% if page.url contains '/bench/tasks' %}class="active"{% endif %}>Tasks</a>
           <a href="{{ site.baseurl }}/bench/architecture/" {% if page.url contains '/bench/architecture' %}class="active"{% endif %}>Architecture</a>
