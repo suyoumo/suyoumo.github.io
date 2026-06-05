@@ -72,8 +72,8 @@ permalink: /code-agent-bench/
                 <th data-sort-key="rank" data-sort-type="number"># <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="model-name" data-sort-type="text">Agent / Model <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="agent-version" data-sort-type="text">Agent Version <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="attempt-score" data-sort-type="number">Attempt Score <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-attempts" data-sort-type="number">Solved Attempts <span class="bench-sort-indicator"></span></th>
@@ -120,16 +120,16 @@ permalink: /code-agent-bench/
                 <td data-value="{{ row.agent_version }}">
                   <span class="code-agent-version-pill" title="{{ row.agent_version_source | escape }}">{{ row.agent_version }}</span>
                 </td>
-                <td data-value="{{ row.pass_at_3_rate }}">
-                  <div class="bench-pass-cell">
-                    <div class="bench-pass-bar"><span style="width: {{ row.pass_at_3_rate | times: 100 }}%"></span></div>
-                    <strong>{{ row.pass_at_3_count }}/{{ row.task_count }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
-                  </div>
-                </td>
                 <td data-value="{{ row.pass_3_rate }}">
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.pass_3_rate | times: 100 }}%"></span></div>
                     <strong>{{ row.pass_3_count }}/{{ row.task_count }} - {{ row.pass_3_rate | times: 100 | round: 1 }}%</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.pass_at_3_rate }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-pass-bar"><span style="width: {{ row.pass_at_3_rate | times: 100 }}%"></span></div>
+                    <strong>{{ row.pass_at_3_count }}/{{ row.task_count }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
                   </div>
                 </td>
                 <td data-value="{{ row.attempt_score }}">
