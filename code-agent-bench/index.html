@@ -71,6 +71,7 @@ permalink: /code-agent-bench/
               <tr>
                 <th data-sort-key="rank" data-sort-type="number"># <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="model-name" data-sort-type="text">Agent / Model <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="agent-version" data-sort-type="text">Agent Version <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="attempt-score" data-sort-type="number">Attempt Score <span class="bench-sort-indicator"></span></th>
@@ -88,6 +89,7 @@ permalink: /code-agent-bench/
               <tr
                 data-agent="{{ row.agent }}"
                 data-agent-label="{{ row.agent_label | escape }}"
+                data-agent-version="{{ row.agent_version | escape }}"
                 data-rank="{{ row.rank }}"
                 data-model-name="{{ row.model_name | escape }}"
                 data-model-dir="{{ row.model_dir | escape }}"
@@ -114,6 +116,9 @@ permalink: /code-agent-bench/
                       <span><span class="code-agent-pill code-agent-pill-{{ row.agent_slug }}">{{ row.agent_label }}</span>{{ row.provider_label }} - {{ row.model_raw }}</span>
                     </div>
                   </div>
+                </td>
+                <td data-value="{{ row.agent_version }}">
+                  <span class="code-agent-version-pill" title="{{ row.agent_version_source | escape }}">{{ row.agent_version }}</span>
                 </td>
                 <td data-value="{{ row.pass_at_3_rate }}">
                   <div class="bench-pass-cell">
@@ -154,6 +159,7 @@ permalink: /code-agent-bench/
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
+        <span><code>Agent Version</code> is exported from each run's lane metadata; exact CLI semver is not available when the report only records the runtime label.</span>
         <span>Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.</span>
       </div>
     </section>

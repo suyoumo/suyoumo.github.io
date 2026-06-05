@@ -146,6 +146,33 @@ def load_score_summary(source_root: Path, model_dir: str) -> dict:
         return json.load(handle)
 
 
+def load_full_suite_report(source_root: Path, model_dir: str) -> dict:
+    path = source_root / model_dir / "full_suite_model_run_report.json"
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def report_agent_version(report: dict, fallback: str) -> tuple[str, str]:
+    versions = []
+    for record in report.get("records", []):
+        lane = (record.get("completion") or {}).get("lane") or {}
+        version = lane.get("agent_version")
+        if version and version not in versions:
+            versions.append(str(version))
+
+    if versions:
+        return ", ".join(versions), "full_suite_model_run_report completion.lane.agent_version"
+
+    lane_binding = report.get("lane_binding") or {}
+    version = lane_binding.get("agent")
+    if version:
+        return str(version), "full_suite_model_run_report lane_binding.agent"
+
+    return fallback, "not exported"
+
+
 def local_archive_size_bytes(source_root: Path, model_dir: str) -> int:
     path = source_root / model_dir / "complete_run_logs.tar.gz"
     if path.exists():
@@ -160,12 +187,15 @@ def local_full_tree_size_bytes(source_root: Path, model_dir: str) -> int:
 def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = None) -> dict:
     item = manifest_item or {}
     score_summary = load_score_summary(source_root, model_dir)
+    full_suite_report = load_full_suite_report(source_root, model_dir)
     agent = score_summary.get("agent") or item.get("agent") or "unknown"
     raw_model = score_summary.get("model") or item.get("model") or model_dir
     provider_key, provider_label, model_label = split_model(raw_model)
     display_override = MODEL_DISPLAY_OVERRIDES.get(model_dir, {})
     display_raw_model = display_override.get("model_raw", raw_model)
     display_model_label = display_override.get("model_name", model_label)
+    agent_label = AGENT_LABELS.get(agent, title_model_piece(agent))
+    agent_version, agent_version_source = report_agent_version(full_suite_report, agent_label)
     attempts = int(score_summary.get("planned_task_attempts") or item.get("planned_task_attempts") or 0)
     tasks = int(score_summary.get("planned_unique_tasks") or score_summary.get("scoreable_unique_tasks") or 151)
     scoreable_attempts = int(score_summary.get("scoreable_attempts") or item.get("scoreable_attempts") or 0)
@@ -185,8 +215,10 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "model_dir": model_dir,
         "lane_key": score_summary.get("lane_key") or item.get("lane_key") or model_dir,
         "agent": agent,
-        "agent_label": AGENT_LABELS.get(agent, title_model_piece(agent)),
+        "agent_label": agent_label,
         "agent_slug": slugify(agent),
+        "agent_version": agent_version,
+        "agent_version_source": agent_version_source,
         "provider": provider_key,
         "provider_label": provider_label,
         "model_raw": display_raw_model,
