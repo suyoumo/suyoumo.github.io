@@ -16,7 +16,7 @@
     const scatterPoints = scatter ? Array.from(scatter.querySelectorAll('.code-agent-scatter-point')) : [];
     const headers = Array.from(table.querySelectorAll('th[data-sort-key]'));
     let currentAgent = 'all';
-    let currentSortKey = 'pass-at-3-rate';
+    let currentSortKey = 'final-score';
     let currentSortDirection = 'desc';
 
     function getAttr(element, key) {
@@ -34,6 +34,7 @@
 
     function formatValue(value, format) {
       if (format === 'percent') return formatPercent(value);
+      if (format === 'decimal2') return value.toFixed(2);
       if (format === 'integer') return Math.round(value).toLocaleString();
       if (format === 'size') return value.toFixed(1).replace(/\.0$/, '') + ' MB';
       return String(value);

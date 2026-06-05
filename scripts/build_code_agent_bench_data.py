@@ -134,6 +134,15 @@ def mb(value: int | float | None) -> float:
     return round((value or 0) / (1024 * 1024), 2)
 
 
+def code_agent_final_score(pass_3_rate: float, pass_at_3_rate: float, attempt_score: float) -> float:
+    stable = pass_3_rate ** (1 / 3) if pass_3_rate > 0 else 0
+    reach = 1 - ((1 - pass_at_3_rate) ** (1 / 3)) if pass_at_3_rate < 1 else 1
+    attempt = max(attempt_score, 0)
+    if stable <= 0 or reach <= 0 or attempt <= 0:
+        return 0
+    return 100 * (stable ** 0.55) * (reach ** 0.25) * (attempt ** 0.20)
+
+
 def directory_size_bytes(path: Path) -> int:
     if not path.exists():
         return 0
@@ -237,6 +246,9 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
     scoreable_attempts = int(score_summary.get("scoreable_attempts") or item.get("scoreable_attempts") or 0)
     pass_at_3_count = int(score_summary.get("pass_at_k_count") or item.get("pass_at_k_count") or 0)
     pass_3_count = int(score_summary.get("pass^k_count") or score_summary.get("pass_caret_k_count") or item.get("pass^k_count") or item.get("pass_caret_k_count") or 0)
+    pass_at_3_rate = float(score_summary.get("pass_at_k_rate") or item.get("pass_at_k_rate") or 0)
+    pass_3_rate = float(score_summary.get("pass^k_rate") or score_summary.get("pass_caret_k_rate") or item.get("pass^k_rate") or item.get("pass_caret_k_rate") or 0)
+    attempt_score = float(score_summary.get("attempt_score") or item.get("attempt_score") or 0)
     archive_size_bytes = (
         score_summary.get("complete_run_logs_archive_size_bytes")
         or item.get("archive_size_bytes")
@@ -274,10 +286,11 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "solved_attempts": int(score_summary.get("solved_attempts") or 0),
         "solved_unique_tasks": int(score_summary.get("solved_unique_tasks") or pass_at_3_count),
         "pass_at_3_count": pass_at_3_count,
-        "pass_at_3_rate": float(score_summary.get("pass_at_k_rate") or item.get("pass_at_k_rate") or 0),
+        "pass_at_3_rate": pass_at_3_rate,
         "pass_3_count": pass_3_count,
-        "pass_3_rate": float(score_summary.get("pass^k_rate") or score_summary.get("pass_caret_k_rate") or item.get("pass^k_rate") or item.get("pass_caret_k_rate") or 0),
-        "attempt_score": float(score_summary.get("attempt_score") or item.get("attempt_score") or 0),
+        "pass_3_rate": pass_3_rate,
+        "attempt_score": attempt_score,
+        "final_score": code_agent_final_score(pass_3_rate, pass_at_3_rate, attempt_score),
         "archive_size_mb": mb(archive_size_bytes),
         "full_run_tree_size_mb": mb(full_tree_size_bytes),
         "archive_member_count": int(score_summary.get("complete_run_logs_archive_member_count") or 0),
@@ -295,9 +308,10 @@ def rank_rows(rows: list[dict]) -> list[dict]:
     ranked = sorted(
         rows,
         key=lambda row: (
+            row["final_score"],
+            row["pass_3_rate"],
             row["pass_at_3_rate"],
             row["attempt_score"],
-            row["pass_3_rate"],
             row["solved_attempts"],
         ),
         reverse=True,
@@ -348,7 +362,8 @@ def build_data(source_root: Path) -> dict:
             "task_count": 151,
             "attempts_per_task": 3,
             "total_attempts": 453,
-            "rank_metric": "pass_at_3_rate",
+            "rank_metric": "final_score",
+            "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
             "completed_model_count": len(rows),
             "excluded_model_count": len(excluded_rows),
             "exported_at": max((row["exported_at"] for row in rows if row["exported_at"]), default=""),

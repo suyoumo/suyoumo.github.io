@@ -52,18 +52,15 @@ title: CodeAgentBench Tasks
         </div>
 
         <h3>
-          <span class="bench-lang-en" data-i18n-skip>{{ task.title_en | escape }}</span>
-          <span class="bench-lang-zh" data-i18n-skip>{{ task.title_zh | escape }}</span>
+          <span data-i18n-skip>{{ task.title_zh | escape }}</span>
         </h3>
 
         <button type="button" class="bench-task-toggle code-agent-task-toggle" aria-expanded="false">Read full task objective</button>
         <div class="bench-task-preview">
-          <span class="bench-lang-en" data-i18n-skip>{{ task.problem_statement_en | escape }}</span>
-          <span class="bench-lang-zh" data-i18n-skip>{{ task.problem_statement_zh | escape }}</span>
+          <span data-i18n-skip>{{ task.problem_statement_zh | escape }}</span>
         </div>
         <div class="bench-task-full">
-          <span class="bench-lang-en" data-i18n-skip>{{ task.prompt_en | escape }}</span>
-          <span class="bench-lang-zh" data-i18n-skip>{{ task.prompt_zh | escape }}</span>
+          <span data-i18n-skip>{{ task.prompt_zh | escape }}</span>
         </div>
       </article>
       {% endfor %}
