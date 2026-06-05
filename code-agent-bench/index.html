@@ -159,7 +159,7 @@ permalink: /code-agent-bench/
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
-        <span><code>Agent Version</code> is exported from each run's lane metadata; exact CLI semver is not available when the report only records the runtime label.</span>
+        <span><code>Agent Version</code> combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.</span>
         <span>Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.</span>
       </div>
     </section>

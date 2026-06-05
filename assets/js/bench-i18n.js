@@ -338,7 +338,7 @@
     'counts tasks solved at least once across 3 attempts.': '统计 3 次尝试中至少解出 1 次的任务数。',
     'counts tasks solved in all 3 attempts.': '统计 3 次尝试全部解出的任务数。',
     'is solved scoreable attempts divided by 453.': '等于解出的可计分尝试数除以 453。',
-    "is exported from each run's lane metadata; exact CLI semver is not available when the report only records the runtime label.": '来自每次运行的 lane 元数据；当报告只记录 runtime label 时，无法展示精确 CLI semver。',
+    "combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.": '结合每次运行导出的 runtime label 和当前本机 CLI version 命令；当历史报告未包含精确 semver 时，用当前可查版本补充。',
     'Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.': '当导出 summary 同时报告 453 次完成和 453 次可计分尝试时，该行会进入榜单。',
     'Visual Leaderboard': '可视化排行榜',
     'Switch metrics to compare the same agent/model pairs by reach, consistency, and per-attempt solve rate.': '切换指标后，可以按覆盖能力、一致性和单次尝试解题率比较相同的 agent/model 组合。',

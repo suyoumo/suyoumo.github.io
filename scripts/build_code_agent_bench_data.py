@@ -58,6 +58,29 @@ MODEL_DISPLAY_OVERRIDES = {
     },
 }
 
+AGENT_VERSION_OVERRIDES = {
+    "claude-code": {
+        "display": "claude-code 2.1.158",
+        "source": "claude --version in current local environment",
+    },
+    "codex-cli": {
+        "display": "codex-cli 0.135.0",
+        "source": "codex --version in current local environment",
+    },
+    "deepseek-tui": {
+        "display": "deepseek-tui v0.8.39",
+        "source": "deepseek-tui --version in current local environment",
+    },
+    "opencode-cli": {
+        "display": "opencode-cli 1.14.32",
+        "source": "opencode --version in current local environment",
+    },
+    "qwen-cli": {
+        "display": "qwen-cli 0.14.5",
+        "source": "qwen --version in current local environment",
+    },
+}
+
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
@@ -155,20 +178,33 @@ def load_full_suite_report(source_root: Path, model_dir: str) -> dict:
 
 
 def report_agent_version(report: dict, fallback: str) -> tuple[str, str]:
-    versions = []
+    runtime_labels = []
     for record in report.get("records", []):
         lane = (record.get("completion") or {}).get("lane") or {}
-        version = lane.get("agent_version")
-        if version and version not in versions:
-            versions.append(str(version))
+        label = lane.get("agent_version")
+        if label and label not in runtime_labels:
+            runtime_labels.append(str(label))
 
-    if versions:
-        return ", ".join(versions), "full_suite_model_run_report completion.lane.agent_version"
+    if runtime_labels:
+        displays = []
+        sources = []
+        for label in runtime_labels:
+            override = AGENT_VERSION_OVERRIDES.get(label)
+            if override:
+                displays.append(override["display"])
+                sources.append(f"{label}: {override['source']}")
+            else:
+                displays.append(label)
+                sources.append(f"{label}: full_suite_model_run_report completion.lane.agent_version")
+        return ", ".join(displays), "; ".join(sources)
 
     lane_binding = report.get("lane_binding") or {}
-    version = lane_binding.get("agent")
-    if version:
-        return str(version), "full_suite_model_run_report lane_binding.agent"
+    label = lane_binding.get("agent")
+    if label:
+        override = AGENT_VERSION_OVERRIDES.get(str(label))
+        if override:
+            return override["display"], f"{label}: {override['source']}"
+        return str(label), "full_suite_model_run_report lane_binding.agent"
 
     return fallback, "not exported"
 
