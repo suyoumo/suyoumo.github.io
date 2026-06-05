@@ -353,7 +353,7 @@
     'Reach vs Consistency': '覆盖能力 vs 一致性',
     'Pass@3 shows whether an agent can solve a task at least once; Pass^3 shows whether it solves the same task all three times. The gap is useful when comparing stochastic or retry-sensitive agents.': 'Pass@3 反映 agent 是否至少能解出某题一次；Pass^3 反映它是否三次都能解出同一题。两者的差距适合比较带随机性或对重试敏感的 agent。',
     'SWE-Bench-Pro task list': 'SWE-Bench-Pro 任务列表',
-    'Browse the 151 tasks used by CodeAgentBench. Each card shows the repository, base commit, and bilingual task prompt used for the 151-task pass@3 run.': '浏览 CodeAgentBench 使用的 151 道任务。每张卡片展示 repository、base commit，以及 151 题 pass@3 运行使用的中英双语任务 prompt。',
+    'Browse the 151 tasks used by CodeAgentBench. Each card shows the repository, base commit, and Chinese task prompt used for the 151-task pass@3 run.': '浏览 CodeAgentBench 使用的 151 道任务。每张卡片展示 repository、base commit，以及 151 题 pass@3 运行使用的中文任务 prompt。',
     'Back to Leaderboard': '返回排行榜',
     Repository: '仓库',
     'All Repositories': '全部仓库',
