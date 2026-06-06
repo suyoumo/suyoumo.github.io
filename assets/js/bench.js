@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     const closedRowsByParent = new Map();
     const closedOnlyRows = [];
+    const openRowsByModelId = new Map();
+    openRows.forEach(function (row) {
+      openRowsByModelId.set(row.dataset.modelId || '', row);
+    });
     closedRows.forEach(function (row) {
       const parentId = row.dataset.parentId || '';
       if (parentId) {
@@ -405,6 +409,49 @@ document.addEventListener('DOMContentLoaded', function () {
       return Number.isFinite(parsed) ? parsed : 0;
     }
 
+    function restoreOpenRankCell(row) {
+      const openRank = row.dataset.openRank || row.children[0].dataset.value || row.children[0].textContent;
+      row.children[0].textContent = openRank;
+    }
+
+    function appendVisibleRow(row) {
+      row.style.display = '';
+      tbody.appendChild(row);
+    }
+
+    function shouldUseClosedRankDefault(key, direction) {
+      return currentDatasetView === 'all' && key === 'final_score' && direction === 'desc';
+    }
+
+    function appendAllRowsByClosedRank(key, index, direction) {
+      const appendedOpenRows = new Set();
+      closedRows
+        .slice()
+        .sort(function (a, b) {
+          return closedRankValue(a) - closedRankValue(b);
+        })
+        .forEach(function (closedRow) {
+          const parentId = closedRow.dataset.parentId || '';
+          const openRow = parentId ? openRowsByModelId.get(parentId) : null;
+          if (openRow && !appendedOpenRows.has(openRow)) {
+            restoreOpenRankCell(openRow);
+            appendVisibleRow(openRow);
+            appendedOpenRows.add(openRow);
+          }
+          appendVisibleRow(closedRow);
+        });
+
+      openRows
+        .filter(function (row) {
+          return !appendedOpenRows.has(row);
+        })
+        .sort(compareRows(key, index, direction))
+        .forEach(function (row) {
+          restoreOpenRankCell(row);
+          appendVisibleRow(row);
+        });
+    }
+
     function appendOpenRowWithClosed(row) {
       row.style.display = '';
       tbody.appendChild(row);
@@ -479,6 +526,8 @@ document.addEventListener('DOMContentLoaded', function () {
           row.style.display = '';
           tbody.appendChild(row);
         });
+      } else if (shouldUseClosedRankDefault(key, direction)) {
+        appendAllRowsByClosedRank(key, index, direction);
       } else {
         updateRanks(sorted);
         sorted.forEach(appendOpenRowWithClosed);
