@@ -11,7 +11,7 @@
     "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
     "completed_model_count": 22,
     "excluded_model_count": 0,
-    "exported_at": "2026-06-03T14:48:51.349795Z",
+    "exported_at": "2026-06-07T17:12:44.367282Z",
     "source_manifest": "SweResult/*/score_summary.json"
   },
   "agents": [
@@ -757,6 +757,50 @@
       "rank": 16
     },
     {
+      "id": "opencode-stepfun35-2603",
+      "model_dir": "opencode-stepfun35-2603",
+      "lane_key": "opencode-stepfun",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli 1.14.32",
+      "agent_version_source": "opencode-cli: opencode --version in current local environment",
+      "provider": "stepfun",
+      "provider_label": "StepFun",
+      "model_raw": "stepfun/step-3.5-flash-2603",
+      "model_name": "Step 3.5 flash 2603",
+      "logo": "logo-stepfun.png",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 453,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 73,
+      "solved_unique_tasks": 37,
+      "pass_at_3_count": 37,
+      "pass_at_3_rate": 0.24503311258278146,
+      "pass_3_count": 13,
+      "pass_3_rate": 0.08609271523178808,
+      "attempt_score": 0.16114790286975716,
+      "final_score": 24.214184898136956,
+      "archive_size_mb": 192.8,
+      "full_run_tree_size_mb": 170.22,
+      "archive_member_count": 6403,
+      "sha256": "5d6d4e89923ee2c3e4dff6bf531e120029f958a0ab722248dd1de7db898cacd7",
+      "sha256_short": "5d6d4e89923e",
+      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260605-opencode-stepfun35-2603-zh-pass3",
+      "exported_at": "2026-06-07T17:12:44.367282Z",
+      "relative_report_path": "opencode-stepfun35-2603-rerun-20260607/full_suite_model_run_report.json",
+      "relative_summary_path": "opencode-stepfun35-2603-rerun-20260607/score_summary.json",
+      "rank": 17
+    },
+    {
       "id": "opencode-glm47",
       "model_dir": "opencode-glm47",
       "lane_key": "opencode-glm47",
@@ -798,7 +842,7 @@
       "exported_at": "2026-06-03T14:38:25.981286Z",
       "relative_report_path": "opencode-glm47/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm47/score_summary.json",
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "opencode-sensenova67-flash-lite",
@@ -842,7 +886,7 @@
       "exported_at": "2026-06-03T14:45:04.820844Z",
       "relative_report_path": "opencode-sensenova67-flash-lite/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-sensenova67-flash-lite/score_summary.json",
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "opencode-doubao-2-code",
@@ -886,7 +930,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-doubao-2-code/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-doubao-2-code/score_summary.json",
-      "rank": 19
+      "rank": 20
     },
     {
       "id": "opencode-stepfun35",
@@ -930,7 +974,7 @@
       "exported_at": "2026-06-03T14:35:33.098364Z",
       "relative_report_path": "opencode-stepfun35/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35/score_summary.json",
-      "rank": 20
+      "rank": 21
     },
     {
       "id": "deepseek-tui-v4-flash-max",
@@ -974,50 +1018,6 @@
       "exported_at": "2026-05-22T19:46:14.852725Z",
       "relative_report_path": "deepseek-tui-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "deepseek-tui-v4-flash-max/score_summary.json",
-      "rank": 21
-    },
-    {
-      "id": "opencode-stepfun35-2603",
-      "model_dir": "opencode-stepfun35-2603",
-      "lane_key": "opencode-stepfun",
-      "agent": "opencode",
-      "agent_label": "OpenCode",
-      "agent_slug": "opencode",
-      "agent_version": "opencode-cli 1.14.32",
-      "agent_version_source": "opencode-cli: opencode --version in current local environment",
-      "provider": "stepfun",
-      "provider_label": "StepFun",
-      "model_raw": "stepfun/step-3.5-flash-2603",
-      "model_name": "Step 3.5 flash 2603",
-      "logo": "logo-stepfun.png",
-      "group": "completed_453",
-      "status": "pass_k_ready",
-      "strict_retryable_gate": false,
-      "language_variant": "",
-      "attempts_per_task": 3,
-      "task_count": 151,
-      "planned_task_attempts": 453,
-      "scoreable_attempts": 453,
-      "scoreable_attempt_coverage": 1.0,
-      "non_scoreable_attempts": 0,
-      "tasks_missing_k_scoreable_attempts": 0,
-      "solved_attempts": 27,
-      "solved_unique_tasks": 13,
-      "pass_at_3_count": 13,
-      "pass_at_3_rate": 0.08609271523178808,
-      "pass_3_count": 5,
-      "pass_3_rate": 0.033112582781456956,
-      "attempt_score": 0.059602649006622516,
-      "final_score": 12.630058446697324,
-      "archive_size_mb": 15.61,
-      "full_run_tree_size_mb": 109.34,
-      "archive_member_count": 0,
-      "sha256": "ce9bf27aecbcb30937ddec4bf6982c0eeb3df4182803d7570d17d352f73dccf0",
-      "sha256_short": "ce9bf27aecbc",
-      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260511-opencode-stepfun-zh-pass3",
-      "exported_at": "",
-      "relative_report_path": "opencode-stepfun35-2603/full_suite_model_run_report.json",
-      "relative_summary_path": "opencode-stepfun35-2603/score_summary.json",
       "rank": 22
     }
   ],
