@@ -98,8 +98,8 @@ AGENT_VERSION_OVERRIDES = {
         "source": "qwen --version in current local environment",
     },
     "kimi-cli": {
-        "display": "kimi-cli 1.47.0",
-        "source": "kimi --version in current local environment",
+        "display": "kimi-cli 1.40.0",
+        "source": "historical run version for the scoreable Kimi attempts",
     },
 }
 
