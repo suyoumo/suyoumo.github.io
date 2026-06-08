@@ -347,28 +347,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function pairedRankText(openPairedRank, closedPairedRank, openGlobalRank, closedGlobalRank) {
       const delta = closedPairedRank - openPairedRank;
+      const openPairedTotal = pairedOpenRows().length;
+      const closedPairedTotal = pairedClosedRows().length;
       if (currentBenchLanguage() === 'zh') {
         let movement = '持平';
-        if (delta > 0) movement = '双榜内下降 ' + delta;
-        if (delta < 0) movement = '双榜内上升 ' + Math.abs(delta);
+        if (delta > 0) movement = '下降 ' + delta;
+        if (delta < 0) movement = '上升 ' + Math.abs(delta);
         return (
-          '双榜内排名：开源 #' + openPairedRank +
-          ' / 闭源 #' + closedPairedRank +
-          ' · ' + movement +
-          '；全榜名次：开源 #' + openGlobalRank +
+          'Open+Closed 可比排名：开源 #' + openPairedRank +
+          '/' + openPairedTotal +
+          ' -> 闭源 #' + closedPairedRank +
+          '/' + closedPairedTotal +
+          '（' + movement + '）；全榜：开源 #' + openGlobalRank +
           '/' + openRows.length +
           '，闭源 #' + closedGlobalRank + '/' + closedRows.length
         );
       }
 
       let movement = 'unchanged';
-      if (delta > 0) movement = 'down ' + delta + ' among paired models';
-      if (delta < 0) movement = 'up ' + Math.abs(delta) + ' among paired models';
+      if (delta > 0) movement = 'down ' + delta;
+      if (delta < 0) movement = 'up ' + Math.abs(delta);
       return (
-        'Paired ranks: open #' + openPairedRank +
-        ' / closed #' + closedPairedRank +
-        ' · ' + movement +
-        '; full ranks: open #' + openGlobalRank +
+        'Open+Closed ranks: open #' + openPairedRank +
+        '/' + openPairedTotal +
+        ' -> closed #' + closedPairedRank +
+        '/' + closedPairedTotal +
+        ' (' + movement + '); full: open #' + openGlobalRank +
         '/' + openRows.length +
         ', closed #' + closedGlobalRank + '/' + closedRows.length
       );
