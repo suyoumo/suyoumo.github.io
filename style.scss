@@ -3035,13 +3035,32 @@ main {
   background: #0891b2;
 }
 
+.code-agent-pill-kimi {
+  background: #0f766e;
+}
+
 .bench-model-cell .code-agent-pill,
 .bench-model-cell .code-agent-pill-codex,
 .bench-model-cell .code-agent-pill-opencode,
 .bench-model-cell .code-agent-pill-claude-code,
 .bench-model-cell .code-agent-pill-qwen,
-.bench-model-cell .code-agent-pill-deepseek {
+.bench-model-cell .code-agent-pill-deepseek,
+.bench-model-cell .code-agent-pill-kimi {
   color: #fff;
+}
+
+.code-agent-partial-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  margin-left: 8px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.12);
+  color: #0f766e;
+  font-size: 0.7rem;
+  font-weight: 900;
+  white-space: nowrap;
 }
 
 .code-agent-gate {
@@ -3113,6 +3132,11 @@ main {
   background: linear-gradient(180deg, #22d3ee 0%, #0891b2 100%);
 }
 
+.code-agent-chart-item[data-agent="kimi"] .bench-chart-fill,
+.code-agent-scatter-point[data-agent="kimi"] .bench-scatter-dot {
+  background: linear-gradient(180deg, #14b8a6 0%, #0f766e 100%);
+}
+
 .code-agent-scatter-card {
   margin-top: 34px;
 }
@@ -3139,6 +3163,10 @@ main {
 
 .code-agent-scatter-point[data-agent="deepseek"] .bench-scatter-dot {
   box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.16);
+}
+
+.code-agent-scatter-point[data-agent="kimi"] .bench-scatter-dot {
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.16);
 }
 
 .code-agent-task-filter-bar {

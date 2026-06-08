@@ -14,7 +14,7 @@ permalink: /code-agent-bench/
       <div class="code-agent-hero-copy">
         <p class="bench-kicker">SWE-Bench-Pro agent results</p>
         <h1>CodeAgentBench</h1>
-        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task, and {{ meta.total_attempts }} scoreable attempts in total. Rankings include all completed 453/453 runs and sort by Final Score by default.</p>
+        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task, and {{ meta.total_attempts }} planned scoreable attempts in total. Rankings include completed 453/453 runs and sort by Final Score by default; partial progress rows are shown at the bottom when available.</p>
         <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
           <span>Leaderboard Family:</span>
           <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
@@ -31,7 +31,7 @@ permalink: /code-agent-bench/
         <div>
           <span>Completed Models</span>
           <strong>{{ meta.completed_model_count }}</strong>
-          <em>All rows have 453 scoreable attempts</em>
+          <em>{{ meta.partial_model_count | default: 0 }} partial progress row shown separately</em>
         </div>
         <div>
           <span>Scoreable Attempts</span>
@@ -87,6 +87,8 @@ permalink: /code-agent-bench/
             </thead>
             <tbody>
               {% for row in board.rows %}
+              {% assign pass_3_denominator = row.pass_3_denominator | default: row.task_count %}
+              {% assign pass_at_3_denominator = row.pass_at_3_denominator | default: row.task_count %}
               <tr
                 data-agent="{{ row.agent }}"
                 data-agent-label="{{ row.agent_label | escape }}"
@@ -122,17 +124,22 @@ permalink: /code-agent-bench/
                 <td data-value="{{ row.agent_version }}">
                   <span class="code-agent-version-pill" title="{{ row.agent_version_source | escape }}">{{ row.agent_version }}</span>
                 </td>
-                <td data-value="{{ row.final_score }}"><span class="bench-score">{{ row.final_score | round: 2 }}</span></td>
+                <td data-value="{{ row.final_score }}">
+                  <span class="bench-score"{% if row.final_score_status %} title="{{ row.final_score_status | escape }}"{% endif %}>{{ row.final_score | round: 2 }}</span>
+                  {% if row.partial_export %}
+                  <span class="code-agent-partial-badge">Partial</span>
+                  {% endif %}
+                </td>
                 <td data-value="{{ row.pass_3_rate }}">
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.pass_3_rate | times: 100 }}%"></span></div>
-                    <strong>{{ row.pass_3_count }}/{{ row.task_count }} - {{ row.pass_3_rate | times: 100 | round: 1 }}%</strong>
+                    <strong>{{ row.pass_3_count }}/{{ pass_3_denominator }} - {{ row.pass_3_rate | times: 100 | round: 1 }}%</strong>
                   </div>
                 </td>
                 <td data-value="{{ row.pass_at_3_rate }}">
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.pass_at_3_rate | times: 100 }}%"></span></div>
-                    <strong>{{ row.pass_at_3_count }}/{{ row.task_count }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
+                    <strong>{{ row.pass_at_3_count }}/{{ pass_at_3_denominator }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
                   </div>
                 </td>
                 <td data-value="{{ row.attempt_score }}">
@@ -143,7 +150,7 @@ permalink: /code-agent-bench/
                 </td>
                 <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
                 <td data-value="{{ row.solved_attempts }}">{{ row.solved_attempts }}/{{ row.scoreable_attempts }}</td>
-                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">453/453</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
+                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">{{ row.scoreable_attempts }}/{{ row.planned_task_attempts }}</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
                 <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
                 <td data-value="{{ row.full_run_tree_size_mb }}">{{ row.full_run_tree_size_mb }} MB</td>
                 <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
@@ -164,7 +171,7 @@ permalink: /code-agent-bench/
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
         <span><code>Agent Version</code> combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.</span>
-        <span>Rows are included when the exported summary reports 453 completed and 453 scoreable attempts.</span>
+        <span>Completed rows are rankable only when the exported summary reports 453 scoreable attempts; partial rows are shown as progress references at the bottom.</span>
       </div>
     </section>
 

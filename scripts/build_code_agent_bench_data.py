@@ -15,12 +15,14 @@ AGENT_LABELS = {
     "deepseek": "deepseek-tui",
     "opencode": "OpenCode",
     "qwen": "Qwen",
+    "kimi": "Kimi",
 }
 
 PROVIDER_LABELS = {
     "deepseek": "DeepSeek",
     "deepseek-v4-flash": "DeepSeek",
     "gpt": "OpenAI",
+    "kimi-code": "Moonshot",
     "longcat": "LongCat",
     "minimax-cn-coding-plan": "MiniMax",
     "qwen": "Qwen",
@@ -36,6 +38,7 @@ LOGOS = {
     "deepseek": "logo-deepseek.png",
     "deepseek-v4-flash": "logo-deepseek.png",
     "gpt": "logo-openai.png",
+    "kimi-code": "logo-kimi.jpeg",
     "longcat": "logo-longcat.png",
     "minimax-cn-coding-plan": "logo-minimax.jpeg",
     "qwen": "logo-qwen.png",
@@ -48,6 +51,17 @@ LOGOS = {
 }
 
 MODEL_DISPLAY_OVERRIDES = {
+    "codex-gpt55": {
+        "model_raw": "gpt-5.5#effort=xhigh",
+        "model_name": "GPT 5.5 (xhigh)",
+    },
+    "codex-gpt54": {
+        "model_raw": "gpt-5.4#effort=xhigh",
+        "model_name": "GPT 5.4 (xhigh)",
+    },
+    "kimi-for-coding": {
+        "model_name": "Kimi for Coding",
+    },
     "opencode-deepseek-v4-flash-max": {
         "model_raw": "deepseek/deepseek-v4-pro#variant=max",
         "model_name": "DeepSeek v4 pro (max)",
@@ -56,6 +70,10 @@ MODEL_DISPLAY_OVERRIDES = {
         "model_raw": "deepseek/deepseek-v4-flash#variant=max",
         "model_name": "DeepSeek v4 flash (max)",
     },
+}
+
+CANONICAL_MODEL_DIR_OVERRIDES = {
+    "opencode-stepfun35-2603-rerun-20260607": "opencode-stepfun35-2603",
 }
 
 AGENT_VERSION_OVERRIDES = {
@@ -79,12 +97,23 @@ AGENT_VERSION_OVERRIDES = {
         "display": "qwen-cli 0.14.5",
         "source": "qwen --version in current local environment",
     },
+    "kimi-cli": {
+        "display": "kimi-cli 1.47.0",
+        "source": "kimi --version in current local environment",
+    },
 }
 
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
     return slug or "item"
+
+
+def first_present(*values):
+    for value in values:
+        if value is not None:
+            return value
+    return None
 
 
 def title_model_piece(value: str) -> str:
@@ -229,10 +258,11 @@ def local_full_tree_size_bytes(source_root: Path, model_dir: str) -> int:
     return directory_size_bytes(source_root / model_dir / "full_run_tree")
 
 
-def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = None) -> dict:
+def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = None, source_model_dir: str | None = None) -> dict:
+    source_dir = source_model_dir or model_dir
     item = manifest_item or {}
-    score_summary = load_score_summary(source_root, model_dir)
-    full_suite_report = load_full_suite_report(source_root, model_dir)
+    score_summary = load_score_summary(source_root, source_dir)
+    full_suite_report = load_full_suite_report(source_root, source_dir)
     agent = score_summary.get("agent") or item.get("agent") or "unknown"
     raw_model = score_summary.get("model") or item.get("model") or model_dir
     provider_key, provider_label, model_label = split_model(raw_model)
@@ -246,17 +276,38 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
     scoreable_attempts = int(score_summary.get("scoreable_attempts") or item.get("scoreable_attempts") or 0)
     pass_at_3_count = int(score_summary.get("pass_at_k_count") or item.get("pass_at_k_count") or 0)
     pass_3_count = int(score_summary.get("pass^k_count") or score_summary.get("pass_caret_k_count") or item.get("pass^k_count") or item.get("pass_caret_k_count") or 0)
-    pass_at_3_rate = float(score_summary.get("pass_at_k_rate") or item.get("pass_at_k_rate") or 0)
-    pass_3_rate = float(score_summary.get("pass^k_rate") or score_summary.get("pass_caret_k_rate") or item.get("pass^k_rate") or item.get("pass_caret_k_rate") or 0)
+    complete_task_count_for_k = int(score_summary.get("complete_task_count_for_k") or tasks)
+    pass_at_3_denominator = tasks
+    pass_3_denominator = tasks
+    pass_at_3_rate_value = first_present(score_summary.get("pass_at_k_rate"), item.get("pass_at_k_rate"))
+    if pass_at_3_rate_value is None and score_summary.get("pass_at_k_complete_rate") is not None:
+        pass_at_3_rate_value = score_summary.get("pass_at_k_complete_rate")
+        pass_at_3_denominator = complete_task_count_for_k
+    pass_3_rate_value = first_present(
+        score_summary.get("pass^k_rate"),
+        score_summary.get("pass_caret_k_rate"),
+        item.get("pass^k_rate"),
+        item.get("pass_caret_k_rate"),
+    )
+    if pass_3_rate_value is None and score_summary.get("pass_caret_k_complete_rate") is not None:
+        pass_3_rate_value = score_summary.get("pass_caret_k_complete_rate")
+        pass_3_denominator = complete_task_count_for_k
+    pass_at_3_rate = float(pass_at_3_rate_value or 0)
+    pass_3_rate = float(pass_3_rate_value or 0)
     attempt_score = float(score_summary.get("attempt_score") or item.get("attempt_score") or 0)
+    partial_export = bool(score_summary.get("partial_export"))
+    final_score_status = score_summary.get("final_score_status") or ""
+    final_score = code_agent_final_score(pass_3_rate, pass_at_3_rate, attempt_score)
+    if final_score_status:
+        final_score = float(score_summary.get("final_score") or 0)
     archive_size_bytes = (
         score_summary.get("complete_run_logs_archive_size_bytes")
         or item.get("archive_size_bytes")
-        or local_archive_size_bytes(source_root, model_dir)
+        or local_archive_size_bytes(source_root, source_dir)
     )
     full_tree_size_bytes = item.get("full_run_tree_size_bytes")
     if full_tree_size_bytes is None:
-        full_tree_size_bytes = local_full_tree_size_bytes(source_root, model_dir)
+        full_tree_size_bytes = local_full_tree_size_bytes(source_root, source_dir)
 
     row = {
         "id": slugify(model_dir),
@@ -272,9 +323,9 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "model_raw": display_raw_model,
         "model_name": display_model_label,
         "logo": LOGOS.get(provider_key, ""),
-        "group": "completed_453",
+        "group": "partial" if partial_export else "completed_453",
         "status": score_summary.get("score_coverage_status") or item.get("score_coverage_status") or "",
-        "strict_retryable_gate": bool(item.get("strict_retryable_gate")),
+        "strict_retryable_gate": bool(item.get("strict_retryable_gate") or source_dir == "kimi-for-coding"),
         "language_variant": score_summary.get("language_variant") or "",
         "attempts_per_task": int(score_summary.get("attempts") or 3),
         "task_count": tasks,
@@ -287,10 +338,19 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "solved_unique_tasks": int(score_summary.get("solved_unique_tasks") or pass_at_3_count),
         "pass_at_3_count": pass_at_3_count,
         "pass_at_3_rate": pass_at_3_rate,
+        **({"pass_at_3_denominator": pass_at_3_denominator} if pass_at_3_denominator != tasks else {}),
         "pass_3_count": pass_3_count,
         "pass_3_rate": pass_3_rate,
+        **({"pass_3_denominator": pass_3_denominator} if pass_3_denominator != tasks else {}),
         "attempt_score": attempt_score,
-        "final_score": code_agent_final_score(pass_3_rate, pass_at_3_rate, attempt_score),
+        "final_score": final_score,
+        **({"final_score_status": final_score_status} if final_score_status else {}),
+        **({"partial_export": True} if partial_export else {}),
+        **(
+            {"partial_final_score_complete_rate": float(score_summary.get("partial_final_score_complete_rate"))}
+            if score_summary.get("partial_final_score_complete_rate") is not None
+            else {}
+        ),
         "archive_size_mb": mb(archive_size_bytes),
         "full_run_tree_size_mb": mb(full_tree_size_bytes),
         "archive_member_count": int(score_summary.get("complete_run_logs_archive_member_count") or 0),
@@ -298,8 +358,8 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "sha256_short": (score_summary.get("exported_full_suite_report_sha256") or item.get("exported_full_suite_report_sha256") or "")[:12],
         "job_name": score_summary.get("job_name") or "",
         "exported_at": score_summary.get("exported_at") or "",
-        "relative_report_path": f"{model_dir}/full_suite_model_run_report.json",
-        "relative_summary_path": f"{model_dir}/score_summary.json",
+        "relative_report_path": f"{source_dir}/full_suite_model_run_report.json",
+        "relative_summary_path": f"{source_dir}/score_summary.json",
     }
     return row
 
@@ -321,30 +381,67 @@ def rank_rows(rows: list[dict]) -> list[dict]:
     return ranked
 
 
+def append_partial_rows(rows: list[dict], partial_rows: list[dict]) -> list[dict]:
+    ranked = sorted(
+        partial_rows,
+        key=lambda row: (
+            row["scoreable_attempt_coverage"],
+            row.get("partial_final_score_complete_rate", 0),
+            row["pass_3_rate"],
+            row["pass_at_3_rate"],
+            row["attempt_score"],
+        ),
+        reverse=True,
+    )
+    for index, row in enumerate(ranked, start=len(rows) + 1):
+        row["rank"] = index
+    return rows + ranked
+
+
 def build_data(source_root: Path) -> dict:
     manifest_items = load_manifest_items(source_root)
     score_summaries = sorted(source_root.glob("*/score_summary.json"))
     rows = []
+    partial_rows = []
     excluded_rows = []
+    superseded_dirs = {
+        canonical_dir
+        for source_dir, canonical_dir in CANONICAL_MODEL_DIR_OVERRIDES.items()
+        if (source_root / source_dir / "score_summary.json").exists()
+    }
 
     for path in score_summaries:
-        model_dir = path.parent.name
-        score_summary = load_score_summary(source_root, model_dir)
+        source_model_dir = path.parent.name
+        if source_model_dir in superseded_dirs:
+            continue
+        model_dir = CANONICAL_MODEL_DIR_OVERRIDES.get(source_model_dir, source_model_dir)
+        score_summary = load_score_summary(source_root, source_model_dir)
         completed = int(score_summary.get("observed_completed_task_attempts") or 0)
         scoreable = int(score_summary.get("scoreable_attempts") or 0)
         planned = int(score_summary.get("planned_task_attempts") or 453)
-        row = build_row(model_dir, source_root, manifest_items.get(model_dir))
+        row = build_row(
+            model_dir,
+            source_root,
+            manifest_items.get(model_dir) or manifest_items.get(source_model_dir),
+            source_model_dir=source_model_dir,
+        )
         if completed == 453 and scoreable == 453 and planned == 453:
             rows.append(row)
+        elif score_summary.get("partial_export"):
+            partial_rows.append(row)
         else:
             excluded_rows.append(row)
 
     rows = rank_rows(rows)
+    display_rows = append_partial_rows(rows, partial_rows)
     excluded_rows = rank_rows(excluded_rows)
 
     agents = []
-    for agent in sorted({row["agent"] for row in rows}):
-        agent_rows = [row for row in rows if row["agent"] == agent]
+    agent_keys = {row["agent"] for row in display_rows}
+    ordered_agents = [agent for agent in AGENT_LABELS if agent in agent_keys]
+    ordered_agents.extend(sorted(agent for agent in agent_keys if agent not in AGENT_LABELS))
+    for agent in ordered_agents:
+        agent_rows = [row for row in display_rows if row["agent"] == agent]
         agents.append({
             "key": agent,
             "slug": slugify(agent),
@@ -365,12 +462,13 @@ def build_data(source_root: Path) -> dict:
             "rank_metric": "final_score",
             "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
             "completed_model_count": len(rows),
+            "partial_model_count": len(partial_rows),
             "excluded_model_count": len(excluded_rows),
-            "exported_at": max((row["exported_at"] for row in rows if row["exported_at"]), default=""),
+            "exported_at": max((row["exported_at"] for row in display_rows if row["exported_at"]), default=""),
             "source_manifest": "SweResult/*/score_summary.json",
         },
         "agents": agents,
-        "rows": rows,
+        "rows": display_rows,
         "excluded_rows": excluded_rows,
     }
 
@@ -390,7 +488,11 @@ def main() -> None:
     with output_path.open("w", encoding="utf-8") as handle:
         json.dump(data, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
-    print(f"Wrote {output_path.relative_to(repo_root)} with {len(data['rows'])} completed rows.")
+    try:
+        display_path = output_path.relative_to(repo_root)
+    except ValueError:
+        display_path = output_path
+    print(f"Wrote {display_path} with {len(data['rows'])} displayed rows.")
 
 
 if __name__ == "__main__":
