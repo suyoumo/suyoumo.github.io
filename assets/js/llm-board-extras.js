@@ -106,6 +106,40 @@
     }
 
     /* ============ Build popover bodies ============ */
+    function buildGroupControls(grp, stateSet, afterToggle) {
+      const controls = document.createElement('div');
+      controls.className = 'llm-board-filter-group-controls';
+
+      const expandBtn = document.createElement('button');
+      expandBtn.type = 'button';
+      expandBtn.className = 'llm-board-filter-group-expand';
+      expandBtn.textContent = 'expand';
+      expandBtn.setAttribute('aria-expanded', 'false');
+      expandBtn.addEventListener('click', function () {
+        const expanded = grp.classList.toggle('is-expanded');
+        expandBtn.textContent = expanded ? 'collapse' : 'expand';
+        expandBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+      controls.appendChild(expandBtn);
+
+      const allBtn = document.createElement('button');
+      allBtn.type = 'button';
+      allBtn.textContent = 'toggle';
+      allBtn.addEventListener('click', function () {
+        const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
+        const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
+        checkboxes.forEach(function (c) {
+          c.checked = anyUnchecked;
+          const k = c.value;
+          if (anyUnchecked) stateSet.delete(k); else stateSet.add(k);
+        });
+        afterToggle();
+      });
+      controls.appendChild(allBtn);
+
+      return controls;
+    }
+
     function buildModelsPanel() {
       const body = document.getElementById('llm-board-filter-models-body');
       const byCompany = new Map();
@@ -123,20 +157,7 @@
         const lbl = document.createElement('strong');
         lbl.textContent = company || 'Other';
         head.appendChild(lbl);
-        const allBtn = document.createElement('button');
-        allBtn.type = 'button';
-        allBtn.textContent = 'toggle';
-        allBtn.addEventListener('click', function () {
-          const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
-          const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
-          checkboxes.forEach(function (c) {
-            c.checked = anyUnchecked;
-            const k = c.value;
-            if (anyUnchecked) state.hiddenModels.delete(k); else state.hiddenModels.add(k);
-          });
-          afterChange();
-        });
-        head.appendChild(allBtn);
+        head.appendChild(buildGroupControls(grp, state.hiddenModels, afterChange));
         grp.appendChild(head);
         const list = document.createElement('div');
         list.className = 'llm-board-filter-group-items';
@@ -185,20 +206,7 @@
         const lbl = document.createElement('strong');
         lbl.textContent = cat.name;
         head.appendChild(lbl);
-        const allBtn = document.createElement('button');
-        allBtn.type = 'button';
-        allBtn.textContent = 'toggle';
-        allBtn.addEventListener('click', function () {
-          const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
-          const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
-          checkboxes.forEach(function (c) {
-            c.checked = anyUnchecked;
-            const k = c.value;
-            if (anyUnchecked) state.hiddenBenches.delete(k); else state.hiddenBenches.add(k);
-          });
-          afterChange();
-        });
-        head.appendChild(allBtn);
+        head.appendChild(buildGroupControls(grp, state.hiddenBenches, afterChange));
         grp.appendChild(head);
         const list = document.createElement('div');
         list.className = 'llm-board-filter-group-items';
@@ -239,15 +247,17 @@
     function applyFilter() {
       const q = state.searchQuery.toLowerCase();
 
-      // Set of bench keys still visible (= NOT in hiddenBenches)
-      const visibleBenchKeys = new Set();
+      // Set of benchmark keys selected by the user. A second pass below
+      // removes selected columns that are empty for all currently visible models.
+      const selectedBenchKeys = new Set();
       allBenches.forEach(function (b) {
-        if (!state.hiddenBenches.has(b.key)) visibleBenchKeys.add(b.key);
+        if (!state.hiddenBenches.has(b.key)) selectedBenchKeys.add(b.key);
       });
       const hasBenchFilter = state.hiddenBenches.size > 0;
 
       // Hide rows
       let visibleModels = 0;
+      const visibleRows = [];
       Array.from(tbody.querySelectorAll('tr[data-model-name]')).forEach(function (tr) {
         const m = tr.dataset.modelName || '';
         const c = tr.dataset.company || '';
@@ -265,7 +275,7 @@
           const cells = tr.querySelectorAll('td[data-bench-key]');
           for (let i = 0; i < cells.length; i++) {
             const cell = cells[i];
-            if (visibleBenchKeys.has(cell.dataset.benchKey) && !cell.classList.contains('llm-empty-score')) {
+            if (selectedBenchKeys.has(cell.dataset.benchKey) && !cell.classList.contains('llm-empty-score')) {
               passBenchData = true;
               break;
             }
@@ -274,13 +284,28 @@
 
         const show = passSearch && passSelected && passBenchData;
         tr.style.display = show ? '' : 'none';
-        if (show) visibleModels++;
+        if (show) {
+          visibleModels++;
+          visibleRows.push(tr);
+        }
       });
 
-      // Hide benchmark columns
+      const populatedBenchKeys = new Set();
+      visibleRows.forEach(function (tr) {
+        const cells = tr.querySelectorAll('td[data-bench-key]');
+        for (let i = 0; i < cells.length; i++) {
+          const cell = cells[i];
+          if (selectedBenchKeys.has(cell.dataset.benchKey) && !cell.classList.contains('llm-empty-score')) {
+            populatedBenchKeys.add(cell.dataset.benchKey);
+          }
+        }
+      });
+
+      // Hide benchmark columns. This includes user-hidden benchmarks and
+      // benchmarks that are empty across the filtered model set.
       let visibleBenches = 0;
       allBenches.forEach(function (b) {
-        const hide = state.hiddenBenches.has(b.key);
+        const hide = !populatedBenchKeys.has(b.key);
         if (!hide) visibleBenches++;
         const cells = table.querySelectorAll('[data-bench-key="' + cssEscape(b.key) + '"]');
         cells.forEach(function (c) { c.style.display = hide ? 'none' : ''; });
@@ -289,7 +314,7 @@
       // Adjust category group <th> colspan: count visible benches per category
       const visiblePerCat = new Map();
       allBenches.forEach(function (b) {
-        if (!state.hiddenBenches.has(b.key)) {
+        if (populatedBenchKeys.has(b.key)) {
           visiblePerCat.set(b.cat, (visiblePerCat.get(b.cat) || 0) + 1);
         }
       });
@@ -318,11 +343,11 @@
       // Update counters
       if (modelsCountEl) {
         const total = allModels.length;
-        modelsCountEl.textContent = state.hiddenModels.size === 0 ? 'all ' + total : visibleModels + '/' + total;
+        modelsCountEl.textContent = (state.hiddenModels.size === 0 && visibleModels === total) ? 'all ' + total : visibleModels + '/' + total;
       }
       if (benchesCountEl) {
         const total = allBenches.length;
-        benchesCountEl.textContent = state.hiddenBenches.size === 0 ? 'all ' + total : visibleBenches + '/' + total;
+        benchesCountEl.textContent = (state.hiddenBenches.size === 0 && visibleBenches === total) ? 'all ' + total : visibleBenches + '/' + total;
       }
       if (filterCounter) {
         filterCounter.textContent = visibleModels + ' models · ' + visibleBenches + ' benchmarks';

@@ -15,6 +15,7 @@ AGENT_LABELS = {
     "deepseek": "deepseek-tui",
     "opencode": "OpenCode",
     "qwen": "Qwen",
+    "qodercli": "Qoder",
     "kimi": "Kimi",
 }
 
@@ -62,6 +63,9 @@ MODEL_DISPLAY_OVERRIDES = {
     "kimi-for-coding": {
         "model_name": "Kimi for Coding",
     },
+    "qoder-qwen36-plus-forward-20260610": {
+        "model_name": "Qwen 3.6 plus (180k)",
+    },
     "opencode-deepseek-v4-flash-max": {
         "model_raw": "deepseek/deepseek-v4-pro#variant=max",
         "model_name": "DeepSeek v4 pro (max)",
@@ -96,6 +100,22 @@ AGENT_VERSION_OVERRIDES = {
     "qwen-cli": {
         "display": "qwen-cli 0.14.5",
         "source": "qwen --version in current local environment",
+    },
+    "qodercli-1.0.10": {
+        "display": "qodercli 1.0.10",
+        "source": "full_suite_model_run_report completion.lane.agent_version",
+    },
+    "qodercli-1.0.14-sdk-byok-forward": {
+        "display": "qodercli 1.0.14 sdk-byok-forward",
+        "source": "full_suite_model_run_report completion.lane.agent_version",
+    },
+    "qodercli-1.0.14-sdk-byok-proxy": {
+        "display": "qodercli 1.0.14 sdk-byok-proxy",
+        "source": "full_suite_model_run_report completion.lane.agent_version",
+    },
+    "qoderclicn-1.0.14-sdk-byok-forward": {
+        "display": "qoderclicn 1.0.14 sdk-byok-forward",
+        "source": "full_suite_model_run_report completion.lane.agent_version",
     },
     "kimi-cli": {
         "display": "kimi-cli 1.40.0",
@@ -258,6 +278,15 @@ def local_full_tree_size_bytes(source_root: Path, model_dir: str) -> int:
     return directory_size_bytes(source_root / model_dir / "full_run_tree")
 
 
+def strict_retryable_enabled(score_summary: dict, item: dict, source_dir: str) -> bool:
+    gate = score_summary.get("strict_retryable_gate")
+    if isinstance(gate, dict):
+        return bool(gate.get("enabled"))
+    if gate is not None:
+        return bool(gate)
+    return bool(item.get("strict_retryable_gate") or source_dir == "kimi-for-coding")
+
+
 def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = None, source_model_dir: str | None = None) -> dict:
     source_dir = source_model_dir or model_dir
     item = manifest_item or {}
@@ -325,15 +354,15 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "logo": LOGOS.get(provider_key, ""),
         "group": "partial" if partial_export else "completed_453",
         "status": score_summary.get("score_coverage_status") or item.get("score_coverage_status") or "",
-        "strict_retryable_gate": bool(item.get("strict_retryable_gate") or source_dir == "kimi-for-coding"),
+        "strict_retryable_gate": strict_retryable_enabled(score_summary, item, source_dir),
         "language_variant": score_summary.get("language_variant") or "",
         "attempts_per_task": int(score_summary.get("attempts") or 3),
         "task_count": tasks,
         "planned_task_attempts": attempts,
         "scoreable_attempts": scoreable_attempts,
         "scoreable_attempt_coverage": (scoreable_attempts / attempts) if attempts else 0,
-        "non_scoreable_attempts": int(score_summary.get("non_scoreable_attempts") or item.get("non_scoreable_attempts") or 0),
-        "tasks_missing_k_scoreable_attempts": int(score_summary.get("tasks_missing_k_scoreable_attempts") or item.get("tasks_missing_k_scoreable_attempts") or 0),
+        "non_scoreable_attempts": int(first_present(score_summary.get("non_scoreable_attempts"), item.get("non_scoreable_attempts"), 0)),
+        "tasks_missing_k_scoreable_attempts": int(first_present(score_summary.get("tasks_missing_k_scoreable_attempts"), item.get("tasks_missing_k_scoreable_attempts"), 0)),
         "solved_attempts": int(score_summary.get("solved_attempts") or 0),
         "solved_unique_tasks": int(score_summary.get("solved_unique_tasks") or pass_at_3_count),
         "pass_at_3_count": pass_at_3_count,

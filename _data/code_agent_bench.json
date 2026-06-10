@@ -9,11 +9,11 @@
     "total_attempts": 453,
     "rank_metric": "final_score",
     "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
-    "completed_model_count": 23,
+    "completed_model_count": 24,
+    "partial_model_count": 1,
     "excluded_model_count": 0,
-    "exported_at": "2026-06-09T17:03:58.589448Z",
-    "source_manifest": "SweResult/*/score_summary.json",
-    "partial_model_count": 1
+    "exported_at": "2026-06-10T06:14:51.258236Z",
+    "source_manifest": "SweResult/*/score_summary.json"
   },
   "agents": [
     {
@@ -50,6 +50,13 @@
       "label": "Qwen",
       "count": 2,
       "best_pass_at_3_rate": 0.33774834437086093
+    },
+    {
+      "key": "qodercli",
+      "slug": "qodercli",
+      "label": "Qoder",
+      "count": 1,
+      "best_pass_at_3_rate": 0.25165562913907286
     },
     {
       "key": "kimi",
@@ -138,7 +145,7 @@
       "attempt_score": 0.30022075055187636,
       "final_score": 36.78942970456069,
       "archive_size_mb": 212.55,
-      "full_run_tree_size_mb": 173.26,
+      "full_run_tree_size_mb": 173.27,
       "archive_member_count": 6421,
       "sha256": "5c46026a6ea58ebefe550a04f9dbe506d0f325f842418f2c86186e9f08bc949d",
       "sha256_short": "5c46026a6ea5",
@@ -182,7 +189,7 @@
       "attempt_score": 0.2891832229580574,
       "final_score": 36.0884748919042,
       "archive_size_mb": 202.4,
-      "full_run_tree_size_mb": 160.91,
+      "full_run_tree_size_mb": 160.93,
       "archive_member_count": 6403,
       "sha256": "d94a7b604d4f8471f5cc2027032b5681ef0f4c8a4001d0f5835d7ccb6414460d",
       "sha256_short": "d94a7b604d4f",
@@ -208,15 +215,15 @@
       "logo": "logo-deepseek.png",
       "group": "completed_453",
       "status": "pass_k_ready",
-      "strict_retryable_gate": false,
+      "strict_retryable_gate": true,
       "language_variant": "zh",
       "attempts_per_task": 3,
       "task_count": 151,
       "planned_task_attempts": 453,
       "scoreable_attempts": 453,
       "scoreable_attempt_coverage": 1.0,
-      "non_scoreable_attempts": 1,
-      "tasks_missing_k_scoreable_attempts": 1,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
       "solved_attempts": 117,
       "solved_unique_tasks": 48,
       "pass_at_3_count": 48,
@@ -314,7 +321,7 @@
       "attempt_score": 0.23178807947019867,
       "final_score": 31.387071865039754,
       "archive_size_mb": 28.18,
-      "full_run_tree_size_mb": 36.44,
+      "full_run_tree_size_mb": 36.45,
       "archive_member_count": 6407,
       "sha256": "a7d908fe7501b0bf0bf2ab28f6833822d38f059ab85b081d9796505de0c00626",
       "sha256_short": "a7d908fe7501",
@@ -677,6 +684,50 @@
       "rank": 14
     },
     {
+      "id": "qoder-qwen36-plus-forward-20260610",
+      "model_dir": "qoder-qwen36-plus-forward-20260610",
+      "lane_key": "qoder-qwen36-plus",
+      "agent": "qodercli",
+      "agent_label": "Qoder",
+      "agent_slug": "qodercli",
+      "agent_version": "qodercli 1.0.10, qodercli 1.0.14 sdk-byok-proxy, qodercli 1.0.14 sdk-byok-forward, qoderclicn 1.0.14 sdk-byok-forward",
+      "agent_version_source": "qodercli-1.0.10: full_suite_model_run_report completion.lane.agent_version; qodercli-1.0.14-sdk-byok-proxy: full_suite_model_run_report completion.lane.agent_version; qodercli-1.0.14-sdk-byok-forward: full_suite_model_run_report completion.lane.agent_version; qoderclicn-1.0.14-sdk-byok-forward: full_suite_model_run_report completion.lane.agent_version",
+      "provider": "qwen",
+      "provider_label": "Qwen",
+      "model_raw": "qwen3.6-plus#context-window=180000",
+      "model_name": "Qwen 3.6 plus (180k)",
+      "logo": "logo-qwen.png",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 453,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 80,
+      "solved_unique_tasks": 38,
+      "pass_at_3_count": 38,
+      "pass_at_3_rate": 0.25165562913907286,
+      "pass_3_count": 16,
+      "pass_3_rate": 0.10596026490066225,
+      "attempt_score": 0.17660044150110377,
+      "final_score": 25.807729523080415,
+      "archive_size_mb": 393.24,
+      "full_run_tree_size_mb": 324.98,
+      "archive_member_count": 6404,
+      "sha256": "0eed74a2fe2978ca2bad4b75d2bfa8ac778fd6c0a01af1f5333f1b0a0c609a9d",
+      "sha256_short": "0eed74a2fe29",
+      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260601-qoder-qwen36-plus-afterfix-zh-pass3",
+      "exported_at": "2026-06-10T06:14:51.258236Z",
+      "relative_report_path": "qoder-qwen36-plus-forward-20260610/full_suite_model_run_report.json",
+      "relative_summary_path": "qoder-qwen36-plus-forward-20260610/score_summary.json",
+      "rank": 15
+    },
+    {
       "id": "opencode-minimax27",
       "model_dir": "opencode-minimax27",
       "lane_key": "opencode-minimax",
@@ -718,7 +769,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-minimax27/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-minimax27/score_summary.json",
-      "rank": 15
+      "rank": 16
     },
     {
       "id": "opencode-mimo25-tokenplan-high-20260527",
@@ -754,7 +805,7 @@
       "attempt_score": 0.17218543046357615,
       "final_score": 25.24280354626525,
       "archive_size_mb": 173.96,
-      "full_run_tree_size_mb": 153.59,
+      "full_run_tree_size_mb": 153.6,
       "archive_member_count": 6403,
       "sha256": "75572b4d1ae31d7c765267abab8ebb15c6e6774a5af845197f364ecfbaa91e50",
       "sha256_short": "75572b4d1ae3",
@@ -762,7 +813,7 @@
       "exported_at": "2026-06-03T14:46:55.487519Z",
       "relative_report_path": "opencode-mimo25-tokenplan-high-20260527/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-mimo25-tokenplan-high-20260527/score_summary.json",
-      "rank": 16
+      "rank": 17
     },
     {
       "id": "opencode-longcat",
@@ -806,7 +857,7 @@
       "exported_at": "2026-06-03T14:28:35.179384Z",
       "relative_report_path": "opencode-longcat/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-longcat/score_summary.json",
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "opencode-stepfun35-2603",
@@ -842,7 +893,7 @@
       "attempt_score": 0.16114790286975716,
       "final_score": 24.214184898136956,
       "archive_size_mb": 192.8,
-      "full_run_tree_size_mb": 170.22,
+      "full_run_tree_size_mb": 109.34,
       "archive_member_count": 6403,
       "sha256": "5d6d4e89923ee2c3e4dff6bf531e120029f958a0ab722248dd1de7db898cacd7",
       "sha256_short": "5d6d4e89923e",
@@ -850,7 +901,7 @@
       "exported_at": "2026-06-07T17:12:44.367282Z",
       "relative_report_path": "opencode-stepfun35-2603-rerun-20260607/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35-2603-rerun-20260607/score_summary.json",
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "opencode-glm47",
@@ -894,7 +945,7 @@
       "exported_at": "2026-06-03T14:38:25.981286Z",
       "relative_report_path": "opencode-glm47/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm47/score_summary.json",
-      "rank": 19
+      "rank": 20
     },
     {
       "id": "opencode-sensenova67-flash-lite",
@@ -938,7 +989,7 @@
       "exported_at": "2026-06-03T14:45:04.820844Z",
       "relative_report_path": "opencode-sensenova67-flash-lite/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-sensenova67-flash-lite/score_summary.json",
-      "rank": 20
+      "rank": 21
     },
     {
       "id": "opencode-doubao-2-code",
@@ -963,8 +1014,8 @@
       "planned_task_attempts": 453,
       "scoreable_attempts": 453,
       "scoreable_attempt_coverage": 1.0,
-      "non_scoreable_attempts": 4,
-      "tasks_missing_k_scoreable_attempts": 3,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
       "solved_attempts": 52,
       "solved_unique_tasks": 27,
       "pass_at_3_count": 27,
@@ -982,7 +1033,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-doubao-2-code/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-doubao-2-code/score_summary.json",
-      "rank": 21
+      "rank": 22
     },
     {
       "id": "opencode-stepfun35",
@@ -1026,7 +1077,7 @@
       "exported_at": "2026-06-03T14:35:33.098364Z",
       "relative_report_path": "opencode-stepfun35/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35/score_summary.json",
-      "rank": 22
+      "rank": 23
     },
     {
       "id": "deepseek-tui-v4-flash-max",
@@ -1044,15 +1095,15 @@
       "logo": "logo-deepseek.png",
       "group": "completed_453",
       "status": "pass_k_ready",
-      "strict_retryable_gate": false,
+      "strict_retryable_gate": true,
       "language_variant": "zh",
       "attempts_per_task": 3,
       "task_count": 151,
       "planned_task_attempts": 453,
       "scoreable_attempts": 453,
       "scoreable_attempt_coverage": 1.0,
-      "non_scoreable_attempts": 209,
-      "tasks_missing_k_scoreable_attempts": 71,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
       "solved_attempts": 38,
       "solved_unique_tasks": 15,
       "pass_at_3_count": 15,
@@ -1070,7 +1121,7 @@
       "exported_at": "2026-05-22T19:46:14.852725Z",
       "relative_report_path": "deepseek-tui-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "deepseek-tui-v4-flash-max/score_summary.json",
-      "rank": 23
+      "rank": 24
     },
     {
       "id": "kimi-for-coding",
@@ -1111,7 +1162,7 @@
       "partial_export": true,
       "partial_final_score_complete_rate": 30.8668954873698,
       "archive_size_mb": 25.82,
-      "full_run_tree_size_mb": 33.84,
+      "full_run_tree_size_mb": 33.85,
       "archive_member_count": 6300,
       "sha256": "60d2bb62e8cd1fc2a6d5f80b58042ba017be572fc126aa1d1ac225fa09c3dffd",
       "sha256_short": "60d2bb62e8cd",
@@ -1119,7 +1170,7 @@
       "exported_at": "2026-06-08T03:46:52.129433Z",
       "relative_report_path": "kimi-for-coding/full_suite_model_run_report.json",
       "relative_summary_path": "kimi-for-coding/score_summary.json",
-      "rank": 24
+      "rank": 25
     }
   ],
   "excluded_rows": []
