@@ -123,6 +123,13 @@ AGENT_VERSION_OVERRIDES = {
     },
 }
 
+MODEL_AGENT_VERSION_OVERRIDES = {
+    "qoder-qwen36-plus-forward-20260610": {
+        "display": "qodercli 1.0.10",
+        "source": "qodercli-1.0.10: display override for the primary historical run version",
+    },
+}
+
 
 def slugify(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
@@ -300,6 +307,10 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
     display_model_label = display_override.get("model_name", model_label)
     agent_label = AGENT_LABELS.get(agent, title_model_piece(agent))
     agent_version, agent_version_source = report_agent_version(full_suite_report, agent_label)
+    agent_version_override = MODEL_AGENT_VERSION_OVERRIDES.get(model_dir)
+    if agent_version_override:
+        agent_version = agent_version_override["display"]
+        agent_version_source = agent_version_override["source"]
     attempts = int(score_summary.get("planned_task_attempts") or item.get("planned_task_attempts") or 0)
     tasks = int(score_summary.get("planned_unique_tasks") or score_summary.get("scoreable_unique_tasks") or 151)
     scoreable_attempts = int(score_summary.get("scoreable_attempts") or item.get("scoreable_attempts") or 0)
