@@ -9,10 +9,10 @@
     "total_attempts": 453,
     "rank_metric": "final_score",
     "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
-    "completed_model_count": 26,
+    "completed_model_count": 27,
     "partial_model_count": 0,
     "excluded_model_count": 0,
-    "exported_at": "2026-06-12T15:49:11.042641Z",
+    "exported_at": "2026-06-12T17:48:24.194411Z",
     "source_manifest": "SweResult/*/score_summary.json",
     "token_usage_source": "full_run_tree/**/*.command.log step_finish.tokens when available; otherwise full_run_tree/**/run/run_summary.json"
   },
@@ -42,7 +42,7 @@
       "key": "opencode",
       "slug": "opencode",
       "label": "OpenCode",
-      "count": 15,
+      "count": 16,
       "best_pass_at_3_rate": 0.31788079470198677
     },
     {
@@ -1301,6 +1301,62 @@
       "rank": 22
     },
     {
+      "id": "opencode-kat-coder-pro-v2-kat2",
+      "model_dir": "opencode-kat-coder-pro-v2-kat2",
+      "lane_key": "opencode-kat-coder-pro-v2",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli 1.14.32",
+      "agent_version_source": "opencode-cli: opencode --version in current local environment",
+      "provider": "streamlake",
+      "provider_label": "StreamLake",
+      "model_raw": "streamlake/kat-coder-pro-v2",
+      "model_name": "KAT Coder Pro v2 (KAT2)",
+      "logo": "",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 453,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 68,
+      "solved_unique_tasks": 29,
+      "pass_at_3_count": 29,
+      "pass_at_3_rate": 0.19205298013245034,
+      "pass_3_count": 17,
+      "pass_3_rate": 0.11258278145695365,
+      "attempt_score": 0.15011037527593818,
+      "final_score": 23.46905338745122,
+      "archive_size_mb": 163.02,
+      "full_run_tree_size_mb": 147.82,
+      "input_tokens": 796137473,
+      "output_tokens": 6397845,
+      "total_tokens": 802535318,
+      "input_tokens_display": "796,137.5K",
+      "output_tokens_display": "6,397.8K",
+      "total_tokens_display": "802,535.3K",
+      "token_task_count": 453,
+      "token_input_task_count": 453,
+      "token_output_task_count": 453,
+      "token_summary_task_count": 453,
+      "token_task_coverage": 1.0,
+      "token_usage_source": "command_log_step_finish",
+      "archive_member_count": 6403,
+      "sha256": "1f89b1c790f4a5f76d6eb8b8e5511478ada21720bc1bc32880606c1dc8c3f874",
+      "sha256_short": "1f89b1c790f4",
+      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260524-opencode-kat-coder-pro-v2-zh-pass3",
+      "exported_at": "2026-06-12T17:48:24.194411Z",
+      "relative_report_path": "opencode-kat-coder-pro-v2-kat2/full_suite_model_run_report.json",
+      "relative_summary_path": "opencode-kat-coder-pro-v2-kat2/score_summary.json",
+      "rank": 23
+    },
+    {
       "id": "opencode-sensenova67-flash-lite",
       "model_dir": "opencode-sensenova67-flash-lite",
       "lane_key": "opencode-sensenova67-flash-lite",
@@ -1354,7 +1410,7 @@
       "exported_at": "2026-06-03T14:45:04.820844Z",
       "relative_report_path": "opencode-sensenova67-flash-lite/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-sensenova67-flash-lite/score_summary.json",
-      "rank": 23
+      "rank": 24
     },
     {
       "id": "opencode-doubao-2-code",
@@ -1410,7 +1466,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-doubao-2-code/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-doubao-2-code/score_summary.json",
-      "rank": 24
+      "rank": 25
     },
     {
       "id": "opencode-stepfun35",
@@ -1466,7 +1522,7 @@
       "exported_at": "2026-06-03T14:35:33.098364Z",
       "relative_report_path": "opencode-stepfun35/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35/score_summary.json",
-      "rank": 25
+      "rank": 26
     },
     {
       "id": "deepseek-tui-v4-flash-max",
@@ -1522,7 +1578,7 @@
       "exported_at": "2026-05-22T19:46:14.852725Z",
       "relative_report_path": "deepseek-tui-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "deepseek-tui-v4-flash-max/score_summary.json",
-      "rank": 26
+      "rank": 27
     }
   ],
   "excluded_rows": []

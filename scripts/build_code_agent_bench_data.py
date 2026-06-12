@@ -29,6 +29,7 @@ PROVIDER_LABELS = {
     "qwen": "Qwen",
     "sensenova": "SenseNova",
     "stepfun": "StepFun",
+    "streamlake": "StreamLake",
     "volcengine-plan": "Volcengine",
     "xiaomi": "Xiaomi",
     "xiaomi-token-plan-cn": "Xiaomi",
@@ -69,6 +70,9 @@ MODEL_DISPLAY_OVERRIDES = {
     },
     "qoder-qwen36-plus-forward-20260610": {
         "model_name": "Qwen 3.6 plus (180k)",
+    },
+    "opencode-kat-coder-pro-v2-kat2": {
+        "model_name": "KAT Coder Pro v2 (KAT2)",
     },
     "opencode-deepseek-v4-flash-max": {
         "model_raw": "deepseek/deepseek-v4-pro#variant=max",
