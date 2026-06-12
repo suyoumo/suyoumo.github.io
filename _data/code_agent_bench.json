@@ -9,10 +9,10 @@
     "total_attempts": 453,
     "rank_metric": "final_score",
     "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
-    "completed_model_count": 24,
-    "partial_model_count": 1,
+    "completed_model_count": 25,
+    "partial_model_count": 0,
     "excluded_model_count": 0,
-    "exported_at": "2026-06-10T06:14:51.258236Z",
+    "exported_at": "2026-06-12T04:26:01.135115Z",
     "source_manifest": "SweResult/*/score_summary.json"
   },
   "agents": [
@@ -63,7 +63,7 @@
       "slug": "kimi",
       "label": "Kimi",
       "count": 1,
-      "best_pass_at_3_rate": 0.2956521739130435
+      "best_pass_at_3_rate": 0.3576158940397351
     }
   ],
   "rows": [
@@ -200,6 +200,50 @@
       "rank": 3
     },
     {
+      "id": "kimi-for-coding",
+      "model_dir": "kimi-for-coding",
+      "lane_key": "kimi",
+      "agent": "kimi",
+      "agent_label": "Kimi",
+      "agent_slug": "kimi",
+      "agent_version": "kimi-cli 1.40.0",
+      "agent_version_source": "kimi-cli: historical run version for the scoreable Kimi attempts",
+      "provider": "kimi-code",
+      "provider_label": "Moonshot",
+      "model_raw": "kimi-code/kimi-for-coding",
+      "model_name": "Kimi for Coding",
+      "logo": "logo-kimi.jpeg",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 453,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 126,
+      "solved_unique_tasks": 54,
+      "pass_at_3_count": 54,
+      "pass_at_3_rate": 0.3576158940397351,
+      "pass_3_count": 32,
+      "pass_3_rate": 0.2119205298013245,
+      "attempt_score": 0.2781456953642384,
+      "final_score": 35.45065867375205,
+      "archive_size_mb": 30.49,
+      "full_run_tree_size_mb": 37.78,
+      "archive_member_count": 6395,
+      "sha256": "f43fe376936f32e6b2a244205ad78fbda9e9c12013e32f83b0b70b2e7d9e6239",
+      "sha256_short": "f43fe376936f",
+      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260518-kimi-cli-zh-pass3",
+      "exported_at": "2026-06-12T04:26:01.135115Z",
+      "relative_report_path": "kimi-for-coding/full_suite_model_run_report.json",
+      "relative_summary_path": "kimi-for-coding/score_summary.json",
+      "rank": 4
+    },
+    {
       "id": "opencode-deepseek-v4-flash-max",
       "model_dir": "opencode-deepseek-v4-flash-max",
       "lane_key": "opencode-deepseek-v4-flash-max",
@@ -241,7 +285,7 @@
       "exported_at": "2026-05-22T19:42:47.419892Z",
       "relative_report_path": "opencode-deepseek-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-deepseek-v4-flash-max/score_summary.json",
-      "rank": 4
+      "rank": 5
     },
     {
       "id": "opencode-glm51",
@@ -285,7 +329,7 @@
       "exported_at": "2026-06-03T14:30:53.936412Z",
       "relative_report_path": "opencode-glm51/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm51/score_summary.json",
-      "rank": 5
+      "rank": 6
     },
     {
       "id": "qwen-3-5plus",
@@ -329,7 +373,7 @@
       "exported_at": "2026-06-03T14:48:51.349795Z",
       "relative_report_path": "qwen-3.5plus/full_suite_model_run_report.json",
       "relative_summary_path": "qwen-3.5plus/score_summary.json",
-      "rank": 6
+      "rank": 7
     },
     {
       "id": "claude-mimo25pro",
@@ -373,7 +417,7 @@
       "exported_at": "2026-06-03T14:23:20.007560Z",
       "relative_report_path": "claude-mimo25pro/full_suite_model_run_report.json",
       "relative_summary_path": "claude-mimo25pro/score_summary.json",
-      "rank": 7
+      "rank": 8
     },
     {
       "id": "opencode-mimo25pro-high",
@@ -417,7 +461,7 @@
       "exported_at": "2026-06-03T14:40:22.356867Z",
       "relative_report_path": "opencode-mimo25pro-high/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-mimo25pro-high/score_summary.json",
-      "rank": 8
+      "rank": 9
     },
     {
       "id": "opencode-minimax25-highspeed",
@@ -461,7 +505,7 @@
       "exported_at": "2026-06-03T14:33:04.969933Z",
       "relative_report_path": "opencode-minimax25-highspeed/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-minimax25-highspeed/score_summary.json",
-      "rank": 9
+      "rank": 10
     },
     {
       "id": "opencode-deepseek-v4-pro-max",
@@ -505,7 +549,7 @@
       "exported_at": "2026-06-03T14:42:23.488342Z",
       "relative_report_path": "opencode-deepseek-v4-pro-max/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-deepseek-v4-pro-max/score_summary.json",
-      "rank": 10
+      "rank": 11
     },
     {
       "id": "opencode-glm5turbo",
@@ -549,7 +593,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-glm5turbo/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm5turbo/score_summary.json",
-      "rank": 11
+      "rank": 12
     },
     {
       "id": "qwen-3-6plus",
@@ -593,7 +637,7 @@
       "exported_at": "2026-06-03T14:47:52.291624Z",
       "relative_report_path": "qwen-3.6plus/full_suite_model_run_report.json",
       "relative_summary_path": "qwen-3.6plus/score_summary.json",
-      "rank": 12
+      "rank": 13
     },
     {
       "id": "opencode-stepfun37-flash",
@@ -637,7 +681,7 @@
       "exported_at": "2026-06-09T17:03:58.589448Z",
       "relative_report_path": "opencode-stepfun37-flash/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun37-flash/score_summary.json",
-      "rank": 13
+      "rank": 14
     },
     {
       "id": "claude-mimo25",
@@ -681,7 +725,7 @@
       "exported_at": "2026-06-03T14:22:10.369900Z",
       "relative_report_path": "claude-mimo25/full_suite_model_run_report.json",
       "relative_summary_path": "claude-mimo25/score_summary.json",
-      "rank": 14
+      "rank": 15
     },
     {
       "id": "qoder-qwen36-plus-forward-20260610",
@@ -725,7 +769,7 @@
       "exported_at": "2026-06-10T06:14:51.258236Z",
       "relative_report_path": "qoder-qwen36-plus-forward-20260610/full_suite_model_run_report.json",
       "relative_summary_path": "qoder-qwen36-plus-forward-20260610/score_summary.json",
-      "rank": 15
+      "rank": 16
     },
     {
       "id": "opencode-minimax27",
@@ -769,7 +813,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-minimax27/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-minimax27/score_summary.json",
-      "rank": 16
+      "rank": 17
     },
     {
       "id": "opencode-mimo25-tokenplan-high-20260527",
@@ -813,7 +857,7 @@
       "exported_at": "2026-06-03T14:46:55.487519Z",
       "relative_report_path": "opencode-mimo25-tokenplan-high-20260527/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-mimo25-tokenplan-high-20260527/score_summary.json",
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "opencode-longcat",
@@ -857,7 +901,7 @@
       "exported_at": "2026-06-03T14:28:35.179384Z",
       "relative_report_path": "opencode-longcat/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-longcat/score_summary.json",
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "opencode-stepfun35-2603",
@@ -901,7 +945,7 @@
       "exported_at": "2026-06-07T17:12:44.367282Z",
       "relative_report_path": "opencode-stepfun35-2603-rerun-20260607/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35-2603-rerun-20260607/score_summary.json",
-      "rank": 19
+      "rank": 20
     },
     {
       "id": "opencode-glm47",
@@ -945,7 +989,7 @@
       "exported_at": "2026-06-03T14:38:25.981286Z",
       "relative_report_path": "opencode-glm47/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm47/score_summary.json",
-      "rank": 20
+      "rank": 21
     },
     {
       "id": "opencode-sensenova67-flash-lite",
@@ -989,7 +1033,7 @@
       "exported_at": "2026-06-03T14:45:04.820844Z",
       "relative_report_path": "opencode-sensenova67-flash-lite/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-sensenova67-flash-lite/score_summary.json",
-      "rank": 21
+      "rank": 22
     },
     {
       "id": "opencode-doubao-2-code",
@@ -1033,7 +1077,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-doubao-2-code/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-doubao-2-code/score_summary.json",
-      "rank": 22
+      "rank": 23
     },
     {
       "id": "opencode-stepfun35",
@@ -1077,7 +1121,7 @@
       "exported_at": "2026-06-03T14:35:33.098364Z",
       "relative_report_path": "opencode-stepfun35/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35/score_summary.json",
-      "rank": 23
+      "rank": 24
     },
     {
       "id": "deepseek-tui-v4-flash-max",
@@ -1121,55 +1165,6 @@
       "exported_at": "2026-05-22T19:46:14.852725Z",
       "relative_report_path": "deepseek-tui-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "deepseek-tui-v4-flash-max/score_summary.json",
-      "rank": 24
-    },
-    {
-      "id": "kimi-for-coding",
-      "model_dir": "kimi-for-coding",
-      "lane_key": "kimi",
-      "agent": "kimi",
-      "agent_label": "Kimi",
-      "agent_slug": "kimi",
-      "agent_version": "kimi-cli 1.40.0",
-      "agent_version_source": "kimi-cli: historical run version for the scoreable Kimi attempts",
-      "provider": "kimi-code",
-      "provider_label": "Moonshot",
-      "model_raw": "kimi-code/kimi-for-coding",
-      "model_name": "Kimi for Coding",
-      "logo": "logo-kimi.jpeg",
-      "group": "partial",
-      "status": "partial_scoreable_progress",
-      "strict_retryable_gate": true,
-      "language_variant": "zh",
-      "attempts_per_task": 3,
-      "task_count": 151,
-      "planned_task_attempts": 453,
-      "scoreable_attempts": 370,
-      "scoreable_attempt_coverage": 0.8167770419426048,
-      "non_scoreable_attempts": 70,
-      "tasks_missing_k_scoreable_attempts": 36,
-      "solved_attempts": 85,
-      "solved_unique_tasks": 39,
-      "pass_at_3_count": 34,
-      "pass_at_3_rate": 0.2956521739130435,
-      "pass_at_3_denominator": 115,
-      "pass_3_count": 19,
-      "pass_3_rate": 0.16521739130434782,
-      "pass_3_denominator": 115,
-      "attempt_score": 0.22972972972972974,
-      "final_score": 0.0,
-      "final_score_status": "not_rankable_until_453_scoreable_attempts",
-      "partial_export": true,
-      "partial_final_score_complete_rate": 30.8668954873698,
-      "archive_size_mb": 25.82,
-      "full_run_tree_size_mb": 33.85,
-      "archive_member_count": 6300,
-      "sha256": "60d2bb62e8cd1fc2a6d5f80b58042ba017be572fc126aa1d1ac225fa09c3dffd",
-      "sha256_short": "60d2bb62e8cd",
-      "job_name": "swepro151-pass3-taskmajor-v30-r1-20260518-kimi-cli-zh-pass3",
-      "exported_at": "2026-06-08T03:46:52.129433Z",
-      "relative_report_path": "kimi-for-coding/full_suite_model_run_report.json",
-      "relative_summary_path": "kimi-for-coding/score_summary.json",
       "rank": 25
     }
   ],

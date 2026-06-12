@@ -234,6 +234,10 @@ def load_score_summary(source_root: Path, model_dir: str) -> dict:
         return json.load(handle)
 
 
+def is_backup_model_dir(model_dir: str) -> bool:
+    return ".backup" in model_dir or model_dir.startswith("backup-")
+
+
 def load_full_suite_report(source_root: Path, model_dir: str) -> dict:
     path = source_root / model_dir / "full_suite_model_run_report.json"
     if not path.exists():
@@ -452,6 +456,8 @@ def build_data(source_root: Path) -> dict:
 
     for path in score_summaries:
         source_model_dir = path.parent.name
+        if is_backup_model_dir(source_model_dir):
+            continue
         if source_model_dir in superseded_dirs:
             continue
         model_dir = CANONICAL_MODEL_DIR_OVERRIDES.get(source_model_dir, source_model_dir)

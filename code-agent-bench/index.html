@@ -31,7 +31,14 @@ permalink: /code-agent-bench/
         <div>
           <span>Completed Models</span>
           <strong>{{ meta.completed_model_count }}</strong>
-          <em>{{ meta.partial_model_count | default: 0 }} partial progress row shown separately</em>
+          {% assign partial_model_count = meta.partial_model_count | default: 0 %}
+          {% if partial_model_count == 0 %}
+          <em>No partial progress rows</em>
+          {% elsif partial_model_count == 1 %}
+          <em>1 partial progress row shown separately</em>
+          {% else %}
+          <em>{{ partial_model_count }} partial progress rows shown separately</em>
+          {% endif %}
         </div>
         <div>
           <span>Scoreable Attempts</span>
