@@ -190,6 +190,22 @@ def mb(value: int | float | None) -> float:
     return round((value or 0) / (1024 * 1024), 2)
 
 
+def compact_count(value: int | float | None) -> str:
+    if value is None:
+        return "--"
+    value = float(value)
+    units = [
+        (1_000_000_000, "B"),
+        (1_000_000, "M"),
+        (1_000, "K"),
+    ]
+    for scale, suffix in units:
+        if abs(value) >= scale:
+            text = f"{value / scale:.2f}".rstrip("0").rstrip(".")
+            return f"{text}{suffix}"
+    return str(int(round(value)))
+
+
 def code_agent_final_score(pass_3_rate: float, pass_at_3_rate: float, attempt_score: float) -> float:
     stable = pass_3_rate ** (1 / 3) if pass_3_rate > 0 else 0
     reach = 1 - ((1 - pass_at_3_rate) ** (1 / 3)) if pass_at_3_rate < 1 else 1
@@ -289,6 +305,74 @@ def local_full_tree_size_bytes(source_root: Path, model_dir: str) -> int:
     return directory_size_bytes(source_root / model_dir / "full_run_tree")
 
 
+def numeric_token_value(value) -> float | None:
+    if isinstance(value, bool) or value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        text = value.replace(",", "").strip()
+        if not text:
+            return None
+        try:
+            return float(text)
+        except ValueError:
+            return None
+    return None
+
+
+def run_summary_token_usage(source_root: Path, model_dir: str) -> dict:
+    full_tree = source_root / model_dir / "full_run_tree"
+    input_tokens = 0.0
+    output_tokens = 0.0
+    input_task_count = 0
+    output_task_count = 0
+    token_task_count = 0
+    summary_task_count = 0
+
+    for path in full_tree.glob("**/run/run_summary.json"):
+        try:
+            with path.open("r", encoding="utf-8") as handle:
+                summary = json.load(handle)
+        except (OSError, json.JSONDecodeError):
+            continue
+
+        for task in summary.get("tasks") or []:
+            summary_task_count += 1
+            adapter = ((task.get("metadata") or {}).get("adapter") or {})
+            task_input = first_present(
+                numeric_token_value(task.get("total_input_tokens")),
+                numeric_token_value(adapter.get("total_input_tokens")),
+            )
+            task_output = first_present(
+                numeric_token_value(task.get("total_output_tokens")),
+                numeric_token_value(adapter.get("total_output_tokens")),
+            )
+            has_token = False
+            if task_input is not None:
+                input_tokens += task_input
+                input_task_count += 1
+                has_token = True
+            if task_output is not None:
+                output_tokens += task_output
+                output_task_count += 1
+                has_token = True
+            if has_token:
+                token_task_count += 1
+
+    has_input = input_task_count > 0
+    has_output = output_task_count > 0
+    return {
+        "input_tokens": int(round(input_tokens)) if has_input else None,
+        "output_tokens": int(round(output_tokens)) if has_output else None,
+        "total_tokens": int(round(input_tokens + output_tokens)) if (has_input or has_output) else None,
+        "token_task_count": token_task_count,
+        "token_input_task_count": input_task_count,
+        "token_output_task_count": output_task_count,
+        "token_summary_task_count": summary_task_count,
+    }
+
+
 def strict_retryable_enabled(score_summary: dict, item: dict, source_dir: str) -> bool:
     gate = score_summary.get("strict_retryable_gate")
     if isinstance(gate, dict):
@@ -352,6 +436,7 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
     full_tree_size_bytes = item.get("full_run_tree_size_bytes")
     if full_tree_size_bytes is None:
         full_tree_size_bytes = local_full_tree_size_bytes(source_root, source_dir)
+    token_usage = run_summary_token_usage(source_root, source_dir)
 
     row = {
         "id": slugify(model_dir),
@@ -397,6 +482,17 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         ),
         "archive_size_mb": mb(archive_size_bytes),
         "full_run_tree_size_mb": mb(full_tree_size_bytes),
+        "input_tokens": token_usage["input_tokens"],
+        "output_tokens": token_usage["output_tokens"],
+        "total_tokens": token_usage["total_tokens"],
+        "input_tokens_display": compact_count(token_usage["input_tokens"]),
+        "output_tokens_display": compact_count(token_usage["output_tokens"]),
+        "total_tokens_display": compact_count(token_usage["total_tokens"]),
+        "token_task_count": token_usage["token_task_count"],
+        "token_input_task_count": token_usage["token_input_task_count"],
+        "token_output_task_count": token_usage["token_output_task_count"],
+        "token_summary_task_count": token_usage["token_summary_task_count"],
+        "token_task_coverage": (token_usage["token_task_count"] / attempts) if attempts else 0,
         "archive_member_count": int(score_summary.get("complete_run_logs_archive_member_count") or 0),
         "sha256": score_summary.get("exported_full_suite_report_sha256") or item.get("exported_full_suite_report_sha256") or "",
         "sha256_short": (score_summary.get("exported_full_suite_report_sha256") or item.get("exported_full_suite_report_sha256") or "")[:12],
@@ -512,6 +608,7 @@ def build_data(source_root: Path) -> dict:
             "excluded_model_count": len(excluded_rows),
             "exported_at": max((row["exported_at"] for row in display_rows if row["exported_at"]), default=""),
             "source_manifest": "SweResult/*/score_summary.json",
+            "token_usage_source": "full_run_tree/**/run/run_summary.json",
         },
         "agents": agents,
         "rows": display_rows,

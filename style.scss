@@ -3001,7 +3001,7 @@ main {
 }
 
 .code-agent-table {
-  min-width: 2310px;
+  min-width: 2430px;
 
   th,
   td {
@@ -3028,6 +3028,43 @@ main {
   font-weight: 800;
   line-height: 1.35;
   white-space: normal;
+}
+
+.code-agent-token-cell {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 96px;
+  font-family: $mono;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: $black;
+
+  span {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  em {
+    min-width: 24px;
+    color: $gray;
+    font-family: $sans;
+    font-size: 0.68rem;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
+.code-agent-empty-metric {
+  color: $gray;
+  font-family: $mono;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .code-agent-pill {

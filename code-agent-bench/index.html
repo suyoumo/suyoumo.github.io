@@ -86,6 +86,7 @@ permalink: /code-agent-bench/
                 <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-attempts" data-sort-type="number">Solved Attempts <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="scoreable-attempt-coverage" data-sort-type="number">Coverage <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="total-tokens" data-sort-type="number">Tokens (In / Out) <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="archive-size-mb" data-sort-type="number">Log Archive <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="full-run-tree-size-mb" data-sort-type="number">Full Tree <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="exported-at" data-sort-type="text">Exported <span class="bench-sort-indicator"></span></th>
@@ -110,6 +111,9 @@ permalink: /code-agent-bench/
                 data-solved-unique-tasks="{{ row.solved_unique_tasks }}"
                 data-solved-attempts="{{ row.solved_attempts }}"
                 data-scoreable-attempt-coverage="{{ row.scoreable_attempt_coverage }}"
+                data-total-tokens="{{ row.total_tokens | default: 0 }}"
+                data-input-tokens="{{ row.input_tokens | default: 0 }}"
+                data-output-tokens="{{ row.output_tokens | default: 0 }}"
                 data-archive-size-mb="{{ row.archive_size_mb }}"
                 data-full-run-tree-size-mb="{{ row.full_run_tree_size_mb }}"
                 data-exported-at="{{ row.exported_at | escape }}"
@@ -158,6 +162,16 @@ permalink: /code-agent-bench/
                 <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
                 <td data-value="{{ row.solved_attempts }}">{{ row.solved_attempts }}/{{ row.scoreable_attempts }}</td>
                 <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">{{ row.scoreable_attempts }}/{{ row.planned_task_attempts }}</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
+                <td data-value="{{ row.total_tokens | default: 0 }}">
+                  {% if row.total_tokens %}
+                  <span class="code-agent-token-cell" title="{{ row.token_task_count }}/{{ row.token_summary_task_count }} task summaries include token usage">
+                    <span><em>In</em> {{ row.input_tokens_display }}</span>
+                    <span><em>Out</em> {{ row.output_tokens_display }}</span>
+                  </span>
+                  {% else %}
+                  <span class="code-agent-empty-metric" title="{{ row.token_summary_task_count }} task summaries found, but token usage was not exported">--</span>
+                  {% endif %}
+                </td>
                 <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
                 <td data-value="{{ row.full_run_tree_size_mb }}">{{ row.full_run_tree_size_mb }} MB</td>
                 <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
@@ -177,6 +191,7 @@ permalink: /code-agent-bench/
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
+        <span><code>Tokens</code> are summed from exported per-task <code>run_summary.json</code> files when the agent adapter reports usage; <code>--</code> means usage was not exported.</span>
         <span><code>Agent Version</code> combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.</span>
         <span>Completed rows are rankable only when the exported summary reports 453 scoreable attempts; partial rows are shown as progress references at the bottom.</span>
       </div>
@@ -198,6 +213,9 @@ permalink: /code-agent-bench/
               <option value="attempt-score" data-format="percent">Attempt Score</option>
               <option value="solved-unique-tasks" data-format="integer">Solved Tasks</option>
               <option value="solved-attempts" data-format="integer">Solved Attempts</option>
+              <option value="total-tokens" data-format="compact">Total Tokens</option>
+              <option value="input-tokens" data-format="compact">Input Tokens</option>
+              <option value="output-tokens" data-format="compact">Output Tokens</option>
               <option value="archive-size-mb" data-format="size">Log Archive</option>
               <option value="full-run-tree-size-mb" data-format="size">Full Tree</option>
             </select>
@@ -229,6 +247,9 @@ permalink: /code-agent-bench/
             data-attempt-score="{{ row.attempt_score }}"
             data-solved-unique-tasks="{{ row.solved_unique_tasks }}"
             data-solved-attempts="{{ row.solved_attempts }}"
+            data-total-tokens="{{ row.total_tokens | default: 0 }}"
+            data-input-tokens="{{ row.input_tokens | default: 0 }}"
+            data-output-tokens="{{ row.output_tokens | default: 0 }}"
             data-archive-size-mb="{{ row.archive_size_mb }}"
             data-full-run-tree-size-mb="{{ row.full_run_tree_size_mb }}"
           >

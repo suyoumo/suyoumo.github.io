@@ -36,8 +36,25 @@
       if (format === 'percent') return formatPercent(value);
       if (format === 'decimal2') return value.toFixed(2);
       if (format === 'integer') return Math.round(value).toLocaleString();
+      if (format === 'compact') return compactNumber(value);
       if (format === 'size') return value.toFixed(1).replace(/\.0$/, '') + ' MB';
       return String(value);
+    }
+
+    function compactNumber(value) {
+      if (!Number.isFinite(value) || value <= 0) return '--';
+      const units = [
+        { value: 1000000000, suffix: 'B' },
+        { value: 1000000, suffix: 'M' },
+        { value: 1000, suffix: 'K' }
+      ];
+      for (let i = 0; i < units.length; i++) {
+        const unit = units[i];
+        if (Math.abs(value) >= unit.value) {
+          return (value / unit.value).toFixed(2).replace(/\.?0+$/, '') + unit.suffix;
+        }
+      }
+      return Math.round(value).toLocaleString();
     }
 
     function visibleForAgent(element) {
