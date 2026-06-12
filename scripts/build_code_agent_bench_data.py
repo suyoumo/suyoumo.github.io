@@ -46,6 +46,7 @@ LOGOS = {
     "qwen": "logo-qwen.png",
     "sensenova": "logo-shangtang.png",
     "stepfun": "logo-stepfun.png",
+    "streamlake": "logo-kuaishou.png",
     "volcengine-plan": "logo-seed.png",
     "xiaomi": "logo-xiaomi.png",
     "xiaomi-token-plan-cn": "logo-xiaomi.png",
@@ -72,7 +73,7 @@ MODEL_DISPLAY_OVERRIDES = {
         "model_name": "Qwen 3.6 plus (180k)",
     },
     "opencode-kat-coder-pro-v2-kat2": {
-        "model_name": "KAT Coder Pro v2 (KAT2)",
+        "model_name": "KAT Coder Pro v2",
     },
     "opencode-deepseek-v4-flash-max": {
         "model_raw": "deepseek/deepseek-v4-pro#variant=max",
