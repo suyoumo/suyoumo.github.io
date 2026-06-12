@@ -341,7 +341,11 @@
     'Solved Attempts': '解出尝试',
     Coverage: '覆盖率',
     'Tokens (In / Out)': 'Token（输入 / 输出）',
+    'Tokens K (In / Out / Total)': 'Token K（输入 / 输出 / 总量）',
     'Total Tokens': '总 Token',
+    In: '输入',
+    Out: '输出',
+    Total: '总量',
     'Log Archive': '日志归档',
     'Full Tree': '完整目录',
     'Model Dir': '模型目录',
@@ -416,6 +420,7 @@
     'core asks who is strongest on the main ranking path. intelligence asks about broader capability. coverage tracks regression breadth. native makes OpenClaw-native surfaces visible without forcing them to dominate the main leaderboard prematurely.': '<code>core</code> 关注主排名路径上谁最强。<code>intelligence</code> 关注更广能力。<code>coverage</code> 跟踪回归广度。<code>native</code> 让 OpenClaw 原生表面可见，而不让它们过早主导主排行榜。',
     'Scenario metadata, custom checks, and structured reporting make the system easier to extend without hiding changes inside vague evaluation logic.': '场景元数据、自定义检查和结构化报告让系统更容易扩展，不会把变更隐藏在模糊的评估逻辑里。',
     'The benchmark is built around the actual OpenClaw runtime and its native surfaces, so the evaluation target is the system that users care about.': 'benchmark 围绕真实 OpenClaw 运行时及其原生表面构建，因此评估目标就是用户真正关心的系统。',
+    'Tokens are shown in K and summed across all exported attempts. Input includes cache read/write tokens when exported. OpenCode rows use per-step command.log usage when available; other rows fall back to per-task run_summary.json fields. -- means non-zero usage was not exported.': '<code>Tokens</code> 统一以 K 展示，并按所有导出的尝试求和。输入包含已导出的 cache read/write token。OpenCode 行优先使用逐步 <code>command.log</code> usage；其他行回退到逐任务 <code>run_summary.json</code> 字段。<code>--</code> 表示没有导出非零 usage。',
     'It keeps benchmark maintenance legible': '它让 benchmark 维护保持清晰',
     'It fits the OpenClaw system itself': '它适配 OpenClaw 系统本身',
     'deterministic scoring': '确定性评分',
@@ -573,7 +578,7 @@
 
   function translateRichElement(element) {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) return;
-    if (!element.matches('p, h3, .ocb-pill')) return;
+    if (!element.matches('p, h3, .ocb-pill, .bench-leaderboard-note > span')) return;
     if (element.closest('script, style, noscript, textarea, [data-i18n-skip]')) return;
 
     const originalHtml = richHtmlOriginals.get(element);
@@ -603,7 +608,7 @@
       translateRichElement(root);
     }
     if (root.querySelectorAll) {
-      root.querySelectorAll('p, h3, .ocb-pill').forEach(translateRichElement);
+      root.querySelectorAll('p, h3, .ocb-pill, .bench-leaderboard-note > span').forEach(translateRichElement);
     }
   }
 

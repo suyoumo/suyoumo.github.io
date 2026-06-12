@@ -86,7 +86,7 @@ permalink: /code-agent-bench/
                 <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-attempts" data-sort-type="number">Solved Attempts <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="scoreable-attempt-coverage" data-sort-type="number">Coverage <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="total-tokens" data-sort-type="number">Tokens (In / Out) <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="total-tokens" data-sort-type="number">Tokens K (In / Out / Total) <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="archive-size-mb" data-sort-type="number">Log Archive <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="full-run-tree-size-mb" data-sort-type="number">Full Tree <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="exported-at" data-sort-type="text">Exported <span class="bench-sort-indicator"></span></th>
@@ -164,12 +164,13 @@ permalink: /code-agent-bench/
                 <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">{{ row.scoreable_attempts }}/{{ row.planned_task_attempts }}</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
                 <td data-value="{{ row.total_tokens | default: 0 }}">
                   {% if row.total_tokens %}
-                  <span class="code-agent-token-cell" title="{{ row.token_task_count }}/{{ row.token_summary_task_count }} task summaries include token usage">
+                  <span class="code-agent-token-cell" title="{{ row.token_task_count }} exported token records include usage across {{ row.scoreable_attempts }} scoreable attempts">
                     <span><em>In</em> {{ row.input_tokens_display }}</span>
                     <span><em>Out</em> {{ row.output_tokens_display }}</span>
+                    <span><em>Total</em> {{ row.total_tokens_display }}</span>
                   </span>
                   {% else %}
-                  <span class="code-agent-empty-metric" title="{{ row.token_summary_task_count }} task summaries found, but token usage was not exported">--</span>
+                  <span class="code-agent-empty-metric" title="No non-zero token usage was exported across {{ row.scoreable_attempts }} scoreable attempts">--</span>
                   {% endif %}
                 </td>
                 <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
@@ -191,7 +192,7 @@ permalink: /code-agent-bench/
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
         <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
-        <span><code>Tokens</code> are summed from exported per-task <code>run_summary.json</code> files when the agent adapter reports usage; <code>--</code> means usage was not exported.</span>
+        <span><code>Tokens</code> are shown in K and summed across all exported attempts. Input includes cache read/write tokens when exported. OpenCode rows use per-step <code>command.log</code> usage when available; other rows fall back to per-task <code>run_summary.json</code> fields. <code>--</code> means non-zero usage was not exported.</span>
         <span><code>Agent Version</code> combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.</span>
         <span>Completed rows are rankable only when the exported summary reports 453 scoreable attempts; partial rows are shown as progress references at the bottom.</span>
       </div>

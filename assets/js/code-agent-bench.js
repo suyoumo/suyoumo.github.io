@@ -43,18 +43,10 @@
 
     function compactNumber(value) {
       if (!Number.isFinite(value) || value <= 0) return '--';
-      const units = [
-        { value: 1000000000, suffix: 'B' },
-        { value: 1000000, suffix: 'M' },
-        { value: 1000, suffix: 'K' }
-      ];
-      for (let i = 0; i < units.length; i++) {
-        const unit = units[i];
-        if (Math.abs(value) >= unit.value) {
-          return (value / unit.value).toFixed(2).replace(/\.?0+$/, '') + unit.suffix;
-        }
-      }
-      return Math.round(value).toLocaleString();
+      const rounded = (value / 1000).toFixed(1).replace(/\.0$/, '');
+      const parts = rounded.split('.');
+      parts[0] = Number(parts[0]).toLocaleString();
+      return parts.join('.') + 'K';
     }
 
     function visibleForAgent(element) {

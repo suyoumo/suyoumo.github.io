@@ -61,7 +61,11 @@ MODEL_DISPLAY_OVERRIDES = {
         "model_name": "GPT 5.4 (xhigh)",
     },
     "kimi-for-coding": {
-        "model_name": "Kimi for Coding",
+        "model_name": "Kimi K2.6(Kimi for Coding)",
+    },
+    "qoder-qwen35-plus-direct-20260612": {
+        "model_raw": "qwen3.5-plus-cp#context-window=180000",
+        "model_name": "Qwen 3.5 plus (180k)",
     },
     "qoder-qwen36-plus-forward-20260610": {
         "model_name": "Qwen 3.6 plus (180k)",
@@ -193,17 +197,8 @@ def mb(value: int | float | None) -> float:
 def compact_count(value: int | float | None) -> str:
     if value is None:
         return "--"
-    value = float(value)
-    units = [
-        (1_000_000_000, "B"),
-        (1_000_000, "M"),
-        (1_000, "K"),
-    ]
-    for scale, suffix in units:
-        if abs(value) >= scale:
-            text = f"{value / scale:.2f}".rstrip("0").rstrip(".")
-            return f"{text}{suffix}"
-    return str(int(round(value)))
+    text = f"{float(value) / 1000:,.1f}".rstrip("0").rstrip(".")
+    return f"{text}K"
 
 
 def code_agent_final_score(pass_3_rate: float, pass_at_3_rate: float, attempt_score: float) -> float:
@@ -321,8 +316,81 @@ def numeric_token_value(value) -> float | None:
     return None
 
 
+def command_log_token_usage(full_tree: Path) -> dict:
+    input_tokens = 0.0
+    output_tokens = 0.0
+    reasoning_tokens = 0.0
+    total_tokens = 0.0
+    log_count = 0
+
+    for path in full_tree.glob("**/*.command.log"):
+        log_input = 0.0
+        log_output = 0.0
+        log_reasoning = 0.0
+        log_total = 0.0
+        found_tokens = False
+        try:
+            lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
+        except OSError:
+            continue
+
+        for line in lines:
+            if not line.startswith("{"):
+                continue
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if event.get("type") != "step_finish":
+                continue
+            tokens = ((event.get("part") or {}).get("tokens") or {})
+            cache = tokens.get("cache") or {}
+            input_value = sum(
+                value
+                for value in (
+                    numeric_token_value(tokens.get("input")),
+                    numeric_token_value(cache.get("read")),
+                    numeric_token_value(cache.get("write")),
+                )
+                if value is not None
+            )
+            reasoning_value = numeric_token_value(tokens.get("reasoning")) or 0.0
+            output_value = (numeric_token_value(tokens.get("output")) or 0.0) + reasoning_value
+            total_value = numeric_token_value(tokens.get("total"))
+            if total_value is None:
+                total_value = input_value + output_value
+            log_input += input_value
+            log_output += output_value
+            log_reasoning += reasoning_value
+            log_total += total_value
+            found_tokens = True
+
+        if found_tokens:
+            input_tokens += log_input
+            output_tokens += log_output
+            reasoning_tokens += log_reasoning
+            total_tokens += log_total
+            log_count += 1
+
+    return {
+        "input_tokens": int(round(input_tokens)) if log_count else None,
+        "output_tokens": int(round(output_tokens)) if log_count else None,
+        "reasoning_tokens": int(round(reasoning_tokens)) if log_count else None,
+        "total_tokens": int(round(total_tokens)) if log_count else None,
+        "token_task_count": log_count,
+        "token_input_task_count": log_count if log_count else 0,
+        "token_output_task_count": log_count if log_count else 0,
+        "token_summary_task_count": log_count,
+        "token_usage_source": "command_log_step_finish",
+    }
+
+
 def run_summary_token_usage(source_root: Path, model_dir: str) -> dict:
     full_tree = source_root / model_dir / "full_run_tree"
+    command_log_usage = command_log_token_usage(full_tree)
+    if command_log_usage["token_task_count"]:
+        return command_log_usage
+
     input_tokens = 0.0
     output_tokens = 0.0
     input_task_count = 0
@@ -344,10 +412,15 @@ def run_summary_token_usage(source_root: Path, model_dir: str) -> dict:
                 numeric_token_value(task.get("total_input_tokens")),
                 numeric_token_value(adapter.get("total_input_tokens")),
             )
-            task_output = first_present(
+            raw_output = first_present(
                 numeric_token_value(task.get("total_output_tokens")),
                 numeric_token_value(adapter.get("total_output_tokens")),
             )
+            task_reasoning = first_present(
+                numeric_token_value(task.get("reasoning_tokens")),
+                numeric_token_value(adapter.get("reasoning_tokens")),
+            )
+            task_output = (raw_output or 0.0) + (task_reasoning or 0.0) if (raw_output is not None or task_reasoning is not None) else None
             has_token = False
             if task_input is not None:
                 input_tokens += task_input
@@ -370,6 +443,7 @@ def run_summary_token_usage(source_root: Path, model_dir: str) -> dict:
         "token_input_task_count": input_task_count,
         "token_output_task_count": output_task_count,
         "token_summary_task_count": summary_task_count,
+        "token_usage_source": "run_summary_task_totals",
     }
 
 
@@ -493,6 +567,7 @@ def build_row(model_dir: str, source_root: Path, manifest_item: dict | None = No
         "token_output_task_count": token_usage["token_output_task_count"],
         "token_summary_task_count": token_usage["token_summary_task_count"],
         "token_task_coverage": (token_usage["token_task_count"] / attempts) if attempts else 0,
+        "token_usage_source": token_usage["token_usage_source"],
         "archive_member_count": int(score_summary.get("complete_run_logs_archive_member_count") or 0),
         "sha256": score_summary.get("exported_full_suite_report_sha256") or item.get("exported_full_suite_report_sha256") or "",
         "sha256_short": (score_summary.get("exported_full_suite_report_sha256") or item.get("exported_full_suite_report_sha256") or "")[:12],
@@ -608,7 +683,7 @@ def build_data(source_root: Path) -> dict:
             "excluded_model_count": len(excluded_rows),
             "exported_at": max((row["exported_at"] for row in display_rows if row["exported_at"]), default=""),
             "source_manifest": "SweResult/*/score_summary.json",
-            "token_usage_source": "full_run_tree/**/run/run_summary.json",
+            "token_usage_source": "full_run_tree/**/*.command.log step_finish.tokens when available; otherwise full_run_tree/**/run/run_summary.json",
         },
         "agents": agents,
         "rows": display_rows,
