@@ -128,6 +128,10 @@ AGENT_VERSION_OVERRIDES = {
 }
 
 MODEL_AGENT_VERSION_OVERRIDES = {
+    "qoder-qwen35-plus-direct-20260612": {
+        "display": "qodercli 1.0.14",
+        "source": "qodercli-1.0.14-direct: display override for the primary historical run version",
+    },
     "qoder-qwen36-plus-forward-20260610": {
         "display": "qodercli 1.0.10",
         "source": "qodercli-1.0.10: display override for the primary historical run version",
