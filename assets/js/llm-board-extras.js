@@ -116,10 +116,18 @@
       window.requestAnimationFrame(function () {
         const bodyRect = body.getBoundingClientRect();
         const grpRect = grp.getBoundingClientRect();
-        if (grpRect.top < bodyRect.top || grpRect.bottom > bodyRect.bottom) {
-          body.scrollTop += grpRect.top - bodyRect.top - 8;
-        }
+        body.scrollTop += grpRect.top - bodyRect.top - 8;
       });
+    }
+
+    function setGroupExpanded(grp, expanded) {
+      if (!grp) return;
+      grp.classList.toggle('is-expanded', expanded);
+      const expandBtn = grp.querySelector('.llm-board-filter-group-expand');
+      if (expandBtn) {
+        expandBtn.textContent = expanded ? 'collapse' : 'expand';
+        expandBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
     }
 
     function buildGroupControls(grp, stateSet, afterToggle) {
@@ -132,9 +140,15 @@
       expandBtn.textContent = 'expand';
       expandBtn.setAttribute('aria-expanded', 'false');
       expandBtn.addEventListener('click', function () {
-        const expanded = grp.classList.toggle('is-expanded');
-        expandBtn.textContent = expanded ? 'collapse' : 'expand';
-        expandBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        const panel = grp.closest('.llm-board-filter-panel');
+        const expanded = !grp.classList.contains('is-expanded');
+        if (panel) {
+          panel.querySelectorAll('.llm-board-filter-group.is-expanded').forEach(function (other) {
+            if (other !== grp) setGroupExpanded(other, false);
+          });
+          panel.classList.toggle('has-expanded-group', expanded);
+        }
+        setGroupExpanded(grp, expanded);
         if (expanded) scrollGroupIntoPanel(grp);
       });
       controls.appendChild(expandBtn);
@@ -444,13 +458,9 @@
     function collapsePanelGroups(panel) {
       if (!panel) return;
       panel.querySelectorAll('.llm-board-filter-group.is-expanded').forEach(function (grp) {
-        grp.classList.remove('is-expanded');
-        const expandBtn = grp.querySelector('.llm-board-filter-group-expand');
-        if (expandBtn) {
-          expandBtn.textContent = 'expand';
-          expandBtn.setAttribute('aria-expanded', 'false');
-        }
+        setGroupExpanded(grp, false);
       });
+      panel.classList.remove('has-expanded-group');
     }
 
     function openPanel(name) {
@@ -526,6 +536,7 @@
       if (searchEl) {
         searchEl.addEventListener('input', function () {
           const q = (searchEl.value || '').toLowerCase().trim();
+          if (q) collapsePanelGroups(panel);
           panel.classList.toggle('is-searching', !!q);
           panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
             const k = lab.dataset.searchKey || '';

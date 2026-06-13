@@ -302,5 +302,5 @@ permalink: /llm-leaderboard/
 
 <script id="llm-board-data" type="application/json">{{ board | jsonify }}</script>
 
-<script src="{{ '/assets/js/llm-leaderboard.js' | relative_url }}" defer></script>
-<script src="{{ '/assets/js/llm-board-extras.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/llm-leaderboard.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+<script src="{{ '/assets/js/llm-board-extras.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
