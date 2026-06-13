@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-{% assign is_code_agent_bench = page.url contains '/code-agent-bench' %}
+{% assign is_code_agent_bench = false %}
+{% if page.url contains '/code-agent-bench' %}
+  {% assign is_code_agent_bench = true %}
+{% endif %}
 {% if is_code_agent_bench %}
   {% assign bench_brand_name = 'CodeAgentBench' %}
   {% assign bench_home_url = '/code-agent-bench/' %}
