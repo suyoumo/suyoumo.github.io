@@ -942,11 +942,11 @@ hr {
   top: calc(100% + 6px);
   left: 14px;
   right: 14px;
-  z-index: 50;
-  max-height: 540px;
+  z-index: 120;
+  max-height: 78vh;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.99);
+  background: #fffdfb;
   border: 1px solid rgba(196, 90, 60, 0.2);
   border-radius: 14px;
   box-shadow: 0 24px 56px rgba(60, 42, 28, 0.18);
@@ -1011,19 +1011,27 @@ hr {
 }
 
 .llm-board-filter-panel-body {
-  overflow-y: auto;
+  overflow: auto;
+  overscroll-behavior: contain;
   padding: 12px 14px 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(390px, 1fr));
+  grid-auto-flow: row;
+  grid-auto-rows: auto;
   align-items: start;
+  align-content: start;
   gap: 14px;
 }
 
 .llm-board-filter-group {
+  position: relative;
+  min-width: 0;
+  height: auto;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 10px;
-  background: rgba(250, 244, 236, 0.45);
+  background: #fffaf5;
   overflow: hidden;
+  box-shadow: 0 4px 14px rgba(60, 42, 28, 0.04);
 
   &.is-expanded {
     grid-column: 1 / -1;
@@ -1082,8 +1090,8 @@ hr {
   flex-direction: column;
   padding: 6px 8px 8px;
   gap: 2px;
-  max-height: 180px;
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
 }
 
 .llm-board-filter-group.is-expanded .llm-board-filter-group-items {
@@ -1384,6 +1392,21 @@ hr {
   .llm-board-toolbar {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .llm-board-filter-panel {
+    left: 8px;
+    right: 8px;
+    max-height: 72vh;
+  }
+
+  .llm-board-filter-panel-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .llm-board-filter-panel-body {
+    grid-template-columns: 1fr;
   }
 
   .llm-board-filter-label {
