@@ -1047,17 +1047,6 @@ hr {
   background: rgba(196, 90, 60, 0.08);
   color: $primary;
 
-  strong {
-    min-width: 0;
-    font-family: $sans;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
   button {
     appearance: none;
     border: 0;
@@ -1075,6 +1064,32 @@ hr {
     &:hover {
       background: rgba(196, 90, 60, 0.14);
     }
+  }
+}
+
+.llm-board-filter-group-title {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  strong {
+    min-width: 0;
+    font-family: $sans;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  span {
+    color: rgba(196, 90, 60, 0.72);
+    font-family: $sans;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -1100,6 +1115,14 @@ hr {
   gap: 4px 8px;
   max-height: none;
   overflow: visible;
+}
+
+.llm-board-filter-group:not(.is-expanded) .llm-board-filter-item:nth-of-type(n+4) {
+  display: none;
+}
+
+.llm-board-filter-panel.is-searching .llm-board-filter-group:not(.is-expanded) .llm-board-filter-item {
+  display: flex;
 }
 
 .llm-board-filter-item {
@@ -1130,6 +1153,19 @@ hr {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
+
+.llm-board-filter-group-more {
+  padding: 2px 8px 4px 34px;
+  color: rgba(107, 107, 101, 0.72);
+  font-family: $sans;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.llm-board-filter-group.is-expanded .llm-board-filter-group-more,
+.llm-board-filter-panel.is-searching .llm-board-filter-group-more {
+  display: none;
 }
 
 .llm-board-filter-group.is-expanded .llm-board-filter-item span {

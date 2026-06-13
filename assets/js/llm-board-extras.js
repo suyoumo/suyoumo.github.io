@@ -106,6 +106,22 @@
     }
 
     /* ============ Build popover bodies ============ */
+    function getPanelBody(el) {
+      return el ? el.querySelector('.llm-board-filter-panel-body') : null;
+    }
+
+    function scrollGroupIntoPanel(grp) {
+      const body = grp ? grp.closest('.llm-board-filter-panel-body') : null;
+      if (!body) return;
+      window.requestAnimationFrame(function () {
+        const bodyRect = body.getBoundingClientRect();
+        const grpRect = grp.getBoundingClientRect();
+        if (grpRect.top < bodyRect.top || grpRect.bottom > bodyRect.bottom) {
+          body.scrollTop += grpRect.top - bodyRect.top - 8;
+        }
+      });
+    }
+
     function buildGroupControls(grp, stateSet, afterToggle) {
       const controls = document.createElement('div');
       controls.className = 'llm-board-filter-group-controls';
@@ -119,6 +135,7 @@
         const expanded = grp.classList.toggle('is-expanded');
         expandBtn.textContent = expanded ? 'collapse' : 'expand';
         expandBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (expanded) scrollGroupIntoPanel(grp);
       });
       controls.appendChild(expandBtn);
 
@@ -154,9 +171,15 @@
         grp.dataset.company = company;
         const head = document.createElement('div');
         head.className = 'llm-board-filter-group-head';
+        const title = document.createElement('div');
+        title.className = 'llm-board-filter-group-title';
         const lbl = document.createElement('strong');
         lbl.textContent = company || 'Other';
-        head.appendChild(lbl);
+        const count = document.createElement('span');
+        count.textContent = models.length + ' model' + (models.length === 1 ? '' : 's');
+        title.appendChild(lbl);
+        title.appendChild(count);
+        head.appendChild(title);
         head.appendChild(buildGroupControls(grp, state.hiddenModels, afterChange));
         grp.appendChild(head);
         const list = document.createElement('div');
@@ -180,6 +203,12 @@
           lab.appendChild(span);
           list.appendChild(lab);
         });
+        if (models.length > 3) {
+          const more = document.createElement('div');
+          more.className = 'llm-board-filter-group-more';
+          more.textContent = '+' + (models.length - 3) + ' more';
+          list.appendChild(more);
+        }
         grp.appendChild(list);
         frag.appendChild(grp);
       });
@@ -203,9 +232,15 @@
         grp.dataset.category = cat.name;
         const head = document.createElement('div');
         head.className = 'llm-board-filter-group-head';
+        const title = document.createElement('div');
+        title.className = 'llm-board-filter-group-title';
         const lbl = document.createElement('strong');
         lbl.textContent = cat.name;
-        head.appendChild(lbl);
+        const count = document.createElement('span');
+        count.textContent = (cat.columns || []).length + ' benchmark' + ((cat.columns || []).length === 1 ? '' : 's');
+        title.appendChild(lbl);
+        title.appendChild(count);
+        head.appendChild(title);
         head.appendChild(buildGroupControls(grp, state.hiddenBenches, afterChange));
         grp.appendChild(head);
         const list = document.createElement('div');
@@ -236,6 +271,12 @@
           lab.appendChild(span);
           list.appendChild(lab);
         });
+        if (sortedCols.length > 3) {
+          const more = document.createElement('div');
+          more.className = 'llm-board-filter-group-more';
+          more.textContent = '+' + (sortedCols.length - 3) + ' more';
+          list.appendChild(more);
+        }
         grp.appendChild(list);
         frag.appendChild(grp);
       });
@@ -393,6 +434,25 @@
     }
 
     /* ============ Popover open/close ============ */
+    function closePanel(name) {
+      const panel = document.getElementById('llm-board-filter-' + name + '-panel');
+      const btn = document.getElementById('llm-board-filter-' + name + '-btn');
+      if (panel) panel.hidden = true;
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    function collapsePanelGroups(panel) {
+      if (!panel) return;
+      panel.querySelectorAll('.llm-board-filter-group.is-expanded').forEach(function (grp) {
+        grp.classList.remove('is-expanded');
+        const expandBtn = grp.querySelector('.llm-board-filter-group-expand');
+        if (expandBtn) {
+          expandBtn.textContent = 'expand';
+          expandBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
     function openPanel(name) {
       ['models', 'benches'].forEach(function (n) {
         const panel = document.getElementById('llm-board-filter-' + n + '-panel');
@@ -401,9 +461,13 @@
           const isOpen = !panel.hidden;
           panel.hidden = isOpen;
           btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          if (!isOpen) {
+            const body = getPanelBody(panel);
+            if (body) body.scrollTop = 0;
+            collapsePanelGroups(panel);
+          }
         } else {
-          panel.hidden = true;
-          btn.setAttribute('aria-expanded', 'false');
+          closePanel(n);
         }
       });
     }
@@ -420,7 +484,7 @@
       document.addEventListener('click', function (e) {
         if (panel.hidden) return;
         if (!panel.contains(e.target) && !document.getElementById('llm-board-filter-' + name + '-btn').contains(e.target)) {
-          panel.hidden = true;
+          closePanel(name);
         }
       });
       // Action buttons inside head
@@ -428,7 +492,7 @@
         btn.addEventListener('click', function () {
           const action = btn.dataset.action;
           if (action === 'close') {
-            panel.hidden = true;
+            closePanel(name);
           } else if (action === 'all') {
             // Select all (visible after search)
             panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
@@ -462,6 +526,7 @@
       if (searchEl) {
         searchEl.addEventListener('input', function () {
           const q = (searchEl.value || '').toLowerCase().trim();
+          panel.classList.toggle('is-searching', !!q);
           panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
             const k = lab.dataset.searchKey || '';
             lab.style.display = (!q || k.indexOf(q) !== -1) ? '' : 'none';
@@ -476,7 +541,8 @@
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        document.querySelectorAll('.llm-board-filter-panel').forEach(function (p) { p.hidden = true; });
+        closePanel('models');
+        closePanel('benches');
       }
     });
 
