@@ -291,9 +291,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateRanks(sortedRows) {
       sortedRows.forEach(function (row, idx) {
-        if (row.dataset.dataset === 'closed') return;
-        row.children[0].textContent = idx + 1;
+        setRankCell(row, idx + 1);
       });
+    }
+
+    function setRankCell(row, rank) {
+      if (!row || !row.children.length) return;
+      const cell = row.children[0];
+      cell.dataset.value = rank;
+      if (row.dataset.dataset === 'closed') {
+        row.dataset.closedRank = String(rank);
+        const badge = cell.querySelector('.bench-closed-rank');
+        if (badge) {
+          badge.textContent = '#' + rank;
+        } else {
+          cell.textContent = '#' + rank;
+        }
+      } else {
+        row.dataset.openRank = String(rank);
+        cell.textContent = rank;
+      }
     }
 
     function rowIsVisible(row) {
@@ -415,7 +432,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function restoreOpenRankCell(row) {
       const openRank = row.dataset.openRank || row.children[0].dataset.value || row.children[0].textContent;
-      row.children[0].textContent = openRank;
+      setRankCell(row, openRank);
+    }
+
+    function syncCanonicalRanks() {
+      rankRowsByFinalScore(openRows).forEach(function (row, index) {
+        setRankCell(row, index + 1);
+      });
+      rankRowsByFinalScore(closedRows).forEach(function (row, index) {
+        setRankCell(row, index + 1);
+      });
+      syncPairedRankData();
     }
 
     function appendVisibleRow(row) {
@@ -526,11 +553,13 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       if (currentDatasetView === 'closed') {
+        updateRanks(sorted);
         sorted.forEach(function (row) {
           row.style.display = '';
           tbody.appendChild(row);
         });
       } else if (shouldUseClosedRankDefault(key, direction)) {
+        syncCanonicalRanks();
         appendAllRowsByClosedRank(key, index, direction);
       } else {
         updateRanks(sorted);
@@ -562,7 +591,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     buildStickyHeader();
-    syncPairedRankData();
+    syncCanonicalRanks();
     document.addEventListener('clawprobench:languagechange', syncPairedRankData);
 
     if (leaderboardDatasetFilter) {
