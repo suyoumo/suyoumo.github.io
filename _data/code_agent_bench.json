@@ -9,10 +9,10 @@
     "total_attempts": 453,
     "rank_metric": "final_score",
     "final_score_formula": "100 * ((Pass^3)^(1/3))^0.55 * (1 - (1 - Pass@3)^(1/3))^0.25 * (Attempt Score)^0.20",
-    "completed_model_count": 29,
+    "completed_model_count": 30,
     "partial_model_count": 0,
     "excluded_model_count": 0,
-    "exported_at": "2026-06-14T05:44:54.046614Z",
+    "exported_at": "2026-06-16T16:14:04.fZ",
     "source_manifest": "SweResult/*/score_summary.json",
     "token_usage_source": "full_run_tree/**/*.command.log step_finish.tokens when available; otherwise full_run_tree/**/run/run_summary.json"
   },
@@ -56,8 +56,8 @@
       "key": "qodercli",
       "slug": "qodercli",
       "label": "Qoder",
-      "count": 2,
-      "best_pass_at_3_rate": 0.271523178807947
+      "count": 3,
+      "best_pass_at_3_rate": 0.31125827814569534
     },
     {
       "key": "kimi",
@@ -461,6 +461,62 @@
       "rank": 7
     },
     {
+      "id": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
+      "model_dir": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
+      "lane_key": "qodercli-qwen37max-direct",
+      "agent": "qodercli",
+      "agent_label": "Qoder",
+      "agent_slug": "qodercli",
+      "agent_version": "qodercli-1.0.19",
+      "agent_version_source": "qodercli: qoder --version in current local environment",
+      "provider": "qwen",
+      "provider_label": "Qwen",
+      "model_raw": "Qwen3.7-Max#context-window=1000000",
+      "model_name": "Qwen 3.7 Max (1m)",
+      "logo": "logo-qwen.png",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 453,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 109,
+      "solved_unique_tasks": 47,
+      "pass_at_3_count": 47,
+      "pass_at_3_rate": 0.31125827814569534,
+      "pass_3_count": 25,
+      "pass_3_rate": 0.16556291390728475,
+      "attempt_score": 0.24061847473039735,
+      "final_score": 31.62,
+      "archive_size_mb": 368.0,
+      "full_run_tree_size_mb": 368.0,
+      "input_tokens": 789633676,
+      "output_tokens": 7594958,
+      "total_tokens": 797228634,
+      "input_tokens_display": "790M",
+      "output_tokens_display": "7.6M",
+      "total_tokens_display": "797M",
+      "token_task_count": 453,
+      "token_input_task_count": 453,
+      "token_output_task_count": 453,
+      "token_summary_task_count": 453,
+      "token_task_coverage": 1.0,
+      "token_usage_source": "run_summary_task_totals",
+      "archive_member_count": 4558,
+      "sha256": "09f7fb46f48d7a3301d007fc12e00ceba48bab5112a4c63fd27426cab0b565ea",
+      "sha256_short": "09f7fb46f48d",
+      "job_name": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
+      "exported_at": "2026-06-14T03:55:54.755205Z",
+      "relative_report_path": "SweResult/qodercli-qwen37max-direct-full453-10c-r1-20260613/full_suite_model_run_report.json",
+      "relative_summary_path": "SweResult/qodercli-qwen37max-direct-full453-10c-r1-20260613/score_summary.json",
+      "rank": 8
+    },
+    {
       "id": "qwen-3-5plus",
       "model_dir": "qwen-3.5plus",
       "lane_key": "qwen35plus",
@@ -517,6 +573,62 @@
       "rank": 9
     },
     {
+      "id": "qodercli-qwen37plus-direct-full453-10c-r1-20260615",
+      "model_dir": "qodercli-qwen37plus-direct-full453-10c-r1-20260615",
+      "lane_key": "qodercli-qwen37plus-direct",
+      "agent": "qodercli",
+      "agent_label": "Qoder",
+      "agent_slug": "qodercli",
+      "agent_version": "qodercli-1.0.20",
+      "agent_version_source": "qodercli: qoder --version in current local environment",
+      "provider": "qwen",
+      "provider_label": "Qwen",
+      "model_raw": "Qwen3.7-Plus#context-window=1000000",
+      "model_name": "Qwen 3.7 Plus (1m)",
+      "logo": "logo-qwen.png",
+      "group": "completed_453",
+      "status": "pass_k_ready",
+      "strict_retryable_gate": true,
+      "language_variant": "zh",
+      "attempts_per_task": 3,
+      "task_count": 151,
+      "planned_task_attempts": 453,
+      "scoreable_attempts": 452,
+      "scoreable_attempt_coverage": 0.9977924944812362,
+      "non_scoreable_attempts": 1,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "solved_attempts": 104,
+      "solved_unique_tasks": 43,
+      "pass_at_3_count": 43,
+      "pass_at_3_rate": 0.2847682119205298,
+      "pass_3_count": 28,
+      "pass_3_rate": 0.18543046357615894,
+      "attempt_score": 0.23008849557522124,
+      "final_score": 31.21,
+      "archive_size_mb": 457,
+      "full_run_tree_size_mb": 457,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "input_tokens_display": "0",
+      "output_tokens_display": "0",
+      "total_tokens_display": "0",
+      "token_task_count": 0,
+      "token_input_task_count": 0,
+      "token_output_task_count": 0,
+      "token_summary_task_count": 0,
+      "token_task_coverage": 0,
+      "token_usage_source": "run_summary_task_totals",
+      "archive_member_count": 10908,
+      "sha256": "18ff376534398716dbc57e579f56e3eba4e1af61ea99ac7c9ef6945c3d51c38b",
+      "sha256_short": "18ff37653439",
+      "job_name": "qodercli-qwen37plus-direct-full453-10c-r1-20260615",
+      "exported_at": "2026-06-16T16:14:04.fZ",
+      "relative_report_path": "SweResult/qodercli-qwen37plus-direct-full453-10c-r1-20260615/full_suite_model_run_report.json",
+      "relative_summary_path": "SweResult/qodercli-qwen37plus-direct-full453-10c-r1-20260615/score_summary.json",
+      "rank": 10
+    },
+    {
       "id": "claude-mimo25pro",
       "model_dir": "claude-mimo25pro",
       "lane_key": "claude-mimo25pro",
@@ -570,7 +682,7 @@
       "exported_at": "2026-06-03T14:23:20.007560Z",
       "relative_report_path": "claude-mimo25pro/full_suite_model_run_report.json",
       "relative_summary_path": "claude-mimo25pro/score_summary.json",
-      "rank": 10
+      "rank": 11
     },
     {
       "id": "opencode-mimo25pro-high",
@@ -626,7 +738,7 @@
       "exported_at": "2026-06-03T14:40:22.356867Z",
       "relative_report_path": "opencode-mimo25pro-high/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-mimo25pro-high/score_summary.json",
-      "rank": 11
+      "rank": 12
     },
     {
       "id": "opencode-minimax25-highspeed",
@@ -682,7 +794,7 @@
       "exported_at": "2026-06-03T14:33:04.969933Z",
       "relative_report_path": "opencode-minimax25-highspeed/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-minimax25-highspeed/score_summary.json",
-      "rank": 12
+      "rank": 13
     },
     {
       "id": "opencode-deepseek-v4-pro-max",
@@ -738,7 +850,7 @@
       "exported_at": "2026-06-03T14:42:23.488342Z",
       "relative_report_path": "opencode-deepseek-v4-pro-max/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-deepseek-v4-pro-max/score_summary.json",
-      "rank": 13
+      "rank": 14
     },
     {
       "id": "opencode-glm5turbo",
@@ -794,7 +906,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-glm5turbo/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm5turbo/score_summary.json",
-      "rank": 14
+      "rank": 15
     },
     {
       "id": "qwen-3-6plus",
@@ -850,7 +962,7 @@
       "exported_at": "2026-06-03T14:47:52.291624Z",
       "relative_report_path": "qwen-3.6plus/full_suite_model_run_report.json",
       "relative_summary_path": "qwen-3.6plus/score_summary.json",
-      "rank": 15
+      "rank": 16
     },
     {
       "id": "opencode-stepfun37-flash",
@@ -906,7 +1018,7 @@
       "exported_at": "2026-06-09T17:03:58.589448Z",
       "relative_report_path": "opencode-stepfun37-flash/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun37-flash/score_summary.json",
-      "rank": 16
+      "rank": 17
     },
     {
       "id": "claude-mimo25",
@@ -962,7 +1074,7 @@
       "exported_at": "2026-06-03T14:22:10.369900Z",
       "relative_report_path": "claude-mimo25/full_suite_model_run_report.json",
       "relative_summary_path": "claude-mimo25/score_summary.json",
-      "rank": 17
+      "rank": 18
     },
     {
       "id": "qoder-qwen35-plus-direct-20260612",
@@ -1018,7 +1130,7 @@
       "exported_at": "2026-06-12T15:49:11.042641Z",
       "relative_report_path": "qoder-qwen35-plus-direct-20260612/full_suite_model_run_report.json",
       "relative_summary_path": "qoder-qwen35-plus-direct-20260612/score_summary.json",
-      "rank": 18
+      "rank": 19
     },
     {
       "id": "qoder-qwen36-plus-forward-20260610",
@@ -1074,7 +1186,7 @@
       "exported_at": "2026-06-10T06:14:51.258236Z",
       "relative_report_path": "qoder-qwen36-plus-forward-20260610/full_suite_model_run_report.json",
       "relative_summary_path": "qoder-qwen36-plus-forward-20260610/score_summary.json",
-      "rank": 19
+      "rank": 20
     },
     {
       "id": "opencode-minimax27",
@@ -1130,7 +1242,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-minimax27/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-minimax27/score_summary.json",
-      "rank": 20
+      "rank": 21
     },
     {
       "id": "opencode-mimo25-tokenplan-high-20260527",
@@ -1186,7 +1298,7 @@
       "exported_at": "2026-06-03T14:46:55.487519Z",
       "relative_report_path": "opencode-mimo25-tokenplan-high-20260527/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-mimo25-tokenplan-high-20260527/score_summary.json",
-      "rank": 21
+      "rank": 22
     },
     {
       "id": "opencode-longcat",
@@ -1242,7 +1354,7 @@
       "exported_at": "2026-06-03T14:28:35.179384Z",
       "relative_report_path": "opencode-longcat/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-longcat/score_summary.json",
-      "rank": 22
+      "rank": 23
     },
     {
       "id": "opencode-stepfun35-2603",
@@ -1298,7 +1410,7 @@
       "exported_at": "2026-06-07T17:12:44.367282Z",
       "relative_report_path": "opencode-stepfun35-2603-rerun-20260607/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35-2603-rerun-20260607/score_summary.json",
-      "rank": 23
+      "rank": 24
     },
     {
       "id": "opencode-glm47",
@@ -1354,7 +1466,7 @@
       "exported_at": "2026-06-03T14:38:25.981286Z",
       "relative_report_path": "opencode-glm47/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-glm47/score_summary.json",
-      "rank": 24
+      "rank": 25
     },
     {
       "id": "opencode-kat-coder-pro-v2-kat2",
@@ -1410,7 +1522,7 @@
       "exported_at": "2026-06-12T17:48:24.194411Z",
       "relative_report_path": "opencode-kat-coder-pro-v2-kat2/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-kat-coder-pro-v2-kat2/score_summary.json",
-      "rank": 25
+      "rank": 26
     },
     {
       "id": "opencode-sensenova67-flash-lite",
@@ -1466,7 +1578,7 @@
       "exported_at": "2026-06-03T14:45:04.820844Z",
       "relative_report_path": "opencode-sensenova67-flash-lite/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-sensenova67-flash-lite/score_summary.json",
-      "rank": 26
+      "rank": 27
     },
     {
       "id": "opencode-doubao-2-code",
@@ -1522,7 +1634,7 @@
       "exported_at": "",
       "relative_report_path": "opencode-doubao-2-code/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-doubao-2-code/score_summary.json",
-      "rank": 27
+      "rank": 28
     },
     {
       "id": "opencode-stepfun35",
@@ -1578,7 +1690,7 @@
       "exported_at": "2026-06-03T14:35:33.098364Z",
       "relative_report_path": "opencode-stepfun35/full_suite_model_run_report.json",
       "relative_summary_path": "opencode-stepfun35/score_summary.json",
-      "rank": 28
+      "rank": 29
     },
     {
       "id": "deepseek-tui-v4-flash-max",
@@ -1634,63 +1746,7 @@
       "exported_at": "2026-05-22T19:46:14.852725Z",
       "relative_report_path": "deepseek-tui-v4-flash-max/full_suite_model_run_report.json",
       "relative_summary_path": "deepseek-tui-v4-flash-max/score_summary.json",
-      "rank": 29
-    },
-    {
-      "id": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
-      "model_dir": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
-      "lane_key": "qodercli-qwen37max-direct",
-      "agent": "qodercli",
-      "agent_label": "Qoder",
-      "agent_slug": "qodercli",
-      "agent_version": "qodercli-1.0.19",
-      "agent_version_source": "qodercli: qoder --version in current local environment",
-      "provider": "qwen",
-      "provider_label": "Qwen",
-      "model_raw": "Qwen3.7-Max#context-window=1000000",
-      "model_name": "Qwen 3.7 Max (1m)",
-      "logo": "logo-qwen.png",
-      "group": "completed_453",
-      "status": "pass_k_ready",
-      "strict_retryable_gate": true,
-      "language_variant": "zh",
-      "attempts_per_task": 3,
-      "task_count": 151,
-      "planned_task_attempts": 453,
-      "scoreable_attempts": 453,
-      "scoreable_attempt_coverage": 1.0,
-      "non_scoreable_attempts": 0,
-      "tasks_missing_k_scoreable_attempts": 0,
-      "solved_attempts": 109,
-      "solved_unique_tasks": 47,
-      "pass_at_3_count": 47,
-      "pass_at_3_rate": 0.31125827814569534,
-      "pass_3_count": 25,
-      "pass_3_rate": 0.16556291390728475,
-      "attempt_score": 0.24061847473039735,
-      "final_score": 31.62,
-      "archive_size_mb": 368.0,
-      "full_run_tree_size_mb": 368.0,
-      "input_tokens": 789633676,
-      "output_tokens": 7594958,
-      "total_tokens": 797228634,
-      "input_tokens_display": "790M",
-      "output_tokens_display": "7.6M",
-      "total_tokens_display": "797M",
-      "token_task_count": 453,
-      "token_input_task_count": 453,
-      "token_output_task_count": 453,
-      "token_summary_task_count": 453,
-      "token_task_coverage": 1.0,
-      "token_usage_source": "run_summary_task_totals",
-      "archive_member_count": 4558,
-      "sha256": "09f7fb46f48d7a3301d007fc12e00ceba48bab5112a4c63fd27426cab0b565ea",
-      "sha256_short": "09f7fb46f48d",
-      "job_name": "qodercli-qwen37max-direct-full453-10c-r1-20260613",
-      "exported_at": "2026-06-14T03:55:54.755205Z",
-      "relative_report_path": "SweResult/qodercli-qwen37max-direct-full453-10c-r1-20260613/full_suite_model_run_report.json",
-      "relative_summary_path": "SweResult/qodercli-qwen37max-direct-full453-10c-r1-20260613/score_summary.json",
-      "rank": 8
+      "rank": 30
     }
   ],
   "excluded_rows": []

