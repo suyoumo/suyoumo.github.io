@@ -126,17 +126,25 @@ permalink: /code-agent-bench/
               >
                 <td data-value="{{ row.rank }}">{{ row.rank }}</td>
                 <td class="bench-model-column">
+                  {% if model_page_url %}
+                  <a href="{{ site.baseurl }}{{ model_page_url }}" class="bench-model-cell bench-model-cell-rich code-agent-model-cell bench-model-link bench-model-cell-link">
+                  {% else %}
                   <div class="bench-model-cell bench-model-cell-rich code-agent-model-cell">
+                  {% endif %}
                     {% if row.logo %}
                     <img class="bench-model-logo" src="{{ site.baseurl }}/assets/images/bench/{{ row.logo }}" alt="{{ row.provider_label }} logo" />
                     {% else %}
                     <div class="bench-model-logo bench-model-logo-placeholder-small">{{ row.provider_label | slice: 0, 1 | upcase }}</div>
                     {% endif %}
                     <div class="bench-model-meta">
-                      <strong>{% if model_page_url %}<a href="{{ site.baseurl }}{{ model_page_url }}" class="bench-model-link">{% endif %}{{ row.model_name }}{% if model_page_url %}</a>{% endif %}</strong>
+                      <strong>{{ row.model_name }}</strong>
                       <span><span class="code-agent-pill code-agent-pill-{{ row.agent_slug }}">{{ row.agent_label }}</span>{{ row.provider_label }} - {{ row.model_raw }}</span>
                     </div>
+                  {% if model_page_url %}
+                  </a>
+                  {% else %}
                   </div>
+                  {% endif %}
                 </td>
                 <td data-value="{{ row.agent_version }}">
                   <span class="code-agent-version-pill" title="{{ row.agent_version_source | escape }}">{{ row.agent_version }}</span>
