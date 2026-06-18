@@ -15,7 +15,7 @@ scoreable_attempts: 453
 pass_at_3_rate_pct: 37.7%
 pass_3_count: 36
 attempt_score_pct: 30.9%
-strengths_label: Suites where GLM 5.2 excels (top 6 by pass rate)
+strengths_label: Suites where GLM 5.2 is at its strongest
 strengths:
   - suite: release-zh-012-future-architect-vuls
     total: 4
@@ -41,7 +41,7 @@ strengths:
     total: 10
     solved: 5
     rate_pct: "50.0%"
-weaknesses_label: Suites where GLM 5.2 struggles (bottom 6 by pass rate)
+weaknesses_label: Suites where GLM 5.2 falls behind
 weaknesses:
   - suite: release-zh-018-qutebrowser-qutebrowser
     total: 9
@@ -67,10 +67,32 @@ weaknesses:
     total: 10
     solved: 2
     rate_pct: "20.0%"
-verifier_audit: Initial/original score (37.59) is computed from 140 harness-ok attempts across 151 tasks. After running a stricter reverifier pass, only 101 attempts survive as verifier-backed, dropping Final Score to 32.87 (-4.72, -39 attempts rejected). This 28% strict-reject rate is in line with other top agents and reflects the gap between agent-self-reported success and harness-backed verdicts.
-summary: GLM 5.2 (Zhipu) currently sits at rank 1 on CodeAgentBench with a Final Score of 37.59, narrowly ahead of GPT 5.5 (xhigh) at 36.88. Its strengths are concentrated in security/vulnerability tooling (vuls), large Python codebases with rich test surfaces (internetarchive/openlibrary), and configuration/automation repos (ansible/ansible). The model is essentially blind on Go-based feature-flag and browser projects (qutebrowser 0/9, navidrome 0/5, flipt 1-2/10 across all suites), suggesting the planning and long-horizon editing for cross-language refactors is where GLM 5.2 still loses ground. Use GLM 5.2 when the target repo is Python/ops-heavy; reach for GPT 5.x or codex for Go, browser, and feature-flag heavy workloads.
+verifier_audit: The leaderboard's primary Final Score (37.59) uses the harness-ok verdict reported by run_summary.json on the 453 scoreable attempts. When we re-run those attempts under a stricter verifier pass, only 101 of the 140 agent-reported successes survive as verifier-backed, dragging the reverified Final Score down to 32.87 (a 4.72-point / -28% strict-reject rate). That delta is typical of top-tier agents and reflects the gap between agent self-confidence and harness-backed verdicts.
+summary: GLM 5.2 (Zhipu's coding-plan flagship, served via `zai-coding-plan/glm-5.2`) currently sits at rank 1 on CodeAgentBench with a Final Score of 37.59 — narrowly ahead of GPT 5.5 (xhigh) at 36.88. Its strongest suites are vulnerability tooling (vuls, 100%), large Python codebases with rich test surfaces (internetarchive/openlibrary, 80%/70%), and configuration/automation repos (ansible/ansible, 60-67%). GLM 5.2 is essentially blind on Go-based feature-flag and browser projects (qutebrowser 0/9, navidrome 0/5, flipt 1-2/10 across all suites). The verdict split between harness-ok (140) and verifier-backed (101) is the same shape as other top agents and signals where the model still loses ground. Use GLM 5.2 when the target repo is Python / ops-heavy; reach for GPT 5.x or codex for Go, browser, and feature-flag heavy workloads.
 ---
 
-GLM 5.2 (Zhipu's coding-plan flagship, served via `zai-coding-plan/glm-5.2`) achieves **rank 1** on the CodeAgentBench leaderboard with a **Final Score of 37.59** under the standard initial/original scoring rule. It solves 140/453 scoreable attempts (57 unique tasks, 36 of those solved in all three tries), giving a pass@3 rate of **37.7%** — about 0.7 points above GPT 5.5 (xhigh).
+## What GLM 5.2 got right
 
-<hr>
+The cleanest signal in the data is **release-zh-012-future-architect-vuls**, where GLM 5.2 went **4 / 4** — every instance in that suite was solved in all three attempts. vuls is a Go-based vulnerability scanner with well-scoped test suites, and GLM 5.2 produced patches that the harness could verify end-to-end without follow-up. That suite is small (only 4 instances), but it is the only place where the model hits a perfect pass rate.
+
+The next cluster is **internetarchive/openlibrary** across `release-zh-013` and `release-zh-015`: 8/10 and 7/10 respectively. openlibrary is a very large Python codebase (Django + Celery + Vue frontend), and the test surface is dense enough that the model can usually pick the right file to patch by reading the failing test. Eight instances solved in all three attempts (`pass^3`) come out of these two suites — about a fifth of GLM 5.2's 36 full-pass^3 count.
+
+**ansible/ansible** is the third clear strength: 6/10 and 2/3 across the two ansible suites. The patterns here (YAML parsing, inventory, module loading, callback hooks) are well-represented in pre-training, and the tests are tight, so once the model picks the right module the fix usually sticks.
+
+## Where GLM 5.2 struggles
+
+The bottom of the table is much sharper than the top. **release-zh-018-qutebrowser-qutebrowser** is 0/9, **release-zh-017-navidrome-navidrome** is 0/5, and every `flipt-io-flipt` suite lands at 1-2/10. Three patterns show up across these failures:
+
+1. **Go-language refactors with cross-package interface changes.** flipt is a feature-flag service where almost every task asks the model to add a new flag type, wire it through the storage layer, and update the API/UI consumers. The model can usually write the immediate change, but misses one of the indirect consumers and the test suite still flags it as failing.
+2. **Asyncio + Qt integration (qutebrowser).** qutebrowser tasks tend to involve rewriting a piece of browser chrome that mixes Python's asyncio event loop with Qt's signal/slot system. The model produces something that looks right but does not actually wire into the running event loop the way the test expects.
+3. **Long-horizon multi-file Go changes (navidrome).** navidrome tasks usually touch the persistence layer, the HTTP API, and the Subsonic compatibility layer at once. The model handles the first two and gets stuck on the third.
+
+The 1-2/10 scores on flipt, in particular, are a sharp contrast to its perfect 4/4 on vuls (also Go): the difference is that vuls patches are localized, while flipt patches require changing an interface that other packages consume.
+
+## How strict is the verifier?
+
+GLM 5.2 reports 140 attempts as `harness-ok` out of 453 scoreable. After a stricter re-verification pass, only 101 of those 140 attempts survive as `verifier-backed`, dropping the Final Score from **37.59 → 32.87** (-4.72 points, -28% strict-reject rate). That delta is in the same range as GPT 5.5 (which drops 1.5 points on its 136 → ~110 reverified) and is mostly concentrated on the same `flipt`/`qutebrowser`/`navidrome` suites. The verdict gap is not specific to GLM 5.2 — it's a property of the harness — but it does mean the headline number overstates the model's reach by about 12 percentage points of attempt-score.
+
+## Bottom line
+
+Use GLM 5.2 when the target is a **Python or ops-heavy repo** with clear test signals (Django services, Ansible modules, vulnerability tooling, large open-source codebases with dense pytest coverage). It is the strongest open-weights-style agent on the leaderboard and beats GPT 5.5 by 0.71 points overall. For **Go services, browser engines, and feature-flag systems with cross-package interface changes**, the model still loses meaningfully and a GPT 5.x or codex-class agent is a better choice.

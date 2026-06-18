@@ -26,7 +26,9 @@ layout: default
         <div><span>Pass^3 Count</span><strong>{{ page.pass_3_count }} / 151</strong></div>
         <div><span>Attempt Score</span><strong>{{ page.attempt_score_pct }}</strong></div>
       </div>
-      <p class="model-overview-note">{{ content | split: '<hr>' | first }}</p>
+      <div class="model-overview-note">
+        {{ content }}
+      </div>
     </section>
 
     {% if page.strengths and page.strengths.size > 0 %}
