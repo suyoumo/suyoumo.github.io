@@ -127,7 +127,7 @@ permalink: /code-agent-bench/
                     <div class="bench-model-logo bench-model-logo-placeholder-small">{{ row.provider_label | slice: 0, 1 | upcase }}</div>
                     {% endif %}
                     <div class="bench-model-meta">
-                      <strong>{{ row.model_name }}</strong>
+                      <strong>{% if row.id == 'opencode-glm52' %}<a href="{{ site.baseurl }}/code-agent-bench/models/opencode-glm52/" class="bench-model-link">{% endif %}{{ row.model_name }}{% if row.id == 'opencode-glm52' %}</a>{% endif %}</strong>
                       <span><span class="code-agent-pill code-agent-pill-{{ row.agent_slug }}">{{ row.agent_label }}</span>{{ row.provider_label }} - {{ row.model_raw }}</span>
                     </div>
                   </div>

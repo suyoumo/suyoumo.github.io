@@ -1,0 +1,86 @@
+---
+layout: default
+---
+
+<div class="container">
+  <div class="model-page">
+    <div class="model-header">
+      <div class="model-rank">Rank {{ page.rank }}</div>
+      <h1 class="model-title">{{ page.model_name }}</h1>
+      <div class="model-provider">{{ page.provider_label }} · {{ page.model_raw }}</div>
+      <div class="model-meta">
+        <span class="model-version">{{ page.agent_version }}</span>
+        <span class="model-final">Final Score <strong>{{ page.final_score | round: 2 }}</strong></span>
+        {% if page.reverified_final_score and page.reverified_final_score != 0 %}
+        <span class="model-final-audit">Reverified Audit <strong>{{ page.reverified_final_score | round: 2 }}</strong></span>
+        {% endif %}
+      </div>
+    </div>
+
+    <section class="model-section">
+      <h2>Overview</h2>
+      <div class="model-overview-grid">
+        <div><span>Solved Attempts</span><strong>{{ page.solved_attempts }} / {{ page.scoreable_attempts }}</strong></div>
+        <div><span>Unique Tasks Solved</span><strong>{{ page.solved_unique_tasks }} / 151</strong></div>
+        <div><span>Pass@3 Rate</span><strong>{{ page.pass_at_3_rate_pct }}</strong></div>
+        <div><span>Pass^3 Count</span><strong>{{ page.pass_3_count }} / 151</strong></div>
+        <div><span>Attempt Score</span><strong>{{ page.attempt_score_pct }}</strong></div>
+      </div>
+      <p class="model-overview-note">{{ content | split: '<hr>' | first }}</p>
+    </section>
+
+    {% if page.strengths and page.strengths.size > 0 %}
+    <section class="model-section">
+      <h2>Strengths · {{ page.strengths_label | default: 'Suites where GLM 5.2 performs best' }}</h2>
+      <table class="model-table">
+        <thead><tr><th>Suite</th><th>Tasks</th><th>Solved</th><th>Pass Rate</th></tr></thead>
+        <tbody>
+          {% for s in page.strengths %}
+          <tr>
+            <td><code>{{ s.suite }}</code></td>
+            <td>{{ s.total }}</td>
+            <td>{{ s.solved }}</td>
+            <td><strong>{{ s.rate_pct }}</strong></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    {% endif %}
+
+    {% if page.weaknesses and page.weaknesses.size > 0 %}
+    <section class="model-section">
+      <h2>Weaknesses · {{ page.weaknesses_label | default: 'Suites where GLM 5.2 struggles' }}</h2>
+      <table class="model-table">
+        <thead><tr><th>Suite</th><th>Tasks</th><th>Solved</th><th>Pass Rate</th></tr></thead>
+        <tbody>
+          {% for s in page.weaknesses %}
+          <tr>
+            <td><code>{{ s.suite }}</code></td>
+            <td>{{ s.total }}</td>
+            <td>{{ s.solved }}</td>
+            <td><strong>{{ s.rate_pct }}</strong></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    {% endif %}
+
+    {% if page.verifier_audit %}
+    <section class="model-section">
+      <h2>Verifier Audit (Reverified vs Initial)</h2>
+      <p>{{ page.verifier_audit }}</p>
+    </section>
+    {% endif %}
+
+    {% if page.summary %}
+    <section class="model-section">
+      <h2>Summary</h2>
+      <p>{{ page.summary }}</p>
+    </section>
+    {% endif %}
+
+    <p class="model-back"><a href="{{ site.baseurl }}/code-agent-bench/">← Back to CodeAgentBench leaderboard</a></p>
+  </div>
+</div>
