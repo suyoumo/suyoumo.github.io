@@ -1,0 +1,88 @@
+{
+  "task_count": 151,
+  "attempts": 3,
+  "planned_task_attempts": 453,
+  "planned_unique_tasks": 151,
+  "scoreable_unique_tasks": 151,
+  "scoreable_attempts": 453,
+  "scoreable_attempt_coverage": 1.0,
+  "non_scoreable_attempts": 0,
+  "tasks_missing_k_scoreable_attempts": 0,
+  "observed_completed_task_attempts": 453,
+  "solved_attempts": 140,
+  "solved_unique_tasks": 57,
+  "pass_at_k_count": 57,
+  "pass_at_k_rate": 0.37748344370860926,
+  "pass_at_k_complete_rate": 0.37748344370860926,
+  "pass^k_count": 36,
+  "pass_caret_k_count": 36,
+  "pass^k_rate": 0.23841059602649006,
+  "pass_caret_k_rate": 0.23841059602649006,
+  "pass_caret_k_complete_rate": 0.23841059602649006,
+  "attempt_score": 0.3090507726269316,
+  "final_score": 37.587694782281474,
+  "final_score_status": "initial_original",
+  "score_coverage_status": "complete",
+  "score_source": "initial_original",
+  "score_summary_source_counts": {
+    "initial_original": 453
+  },
+  "strict_retryable_gate": true,
+  "language_variant": "zh",
+  "agent": "opencode",
+  "model": "zai-coding-plan/glm-5.2",
+  "total_tokens": 644254,
+  "score_variant": "initial_original",
+  "verifier_harness_ok_count": 140,
+  "verifier_harness_failed_count": 274,
+  "verifier_no_op_patch_count": 4,
+  "score_variants": {
+    "initial": {
+      "pass_at_k_count": 57,
+      "pass_at_k_rate": 0.37748344370860926,
+      "pass^k_count": 36,
+      "pass_caret_k_count": 36,
+      "pass^k_rate": 0.23841059602649006,
+      "solved_attempts": 140,
+      "attempt_score": 0.3090507726269316,
+      "scoreable_attempts": 453,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "score_coverage_status": "complete",
+      "verifier_verdict_counts": {
+        "harness-ok": 140,
+        "harness-failed": 274,
+        "no-op-patch": 4
+      },
+      "score_summary_source_counts": {
+        "initial_original": 453
+      }
+    },
+    "reverified": {
+      "pass_at_k_count": 43,
+      "pass_at_k_rate": 0.2847682119205298,
+      "pass^k_count": 24,
+      "pass_caret_k_count": 24,
+      "pass^k_rate": 0.15894039735099338,
+      "solved_attempts": 101,
+      "attempt_score": 0.3435374149659864,
+      "scoreable_attempts": 294,
+      "non_scoreable_attempts": 0,
+      "tasks_missing_k_scoreable_attempts": 0,
+      "score_coverage_status": "complete",
+      "verifier_verdict_counts": {},
+      "score_summary_source_counts": {
+        "reverified_audit": 294
+      }
+    }
+  },
+  "reverified_audit": {
+    "scoreable_attempts": 294,
+    "solved_attempts": 101,
+    "solved_unique_tasks": 43,
+    "pass_at_3_rate": 0.2847682119205298,
+    "pass_cube_count": 24,
+    "attempt_score": 0.3435374149659864,
+    "final_score": 32.86814616097088
+  }
+}
