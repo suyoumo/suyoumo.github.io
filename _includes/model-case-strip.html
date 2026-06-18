@@ -1,16 +1,17 @@
 {% assign cases = include.items | default: page.cases %}
 {% assign case_title = include.title | default: 'Case notes' %}
+{% assign case_title_zh = include.title_zh | default: '案例切片' %}
 
 {% if cases and cases.size > 0 %}
 <aside class="model-case-strip">
-  <div class="model-section-label">{{ case_title }}</div>
+  <div class="model-section-label"><span class="bench-lang-en">{{ case_title }}</span><span class="bench-lang-zh">{{ case_title_zh }}</span></div>
   <div class="model-case-grid">
     {% for item in cases %}
     <div class="model-case-card model-case-{{ item.tone | default: 'neutral' }}">
-      <span>{{ item.label }}</span>
-      <strong>{{ item.title }}</strong>
-      {% if item.meta %}<em>{{ item.meta }}</em>{% endif %}
-      {% if item.note %}<p>{{ item.note }}</p>{% endif %}
+      <span><span class="bench-lang-en">{{ item.label }}</span><span class="bench-lang-zh">{{ item.label_zh | default: item.label }}</span></span>
+      <strong><span class="bench-lang-en">{{ item.title }}</span><span class="bench-lang-zh">{{ item.title_zh | default: item.title }}</span></strong>
+      {% if item.meta %}<em><span class="bench-lang-en">{{ item.meta }}</span><span class="bench-lang-zh">{{ item.meta_zh | default: item.meta }}</span></em>{% endif %}
+      {% if item.note %}<p><span class="bench-lang-en">{{ item.note }}</span><span class="bench-lang-zh">{{ item.note_zh | default: item.note }}</span></p>{% endif %}
     </div>
     {% endfor %}
   </div>

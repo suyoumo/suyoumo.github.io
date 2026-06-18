@@ -9,11 +9,13 @@
 {% endif %}
 {% assign accepted_pct = audit.accepted_pct | default: 0 %}
 {% assign rejected_pct = audit.rejected_pct | default: 0 %}
+{% assign audit_title = include.title | default: 'Verifier Audit' %}
+{% assign audit_title_zh = include.title_zh | default: '复核审计' %}
 
 <figure class="model-visual model-audit-card">
   <figcaption>
-    <span class="model-section-label">{{ include.title | default: 'Verifier Audit' }}</span>
-    {% if audit.note %}<em>{{ audit.note }}</em>{% endif %}
+    <span class="model-section-label"><span class="bench-lang-en">{{ audit_title }}</span><span class="bench-lang-zh">{{ audit_title_zh }}</span></span>
+    {% if audit.note %}<em><span class="bench-lang-en">{{ audit.note }}</span><span class="bench-lang-zh">{{ audit.note_zh | default: audit.note }}</span></em>{% endif %}
   </figcaption>
 
   <div class="model-audit-visual">
@@ -21,11 +23,14 @@
       <span>{{ accepted_pct }}%</span>
     </div>
     <div class="model-audit-copy">
-      <strong>{{ accepted }} of {{ total }} headline successes survived strict re-verification.</strong>
-      {% if audit.summary %}<p>{{ audit.summary }}</p>{% endif %}
+      <strong>
+        <span class="bench-lang-en">{{ accepted }} of {{ total }} headline successes survived strict re-verification.</span>
+        <span class="bench-lang-zh">{{ total }} 次初始成功里，{{ accepted }} 次通过了更严格的复核。</span>
+      </strong>
+      {% if audit.summary %}<p><span class="bench-lang-en">{{ audit.summary }}</span><span class="bench-lang-zh">{{ audit.summary_zh | default: audit.summary }}</span></p>{% endif %}
       <div class="model-audit-legend">
-        <span><i class="is-accepted"></i>{{ accepted }} verifier-backed</span>
-        <span><i class="is-rejected"></i>{{ rejected }} strict rejected</span>
+        <span><i class="is-accepted"></i>{{ accepted }} <span class="bench-lang-en">verifier-backed</span><span class="bench-lang-zh">复核通过</span></span>
+        <span><i class="is-rejected"></i>{{ rejected }} <span class="bench-lang-en">strict rejected</span><span class="bench-lang-zh">严格拒绝</span></span>
       </div>
     </div>
   </div>
@@ -33,9 +38,9 @@
   {% if audit.score_before and audit.score_after %}
   <div class="model-audit-scoreline">
     <span>{{ audit.score_before }}</span>
-    <b aria-hidden="true">to</b>
+    <b aria-hidden="true"><span class="bench-lang-en">to</span><span class="bench-lang-zh">到</span></b>
     <span>{{ audit.score_after }}</span>
-    {% if audit.delta %}<em>{{ audit.delta }}</em>{% endif %}
+    {% if audit.delta %}<em><span class="bench-lang-en">{{ audit.delta }}</span><span class="bench-lang-zh">{{ audit.delta_zh | default: audit.delta }}</span></em>{% endif %}
   </div>
   {% endif %}
 </figure>

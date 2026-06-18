@@ -20,6 +20,7 @@ layout: bench
 {% assign display_final_score = page.final_score | default: model_row.final_score %}
 {% assign display_reverified_score = page.reverified_final_score | default: model_row.reverified_final_score %}
 {% assign display_subtitle = page.subtitle | default: page.description %}
+{% assign display_subtitle_zh = page.subtitle_zh | default: display_subtitle %}
 {% assign display_date = page.analysis_date | default: board.metadata.exported_at %}
 {% assign pass_at_3_pct = page.pass_at_3_rate_pct | default: nil %}
 {% unless pass_at_3_pct %}
@@ -34,10 +35,12 @@ layout: bench
   {% assign attempt_score_pct = model_row.attempt_score | times: 100 | round: 1 | append: '%' %}
 {% endunless %}
 
-<article class="model-article-page">
+<article class="model-article-page" data-i18n-skip>
   <div class="model-article-shell">
     <nav class="model-breadcrumb" aria-label="Breadcrumb">
       <a href="{{ site.baseurl }}/code-agent-bench/">CodeAgentBench</a>
+      <span>/</span>
+      <span><span class="bench-lang-en">Model notes</span><span class="bench-lang-zh">模型文章</span></span>
       <span>/</span>
       <span>{{ display_model_name }}</span>
     </nav>
@@ -46,29 +49,35 @@ layout: bench
       <div class="model-hero-copy">
         <div class="model-kicker-row">
           {% if display_rank %}
-          <span class="model-rank-badge">Rank {{ display_rank }}</span>
+          <span class="model-rank-badge"><span class="bench-lang-en">Rank</span><span class="bench-lang-zh">排名</span> {{ display_rank }}</span>
           {% endif %}
           <span>{{ display_agent }}</span>
           <span>{{ display_provider }}</span>
         </div>
         <h1>{{ display_model_name }}</h1>
         {% if display_subtitle %}
-        <p class="model-subtitle">{{ display_subtitle }}</p>
+        <p class="model-subtitle">
+          <span class="bench-lang-en">{{ display_subtitle }}</span>
+          <span class="bench-lang-zh">{{ display_subtitle_zh }}</span>
+        </p>
         {% endif %}
         <div class="model-hero-meta">
           {% if display_agent_version %}<span>{{ display_agent_version }}</span>{% endif %}
           {% if display_model_raw %}<span>{{ display_model_raw }}</span>{% endif %}
-          {% if display_date %}<span>Updated {{ display_date | slice: 0, 10 }}</span>{% endif %}
+          {% if display_date %}<span><span class="bench-lang-en">Updated</span><span class="bench-lang-zh">更新</span> {{ display_date | slice: 0, 10 }}</span>{% endif %}
         </div>
       </div>
 
       <aside class="model-score-panel" aria-label="{{ display_model_name }} score summary">
         <div class="model-score-primary">
-          <span>Final Score</span>
+          <span><span class="bench-lang-en">Final Score</span><span class="bench-lang-zh">最终分</span></span>
           <strong>{{ display_final_score | round: 2 }}</strong>
           {% if display_reverified_score %}
-          <em>Verifier audit {{ display_reverified_score | round: 2 }}</em>
+          <em><span class="bench-lang-en">Verifier audit</span><span class="bench-lang-zh">复核后</span> {{ display_reverified_score | round: 2 }}</em>
           {% endif %}
+          <div class="model-score-meter" aria-hidden="true">
+            <span style="width: {{ display_final_score | round: 2 }}%"></span>
+          </div>
         </div>
         <div class="model-score-grid">
           <div>
@@ -80,11 +89,11 @@ layout: bench
             <strong>{{ pass_3_pct }}</strong>
           </div>
           <div>
-            <span>Solved Tasks</span>
+            <span><span class="bench-lang-en">Solved Tasks</span><span class="bench-lang-zh">解出任务</span></span>
             <strong>{{ page.solved_unique_tasks | default: model_row.solved_unique_tasks }}/{{ page.task_count | default: model_row.task_count | default: 151 }}</strong>
           </div>
           <div>
-            <span>Attempts</span>
+            <span><span class="bench-lang-en">Attempts</span><span class="bench-lang-zh">尝试通过</span></span>
             <strong>{{ page.solved_attempts | default: model_row.solved_attempts }}/{{ page.scoreable_attempts | default: model_row.scoreable_attempts }}</strong>
           </div>
         </div>
@@ -93,10 +102,15 @@ layout: bench
 
     {% if page.tldr and page.tldr.size > 0 %}
     <section class="model-tldr" aria-label="TL;DR">
-      <div class="model-section-label">TL;DR</div>
+      <div>
+        <div class="model-section-label">TL;DR</div>
+        <h2><span class="bench-lang-en">How to read this result</span><span class="bench-lang-zh">可以这样读</span></h2>
+      </div>
       <ul>
         {% for item in page.tldr %}
-        <li>{{ item }}</li>
+        {% assign item_en = item.en | default: item %}
+        {% assign item_zh = item.zh | default: item_en %}
+        <li><span class="bench-lang-en">{{ item_en }}</span><span class="bench-lang-zh">{{ item_zh }}</span></li>
         {% endfor %}
       </ul>
     </section>
@@ -106,12 +120,12 @@ layout: bench
       {% if page.key_stats and page.key_stats.size > 0 %}
       <aside class="model-aside" aria-label="Key numbers">
         <div class="model-aside-card">
-          <div class="model-section-label">Key Numbers</div>
+          <div class="model-section-label"><span class="bench-lang-en">Key Numbers</span><span class="bench-lang-zh">关键数字</span></div>
           {% for stat in page.key_stats %}
           <div class="model-aside-stat">
-            <span>{{ stat.label }}</span>
+            <span><span class="bench-lang-en">{{ stat.label }}</span><span class="bench-lang-zh">{{ stat.label_zh | default: stat.label }}</span></span>
             <strong>{{ stat.value }}</strong>
-            {% if stat.note %}<em>{{ stat.note }}</em>{% endif %}
+            {% if stat.note %}<em><span class="bench-lang-en">{{ stat.note }}</span><span class="bench-lang-zh">{{ stat.note_zh | default: stat.note }}</span></em>{% endif %}
           </div>
           {% endfor %}
         </div>
@@ -126,15 +140,15 @@ layout: bench
     {% if page.related_models and page.related_models.size > 0 %}
     <section class="model-related">
       <div>
-        <div class="model-section-label">Related Models</div>
-        <h2>Same neighborhood on the leaderboard</h2>
+        <div class="model-section-label"><span class="bench-lang-en">Related Models</span><span class="bench-lang-zh">相关模型</span></div>
+        <h2><span class="bench-lang-en">Same neighborhood on the leaderboard</span><span class="bench-lang-zh">榜单附近的参照物</span></h2>
       </div>
       <div class="model-related-grid">
         {% for related in page.related_models %}
         <a class="model-related-card" href="{{ site.baseurl }}{{ related.url | default: '/code-agent-bench/' }}">
-          <span>{{ related.label }}</span>
+          <span><span class="bench-lang-en">{{ related.label }}</span><span class="bench-lang-zh">{{ related.label_zh | default: related.label }}</span></span>
           <strong>{{ related.name }}</strong>
-          <em>{{ related.note }}</em>
+          <em><span class="bench-lang-en">{{ related.note }}</span><span class="bench-lang-zh">{{ related.note_zh | default: related.note }}</span></em>
         </a>
         {% endfor %}
       </div>
