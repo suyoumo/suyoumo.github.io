@@ -22,14 +22,14 @@ pass_3_rate_pct: "18.5%"
 pass_3_count: 28
 attempt_score_pct: "23.0%"
 tldr:
-  - en: "Qwen 3.7 Plus (1m) ranks #11 with a 31.21 Final Score. The headline is 43 reached tasks, but the stability number is 28 pass-in-all-three tasks."
-    zh: "Qwen 3.7 Plus (1m) 排名 #11，Final Score 为 31.21。表面信号是 43 道题至少成功一次，稳定性信号是 28 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The Qoder run shows the effect of a more opinionated coding shell around the model; stable wins and misses should be read as model-plus-tooling behavior."
-    zh: "Qoder 结果反映的是更强约束 coding shell 加模型的组合；稳定胜利和失误都更适合读成 model-plus-tooling 行为。"
+  - en: "Qwen 3.7 Plus (1m) is best read as moderately stable: rank #11, 43 reached tasks, 28 stable solves."
+    zh: "Qwen 3.7 Plus (1m) 更适合读成中等稳定型：排名 #11，触达 43 题，稳定解出 28 题。"
+  - en: "Best suite signal: Open Library · release 013 at 6/10 (60.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，6/10（60.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "Qoder adds more workflow structure around the model, so its stable wins should be read as model-plus-shell behavior."
+    zh: "Qoder 给模型外面加了更强的工作流结构，因此稳定胜利更适合读成 model-plus-shell 的组合效果。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -167,7 +167,7 @@ cases:
     label_zh: "稳定胜利"
     tone: win
     title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
+    title_zh: "\"# 从 fork 进程调用 Display.display 的输出不可靠，并暴露 shutdown 死锁风险"
     meta: "ansible/ansible · solved 3/3"
     meta_zh: "ansible/ansible · 3 次中成功 3 次"
     note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
@@ -184,21 +184,21 @@ cases:
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
+    title: "format_languages depends on web.ctx and fails with case-insensitive or ambiguous inputs."
+    title_zh: "format_languages 依赖 web.ctx，并在大小写不敏感或歧义输入下失败"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Consistent author extraction from MARC 1xx and 7xx fields and reliable linkage of alternate script names via 880"
+    title_zh: "从 MARC 1xx 和 7xx 字段一致提取作者，并通过 880 可靠链接备用文字姓名"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-015-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-015-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -222,23 +222,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-Qwen 3.7 Plus (1m) is best read through the gap between reach and repeatability. It reaches 43/151 tasks at least once, but 28/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+Qwen 3.7 Plus (1m) is a moderately stable row around the #11 slot. The useful reading is not just the 31.21 score, but the split between 43 reached tasks and 28 stable solves.
 
-In leaderboard terms, rank #11 and a 31.21 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The Qoder run shows the effect of a more opinionated coding shell around the model; stable wins and misses should be read as model-plus-tooling behavior.
+The closest family reference is Qwen 3.7 Max (1m) at rank #9. Compared with that row, this one is 0.41 points behind, with 4 fewer reached tasks and 3 more stable solves.
+
+The volume win is Open Library · release 013 at 6/10 (60.0%), while the cleanest pass-rate spike is vuls · release 012 at 3/4 (75.0%). The warning label is qutebrowser · release 018 at 0/9 (0.0%), so the contrast is not generic strength versus weakness; it is large Python/Django application repairs holding together better than browser/runtime integration around QtWebEngine behavior on this run. Qoder adds more workflow structure around the model, so its stable wins should be read as model-plus-shell behavior.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The Qoder shell tends to turn some model guesses into more disciplined patch attempts. That is why the suite profile should be compared with direct Qwen/OpenCode rows, not read as pure model capability.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+Look at `Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk` and `Feature Request: Add flag key to batch evaluation response` as shell-behavior examples. The difference is not only model knowledge; it is whether the workflow keeps the patch disciplined enough to pass.
 
-The verifier audit block below is included because this row has re-verification data.
+The verifier audit keeps 104/104 solved attempts for Qwen 3.7 Plus (1m), so the interesting question is not score inflation; it is where the model repeatedly finds the same kind of patch.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat Qwen 3.7 Plus (1m) as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 104/452; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+For Qoder-style use, the interesting part is how the shell converts model guesses into patches. Compare Open Library · release 013 at 6/10 (60.0%) with qutebrowser · release 018 at 0/9 (0.0%) before attributing the result to the base model alone. The 104/452 attempt score should be read as model plus Qoder workflow, especially when comparing it with direct Qwen rows.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -272,23 +274,25 @@ For practical use, I would treat Qwen 3.7 Plus (1m) as strongest when the task r
 
 <div class="bench-lang-zh" markdown="1">
 
-读 Qwen 3.7 Plus (1m)，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 43 题，但三次尝试都解出的只有 28 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+Qwen 3.7 Plus (1m) 是一个排名 #11 附近的中等稳定型结果。它的重点不只是 31.21 分，而是 43 道触达题和 28 道稳定题之间的差距。
 
-从排行榜数字看，排名 #11、Final Score 31.21 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。Qoder 结果反映的是更强约束 coding shell 加模型的组合；稳定胜利和失误都更适合读成 model-plus-tooling 行为。
+最接近的同系参照是排名 #9 的 Qwen 3.7 Max (1m)。和它相比，这一行最终分低 0.41 分，触达题少 4 个，稳定题多 3 个。
+
+从数量看，主要胜利来自Open Library · release 013，6/10（60.0%）；从通过率看，最干净的高点是vuls 漏洞扫描器 · release 012，3/4（75.0%）。需要警惕的是qutebrowser 浏览器 · release 018，0/9（0.0%），所以这里不是泛泛地说强弱项，而是大型 Python/Django 应用修复在这次运行中比围绕 QtWebEngine 行为的浏览器/runtime 集成更能闭环。Qoder 给模型外面加了更强的工作流结构，因此稳定胜利更适合读成 model-plus-shell 的组合效果。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+Qoder shell 往往会把部分模型猜测压成更规整的补丁尝试。所以这张 suite 图更适合和 Qwen CLI / OpenCode 行对照，而不是当作纯模型能力。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+可以把 `"# 从 fork 进程调用 Display.display 的输出不可靠，并暴露 shutdown 死锁风险` 和 `Feature Request: Add flag key to batch evaluation response` 当成 shell 行为样本：差异不只是模型懂不懂，也在于工作流能否把补丁约束到可通过状态。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+Qwen 3.7 Plus (1m) 的复核保留了 104 次成功中的 104 次，所以重点不是分数膨胀，而是模型在哪些地方能反复找到同类补丁。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 Qwen 3.7 Plus (1m) 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 104/452，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+对 Qoder-style 使用来说，重点是 shell 如何把模型猜测压成补丁。在把结果完全归因到底座模型之前，应先对照Open Library · release 013，6/10（60.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）。104/452 的单次尝试成功数应读成模型加 Qoder 工作流的结果，尤其要和直接 Qwen 行对照。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

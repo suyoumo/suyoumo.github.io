@@ -22,14 +22,14 @@ pass_3_rate_pct: "9.3%"
 pass_3_count: 14
 attempt_score_pct: "18.3%"
 tldr:
-  - en: "Qwen 3.5 plus (180k) ranks #21 with a 25.91 Final Score. The headline is 41 reached tasks, but the stability number is 14 pass-in-all-three tasks."
-    zh: "Qwen 3.5 plus (180k) 排名 #21，Final Score 为 25.91。表面信号是 41 道题至少成功一次，稳定性信号是 14 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The Qoder run shows the effect of a more opinionated coding shell around the model; stable wins and misses should be read as model-plus-tooling behavior."
-    zh: "Qoder 结果反映的是更强约束 coding shell 加模型的组合；稳定胜利和失误都更适合读成 model-plus-tooling 行为。"
+  - en: "Qwen 3.5 plus (180k) is best read as wide but retry-sensitive: rank #21, 41 reached tasks, 14 stable solves."
+    zh: "Qwen 3.5 plus (180k) 更适合读成覆盖不窄但依赖重试：排名 #21，触达 41 题，稳定解出 14 题。"
+  - en: "Best suite signal: Open Library · release 013 at 6/10 (60.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，6/10（60.0%）。"
+  - en: "Weakest visible area: Flipt · release 006 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 006，0/10（0.0%）。"
+  - en: "Qoder adds more workflow structure around the model, so its stable wins should be read as model-plus-shell behavior."
+    zh: "Qoder 给模型外面加了更强的工作流结构，因此稳定胜利更适合读成 model-plus-shell 的组合效果。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -168,39 +168,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Feature Request: Add flag key to batch evaluation response"
+    title_zh: "Feature Request: Add flag key to batch evaluation response"
+    meta: "flipt-io/flipt · solved 3/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-007-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-007-flipt-io-flipt。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    title_zh: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Inconsistency in author identifier generation when comparing editions."
+    title_zh: "比较 editions 时 author identifier 生成不一致。"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "Author Import System Cannot Utilize External Identifiers for Matching"
+    title_zh: "作者导入系统无法利用外部标识符进行匹配"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Scan summary omits OS End‑of‑Life (EOL) warnings; no EOL lookup or centralized version parsing."
+    title_zh: "扫描摘要遗漏 OS End-of-Life（EOL）警告；缺少 EOL 查询和集中式版本解析。"
+    meta: "future-architect/vuls · solved 0/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-010-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-010-future-architect-vuls。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -224,23 +224,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-Qwen 3.5 plus (180k) is best read through the gap between reach and repeatability. It reaches 41/151 tasks at least once, but 14/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+Qwen 3.5 plus (180k) is broad but volatile. It can touch 41/151 tasks, yet only 14 become 3/3 solves, so much of its value comes from retrying the same benchmark surface.
 
-In leaderboard terms, rank #21 and a 25.91 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The Qoder run shows the effect of a more opinionated coding shell around the model; stable wins and misses should be read as model-plus-tooling behavior.
+The closest family reference is Qwen 3.7 Max (1m) at rank #9. Compared with that row, this one is 5.71 points behind, with 6 fewer reached tasks and 11 fewer stable solves.
+
+The result is easiest to understand as a three-point shape: volume at Open Library · release 013 at 6/10 (60.0%), efficiency at vuls · release 012 at 3/4 (75.0%), and resistance at Flipt · release 006 at 0/10 (0.0%). Qoder adds more workflow structure around the model, so its stable wins should be read as model-plus-shell behavior.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The bars say this row has search reach, not settled mastery. The model gets into the right repos often enough, but the repeatability line is still thin.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The useful contrast is between `Feature Request: Add flag key to batch evaluation response` (flipt-io/flipt · solved 3/3) and `Inconsistency in author identifier generation when comparing editions.` (internetarchive/openlibrary · solved 2/3). The model reaches both kinds of problems, but only one becomes dependable.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 28 solved attempts from Qwen 3.5 plus (180k) but still keeps 66% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat Qwen 3.5 plus (180k) as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 83/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+Use it when breadth matters more than deterministic replay. It can find openings around Open Library · release 013 at 6/10 (60.0%), but the 27-task reach gap says a second or third run may tell a different story. The 83/453 attempt score is best read as exploration bandwidth: 41 tasks are reachable, but many need retry luck.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -274,23 +276,25 @@ For practical use, I would treat Qwen 3.5 plus (180k) as strongest when the task
 
 <div class="bench-lang-zh" markdown="1">
 
-读 Qwen 3.5 plus (180k)，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 41 题，但三次尝试都解出的只有 14 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+Qwen 3.5 plus (180k) 的特点是覆盖不窄但波动较大。它能至少一次摸到 41/151 题，但只有 14 题能做到 3/3，因此很大一部分价值来自重试。
 
-从排行榜数字看，排名 #21、Final Score 25.91 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。Qoder 结果反映的是更强约束 coding shell 加模型的组合；稳定胜利和失误都更适合读成 model-plus-tooling 行为。
+最接近的同系参照是排名 #9 的 Qwen 3.7 Max (1m)。和它相比，这一行最终分低 5.71 分，触达题少 6 个，稳定题少 11 个。
+
+这个结果最容易读成三点形状：数量在Open Library · release 013，6/10（60.0%），效率在vuls 漏洞扫描器 · release 012，3/4（75.0%），阻力在Flipt feature flag 服务 · release 006，0/10（0.0%）。Qoder 给模型外面加了更强的工作流结构，因此稳定胜利更适合读成 model-plus-shell 的组合效果。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这些柱子说明这一行有搜索触达，不等于已经掌握。模型经常能进入正确代码库，但可重复通过的线仍然偏细。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+最有用的对比是 `Feature Request: Add flag key to batch evaluation response`（flipt-io/flipt · 3 次中成功 3 次）和 `比较 editions 时 author identifier 生成不一致。`（internetarchive/openlibrary · 3 次中成功 2 次）：模型都能触达，但只有前者变成可靠结果。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 Qwen 3.5 plus (180k) 中剔除了 28 次成功，但仍保留 66% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 Qwen 3.5 plus (180k) 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 83/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+当你更看重覆盖面而不是确定复现时，它更合适。它能在Open Library · release 013，6/10（60.0%）附近找到入口，但 27 题的覆盖-稳定差说明第二、第三次运行可能给出不同结果。83/453 的单次尝试成功数更像探索带宽：41 道题能触达，但很多仍需要重试运气。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

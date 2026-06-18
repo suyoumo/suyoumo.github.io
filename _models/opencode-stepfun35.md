@@ -22,14 +22,14 @@ pass_3_rate_pct: "5.3%"
 pass_3_count: 8
 attempt_score_pct: "9.3%"
 tldr:
-  - en: "Step 3.5 flash ranks #31 with a 17.04 Final Score. The headline is 21 reached tasks, but the stability number is 8 pass-in-all-three tasks."
-    zh: "Step 3.5 flash 排名 #31，Final Score 为 17.04。表面信号是 21 道题至少成功一次，稳定性信号是 8 道题三次都成功。"
-  - en: "The strongest evidence clusters around automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs."
-    zh: "最强证据集中在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "Step 3.5 flash is best read as volatile explorer: rank #31, 21 reached tasks, 8 stable solves."
+    zh: "Step 3.5 flash 更适合读成探索型但波动较大：排名 #31，触达 21 题，稳定解出 8 题。"
+  - en: "Best suite signal: Ansible · release 003 at 4/10 (40.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 003，4/10（40.0%）。"
+  - en: "Weakest visible area: vuls · release 011 at 0/10 (0.0%)."
+    zh: "最弱可见区域：vuls 漏洞扫描器 · release 011，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Polling goroutines lack lifecycle management in storage backends"
+    title_zh: "storage 后端中的 polling goroutine 缺少生命周期管理"
+    meta: "flipt-io/flipt · solved 3/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-007-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-007-flipt-io-flipt。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-395e5e20fab9cad517243372fa3c3c5d9e09ab2a-v7eee2454f617569fd6889f2211f75bc02a35f9f8"
-    title_zh: "ansible/ansible-395e5e20fab9cad517243372fa3c3c5d9e09ab2a-v7eee2454f617569fd6889f2211f75bc02a35f9f8"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Fix: correct WordPress core CVE attribution and make vulnerability filtering operate at the CVE-collection level"
+    title_zh: "Fix: correct WordPress core CVE attribution and make vulnerability filtering operate at the CVE-collection level"
+    meta: "future-architect/vuls · solved 2/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-010-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-010-future-architect-vuls。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Enhance Kernel Version Handling for Debian Scans in Docker, or when the kernel version cannot be obtained"
+    title_zh: "增强 Docker 中 Debian 扫描的 Kernel 版本处理，或在无法获取 kernel 版本时"
+    meta: "future-architect/vuls · solved 1/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 1 次"
+    note: "Verifier pattern: apply-failed. Suite: release-zh-010-future-architect-vuls."
+    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-010-future-architect-vuls。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Redis cache backend cannot connect to TLS-enabled Redis servers without additional configuration options"
+    title_zh: "Redis 缓存后端缺少额外配置选项，无法连接启用 TLS 的 Redis 服务器"
+    meta: "flipt-io/flipt · solved 0/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 0 次"
+    note: "Verifier pattern: apply-failed. Suite: release-zh-009-flipt-io-flipt."
+    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-009-flipt-io-flipt。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-Step 3.5 flash is best read through the gap between reach and repeatability. It reaches 21/151 tasks at least once, but 8/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+Step 3.5 flash is a volatile explorer row around the #31 slot. The useful reading is not just the 17.04 score, but the split between 21 reached tasks and 8 stable solves.
 
-In leaderboard terms, rank #31 and a 17.04 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is Step 3.7 flash at rank #18. Compared with that row, this one is 10.97 points behind, with 22 fewer reached tasks and 10 fewer stable solves.
+
+The volume win is Ansible · release 003 at 4/10 (40.0%), while the cleanest pass-rate spike is vuls · release 012 at 2/4 (50.0%). The warning label is vuls · release 011 at 0/10 (0.0%), so the contrast is not generic strength versus weakness; it is automation and configuration-management work holding together better than localized Go security-scanner changes on this run. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+At this end of the table, the weak bars are more informative than the wins. They show which task families break first when the model-agent loop runs out of reliable planning.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+At this rank, `Redis cache backend cannot connect to TLS-enabled Redis servers without additional configuration options` matters as much as the wins. It shows the task shape where the model-agent loop fails before it can produce a meaningful verifier-backed patch.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 3 solved attempts from Step 3.5 flash but still keeps 93% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat Step 3.5 flash as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 42/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+This row is more useful as a failure map than as a default choice. Look at vuls · release 011 at 0/10 (0.0%) first: it shows the task shape where the loop loses traction. With 42/453 solved attempts, the page is most useful for seeing where the agent loop breaks before it becomes a dependable option.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat Step 3.5 flash as strongest when the task resem
 
 <div class="bench-lang-zh" markdown="1">
 
-读 Step 3.5 flash，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 21 题，但三次尝试都解出的只有 8 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+Step 3.5 flash 是一个排名 #31 附近的探索型但波动较大结果。它的重点不只是 17.04 分，而是 21 道触达题和 8 道稳定题之间的差距。
 
-从排行榜数字看，排名 #31、Final Score 17.04 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #18 的 Step 3.7 flash。和它相比，这一行最终分低 10.97 分，触达题少 22 个，稳定题少 10 个。
+
+从数量看，主要胜利来自Ansible 自动化 · release 003，4/10（40.0%）；从通过率看，最干净的高点是vuls 漏洞扫描器 · release 012，2/4（50.0%）。需要警惕的是vuls 漏洞扫描器 · release 011，0/10（0.0%），所以这里不是泛泛地说强弱项，而是自动化和配置管理类改动在这次运行中比边界相对清楚的 Go 漏洞扫描器改动更能闭环。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+在榜单后段，低柱子往往比胜利更有信息量。它们说明模型-agent 循环在哪些任务家族上最先失去可靠规划。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+在这个排名段，`Redis 缓存后端缺少额外配置选项，无法连接启用 TLS 的 Redis 服务器` 和成功案例一样重要。它说明模型-agent 循环在哪种任务形态上还没形成有效 verifier-backed patch。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 Step 3.5 flash 中剔除了 3 次成功，但仍保留 93% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 Step 3.5 flash 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 42/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+这一行更适合作为失败地图，而不是默认选择。先看vuls 漏洞扫描器 · release 011，0/10（0.0%）：它展示了模型-agent 循环最容易失去抓手的任务形态。在 453 次尝试中只成功 42 次时，这页最有价值的是看 agent loop 在哪里先断掉。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

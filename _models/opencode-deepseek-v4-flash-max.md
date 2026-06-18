@@ -22,14 +22,14 @@ pass_3_rate_pct: "18.5%"
 pass_3_count: 28
 attempt_score_pct: "25.8%"
 tldr:
-  - en: "DeepSeek v4 pro (max) ranks #7 with a 32.95 Final Score. The headline is 48 reached tasks, but the stability number is 28 pass-in-all-three tasks."
-    zh: "DeepSeek v4 pro (max) 排名 #7，Final Score 为 32.95。表面信号是 48 道题至少成功一次，稳定性信号是 28 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "DeepSeek v4 pro (max) is best read as moderately stable: rank #7, 48 reached tasks, 28 stable solves."
+    zh: "DeepSeek v4 pro (max) 更适合读成中等稳定型：排名 #7，触达 48 题，稳定解出 28 题。"
+  - en: "Best suite signal: Open Library · release 013 at 8/10 (80.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，8/10（80.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -166,12 +166,12 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Add Reading-Log Counts to Solr Work Documents"
+    title_zh: "向 Solr Work Documents 添加 Reading-Log Counts"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
@@ -184,21 +184,21 @@ cases:
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "OFREP Bulk Evaluation Fails When flags Context Key Is Missing"
+    title_zh: "当 flags 上下文键缺失时，OFREP 批量评估失败"
+    meta: "flipt-io/flipt · solved 1/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-005-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-005-flipt-io-flipt。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Reversible Password Encryption in Navidrome"
+    title_zh: "Navidrome 中的可逆密码加密"
+    meta: "navidrome/navidrome · solved 0/3"
+    meta_zh: "navidrome/navidrome · 3 次中成功 0 次"
+    note: "Verifier pattern: blocked-suspicious-patch. Suite: release-zh-017-navidrome-navidrome."
+    note_zh: "Verifier 信号：blocked-suspicious-patch。Suite：release-zh-017-navidrome-navidrome。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -222,23 +222,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-DeepSeek v4 pro (max) is best read through the gap between reach and repeatability. It reaches 48/151 tasks at least once, but 28/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+DeepSeek v4 pro (max) is a moderately stable row around the #7 slot. The useful reading is not just the 32.95 score, but the split between 48 reached tasks and 28 stable solves.
 
-In leaderboard terms, rank #7 and a 32.95 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is DeepSeek v4 flash (max) at rank #15. Compared with that row, this one is 3.96 points ahead, with 4 more reached tasks and 8 more stable solves.
+
+Most of the positive signal concentrates in Open Library · release 013 at 8/10 (80.0%). The opposing read is qutebrowser · release 018 at 0/9 (0.0%), which keeps the row from looking like a generalist. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+For this row, the suite bars are a contrast tool. The distance between Open Library · release 013 at 8/10 (80.0%) and qutebrowser · release 018 at 0/9 (0.0%) is the model's practical boundary.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Add Reading-Log Counts to Solr Work Documents` is the upside, `Reversible Password Encryption in Navidrome` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The verifier audit keeps 117/117 solved attempts for DeepSeek v4 pro (max), so the interesting question is not score inflation; it is where the model repeatedly finds the same kind of patch.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat DeepSeek v4 pro (max) as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 117/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Open Library · release 013 at 8/10 (80.0%) and qutebrowser · release 018 at 0/9 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 117/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -272,23 +274,25 @@ For practical use, I would treat DeepSeek v4 pro (max) as strongest when the tas
 
 <div class="bench-lang-zh" markdown="1">
 
-读 DeepSeek v4 pro (max)，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 48 题，但三次尝试都解出的只有 28 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+DeepSeek v4 pro (max) 是一个排名 #7 附近的中等稳定型结果。它的重点不只是 32.95 分，而是 48 道触达题和 28 道稳定题之间的差距。
 
-从排行榜数字看，排名 #7、Final Score 32.95 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #15 的 DeepSeek v4 flash (max)。和它相比，这一行最终分高 3.96 分，触达题多 4 个，稳定题多 8 个。
+
+正面信号大多集中在Open Library · release 013，8/10（80.0%）。反向读法是qutebrowser 浏览器 · release 018，0/9（0.0%），它让这一行看起来不像通用型。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+对这一行来说，suite 柱更像对比工具。Open Library · release 013，8/10（80.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的距离，就是模型的实用边界。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`向 Solr Work Documents 添加 Reading-Log Counts` 是上限，`Navidrome 中的可逆密码加密` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+DeepSeek v4 pro (max) 的复核保留了 117 次成功中的 117 次，所以重点不是分数膨胀，而是模型在哪些地方能反复找到同类补丁。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 DeepSeek v4 pro (max) 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 117/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Open Library · release 013，8/10（80.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。117/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

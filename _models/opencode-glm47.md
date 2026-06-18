@@ -22,14 +22,14 @@ pass_3_rate_pct: "8.6%"
 pass_3_count: 13
 attempt_score_pct: "16.1%"
 tldr:
-  - en: "GLM 4.7 ranks #27 with a 24.03 Final Score. The headline is 36 reached tasks, but the stability number is 13 pass-in-all-three tasks."
-    zh: "GLM 4.7 排名 #27，Final Score 为 24.03。表面信号是 36 道题至少成功一次，稳定性信号是 13 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "GLM 4.7 is best read as wide but retry-sensitive: rank #27, 36 reached tasks, 13 stable solves."
+    zh: "GLM 4.7 更适合读成覆盖不窄但依赖重试：排名 #27，触达 36 题，稳定解出 13 题。"
+  - en: "Best suite signal: Open Library · release 013 at 6/10 (60.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，6/10（60.0%）。"
+  - en: "Weakest visible area: Flipt · release 005 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 005，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Scan results miss Package URL (PURL) information in library output"
+    title_zh: "Library 输出中的扫描结果缺少 Package URL (PURL) 信息"
+    meta: "future-architect/vuls · solved 3/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-010-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-010-future-architect-vuls。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
-    title_zh: "ansible/ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
+    title: "Deprecation of UnsafeProxy causes inconsistency in variable wrapping"
+    title_zh: "UnsafeProxy 的弃用导致变量 unsafe 包装不一致"
     meta: "ansible/ansible · solved 2/3"
     meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "PrioritizedISBN Class Limited to ISBN Values and Lacks Proper Equality/Serialization"
+    title_zh: "PrioritizedISBN 类仅限于 ISBN 值且缺乏正确的相等性/序列化"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Add preview option to import endpoints and clarify import validation behavior"
+    title_zh: "为 import endpoints 添加 preview 选项，并明确 import validation 行为"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-014-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-GLM 4.7 is best read through the gap between reach and repeatability. It reaches 36/151 tasks at least once, but 13/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+GLM 4.7 is broad but volatile. It can touch 36/151 tasks, yet only 13 become 3/3 solves, so much of its value comes from retrying the same benchmark surface.
 
-In leaderboard terms, rank #27 and a 24.03 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is GLM 5.2 at rank #1. Compared with that row, this one is 13.56 points behind, with 21 fewer reached tasks and 23 fewer stable solves.
+
+The volume win is Open Library · release 013 at 6/10 (60.0%), while the cleanest pass-rate spike is vuls · release 012 at 3/4 (75.0%). The warning label is Flipt · release 005 at 0/10 (0.0%), so the contrast is not generic strength versus weakness; it is large Python/Django application repairs holding together better than Go product plumbing across configuration, storage, and service APIs on this run. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The important visual cue is the gap between high-reach suites and low Pass^3 counts. This model can often locate the neighborhood of the fix, but many patches do not survive three independent runs.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The useful contrast is between `Scan results miss Package URL (PURL) information in library output` (future-architect/vuls · solved 3/3) and `Deprecation of UnsafeProxy causes inconsistency in variable wrapping` (ansible/ansible · solved 2/3). The model reaches both kinds of problems, but only one becomes dependable.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 11 solved attempts from GLM 4.7 but still keeps 85% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat GLM 4.7 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 73/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+Use it when breadth matters more than deterministic replay. It can find openings around Open Library · release 013 at 6/10 (60.0%), but the 23-task reach gap says a second or third run may tell a different story. The 73/453 attempt score is best read as exploration bandwidth: 36 tasks are reachable, but many need retry luck.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat GLM 4.7 as strongest when the task resembles th
 
 <div class="bench-lang-zh" markdown="1">
 
-读 GLM 4.7，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 36 题，但三次尝试都解出的只有 13 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+GLM 4.7 的特点是覆盖不窄但波动较大。它能至少一次摸到 36/151 题，但只有 13 题能做到 3/3，因此很大一部分价值来自重试。
 
-从排行榜数字看，排名 #27、Final Score 24.03 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #1 的 GLM 5.2。和它相比，这一行最终分低 13.56 分，触达题少 21 个，稳定题少 23 个。
+
+从数量看，主要胜利来自Open Library · release 013，6/10（60.0%）；从通过率看，最干净的高点是vuls 漏洞扫描器 · release 012，3/4（75.0%）。需要警惕的是Flipt feature flag 服务 · release 005，0/10（0.0%），所以这里不是泛泛地说强弱项，而是大型 Python/Django 应用修复在这次运行中比横跨配置、存储和服务 API 的 Go 产品工程更能闭环。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这张图最重要的信号，是高触达 suite 和较低 Pass^3 之间的落差。模型经常能找到修复附近的位置，但很多补丁不能在三次独立运行中稳定复现。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+最有用的对比是 `Library 输出中的扫描结果缺少 Package URL (PURL) 信息`（future-architect/vuls · 3 次中成功 3 次）和 `UnsafeProxy 的弃用导致变量 unsafe 包装不一致`（ansible/ansible · 3 次中成功 2 次）：模型都能触达，但只有前者变成可靠结果。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 GLM 4.7 中剔除了 11 次成功，但仍保留 85% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 GLM 4.7 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 73/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+当你更看重覆盖面而不是确定复现时，它更合适。它能在Open Library · release 013，6/10（60.0%）附近找到入口，但 23 题的覆盖-稳定差说明第二、第三次运行可能给出不同结果。73/453 的单次尝试成功数更像探索带宽：36 道题能触达，但很多仍需要重试运气。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

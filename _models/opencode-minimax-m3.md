@@ -22,14 +22,14 @@ pass_3_rate_pct: "16.6%"
 pass_3_count: 25
 attempt_score_pct: "26.5%"
 tldr:
-  - en: "MiniMax M3 ranks #6 with a 33.91 Final Score. The headline is 56 reached tasks, but the stability number is 25 pass-in-all-three tasks."
-    zh: "MiniMax M3 排名 #6，Final Score 为 33.91。表面信号是 56 道题至少成功一次，稳定性信号是 25 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "MiniMax M3 is best read as volatile explorer: rank #6, 56 reached tasks, 25 stable solves."
+    zh: "MiniMax M3 更适合读成探索型但波动较大：排名 #6，触达 56 题，稳定解出 25 题。"
+  - en: "Best suite signal: Open Library · release 013 at 8/10 (80.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，8/10（80.0%）。"
+  - en: "Weakest visible area: Flipt · release 005 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 005，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -168,39 +168,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-002-ansible-ansible。"
+    title: "Booknotes are deleted when updating work_id with conflicts"
+    title_zh: "更新存在冲突的 work_id 时会删除 Booknotes"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "PowerShell CLIXML output displays escaped sequences instead of actual characters"
-    title_zh: "PowerShell CLIXML output 显示 escaped sequences，而不是实际字符"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Refactor: Remove ListMixin and consolidate list functionality"
+    title_zh: "Refactor：移除 ListMixin 并整合 list 功能"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-015-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-015-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
+    title: "Enhance Language Parsing in MARC Records"
+    title_zh: "增强 MARC 记录中的语言解析"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: blocked-suspicious-patch. Suite: release-zh-015-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：blocked-suspicious-patch。Suite：release-zh-015-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "ImportAPI does not correctly split publishers and publish_places when the publisher field contains multiple locations"
+    title_zh: "ImportAPI 在 publisher 字段包含多个位置时无法正确拆分 publishers 和 publish_places"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-013-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -224,23 +224,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-MiniMax M3 is best read through the gap between reach and repeatability. It reaches 56/151 tasks at least once, but 25/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+MiniMax M3 is a volatile explorer row around the #6 slot. The useful reading is not just the 33.91 score, but the split between 56 reached tasks and 25 stable solves.
 
-In leaderboard terms, rank #6 and a 33.91 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is MiniMax M2.5 highspeed at rank #14. Compared with that row, this one is 3.61 points ahead, with 10 more reached tasks and 3 more stable solves.
+
+The result is easiest to understand as a three-point shape: volume at Open Library · release 013 at 8/10 (80.0%), efficiency at vuls · release 012 at 4/4 (100.0%), and resistance at Flipt · release 005 at 0/10 (0.0%). Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+For this row, the suite bars are a contrast tool. The distance between Open Library · release 013 at 8/10 (80.0%) and Flipt · release 005 at 0/10 (0.0%) is the model's practical boundary.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Booknotes are deleted when updating work_id with conflicts` is the upside, `ImportAPI does not correctly split publishers and publish_places when the publisher field contains multiple locations` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit changes how to read MiniMax M3: only 57% of initial solved attempts survive, with 52 rejected attempts, while the exported score field stays flat. Treat the wins as leads that need stricter confirmation.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat MiniMax M3 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 120/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Open Library · release 013 at 8/10 (80.0%) and Flipt · release 005 at 0/10 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 120/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -274,23 +276,25 @@ For practical use, I would treat MiniMax M3 as strongest when the task resembles
 
 <div class="bench-lang-zh" markdown="1">
 
-读 MiniMax M3，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 56 题，但三次尝试都解出的只有 25 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+MiniMax M3 是一个排名 #6 附近的探索型但波动较大结果。它的重点不只是 33.91 分，而是 56 道触达题和 25 道稳定题之间的差距。
 
-从排行榜数字看，排名 #6、Final Score 33.91 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #14 的 MiniMax M2.5 highspeed。和它相比，这一行最终分高 3.61 分，触达题多 10 个，稳定题多 3 个。
+
+这个结果最容易读成三点形状：数量在Open Library · release 013，8/10（80.0%），效率在vuls 漏洞扫描器 · release 012，4/4（100.0%），阻力在Flipt feature flag 服务 · release 005，0/10（0.0%）。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+对这一行来说，suite 柱更像对比工具。Open Library · release 013，8/10（80.0%）和Flipt feature flag 服务 · release 005，0/10（0.0%）之间的距离，就是模型的实用边界。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`更新存在冲突的 work_id 时会删除 Booknotes` 是上限，`ImportAPI 在 publisher 字段包含多个位置时无法正确拆分 publishers 和 publish_places` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核改变了 MiniMax M3 的读法：初始成功只有 57% 保留下来，52 次被剔除，但当前导出的分数字段没有变化。原始胜利更适合作为线索，需要更严格确认。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 MiniMax M3 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 120/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Open Library · release 013，8/10（80.0%）和Flipt feature flag 服务 · release 005，0/10（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。120/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

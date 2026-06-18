@@ -22,14 +22,14 @@ pass_3_rate_pct: "11.3%"
 pass_3_count: 17
 attempt_score_pct: "15.0%"
 tldr:
-  - en: "KAT Coder Pro v2 ranks #28 with a 23.47 Final Score. The headline is 29 reached tasks, but the stability number is 17 pass-in-all-three tasks."
-    zh: "KAT Coder Pro v2 排名 #28，Final Score 为 23.47。表面信号是 29 道题至少成功一次，稳定性信号是 17 道题三次都成功。"
-  - en: "The strongest evidence clusters around automation and configuration-management work plus localized Go security-scanner changes."
-    zh: "最强证据集中在自动化和配置管理类改动以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "KAT Coder Pro v2 is best read as moderately stable: rank #28, 29 reached tasks, 17 stable solves."
+    zh: "KAT Coder Pro v2 更适合读成中等稳定型：排名 #28，触达 29 题，稳定解出 17 题。"
+  - en: "Best suite signal: Ansible · release 001 at 4/10 (40.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 001，4/10（40.0%）。"
+  - en: "Weakest visible area: Open Library · release 013 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Open Library · release 013，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Severity values from Debian Security Tracker differ between repeated scans"
+    title_zh: "Debian Security Tracker 的 severity 值在重复扫描之间不同"
+    meta: "future-architect/vuls · solved 3/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-012-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-012-future-architect-vuls。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    title_zh: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "[Bug]: Cache Middleware Causing Authorization Bypass and Performance Issues"
+    title_zh: "[Bug]: Cache Middleware Causing Authorization Bypass and Performance Issues"
+    meta: "flipt-io/flipt · solved 2/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-008-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-008-flipt-io-flipt。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
+    title: "Identify CentOS Stream from CentOS to prevent incorrect EOL status and inaccurate vulnerability lookups"
+    title_zh: "从 CentOS 中识别 CentOS Stream，以防止 EOL 状态错误和漏洞查询不准确"
+    meta: "future-architect/vuls · solved 1/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 1 次"
+    note: "Verifier pattern: apply-failed. Suite: release-zh-011-future-architect-vuls."
+    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-011-future-architect-vuls。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Host blocking does not apply to subdomains when only the parent domain is listed"
+    title_zh: "当只在主域名中列出父域时，基于 hosts 的屏蔽方式不会对其子域名生效。请修复该问题，使父域名规则能正确影响相关子域，同时仍然遵守现有的内容屏蔽开关和白名单逻辑。"
+    meta: "qutebrowser/qutebrowser · solved 0/3"
+    meta_zh: "qutebrowser/qutebrowser · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-018-qutebrowser-qutebrowser."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-018-qutebrowser-qutebrowser。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-KAT Coder Pro v2 is best read through the gap between reach and repeatability. It reaches 29/151 tasks at least once, but 17/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+KAT Coder Pro v2 is a moderately stable row around the #28 slot. The useful reading is not just the 23.47 score, but the split between 29 reached tasks and 17 stable solves.
 
-In leaderboard terms, rank #28 and a 23.47 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is automation and configuration-management work plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is KAT Coder Pro v2 at rank #19. Compared with that row, this one is 4.50 points behind, with 10 fewer reached tasks and 4 fewer stable solves.
+
+The volume win is Ansible · release 001 at 4/10 (40.0%), while the cleanest pass-rate spike is vuls · release 012 at 3/4 (75.0%). The warning label is Open Library · release 013 at 0/10 (0.0%), so the contrast is not generic strength versus weakness; it is automation and configuration-management work holding together better than large Python/Django application repairs on this run. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+At this end of the table, the weak bars are more informative than the wins. They show which task families break first when the model-agent loop runs out of reliable planning.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+At this rank, `Host blocking does not apply to subdomains when only the parent domain is listed` matters as much as the wins. It shows the task shape where the model-agent loop fails before it can produce a meaningful verifier-backed patch.
 
-The verifier audit block below is included because this row has re-verification data.
+The verifier audit keeps 68/68 solved attempts for KAT Coder Pro v2, so the interesting question is not score inflation; it is where the model repeatedly finds the same kind of patch.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat KAT Coder Pro v2 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 68/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+This row is more useful as a failure map than as a default choice. Look at Open Library · release 013 at 0/10 (0.0%) first: it shows the task shape where the loop loses traction. With 68/453 solved attempts, the page is most useful for seeing where the agent loop breaks before it becomes a dependable option.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat KAT Coder Pro v2 as strongest when the task res
 
 <div class="bench-lang-zh" markdown="1">
 
-读 KAT Coder Pro v2，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 29 题，但三次尝试都解出的只有 17 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+KAT Coder Pro v2 是一个排名 #28 附近的中等稳定型结果。它的重点不只是 23.47 分，而是 29 道触达题和 17 道稳定题之间的差距。
 
-从排行榜数字看，排名 #28、Final Score 23.47 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在自动化和配置管理类改动以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #19 的 KAT Coder Pro v2。和它相比，这一行最终分低 4.50 分，触达题少 10 个，稳定题少 4 个。
+
+从数量看，主要胜利来自Ansible 自动化 · release 001，4/10（40.0%）；从通过率看，最干净的高点是vuls 漏洞扫描器 · release 012，3/4（75.0%）。需要警惕的是Open Library · release 013，0/10（0.0%），所以这里不是泛泛地说强弱项，而是自动化和配置管理类改动在这次运行中比大型 Python/Django 应用修复更能闭环。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+在榜单后段，低柱子往往比胜利更有信息量。它们说明模型-agent 循环在哪些任务家族上最先失去可靠规划。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+在这个排名段，`当只在主域名中列出父域时，基于 hosts 的屏蔽方式不会对其子域名生效。请修复该问题，使父域名规则能正确影响相关子域，同时仍然遵守现有的内容屏蔽开关和白名单逻辑。` 和成功案例一样重要。它说明模型-agent 循环在哪种任务形态上还没形成有效 verifier-backed patch。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+KAT Coder Pro v2 的复核保留了 68 次成功中的 68 次，所以重点不是分数膨胀，而是模型在哪些地方能反复找到同类补丁。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 KAT Coder Pro v2 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 68/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+这一行更适合作为失败地图，而不是默认选择。先看Open Library · release 013，0/10（0.0%）：它展示了模型-agent 循环最容易失去抓手的任务形态。在 453 次尝试中只成功 68 次时，这页最有价值的是看 agent loop 在哪里先断掉。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

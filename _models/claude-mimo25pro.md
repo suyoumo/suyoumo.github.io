@@ -22,14 +22,14 @@ pass_3_rate_pct: "16.6%"
 pass_3_count: 25
 attempt_score_pct: "22.7%"
 tldr:
-  - en: "MiMo v2.5 pro ranks #12 with a 30.69 Final Score. The headline is 44 reached tasks, but the stability number is 25 pass-in-all-three tasks."
-    zh: "MiMo v2.5 pro 排名 #12，Final Score 为 30.69。表面信号是 44 道题至少成功一次，稳定性信号是 25 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The Claude Code run is useful for comparing agent orchestration against OpenCode/Qoder-style shells on the same 151-task surface."
-    zh: "Claude Code 结果适合拿来和 OpenCode、Qoder 这类 shell 在同一组 151 题上对比 agent 编排差异。"
+  - en: "MiMo v2.5 pro is best read as moderately stable: rank #12, 44 reached tasks, 25 stable solves."
+    zh: "MiMo v2.5 pro 更适合读成中等稳定型：排名 #12，触达 44 题，稳定解出 25 题。"
+  - en: "Best suite signal: Open Library · release 013 at 8/10 (80.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，8/10（80.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "Claude Code gives this row a different orchestration profile from OpenCode and Qoder, which is useful when comparing the same model family across shells."
+    zh: "Claude Code 让这一行有别于 OpenCode 和 Qoder 的编排形态，适合观察同类模型跨 shell 的差异。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -164,39 +164,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Polling goroutines lack lifecycle management in storage backends"
+    title_zh: "storage 后端中的 polling goroutine 缺少生命周期管理"
+    meta: "flipt-io/flipt · solved 3/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-007-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-007-flipt-io-flipt。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Unify validation in add_book by removing override, with the sole exception of 'promise items'"
+    title_zh: "在 add_book 中通过移除 override 来统一验证，唯一例外是 promise items"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-016-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-016-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "Booknotes are deleted when updating work_id with conflicts"
+    title_zh: "更新存在冲突的 work_id 时会删除 Booknotes"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
+    title: "module_defaults of the underlying module are not applied when invoked via action plugins (gather_facts, package, service)"
+    title_zh: "通过 action plugins（gather_facts、package、service）调用时，底层 module 的 module_defaults 没有被应用"
     meta: "ansible/ansible · solved 0/3"
     meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -220,23 +220,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-MiMo v2.5 pro is best read through the gap between reach and repeatability. It reaches 44/151 tasks at least once, but 25/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+MiMo v2.5 pro is a moderately stable row around the #12 slot. The useful reading is not just the 30.69 score, but the split between 44 reached tasks and 25 stable solves.
 
-In leaderboard terms, rank #12 and a 30.69 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The Claude Code run is useful for comparing agent orchestration against OpenCode/Qoder-style shells on the same 151-task surface.
+The closest family reference is MiMo v2.5 pro (high) at rank #13. Compared with that row, this one is 0.39 points ahead, with 2 fewer reached tasks and 3 more stable solves.
+
+Most of the positive signal concentrates in Open Library · release 013 at 8/10 (80.0%). The opposing read is qutebrowser · release 018 at 0/9 (0.0%), which keeps the row from looking like a generalist. Claude Code gives this row a different orchestration profile from OpenCode and Qoder, which is useful when comparing the same model family across shells.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+For this row, the suite bars are a contrast tool. The distance between Open Library · release 013 at 8/10 (80.0%) and qutebrowser · release 018 at 0/9 (0.0%) is the model's practical boundary.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Polling goroutines lack lifecycle management in storage backends` is the upside, `module_defaults of the underlying module are not applied when invoked via action plugins (gather_facts, package, service)` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 29 solved attempts from MiMo v2.5 pro but still keeps 72% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat MiMo v2.5 pro as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 103/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Open Library · release 013 at 8/10 (80.0%) and qutebrowser · release 018 at 0/9 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 103/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -270,23 +272,25 @@ For practical use, I would treat MiMo v2.5 pro as strongest when the task resemb
 
 <div class="bench-lang-zh" markdown="1">
 
-读 MiMo v2.5 pro，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 44 题，但三次尝试都解出的只有 25 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+MiMo v2.5 pro 是一个排名 #12 附近的中等稳定型结果。它的重点不只是 30.69 分，而是 44 道触达题和 25 道稳定题之间的差距。
 
-从排行榜数字看，排名 #12、Final Score 30.69 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。Claude Code 结果适合拿来和 OpenCode、Qoder 这类 shell 在同一组 151 题上对比 agent 编排差异。
+最接近的同系参照是排名 #13 的 MiMo v2.5 pro (high)。和它相比，这一行最终分高 0.39 分，触达题少 2 个，稳定题多 3 个。
+
+正面信号大多集中在Open Library · release 013，8/10（80.0%）。反向读法是qutebrowser 浏览器 · release 018，0/9（0.0%），它让这一行看起来不像通用型。Claude Code 让这一行有别于 OpenCode 和 Qoder 的编排形态，适合观察同类模型跨 shell 的差异。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+对这一行来说，suite 柱更像对比工具。Open Library · release 013，8/10（80.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的距离，就是模型的实用边界。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`storage 后端中的 polling goroutine 缺少生命周期管理` 是上限，`通过 action plugins（gather_facts、package、service）调用时，底层 module 的 module_defaults 没有被应用` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 MiMo v2.5 pro 中剔除了 29 次成功，但仍保留 72% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 MiMo v2.5 pro 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 103/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Open Library · release 013，8/10（80.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。103/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

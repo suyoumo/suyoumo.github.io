@@ -22,14 +22,14 @@ pass_3_rate_pct: "23.2%"
 pass_3_count: 35
 attempt_score_pct: "30.0%"
 tldr:
-  - en: "GPT 5.4 (xhigh) ranks #3 with a 36.79 Final Score. The headline is 55 reached tasks, but the stability number is 35 pass-in-all-three tasks."
-    zh: "GPT 5.4 (xhigh) 排名 #3，Final Score 为 36.79。表面信号是 55 道题至少成功一次，稳定性信号是 35 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The Codex run is a useful reference point for what high-consistency, high-token search looks like in this suite."
-    zh: "Codex 这一组很适合作为参照：它代表了高一致性、高 token 搜索在这个 suite 里的表现形状。"
+  - en: "GPT 5.4 (xhigh) is best read as front-runner with a balanced profile: rank #3, 55 reached tasks, 35 stable solves."
+    zh: "GPT 5.4 (xhigh) 更适合读成第一梯队里的均衡型：排名 #3，触达 55 题，稳定解出 35 题。"
+  - en: "Best suite signal: Open Library · release 013 at 9/10 (90.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，9/10（90.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "This Codex row searches broadly, but the lower repeatability says several wins still depend on one successful trajectory."
+    zh: "这一行 Codex 搜索面很宽，但较低的重复稳定性说明不少胜利仍依赖某一次成功轨迹。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -166,39 +166,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Refactor build_marc() into expand_record() and relocate to catalog/utils for clarity and reuse"
+    title_zh: "将 build_marc() 重构为 expand_record() 并迁移至 catalog/utils 以提升清晰度与复用性"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Rollout audit logs lack necessary fields for segment information"
+    title_zh: "Rollout 审计日志缺少表示 segment 信息所需的字段"
+    meta: "flipt-io/flipt · solved 2/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-009-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-009-flipt-io-flipt。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Add per-package modularitylabel field for Red Hat–based systems"
+    title_zh: "为 Red Hat-based systems 添加 per-package modularitylabel field"
+    meta: "future-architect/vuls · solved 1/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 1 次"
+    note: "Verifier pattern: apply-failed. Suite: release-zh-011-future-architect-vuls."
+    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-011-future-architect-vuls。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Incomplete and Inconsistent Extraction of Alternate Script (880) Fields and Related MARC Data"
+    title_zh: "交替书写（880）字段及相关 MARC 数据提取不完整且不一致"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-014-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -216,23 +216,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-GPT 5.4 (xhigh) is best read through the gap between reach and repeatability. It reaches 55/151 tasks at least once, but 35/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+GPT 5.4 (xhigh) belongs in the leading cluster because it keeps both breadth and stability in play: 55 reached tasks, 35 stable solves, and a 36.79 Final Score.
 
-In leaderboard terms, rank #3 and a 36.79 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The Codex run is a useful reference point for what high-consistency, high-token search looks like in this suite.
+The closest family reference is GPT 5.5 (xhigh) at rank #2. Compared with that row, this one is 0.09 points behind, with 4 more reached tasks and 5 fewer stable solves.
+
+The profile has one obvious anchor: Open Library · release 013 at 9/10 (90.0%). That anchor matters because qutebrowser · release 018 at 0/9 (0.0%) shows the score does not generalize evenly across the benchmark. This Codex row searches broadly, but the lower repeatability says several wins still depend on one successful trajectory.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+At the front of the board, the chart is a fingerprint. The score is close to peers, so the repo distribution says more than the rank delta.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The cases are useful because top rows can look similar in aggregate. `Refactor build_marc() into expand_record() and relocate to catalog/utils for clarity and reuse` shows the reliable core; `Rollout audit logs lack necessary fields for segment information` shows the remaining edge of variance.
 
-The verifier audit block below is included because this row has re-verification data.
+The verifier audit keeps 136/136 solved attempts for GPT 5.4 (xhigh), so the interesting question is not score inflation; it is where the model repeatedly finds the same kind of patch.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat GPT 5.4 (xhigh) as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 136/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Open Library · release 013 at 9/10 (90.0%) and qutebrowser · release 018 at 0/9 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 136/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -266,23 +268,25 @@ For practical use, I would treat GPT 5.4 (xhigh) as strongest when the task rese
 
 <div class="bench-lang-zh" markdown="1">
 
-读 GPT 5.4 (xhigh)，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 55 题，但三次尝试都解出的只有 35 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+GPT 5.4 (xhigh) 能进入第一梯队，是因为覆盖和稳定性都没有掉队：至少一次解出 55 题，稳定解出 35 题，Final Score 36.79。
 
-从排行榜数字看，排名 #3、Final Score 36.79 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。Codex 这一组很适合作为参照：它代表了高一致性、高 token 搜索在这个 suite 里的表现形状。
+最接近的同系参照是排名 #2 的 GPT 5.5 (xhigh)。和它相比，这一行最终分低 0.09 分，触达题多 4 个，稳定题少 5 个。
+
+这组画像有一个明显锚点：Open Library · release 013，9/10（90.0%）。这个锚点重要，是因为qutebrowser 浏览器 · release 018，0/9（0.0%）说明分数没有均匀迁移到整套 benchmark。这一行 Codex 搜索面很宽，但较低的重复稳定性说明不少胜利仍依赖某一次成功轨迹。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+在榜单前排，这张图更像指纹。分数和相邻模型很接近，因此代码库分布比分差更说明问题。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+前排模型在总分上容易看起来相似，所以案例很关键：`将 build_marc() 重构为 expand_record() 并迁移至 catalog/utils 以提升清晰度与复用性` 展示可靠核心，`Rollout 审计日志缺少表示 segment 信息所需的字段` 展示剩余波动边界。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+GPT 5.4 (xhigh) 的复核保留了 136 次成功中的 136 次，所以重点不是分数膨胀，而是模型在哪些地方能反复找到同类补丁。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 GPT 5.4 (xhigh) 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 136/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Open Library · release 013，9/10（90.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。136/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

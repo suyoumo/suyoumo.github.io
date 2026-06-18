@@ -22,14 +22,14 @@ pass_3_rate_pct: "8.6%"
 pass_3_count: 13
 attempt_score_pct: "16.1%"
 tldr:
-  - en: "Step 3.5 flash 2603 ranks #26 with a 24.21 Final Score. The headline is 37 reached tasks, but the stability number is 13 pass-in-all-three tasks."
-    zh: "Step 3.5 flash 2603 排名 #26，Final Score 为 24.21。表面信号是 37 道题至少成功一次，稳定性信号是 13 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "Step 3.5 flash 2603 is best read as wide but retry-sensitive: rank #26, 37 reached tasks, 13 stable solves."
+    zh: "Step 3.5 flash 2603 更适合读成覆盖不窄但依赖重试：排名 #26，触达 37 题，稳定解出 13 题。"
+  - en: "Best suite signal: Ansible · release 003 at 3/10 (30.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 003，3/10（30.0%）。"
+  - en: "Weakest visible area: Ansible · release 002 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Ansible 自动化 · release 002，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Scan results miss Package URL (PURL) information in library output"
+    title_zh: "Library 输出中的扫描结果缺少 Package URL (PURL) 信息"
+    meta: "future-architect/vuls · solved 3/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-010-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-010-future-architect-vuls。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-1a4644ff15355fd696ac5b9d074a566a80fe7ca3-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
-    title_zh: "ansible/ansible-1a4644ff15355fd696ac5b9d074a566a80fe7ca3-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Consolidate ListMixin into List to Simplify List Model Structure and Maintenance"
+    title_zh: "将 ListMixin 合并到 List 以简化 List 模型结构维护"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-016-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-016-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    title_zh: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Inconsistent return type of update_key in Solr updaters"
+    title_zh: "Solr updaters 中 update_key 返回类型不一致"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: no-op-patch. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：no-op-patch。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Limited Extensibility and Standardization in Audit Log Sinking Mechanism"
+    title_zh: "Audit log sink 机制的可扩展性和标准化不足"
+    meta: "flipt-io/flipt · solved 0/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 0 次"
+    note: "Verifier pattern: no-op-patch. Suite: release-zh-007-flipt-io-flipt."
+    note_zh: "Verifier 信号：no-op-patch。Suite：release-zh-007-flipt-io-flipt。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-Step 3.5 flash 2603 is best read through the gap between reach and repeatability. It reaches 37/151 tasks at least once, but 13/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+Step 3.5 flash 2603 is broad but volatile. It can touch 37/151 tasks, yet only 13 become 3/3 solves, so much of its value comes from retrying the same benchmark surface.
 
-In leaderboard terms, rank #26 and a 24.21 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is Step 3.7 flash at rank #18. Compared with that row, this one is 3.79 points behind, with 6 fewer reached tasks and 5 fewer stable solves.
+
+The result is easiest to understand as a three-point shape: volume at Ansible · release 003 at 3/10 (30.0%), efficiency at Open Library · release 016 at 2/5 (40.0%), and resistance at Ansible · release 002 at 0/10 (0.0%). Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The bars say this row has search reach, not settled mastery. The model gets into the right repos often enough, but the repeatability line is still thin.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The useful contrast is between `Scan results miss Package URL (PURL) information in library output` (future-architect/vuls · solved 3/3) and `Consolidate ListMixin into List to Simplify List Model Structure and Maintenance` (internetarchive/openlibrary · solved 2/3). The model reaches both kinds of problems, but only one becomes dependable.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit changes how to read Step 3.5 flash 2603: only 37% of initial solved attempts survive, with 46 rejected attempts, while the exported score field stays flat. Treat the wins as leads that need stricter confirmation.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat Step 3.5 flash 2603 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 73/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+Use it when breadth matters more than deterministic replay. It can find openings around Ansible · release 003 at 3/10 (30.0%), but the 24-task reach gap says a second or third run may tell a different story. The 73/453 attempt score is best read as exploration bandwidth: 37 tasks are reachable, but many need retry luck.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat Step 3.5 flash 2603 as strongest when the task 
 
 <div class="bench-lang-zh" markdown="1">
 
-读 Step 3.5 flash 2603，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 37 题，但三次尝试都解出的只有 13 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+Step 3.5 flash 2603 的特点是覆盖不窄但波动较大。它能至少一次摸到 37/151 题，但只有 13 题能做到 3/3，因此很大一部分价值来自重试。
 
-从排行榜数字看，排名 #26、Final Score 24.21 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #18 的 Step 3.7 flash。和它相比，这一行最终分低 3.79 分，触达题少 6 个，稳定题少 5 个。
+
+这个结果最容易读成三点形状：数量在Ansible 自动化 · release 003，3/10（30.0%），效率在Open Library · release 016，2/5（40.0%），阻力在Ansible 自动化 · release 002，0/10（0.0%）。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这些柱子说明这一行有搜索触达，不等于已经掌握。模型经常能进入正确代码库，但可重复通过的线仍然偏细。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+最有用的对比是 `Library 输出中的扫描结果缺少 Package URL (PURL) 信息`（future-architect/vuls · 3 次中成功 3 次）和 `将 ListMixin 合并到 List 以简化 List 模型结构维护`（internetarchive/openlibrary · 3 次中成功 2 次）：模型都能触达，但只有前者变成可靠结果。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核改变了 Step 3.5 flash 2603 的读法：初始成功只有 37% 保留下来，46 次被剔除，但当前导出的分数字段没有变化。原始胜利更适合作为线索，需要更严格确认。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 Step 3.5 flash 2603 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 73/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+当你更看重覆盖面而不是确定复现时，它更合适。它能在Ansible 自动化 · release 003，3/10（30.0%）附近找到入口，但 24 题的覆盖-稳定差说明第二、第三次运行可能给出不同结果。73/453 的单次尝试成功数更像探索带宽：37 道题能触达，但很多仍需要重试运气。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

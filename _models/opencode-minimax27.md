@@ -22,14 +22,14 @@ pass_3_rate_pct: "9.9%"
 pass_3_count: 15
 attempt_score_pct: "16.8%"
 tldr:
-  - en: "MiniMax M2.7 highspeed ranks #23 with a 25.24 Final Score. The headline is 38 reached tasks, but the stability number is 15 pass-in-all-three tasks."
-    zh: "MiniMax M2.7 highspeed 排名 #23，Final Score 为 25.24。表面信号是 38 道题至少成功一次，稳定性信号是 15 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "MiniMax M2.7 highspeed is best read as wide but retry-sensitive: rank #23, 38 reached tasks, 15 stable solves."
+    zh: "MiniMax M2.7 highspeed 更适合读成覆盖不窄但依赖重试：排名 #23，触达 38 题，稳定解出 15 题。"
+  - en: "Best suite signal: Open Library · release 013 at 6/10 (60.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，6/10（60.0%）。"
+  - en: "Weakest visible area: Flipt · release 006 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 006，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,21 +170,21 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "ansible/ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
-    title_zh: "ansible/ansible-0ea40e09d1b35bcb69ff4d9cecf3d0defa4b36e8-v30a923fb5c164d6cd18280c02422f75e611e8fb2"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Inconsistent return type of update_key in Solr updaters"
+    title_zh: "Solr updaters 中 update_key 返回类型不一致"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Identify CentOS Stream from CentOS to prevent incorrect EOL status and inaccurate vulnerability lookups"
+    title_zh: "从 CentOS 中识别 CentOS Stream，以防止 EOL 状态错误和漏洞查询不准确"
+    meta: "future-architect/vuls · solved 2/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-011-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-011-future-architect-vuls。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
@@ -197,12 +197,12 @@ cases:
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: no-op-patch. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：no-op-patch。Suite：release-zh-003-ansible-ansible。"
+    title: "Enable Runtime Configuration and URL Pattern Support for Dark Mode Setting on QtWebEngine 6.7+"
+    title_zh: "为 QtWebEngine 6.7+ 的暗色模式设置启用运行时配置和 URL pattern 支持"
+    meta: "qutebrowser/qutebrowser · solved 0/3"
+    meta_zh: "qutebrowser/qutebrowser · 3 次中成功 0 次"
+    note: "Verifier pattern: no-op-patch. Suite: release-zh-018-qutebrowser-qutebrowser."
+    note_zh: "Verifier 信号：no-op-patch。Suite：release-zh-018-qutebrowser-qutebrowser。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-MiniMax M2.7 highspeed is best read through the gap between reach and repeatability. It reaches 38/151 tasks at least once, but 15/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+MiniMax M2.7 highspeed is broad but volatile. It can touch 38/151 tasks, yet only 15 become 3/3 solves, so much of its value comes from retrying the same benchmark surface.
 
-In leaderboard terms, rank #23 and a 25.24 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is MiniMax M3 at rank #6. Compared with that row, this one is 8.67 points behind, with 18 fewer reached tasks and 10 fewer stable solves.
+
+The profile has one obvious anchor: Open Library · release 013 at 6/10 (60.0%). That anchor matters because Flipt · release 006 at 0/10 (0.0%) shows the score does not generalize evenly across the benchmark. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+Read the bars as a volatility chart: Open Library · release 013 at 6/10 (60.0%) shows the upside, while the Pass^3 gap explains why the same row can feel much weaker on a single rerun.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The useful contrast is between `Inconsistent return type of update_key in Solr updaters` (internetarchive/openlibrary · solved 3/3) and `Identify CentOS Stream from CentOS to prevent incorrect EOL status and inaccurate vulnerability lookups` (future-architect/vuls · solved 2/3). The model reaches both kinds of problems, but only one becomes dependable.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 2 solved attempts from MiniMax M2.7 highspeed but still keeps 97% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat MiniMax M2.7 highspeed as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 76/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+Use it when breadth matters more than deterministic replay. It can find openings around Open Library · release 013 at 6/10 (60.0%), but the 23-task reach gap says a second or third run may tell a different story. The 76/453 attempt score is best read as exploration bandwidth: 38 tasks are reachable, but many need retry luck.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat MiniMax M2.7 highspeed as strongest when the ta
 
 <div class="bench-lang-zh" markdown="1">
 
-读 MiniMax M2.7 highspeed，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 38 题，但三次尝试都解出的只有 15 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+MiniMax M2.7 highspeed 的特点是覆盖不窄但波动较大。它能至少一次摸到 38/151 题，但只有 15 题能做到 3/3，因此很大一部分价值来自重试。
 
-从排行榜数字看，排名 #23、Final Score 25.24 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #6 的 MiniMax M3。和它相比，这一行最终分低 8.67 分，触达题少 18 个，稳定题少 10 个。
+
+这组画像有一个明显锚点：Open Library · release 013，6/10（60.0%）。这个锚点重要，是因为Flipt feature flag 服务 · release 006，0/10（0.0%）说明分数没有均匀迁移到整套 benchmark。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这张图更像波动率图：Open Library · release 013，6/10（60.0%）展示上限，而 Pass^3 落差解释了为什么单次重跑会显得弱很多。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+最有用的对比是 `Solr updaters 中 update_key 返回类型不一致`（internetarchive/openlibrary · 3 次中成功 3 次）和 `从 CentOS 中识别 CentOS Stream，以防止 EOL 状态错误和漏洞查询不准确`（future-architect/vuls · 3 次中成功 2 次）：模型都能触达，但只有前者变成可靠结果。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 MiniMax M2.7 highspeed 中剔除了 2 次成功，但仍保留 97% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 MiniMax M2.7 highspeed 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 76/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+当你更看重覆盖面而不是确定复现时，它更合适。它能在Open Library · release 013，6/10（60.0%）附近找到入口，但 23 题的覆盖-稳定差说明第二、第三次运行可能给出不同结果。76/453 的单次尝试成功数更像探索带宽：38 道题能触达，但很多仍需要重试运气。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

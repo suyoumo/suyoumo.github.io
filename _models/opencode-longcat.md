@@ -22,14 +22,14 @@ pass_3_rate_pct: "11.3%"
 pass_3_count: 17
 attempt_score_pct: "16.6%"
 tldr:
-  - en: "LongCat 2.0 Preview ranks #25 with a 24.78 Final Score. The headline is 33 reached tasks, but the stability number is 17 pass-in-all-three tasks."
-    zh: "LongCat 2.0 Preview 排名 #25，Final Score 为 24.78。表面信号是 33 道题至少成功一次，稳定性信号是 17 道题三次都成功。"
-  - en: "The strongest evidence clusters around automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs."
-    zh: "最强证据集中在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "LongCat 2.0 Preview is best read as volatile explorer: rank #25, 33 reached tasks, 17 stable solves."
+    zh: "LongCat 2.0 Preview 更适合读成探索型但波动较大：排名 #25，触达 33 题，稳定解出 17 题。"
+  - en: "Best suite signal: Ansible · release 003 at 5/10 (50.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 003，5/10（50.0%）。"
+  - en: "Weakest visible area: Open Library · release 015 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Open Library · release 015，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Refactor build_marc() into expand_record() and relocate to catalog/utils for clarity and reuse"
+    title_zh: "将 build_marc() 重构为 expand_record() 并迁移至 catalog/utils 以提升清晰度与复用性"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-014-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
+    title: "Python module shebang not honored; interpreter forced to /usr/bin/python"
+    title_zh: "Python module shebang 未被遵守；interpreter 被强制为 /usr/bin/python"
     meta: "ansible/ansible · solved 2/3"
     meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-002-ansible-ansible."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-002-ansible-ansible。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "ansible/ansible-5640093f1ca63fd6af231cc8a7fb7d40e1907b8c-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
-    title_zh: "ansible/ansible-5640093f1ca63fd6af231cc8a7fb7d40e1907b8c-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
+    title: "ansible.builtin.password fails on subsequent runs when ident is saved in the password file."
+    title_zh: "当 ident 保存在 password file 中时，ansible.builtin.password 在后续运行中失败"
     meta: "ansible/ansible · solved 1/3"
     meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
+    title: "Add Support for Galaxy Server Configuration in ansible-config Command"
+    title_zh: "在 ansible-config command 中支持 Galaxy Server Configuration"
     meta: "ansible/ansible · solved 0/3"
     meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-LongCat 2.0 Preview is best read through the gap between reach and repeatability. It reaches 33/151 tasks at least once, but 17/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+LongCat 2.0 Preview is a volatile explorer row around the #25 slot. The useful reading is not just the 24.78 score, but the split between 33 reached tasks and 17 stable solves.
 
-In leaderboard terms, rank #25 and a 24.78 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is MiMo v2.5 at rank #24. Compared with that row, this one is 0.46 points behind, with the same reached tasks and 1 fewer stable solves.
+
+The result is easiest to understand as a three-point shape: volume at Ansible · release 003 at 5/10 (50.0%), efficiency at vuls · release 012 at 3/4 (75.0%), and resistance at Open Library · release 015 at 0/10 (0.0%). Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+For this row, the suite bars are a contrast tool. The distance between Ansible · release 003 at 5/10 (50.0%) and Open Library · release 015 at 0/10 (0.0%) is the model's practical boundary.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Refactor build_marc() into expand_record() and relocate to catalog/utils for clarity and reuse` is the upside, `Add Support for Galaxy Server Configuration in ansible-config Command` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 6 solved attempts from LongCat 2.0 Preview but still keeps 92% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat LongCat 2.0 Preview as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 75/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Ansible · release 003 at 5/10 (50.0%) and Open Library · release 015 at 0/10 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 75/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat LongCat 2.0 Preview as strongest when the task 
 
 <div class="bench-lang-zh" markdown="1">
 
-读 LongCat 2.0 Preview，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 33 题，但三次尝试都解出的只有 17 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+LongCat 2.0 Preview 是一个排名 #25 附近的探索型但波动较大结果。它的重点不只是 24.78 分，而是 33 道触达题和 17 道稳定题之间的差距。
 
-从排行榜数字看，排名 #25、Final Score 24.78 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #24 的 MiMo v2.5。和它相比，这一行最终分低 0.46 分，触达题持平，稳定题少 1 个。
+
+这个结果最容易读成三点形状：数量在Ansible 自动化 · release 003，5/10（50.0%），效率在vuls 漏洞扫描器 · release 012，3/4（75.0%），阻力在Open Library · release 015，0/10（0.0%）。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+对这一行来说，suite 柱更像对比工具。Ansible 自动化 · release 003，5/10（50.0%）和Open Library · release 015，0/10（0.0%）之间的距离，就是模型的实用边界。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`将 build_marc() 重构为 expand_record() 并迁移至 catalog/utils 以提升清晰度与复用性` 是上限，`在 ansible-config command 中支持 Galaxy Server Configuration` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 LongCat 2.0 Preview 中剔除了 6 次成功，但仍保留 92% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 LongCat 2.0 Preview 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 75/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Ansible 自动化 · release 003，5/10（50.0%）和Open Library · release 015，0/10（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。75/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

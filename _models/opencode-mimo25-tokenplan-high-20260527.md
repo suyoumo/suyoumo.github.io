@@ -22,14 +22,14 @@ pass_3_rate_pct: "11.9%"
 pass_3_count: 18
 attempt_score_pct: "17.2%"
 tldr:
-  - en: "MiMo v2.5 ranks #24 with a 25.24 Final Score. The headline is 33 reached tasks, but the stability number is 18 pass-in-all-three tasks."
-    zh: "MiMo v2.5 排名 #24，Final Score 为 25.24。表面信号是 33 道题至少成功一次，稳定性信号是 18 道题三次都成功。"
-  - en: "The strongest evidence clusters around automation and configuration-management work plus localized Go security-scanner changes."
-    zh: "最强证据集中在自动化和配置管理类改动以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "MiMo v2.5 is best read as moderately stable: rank #24, 33 reached tasks, 18 stable solves."
+    zh: "MiMo v2.5 更适合读成中等稳定型：排名 #24，触达 33 题，稳定解出 18 题。"
+  - en: "Best suite signal: Ansible · release 002 at 7/10 (70.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 002，7/10（70.0%）。"
+  - en: "Weakest visible area: Open Library · release 014 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Open Library · release 014，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
+    title: "Introduce public methods to access PlayIterator._host_states"
+    title_zh: "引入公共方法以访问 PlayIterator._host_states"
     meta: "ansible/ansible · solved 3/3"
     meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-002-ansible-ansible."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-002-ansible-ansible。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Severity values from Debian Security Tracker differ between repeated scans"
+    title_zh: "Debian Security Tracker 的 severity 值在重复扫描之间不同"
+    meta: "future-architect/vuls · solved 2/3"
+    meta_zh: "future-architect/vuls · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-012-future-architect-vuls."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-012-future-architect-vuls。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-001-ansible-ansible。"
+    title: "OFREP Bulk Evaluation Fails When flags Context Key Is Missing"
+    title_zh: "当 flags 上下文键缺失时，OFREP 批量评估失败"
+    meta: "flipt-io/flipt · solved 1/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 1 次"
+    note: "Verifier pattern: apply-failed. Suite: release-zh-005-flipt-io-flipt."
+    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-005-flipt-io-flipt。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Lack of support for multiple destination ports in the iptables module"
-    title_zh: "iptables 模块缺乏对多个目标端口的支持"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "Add Reading-Log Counts to Solr Work Documents"
+    title_zh: "向 Solr Work Documents 添加 Reading-Log Counts"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-014-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-014-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-MiMo v2.5 is best read through the gap between reach and repeatability. It reaches 33/151 tasks at least once, but 18/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+MiMo v2.5 is a moderately stable row around the #24 slot. The useful reading is not just the 25.24 score, but the split between 33 reached tasks and 18 stable solves.
 
-In leaderboard terms, rank #24 and a 25.24 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is automation and configuration-management work plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is MiMo v2.5 pro at rank #12. Compared with that row, this one is 5.45 points behind, with 11 fewer reached tasks and 7 fewer stable solves.
+
+The suite split is asymmetric: Ansible · release 002 at 7/10 (70.0%) supplies the main body of wins, vuls · release 012 at 3/4 (75.0%) supplies the clean spike, and Open Library · release 014 at 0/10 (0.0%) is where that pattern stops. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The chart is not trying to crown a single strength; it shows how quickly the row falls from Ansible · release 002 at 7/10 (70.0%) to Open Library · release 014 at 0/10 (0.0%).
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Introduce public methods to access PlayIterator._host_states` is the upside, `Add Reading-Log Counts to Solr Work Documents` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit changes how to read MiMo v2.5: only 60% of initial solved attempts survive, with 31 rejected attempts, while the exported score field stays flat. Treat the wins as leads that need stricter confirmation.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat MiMo v2.5 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 78/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Ansible · release 002 at 7/10 (70.0%) and Open Library · release 014 at 0/10 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 78/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat MiMo v2.5 as strongest when the task resembles 
 
 <div class="bench-lang-zh" markdown="1">
 
-读 MiMo v2.5，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 33 题，但三次尝试都解出的只有 18 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+MiMo v2.5 是一个排名 #24 附近的中等稳定型结果。它的重点不只是 25.24 分，而是 33 道触达题和 18 道稳定题之间的差距。
 
-从排行榜数字看，排名 #24、Final Score 25.24 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在自动化和配置管理类改动以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #12 的 MiMo v2.5 pro。和它相比，这一行最终分低 5.45 分，触达题少 11 个，稳定题少 7 个。
+
+suite 分布是不对称的：Ansible 自动化 · release 002，7/10（70.0%）贡献主要胜利，vuls 漏洞扫描器 · release 012，3/4（75.0%）贡献最干净高点，而Open Library · release 014，0/10（0.0%）标出这种模式停止的地方。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这张图不是为了给单一强项加冕，而是展示这一行从Ansible 自动化 · release 002，7/10（70.0%）滑到Open Library · release 014，0/10（0.0%）有多快。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`引入公共方法以访问 PlayIterator._host_states` 是上限，`向 Solr Work Documents 添加 Reading-Log Counts` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核改变了 MiMo v2.5 的读法：初始成功只有 60% 保留下来，31 次被剔除，但当前导出的分数字段没有变化。原始胜利更适合作为线索，需要更严格确认。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 MiMo v2.5 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 78/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Ansible 自动化 · release 002，7/10（70.0%）和Open Library · release 014，0/10（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。78/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

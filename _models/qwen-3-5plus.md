@@ -22,14 +22,14 @@ pass_3_rate_pct: "14.6%"
 pass_3_count: 22
 attempt_score_pct: "23.2%"
 tldr:
-  - en: "Qwen 3.5 plus ranks #10 with a 31.39 Final Score. The headline is 51 reached tasks, but the stability number is 22 pass-in-all-three tasks."
-    zh: "Qwen 3.5 plus 排名 #10，Final Score 为 31.39。表面信号是 51 道题至少成功一次，稳定性信号是 22 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The Qwen CLI run is worth reading as a direct model behavior sample: it has less agent abstraction, so the suite pattern is often easier to attribute to the model."
-    zh: "Qwen CLI 结果更像直接模型行为样本：agent 抽象更少，因此 suite pattern 往往更容易归因到模型本身。"
+  - en: "Qwen 3.5 plus is best read as volatile explorer: rank #10, 51 reached tasks, 22 stable solves."
+    zh: "Qwen 3.5 plus 更适合读成探索型但波动较大：排名 #10，触达 51 题，稳定解出 22 题。"
+  - en: "Best suite signal: Open Library · release 013 at 8/10 (80.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，8/10（80.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "The Qwen CLI setup is closer to a direct model readout: when it misses, the miss is less hidden behind orchestration."
+    zh: "Qwen CLI 更接近直接读模型本身：它失败时，失败也较少被编排层遮住。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -173,30 +173,30 @@ cases:
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    title_zh: "ansible/ansible-164881d871964aa64e0f911d03ae270acbad253c-v390e508d27db7a51eece36bb6d9698b63a5b638a"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Consolidate ListMixin into List to Simplify List Model Structure and Maintenance"
+    title_zh: "将 ListMixin 合并到 List 以简化 List 模型结构维护"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-016-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-016-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Changes to linux.py for setup module to return more relevant information for s390"
-    title_zh: "修改 linux.py，使 setup module 在 s390 上返回更相关的信息"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
+    title: "Unify validation in add_book by removing override, with the sole exception of 'promise items'"
+    title_zh: "在 add_book 中通过移除 override 来统一验证，唯一例外是 promise items"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-016-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-016-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Configuration Logic for Qt Arguments and Environment Setup Is Overloaded and Hard to Maintain"
+    title_zh: "Qt 参数和环境初始化配置逻辑过载且难以维护"
+    meta: "qutebrowser/qutebrowser · solved 0/3"
+    meta_zh: "qutebrowser/qutebrowser · 3 次中成功 0 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-018-qutebrowser-qutebrowser."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-018-qutebrowser-qutebrowser。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -220,23 +220,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-Qwen 3.5 plus is best read through the gap between reach and repeatability. It reaches 51/151 tasks at least once, but 22/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+Qwen 3.5 plus is a volatile explorer row around the #10 slot. The useful reading is not just the 31.39 score, but the split between 51 reached tasks and 22 stable solves.
 
-In leaderboard terms, rank #10 and a 31.39 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The Qwen CLI run is worth reading as a direct model behavior sample: it has less agent abstraction, so the suite pattern is often easier to attribute to the model.
+The closest family reference is Qwen 3.7 Max (1m) at rank #9. Compared with that row, this one is 0.23 points behind, with 4 more reached tasks and 3 fewer stable solves.
+
+The volume win is Open Library · release 013 at 8/10 (80.0%), while the cleanest pass-rate spike is vuls · release 012 at 4/4 (100.0%). The warning label is qutebrowser · release 018 at 0/9 (0.0%), so the contrast is not generic strength versus weakness; it is large Python/Django application repairs holding together better than browser/runtime integration around QtWebEngine behavior on this run. The Qwen CLI setup is closer to a direct model readout: when it misses, the miss is less hidden behind orchestration.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+Because this is the Qwen CLI row, the suite shape is unusually direct: strong and weak bars are closer to model behavior than to shell behavior.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+`Avoid double calculation of loops and delegate_to in TaskExecutor` is the clean read of what the model can do directly; `Configuration Logic for Qt Arguments and Environment Setup Is Overloaded and Hard to Maintain` is the corresponding negative read, with less agent machinery to hide the miss.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit changes how to read Qwen 3.5 plus: only 57% of initial solved attempts survive, with 45 rejected attempts, while the exported score field stays flat. Treat the wins as leads that need stricter confirmation.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat Qwen 3.5 plus as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 105/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+As a direct CLI row, it is most valuable for reading the model itself: Open Library · release 013 at 8/10 (80.0%) is the positive sample, and qutebrowser · release 018 at 0/9 (0.0%) is the boundary. The 105/453 attempt score is useful because there is less shell behavior between the model and the verifier result.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -270,23 +272,25 @@ For practical use, I would treat Qwen 3.5 plus as strongest when the task resemb
 
 <div class="bench-lang-zh" markdown="1">
 
-读 Qwen 3.5 plus，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 51 题，但三次尝试都解出的只有 22 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+Qwen 3.5 plus 是一个排名 #10 附近的探索型但波动较大结果。它的重点不只是 31.39 分，而是 51 道触达题和 22 道稳定题之间的差距。
 
-从排行榜数字看，排名 #10、Final Score 31.39 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。Qwen CLI 结果更像直接模型行为样本：agent 抽象更少，因此 suite pattern 往往更容易归因到模型本身。
+最接近的同系参照是排名 #9 的 Qwen 3.7 Max (1m)。和它相比，这一行最终分低 0.23 分，触达题多 4 个，稳定题少 3 个。
+
+从数量看，主要胜利来自Open Library · release 013，8/10（80.0%）；从通过率看，最干净的高点是vuls 漏洞扫描器 · release 012，4/4（100.0%）。需要警惕的是qutebrowser 浏览器 · release 018，0/9（0.0%），所以这里不是泛泛地说强弱项，而是大型 Python/Django 应用修复在这次运行中比围绕 QtWebEngine 行为的浏览器/runtime 集成更能闭环。Qwen CLI 更接近直接读模型本身：它失败时，失败也较少被编排层遮住。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+因为这是 Qwen CLI 行，suite 形状相对直接：高低柱更接近模型本身，而不是 shell 工作流的效果。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+`避免在 TaskExecutor 中重复计算 loops 和 delegate_to` 是模型直接能力的正面样本；`Qt 参数和环境初始化配置逻辑过载且难以维护` 是相应的反面样本，中间没有太多 agent 编排可以掩盖失败。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核改变了 Qwen 3.5 plus 的读法：初始成功只有 57% 保留下来，45 次被剔除，但当前导出的分数字段没有变化。原始胜利更适合作为线索，需要更严格确认。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 Qwen 3.5 plus 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 105/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+作为直接 CLI 行，它最有价值的是读模型本身：Open Library · release 013，8/10（80.0%）是正面样本，qutebrowser 浏览器 · release 018，0/9（0.0%）是边界。105/453 的单次尝试成功数有价值，是因为模型和 verifier 结果之间隔着的 shell 行为更少。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

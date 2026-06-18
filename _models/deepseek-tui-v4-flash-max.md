@@ -22,14 +22,14 @@ pass_3_rate_pct: "7.3%"
 pass_3_count: 11
 attempt_score_pct: "8.4%"
 tldr:
-  - en: "DeepSeek v4 flash (max) ranks #32 with a 16.22 Final Score. The headline is 15 reached tasks, but the stability number is 11 pass-in-all-three tasks."
-    zh: "DeepSeek v4 flash (max) 排名 #32，Final Score 为 16.22。表面信号是 15 道题至少成功一次，稳定性信号是 11 道题三次都成功。"
-  - en: "The strongest evidence clusters around automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs."
-    zh: "最强证据集中在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The deepseek-tui row is an agent-shell stress test as much as a model test; low scores here often expose integration friction."
-    zh: "deepseek-tui 这一行既是模型测试，也是 agent shell 压力测试；低分往往会暴露集成摩擦。"
+  - en: "DeepSeek v4 flash (max) is best read as narrow but repeatable: rank #32, 15 reached tasks, 11 stable solves."
+    zh: "DeepSeek v4 flash (max) 更适合读成覆盖窄但命中后较稳定：排名 #32，触达 15 题，稳定解出 11 题。"
+  - en: "Best suite signal: Ansible · release 003 at 4/10 (40.0%)."
+    zh: "最强 suite 信号：Ansible 自动化 · release 003，4/10（40.0%）。"
+  - en: "Weakest visible area: Flipt · release 005 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 005，0/10（0.0%）。"
+  - en: "The deepseek-tui result is partly a shell-integration test; the low coverage matters as much as the model score itself."
+    zh: "deepseek-tui 结果有一部分是在测试 shell 集成；低覆盖本身和模型分数一样值得注意。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -172,12 +172,12 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
-    title_zh: "Forked output from ‘Display.display’ is unreliable and exposes shutdown deadlock risk"
+    title: "TypeError combining VarsWithSources and dict in combine_vars"
+    title_zh: "combine_vars 中组合 VarsWithSources 和 dict 时出现 TypeError"
     meta: "ansible/ansible · solved 3/3"
     meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
@@ -190,17 +190,17 @@ cases:
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Feature Request: Add flag key to batch evaluation response"
-    title_zh: "Feature Request: Add flag key to batch evaluation response"
+    title: "Namespace version is empty and ETag is not surfaced in filesystem snapshots"
+    title_zh: "Namespace version 为空，并且文件系统快照中没有暴露 ETag"
     meta: "flipt-io/flipt · solved 1/3"
     meta_zh: "flipt-io/flipt · 3 次中成功 1 次"
-    note: "Verifier pattern: apply-failed. Suite: release-zh-007-flipt-io-flipt."
-    note_zh: "Verifier 信号：apply-failed。Suite：release-zh-007-flipt-io-flipt。"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-007-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-007-flipt-io-flipt。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
+    title: "iptables chain creation does not behave like the command"
+    title_zh: "iptables chain creation 的行为与命令行 iptables -N 不一致"
     meta: "ansible/ansible · solved 0/3"
     meta_zh: "ansible/ansible · 3 次中成功 0 次"
     note: "Verifier pattern: no-op-patch. Suite: release-zh-003-ansible-ansible."
@@ -222,23 +222,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-DeepSeek v4 flash (max) is best read through the gap between reach and repeatability. It reaches 15/151 tasks at least once, but 11/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+DeepSeek v4 flash (max) is a narrow but repeatable result. It reaches only 15/151 tasks, but 11 of those are stable 3/3 solves, so the successes are less random than the rank suggests.
 
-In leaderboard terms, rank #32 and a 16.22 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is automation and configuration-management work plus Go product plumbing across configuration, storage, and service APIs; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The deepseek-tui row is an agent-shell stress test as much as a model test; low scores here often expose integration friction.
+The closest family reference is DeepSeek v4 pro (max) at rank #7. Compared with that row, this one is 16.73 points behind, with 33 fewer reached tasks and 17 fewer stable solves.
+
+Most of the positive signal concentrates in Ansible · release 003 at 4/10 (40.0%). The opposing read is Flipt · release 005 at 0/10 (0.0%), which keeps the row from looking like a generalist. The deepseek-tui result is partly a shell-integration test; the low coverage matters as much as the model score itself.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+Read the bars as a small island map. There are not many islands, but the ones that appear are less noisy than the rank alone suggests.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The case strip is small but revealing: `TypeError combining VarsWithSources and dict in combine_vars` is the kind of island this row can hold, while `iptables chain creation does not behave like the command` (ansible/ansible · solved 0/3) marks where the island ends.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit changes how to read DeepSeek v4 flash (max): only 63% of initial solved attempts survive, with 14 rejected attempts, while the exported score field stays flat. Treat the wins as leads that need stricter confirmation.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat DeepSeek v4 flash (max) as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 38/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+Treat it as a narrow specialist. The wins around Ansible · release 003 at 4/10 (40.0%) are real, but the page does not support extrapolating that behavior into Flipt · release 005 at 0/10 (0.0%). The 38/453 attempt score is low in absolute terms, but the stable subset is coherent enough to be worth separating from the misses.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -272,23 +274,25 @@ For practical use, I would treat DeepSeek v4 flash (max) as strongest when the t
 
 <div class="bench-lang-zh" markdown="1">
 
-读 DeepSeek v4 flash (max)，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 15 题，但三次尝试都解出的只有 11 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+DeepSeek v4 flash (max) 更像一个覆盖窄但命中后较稳定的结果。它只覆盖到 15/151 题，但其中 11 题是 3/3 稳定通过，所以成功并不完全是偶然命中。
 
-从排行榜数字看，排名 #32、Final Score 16.22 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在自动化和配置管理类改动以及横跨配置、存储和服务 API 的 Go 产品工程，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。deepseek-tui 这一行既是模型测试，也是 agent shell 压力测试；低分往往会暴露集成摩擦。
+最接近的同系参照是排名 #7 的 DeepSeek v4 pro (max)。和它相比，这一行最终分低 16.73 分，触达题少 33 个，稳定题少 17 个。
+
+正面信号大多集中在Ansible 自动化 · release 003，4/10（40.0%）。反向读法是Flipt feature flag 服务 · release 005，0/10（0.0%），它让这一行看起来不像通用型。deepseek-tui 结果有一部分是在测试 shell 集成；低覆盖本身和模型分数一样值得注意。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这张图更像一张小岛地图：岛不多，但出现的那些并不只是随机噪声，不能只按低排名理解。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+案例条虽然窄，但很有信息量：`combine_vars 中组合 VarsWithSources 和 dict 时出现 TypeError` 是这一行守得住的小岛，而 `iptables chain creation 的行为与命令行 iptables -N 不一致`（ansible/ansible · 3 次中成功 0 次）标出了边界。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核改变了 DeepSeek v4 flash (max) 的读法：初始成功只有 63% 保留下来，14 次被剔除，但当前导出的分数字段没有变化。原始胜利更适合作为线索，需要更严格确认。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 DeepSeek v4 flash (max) 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 38/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+更适合把它当窄域专门型。Ansible 自动化 · release 003，4/10（40.0%）附近的胜利是真实的，但这页并不支持把这种行为外推到Flipt feature flag 服务 · release 005，0/10（0.0%）。38/453 的单次尝试成功数绝对值不高，但稳定子集足够成形，值得和失败面分开看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

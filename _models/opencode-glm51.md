@@ -22,14 +22,14 @@ pass_3_rate_pct: "17.9%"
 pass_3_count: 27
 attempt_score_pct: "24.3%"
 tldr:
-  - en: "GLM 5.1 ranks #8 with a 31.74 Final Score. The headline is 45 reached tasks, but the stability number is 27 pass-in-all-three tasks."
-    zh: "GLM 5.1 排名 #8，Final Score 为 31.74。表面信号是 45 道题至少成功一次，稳定性信号是 27 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus localized Go security-scanner changes."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "GLM 5.1 is best read as moderately stable: rank #8, 45 reached tasks, 27 stable solves."
+    zh: "GLM 5.1 更适合读成中等稳定型：排名 #8，触达 45 题，稳定解出 27 题。"
+  - en: "Best suite signal: Open Library · release 013 at 8/10 (80.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，8/10（80.0%）。"
+  - en: "Weakest visible area: qutebrowser · release 018 at 0/9 (0.0%)."
+    zh: "最弱可见区域：qutebrowser 浏览器 · release 018，0/9（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -166,39 +166,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Feature Request: Add caching support for evaluation rollouts"
+    title_zh: "Feature Request：为 evaluation rollouts 添加缓存支持"
+    meta: "flipt-io/flipt · solved 3/3"
+    meta_zh: "flipt-io/flipt · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-006-flipt-io-flipt."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-006-flipt-io-flipt。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Internet Archive metadata imports do not correctly handle publisher and ISBN fields in Open Library records"
+    title_zh: "Internet Archive 元数据导入未正确处理 Open Library 记录中的 publisher 和 ISBN 字段"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-015-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-015-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "flipt-io/flipt-05d7234fa582df632f70a7cd10194d61bd7043b9"
-    title_zh: "flipt-io/flipt-05d7234fa582df632f70a7cd10194d61bd7043b9"
-    meta: "flipt-io/flipt · solved 1/3"
-    meta_zh: "flipt-io/flipt · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-007-flipt-io-flipt."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-007-flipt-io-flipt。"
+    title: "Work search emits over-escaped edition_key filters and does not expose raw user queries as parameters."
+    title_zh: "Work search 发出过度转义的 edition_key 过滤器，且未将原始用户查询作为参数公开。"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: blocked-suspicious-patch. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：blocked-suspicious-patch。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
+    title: "Python module shebang not honored; interpreter forced to /usr/bin/python"
+    title_zh: "Python module shebang 未被遵守；interpreter 被强制为 /usr/bin/python"
     meta: "ansible/ansible · solved 0/3"
     meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-002-ansible-ansible."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-002-ansible-ansible。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -222,23 +222,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-GLM 5.1 is best read through the gap between reach and repeatability. It reaches 45/151 tasks at least once, but 27/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+GLM 5.1 is a moderately stable row around the #8 slot. The useful reading is not just the 31.74 score, but the split between 45 reached tasks and 27 stable solves.
 
-In leaderboard terms, rank #8 and a 31.74 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus localized Go security-scanner changes; the weak side is Go product plumbing across configuration, storage, and service APIs plus automation and configuration-management work. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is GLM 5.2 at rank #1. Compared with that row, this one is 5.85 points behind, with 12 fewer reached tasks and 9 fewer stable solves.
+
+The profile has one obvious anchor: Open Library · release 013 at 8/10 (80.0%). That anchor matters because qutebrowser · release 018 at 0/9 (0.0%) shows the score does not generalize evenly across the benchmark. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+The chart is not trying to crown a single strength; it shows how quickly the row falls from Open Library · release 013 at 8/10 (80.0%) to qutebrowser · release 018 at 0/9 (0.0%).
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+The examples keep the middle-band story honest: `Feature Request: Add caching support for evaluation rollouts` is the upside, `Python module shebang not honored; interpreter forced to /usr/bin/python` is the failure surface, and the page should be read between those two poles.
 
-The verifier audit block below is included because this row has re-verification data.
+The verifier audit keeps 110/110 solved attempts for GLM 5.1, so the interesting question is not score inflation; it is where the model repeatedly finds the same kind of patch.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat GLM 5.1 as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 110/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+In practice, read it through the gap between Open Library · release 013 at 8/10 (80.0%) and qutebrowser · release 018 at 0/9 (0.0%). That gap is more actionable than the rank because it says which repo shape gets coherent patches. The 110/453 attempt score is the backdrop; the article above is about which parts of that score are repeatable enough to matter.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -272,23 +274,25 @@ For practical use, I would treat GLM 5.1 as strongest when the task resembles th
 
 <div class="bench-lang-zh" markdown="1">
 
-读 GLM 5.1，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 45 题，但三次尝试都解出的只有 27 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+GLM 5.1 是一个排名 #8 附近的中等稳定型结果。它的重点不只是 31.74 分，而是 45 道触达题和 27 道稳定题之间的差距。
 
-从排行榜数字看，排名 #8、Final Score 31.74 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及边界相对清楚的 Go 漏洞扫描器改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及自动化和配置管理类改动。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #1 的 GLM 5.2。和它相比，这一行最终分低 5.85 分，触达题少 12 个，稳定题少 9 个。
+
+这组画像有一个明显锚点：Open Library · release 013，8/10（80.0%）。这个锚点重要，是因为qutebrowser 浏览器 · release 018，0/9（0.0%）说明分数没有均匀迁移到整套 benchmark。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+这张图不是为了给单一强项加冕，而是展示这一行从Open Library · release 013，8/10（80.0%）滑到qutebrowser 浏览器 · release 018，0/9（0.0%）有多快。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+这些案例让中段模型画像更具体：`Feature Request：为 evaluation rollouts 添加缓存支持` 是上限，`Python module shebang 未被遵守；interpreter 被强制为 /usr/bin/python` 是失败面，这页应该在两者之间读。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+GLM 5.1 的复核保留了 110 次成功中的 110 次，所以重点不是分数膨胀，而是模型在哪些地方能反复找到同类补丁。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 GLM 5.1 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 110/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+实际选择时，更应该通过Open Library · release 013，8/10（80.0%）和qutebrowser 浏览器 · release 018，0/9（0.0%）之间的落差来读它。这个落差比分数排名更可操作，因为它说明哪类代码库更容易得到连贯补丁。110/453 的单次尝试成功数只是背景；上面的文章重点是哪些部分足够可重复、值得当成能力看。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>

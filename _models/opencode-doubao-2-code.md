@@ -22,14 +22,14 @@ pass_3_rate_pct: "6.0%"
 pass_3_count: 9
 attempt_score_pct: "11.5%"
 tldr:
-  - en: "doubao seed 2.0 code ranks #30 with a 19.42 Final Score. The headline is 27 reached tasks, but the stability number is 9 pass-in-all-three tasks."
-    zh: "doubao seed 2.0 code 排名 #30，Final Score 为 19.42。表面信号是 27 道题至少成功一次，稳定性信号是 9 道题三次都成功。"
-  - en: "The strongest evidence clusters around large Python/Django application repairs plus automation and configuration-management work."
-    zh: "最强证据集中在大型 Python/Django 应用修复以及自动化和配置管理类改动。"
-  - en: "The failure shape is mostly Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs."
-    zh: "失败形态主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。"
-  - en: "The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget."
-    zh: "OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。"
+  - en: "doubao seed 2.0 code is best read as volatile explorer: rank #30, 27 reached tasks, 9 stable solves."
+    zh: "doubao seed 2.0 code 更适合读成探索型但波动较大：排名 #30，触达 27 题，稳定解出 9 题。"
+  - en: "Best suite signal: Open Library · release 013 at 7/10 (70.0%)."
+    zh: "最强 suite 信号：Open Library · release 013，7/10（70.0%）。"
+  - en: "Weakest visible area: Flipt · release 005 at 0/10 (0.0%)."
+    zh: "最弱可见区域：Flipt feature flag 服务 · release 005，0/10（0.0%）。"
+  - en: "Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow."
+    zh: "因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。"
 key_stats:
   - label: "Final Score"
     label_zh: "最终分"
@@ -170,39 +170,39 @@ cases:
   - label: "Stable win"
     label_zh: "稳定胜利"
     tone: win
-    title: "Password lookup plugin ignores key=value parameters such as seed, resulting in non-deterministic output"
-    title_zh: "Password lookup plugin 忽略 seed 等 key=value 参数，导致输出非确定性"
-    meta: "ansible/ansible · solved 3/3"
-    meta_zh: "ansible/ansible · 3 次中成功 3 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-003-ansible-ansible。"
+    title: "Inconsistency in author identifier generation when comparing editions."
+    title_zh: "比较 editions 时 author identifier 生成不一致。"
+    meta: "internetarchive/openlibrary · solved 3/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 3 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Retry-sensitive"
     label_zh: "依赖重试"
     tone: neutral
-    title: "ansible/ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
-    title_zh: "ansible/ansible-0fd88717c953b92ed8a50495d55e630eb5d59166-vba6da65a0f3baefda7a058ebbd0a8dcafb8512f5"
-    meta: "ansible/ansible · solved 2/3"
-    meta_zh: "ansible/ansible · 3 次中成功 2 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Add Validation and Date Formatting Functions"
+    title_zh: "添加验证和日期格式化函数"
+    meta: "internetarchive/openlibrary · solved 2/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 2 次"
+    note: "Verifier pattern: harness-ok. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "One-shot reach"
     label_zh: "一次命中"
     tone: neutral
-    title: "Avoid double calculation of loops and delegate_to in TaskExecutor"
-    title_zh: "避免在 TaskExecutor 中重复计算 loops 和 delegate_to"
-    meta: "ansible/ansible · solved 1/3"
-    meta_zh: "ansible/ansible · 3 次中成功 1 次"
-    note: "Verifier pattern: harness-ok. Suite: release-zh-001-ansible-ansible."
-    note_zh: "Verifier 信号：harness-ok。Suite：release-zh-001-ansible-ansible。"
+    title: "Work search emits over-escaped edition_key filters and does not expose raw user queries as parameters."
+    title_zh: "Work search 发出过度转义的 edition_key 过滤器，且未将原始用户查询作为参数公开。"
+    meta: "internetarchive/openlibrary · solved 1/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 1 次"
+    note: "Verifier pattern: harness-failed. Suite: release-zh-013-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-013-internetarchive-openlibrary。"
   - label: "Hard miss"
     label_zh: "硬失误"
     tone: risk
-    title: "Embedded function in RoleMixin prevents testing and reuse"
-    title_zh: "RoleMixin 中的嵌入函数阻碍测试和复用"
-    meta: "ansible/ansible · solved 0/3"
-    meta_zh: "ansible/ansible · 3 次中成功 0 次"
-    note: "Verifier pattern: harness-failed. Suite: release-zh-003-ansible-ansible."
-    note_zh: "Verifier 信号：harness-failed。Suite：release-zh-003-ansible-ansible。"
+    title: "Function read_subjects() in get_subjects.py exceeds acceptable complexity thresholds and includes unused logic"
+    title_zh: "get_subjects.py 中的函数 read_subjects() 超出可接受的复杂度阈值，并包含未使用逻辑"
+    meta: "internetarchive/openlibrary · solved 0/3"
+    meta_zh: "internetarchive/openlibrary · 3 次中成功 0 次"
+    note: "Verifier pattern: no-op-patch. Suite: release-zh-016-internetarchive-openlibrary."
+    note_zh: "Verifier 信号：no-op-patch。Suite：release-zh-016-internetarchive-openlibrary。"
 related_models:
   - label: "One rank above"
     label_zh: "上一名"
@@ -226,23 +226,25 @@ related_models:
 
 <div class="bench-lang-en" markdown="1">
 
-doubao seed 2.0 code is best read through the gap between reach and repeatability. It reaches 27/151 tasks at least once, but 9/151 tasks survive all three attempts. That gap is the personality of the row: the model can find solutions across a fairly wide surface, but the dependable core is narrower than the headline Pass@3 number.
+doubao seed 2.0 code is a volatile explorer row around the #30 slot. The useful reading is not just the 19.42 score, but the split between 27 reached tasks and 9 stable solves.
 
-In leaderboard terms, rank #30 and a 19.42 Final Score put it in direct comparison with nearby models, but the more useful question is where the wins come from. In this run the strongest signal is large Python/Django application repairs plus automation and configuration-management work; the weak side is Go product plumbing across configuration, storage, and service APIs plus large Python/Django application repairs. The OpenCode run is more sensitive to the underlying model family: the same harness can look sharp or brittle depending on where the model puts its search budget.
+The closest family reference is SenseNova 6.7 flash lite at rank #29. Compared with that row, this one is 3.72 points behind, with 6 fewer reached tasks and 4 fewer stable solves.
+
+Most of the positive signal concentrates in Open Library · release 013 at 7/10 (70.0%). The opposing read is Flipt · release 005 at 0/10 (0.0%), which keeps the row from looking like a generalist. Because the agent shell is OpenCode, the result mostly exposes the underlying model's planning habits rather than a heavily opinionated workflow.
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-The suite chart is the fastest way to read the model. High bars mean the agent repeatedly found the right subsystem and produced patches the verifier accepted at least once. Low bars are not just misses; they are hints about the task shape that made the model overfit a local edit, stop before the second-order consumer, or fail to keep a multi-package change coherent.
+Do not read the chart as a small version of the top rows. It is a map of early failure surfaces with a few recoverable pockets.
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-The case notes above keep the article grounded in individual SWE-Bench-Pro instances. A stable 3/3 solve means the task is inside the model's dependable operating region. A 1/3 solve means it can reach the idea, but the path is retry-sensitive. A 0/3 miss is more diagnostic: it marks a task shape where this model-agent pairing did not find a verifier-backed patch in three independent attempts.
+At this rank, `Function read_subjects() in get_subjects.py exceeds acceptable complexity thresholds and includes unused logic` matters as much as the wins. It shows the task shape where the model-agent loop fails before it can produce a meaningful verifier-backed patch.
 
-The verifier audit block below is included because this row has re-verification data.
+The audit trims 1 solved attempt from doubao seed 2.0 code but still keeps 98% of the solved set, so the suite shape remains useful even where individual wins are debatable.
 
 {% include model-audit-card.html %}
 
-For practical use, I would treat doubao seed 2.0 code as strongest when the task resembles the high-performing suites and weaker when it resembles the low-performing suites. The raw attempt score is 52/453; that is enough signal to compare it with neighboring rows, but not enough to assume the same behavior on every repository family.
+This row is more useful as a failure map than as a default choice. Look at Flipt · release 005 at 0/10 (0.0%) first: it shows the task shape where the loop loses traction. With 52/453 solved attempts, the page is most useful for seeing where the agent loop breaks before it becomes a dependable option.
 
 <details class="model-evidence">
   <summary>Supporting suite table</summary>
@@ -276,23 +278,25 @@ For practical use, I would treat doubao seed 2.0 code as strongest when the task
 
 <div class="bench-lang-zh" markdown="1">
 
-读 doubao seed 2.0 code，最有用的是看“覆盖能力”和“重复稳定性”的差距。它在 151 题中至少一次解出 27 题，但三次尝试都解出的只有 9 题。这个差距就是这一行的性格：模型能在相当宽的任务面上摸到解法，但真正可靠的核心比 Pass@3 的表面数字更窄。
+doubao seed 2.0 code 是一个排名 #30 附近的探索型但波动较大结果。它的重点不只是 19.42 分，而是 27 道触达题和 9 道稳定题之间的差距。
 
-从排行榜数字看，排名 #30、Final Score 19.42 让它可以和附近模型直接比较；但更重要的问题是胜利来自哪里。这次运行最强的信号在大型 Python/Django 应用修复以及自动化和配置管理类改动，弱侧则主要是横跨配置、存储和服务 API 的 Go 产品工程以及大型 Python/Django 应用修复。OpenCode 这组更能体现底层模型家族差异：同一套 harness 下，模型如何分配搜索预算会直接决定它显得锋利还是脆弱。
+最接近的同系参照是排名 #29 的 SenseNova 6.7 flash lite。和它相比，这一行最终分低 3.72 分，触达题少 6 个，稳定题少 4 个。
+
+正面信号大多集中在Open Library · release 013，7/10（70.0%）。反向读法是Flipt feature flag 服务 · release 005，0/10（0.0%），它让这一行看起来不像通用型。因为 agent shell 是 OpenCode，这个结果更直接暴露底层模型的规划习惯，而不是强工作流包装后的表现。
 
 {% include model-suite-bars.html title="Where the score comes from" title_zh="分数从哪里来" note="Selected high and low suites, grouped by pass-at-least-once rate." note_zh="选取高分和低分 suite，按三次尝试至少解出一次的比例展示。" %}
 
-suite 图是最快的读法。高柱子说明 agent 能反复找到正确子系统，并至少一次产出 verifier 接受的补丁。低柱子不只是失败列表，它们提示了让模型过拟合局部编辑、漏掉第二层消费者，或无法维持跨包改动一致性的任务形状。
+不要把这张图读成头部模型的小号版本。它更像早期失败面的地图，中间夹着少数可恢复区域。
 
 {% include model-case-strip.html title="Concrete examples" title_zh="具体题目例子" %}
 
-上面的案例把文章拉回到具体 SWE-Bench-Pro instance。3/3 稳定通过说明任务落在模型可靠区；1/3 说明它能摸到思路，但路径依赖重试；0/3 则更有诊断价值，表示这个模型-agent 组合三次独立尝试都没有找到 verifier-backed patch。
+在这个排名段，`get_subjects.py 中的函数 read_subjects() 超出可接受的复杂度阈值，并包含未使用逻辑` 和成功案例一样重要。它说明模型-agent 循环在哪种任务形态上还没形成有效 verifier-backed patch。
 
-下面保留 verifier audit 模块，因为这一行有复核数据。
+复核从 doubao seed 2.0 code 中剔除了 1 次成功，但仍保留 98% 的成功集合，因此即便个别胜利有争议，suite 形状仍然有参考价值。
 
 {% include model-audit-card.html %}
 
-实际使用时，我会把 doubao seed 2.0 code 用在更接近高分 suite 的任务上；如果任务形态接近低分 suite，就要更谨慎。它的单次尝试成功数是 52/453，足够用来和邻近模型比较，但不足以推断它在所有 repository family 上都会保持同样表现。
+这一行更适合作为失败地图，而不是默认选择。先看Flipt feature flag 服务 · release 005，0/10（0.0%）：它展示了模型-agent 循环最容易失去抓手的任务形态。在 453 次尝试中只成功 52 次时，这页最有价值的是看 agent loop 在哪里先断掉。
 
 <details class="model-evidence">
   <summary>支撑这个判断的 suite 表</summary>
