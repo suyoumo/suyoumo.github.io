@@ -97,6 +97,12 @@ permalink: /code-agent-bench/
               {% for row in board.rows %}
               {% assign pass_3_denominator = row.pass_3_denominator | default: row.task_count %}
               {% assign pass_at_3_denominator = row.pass_at_3_denominator | default: row.task_count %}
+              {% assign model_page_url = nil %}
+              {% for model_page in site.models %}
+                {% if model_page.model_id == row.id %}
+                  {% assign model_page_url = model_page.url %}
+                {% endif %}
+              {% endfor %}
               <tr
                 data-agent="{{ row.agent }}"
                 data-agent-label="{{ row.agent_label | escape }}"
@@ -127,7 +133,7 @@ permalink: /code-agent-bench/
                     <div class="bench-model-logo bench-model-logo-placeholder-small">{{ row.provider_label | slice: 0, 1 | upcase }}</div>
                     {% endif %}
                     <div class="bench-model-meta">
-                      <strong>{% if row.id == 'opencode-glm52' %}<a href="{{ site.baseurl }}/code-agent-bench/models/opencode-glm52/" class="bench-model-link">{% endif %}{{ row.model_name }}{% if row.id == 'opencode-glm52' %}</a>{% endif %}</strong>
+                      <strong>{% if model_page_url %}<a href="{{ site.baseurl }}{{ model_page_url }}" class="bench-model-link">{% endif %}{{ row.model_name }}{% if model_page_url %}</a>{% endif %}</strong>
                       <span><span class="code-agent-pill code-agent-pill-{{ row.agent_slug }}">{{ row.agent_label }}</span>{{ row.provider_label }} - {{ row.model_raw }}</span>
                     </div>
                   </div>

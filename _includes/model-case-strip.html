@@ -1,0 +1,18 @@
+{% assign cases = include.items | default: page.cases %}
+{% assign case_title = include.title | default: 'Case notes' %}
+
+{% if cases and cases.size > 0 %}
+<aside class="model-case-strip">
+  <div class="model-section-label">{{ case_title }}</div>
+  <div class="model-case-grid">
+    {% for item in cases %}
+    <div class="model-case-card model-case-{{ item.tone | default: 'neutral' }}">
+      <span>{{ item.label }}</span>
+      <strong>{{ item.title }}</strong>
+      {% if item.meta %}<em>{{ item.meta }}</em>{% endif %}
+      {% if item.note %}<p>{{ item.note }}</p>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</aside>
+{% endif %}

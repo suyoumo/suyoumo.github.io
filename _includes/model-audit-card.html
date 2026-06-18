@@ -1,0 +1,42 @@
+{% assign audit = include.audit | default: page.audit %}
+
+{% if audit %}
+{% assign accepted = audit.reverified_ok | default: 0 %}
+{% assign rejected = audit.strict_rejected | default: 0 %}
+{% assign total = audit.harness_ok | default: 0 %}
+{% if total == 0 %}
+  {% assign total = accepted | plus: rejected %}
+{% endif %}
+{% assign accepted_pct = audit.accepted_pct | default: 0 %}
+{% assign rejected_pct = audit.rejected_pct | default: 0 %}
+
+<figure class="model-visual model-audit-card">
+  <figcaption>
+    <span class="model-section-label">{{ include.title | default: 'Verifier Audit' }}</span>
+    {% if audit.note %}<em>{{ audit.note }}</em>{% endif %}
+  </figcaption>
+
+  <div class="model-audit-visual">
+    <div class="model-audit-ring" style="--accepted-pct: {{ accepted_pct }}%; --rejected-pct: {{ rejected_pct }}%;" aria-hidden="true">
+      <span>{{ accepted_pct }}%</span>
+    </div>
+    <div class="model-audit-copy">
+      <strong>{{ accepted }} of {{ total }} headline successes survived strict re-verification.</strong>
+      {% if audit.summary %}<p>{{ audit.summary }}</p>{% endif %}
+      <div class="model-audit-legend">
+        <span><i class="is-accepted"></i>{{ accepted }} verifier-backed</span>
+        <span><i class="is-rejected"></i>{{ rejected }} strict rejected</span>
+      </div>
+    </div>
+  </div>
+
+  {% if audit.score_before and audit.score_after %}
+  <div class="model-audit-scoreline">
+    <span>{{ audit.score_before }}</span>
+    <b aria-hidden="true">to</b>
+    <span>{{ audit.score_after }}</span>
+    {% if audit.delta %}<em>{{ audit.delta }}</em>{% endif %}
+  </div>
+  {% endif %}
+</figure>
+{% endif %}

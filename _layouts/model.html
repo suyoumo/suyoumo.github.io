@@ -1,88 +1,144 @@
 ---
-layout: default
+layout: bench
 ---
 
-<div class="container">
-  <div class="model-page">
-    <div class="model-header">
-      <div class="model-rank">Rank {{ page.rank }}</div>
-      <h1 class="model-title">{{ page.model_name }}</h1>
-      <div class="model-provider">{{ page.provider_label }} · {{ page.model_raw }}</div>
-      <div class="model-meta">
-        <span class="model-version">{{ page.agent_version }}</span>
-        <span class="model-final">Final Score <strong>{{ page.final_score | round: 2 }}</strong></span>
-        {% if page.reverified_final_score and page.reverified_final_score != 0 %}
-        <span class="model-final-audit">Reverified Audit <strong>{{ page.reverified_final_score | round: 2 }}</strong></span>
+{% assign board = site.data.code_agent_bench %}
+{% assign current_model_id = page.model_id | default: page.id %}
+{% assign model_row = nil %}
+{% for row in board.rows %}
+  {% if row.id == current_model_id %}
+    {% assign model_row = row %}
+  {% endif %}
+{% endfor %}
+
+{% assign display_rank = page.rank | default: model_row.rank %}
+{% assign display_model_name = page.model_name | default: model_row.model_name %}
+{% assign display_provider = page.provider_label | default: model_row.provider_label %}
+{% assign display_agent = page.agent_label | default: model_row.agent_label %}
+{% assign display_agent_version = page.agent_version | default: model_row.agent_version %}
+{% assign display_model_raw = page.model_raw | default: model_row.model_raw %}
+{% assign display_final_score = page.final_score | default: model_row.final_score %}
+{% assign display_reverified_score = page.reverified_final_score | default: model_row.reverified_final_score %}
+{% assign display_subtitle = page.subtitle | default: page.description %}
+{% assign display_date = page.analysis_date | default: board.metadata.exported_at %}
+{% assign pass_at_3_pct = page.pass_at_3_rate_pct | default: nil %}
+{% unless pass_at_3_pct %}
+  {% assign pass_at_3_pct = model_row.pass_at_3_rate | times: 100 | round: 1 | append: '%' %}
+{% endunless %}
+{% assign pass_3_pct = page.pass_3_rate_pct | default: nil %}
+{% unless pass_3_pct %}
+  {% assign pass_3_pct = model_row.pass_3_rate | times: 100 | round: 1 | append: '%' %}
+{% endunless %}
+{% assign attempt_score_pct = page.attempt_score_pct | default: nil %}
+{% unless attempt_score_pct %}
+  {% assign attempt_score_pct = model_row.attempt_score | times: 100 | round: 1 | append: '%' %}
+{% endunless %}
+
+<article class="model-article-page">
+  <div class="model-article-shell">
+    <nav class="model-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ site.baseurl }}/code-agent-bench/">CodeAgentBench</a>
+      <span>/</span>
+      <span>{{ display_model_name }}</span>
+    </nav>
+
+    <header class="model-hero">
+      <div class="model-hero-copy">
+        <div class="model-kicker-row">
+          {% if display_rank %}
+          <span class="model-rank-badge">Rank {{ display_rank }}</span>
+          {% endif %}
+          <span>{{ display_agent }}</span>
+          <span>{{ display_provider }}</span>
+        </div>
+        <h1>{{ display_model_name }}</h1>
+        {% if display_subtitle %}
+        <p class="model-subtitle">{{ display_subtitle }}</p>
         {% endif %}
+        <div class="model-hero-meta">
+          {% if display_agent_version %}<span>{{ display_agent_version }}</span>{% endif %}
+          {% if display_model_raw %}<span>{{ display_model_raw }}</span>{% endif %}
+          {% if display_date %}<span>Updated {{ display_date | slice: 0, 10 }}</span>{% endif %}
+        </div>
+      </div>
+
+      <aside class="model-score-panel" aria-label="{{ display_model_name }} score summary">
+        <div class="model-score-primary">
+          <span>Final Score</span>
+          <strong>{{ display_final_score | round: 2 }}</strong>
+          {% if display_reverified_score %}
+          <em>Verifier audit {{ display_reverified_score | round: 2 }}</em>
+          {% endif %}
+        </div>
+        <div class="model-score-grid">
+          <div>
+            <span>Pass@3</span>
+            <strong>{{ pass_at_3_pct }}</strong>
+          </div>
+          <div>
+            <span>Pass^3</span>
+            <strong>{{ pass_3_pct }}</strong>
+          </div>
+          <div>
+            <span>Solved Tasks</span>
+            <strong>{{ page.solved_unique_tasks | default: model_row.solved_unique_tasks }}/{{ page.task_count | default: model_row.task_count | default: 151 }}</strong>
+          </div>
+          <div>
+            <span>Attempts</span>
+            <strong>{{ page.solved_attempts | default: model_row.solved_attempts }}/{{ page.scoreable_attempts | default: model_row.scoreable_attempts }}</strong>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    {% if page.tldr and page.tldr.size > 0 %}
+    <section class="model-tldr" aria-label="TL;DR">
+      <div class="model-section-label">TL;DR</div>
+      <ul>
+        {% for item in page.tldr %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <div class="model-content-grid">
+      {% if page.key_stats and page.key_stats.size > 0 %}
+      <aside class="model-aside" aria-label="Key numbers">
+        <div class="model-aside-card">
+          <div class="model-section-label">Key Numbers</div>
+          {% for stat in page.key_stats %}
+          <div class="model-aside-stat">
+            <span>{{ stat.label }}</span>
+            <strong>{{ stat.value }}</strong>
+            {% if stat.note %}<em>{{ stat.note }}</em>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </aside>
+      {% endif %}
+
+      <div class="model-prose">
+        {{ content }}
       </div>
     </div>
 
-    <section class="model-section">
-      <h2>Overview</h2>
-      <div class="model-overview-grid">
-        <div><span>Solved Attempts</span><strong>{{ page.solved_attempts }} / {{ page.scoreable_attempts }}</strong></div>
-        <div><span>Unique Tasks Solved</span><strong>{{ page.solved_unique_tasks }} / 151</strong></div>
-        <div><span>Pass@3 Rate</span><strong>{{ page.pass_at_3_rate_pct }}</strong></div>
-        <div><span>Pass^3 Count</span><strong>{{ page.pass_3_count }} / 151</strong></div>
-        <div><span>Attempt Score</span><strong>{{ page.attempt_score_pct }}</strong></div>
+    {% if page.related_models and page.related_models.size > 0 %}
+    <section class="model-related">
+      <div>
+        <div class="model-section-label">Related Models</div>
+        <h2>Same neighborhood on the leaderboard</h2>
       </div>
-      <div class="model-overview-note">
-        {{ content }}
+      <div class="model-related-grid">
+        {% for related in page.related_models %}
+        <a class="model-related-card" href="{{ site.baseurl }}{{ related.url | default: '/code-agent-bench/' }}">
+          <span>{{ related.label }}</span>
+          <strong>{{ related.name }}</strong>
+          <em>{{ related.note }}</em>
+        </a>
+        {% endfor %}
       </div>
     </section>
-
-    {% if page.strengths and page.strengths.size > 0 %}
-    <section class="model-section">
-      <h2>Strengths · {{ page.strengths_label | default: 'Suites where GLM 5.2 performs best' }}</h2>
-      <table class="model-table">
-        <thead><tr><th>Suite</th><th>Tasks</th><th>Solved</th><th>Pass Rate</th></tr></thead>
-        <tbody>
-          {% for s in page.strengths %}
-          <tr>
-            <td><code>{{ s.suite }}</code></td>
-            <td>{{ s.total }}</td>
-            <td>{{ s.solved }}</td>
-            <td><strong>{{ s.rate_pct }}</strong></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
     {% endif %}
-
-    {% if page.weaknesses and page.weaknesses.size > 0 %}
-    <section class="model-section">
-      <h2>Weaknesses · {{ page.weaknesses_label | default: 'Suites where GLM 5.2 struggles' }}</h2>
-      <table class="model-table">
-        <thead><tr><th>Suite</th><th>Tasks</th><th>Solved</th><th>Pass Rate</th></tr></thead>
-        <tbody>
-          {% for s in page.weaknesses %}
-          <tr>
-            <td><code>{{ s.suite }}</code></td>
-            <td>{{ s.total }}</td>
-            <td>{{ s.solved }}</td>
-            <td><strong>{{ s.rate_pct }}</strong></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
-    {% endif %}
-
-    {% if page.verifier_audit %}
-    <section class="model-section">
-      <h2>Verifier Audit (Reverified vs Initial)</h2>
-      <p>{{ page.verifier_audit }}</p>
-    </section>
-    {% endif %}
-
-    {% if page.summary %}
-    <section class="model-section">
-      <h2>Summary</h2>
-      <p>{{ page.summary }}</p>
-    </section>
-    {% endif %}
-
-    <p class="model-back"><a href="{{ site.baseurl }}/code-agent-bench/">← Back to CodeAgentBench leaderboard</a></p>
   </div>
-</div>
+</article>

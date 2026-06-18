@@ -1,0 +1,29 @@
+{% assign suite_items = include.items | default: page.suite_profile %}
+{% assign suite_title = include.title | default: 'Suite profile' %}
+{% assign suite_note = include.note | default: nil %}
+
+{% if suite_items and suite_items.size > 0 %}
+<figure class="model-visual model-suite-bars">
+  <figcaption>
+    <span class="model-section-label">{{ suite_title }}</span>
+    {% if suite_note %}<em>{{ suite_note }}</em>{% endif %}
+  </figcaption>
+  <div class="model-suite-bar-list">
+    {% for suite in suite_items %}
+    {% assign rate_value = suite.rate | default: 0 %}
+    <div class="model-suite-row">
+      <div class="model-suite-row-head">
+        <span>{{ suite.label | default: suite.repo | default: suite.suite }}</span>
+        <strong>{{ suite.solved }}/{{ suite.total }} · {{ suite.rate_pct }}</strong>
+      </div>
+      <div class="model-suite-track" aria-hidden="true">
+        <span style="width: {{ rate_value }}%"></span>
+      </div>
+      {% if suite.note %}
+      <p>{{ suite.note }}</p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</figure>
+{% endif %}
