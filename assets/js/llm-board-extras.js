@@ -110,174 +110,409 @@
       return el ? el.querySelector('.llm-board-filter-panel-body') : null;
     }
 
-    function scrollGroupIntoPanel(grp) {
-      const body = grp ? grp.closest('.llm-board-filter-panel-body') : null;
-      if (!body) return;
-      window.requestAnimationFrame(function () {
-        const bodyRect = body.getBoundingClientRect();
-        const grpRect = grp.getBoundingClientRect();
-        body.scrollTop += grpRect.top - bodyRect.top - 8;
-      });
-    }
+    /* ============ Two-column filter panel (sidebar + detail) ============ */
+    // Active group tracking per panel
+    const activeGroup = { models: null, benches: null };
 
-    function setGroupExpanded(grp, expanded) {
-      if (!grp) return;
-      grp.classList.toggle('is-expanded', expanded);
-    }
-
-    /* ============ Two-level tree filter panel ============ */
-    // Parent checkbox sync: when a child changes, update parent state.
-    // When parent is clicked, toggle all children.
-    function syncParentCheckbox(grp, childCheckboxes, stateSet) {
-      const parentCb = grp.querySelector('.llm-board-filter-parent-cb');
-      if (!parentCb) return;
-      const total = childCheckboxes.length;
-      const checked = Array.from(childCheckboxes).filter(function (c) { return c.checked; }).length;
-      if (checked === 0) {
-        parentCb.checked = false;
-        parentCb.indeterminate = false;
-      } else if (checked === total) {
-        parentCb.checked = true;
-        parentCb.indeterminate = false;
-      } else {
-        parentCb.checked = false;
-        parentCb.indeterminate = true;
-      }
-    }
-
-    function buildTreeGroup(grp, headLabel, headCount, items, stateSet, searchKeyFn) {
-      // Head row: parent checkbox + expand arrow + label + count
-      const head = document.createElement('div');
-      head.className = 'llm-board-filter-group-head';
-
-      const headLeft = document.createElement('div');
-      headLeft.className = 'llm-board-filter-group-head-left';
-
-      // Expand arrow
-      const arrow = document.createElement('span');
-      arrow.className = 'llm-board-filter-group-arrow';
-      arrow.textContent = '▶';
-      arrow.setAttribute('aria-hidden', 'true');
-      headLeft.appendChild(arrow);
-
-      // Parent checkbox
-      const parentCb = document.createElement('input');
-      parentCb.type = 'checkbox';
-      parentCb.className = 'llm-board-filter-parent-cb';
-      parentCb.checked = true;
-      parentCb.indeterminate = false;
-      parentCb.addEventListener('click', function (e) {
-        e.stopPropagation();
-      });
-      parentCb.addEventListener('change', function () {
-        const wantChecked = parentCb.checked;
-        const childCbs = grp.querySelectorAll('.llm-board-filter-item input[type="checkbox"]');
-        childCbs.forEach(function (cb) {
-          cb.checked = wantChecked;
-          const k = cb.value;
-          if (wantChecked) stateSet.delete(k); else stateSet.add(k);
-        });
-        afterChange();
-      });
-      headLeft.appendChild(parentCb);
-
-      // Label + count
-      const title = document.createElement('div');
-      title.className = 'llm-board-filter-group-title';
-      const lbl = document.createElement('strong');
-      lbl.textContent = headLabel;
-      const count = document.createElement('span');
-      count.textContent = headCount;
-      title.appendChild(lbl);
-      title.appendChild(count);
-      headLeft.appendChild(title);
-
-      head.appendChild(headLeft);
-
-      // Click on head (not checkbox) toggles expand
-      head.addEventListener('click', function (e) {
-        if (e.target.closest('.llm-board-filter-parent-cb')) return;
-        const expanded = !grp.classList.contains('is-expanded');
-        setGroupExpanded(grp, expanded);
-        if (expanded) scrollGroupIntoPanel(grp);
-      });
-
-      grp.appendChild(head);
-
-      // Items list
-      const list = document.createElement('div');
-      list.className = 'llm-board-filter-group-items';
-      items.forEach(function (item) {
-        const lab = document.createElement('label');
-        lab.className = 'llm-board-filter-item';
-        lab.dataset.searchKey = searchKeyFn(item).toLowerCase();
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.value = item.value;
-        cb.checked = !stateSet.has(item.value);
-        cb.addEventListener('change', function () {
-          if (cb.checked) stateSet.delete(item.value);
-          else stateSet.add(item.value);
-          syncParentCheckbox(grp, list.querySelectorAll('input[type="checkbox"]'), stateSet);
-          afterChange();
-        });
-        const span = document.createElement('span');
-        span.textContent = item.label;
-        lab.appendChild(cb);
-        lab.appendChild(span);
-        list.appendChild(lab);
-      });
-      grp.appendChild(list);
-
-      // Init parent checkbox state
-      syncParentCheckbox(grp, list.querySelectorAll('input[type="checkbox"]'), stateSet);
+    function getGroupCheckedInfo(items, stateSet) {
+      var total = items.length;
+      var checked = items.filter(function (it) { return !stateSet.has(it.value); }).length;
+      if (checked === 0) return { checked: false, indeterminate: false, count: '0/' + total };
+      if (checked === total) return { checked: true, indeterminate: false, count: total + '/' + total };
+      return { checked: false, indeterminate: true, count: checked + '/' + total };
     }
 
     function buildModelsPanel() {
-      const body = document.getElementById('llm-board-filter-models-body');
-      const byCompany = new Map();
+      var body = document.getElementById('llm-board-filter-models-body');
+      var byCompany = new Map();
       allModels.forEach(function (m) {
         if (!byCompany.has(m.company)) byCompany.set(m.company, []);
         byCompany.get(m.company).push(m);
       });
-      // Sort companies alphabetically
-      const sortedCompanies = Array.from(byCompany.keys()).sort(function (a, b) {
+      var sortedCompanies = Array.from(byCompany.keys()).sort(function (a, b) {
         return a.localeCompare(b, 'en', { sensitivity: 'base' });
       });
-      const frag = document.createDocumentFragment();
-      sortedCompanies.forEach(function (company) {
-        const models = byCompany.get(company);
-        const grp = document.createElement('div');
-        grp.className = 'llm-board-filter-group';
-        grp.dataset.company = company;
-        const items = models.map(function (m) { return { value: m.model, label: m.model }; });
-        buildTreeGroup(grp, company || 'Other', models.length + ' model' + (models.length === 1 ? '' : 's'), items, state.hiddenModels, function (item) { return item.label + ' ' + company; });
-        frag.appendChild(grp);
-      });
+
+      // Layout: sidebar + detail
       body.innerHTML = '';
-      body.appendChild(frag);
+      var wrapper = document.createElement('div');
+      wrapper.className = 'llm-filter-two-col';
+
+      // Left sidebar
+      var sidebar = document.createElement('div');
+      sidebar.className = 'llm-filter-sidebar';
+      var sidebarSearch = document.createElement('input');
+      sidebarSearch.type = 'search';
+      sidebarSearch.className = 'llm-filter-sidebar-search';
+      sidebarSearch.placeholder = 'Find provider...';
+      sidebarSearch.autocomplete = 'off';
+      sidebar.appendChild(sidebarSearch);
+
+      var sidebarList = document.createElement('div');
+      sidebarList.className = 'llm-filter-sidebar-list';
+
+      sortedCompanies.forEach(function (company, idx) {
+        var models = byCompany.get(company);
+        var info = getGroupCheckedInfo(models.map(function (m) { return { value: m.model }; }), state.hiddenModels);
+        var item = document.createElement('div');
+        item.className = 'llm-filter-sidebar-item' + (idx === 0 ? ' is-active' : '');
+        item.dataset.company = company;
+        item.dataset.searchKey = company.toLowerCase();
+
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'llm-filter-sidebar-cb';
+        cb.checked = info.checked;
+        cb.indeterminate = info.indeterminate;
+        cb.addEventListener('click', function (e) { e.stopPropagation(); });
+        cb.addEventListener('change', function () {
+          var wantChecked = cb.checked;
+          models.forEach(function (m) {
+            if (wantChecked) state.hiddenModels.delete(m.model);
+            else state.hiddenModels.add(m.model);
+          });
+          // Update sidebar indicator
+          var newInfo = getGroupCheckedInfo(models.map(function (m) { return { value: m.model }; }), state.hiddenModels);
+          cb.checked = newInfo.checked;
+          cb.indeterminate = newInfo.indeterminate;
+          // Update detail panel if this group is active
+          if (item.classList.contains('is-active')) refreshDetailPanel();
+          afterChange();
+        });
+
+        var label = document.createElement('span');
+        label.className = 'llm-filter-sidebar-label';
+        label.textContent = company || 'Other';
+
+        var count = document.createElement('span');
+        count.className = 'llm-filter-sidebar-count';
+        count.textContent = info.count;
+
+        item.appendChild(cb);
+        item.appendChild(label);
+        item.appendChild(count);
+
+        item.addEventListener('click', function (e) {
+          if (e.target.closest('.llm-filter-sidebar-cb')) return;
+          sidebarList.querySelectorAll('.llm-filter-sidebar-item.is-active').forEach(function (el) { el.classList.remove('is-active'); });
+          item.classList.add('is-active');
+          activeGroup.models = company;
+          refreshDetailPanel();
+        });
+
+        sidebarList.appendChild(item);
+      });
+      sidebar.appendChild(sidebarList);
+
+      // Right detail panel
+      var detail = document.createElement('div');
+      detail.className = 'llm-filter-detail';
+      var detailHead = document.createElement('div');
+      detailHead.className = 'llm-filter-detail-head';
+      var detailTitle = document.createElement('strong');
+      detailHead.appendChild(detailTitle);
+      var detailActions = document.createElement('div');
+      detailActions.className = 'llm-filter-detail-actions';
+      var selectAllBtn = document.createElement('button');
+      selectAllBtn.type = 'button';
+      selectAllBtn.textContent = 'All';
+      selectAllBtn.addEventListener('click', function () {
+        var activeItem = sidebarList.querySelector('.llm-filter-sidebar-item.is-active');
+        if (!activeItem) return;
+        var company = activeItem.dataset.company;
+        var models = byCompany.get(company);
+        models.forEach(function (m) { state.hiddenModels.delete(m.model); });
+        refreshDetailPanel();
+        refreshSidebarIndicators();
+        afterChange();
+      });
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.textContent = 'None';
+      clearBtn.addEventListener('click', function () {
+        var activeItem = sidebarList.querySelector('.llm-filter-sidebar-item.is-active');
+        if (!activeItem) return;
+        var company = activeItem.dataset.company;
+        var models = byCompany.get(company);
+        models.forEach(function (m) { state.hiddenModels.add(m.model); });
+        refreshDetailPanel();
+        refreshSidebarIndicators();
+        afterChange();
+      });
+      detailActions.appendChild(selectAllBtn);
+      detailActions.appendChild(clearBtn);
+      detailHead.appendChild(detailActions);
+      detail.appendChild(detailHead);
+
+      var detailList = document.createElement('div');
+      detailList.className = 'llm-filter-detail-list';
+      detail.appendChild(detailList);
+
+      wrapper.appendChild(sidebar);
+      wrapper.appendChild(detail);
+      body.appendChild(wrapper);
+
+      // Sidebar search
+      sidebarSearch.addEventListener('input', function () {
+        var q = sidebarSearch.value.toLowerCase().trim();
+        sidebarList.querySelectorAll('.llm-filter-sidebar-item').forEach(function (el) {
+          el.style.display = (!q || el.dataset.searchKey.indexOf(q) !== -1) ? '' : 'none';
+        });
+      });
+
+      // Init: select first company
+      if (sortedCompanies.length > 0) {
+        activeGroup.models = sortedCompanies[0];
+      }
+
+      function refreshDetailPanel() {
+        var company = activeGroup.models;
+        if (!company) return;
+        var models = byCompany.get(company);
+        detailTitle.textContent = company;
+        detailList.innerHTML = '';
+        models.forEach(function (m) {
+          var lab = document.createElement('label');
+          lab.className = 'llm-filter-item';
+          lab.dataset.searchKey = (m.model + ' ' + m.company).toLowerCase();
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = m.model;
+          cb.checked = !state.hiddenModels.has(m.model);
+          cb.addEventListener('change', function () {
+            if (cb.checked) state.hiddenModels.delete(m.model);
+            else state.hiddenModels.add(m.model);
+            // Update sidebar indicator
+            var info = getGroupCheckedInfo(models.map(function (mm) { return { value: mm.model }; }), state.hiddenModels);
+            var sidebarItem = sidebarList.querySelector('[data-company="' + company + '"]');
+            if (sidebarItem) {
+              var sidebarCb = sidebarItem.querySelector('.llm-filter-sidebar-cb');
+              sidebarCb.checked = info.checked;
+              sidebarCb.indeterminate = info.indeterminate;
+              sidebarItem.querySelector('.llm-filter-sidebar-count').textContent = info.count;
+            }
+            afterChange();
+          });
+          var span = document.createElement('span');
+          span.textContent = m.model;
+          lab.appendChild(cb);
+          lab.appendChild(span);
+          detailList.appendChild(lab);
+        });
+      }
+
+      function refreshSidebarIndicators() {
+        sortedCompanies.forEach(function (company) {
+          var models = byCompany.get(company);
+          var info = getGroupCheckedInfo(models.map(function (m) { return { value: m.model }; }), state.hiddenModels);
+          var sidebarItem = sidebarList.querySelector('[data-company="' + company + '"]');
+          if (sidebarItem) {
+            var sidebarCb = sidebarItem.querySelector('.llm-filter-sidebar-cb');
+            sidebarCb.checked = info.checked;
+            sidebarCb.indeterminate = info.indeterminate;
+            sidebarItem.querySelector('.llm-filter-sidebar-count').textContent = info.count;
+          }
+        });
+      }
+
+      refreshDetailPanel();
     }
 
     function buildBenchesPanel() {
-      const body = document.getElementById('llm-board-filter-benches-body');
+      var body = document.getElementById('llm-board-filter-benches-body');
       function bSortKey(label) {
         return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
       }
       function bCmp(a, b) {
         return bSortKey(a.label).localeCompare(bSortKey(b.label), 'en', { numeric: true, sensitivity: 'base' });
       }
-      const frag = document.createDocumentFragment();
-      (board.categories || []).forEach(function (cat) {
-        const grp = document.createElement('div');
-        grp.className = 'llm-board-filter-group';
-        grp.dataset.category = cat.name;
-        const sortedCols = (cat.columns || []).slice().sort(bCmp);
-        const items = sortedCols.map(function (col) { return { value: col.key, label: col.label }; });
-        buildTreeGroup(grp, cat.name, sortedCols.length + ' benchmark' + (sortedCols.length === 1 ? '' : 's'), items, state.hiddenBenches, function (item) { return item.label + ' ' + item.value; });
-        frag.appendChild(grp);
-      });
+
       body.innerHTML = '';
-      body.appendChild(frag);
+      var wrapper = document.createElement('div');
+      wrapper.className = 'llm-filter-two-col';
+
+      // Left sidebar: categories
+      var sidebar = document.createElement('div');
+      sidebar.className = 'llm-filter-sidebar';
+      var sidebarSearch = document.createElement('input');
+      sidebarSearch.type = 'search';
+      sidebarSearch.className = 'llm-filter-sidebar-search';
+      sidebarSearch.placeholder = 'Find category...';
+      sidebarSearch.autocomplete = 'off';
+      sidebar.appendChild(sidebarSearch);
+
+      var sidebarList = document.createElement('div');
+      sidebarList.className = 'llm-filter-sidebar-list';
+
+      var cats = (board.categories || []).slice();
+      cats.forEach(function (cat, idx) {
+        var cols = (cat.columns || []).slice().sort(bCmp);
+        var info = getGroupCheckedInfo(cols.map(function (c) { return { value: c.key }; }), state.hiddenBenches);
+        var item = document.createElement('div');
+        item.className = 'llm-filter-sidebar-item' + (idx === 0 ? ' is-active' : '');
+        item.dataset.category = cat.name;
+        item.dataset.searchKey = cat.name.toLowerCase();
+
+        var cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.className = 'llm-filter-sidebar-cb';
+        cb.checked = info.checked;
+        cb.indeterminate = info.indeterminate;
+        cb.addEventListener('click', function (e) { e.stopPropagation(); });
+        cb.addEventListener('change', function () {
+          var wantChecked = cb.checked;
+          cols.forEach(function (c) {
+            if (wantChecked) state.hiddenBenches.delete(c.key);
+            else state.hiddenBenches.add(c.key);
+          });
+          var newInfo = getGroupCheckedInfo(cols.map(function (c) { return { value: c.key }; }), state.hiddenBenches);
+          cb.checked = newInfo.checked;
+          cb.indeterminate = newInfo.indeterminate;
+          if (item.classList.contains('is-active')) refreshDetailPanel();
+          afterChange();
+        });
+
+        var label = document.createElement('span');
+        label.className = 'llm-filter-sidebar-label';
+        label.textContent = cat.name;
+
+        var count = document.createElement('span');
+        count.className = 'llm-filter-sidebar-count';
+        count.textContent = info.count;
+
+        item.appendChild(cb);
+        item.appendChild(label);
+        item.appendChild(count);
+
+        item.addEventListener('click', function (e) {
+          if (e.target.closest('.llm-filter-sidebar-cb')) return;
+          sidebarList.querySelectorAll('.llm-filter-sidebar-item.is-active').forEach(function (el) { el.classList.remove('is-active'); });
+          item.classList.add('is-active');
+          activeGroup.benches = cat.name;
+          refreshDetailPanel();
+        });
+
+        sidebarList.appendChild(item);
+      });
+      sidebar.appendChild(sidebarList);
+
+      // Right detail panel
+      var detail = document.createElement('div');
+      detail.className = 'llm-filter-detail';
+      var detailHead = document.createElement('div');
+      detailHead.className = 'llm-filter-detail-head';
+      var detailTitle = document.createElement('strong');
+      detailHead.appendChild(detailTitle);
+      var detailActions = document.createElement('div');
+      detailActions.className = 'llm-filter-detail-actions';
+      var selectAllBtn = document.createElement('button');
+      selectAllBtn.type = 'button';
+      selectAllBtn.textContent = 'All';
+      selectAllBtn.addEventListener('click', function () {
+        var activeItem = sidebarList.querySelector('.llm-filter-sidebar-item.is-active');
+        if (!activeItem) return;
+        var catName = activeItem.dataset.category;
+        var cat = cats.find(function (c) { return c.name === catName; });
+        if (!cat) return;
+        var cols = (cat.columns || []).slice().sort(bCmp);
+        cols.forEach(function (c) { state.hiddenBenches.delete(c.key); });
+        refreshDetailPanel();
+        refreshSidebarIndicators();
+        afterChange();
+      });
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.textContent = 'None';
+      clearBtn.addEventListener('click', function () {
+        var activeItem = sidebarList.querySelector('.llm-filter-sidebar-item.is-active');
+        if (!activeItem) return;
+        var catName = activeItem.dataset.category;
+        var cat = cats.find(function (c) { return c.name === catName; });
+        if (!cat) return;
+        var cols = (cat.columns || []).slice().sort(bCmp);
+        cols.forEach(function (c) { state.hiddenBenches.add(c.key); });
+        refreshDetailPanel();
+        refreshSidebarIndicators();
+        afterChange();
+      });
+      detailActions.appendChild(selectAllBtn);
+      detailActions.appendChild(clearBtn);
+      detailHead.appendChild(detailActions);
+      detail.appendChild(detailHead);
+
+      var detailList = document.createElement('div');
+      detailList.className = 'llm-filter-detail-list';
+      detail.appendChild(detailList);
+
+      wrapper.appendChild(sidebar);
+      wrapper.appendChild(detail);
+      body.appendChild(wrapper);
+
+      // Sidebar search
+      sidebarSearch.addEventListener('input', function () {
+        var q = sidebarSearch.value.toLowerCase().trim();
+        sidebarList.querySelectorAll('.llm-filter-sidebar-item').forEach(function (el) {
+          el.style.display = (!q || el.dataset.searchKey.indexOf(q) !== -1) ? '' : 'none';
+        });
+      });
+
+      // Init
+      if (cats.length > 0) {
+        activeGroup.benches = cats[0].name;
+      }
+
+      function refreshDetailPanel() {
+        var catName = activeGroup.benches;
+        if (!catName) return;
+        var cat = cats.find(function (c) { return c.name === catName; });
+        if (!cat) return;
+        var cols = (cat.columns || []).slice().sort(bCmp);
+        detailTitle.textContent = catName;
+        detailList.innerHTML = '';
+        cols.forEach(function (col) {
+          var lab = document.createElement('label');
+          lab.className = 'llm-filter-item';
+          lab.dataset.searchKey = (col.label + ' ' + col.key).toLowerCase();
+          var cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.value = col.key;
+          cb.checked = !state.hiddenBenches.has(col.key);
+          cb.addEventListener('change', function () {
+            if (cb.checked) state.hiddenBenches.delete(col.key);
+            else state.hiddenBenches.add(col.key);
+            var info = getGroupCheckedInfo(cols.map(function (c) { return { value: c.key }; }), state.hiddenBenches);
+            var sidebarItem = sidebarList.querySelector('[data-category="' + catName + '"]');
+            if (sidebarItem) {
+              var sidebarCb = sidebarItem.querySelector('.llm-filter-sidebar-cb');
+              sidebarCb.checked = info.checked;
+              sidebarCb.indeterminate = info.indeterminate;
+              sidebarItem.querySelector('.llm-filter-sidebar-count').textContent = info.count;
+            }
+            afterChange();
+          });
+          var span = document.createElement('span');
+          span.textContent = col.label;
+          lab.appendChild(cb);
+          lab.appendChild(span);
+          detailList.appendChild(lab);
+        });
+      }
+
+      function refreshSidebarIndicators() {
+        cats.forEach(function (cat) {
+          var cols = (cat.columns || []).slice().sort(bCmp);
+          var info = getGroupCheckedInfo(cols.map(function (c) { return { value: c.key }; }), state.hiddenBenches);
+          var sidebarItem = sidebarList.querySelector('[data-category="' + cat.name + '"]');
+          if (sidebarItem) {
+            var sidebarCb = sidebarItem.querySelector('.llm-filter-sidebar-cb');
+            sidebarCb.checked = info.checked;
+            sidebarCb.indeterminate = info.indeterminate;
+            sidebarItem.querySelector('.llm-filter-sidebar-count').textContent = info.count;
+          }
+        });
+      }
+
+      refreshDetailPanel();
     }
 
     /* ============ Apply filter to table ============ */
@@ -437,14 +672,6 @@
       if (btn) btn.setAttribute('aria-expanded', 'false');
     }
 
-    function collapsePanelGroups(panel) {
-      if (!panel) return;
-      panel.querySelectorAll('.llm-board-filter-group.is-expanded').forEach(function (grp) {
-        setGroupExpanded(grp, false);
-      });
-      panel.classList.remove('has-expanded-group');
-    }
-
     function openPanel(name) {
       ['models', 'benches'].forEach(function (n) {
         const panel = document.getElementById('llm-board-filter-' + n + '-panel');
@@ -456,7 +683,6 @@
           if (!isOpen) {
             const body = getPanelBody(panel);
             if (body) body.scrollTop = 0;
-            collapsePanelGroups(panel);
           }
         } else {
           closePanel(n);
@@ -486,63 +712,52 @@
           if (action === 'close') {
             closePanel(name);
           } else if (action === 'all') {
-            // Select all (visible after search)
-            panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
-              if (lab.style.display === 'none') return;
-              const cb = lab.querySelector('input[type="checkbox"]');
-              if (!cb.checked) {
-                cb.checked = true;
-                const k = cb.value;
-                if (name === 'models') state.hiddenModels.delete(k);
-                else state.hiddenBenches.delete(k);
-              }
-            });
-            // Sync parent checkboxes
-            panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
-              const stateSet = name === 'models' ? state.hiddenModels : state.hiddenBenches;
-              syncParentCheckbox(g, g.querySelectorAll('.llm-board-filter-item input[type="checkbox"]'), stateSet);
-            });
+            // Select all items in the currently active detail panel
+            const detailList = panel.querySelector('.llm-filter-detail-list');
+            if (detailList) {
+              detailList.querySelectorAll('.llm-filter-item').forEach(function (lab) {
+                const cb = lab.querySelector('input[type="checkbox"]');
+                if (cb && !cb.checked) {
+                  cb.checked = true;
+                  const k = cb.value;
+                  if (name === 'models') state.hiddenModels.delete(k);
+                  else state.hiddenBenches.delete(k);
+                }
+              });
+            }
+            // Rebuild panel to sync sidebar indicators
+            if (name === 'models') buildModelsPanel(); else buildBenchesPanel();
             afterChange();
           } else if (action === 'none') {
-            panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
-              if (lab.style.display === 'none') return;
-              const cb = lab.querySelector('input[type="checkbox"]');
-              if (cb.checked) {
-                cb.checked = false;
-                const k = cb.value;
-                if (name === 'models') state.hiddenModels.add(k);
-                else state.hiddenBenches.add(k);
-              }
-            });
-            // Sync parent checkboxes
-            panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
-              const stateSet = name === 'models' ? state.hiddenModels : state.hiddenBenches;
-              syncParentCheckbox(g, g.querySelectorAll('.llm-board-filter-item input[type="checkbox"]'), stateSet);
-            });
+            const detailList = panel.querySelector('.llm-filter-detail-list');
+            if (detailList) {
+              detailList.querySelectorAll('.llm-filter-item').forEach(function (lab) {
+                const cb = lab.querySelector('input[type="checkbox"]');
+                if (cb && cb.checked) {
+                  cb.checked = false;
+                  const k = cb.value;
+                  if (name === 'models') state.hiddenModels.add(k);
+                  else state.hiddenBenches.add(k);
+                }
+              });
+            }
+            if (name === 'models') buildModelsPanel(); else buildBenchesPanel();
             afterChange();
           }
         });
       });
-      // Inner search input
+      // Inner search input (top-level, filters detail panel items)
       const searchEl = document.getElementById('llm-board-filter-' + name + '-search');
       if (searchEl) {
         searchEl.addEventListener('input', function () {
           const q = (searchEl.value || '').toLowerCase().trim();
-          panel.classList.toggle('is-searching', !!q);
-          panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
-            const k = lab.dataset.searchKey || '';
-            const match = !q || k.indexOf(q) !== -1;
-            lab.style.display = match ? '' : 'none';
-          });
-          panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
-            const items = Array.from(g.querySelectorAll('.llm-board-filter-item'));
-            const visible = items.some(function (lab) { return lab.style.display !== 'none'; });
-            g.style.display = visible ? '' : 'none';
-            // Auto-expand groups that have matching items when searching
-            if (q && visible) {
-              setGroupExpanded(g, true);
-            }
-          });
+          const detailList = panel.querySelector('.llm-filter-detail-list');
+          if (detailList) {
+            detailList.querySelectorAll('.llm-filter-item').forEach(function (lab) {
+              const k = lab.dataset.searchKey || '';
+              lab.style.display = (!q || k.indexOf(q) !== -1) ? '' : 'none';
+            });
+          }
         });
       }
     });
