@@ -123,52 +123,114 @@
     function setGroupExpanded(grp, expanded) {
       if (!grp) return;
       grp.classList.toggle('is-expanded', expanded);
-      const expandBtn = grp.querySelector('.llm-board-filter-group-expand');
-      if (expandBtn) {
-        expandBtn.textContent = expanded ? 'collapse' : 'expand';
-        expandBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+
+    /* ============ Two-level tree filter panel ============ */
+    // Parent checkbox sync: when a child changes, update parent state.
+    // When parent is clicked, toggle all children.
+    function syncParentCheckbox(grp, childCheckboxes, stateSet) {
+      const parentCb = grp.querySelector('.llm-board-filter-parent-cb');
+      if (!parentCb) return;
+      const total = childCheckboxes.length;
+      const checked = Array.from(childCheckboxes).filter(function (c) { return c.checked; }).length;
+      if (checked === 0) {
+        parentCb.checked = false;
+        parentCb.indeterminate = false;
+      } else if (checked === total) {
+        parentCb.checked = true;
+        parentCb.indeterminate = false;
+      } else {
+        parentCb.checked = false;
+        parentCb.indeterminate = true;
       }
     }
 
-    function buildGroupControls(grp, stateSet, afterToggle) {
-      const controls = document.createElement('div');
-      controls.className = 'llm-board-filter-group-controls';
+    function buildTreeGroup(grp, headLabel, headCount, items, stateSet, searchKeyFn) {
+      // Head row: parent checkbox + expand arrow + label + count
+      const head = document.createElement('div');
+      head.className = 'llm-board-filter-group-head';
 
-      const expandBtn = document.createElement('button');
-      expandBtn.type = 'button';
-      expandBtn.className = 'llm-board-filter-group-expand';
-      expandBtn.textContent = 'expand';
-      expandBtn.setAttribute('aria-expanded', 'false');
-      expandBtn.addEventListener('click', function () {
-        const panel = grp.closest('.llm-board-filter-panel');
+      const headLeft = document.createElement('div');
+      headLeft.className = 'llm-board-filter-group-head-left';
+
+      // Expand arrow
+      const arrow = document.createElement('span');
+      arrow.className = 'llm-board-filter-group-arrow';
+      arrow.textContent = '▶';
+      arrow.setAttribute('aria-hidden', 'true');
+      headLeft.appendChild(arrow);
+
+      // Parent checkbox
+      const parentCb = document.createElement('input');
+      parentCb.type = 'checkbox';
+      parentCb.className = 'llm-board-filter-parent-cb';
+      parentCb.checked = true;
+      parentCb.indeterminate = false;
+      parentCb.addEventListener('click', function (e) {
+        e.stopPropagation();
+      });
+      parentCb.addEventListener('change', function () {
+        const wantChecked = parentCb.checked;
+        const childCbs = grp.querySelectorAll('.llm-board-filter-item input[type="checkbox"]');
+        childCbs.forEach(function (cb) {
+          cb.checked = wantChecked;
+          const k = cb.value;
+          if (wantChecked) stateSet.delete(k); else stateSet.add(k);
+        });
+        afterChange();
+      });
+      headLeft.appendChild(parentCb);
+
+      // Label + count
+      const title = document.createElement('div');
+      title.className = 'llm-board-filter-group-title';
+      const lbl = document.createElement('strong');
+      lbl.textContent = headLabel;
+      const count = document.createElement('span');
+      count.textContent = headCount;
+      title.appendChild(lbl);
+      title.appendChild(count);
+      headLeft.appendChild(title);
+
+      head.appendChild(headLeft);
+
+      // Click on head (not checkbox) toggles expand
+      head.addEventListener('click', function (e) {
+        if (e.target.closest('.llm-board-filter-parent-cb')) return;
         const expanded = !grp.classList.contains('is-expanded');
-        if (panel) {
-          panel.querySelectorAll('.llm-board-filter-group.is-expanded').forEach(function (other) {
-            if (other !== grp) setGroupExpanded(other, false);
-          });
-          panel.classList.toggle('has-expanded-group', expanded);
-        }
         setGroupExpanded(grp, expanded);
         if (expanded) scrollGroupIntoPanel(grp);
       });
-      controls.appendChild(expandBtn);
 
-      const allBtn = document.createElement('button');
-      allBtn.type = 'button';
-      allBtn.textContent = 'toggle';
-      allBtn.addEventListener('click', function () {
-        const checkboxes = grp.querySelectorAll('input[type="checkbox"]');
-        const anyUnchecked = Array.from(checkboxes).some(function (c) { return !c.checked; });
-        checkboxes.forEach(function (c) {
-          c.checked = anyUnchecked;
-          const k = c.value;
-          if (anyUnchecked) stateSet.delete(k); else stateSet.add(k);
+      grp.appendChild(head);
+
+      // Items list
+      const list = document.createElement('div');
+      list.className = 'llm-board-filter-group-items';
+      items.forEach(function (item) {
+        const lab = document.createElement('label');
+        lab.className = 'llm-board-filter-item';
+        lab.dataset.searchKey = searchKeyFn(item).toLowerCase();
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.value = item.value;
+        cb.checked = !stateSet.has(item.value);
+        cb.addEventListener('change', function () {
+          if (cb.checked) stateSet.delete(item.value);
+          else stateSet.add(item.value);
+          syncParentCheckbox(grp, list.querySelectorAll('input[type="checkbox"]'), stateSet);
+          afterChange();
         });
-        afterToggle();
+        const span = document.createElement('span');
+        span.textContent = item.label;
+        lab.appendChild(cb);
+        lab.appendChild(span);
+        list.appendChild(lab);
       });
-      controls.appendChild(allBtn);
+      grp.appendChild(list);
 
-      return controls;
+      // Init parent checkbox state
+      syncParentCheckbox(grp, list.querySelectorAll('input[type="checkbox"]'), stateSet);
     }
 
     function buildModelsPanel() {
@@ -178,52 +240,18 @@
         if (!byCompany.has(m.company)) byCompany.set(m.company, []);
         byCompany.get(m.company).push(m);
       });
+      // Sort companies alphabetically
+      const sortedCompanies = Array.from(byCompany.keys()).sort(function (a, b) {
+        return a.localeCompare(b, 'en', { sensitivity: 'base' });
+      });
       const frag = document.createDocumentFragment();
-      byCompany.forEach(function (models, company) {
+      sortedCompanies.forEach(function (company) {
+        const models = byCompany.get(company);
         const grp = document.createElement('div');
         grp.className = 'llm-board-filter-group';
         grp.dataset.company = company;
-        const head = document.createElement('div');
-        head.className = 'llm-board-filter-group-head';
-        const title = document.createElement('div');
-        title.className = 'llm-board-filter-group-title';
-        const lbl = document.createElement('strong');
-        lbl.textContent = company || 'Other';
-        const count = document.createElement('span');
-        count.textContent = models.length + ' model' + (models.length === 1 ? '' : 's');
-        title.appendChild(lbl);
-        title.appendChild(count);
-        head.appendChild(title);
-        head.appendChild(buildGroupControls(grp, state.hiddenModels, afterChange));
-        grp.appendChild(head);
-        const list = document.createElement('div');
-        list.className = 'llm-board-filter-group-items';
-        models.forEach(function (m) {
-          const lab = document.createElement('label');
-          lab.className = 'llm-board-filter-item';
-          lab.dataset.searchKey = (m.model + ' ' + m.company).toLowerCase();
-          const cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.value = m.model;
-          cb.checked = !state.hiddenModels.has(m.model);
-          cb.addEventListener('change', function () {
-            if (cb.checked) state.hiddenModels.delete(m.model);
-            else state.hiddenModels.add(m.model);
-            afterChange();
-          });
-          const span = document.createElement('span');
-          span.textContent = m.model;
-          lab.appendChild(cb);
-          lab.appendChild(span);
-          list.appendChild(lab);
-        });
-        if (models.length > 3) {
-          const more = document.createElement('div');
-          more.className = 'llm-board-filter-group-more';
-          more.textContent = '+' + (models.length - 3) + ' more';
-          list.appendChild(more);
-        }
-        grp.appendChild(list);
+        const items = models.map(function (m) { return { value: m.model, label: m.model }; });
+        buildTreeGroup(grp, company || 'Other', models.length + ' model' + (models.length === 1 ? '' : 's'), items, state.hiddenModels, function (item) { return item.label + ' ' + company; });
         frag.appendChild(grp);
       });
       body.innerHTML = '';
@@ -232,7 +260,6 @@
 
     function buildBenchesPanel() {
       const body = document.getElementById('llm-board-filter-benches-body');
-      // Same natural-sort comparator as the chart dropdown.
       function bSortKey(label) {
         return label.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
       }
@@ -244,54 +271,9 @@
         const grp = document.createElement('div');
         grp.className = 'llm-board-filter-group';
         grp.dataset.category = cat.name;
-        const head = document.createElement('div');
-        head.className = 'llm-board-filter-group-head';
-        const title = document.createElement('div');
-        title.className = 'llm-board-filter-group-title';
-        const lbl = document.createElement('strong');
-        lbl.textContent = cat.name;
-        const count = document.createElement('span');
-        count.textContent = (cat.columns || []).length + ' benchmark' + ((cat.columns || []).length === 1 ? '' : 's');
-        title.appendChild(lbl);
-        title.appendChild(count);
-        head.appendChild(title);
-        head.appendChild(buildGroupControls(grp, state.hiddenBenches, afterChange));
-        grp.appendChild(head);
-        const list = document.createElement('div');
-        list.className = 'llm-board-filter-group-items';
-        // Sort columns alphabetically within this category, with the
-        // same punctuation-normalised, numeric-aware comparator we use
-        // for the chart dropdown so "Terminal-Bench 2.0",
-        // "Terminal-Bench 2.0 (Claude Code)" and "Terminal-Bench 2.1"
-        // all sort together instead of being scattered around by yml
-        // insertion order.
         const sortedCols = (cat.columns || []).slice().sort(bCmp);
-        sortedCols.forEach(function (col) {
-          const lab = document.createElement('label');
-          lab.className = 'llm-board-filter-item';
-          lab.dataset.searchKey = (col.label + ' ' + col.key).toLowerCase();
-          const cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.value = col.key;
-          cb.checked = !state.hiddenBenches.has(col.key);
-          cb.addEventListener('change', function () {
-            if (cb.checked) state.hiddenBenches.delete(col.key);
-            else state.hiddenBenches.add(col.key);
-            afterChange();
-          });
-          const span = document.createElement('span');
-          span.textContent = col.label;
-          lab.appendChild(cb);
-          lab.appendChild(span);
-          list.appendChild(lab);
-        });
-        if (sortedCols.length > 3) {
-          const more = document.createElement('div');
-          more.className = 'llm-board-filter-group-more';
-          more.textContent = '+' + (sortedCols.length - 3) + ' more';
-          list.appendChild(more);
-        }
-        grp.appendChild(list);
+        const items = sortedCols.map(function (col) { return { value: col.key, label: col.label }; });
+        buildTreeGroup(grp, cat.name, sortedCols.length + ' benchmark' + (sortedCols.length === 1 ? '' : 's'), items, state.hiddenBenches, function (item) { return item.label + ' ' + item.value; });
         frag.appendChild(grp);
       });
       body.innerHTML = '';
@@ -515,6 +497,11 @@
                 else state.hiddenBenches.delete(k);
               }
             });
+            // Sync parent checkboxes
+            panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
+              const stateSet = name === 'models' ? state.hiddenModels : state.hiddenBenches;
+              syncParentCheckbox(g, g.querySelectorAll('.llm-board-filter-item input[type="checkbox"]'), stateSet);
+            });
             afterChange();
           } else if (action === 'none') {
             panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
@@ -527,6 +514,11 @@
                 else state.hiddenBenches.add(k);
               }
             });
+            // Sync parent checkboxes
+            panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
+              const stateSet = name === 'models' ? state.hiddenModels : state.hiddenBenches;
+              syncParentCheckbox(g, g.querySelectorAll('.llm-board-filter-item input[type="checkbox"]'), stateSet);
+            });
             afterChange();
           }
         });
@@ -536,15 +528,20 @@
       if (searchEl) {
         searchEl.addEventListener('input', function () {
           const q = (searchEl.value || '').toLowerCase().trim();
-          if (q) collapsePanelGroups(panel);
           panel.classList.toggle('is-searching', !!q);
           panel.querySelectorAll('.llm-board-filter-item').forEach(function (lab) {
             const k = lab.dataset.searchKey || '';
-            lab.style.display = (!q || k.indexOf(q) !== -1) ? '' : 'none';
+            const match = !q || k.indexOf(q) !== -1;
+            lab.style.display = match ? '' : 'none';
           });
           panel.querySelectorAll('.llm-board-filter-group').forEach(function (g) {
-            const visible = Array.from(g.querySelectorAll('.llm-board-filter-item')).some(function (lab) { return lab.style.display !== 'none'; });
+            const items = Array.from(g.querySelectorAll('.llm-board-filter-item'));
+            const visible = items.some(function (lab) { return lab.style.display !== 'none'; });
             g.style.display = visible ? '' : 'none';
+            // Auto-expand groups that have matching items when searching
+            if (q && visible) {
+              setGroupExpanded(g, true);
+            }
           });
         });
       }
