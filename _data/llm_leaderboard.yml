@@ -32,6 +32,10 @@ sources:
   label: LongCat-Flash-Thinking-2601 model card
   short_label: LongCat 2601
   url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+- id: longcat20
+  label: LongCat-2.0 model card
+  short_label: LongCat 2.0
+  url: https://huggingface.co/meituan-longcat/LongCat-2.0
 - id: hunyuan3preview
   label: Hunyuan 3 Preview report
   short_label: HY3
@@ -68,6 +72,10 @@ sources:
   label: Seed1.6 model card
   short_label: Seed1.6
   url: https://seed.bytedance.com/en/seed1_6
+- id: seed21
+  label: Seed2.1 model card
+  short_label: Seed2.1
+  url: https://seed.bytedance.com/en/seed2_1
 - id: claude_opus48
   label: Claude Opus 4.8 announcement
   short_label: Opus 4.8
@@ -243,6 +251,8 @@ categories:
     label: SWE-Multilingual
   - key: nl2repo
     label: NL2Repo
+  - key: program_bench
+    label: ProgramBench
   - key: scicode
     label: SciCode
   - key: qwen_web_bench
@@ -477,8 +487,20 @@ categories:
     label: BrowseComp (w/ctx)
   - key: browsecomp_zh_ctx
     label: BrowseComp-ZH (w/ctx)
+  - key: workspace_bench
+    label: Workspace Bench
+  - key: agent_startup_bench
+    label: Agent Startup Bench
+  - key: xdaily_bench
+    label: xDailyBench
+  - key: apex_agents
+    label: APEX Agents
+  - key: forte
+    label: FORTE
 - name: Knowledge & Reasoning
   columns:
+  - key: kina
+    label: KINA
   - key: mmlu_pro
     label: MMLU-Pro
   - key: mmcu
@@ -649,6 +671,8 @@ categories:
     label: USAMO 2026
   - key: imo_2025
     label: IMO 2025
+  - key: writing_bench
+    label: Writing Bench
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -739,6 +763,8 @@ categories:
     label: OCRBench
   - key: mmlongbench_doc
     label: MMLongBench-Doc
+  - key: mmlongbench_128k
+    label: MMLongBench-128K
   - key: cc_ocr
     label: CC-OCR
   - key: ai2d_test
@@ -2407,6 +2433,54 @@ rows:
     - value: '70.0'
       source_label: LongCat 2601
       source_url: https://huggingface.co/meituan-longcat/LongCat-Flash-Thinking-2601
+- company: LongCat
+  model: LongCat-2.0
+  mode: ''
+  released: '2026-06-30'
+  sources:
+  - label: LongCat-2.0 model card
+    url: https://huggingface.co/meituan-longcat/LongCat-2.0
+  scores:
+    terminal_bench_2_1:
+    - value: '70.8'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    swe_pro:
+    - value: '59.5'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    swe_multilingual:
+    - value: '77.3'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    forte:
+    - value: '73.2'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    browsecomp:
+    - value: '79.9'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    rw_search:
+    - value: '78.8'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    ifeval:
+    - value: '90.0'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    writing_bench:
+    - value: '83.8'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    imoanswerbench:
+    - value: '81.8'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    gpqa:
+    - value: '88.9'
+      source_label: LongCat 2.0
+      source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
 - company: Tencent
   model: Hunyuan 3 Preview
   mode: Preview
@@ -5454,6 +5528,238 @@ rows:
     - value: '26.5'
       source_label: Seed2.0 T5
       source_url: https://seed.bytedance.com/en/seed2
+- company: Doubao
+  model: Seed2.1 Pro
+  mode: ''
+  released: '2026-06-30'
+  sources:
+  - label: Seed2.1 model card
+    url: https://seed.bytedance.com/en/seed2_1
+  scores:
+    kina:
+    - value: '48.3'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    supergpqa:
+    - value: '70.8'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    beyondaime:
+    - value: '87.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    workspace_bench:
+    - value: '53.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    agent_startup_bench:
+    - value: '68.8'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    xdaily_bench:
+    - value: '61.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    nl2repo:
+    - value: '47.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    program_bench:
+    - value: '50.3'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    terminal_bench_2_1:
+    - value: '71.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    swe_atlas_qna:
+    - value: '35.2'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    swe_pro:
+    - value: '57.5'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mathvision:
+    - value: '92.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mmmu_pro:
+    - value: '81.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    worldvqa:
+    - value: '53.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    zerobench_main_tools:
+    - value: '18.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    babyvision:
+    - value: '73.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    charxiv_rq:
+    - value: '85.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    erqa:
+    - value: '72.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mmlongbench_128k:
+    - value: '78.3'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    videomme_w_sub:
+    - value: '89.2'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    tomato:
+    - value: '79.5'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    minerva_video:
+    - value: '70.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    ovobench:
+    - value: '80.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    videosimpleqa:
+    - value: '76.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    officeqa_pro:
+    - value: '70.9'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    gdpval_aa:
+    - value: '87.9'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    apex_agents:
+    - value: '33.8'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+- company: Doubao
+  model: Seed2.1 Turbo
+  mode: ''
+  released: '2026-06-30'
+  sources:
+  - label: Seed2.1 model card
+    url: https://seed.bytedance.com/en/seed2_1
+  scores:
+    kina:
+    - value: '46.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    supergpqa:
+    - value: '67.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    beyondaime:
+    - value: '88.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    workspace_bench:
+    - value: '54.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    agent_startup_bench:
+    - value: '54.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    xdaily_bench:
+    - value: '56.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    nl2repo:
+    - value: '43.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    program_bench:
+    - value: '49.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    terminal_bench_2_1:
+    - value: '67.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    swe_atlas_qna:
+    - value: '30.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    swe_pro:
+    - value: '57.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mathvision:
+    - value: '90.1'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mmmu_pro:
+    - value: '80.1'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    worldvqa:
+    - value: '48.6'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    zerobench_main_tools:
+    - value: '11.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    babyvision:
+    - value: '62.9'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    charxiv_rq:
+    - value: '82.5'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    erqa:
+    - value: '71.3'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    mmlongbench_128k:
+    - value: '76.9'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    videomme_w_sub:
+    - value: '89.0'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    tomato:
+    - value: '56.8'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    minerva_video:
+    - value: '65.9'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    ovobench:
+    - value: '79.2'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    videosimpleqa:
+    - value: '71.4'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    officeqa_pro:
+    - value: '62.8'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    gdpval_aa:
+    - value: '82.7'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
+    apex_agents:
+    - value: '29.2'
+      source_label: Seed2.1
+      source_url: https://seed.bytedance.com/en/seed2_1
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Max reasoning effort
@@ -7339,6 +7645,14 @@ rows:
     - value: '53.9'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    forte:
+    - value: '77.2'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
+    writing_bench:
+    - value: '85.2'
+      source_label: Opus 4.8
+      source_url: https://www.anthropic.com/news/claude-opus-4-8
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
@@ -7461,6 +7775,38 @@ rows:
     - value: '34.5'
       source_label: Opus 4.7
       source_url: https://www.anthropic.com/news/claude-opus-4-7
+    kina:
+    - value: '46.7'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    workspace_bench:
+    - value: '55.1'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    agent_startup_bench:
+    - value: '62.3'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    xdaily_bench:
+    - value: '69.0'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    program_bench:
+    - value: '52.1'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    apex_agents:
+    - value: '33.9'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    forte:
+    - value: '77.6'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
+    writing_bench:
+    - value: '85.3'
+      source_label: Opus 4.7
+      source_url: https://www.anthropic.com/news/claude-opus-4-7
 - company: Anthropic
   model: Claude Opus 4.6
   mode: Max
@@ -7486,9 +7832,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     swe_multilingual:
-    - value: '77.5'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '77.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     nl2repo:
     - value: '47.6'
       source_label: Qwen3.7
@@ -7526,12 +7872,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mcp_atlas:
-    - value: '75.8'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    - value: '73.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '59.5'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     spreadsheetbench_v1:
     - value: '89.3'
       source_label: Qwen3.7
@@ -7541,24 +7884,21 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     hle_tools:
-    - value: '53.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
     - value: '53.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     qwenworldbench:
     - value: '56.1'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     gpqa:
     - value: '91.3'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     hle:
     - value: '40.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     livecodebench:
     - value: '88.8'
       source_label: Qwen3.7
@@ -7603,9 +7943,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mrcr_v2_128k:
-    - value: '84.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '76.0'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     wmt24pp:
     - value: '82.7'
       source_label: Qwen3.7
@@ -7615,9 +7955,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mmmlu:
-    - value: '90.6'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '91.1'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     mmlu_prox:
     - value: '86.1'
       source_label: Qwen3.7
@@ -7659,39 +7999,19 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     browsecomp:
-    - value: '83.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    gdpval_aa:
-    - value: '1619'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    toolathlon:
-    - value: '47.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '84.0'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     gdpval_aa:
     - value: '1606'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    browsecomp:
-    - value: '84.0'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    toolathlon:
+    - value: '47.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     osworld_verified:
     - value: '72.7'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    mcp_atlas:
-    - value: '59.5'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    hle:
-    - value: '40.0'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    hle_tools:
-    - value: '53.1'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     finance_agent_v1:
@@ -7702,25 +8022,13 @@ rows:
     - value: '68.8'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    gpqa:
-    - value: '91.3'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
     mmmu_pro:
     - value: '73.9'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    mmmlu:
-    - value: '91.1'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     mrcr_v2_8_needle:
     - value: '93.0'
       source_label: Opus 4.6 (256k)
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    mrcr_v2_128k:
-    - value: '76.0'
-      source_label: Opus 4.6 (1M)
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     graphwalks_parents_128k:
     - value: '72.0'
@@ -7734,10 +8042,6 @@ rows:
     - value: '34.9'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    swe_multilingual:
-    - value: '77.8'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
     vending_bench_2:
     - value: '8017.59'
       source_label: Opus 4.6
@@ -7748,6 +8052,10 @@ rows:
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     biopipelinebench:
     - value: '53.1'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
+    forte:
+    - value: '73.2'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: Anthropic
@@ -7840,13 +8148,13 @@ rows:
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
     mcp_atlas:
-    - value: '71.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+    - value: '62.3'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     hle_tools:
     - value: '43.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     widesearch:
     - value: '76.4'
       source_label: Qwen3.6
@@ -7894,18 +8202,12 @@ rows:
       source_url: https://seed.bytedance.com/en/seed2
     gpqa:
     - value: '87.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    - value: '86.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     hle:
     - value: '30.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    - value: '23.7'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     livecodebench:
     - value: '84.8'
       source_label: Qwen3.6
@@ -7937,12 +8239,9 @@ rows:
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     mmmlu:
-    - value: '90.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    - value: '91.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '90.8'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     mmlu_prox:
     - value: '85.7'
       source_label: Qwen3.6
@@ -7976,18 +8275,12 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.6
     mmmu:
     - value: '80.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    - value: '81.6'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     mmmu_pro:
     - value: '70.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    - value: '70.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     mathvision:
     - value: '74.3'
       source_label: Qwen3.6
@@ -8091,8 +8384,8 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.6
     osworld_verified:
     - value: '66.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     simpleqa_verified:
     - value: '48.6'
       source_label: Seed2.0 T3
@@ -8162,9 +8455,9 @@ rows:
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     arc_agi_2:
-    - value: '29.1'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '37.6'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     korbench:
     - value: '77.4'
       source_label: Seed2.0 T3
@@ -8390,9 +8683,9 @@ rows:
       source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     aider_polyglot:
-    - value: '92.4'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '89.4'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     artifactsbench:
     - value: '68.5'
       source_label: Seed2.0 T11
@@ -8406,9 +8699,9 @@ rows:
       source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     browsecomp:
-    - value: 67.8(57.2)
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '67.8'
+      source_label: Opus 4.6
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     browsecomp_zh:
     - value: '62.4'
       source_label: Seed2.0 T11
@@ -8501,34 +8794,6 @@ rows:
     - value: '21.3'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    osworld_verified:
-    - value: '66.3'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    mcp_atlas:
-    - value: '62.3'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    arc_agi_2:
-    - value: '37.6'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    gpqa:
-    - value: '87.0'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    mmmu:
-    - value: '80.7'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    mmmlu:
-    - value: '90.8'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
-    aider_polyglot:
-    - value: '89.4'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
     browsecomp_plus:
     - value: '72.9'
       source_label: Opus 4.5
@@ -8541,24 +8806,8 @@ rows:
     - value: '1416'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    browsecomp:
-    - value: '67.8'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    hle:
-    - value: '30.8'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    hle_tools:
-    - value: '43.4'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
     finance_agent_v1:
     - value: '55.9'
-      source_label: Opus 4.6
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    mmmu_pro:
-    - value: '70.6'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     openrca:
@@ -8751,8 +9000,8 @@ rows:
       source_url: https://seed.bytedance.com/en/seed2
     arc_agi_2:
     - value: '13.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
     korbench:
     - value: '73.0'
       source_label: Seed2.0 T3
@@ -8762,17 +9011,17 @@ rows:
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     mrcr_v2_8_needle:
-    - value: '47.1'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '10.8'
+      source_label: Opus 4.6 (256k)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     graphwalks_bfs_128k:
-    - value: '80.5'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '25.6'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     graphwalks_parents_128k:
-    - value: '99.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '50.2'
+      source_label: Opus 4.6 (1M)
+      source_url: https://www.anthropic.com/news/claude-opus-4-6
     longbench_v2:
     - value: '62.0'
       source_label: Seed2.0 T3
@@ -8830,9 +9079,12 @@ rows:
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     terminal_bench_2:
-    - value: '45.2'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '51.0'
+      source_label: Sonnet 4.6
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
+    - value: '50.0'
+      source_label: Sonnet 4.5
+      source_url: https://www.anthropic.com/news/claude-sonnet-4-5
     swe_lancer:
     - value: '45.7'
       source_label: Seed2.0 T11
@@ -8862,9 +9114,9 @@ rows:
       source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     aider_polyglot:
-    - value: '82.2'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '78.8'
+      source_label: Opus 4.5
+      source_url: https://www.anthropic.com/news/claude-opus-4-5
     artifactsbench:
     - value: '59.1'
       source_label: Seed2.0 T11
@@ -8989,13 +9241,6 @@ rows:
     - value: '10.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    terminal_bench_2:
-    - value: '51.0'
-      source_label: Sonnet 4.6
-      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
-    - value: '50.0'
-      source_label: Sonnet 4.5
-      source_url: https://www.anthropic.com/news/claude-sonnet-4-5
     osworld_verified:
     - value: '61.4'
       source_label: Sonnet 4.6
@@ -9008,18 +9253,10 @@ rows:
     - value: '1276'
       source_label: Sonnet 4.6
       source_url: https://www.anthropic.com/news/claude-sonnet-4-6
-    arc_agi_2:
-    - value: '13.6'
-      source_label: Sonnet 4.6
-      source_url: https://www.anthropic.com/news/claude-sonnet-4-6
     mmmu_pro:
     - value: '63.4'
       source_label: Sonnet 4.6
       source_url: https://www.anthropic.com/news/claude-sonnet-4-6
-    aider_polyglot:
-    - value: '78.8'
-      source_label: Opus 4.5
-      source_url: https://www.anthropic.com/news/claude-opus-4-5
     browsecomp_plus:
     - value: '67.2'
       source_label: Opus 4.5
@@ -9044,20 +9281,8 @@ rows:
     - value: '19.3'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    mrcr_v2_8_needle:
-    - value: '10.8'
-      source_label: Opus 4.6 (256k)
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
     mrcr_v2_128k:
     - value: '18.5'
-      source_label: Opus 4.6 (1M)
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    graphwalks_parents_128k:
-    - value: '50.2'
-      source_label: Opus 4.6 (1M)
-      source_url: https://www.anthropic.com/news/claude-opus-4-6
-    graphwalks_bfs_128k:
-    - value: '25.6'
       source_label: Opus 4.6 (1M)
       source_url: https://www.anthropic.com/news/claude-opus-4-6
 - company: OpenAI
@@ -9146,6 +9371,38 @@ rows:
     - value: '51.8'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    kina:
+    - value: '52.6'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    workspace_bench:
+    - value: '58.7'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    agent_startup_bench:
+    - value: '68.1'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    xdaily_bench:
+    - value: '73.0'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    program_bench:
+    - value: '65.9'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    apex_agents:
+    - value: '35.4'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    forte:
+    - value: '77.8'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
+    writing_bench:
+    - value: '84.7'
+      source_label: GPT-5.5
+      source_url: https://openai.com/index/gpt-5-5/
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -10596,6 +10853,42 @@ rows:
     - value: '43.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    kina:
+    - value: '53.2'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    workspace_bench:
+    - value: '32.8'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    agent_startup_bench:
+    - value: '45.7'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    xdaily_bench:
+    - value: '35.2'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    program_bench:
+    - value: '40.7'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    apex_agents:
+    - value: '33.5'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    mmlongbench_128k:
+    - value: '70.7'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    forte:
+    - value: '70.3'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    writing_bench:
+    - value: '83.7'
+      source_label: Gemini 3.1 Pro
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -11350,9 +11643,9 @@ rows:
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
     arc_agi_2:
-    - value: '34.3'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '33.6'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
     korbench:
     - value: '76.0'
       source_label: Seed2.0 T4
@@ -11390,13 +11683,13 @@ rows:
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
     global_piqa:
-    - value: '95.6'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
+    - value: '92.8'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
     mmmlu:
     - value: '91.8'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
     disco_x:
     - value: '71.9'
       source_label: Seed2.0 T4
@@ -11609,10 +11902,6 @@ rows:
     - value: '13.3'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    arc_agi_2:
-    - value: '33.6'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
     mmmu_pro:
     - value: '81.2'
       source_label: Gemini 3 Flash
@@ -11643,14 +11932,6 @@ rows:
       source_url: https://deepmind.google/models/gemini/flash/
     vending_bench_2:
     - value: '3635'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    global_piqa:
-    - value: '92.8'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mmmlu:
-    - value: '91.8'
       source_label: Gemini 3 Flash
       source_url: https://deepmind.google/models/gemini/flash/
     mrcr_v2_128k:
@@ -12526,8 +12807,8 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.6
     mmmu_pro:
     - value: '78.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     mathvision:
     - value: '84.2'
       source_label: Qwen3.6
@@ -12558,8 +12839,8 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.6
     charxiv_rq:
     - value: '77.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+      source_label: K2.5
+      source_url: https://moonshotai.github.io/Kimi-K2/
     mmlongbench_doc:
     - value: '58.5'
       source_label: Qwen3.6
@@ -12608,14 +12889,6 @@ rows:
     - value: '63.3'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu_pro:
-    - value: '78.5'
-      source_label: K2.5
-      source_url: https://moonshotai.github.io/Kimi-K2/
-    charxiv_rq:
-    - value: '77.5'
-      source_label: K2.5
-      source_url: https://moonshotai.github.io/Kimi-K2/
     mathvista:
     - value: '90.1'
       source_label: K2.5
