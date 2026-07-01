@@ -387,14 +387,16 @@ categories:
     label: FeatBench
   - key: code_agent_bench
     label: CodeAgentBench
-  - key: deepswe
-    label: DeepSWE
+  - key: deepswe_1_1
+    label: DeepSWE 1.1
   - key: frontierswe
     label: FrontierSWE
   - key: posttrainbench
     label: PostTrainBench
   - key: swe_marathon
     label: SWE-Marathon
+  - key: deepswe
+    label: DeepSWE
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -6047,10 +6049,6 @@ rows:
     - value: '94.4'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
-    deepswe:
-    - value: '8.0'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     program_bench:
     - value: '47.8'
       source_label: GLM-5.2
@@ -6065,6 +6063,14 @@ rows:
       source_url: https://bigmodel.cn
     tool_decathlon:
     - value: '52.8'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '8.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '8.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
 - company: DeepSeek
@@ -6263,6 +6269,10 @@ rows:
     - value: '32.95'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
+    deepswe:
+    - value: '8.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: High reasoning effort
@@ -6443,6 +6453,10 @@ rows:
     - value: '32.95'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
+    deepswe:
+    - value: '8.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Non-think
@@ -7831,10 +7845,6 @@ rows:
     - value: '83.5'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
-    deepswe:
-    - value: '58.0'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     program_bench:
     - value: '71.9'
       source_label: GLM-5.2
@@ -7853,6 +7863,14 @@ rows:
       source_url: https://bigmodel.cn
     tool_decathlon:
     - value: '59.9'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '58.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '58.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
 - company: Anthropic
@@ -9629,10 +9647,6 @@ rows:
     - value: '93.6'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
-    deepswe:
-    - value: '70.0'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     frontierswe:
     - value: '72.6'
       source_label: GLM-5.2
@@ -9647,6 +9661,14 @@ rows:
       source_url: https://bigmodel.cn
     tool_decathlon:
     - value: '55.6'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '70.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '70.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
 - company: OpenAI
@@ -11155,10 +11177,6 @@ rows:
     - value: '33.4'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
-    deepswe:
-    - value: '10.0'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     frontierswe:
     - value: '39.6'
       source_label: GLM-5.2
@@ -11169,6 +11187,14 @@ rows:
       source_url: https://bigmodel.cn
     swe_marathon:
     - value: '4.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '10.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '10.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
 - company: Google
@@ -13599,10 +13625,6 @@ rows:
     - value: '31.74'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
-    deepswe:
-    - value: '18.0'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     program_bench:
     - value: '50.9'
       source_label: GLM-5.2
@@ -13625,6 +13647,14 @@ rows:
       source_url: https://bigmodel.cn
     tool_decathlon:
     - value: '40.7'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '18.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '18.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
 - company: Zhipu AI
@@ -14248,10 +14278,6 @@ rows:
     - value: '48.9'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
-    deepswe:
-    - value: '46.2'
-      source_label: GLM-5.2
-      source_url: https://bigmodel.cn
     program_bench:
     - value: '63.7'
       source_label: GLM-5.2
@@ -14278,5 +14304,13 @@ rows:
       source_url: https://bigmodel.cn
     tool_decathlon:
     - value: '48.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe_1_1:
+    - value: '46.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '46.2'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
