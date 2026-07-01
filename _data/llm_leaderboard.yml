@@ -264,6 +264,10 @@ sources:
   label: Claude Fable 5 report
   short_label: Fable 5
   url: https://anthropic.com
+- id: claude_sonnet5
+  label: Claude Sonnet 5 report
+  short_label: Sonnet 5
+  url: https://anthropic.com
 categories:
 - name: Coding Agent
   columns:
@@ -9386,6 +9390,14 @@ rows:
     - value: '1472'
       source_label: TextArena
       source_url: https://text-arena.com
+    swe_pro:
+    - value: '58.1'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    terminal_bench_2_1:
+    - value: '67.0'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
 - company: Anthropic
   model: Claude Sonnet 4.5
   mode: ''
@@ -14901,4 +14913,40 @@ rows:
     healthbench_pro:
     - value: '66.0'
       source_label: Claude Fable 5
+      source_url: https://anthropic.com
+- company: Anthropic
+  model: Claude Sonnet 5
+  mode: ''
+  released: '2026-07-01'
+  sources:
+  - label: Claude Sonnet 5 report
+    url: https://anthropic.com
+  scores:
+    swe_pro:
+    - value: '63.2'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    terminal_bench_2_1:
+    - value: '80.4'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    hle:
+    - value: '43.2'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    hle_tools:
+    - value: '57.4'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    osworld_verified:
+    - value: '81.2'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    gdpval_aa:
+    - value: '1618'
+      source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    scicode:
+    - value: '53.6'
+      source_label: Claude Sonnet 5
       source_url: https://anthropic.com
