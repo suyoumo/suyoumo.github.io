@@ -630,7 +630,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td data-fullname="'+r.model+'">'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+Math.round(r.winRate*100)+'%)</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td data-fullname="'+r.model+'">'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+(r.winRate*100).toFixed(1)+'%)</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
