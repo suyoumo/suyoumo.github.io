@@ -367,8 +367,6 @@ categories:
     label: OctoCodingbench
   - key: swe_atlas_qna
     label: SWE Atlas-QnA
-  - key: swe_atlas_text_writing
-    label: SWE Atlas-Text Writing
   - key: swe_rficiency
     label: SWE-rficiency
   - key: livesglbench
@@ -379,8 +377,6 @@ categories:
     label: PsofTrainBench
   - key: kernelbench_hard
     label: KernelBench Hard
-  - key: paperbench
-    label: PaperBench
   - key: clawval_11
     label: ClawEval-1.1
   - key: t3_bench
@@ -427,6 +423,32 @@ categories:
     label: Codeforces
   - key: codeforces_percentile
     label: Codeforces (percentile)
+  - key: kernel_bench_l3
+    label: Kernel Bench L3
+  - key: cybersecurity_ctf
+    label: Cybersecurity CTF
+  - key: livecodebench_tools
+    label: LiveCodeBench (w/ Tools)
+  - key: swe_verified_tools
+    label: SWE-Verified (w/ Tools)
+  - key: terminal_bench_2_tools
+    label: Terminal-Bench 2.0 (w/ Tools)
+  - key: claw_eval_pass2
+    label: ClawEval (pass^2)
+  - key: swe_lancer
+    label: SWE-Lancer
+  - key: multi_swe_bench
+    label: Multi-SWE-Bench
+  - key: swe_evo
+    label: SWE-Evo
+  - key: aider_polyglot
+    label: Aider Polyglot
+  - key: artifactsbench
+    label: ArtifactsBench
+  - key: codesimpleqa
+    label: CodeSimpleQA
+  - key: nl2repo_bench
+    label: NL2Repo-Bench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -469,8 +491,6 @@ categories:
     label: WebArena
   - key: spreadsheetbench_v1
     label: SpreadSheetBench-v1
-  - key: kernel_bench_l3
-    label: Kernel Bench L3
   - key: qwenworldbench
     label: QwenWorldBench
   - key: browsecomp_plus
@@ -487,20 +507,10 @@ categories:
     label: OfficeQA Pro
   - key: cybergym
     label: CyberGym
-  - key: biopipelinebench
-    label: BioPipelineBench
-  - key: structural_biology
-    label: Structural Biology
   - key: gdpval_winrate
     label: GDPval Win-or-Tie
   - key: ib_spreadsheet
     label: IB Spreadsheet
-  - key: cybersecurity_ctf
-    label: Cybersecurity CTF
-  - key: browsecomp_lc_128k
-    label: BrowseComp LC 128k
-  - key: browsecomp_lc_256k
-    label: BrowseComp LC 256k
   - key: pinchbench
     label: PinchBench
   - key: deepsearch_qa
@@ -539,10 +549,6 @@ categories:
     label: BankerToolBench
   - key: yc_bench
     label: YC-Bench
-  - key: loca_bench_256k
-    label: LOCA-Bench (256k)
-  - key: finance_modeling
-    label: Finance Modeling
   - key: browsecomp_ctx
     label: BrowseComp (w/ctx)
   - key: browsecomp_zh_ctx
@@ -573,6 +579,18 @@ categories:
     label: ExploitBench
   - key: healthbench_pro
     label: HealthBench Professional
+  - key: browsecomp_tools
+    label: BrowseComp (w/ Tools)
+  - key: tau2_bench_avg_tools
+    label: TAU2-Bench (w/ Tools)
+  - key: browsecomp_agent_swarm
+    label: BrowseComp (agent swarm)
+  - key: osworld_verified
+    label: OSWorld-Verified
+  - key: androidworld
+    label: AndroidWorld
+  - key: blueprint_bench_2
+    label: Blueprint-Bench 2
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -723,20 +741,6 @@ categories:
     label: HMMT 2025 Feb (heavy)
   - key: gpqa_tools
     label: GPQA (w/ Tools)
-  - key: livecodebench_tools
-    label: LiveCodeBench (w/ Tools)
-  - key: browsecomp_tools
-    label: BrowseComp (w/ Tools)
-  - key: swe_verified_tools
-    label: SWE-Verified (w/ Tools)
-  - key: terminal_bench_2_tools
-    label: Terminal-Bench 2.0 (w/ Tools)
-  - key: tau2_bench_avg_tools
-    label: TAU2-Bench (w/ Tools)
-  - key: claw_eval_pass2
-    label: ClawEval (pass^2)
-  - key: browsecomp_agent_swarm
-    label: BrowseComp (agent swarm)
   - key: usamo_2026
     label: USAMO 2026
   - key: imo_2025
@@ -749,6 +753,16 @@ categories:
     label: Longform Writing
   - key: creative_writing_v3
     label: Creative Writing v3
+  - key: swe_atlas_text_writing
+    label: SWE Atlas-Text Writing
+  - key: paperbench
+    label: PaperBench
+  - key: structural_biology
+    label: Structural Biology
+  - key: biopipelinebench
+    label: BioPipelineBench
+  - key: finance_modeling
+    label: Finance Modeling
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -775,6 +789,22 @@ categories:
     label: MRCRv2 8N 64-128k
   - key: mrcr_v2_128_256k
     label: MRCRv2 8N 128-256k
+  - key: loca_bench_256k
+    label: LOCA-Bench (256k)
+  - key: browsecomp_lc_128k
+    label: BrowseComp LC 128k
+  - key: browsecomp_lc_256k
+    label: BrowseComp LC 256k
+  - key: mrcr_v2_8_needle
+    label: MRCR v2 (8-needle)
+  - key: graphwalks_bfs_128k
+    label: Graphwalks Bfs (<128k)
+  - key: graphwalks_parents_128k
+    label: Graphwalks Parents (<128k)
+  - key: longfact_objects
+    label: LongFact-Objects
+  - key: longfact_concepts
+    label: LongFact-Concepts
 - name: Instruction & Multilingual
   columns:
   - key: ifeval
@@ -805,6 +835,8 @@ categories:
     label: PolyMATH
   - key: global_mmlu_lite
     label: Global MMLU (Lite)
+  - key: inverse_ifeval
+    label: Inverse IFEval
 - name: Multimodal
   columns:
   - key: mmmu
@@ -869,24 +901,18 @@ categories:
     label: ScreenSpot Pro
   - key: tir_bench
     label: TIR-Bench
-  - key: osworld_verified
-    label: OSWorld-Verified
   - key: futureomni
     label: FutureOmni
   - key: worldvqa
     label: WorldVQA
   - key: bc_vl
     label: BC-VL
-  - key: blueprint_bench_2
-    label: Blueprint-Bench 2
   - key: infovqa_val
     label: InfoVQA (val)
   - key: zerobench_main_tools
     label: ZeroBench (w/tools)
   - key: medxpertqa_mm
     label: MedXpertQA-MM
-  - key: androidworld
-    label: AndroidWorld
   - key: qwenvision2code
     label: QwenVision2Code
   - key: claw_eval_mm
@@ -1135,12 +1161,6 @@ categories:
     label: KORBench
   - key: procbench
     label: ProcBench
-  - key: mrcr_v2_8_needle
-    label: MRCR v2 (8-needle)
-  - key: graphwalks_bfs_128k
-    label: Graphwalks Bfs (<128k)
-  - key: graphwalks_parents_128k
-    label: Graphwalks Parents (<128k)
   - key: frames
     label: Frames
   - key: der2_bench
@@ -1155,30 +1175,12 @@ categories:
     label: COLLIE
   - key: mars_bench
     label: MARS-Bench
-  - key: inverse_ifeval
-    label: Inverse IFEval
-  - key: longfact_objects
-    label: LongFact-Objects
-  - key: longfact_concepts
-    label: LongFact-Concepts
   - key: factscore
     label: FactScore
   - key: putnam_200
     label: Putnam-200
 - name: Seed2.0 Agents & Real World
   columns:
-  - key: swe_lancer
-    label: SWE-Lancer
-  - key: multi_swe_bench
-    label: Multi-SWE-Bench
-  - key: swe_evo
-    label: SWE-Evo
-  - key: aider_polyglot
-    label: Aider Polyglot
-  - key: artifactsbench
-    label: ArtifactsBench
-  - key: codesimpleqa
-    label: CodeSimpleQA
   - key: spreadsheetbench_verified
     label: SpreadsheetBench Verified
   - key: browsecomp_zh
@@ -1211,8 +1213,6 @@ categories:
     label: DeepResearchBench
   - key: researchrubrics
     label: ResearchRubrics
-  - key: nl2repo_bench
-    label: NL2Repo-Bench
   - key: tob_complex_workflows
     label: ToB-Complex Workflows
   - key: tob_reference_qa
