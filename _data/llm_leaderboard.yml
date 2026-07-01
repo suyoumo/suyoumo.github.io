@@ -240,6 +240,10 @@ sources:
   label: CodeAgentBench
   short_label: CodeAgentBench
   url: https://suyoumo.github.io/code-agent-bench/
+- id: glm52
+  label: GLM-5.2 report
+  short_label: GLM-5.2
+  url: https://bigmodel.cn
 categories:
 - name: Coding Agent
   columns:
@@ -383,6 +387,14 @@ categories:
     label: FeatBench
   - key: code_agent_bench
     label: CodeAgentBench
+  - key: deepswe
+    label: DeepSWE
+  - key: frontierswe
+    label: FrontierSWE
+  - key: posttrainbench
+    label: PostTrainBench
+  - key: swe_marathon
+    label: SWE-Marathon
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -13984,3 +13996,83 @@ rows:
     - value: '45.8'
       source_label: Pangu 2.0 Flash
       source_url: https://www.hiascend.com/developer/modelhub
+- company: Zhipu AI
+  model: GLM-5.2
+  mode: ''
+  released: '2026-07-01'
+  sources:
+  - label: GLM-5.2 report
+    url: https://bigmodel.cn
+  scores:
+    hle:
+    - value: '40.5'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    hle_tools:
+    - value: '54.7'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    critpt:
+    - value: '20.9'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    aime26:
+    - value: '99.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    hmmt_2025_nov:
+    - value: '94.4'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    hmmt_2026_feb:
+    - value: '92.5'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    imoanswerbench:
+    - value: '91.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    gpqa:
+    - value: '91.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    swe_pro:
+    - value: '62.1'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    nl2repo:
+    - value: '48.9'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    deepswe:
+    - value: '46.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    program_bench:
+    - value: '63.7'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    terminal_bench_2_1:
+    - value: '81.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    frontierswe:
+    - value: '74.4'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    posttrainbench:
+    - value: '34.3'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    swe_marathon:
+    - value: '13.0'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    mcp_atlas:
+    - value: '76.8'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
+    tool_decathlon:
+    - value: '48.2'
+      source_label: GLM-5.2
+      source_url: https://bigmodel.cn
