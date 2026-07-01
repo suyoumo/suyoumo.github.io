@@ -423,7 +423,23 @@ permalink: /llm-leaderboard/
   border-bottom: 1px solid rgba(0,0,0,0.06); white-space: nowrap;
 }
 .llm-ranking-table td:nth-child(1) { font-weight: 800; font-size: 0.88rem; padding-left: 10px; text-align: left; width: 44px; }
-.llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
+.llm-ranking-table td:nth-child(2):hover::after {
+  content: attr(data-fullname);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: #2b2b2b;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
 .llm-ranking-table td:nth-child(3) { text-align: left; color: #6b6b65; font-size: 0.75rem; }
 .llm-ranking-table td:nth-child(4) { font-weight: 800; font-size: 0.88rem; background: rgba(196,90,60,0.05); }
 .rank-gold { color: #d4a017; }
@@ -614,7 +630,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td title="'+r.model+'">'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+Math.round(r.winRate*100)+'%)</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td data-fullname="'+r.model+'">'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+Math.round(r.winRate*100)+'%)</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
