@@ -103,7 +103,7 @@ permalink: /llm-leaderboard/
           <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
         </label>
         <label class="llm-ranking-min-label">每 bench 最少模型数:
-          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+          <input type="number" id="rankingMinModels" value="10" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
         </label>
         <span class="llm-ranking-info" id="rankingInfo"></span>
       </div>
@@ -119,7 +119,7 @@ permalink: /llm-leaderboard/
       <strong>📋 排名机制说明：</strong>
       <ol>
         <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
-        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
+        <li><b>每 benchmark 最少模型数</b>（默认 10）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
         <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
         <li><b>均百分位</b>：模型在各 benchmark 的百分位取算术平均。所有 benchmark 等权，无额外加权。</li>
         <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
@@ -547,7 +547,7 @@ permalink: /llm-leaderboard/
   function renderRanking(){
     var keys=activeKeys.filter(function(k){return benchLabels[k];});
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
-    var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
+    var minModels = parseInt(document.getElementById('rankingMinModels').value)||10;
     if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
