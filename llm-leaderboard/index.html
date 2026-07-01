@@ -102,6 +102,9 @@ permalink: /llm-leaderboard/
         <label class="llm-ranking-min-label">最少 benchmark 数:
           <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
         </label>
+        <label class="llm-ranking-min-label">每 bench 最少模型数:
+          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+        </label>
         <span class="llm-ranking-info" id="rankingInfo"></span>
       </div>
       <div class="llm-ranking-table-wrap">
@@ -476,26 +479,35 @@ permalink: /llm-leaderboard/
     return m;
   }
 
-  function computeRanking(keys, min){
-    var sm=scoreMap(), mks=Object.keys(sm), br={};
+  function computeRanking(keys, min, minModelsPerBench){
+    var sm=scoreMap(), mks=Object.keys(sm), br={}, brPercentile={};
     keys.forEach(function(bk){
       var scored=[];
       mks.forEach(function(mk){ if(sm[mk].hasOwnProperty(bk)) scored.push({k:mk,s:sm[mk][bk]}); });
+      // Skip benchmarks with too few models
+      if(scored.length < minModelsPerBench) return;
       scored.sort(function(a,b){return b.s-a.s;});
-      var r={}; scored.forEach(function(it,i){ r[it.k]=i+1; }); br[bk]=r;
+      var r={}, p={};
+      scored.forEach(function(it,i){ r[it.k]=i+1; p[it.k]=(i+1)/scored.length; });
+      br[bk]=r; brPercentile[bk]=p;
     });
+    // Filter keys to only those with enough models
+    var validKeys = keys.filter(function(bk){ return brPercentile[bk]; });
     var results=[];
     mks.forEach(function(mk){
-      var ranks=[]; keys.forEach(function(bk){ if(br[bk].hasOwnProperty(mk)) ranks.push(br[bk][mk]); });
-      if(ranks.length>=min){
-        var avg=ranks.reduce(function(s,v){return s+v;},0)/ranks.length;
+      var percentiles=[];
+      validKeys.forEach(function(bk){ if(brPercentile[bk].hasOwnProperty(mk)) percentiles.push(brPercentile[bk][mk]); });
+      if(percentiles.length>=min){
+        var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
         var p=mk.split('|');
-        results.push({company:p[0],model:p[1],avg:avg,cnt:ranks.length,
-          scores:keys.map(function(bk){return sm[mk][bk];})});
+        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,
+          scores:validKeys.map(function(bk){return sm[mk][bk];}),
+          ranks:validKeys.map(function(bk){return br[bk][mk];}),
+          totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
       }
     });
     results.sort(function(a,b){return a.avg-b.avg;});
-    return {results:results, br:br};
+    return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
   function rankColor(rank,total){
@@ -509,35 +521,37 @@ permalink: /llm-leaderboard/
   function renderRanking(){
     var keys=activeKeys.filter(function(k){return benchLabels[k];});
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
+    var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; return; }
-    var data=computeRanking(keys,minB), results=data.results, br=data.br;
+    var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+keys.length+' benchmarks · 最少'+minB+'项';
+    var skipped = keys.length - validKeys.length;
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · 百分位排名';
     // Build two-row header: category row + benchmark row
-    var catOrder = [], catKeys = {};
-    keys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeys[cat]) catOrder.push(cat); if(!catKeys[cat]) catKeys[cat]=[]; catKeys[cat].push(bk); });
-    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均位次</th>';
-    catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeys[cat].length+'">'+cat+'</th>'; });
+    var catOrder = [], catKeysMap = {};
+    validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
+    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均百分位</th>';
+    catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
-    keys.forEach(function(bk){ h2+='<th>'+benchLabels[bk]+'</th>'; });
+    validKeys.forEach(function(bk){ h2+='<th>'+benchLabels[bk]+'</th>'; });
     h2+='</tr>';
     thead.innerHTML=h1+h2;
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(1)+'</td>';
-      keys.forEach(function(bk,bi){
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td>';
+      validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
-          var rk=br[bk][r.company+'|'+r.model], tot=Object.keys(br[bk]).length;
+          var rk=r.ranks[bi], tot=r.totals[bi];
           var color=rankColor(rk,tot), tc=rk<=tot*0.3?'#fff':'#222';
           html+='<td class="heatmap-cell" style="background:'+color+';color:'+tc+';">'+s+'</td>';
         } else { html+='<td class="no-data-cell">—</td>'; }
       });
       html+='</tr>';
     });
-    if(results.length===0) html='<tr><td colspan="'+(4+keys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
+    if(results.length===0) html='<tr><td colspan="'+(4+validKeys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
     tbody.innerHTML=html;
   }
 
