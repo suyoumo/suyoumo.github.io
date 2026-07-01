@@ -103,7 +103,13 @@ permalink: /llm-leaderboard/
           <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
         </label>
         <label class="llm-ranking-min-label">每 bench 最少模型数:
-          <input type="number" id="rankingMinModels" value="10" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+        </label>
+        <label class="llm-ranking-min-label">排序方式:
+          <select id="rankingSortMode" style="padding:3px 6px;border:1px solid var(--border);border-radius:6px;font-size:0.82rem;">
+            <option value="wins">共享胜负</option>
+            <option value="percentile">百分位</option>
+          </select>
         </label>
         <span class="llm-ranking-info" id="rankingInfo"></span>
       </div>
@@ -119,9 +125,9 @@ permalink: /llm-leaderboard/
       <strong>📋 排名机制说明：</strong>
       <ol>
         <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
-        <li><b>每 benchmark 最少模型数</b>（默认 10）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
+        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
         <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
-        <li><b>共享 benchmark 胜负排名</b>：每两个模型只在它们都有的 benchmark 上比较，分数高的赢。总胜场多的排名靠前。这样不同 benchmark 覆盖的模型也能公平比较。</li>
+        <li><b>两种排序方式</b>：<b>共享胜负</b>——每两个模型只在共有 benchmark 上比较，胜场多者排前；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。两种方式各有价值，可切换对比。</li>
         <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
       </ol>
     </div>
@@ -492,6 +498,7 @@ permalink: /llm-leaderboard/
   });
 
   document.getElementById('rankingMinBench').onchange = function(){ minB = parseInt(this.value)||5; renderRanking(); };
+  document.getElementById('rankingSortMode').onchange = function(){ renderRanking(); };
 
   function scoreMap(){
     var m={};
@@ -565,12 +572,16 @@ permalink: /llm-leaderboard/
   function renderRanking(){
     var keys=activeKeys.filter(function(k){return benchLabels[k];});
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
-    var minModels = parseInt(document.getElementById('rankingMinModels').value)||10;
+    var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
+    var sortMode = document.getElementById('rankingSortMode').value;
     if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · 共享 benchmark 胜负排名';
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'共享胜负排名':'百分位排名');
+    // Sort by selected mode
+    if(sortMode === 'percentile') results.sort(function(a,b){ return a.avg-b.avg; });
+    else results.sort(function(a,b){ return b.wins-a.wins || a.avg-b.avg; });
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
