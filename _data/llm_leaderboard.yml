@@ -232,6 +232,10 @@ sources:
   label: Kimi K2.6 report
   short_label: K2.6
   url: https://moonshotai.github.io/Kimi-K2/
+- id: pangu20flash
+  label: openPangu-2.0-Flash model card
+  short_label: Pangu 2.0 Flash
+  url: https://www.hiascend.com/developer/modelhub
 categories:
 - name: Coding Agent
   columns:
@@ -367,6 +371,12 @@ categories:
     label: Longform Writing
   - key: creative_writing_v3
     label: Creative Writing v3
+  - key: livecodebench_v6
+    label: LiveCodeBench V6
+  - key: deepcodebench
+    label: DeepCodeBench
+  - key: featbench
+    label: FeatBench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -497,6 +507,8 @@ categories:
     label: APEX Agents
   - key: forte
     label: FORTE
+  - key: agentif
+    label: AgentIF
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -13690,3 +13702,99 @@ rows:
     - value: '75.9'
       source_label: GLM-4.6
       source_url: https://z.ai/blog/glm-4-6
+- company: Huawei
+  model: openPangu-2.0-Flash-Thinking
+  mode: ''
+  released: '2026-07-01'
+  sources:
+  - label: openPangu-2.0-Flash model card
+    url: https://www.hiascend.com/developer/modelhub
+  scores:
+    cl_bench:
+    - value: '20.4'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    ifeval:
+    - value: '95.9'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    ifbench:
+    - value: '79.6'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    agentif:
+    - value: '44.9'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    sysbench:
+    - value: '91.1'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    multichallenge:
+    - value: '68.4'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    aime_2026:
+    - value: '93.3'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    hmmt_2025_feb:
+    - value: '91.5'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    imoanswerbench:
+    - value: '76.5'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    bbeh:
+    - value: '62.5'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    gpqa:
+    - value: '83.7'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    browsecomp:
+    - value: '57.0'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    skillsbench:
+    - value: '42.6'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    pinchbench:
+    - value: '85.6'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    claw_eval_pass3:
+    - value: '57.7'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    wildclawbench:
+    - value: '41.5'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    mcp_atlas:
+    - value: '58.9'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    tau2_bench_avg:
+    - value: '88.0'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    livecodebench_v6:
+    - value: '85.1'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    deepcodebench:
+    - value: '76.5'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    swe_verified:
+    - value: '63.1'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
+    featbench:
+    - value: '45.9'
+      source_label: Pangu 2.0 Flash
+      source_url: https://www.hiascend.com/developer/modelhub
