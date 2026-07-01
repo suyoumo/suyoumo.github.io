@@ -115,6 +115,17 @@ permalink: /llm-leaderboard/
       </div>
     </div>
 
+    <div class="llm-ranking-note">
+      <strong>📋 排名机制说明：</strong>
+      <ol>
+        <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
+        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
+        <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
+        <li><b>均百分位</b>：模型在各 benchmark 的百分位取算术平均。所有 benchmark 等权，无额外加权。</li>
+        <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
+      </ol>
+    </div>
+
     <div class="llm-board-table-card" id="llm-board-card">
       <div class="llm-board-table-meta">
         <span>包含报告中的目标模型与对比模型；横向滚动查看全部 benchmark</span>
@@ -415,6 +426,20 @@ permalink: /llm-leaderboard/
 .heatmap-cell { font-weight: 700; font-size: 0.76rem; min-width: 56px; }
 .no-data-cell { color: #ddd; font-weight: 400; }
 .benchmark-group-header { background: #3a3a3a !important; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: #ddd; }
+.llm-ranking-note {
+  margin: 16px 0 24px;
+  padding: 14px 18px;
+  background: rgba(196,90,60,0.04);
+  border-left: 3px solid var(--primary, #c45a3c);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  color: #555;
+  line-height: 1.7;
+}
+.llm-ranking-note strong { color: var(--primary, #c45a3c); }
+.llm-ranking-note ol { margin: 6px 0 0; padding-left: 20px; }
+.llm-ranking-note li { margin-bottom: 4px; }
+.llm-ranking-note code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px; font-size: 0.78rem; }
 </style>
 
 <!-- Ranking Section Script -->
