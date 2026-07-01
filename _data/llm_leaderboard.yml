@@ -5804,7 +5804,7 @@ rows:
       source_url: https://seed.bytedance.com/en/seed2_1
 - company: DeepSeek
   model: DeepSeek-V4-Pro
-  mode: ''
+  mode: Max reasoning effort
   released: '2026-04-24'
   sources:
   - label: Qwen3.7 report
@@ -5812,56 +5812,83 @@ rows:
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   scores:
-    apex:
-    - value: '38.3'
+    terminal_bench_2:
+    - value: '67.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    apex_shortlist:
-    - value: '90.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    bfcl_v4:
-    - value: '70.6'
+    swe_verified:
+    - value: '80.6'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    browsecomp:
-    - value: '83.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    chinese_simpleqa:
-    - value: '84.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    claw_eval_avg:
-    - value: '58.4'
+    swe_pro:
+    - value: '59.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    code_agent_bench:
-    - value: '32.95'
-      source_label: CodeAgentBench
-      source_url: https://suyoumo.github.io/code-agent-bench/
-    codeforces:
-    - value: '3206.0'
+    - value: '55.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    corpusqa_1m:
-    - value: '62.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '76.2'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    nl2repo:
+    - value: '35.5'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    qwen_web_bench:
+    - value: '1570'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    qwen_svg:
+    - value: '1506'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    qwenclawbench:
+    - value: '59.2'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
     coworkbench:
     - value: '66.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    critpt:
-    - value: '12.9'
+    claw_eval_avg:
+    - value: '58.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    gdpval_aa:
-    - value: '1554.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    global_piqa:
-    - value: '90.5'
+    skillsbench:
+    - value: '52.3'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    bfcl_v4:
+    - value: '70.6'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    mcp_mark:
+    - value: '57.1'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    mcp_atlas:
+    - value: '73.6'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    vita_bench:
+    - value: '51.9'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    spreadsheetbench_v1:
+    - value: '84.9'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    kernel_bench_l3:
+    - value: 1.07/54%
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    hle_tools:
+    - value: '48.2'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    qwenworldbench:
+    - value: '52.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     gpqa:
@@ -5872,184 +5899,140 @@ rows:
     - value: '37.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    hle_tools:
-    - value: '48.2'
+    livecodebench:
+    - value: '93.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     hmmt_2026_feb:
     - value: '95.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    ifbench:
-    - value: '77.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    ifeval:
-    - value: '91.9'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
     imoanswerbench:
     - value: '89.8'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    include:
-    - value: '86.1'
+    critpt:
+    - value: '12.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    kernel_bench_l3:
-    - value: 1.07/54%
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    livecodebench:
-    - value: '93.5'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    maxife:
-    - value: '88.9'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    mcp_atlas:
-    - value: '74.2'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mcp_mark:
-    - value: '57.1'
+    apex:
+    - value: '38.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mmlu_pro:
     - value: '87.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    mmlu_prox:
-    - value: '83.9'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
     mmlu_redux:
     - value: '94.8'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    mmmlu:
-    - value: '87.9'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    mrcr_1m:
-    - value: '83.5'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mrcr_v2_128k:
-    - value: '74.4'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    nl2repo:
-    - value: '35.5'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    nova63:
-    - value: '52.8'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    polymath:
-    - value: '72.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    qwen_svg:
-    - value: '1506.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    qwen_web_bench:
-    - value: '1570.0'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    qwenclawbench:
-    - value: '59.2'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    qwenworldbench:
-    - value: '52.3'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    simpleqa_verified:
-    - value: '57.9'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    skillsbench:
-    - value: '52.3'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    spreadsheetbench_v1:
-    - value: '84.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     supergpqa:
     - value: '69.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    swe_multilingual:
-    - value: '76.2'
+    ifeval:
+    - value: '91.9'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    swe_pro:
-    - value: '59.0'
+    ifbench:
+    - value: '77.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    swe_verified:
-    - value: '80.6'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    terminal_bench_2:
-    - value: '67.9'
-      source_label: Qwen3.7
-      source_url: https://qwen.ai/blog?id=qwen3.7
-    toolathlon:
-    - value: '51.8'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    vita_bench:
-    - value: '51.9'
+    mrcr_v2_128k:
+    - value: '74.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     wmt24pp:
     - value: '82.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    maxife:
+    - value: '88.9'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    mmmlu:
+    - value: '87.9'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    mmlu_prox:
+    - value: '83.9'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    nova63:
+    - value: '52.8'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    include:
+    - value: '86.1'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    global_piqa:
+    - value: '90.5'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    polymath:
+    - value: '72.0'
+      source_label: Qwen3.7
+      source_url: https://qwen.ai/blog?id=qwen3.7
+    simpleqa_verified:
+    - value: '57.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '84.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    codeforces:
+    - value: '3206'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '90.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '83.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '62.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    browsecomp:
+    - value: '83.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gdpval_aa:
+    - value: '1554'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '51.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Flash
-  mode: ''
+  mode: Max reasoning effort
   released: '2026-04-24'
   sources:
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   scores:
-    apex:
-    - value: '33.0'
+    mmlu_pro:
+    - value: '86.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    apex_shortlist:
-    - value: '85.7'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    browsecomp:
-    - value: '73.2'
+    simpleqa_verified:
+    - value: '34.1'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     chinese_simpleqa:
     - value: '78.9'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    code_agent_bench:
-    - value: '28.99'
-      source_label: CodeAgentBench
-      source_url: https://suyoumo.github.io/code-agent-bench/
-    codeforces:
-    - value: '3052.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    corpusqa_1m:
-    - value: '60.5'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    gdpval_aa:
-    - value: '1395.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     gpqa:
@@ -6060,8 +6043,12 @@ rows:
     - value: '34.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    hle_tools:
-    - value: '45.1'
+    livecodebench:
+    - value: '91.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    codeforces:
+    - value: '3052'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     hmmt_2026_feb:
@@ -6072,46 +6059,422 @@ rows:
     - value: '88.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    livecodebench:
-    - value: '91.6'
+    apex:
+    - value: '33.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mcp_atlas:
-    - value: '69.0'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    mmlu_pro:
-    - value: '86.4'
+    apex_shortlist:
+    - value: '85.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     mrcr_1m:
     - value: '78.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    simpleqa_verified:
-    - value: '34.1'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_multilingual:
-    - value: '73.3'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_pro:
-    - value: '52.6'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
-    swe_verified:
-    - value: '79.0'
+    corpusqa_1m:
+    - value: '60.5'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     terminal_bench_2:
     - value: '56.9'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '79.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '52.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '73.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    browsecomp:
+    - value: '73.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle_tools:
+    - value: '45.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '69.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gdpval_aa:
+    - value: '1395'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     toolathlon:
     - value: '47.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
+- company: DeepSeek
+  model: DeepSeek-V4-Pro
+  mode: High reasoning effort
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '87.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '46.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '77.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '89.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '34.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '89.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    codeforces:
+    - value: '2919'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '94.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '88.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '27.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '85.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '83.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '56.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '63.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '79.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '54.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '74.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    browsecomp:
+    - value: '80.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle_tools:
+    - value: '44.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '74.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '49.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
+- company: DeepSeek
+  model: DeepSeek-V4-Flash
+  mode: High reasoning effort
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '86.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '28.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '73.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '87.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '29.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '88.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    codeforces:
+    - value: '2816'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '91.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '85.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '19.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '72.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '76.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '59.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '56.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '78.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '52.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '70.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    browsecomp:
+    - value: '53.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle_tools:
+    - value: '40.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '67.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '43.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
+- company: DeepSeek
+  model: DeepSeek-V4-Pro
+  mode: Non-think
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '82.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '45.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '75.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '72.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '7.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '56.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '31.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '35.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '0.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '9.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '44.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '35.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '59.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '73.6'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '52.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '69.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '69.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '46.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
+- company: DeepSeek
+  model: DeepSeek-V4-Flash
+  mode: Non-think
+  released: '2026-04-24'
+  sources:
+  - label: DeepSeek-V4 preview report
+    url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  scores:
+    mmlu_pro:
+    - value: '83.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    simpleqa_verified:
+    - value: '23.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    chinese_simpleqa:
+    - value: '71.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    gpqa:
+    - value: '71.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hle:
+    - value: '8.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    livecodebench:
+    - value: '55.2'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    hmmt_2026_feb:
+    - value: '40.8'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    imoanswerbench:
+    - value: '41.9'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex:
+    - value: '1.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    apex_shortlist:
+    - value: '9.3'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mrcr_1m:
+    - value: '37.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    corpusqa_1m:
+    - value: '15.5'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    terminal_bench_2:
+    - value: '49.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_verified:
+    - value: '73.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_pro:
+    - value: '49.1'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    swe_multilingual:
+    - value: '69.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    mcp_atlas:
+    - value: '64.0'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    toolathlon:
+    - value: '40.7'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: Deepseek-Prover-V2
   mode: ''
@@ -9318,7 +9681,7 @@ rows:
       source_url: https://openai.com/index/gpt-5-3-codex/
 - company: OpenAI
   model: GPT-5.2
-  mode: ''
+  mode: High
   released: '2025-12-11'
   sources:
   - label: Seed2.0 model card
@@ -9326,17 +9689,40 @@ rows:
   - label: GPT-5.2 report
     url: https://openai.com/index/gpt-5-2/
   scores:
-    aethercode:
-    - value: '73.8'
+    mmlu_pro:
+    - value: '85.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    ai2d_test:
-    - value: '92.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    aider_polyglot:
-    - value: '91.1'
-      source_label: Seed2.0 T11
+    hle:
+    - value: '29.9'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    simpleqa_verified:
+    - value: '36.8'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    healthbench:
+    - value: '63.3'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    healthbench_hard:
+    - value: '42.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '36.6'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    supergpqa:
+    - value: '67.9'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    lpfqa:
+    - value: '54.4'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    encyclo_k:
+    - value: '61.0'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     aime26:
     - value: '97.5'
@@ -9346,13 +9732,13 @@ rows:
     - value: '99.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    ainstein_bench:
-    - value: '41.3'
-      source_label: Seed2.0 T13
+    hmmt_2025_feb:
+    - value: '100.0'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    all_angles:
-    - value: '71.5'
-      source_label: Seed2.0 T8
+    hmmt_2025_nov:
+    - value: '100.0'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     apex:
     - value: '18.2'
@@ -9360,6 +9746,50 @@ rows:
       source_url: https://seed.bytedance.com/en/seed2
     apex_shortlist:
     - value: '80.1'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    beyondaime:
+    - value: '86.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    imoanswerbench:
+    - value: '86.6'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    codeforces:
+    - value: '3148'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    aethercode:
+    - value: '73.8'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    livecodebench:
+    - value: '87.7'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    gpqa:
+    - value: '92.4'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    superchem_text_only:
+    - value: '58.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    babe:
+    - value: '58.1'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    phybench:
+    - value: '74.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_research:
+    - value: '25.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_olympiad:
+    - value: '75.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     arc_agi_1:
@@ -9370,180 +9800,16 @@ rows:
     - value: '57.5'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    arcagi1_image:
-    - value: '93.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    arcagi2_image:
-    - value: '54.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    artifactsbench:
-    - value: '71.1'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    babe:
-    - value: '58.1'
+    korbench:
+    - value: '79.2'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    babyvision:
-    - value: '37.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    beyondaime:
-    - value: '86.0'
+    procbench:
+    - value: '95.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    bfcl_v4:
-    - value: '65.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    biobench:
-    - value: '58.1'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    blink:
-    - value: '70.3'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp:
-    - value: 77.9(65.3)
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp_lc_128k:
-    - value: '92.0'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    browsecomp_lc_256k:
-    - value: '89.8'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    browsecomp_zh:
-    - value: '76.1'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    cc_ocr:
-    - value: '70.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    chartqapro:
-    - value: '67.6'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    charxiv_dq:
-    - value: '93.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    charxiv_rq:
-    - value: '82.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    cl_bench:
-    - value: '23.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    codeforces:
-    - value: '3148.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    codesimpleqa:
-    - value: '62.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    collie:
-    - value: '96.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    countbench:
-    - value: '91.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    da_2k:
-    - value: '78.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    deepconsult:
-    - value: '54.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    deepsearchqa:
-    - value: 71.3(66.4)
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    der2_bench:
-    - value: '69.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    disco_x:
-    - value: '76.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    dude:
-    - value: '68.2'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    dynamath:
-    - value: '86.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    emma:
-    - value: '69.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    encyclo_k:
-    - value: '61.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    erqa:
-    - value: '59.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    factscore:
-    - value: '91.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    finsearchcomp:
-    - value: '73.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    frames:
-    - value: '84.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiermath_t13:
-    - value: '40.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    frontiermath_t4:
-    - value: '14.6'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    frontiersci_olympiad:
-    - value: '75.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiersci_research:
-    - value: '25.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    fsc147_down:
-    - value: '21.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    gdpval_diamond:
-    - value: '26.9'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    gdpval_winrate:
-    - value: '70.9'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    global_piqa:
-    - value: '93.2'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    gpqa:
-    - value: '92.4'
+    mrcr_v2_8_needle:
+    - value: '89.4'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     graphwalks_bfs_128k:
@@ -9554,380 +9820,136 @@ rows:
     - value: '99.7'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    hallusionbench:
-    - value: '67.7'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    healthbench:
-    - value: '63.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    healthbench_hard:
-    - value: '42.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hipho:
-    - value: '77.7'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    hle:
-    - value: '29.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_text:
-    - value: '45.5'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_tools:
-    - value: '45.5'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    hle_verified_seed:
-    - value: '68.5'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_vl:
-    - value: '31.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_feb:
-    - value: '100.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_nov:
-    - value: '100.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    ib_spreadsheet:
-    - value: '68.4'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    imoanswerbench:
-    - value: '86.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    inverse_ifeval:
-    - value: '72.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    korbench:
-    - value: '79.2'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    livecodebench:
-    - value: '87.7'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    logicvista:
-    - value: '81.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
     longbench_v2:
     - value: '63.2'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    longfact_concepts:
-    - value: '99.7'
+    frames:
+    - value: '84.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    longfact_objects:
-    - value: '99.2'
+    der2_bench:
+    - value: '69.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    lpfqa:
-    - value: '54.4'
+    cl_bench:
+    - value: '23.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    mars_bench:
-    - value: '87.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    mathcanvas:
-    - value: '55.3'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mathkangaroo:
-    - value: '86.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mathvision:
-    - value: '86.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mathvista:
-    - value: '83.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mcp_atlas:
-    - value: '60.6'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mcp_mark:
-    - value: '57.5'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    minedojo_verified:
-    - value: '18.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    mlvu_mavg:
-    - value: '85.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mm_browsecomp:
-    - value: '26.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    mme_cc:
-    - value: '44.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmlu_pro:
-    - value: '85.9'
+    global_piqa:
+    - value: '93.2'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     mmmlu:
     - value: '90.3'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    mmmu:
-    - value: '86.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu_pro:
-    - value: '79.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmsibench_circular:
-    - value: '26.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmstar:
-    - value: '78.2'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mrcr_v2_128_256k:
-    - value: '77.0'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_16_32k:
-    - value: '95.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_32_64k:
-    - value: '92.0'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_4_8k:
-    - value: '98.2'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_64_128k:
-    - value: '85.6'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_8_16k:
-    - value: '89.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    mrcr_v2_8_needle:
-    - value: '89.4'
+    disco_x:
+    - value: '76.3'
       source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    mtvqa:
-    - value: '48.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    muirbench:
-    - value: '77.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    multi_swe_bench:
-    - value: '47.7'
-      source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     multichallenge:
     - value: '59.5'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo:
-    - value: '8.0'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '49.3'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    ocrbenchv2:
-    - value: '55.6'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    omnidocbench15:
-    - value: '85.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    omnidocbench15_down:
-    - value: '0.143'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    osworld_verified:
-    - value: '47.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    phybench:
-    - value: '74.0'
+    collie:
+    - value: '96.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    phyx_openended:
-    - value: '71.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    procbench:
-    - value: '95.0'
+    mars_bench:
+    - value: '87.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    realworldqa:
-    - value: '83.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    refspatialbench:
-    - value: '25.5'
+    inverse_ifeval:
+    - value: '72.3'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_objects:
+    - value: '99.2'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_concepts:
+    - value: '99.7'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    factscore:
+    - value: '91.9'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    mathvista:
+    - value: '83.1'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    scicode:
-    - value: '49.7'
-      source_label: Seed2.0 T11
+    mathvision:
+    - value: '86.8'
+      source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    screenspot_pro:
-    - value: '86.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    seal_0:
-    - value: '51.4'
-      source_label: Seed2.0 T11
+    dynamath:
+    - value: '70.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mathkangaroo:
+    - value: '86.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mathcanvas:
+    - value: '55.3'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmmu:
+    - value: '83.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmmu_pro:
+    - value: '79.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    emma:
+    - value: '69.4'
+      source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     sfe:
     - value: '50.1'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    simpleqa_verified:
-    - value: '36.8'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    simplevqa:
-    - value: '55.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    spreadsheetbench_verified:
-    - value: '69.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    superchem_text_only:
-    - value: '58.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    supergpqa:
-    - value: '67.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_evo:
-    - value: '12.5'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_lancer:
-    - value: '48.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_multilingual:
-    - value: '68.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_pro:
-    - value: '55.6'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_verified:
-    - value: '80.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tau2_bench_retail:
-    - value: '82.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tau2_bench_telecom:
-    - value: '98.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    terminal_bench_2:
-    - value: '62.4'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_complex_workflows:
-    - value: '45.0'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_compositional_tasks:
-    - value: '51.5'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_information_extraction:
-    - value: '44.7'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_k12_education:
-    - value: '61.6'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_reference_qa:
-    - value: '63.6'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_text_classification:
-    - value: '62.1'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    toolathlon:
-    - value: '46.3'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    treebench:
-    - value: '58.8'
+    hipho:
+    - value: '77.7'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    v_star:
-    - value: '75.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    vibeeval:
-    - value: '73.1'
+    xlrs_bench_macro:
+    - value: '49.9'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    videomme_w_sub:
-    - value: '86.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_wo_sub:
-    - value: '85.8'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videommmu:
-    - value: '85.9'
-      source_label: GPT-5.2
-      source_url: https://openai.com/index/gpt-5-2/
-    visfactor:
-    - value: '33.6'
+    phyx_openended:
+    - value: '71.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    logicvista:
+    - value: '81.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    vpct:
+    - value: '56.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    zerobench_main:
+    - value: '11.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    zerobench_sub:
+    - value: '38.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    arcagi1_image:
+    - value: '93.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    arcagi2_image:
+    - value: '54.4'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     visulogic:
     - value: '37.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    vita_bench:
-    - value: '41.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    viverbench:
-    - value: '74.8'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     vlms_are_biased:
@@ -9938,46 +9960,446 @@ rows:
     - value: '84.2'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    vpct:
-    - value: '56.0'
+    visfactor:
+    - value: '33.6'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    we_math:
-    - value: '79.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '82.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    babyvision:
+    - value: '37.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    simplevqa:
+    - value: '54.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    hallusionbench:
+    - value: '67.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mme_cc:
+    - value: '44.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmstar:
+    - value: '78.2'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    muirbench:
+    - value: '77.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mtvqa:
+    - value: '48.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    worldvqa:
+    - value: '26.3'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    vibeeval:
+    - value: '73.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    viverbench:
+    - value: '74.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    countbench:
+    - value: '91.2'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    fsc147_down:
+    - value: '21.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    blink:
+    - value: '70.3'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmsibench_circular:
+    - value: '26.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    treebench:
+    - value: '58.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    refspatialbench:
+    - value: '25.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    da_2k:
+    - value: '78.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    all_angles:
+    - value: '71.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    erqa:
+    - value: '59.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    chartqapro:
+    - value: '67.6'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    ocrbenchv2:
+    - value: '55.6'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    omnidocbench15_down:
+    - value: '0.143'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    charxiv_dq:
+    - value: '93.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    charxiv_rq:
+    - value: '82.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    dude:
+    - value: '68.2'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    terminal_bench_2:
+    - value: '62.4'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_lancer:
+    - value: '48.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_verified:
+    - value: '80.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    multi_swe_bench:
+    - value: '47.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_pro:
+    - value: '55.6'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_multilingual:
+    - value: '68.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    scicode:
+    - value: '49.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_evo:
+    - value: '12.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    aider_polyglot:
+    - value: '91.1'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    artifactsbench:
+    - value: '71.1'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    codesimpleqa:
+    - value: '62.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    spreadsheetbench_verified:
+    - value: '69.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp:
+    - value: 77.9(65.3)
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp_zh:
+    - value: '76.1'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_text:
+    - value: '45.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_verified_seed:
+    - value: '68.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
     widesearch:
     - value: '76.8'
       source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
-    world_travel_text:
-    - value: '32.67'
+    finsearchcomp:
+    - value: '73.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    deepsearchqa:
+    - value: 71.3(66.4)
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    seal_0:
+    - value: '51.4'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    tau2_bench_retail:
+    - value: '82'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    tau2_bench_telecom:
+    - value: '98.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    mcp_mark:
+    - value: '57.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    bfcl_v4:
+    - value: '65.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    vita_bench:
+    - value: '41.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    deepconsult:
+    - value: '54.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    minedojo_verified:
+    - value: '18.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    mm_browsecomp:
+    - value: '26.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_vl:
+    - value: '31.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    biobench:
+    - value: '58.1'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    ainstein_bench:
+    - value: '41.3'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    nl2repo_bench:
+    - value: '49.3'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    nl2repo:
+    - value: '8.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_complex_workflows:
+    - value: '45.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_reference_qa:
+    - value: '63.6'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    gdpval_diamond:
+    - value: '26.9'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    xpert_bench:
+    - value: '53.3'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_k12_education:
+    - value: '61.6'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_compositional_tasks:
+    - value: '51.5'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_text_classification:
+    - value: '62.1'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_information_extraction:
+    - value: '44.7'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     world_travel_vlm:
     - value: '19.33'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    worldvqa:
-    - value: '26.3'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    xlrs_bench_macro:
-    - value: '49.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    xpert_bench:
-    - value: '53.3'
+    world_travel_text:
+    - value: '32.67'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    zerobench_main:
-    - value: '11.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    zerobench_sub:
-    - value: '38.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
+    videommmu:
+    - value: '85.9'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    screenspot_pro:
+    - value: '86.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mcp_atlas:
+    - value: '60.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    toolathlon:
+    - value: '46.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    hle_tools:
+    - value: '45.5'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    osworld_verified:
+    - value: '47.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    gdpval_winrate:
+    - value: '70.9'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    ib_spreadsheet:
+    - value: '68.4'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    frontiermath_t13:
+    - value: '40.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    frontiermath_t4:
+    - value: '14.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    browsecomp_lc_128k:
+    - value: '92.0'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    browsecomp_lc_256k:
+    - value: '89.8'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_4_8k:
+    - value: '98.2'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_8_16k:
+    - value: '89.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_16_32k:
+    - value: '95.3'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_32_64k:
+    - value: '92.0'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_64_128k:
+    - value: '85.6'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+    mrcr_v2_128_256k:
+    - value: '77.0'
+      source_label: GPT-5.2
+      source_url: https://openai.com/index/gpt-5-2/
+- company: OpenAI
+  model: GPT-5.2
+  mode: ''
+  released: '2025-12-11'
+  sources:
+  - label: Qwen3.6-Plus report
+    url: https://qwen.ai/blog?id=qwen3.6
+  scores:
+    mmmu:
+    - value: '86.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmu_pro:
+    - value: '79.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mathvision:
+    - value: '83.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    we_math:
+    - value: '79.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    dynamath:
+    - value: '86.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '83.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmstar:
+    - value: '77.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    simplevqa:
+    - value: '55.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    omnidocbench15:
+    - value: '85.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    charxiv_rq:
+    - value: '82.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    cc_ocr:
+    - value: '70.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ai2d_test:
+    - value: '92.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    countbench:
+    - value: '91.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    erqa:
+    - value: '59.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    v_star:
+    - value: '75.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_w_sub:
+    - value: '86.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_wo_sub:
+    - value: '85.8'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videommmu:
+    - value: '85.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mlvu_mavg:
+    - value: '85.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    osworld_verified:
+    - value: '38.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
 - company: OpenAI
   model: GPT-5 mini
   mode: High
@@ -10563,23 +10985,43 @@ rows:
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
 - company: Google
   model: Gemini 3 Pro
-  mode: ''
+  mode: High
   released: '2025-11-18'
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
   scores:
-    aethercode:
-    - value: '57.8'
+    mmlu_pro:
+    - value: '90.1'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    ai2d_test:
-    - value: '94.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    aider_polyglot:
-    - value: '94.2'
-      source_label: Seed2.0 T11
+    hle:
+    - value: '33.3'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    simpleqa_verified:
+    - value: '72.1'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    healthbench:
+    - value: '37.9'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    healthbench_hard:
+    - value: '15.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    supergpqa:
+    - value: '73.8'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    lpfqa:
+    - value: '51.2'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    encyclo_k:
+    - value: '64.9'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     aime26:
     - value: '93.3'
@@ -10589,13 +11031,13 @@ rows:
     - value: '95.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    ainstein_bench:
-    - value: '42.8'
-      source_label: Seed2.0 T13
+    hmmt_2025_feb:
+    - value: '97.3'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    all_angles:
-    - value: '73.5'
-      source_label: Seed2.0 T8
+    hmmt_2025_nov:
+    - value: '93.3'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     apex:
     - value: '24.5'
@@ -10603,6 +11045,50 @@ rows:
       source_url: https://seed.bytedance.com/en/seed2
     apex_shortlist:
     - value: '71.4'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    beyondaime:
+    - value: '83.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    imoanswerbench:
+    - value: '83.3'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    codeforces:
+    - value: '2726'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    aethercode:
+    - value: '57.8'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    livecodebench:
+    - value: '90.7'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    gpqa:
+    - value: '91.9'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    superchem_text_only:
+    - value: '63.2'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    babe:
+    - value: '51.30'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    phybench:
+    - value: '80.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_research:
+    - value: '15.0'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_olympiad:
+    - value: '73.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     arc_agi_1:
@@ -10613,176 +11099,16 @@ rows:
     - value: '31.1'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    arcagi1_image:
-    - value: '69.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    arcagi2_image:
-    - value: '21.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    artifactsbench:
-    - value: '58.4'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    babe:
-    - value: '51.3'
+    korbench:
+    - value: '73.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    babyvision:
-    - value: '49.7'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    beyondaime:
-    - value: '83.0'
+    procbench:
+    - value: '90.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    bfcl_v4:
-    - value: '71.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    biobench:
-    - value: '51.3'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    blink:
-    - value: '77.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp:
-    - value: '59.2'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp_zh:
-    - value: '66.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    cc_ocr:
-    - value: '79.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    cgbench:
-    - value: '65.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    chartqapro:
-    - value: '69.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    charxiv_dq:
-    - value: '94.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    charxiv_rq:
-    - value: '81.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    cl_bench:
-    - value: '15.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    codeforces:
-    - value: '2726.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    codesimpleqa:
-    - value: '54.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    collie:
-    - value: '95.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    contphy:
-    - value: '58.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    countbench:
-    - value: '97.3'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    crossvid:
-    - value: '53.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    da_2k:
-    - value: '82.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    deepconsult:
-    - value: '48.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    deepsearchqa:
-    - value: '63.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    der2_bench:
-    - value: '66.1'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    disco_x:
-    - value: '76.8'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    dude:
-    - value: '70.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    dynamath:
-    - value: '85.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    egotempo:
-    - value: '65.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    emma:
-    - value: '66.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    encyclo_k:
-    - value: '64.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    erqa:
-    - value: '70.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    factscore:
-    - value: '92.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    finsearchcomp:
-    - value: '52.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    frames:
-    - value: '81.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiersci_olympiad:
-    - value: '73.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiersci_research:
-    - value: '15.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    fsc147_down:
-    - value: '12.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    gdpval_diamond:
-    - value: '19.4'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    global_piqa:
-    - value: '95.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    gpqa:
-    - value: '91.9'
+    mrcr_v2_8_needle:
+    - value: '79.7'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     graphwalks_bfs_128k:
@@ -10793,440 +11119,136 @@ rows:
     - value: '99.7'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    hallusionbench:
-    - value: '69.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    healthbench:
-    - value: '37.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    healthbench_hard:
-    - value: '15.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hipho:
-    - value: '79.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    hle:
-    - value: '33.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_text:
-    - value: '46.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_verified_seed:
-    - value: '67.5'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hle_vl:
-    - value: '36.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_feb:
-    - value: '97.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_nov:
-    - value: '93.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    imoanswerbench:
-    - value: '83.3'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    inverse_ifeval:
-    - value: '79.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    korbench:
-    - value: '73.9'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    livecodebench:
-    - value: '90.7'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    livesports_3k:
-    - value: '74.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    logicvista:
-    - value: '80.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
     longbench_v2:
     - value: '67.4'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    longdocurl:
-    - value: '72.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    longfact_concepts:
-    - value: '98.5'
+    frames:
+    - value: '81.9'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    longfact_objects:
-    - value: '98.1'
+    der2_bench:
+    - value: '66.1'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    longvideobench:
-    - value: '76.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    lpfqa:
-    - value: '51.2'
+    cl_bench:
+    - value: '15.6'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    mars_bench:
-    - value: '85.6'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    mathcanvas:
-    - value: '58.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mathkangaroo:
-    - value: '84.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mathvision:
-    - value: '86.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mathvista:
-    - value: '89.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mcp_mark:
-    - value: '53.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    minedojo_verified:
-    - value: '23.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    minerva_video:
-    - value: '65.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    mlvu_mavg:
-    - value: '83.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mm_browsecomp:
-    - value: '25.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    mme_cc:
-    - value: '56.9'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmlongbench:
-    - value: '73.6'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmlongbench_doc:
-    - value: '60.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmlu_pro:
-    - value: '90.1'
+    global_piqa:
+    - value: '95.0'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
     mmmlu:
     - value: '91.8'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    mmmu:
-    - value: '87.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    mmmu_pro:
-    - value: '81.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmsibench_circular:
-    - value: '25.4'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmstar:
-    - value: '83.1'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    mmvu:
-    - value: '76.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    morse_500:
-    - value: '33.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    motionbench:
-    - value: '70.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    mrcr_v2_8_needle:
-    - value: '79.7'
+    disco_x:
+    - value: '76.8'
       source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    mtvqa:
-    - value: '50.8'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    muirbench:
-    - value: '78.2'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    multi_swe_bench:
-    - value: '50.2'
-      source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     multichallenge:
     - value: '68.7'
       source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo:
-    - value: '4.0'
-      source_label: Seed2.0 T13
+    collie:
+    - value: '95.0'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '34.2'
-      source_label: Seed2.0 T13
+    mars_bench:
+    - value: '85.6'
+      source_label: Seed2.0 T3
       source_url: https://seed.bytedance.com/en/seed2
-    ocrbenchv2:
+    inverse_ifeval:
+    - value: '79.6'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_objects:
+    - value: '98.1'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_concepts:
+    - value: '98.5'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    factscore:
+    - value: '92.6'
+      source_label: Seed2.0 T3
+      source_url: https://seed.bytedance.com/en/seed2
+    mathvista:
+    - value: '89.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mathvision:
+    - value: '86.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    dynamath:
     - value: '63.3'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    odinw13:
-    - value: '46.3'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    odvbench:
-    - value: '63.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    omnidocbench15:
-    - value: '88.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    omnidocbench15_down:
-    - value: '0.115'
+    mathkangaroo:
+    - value: '84.4'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    ovbench:
-    - value: '62.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    ovobench:
-    - value: '70.1'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    phybench:
-    - value: '80.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    phyx_openended:
-    - value: '71.0'
+    mathcanvas:
+    - value: '58.8'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    point_bench:
-    - value: '85.5'
+    mmmu:
+    - value: '87.0'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    procbench:
-    - value: '90.0'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    putnam_200:
-    - value: '26.5'
-      source_label: Seed2.0 T5
-      source_url: https://seed.bytedance.com/en/seed2
-    realworldqa:
-    - value: '84.7'
+    mmmu_pro:
+    - value: '81.0'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    refcoco_avg:
-    - value: '84.1'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    refspatialbench:
-    - value: '65.5'
+    emma:
+    - value: '66.5'
       source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    scicode:
-    - value: '57.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    screenspot_pro:
-    - value: '72.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    seal_0:
-    - value: '45.5'
-      source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
     sfe:
     - value: '61.9'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    simpleqa_verified:
-    - value: '72.1'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    simplevqa:
-    - value: '73.2'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    spreadsheetbench_verified:
-    - value: '70.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    superchem_text_only:
-    - value: '63.2'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    supergpqa:
-    - value: '73.8'
-      source_label: Seed2.0 T3
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_evo:
-    - value: '8.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_lancer:
-    - value: '44.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_multilingual:
-    - value: '72.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_pro:
-    - value: '49.7'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_verified:
-    - value: '76.2'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tau2_bench_retail:
-    - value: '85.3'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tau2_bench_telecom:
-    - value: '98.0'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tempcompass:
-    - value: '88.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    terminal_bench_2:
-    - value: '56.9'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    tir_bench:
-    - value: '47.5'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    tob_complex_workflows:
-    - value: '69.2'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_compositional_tasks:
-    - value: '64.8'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_information_extraction:
-    - value: '49.0'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_k12_education:
-    - value: '59.4'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_reference_qa:
-    - value: '68.3'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tob_text_classification:
-    - value: '67.5'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    tomato:
-    - value: '59.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    treebench:
-    - value: '62.7'
+    hipho:
+    - value: '79.1'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    tvbench:
-    - value: '71.1'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    v_star:
-    - value: '88.0'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    vibeeval:
-    - value: '77.7'
+    xlrs_bench_macro:
+    - value: '51.7'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    videoeval_pro:
-    - value: '52.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoholmes:
-    - value: '64.2'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videomme_seed:
-    - value: '88.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videomme_w_sub:
-    - value: '88.4'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videomme_wo_sub:
-    - value: '87.7'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videommmu:
-    - value: '87.6'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
-    videoreasonbench:
-    - value: '59.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videosimpleqa:
-    - value: '71.9'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    visfactor:
-    - value: '45.8'
+    phyx_openended:
+    - value: '71.0'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    vispeak:
-    - value: '89.0'
-      source_label: Seed2.0 T9
+    logicvista:
+    - value: '80.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    vpct:
+    - value: '90.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    zerobench_main:
+    - value: '10.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    zerobench_sub:
+    - value: '42.2'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    arcagi1_image:
+    - value: '69.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    arcagi2_image:
+    - value: '21.5'
+      source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     visulogic:
     - value: '39.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    vita_bench:
-    - value: '48.8'
-      source_label: Seed2.0 T11
-      source_url: https://seed.bytedance.com/en/seed2
-    viverbench:
-    - value: '75.9'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     vlms_are_biased:
@@ -11237,45 +11259,304 @@ rows:
     - value: '97.5'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    vpct:
-    - value: '90.0'
+    visfactor:
+    - value: '45.8'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
-    we_math:
-    - value: '86.9'
-      source_label: Qwen3.6
-      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '84.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    babyvision:
+    - value: '49.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    simplevqa:
+    - value: '69.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    hallusionbench:
+    - value: '69.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mme_cc:
+    - value: '56.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmstar:
+    - value: '83.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    muirbench:
+    - value: '78.2'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mtvqa:
+    - value: '50.8'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    worldvqa:
+    - value: '47.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    vibeeval:
+    - value: '77.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    viverbench:
+    - value: '75.9'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    countbench:
+    - value: '97.3'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    fsc147_down:
+    - value: '12.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    point_bench:
+    - value: '85.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    blink:
+    - value: '77.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmsibench_circular:
+    - value: '25.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    treebench:
+    - value: '62.7'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    refspatialbench:
+    - value: '65.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    da_2k:
+    - value: '82.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    all_angles:
+    - value: '73.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    erqa:
+    - value: '70.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    chartqapro:
+    - value: '69.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    ocrbenchv2:
+    - value: '63.3'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    omnidocbench15_down:
+    - value: '0.115'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    charxiv_dq:
+    - value: '94.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    charxiv_rq:
+    - value: '81.4'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    dude:
+    - value: '70.1'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmlongbench:
+    - value: '73.6'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    longdocurl:
+    - value: '72.0'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    mmlongbench_doc:
+    - value: '59.5'
+      source_label: Seed2.0 T8
+      source_url: https://seed.bytedance.com/en/seed2
+    terminal_bench_2:
+    - value: '56.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '54.2'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_lancer:
+    - value: '44.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_verified:
+    - value: '76.2'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    multi_swe_bench:
+    - value: '50.2'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_pro:
+    - value: '49.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_multilingual:
+    - value: '72.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    scicode:
+    - value: '57.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_evo:
+    - value: '8.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    aider_polyglot:
+    - value: '94.2'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    artifactsbench:
+    - value: '58.4'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    codesimpleqa:
+    - value: '54.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    spreadsheetbench_verified:
+    - value: '70.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp:
+    - value: '59.2'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp_zh:
+    - value: '66.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_text:
+    - value: '46.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_verified_seed:
+    - value: '67.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
     widesearch:
     - value: '67.3'
       source_label: Seed2.0 T11
       source_url: https://seed.bytedance.com/en/seed2
-    world_travel_text:
-    - value: '14.7'
+    finsearchcomp:
+    - value: '52.7'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    deepsearchqa:
+    - value: '63.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    seal_0:
+    - value: '45.5'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    tau2_bench_retail:
+    - value: '85.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    tau2_bench_telecom:
+    - value: '98.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    mcp_mark:
+    - value: '53.9'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    bfcl_v4:
+    - value: '71.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    vita_bench:
+    - value: '48.8'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    deepconsult:
+    - value: '48.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    minedojo_verified:
+    - value: '23.3'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    mm_browsecomp:
+    - value: '25.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_vl:
+    - value: '36.0'
+      source_label: Seed2.0 T11
+      source_url: https://seed.bytedance.com/en/seed2
+    biobench:
+    - value: '51.3'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    ainstein_bench:
+    - value: '42.8'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    nl2repo_bench:
+    - value: '34.2'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    nl2repo:
+    - value: '4.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_complex_workflows:
+    - value: '69.2'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_reference_qa:
+    - value: '68.3'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    gdpval_diamond:
+    - value: '19.4'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    xpert_bench:
+    - value: '53.1'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_k12_education:
+    - value: '59.4'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_compositional_tasks:
+    - value: '64.8'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_text_classification:
+    - value: '67.5'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_information_extraction:
+    - value: '49.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     world_travel_vlm:
     - value: '8.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    worldvqa:
-    - value: '47.5'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    xlrs_bench_macro:
-    - value: '51.7'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    xpert_bench:
-    - value: '53.1'
+    world_travel_text:
+    - value: '14.7'
       source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
-    zerobench_main:
-    - value: '10.0'
-      source_label: Seed2.0 T8
-      source_url: https://seed.bytedance.com/en/seed2
-    zerobench_sub:
-    - value: '42.2'
-      source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
 - company: Google
   model: Gemini 3.5 Flash
@@ -11343,7 +11624,7 @@ rows:
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
 - company: Google
   model: Gemini 3 Flash
-  mode: ''
+  mode: High
   released: '2025-12-17'
   sources:
   - label: Seed2.0 model card
@@ -11351,172 +11632,16 @@ rows:
   - label: Gemini 3 Flash report
     url: https://deepmind.google/models/gemini/flash/
   scores:
-    aethercode:
-    - value: '56.1'
+    mmlu_pro:
+    - value: '87.8'
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
-    aider_polyglot:
-    - value: '92.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    aime26:
-    - value: '93.3'
+    hle:
+    - value: '31.7'
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
-    aime_2025:
-    - value: '95.2'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    ainstein_bench:
-    - value: '44.0'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
-    apex:
-    - value: '17.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    apex_shortlist:
-    - value: '71.9'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    arc_agi_1:
-    - value: '86.9'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    arc_agi_2:
-    - value: '33.6'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    artifactsbench:
-    - value: '52.5'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    babe:
-    - value: '55.2'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    beyondaime:
-    - value: '82.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    bfcl_v4:
-    - value: '65.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    biobench:
-    - value: '55.2'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp:
-    - value: '41.5'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    browsecomp_zh:
-    - value: '63.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    cgbench:
-    - value: '65.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    charxiv_rq:
-    - value: '80.3'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    cl_bench:
-    - value: '16.1'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    codeforces:
-    - value: '2727.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    codesimpleqa:
-    - value: '53.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    collie:
-    - value: '96.5'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    contphy:
-    - value: '60.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    crossvid:
-    - value: '48.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    deepconsult:
-    - value: '26.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    deepresearchbench:
-    - value: '46.1'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    deepsearchqa:
-    - value: '54.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    der2_bench:
-    - value: '66.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    disco_x:
-    - value: '71.9'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    egotempo:
-    - value: '58.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    encyclo_k:
-    - value: '60.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    facts_suite:
-    - value: '61.9'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    factscore:
-    - value: '92.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    finsearchcomp:
-    - value: '54.8'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    frames:
-    - value: '83.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiersci_olympiad:
-    - value: '73.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    frontiersci_research:
-    - value: '11.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    gdpval_diamond:
-    - value: '6.46'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
-    global_piqa:
-    - value: '92.8'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    gpqa:
-    - value: '90.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    graphwalks_bfs_128k:
-    - value: '84.2'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    graphwalks_parents_128k:
-    - value: '99.7'
+    simpleqa_verified:
+    - value: '65.4'
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
     healthbench:
@@ -11527,9 +11652,225 @@ rows:
     - value: '21.5'
       source_label: Seed2.0 T4
       source_url: https://seed.bytedance.com/en/seed2
-    hle:
-    - value: '31.7'
+    supergpqa:
+    - value: '72.7'
       source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    lpfqa:
+    - value: '51.6'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    encyclo_k:
+    - value: '60.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    aime26:
+    - value: '93.3'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    aime_2025:
+    - value: '95.2'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    hmmt_2025_feb:
+    - value: '100'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    hmmt_2025_nov:
+    - value: '96.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    apex:
+    - value: '17.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    apex_shortlist:
+    - value: '71.9'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    beyondaime:
+    - value: '82.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    imoanswerbench:
+    - value: '84.4'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    codeforces:
+    - value: '2727'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    aethercode:
+    - value: '56.1'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    livecodebench:
+    - value: '84.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    gpqa:
+    - value: '90.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    superchem_text_only:
+    - value: '54.4'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    babe:
+    - value: '55.2'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    phybench:
+    - value: '77.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_research:
+    - value: '11.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    frontiersci_olympiad:
+    - value: '73.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    arc_agi_1:
+    - value: '86.9'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    arc_agi_2:
+    - value: '33.6'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    korbench:
+    - value: '76.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    procbench:
+    - value: '90.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    mrcr_v2_8_needle:
+    - value: '79.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    graphwalks_bfs_128k:
+    - value: '84.2'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    graphwalks_parents_128k:
+    - value: '99.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    longbench_v2:
+    - value: '64.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    frames:
+    - value: '83.7'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    der2_bench:
+    - value: '66.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    cl_bench:
+    - value: '16.1'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    global_piqa:
+    - value: '92.8'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mmmlu:
+    - value: '91.8'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    disco_x:
+    - value: '71.9'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    multichallenge:
+    - value: '69.3'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    collie:
+    - value: '96.5'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    mars_bench:
+    - value: '84.6'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    inverse_ifeval:
+    - value: '80.9'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_objects:
+    - value: '97.9'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    longfact_concepts:
+    - value: '98.6'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    factscore:
+    - value: '92.0'
+      source_label: Seed2.0 T4
+      source_url: https://seed.bytedance.com/en/seed2
+    terminal_bench_2:
+    - value: '60.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_lancer:
+    - value: '51.7'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_verified:
+    - value: '78.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    multi_swe_bench:
+    - value: '59.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_pro:
+    - value: '46.7'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_multilingual:
+    - value: '71.1'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    scicode:
+    - value: '55.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    swe_evo:
+    - value: '12.8'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    aider_polyglot:
+    - value: '92.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    artifactsbench:
+    - value: '52.5'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    codesimpleqa:
+    - value: '53.7'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    spreadsheetbench_verified:
+    - value: '65.7'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp:
+    - value: '41.5'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    browsecomp_zh:
+    - value: '63.0'
+      source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
     hle_text:
     - value: '47.6'
@@ -11539,214 +11880,22 @@ rows:
     - value: '71.8'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    hle_vl:
-    - value: '36.8'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_feb:
-    - value: '100.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    hmmt_2025_nov:
-    - value: '96.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    imoanswerbench:
-    - value: '84.4'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    inverse_ifeval:
-    - value: '80.9'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    korbench:
-    - value: '76.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    livecodebench:
-    - value: '84.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    livecodebench_pro:
-    - value: '2316.0'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    livesports_3k:
-    - value: '71.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    longbench_v2:
+    widesearch:
     - value: '64.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    longfact_concepts:
-    - value: '98.6'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    longfact_objects:
-    - value: '97.9'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    longvideobench:
-    - value: '74.5'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    lpfqa:
-    - value: '51.6'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    mars_bench:
-    - value: '84.6'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    mcp_atlas:
-    - value: '57.4'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mcp_mark:
-    - value: '40.5'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    minedojo_verified:
-    - value: '24.3'
+    finsearchcomp:
+    - value: '54.8'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    minerva_video:
-    - value: '64.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    mm_browsecomp:
-    - value: '22.8'
+    deepsearchqa:
+    - value: '54.7'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    mmlu_pro:
-    - value: '87.8'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    mmmlu:
-    - value: '91.8'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mmmu_pro:
-    - value: '81.2'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mmvu:
-    - value: '77.9'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    morse_500:
-    - value: '32.4'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    motionbench:
-    - value: '68.9'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    mrcr_v2_128k:
-    - value: '67.2'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    mrcr_v2_8_needle:
-    - value: '79.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    multi_swe_bench:
-    - value: '59.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    multichallenge:
-    - value: '69.3'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    nl2repo:
-    - value: '2.0'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '27.6'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
-    odvbench:
-    - value: '56.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    omnidocbench15:
-    - value: '0.121'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    ovbench:
-    - value: '59.2'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    ovobench:
-    - value: '68.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    phybench:
-    - value: '77.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    procbench:
-    - value: '90.0'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    researchrubrics:
-    - value: '36.9'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    scicode:
-    - value: '55.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    screenspot_pro:
-    - value: '69.1'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
     seal_0:
     - value: '37.8'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    simpleqa_verified:
-    - value: '65.4'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    spreadsheetbench_verified:
-    - value: '65.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    superchem_text_only:
-    - value: '54.4'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    supergpqa:
-    - value: '72.7'
-      source_label: Seed2.0 T4
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_evo:
-    - value: '12.8'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_lancer:
-    - value: '51.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_multilingual:
-    - value: '71.1'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_pro:
-    - value: '46.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    swe_verified:
-    - value: '78.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    tau2_bench_avg:
-    - value: '90.2'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
     tau2_bench_retail:
     - value: '88.6'
       source_label: Seed2.0 T12
@@ -11755,105 +11904,443 @@ rows:
     - value: '94.7'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    tempcompass:
-    - value: '88.3'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    terminal_bench_2:
-    - value: '60.0'
+    mcp_mark:
+    - value: '40.5'
       source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    thinking_with_tracking:
-    - value: '64.0'
-      source_label: Seed2.0 T9
+    bfcl_v4:
+    - value: '65.0'
+      source_label: Seed2.0 T12
       source_url: https://seed.bytedance.com/en/seed2
-    tob_complex_workflows:
-    - value: '61.3'
+    vita_bench:
+    - value: '46.7'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    deepconsult:
+    - value: '26.0'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    deepresearchbench:
+    - value: '46.1'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    researchrubrics:
+    - value: '36.9'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    minedojo_verified:
+    - value: '24.3'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    mm_browsecomp:
+    - value: '22.8'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    hle_vl:
+    - value: '36.8'
+      source_label: Seed2.0 T12
+      source_url: https://seed.bytedance.com/en/seed2
+    biobench:
+    - value: '55.2'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    tob_compositional_tasks:
-    - value: '57.7'
+    ainstein_bench:
+    - value: '44.0'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    tob_information_extraction:
-    - value: '45.4'
+    nl2repo_bench:
+    - value: '27.6'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    tob_k12_education:
-    - value: '59.0'
+    nl2repo:
+    - value: '2.0'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
     tob_reference_qa:
     - value: '64.9'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
+    tob_complex_workflows:
+    - value: '61.3'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    gdpval_diamond:
+    - value: '6.46'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    xpert_bench:
+    - value: '50.1'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_k12_education:
+    - value: '59.0'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    tob_compositional_tasks:
+    - value: '57.7'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
     tob_text_classification:
     - value: '61.9'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    tomato:
-    - value: '60.8'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    toolathlon:
-    - value: '49.4'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    tvbench:
-    - value: '69.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    vending_bench_2:
-    - value: '3635.0'
-      source_label: Gemini 3 Flash
-      source_url: https://deepmind.google/models/gemini/flash/
-    videoeval_pro:
-    - value: '51.9'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoholmes:
-    - value: '65.6'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videomme_seed:
-    - value: '85.2'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videommmu:
-    - value: '88.1'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videoreasonbench:
-    - value: '61.2'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    videosimpleqa:
-    - value: '70.7'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    vispeak:
-    - value: '86.0'
-      source_label: Seed2.0 T9
-      source_url: https://seed.bytedance.com/en/seed2
-    vita_bench:
-    - value: '46.7'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    widesearch:
-    - value: '64.0'
-      source_label: Seed2.0 T12
-      source_url: https://seed.bytedance.com/en/seed2
-    world_travel_text:
-    - value: '13.3'
+    tob_information_extraction:
+    - value: '45.4'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
     world_travel_vlm:
     - value: '7.3'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    xpert_bench:
-    - value: '50.1'
+    world_travel_text:
+    - value: '13.3'
       source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    mmmu_pro:
+    - value: '81.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    screenspot_pro:
+    - value: '69.1'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    charxiv_rq:
+    - value: '80.3'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    omnidocbench15:
+    - value: '0.121'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mcp_atlas:
+    - value: '57.4'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    toolathlon:
+    - value: '49.4'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    tau2_bench_avg:
+    - value: '90.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    vending_bench_2:
+    - value: '3635'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    mrcr_v2_128k:
+    - value: '67.2'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    livecodebench_pro:
+    - value: '2316'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+    facts_suite:
+    - value: '61.9'
+      source_label: Gemini 3 Flash
+      source_url: https://deepmind.google/models/gemini/flash/
+- company: Google
+  model: Gemini 3 Pro
+  mode: ''
+  released: '2025-11-18'
+  sources:
+  - label: Qwen3.6-Plus report
+    url: https://qwen.ai/blog?id=qwen3.6
+  - label: Seed2.0 model card
+    url: https://seed.bytedance.com/en/seed2
+  scores:
+    mmmu:
+    - value: '87.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmmu_pro:
+    - value: '81.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mathvision:
+    - value: '86.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    we_math:
+    - value: '86.9'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    dynamath:
+    - value: '85.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    realworldqa:
+    - value: '83.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmstar:
+    - value: '83.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    simplevqa:
+    - value: '73.2'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    omnidocbench15:
+    - value: '88.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    charxiv_rq:
+    - value: '81.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mmlongbench_doc:
+    - value: '60.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    cc_ocr:
+    - value: '79.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    ai2d_test:
+    - value: '94.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    countbench:
+    - value: '97.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    refcoco_avg:
+    - value: '84.1'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    odinw13:
+    - value: '46.3'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    erqa:
+    - value: '70.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    v_star:
+    - value: '88.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_w_sub:
+    - value: '88.4'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videomme_wo_sub:
+    - value: '87.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    videommmu:
+    - value: '87.6'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    mlvu_mavg:
+    - value: '83.0'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    screenspot_pro:
+    - value: '72.7'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    tir_bench:
+    - value: '47.5'
+      source_label: Qwen3.6
+      source_url: https://qwen.ai/blog?id=qwen3.6
+    putnam_200:
+    - value: '26.5'
+      source_label: Seed2.0 T5
+      source_url: https://seed.bytedance.com/en/seed2
+    mmvu:
+    - value: '76.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videosimpleqa:
+    - value: '71.9'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoreasonbench:
+    - value: '59.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    morse_500:
+    - value: '33.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoholmes:
+    - value: '64.2'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    minerva_video:
+    - value: '65.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tvbench:
+    - value: '71.1'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    contphy:
+    - value: '58.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tempcompass:
+    - value: '88.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    egotempo:
+    - value: '65.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    motionbench:
+    - value: '70.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tomato:
+    - value: '59.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videomme_seed:
+    - value: '88.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    cgbench:
+    - value: '65.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    longvideobench:
+    - value: '76.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoeval_pro:
+    - value: '52.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    crossvid:
+    - value: '53.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovbench:
+    - value: '62.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    livesports_3k:
+    - value: '74.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovobench:
+    - value: '70.1'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    odvbench:
+    - value: '63.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    vispeak:
+    - value: '89.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+- company: Google
+  model: Gemini 3 Flash
+  mode: ''
+  released: '2025-12-17'
+  sources:
+  - label: Seed2.0 model card
+    url: https://seed.bytedance.com/en/seed2
+  scores:
+    videommmu:
+    - value: '88.1'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    mmvu:
+    - value: '77.9'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videosimpleqa:
+    - value: '70.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoreasonbench:
+    - value: '61.2'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    morse_500:
+    - value: '32.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoholmes:
+    - value: '65.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    minerva_video:
+    - value: '64.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tvbench:
+    - value: '69.6'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    contphy:
+    - value: '60.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tempcompass:
+    - value: '88.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    egotempo:
+    - value: '58.4'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    motionbench:
+    - value: '68.9'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    tomato:
+    - value: '60.8'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    thinking_with_tracking:
+    - value: '64.0'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videomme_seed:
+    - value: '85.2'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    cgbench:
+    - value: '65.3'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    longvideobench:
+    - value: '74.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    videoeval_pro:
+    - value: '51.9'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    crossvid:
+    - value: '48.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovbench:
+    - value: '59.2'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    livesports_3k:
+    - value: '71.5'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    ovobench:
+    - value: '68.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    odvbench:
+    - value: '56.7'
+      source_label: Seed2.0 T9
+      source_url: https://seed.bytedance.com/en/seed2
+    vispeak:
+    - value: '86.0'
+      source_label: Seed2.0 T9
       source_url: https://seed.bytedance.com/en/seed2
 - company: Google
   model: Gemini 2.5 Flash
