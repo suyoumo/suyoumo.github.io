@@ -236,6 +236,10 @@ sources:
   label: openPangu-2.0-Flash model card
   short_label: Pangu 2.0 Flash
   url: https://www.hiascend.com/developer/modelhub
+- id: code_agent_bench
+  label: CodeAgentBench
+  short_label: CodeAgentBench
+  url: https://suyoumo.github.io/code-agent-bench/
 categories:
 - name: Coding Agent
   columns:
@@ -377,6 +381,8 @@ categories:
     label: DeepCodeBench
   - key: featbench
     label: FeatBench
+  - key: code_agent_bench
+    label: CodeAgentBench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -1346,6 +1352,10 @@ rows:
     - value: '86.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    code_agent_bench:
+    - value: '31.62'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Qwen
   model: Qwen3.7-Plus
   mode: ''
@@ -1650,6 +1660,10 @@ rows:
     - value: '76.2'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    code_agent_bench:
+    - value: '31.21'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Qwen
   model: Qwen3.6-Plus
   mode: ''
@@ -1983,6 +1997,10 @@ rows:
     - value: '62.5'
       source_label: Qwen3.6
       source_url: https://qwen.ai/blog?id=qwen3.6
+    code_agent_bench:
+    - value: '28.43'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Qwen
   model: Qwen3.5-397B-A17B
   mode: ''
@@ -2349,6 +2367,10 @@ rows:
     - value: '75.4'
       source_label: Qwen3.5
       source_url: https://qwen.ai/blog?id=qwen3.5
+    code_agent_bench:
+    - value: '31.39'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Meituan
   model: LongCat-Flash-Thinking-2601
   mode: Thinking
@@ -2493,6 +2515,10 @@ rows:
     - value: '88.9'
       source_label: LongCat 2.0
       source_url: https://huggingface.co/meituan-longcat/LongCat-2.0
+    code_agent_bench:
+    - value: '24.78'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Tencent
   model: Hunyuan 3 Preview
   mode: Preview
@@ -3953,6 +3979,10 @@ rows:
     - value: '23.3'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    code_agent_bench:
+    - value: '19.42'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Doubao
   model: Seed2.0 Lite
   mode: ''
@@ -5981,6 +6011,10 @@ rows:
     - value: '51.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
@@ -6077,6 +6111,10 @@ rows:
     - value: '47.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: High reasoning effort
@@ -6169,6 +6207,10 @@ rows:
     - value: '49.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: High reasoning effort
@@ -6261,6 +6303,10 @@ rows:
     - value: '43.5'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Non-think
@@ -6341,6 +6387,10 @@ rows:
     - value: '46.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '32.95'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Non-think
@@ -6421,6 +6471,10 @@ rows:
     - value: '40.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    code_agent_bench:
+    - value: '28.99'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: DeepSeek
   model: Deepseek-Prover-V2
   mode: ''
@@ -6937,6 +6991,10 @@ rows:
     - value: 36/42
       source_label: MiniMax M3
       source_url: https://www.minimaxi.com/
+    code_agent_bench:
+    - value: '33.91'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: MiniMax
   model: MiniMax-M2.7
   mode: Thinking
@@ -6977,6 +7035,10 @@ rows:
     - value: '50'
       source_label: MiniMax M2.7
       source_url: https://www.minimaxi.com/
+    code_agent_bench:
+    - value: '25.24'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: MiniMax
   model: MiniMax-M2.5
   mode: Thinking
@@ -7101,6 +7163,10 @@ rows:
     - value: '35'
       source_label: MiniMax M2.5
       source_url: https://www.minimaxi.com/
+    code_agent_bench:
+    - value: '30.3'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: MiniMax
   model: MiniMax-M2.1
   mode: Thinking
@@ -7297,6 +7363,10 @@ rows:
     - value: '63.9'
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
+    code_agent_bench:
+    - value: '28.01'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: StepFun
   model: Step 3.5 Flash
   mode: Thinking
@@ -7369,6 +7439,10 @@ rows:
     - value: '51.0'
       source_label: Step 3.5 Flash
       source_url: https://stepfun.com/
+    code_agent_bench:
+    - value: '24.21'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: InclusionAI
   model: Ring-2.6-1T
   mode: xHigh
@@ -9415,6 +9489,10 @@ rows:
     - value: '84.7'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    code_agent_bench:
+    - value: '36.88'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -9561,6 +9639,10 @@ rows:
     - value: '53.2'
       source_label: GPT-5.4
       source_url: https://openai.com/index/gpt-5-4/
+    code_agent_bench:
+    - value: '36.79'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: OpenAI
   model: GPT-5.3-Codex
   mode: xHigh
@@ -12610,6 +12692,10 @@ rows:
     - value: '86.3'
       source_label: K2.6
       source_url: https://moonshotai.github.io/Kimi-K2/
+    code_agent_bench:
+    - value: '35.45'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
@@ -13321,6 +13407,10 @@ rows:
     - value: '5634.41'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    code_agent_bench:
+    - value: '31.74'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Zhipu AI
   model: GLM-5
   mode: ''
@@ -13630,6 +13720,10 @@ rows:
     - value: '87.4'
       source_label: GLM-4.7
       source_url: https://z.ai/blog/glm-4-7
+    code_agent_bench:
+    - value: '24.03'
+      source_label: CodeAgentBench
+      source_url: https://suyoumo.github.io/code-agent-bench/
 - company: Zhipu AI
   model: GLM-4.6
   mode: Thinking
