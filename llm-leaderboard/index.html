@@ -411,6 +411,7 @@ permalink: /llm-leaderboard/
 .rank-bronze { color: #b87333; }
 .heatmap-cell { font-weight: 700; font-size: 0.76rem; min-width: 56px; }
 .no-data-cell { color: #ddd; font-weight: 400; }
+.benchmark-group-header { background: #3a3a3a !important; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: #ddd; }
 </style>
 
 <!-- Ranking Section Script -->
@@ -424,13 +425,14 @@ permalink: /llm-leaderboard/
   categories.forEach(function(c){ (c.columns||[]).forEach(function(col){ benchLabels[col.key]=col.label; benchCat[col.key]=c.name; }); });
 
   var collections = {
-    'Code':     { label:'️ Code', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1'] },
+    'Overall':  { label:' 综合', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1','browsecomp','mcp_atlas','hle_tools','mmlu_pro','supergpqa','gpqa','hle','livecodebench','imoanswerbench','aime26','mrcr_v2_128k','longbench_v2','ifeval','ifbench','mmmlu'] },
+    'Code':     { label:'🖥️ Code', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1'] },
     'General':  { label:' General', keys:['browsecomp','mcp_atlas','hle_tools','mmlu_pro','supergpqa','gpqa','hle','livecodebench','imoanswerbench','aime26','mrcr_v2_128k','longbench_v2','ifeval','ifbench','mmmlu'] },
     'Custom':   { label:'✏️ Custom', keys:[] }
   };
   Object.keys(collections).forEach(function(n){ collections[n].keys = collections[n].keys.filter(function(k){ return benchLabels[k]; }); });
 
-  var activeCol = 'General', activeKeys = collections['General'].keys.slice(), minB = 5;
+  var activeCol = 'Overall', activeKeys = collections['Overall'].keys.slice(), minB = 5;
 
   // Build collection buttons
   var colEl = document.getElementById('rankingCollections');
@@ -509,8 +511,16 @@ permalink: /llm-leaderboard/
     var data=computeRanking(keys,minB), results=data.results, br=data.br;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+keys.length+' benchmarks · 最少'+minB+'项';
-    var h='<tr><th>排名</th><th>模型</th><th>厂商</th><th>均位次</th>';
-    keys.forEach(function(bk){ h+='<th>'+benchLabels[bk]+'</th>'; }); h+='</tr>'; thead.innerHTML=h;
+    // Build two-row header: category row + benchmark row
+    var catOrder = [], catKeys = {};
+    keys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeys[cat]) catOrder.push(cat); if(!catKeys[cat]) catKeys[cat]=[]; catKeys[cat].push(bk); });
+    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均位次</th>';
+    catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeys[cat].length+'">'+cat+'</th>'; });
+    h1+='</tr>';
+    var h2='<tr>';
+    keys.forEach(function(bk){ h2+='<th>'+benchLabels[bk]+'</th>'; });
+    h2+='</tr>';
+    thead.innerHTML=h1+h2;
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
