@@ -525,21 +525,25 @@ permalink: /llm-leaderboard/
     });
     var validKeys = keys.filter(function(bk){ return brPercentile[bk]; });
 
-    // Pairwise win-count ranking: for each pair of models, count wins on shared benchmarks
+    // Pairwise win-count ranking: for each pair of models, compare on shared benchmarks
     var wins = {};
-    mks.forEach(function(mk){ wins[mk] = 0; });
+    var totalOpponents = {};
+    mks.forEach(function(mk){ wins[mk] = 0; totalOpponents[mk] = 0; });
     for(var i=0; i<mks.length; i++){
       for(var j=i+1; j<mks.length; j++){
         var mkA=mks[i], mkB=mks[j];
         var sharedBench = validKeys.filter(function(bk){ return sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk); });
         if(sharedBench.length === 0) continue;
+        totalOpponents[mkA]++;
+        totalOpponents[mkB]++;
         var winsA=0, winsB=0;
         sharedBench.forEach(function(bk){
           if(sm[mkA][bk] > sm[mkB][bk]) winsA++;
           else if(sm[mkB][bk] > sm[mkA][bk]) winsB++;
         });
-        if(winsA > winsB) wins[mkA] += winsA;
-        else if(winsB > winsA) wins[mkB] += winsB;
+        // Winner is who wins more shared benchmarks; each pairwise = 1 win
+        if(winsA > winsB) wins[mkA]++;
+        else if(winsB > winsA) wins[mkB]++;
       }
     }
 
@@ -551,7 +555,9 @@ permalink: /llm-leaderboard/
       if(percentiles.length>=min){
         var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
         var p=mk.split('|');
-        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],
+        var opp = totalOpponents[mk] || 0;
+        var winRate = opp > 0 ? wins[mk] / opp : 0;
+        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,
           scores:validKeys.map(function(bk){return sm[mk][bk];}),
           ranks:validKeys.map(function(bk){return br[bk][mk];}),
           totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
@@ -585,7 +591,7 @@ permalink: /llm-leaderboard/
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
-    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均百分位</th>';
+    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均百分位</th><th rowspan="2" style="background:#1a1a1a;">胜率</th>';
     catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
@@ -595,7 +601,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.winRate*100)+'% ('+r.wins+'/'+r.opponents+')</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
@@ -606,7 +612,7 @@ permalink: /llm-leaderboard/
       });
       html+='</tr>';
     });
-    if(results.length===0) html='<tr><td colspan="'+(4+validKeys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
+    if(results.length===0) html='<tr><td colspan="'+(5+validKeys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
     tbody.innerHTML=html;
   }
 
