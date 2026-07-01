@@ -525,15 +525,22 @@ permalink: /llm-leaderboard/
     });
     var validKeys = keys.filter(function(bk){ return brPercentile[bk]; });
 
-    // ELO-based ranking: models gain/lose ELO based on pairwise comparisons
+    // First filter: only models with enough valid benchmarks
+    var qualifiedMks = mks.filter(function(mk){
+      var cnt = 0;
+      validKeys.forEach(function(bk){ if(brPercentile[bk].hasOwnProperty(mk)) cnt++; });
+      return cnt >= min;
+    });
+
+    // ELO-based ranking: only among qualified models
     var elo = {};
     var wins = {};
     var totalOpponents = {};
-    mks.forEach(function(mk){ elo[mk] = 1000; wins[mk] = 0; totalOpponents[mk] = 0; });
-    var K = 32; // ELO K-factor
-    for(var i=0; i<mks.length; i++){
-      for(var j=i+1; j<mks.length; j++){
-        var mkA=mks[i], mkB=mks[j];
+    qualifiedMks.forEach(function(mk){ elo[mk] = 1000; wins[mk] = 0; totalOpponents[mk] = 0; });
+    var K = 32;
+    for(var i=0; i<qualifiedMks.length; i++){
+      for(var j=i+1; j<qualifiedMks.length; j++){
+        var mkA=qualifiedMks[i], mkB=qualifiedMks[j];
         var sharedBench = validKeys.filter(function(bk){ return sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk); });
         if(sharedBench.length === 0) continue;
         totalOpponents[mkA]++;
@@ -543,39 +550,33 @@ permalink: /llm-leaderboard/
           if(sm[mkA][bk] > sm[mkB][bk]) winsA++;
           else if(sm[mkB][bk] > sm[mkA][bk]) winsB++;
         });
-        // Score: ratio of benchmark wins (0 to 1)
         var totalShared = sharedBench.length;
         var scoreA = winsA / totalShared;
         var scoreB = winsB / totalShared;
-        // Expected scores based on current ELO
         var expA = 1 / (1 + Math.pow(10, (elo[mkB] - elo[mkA]) / 400));
         var expB = 1 / (1 + Math.pow(10, (elo[mkA] - elo[mkB]) / 400));
-        // Update ELO
         elo[mkA] += K * (scoreA - expA);
         elo[mkB] += K * (scoreB - expB);
-        // Track wins for display
         if(winsA > winsB) wins[mkA]++;
         else if(winsB > winsA) wins[mkB]++;
       }
     }
 
-    // Compute average percentile for display, rank by ELO
+    // Build results from qualified models only
     var results=[];
-    mks.forEach(function(mk){
+    qualifiedMks.forEach(function(mk){
       var percentiles=[];
       validKeys.forEach(function(bk){ if(brPercentile[bk].hasOwnProperty(mk)) percentiles.push(brPercentile[bk][mk]); });
-      if(percentiles.length>=min){
-        var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
-        var p=mk.split('|');
-        var opp = totalOpponents[mk] || 0;
-        var winRate = opp > 0 ? wins[mk] / opp : 0;
-        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,elo:elo[mk],
-          scores:validKeys.map(function(bk){return sm[mk][bk];}),
-          ranks:validKeys.map(function(bk){return br[bk][mk];}),
-          totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
-      }
+      var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
+      var p=mk.split('|');
+      var opp = totalOpponents[mk] || 0;
+      var winRate = opp > 0 ? wins[mk] / opp : 0;
+      results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,elo:elo[mk],
+        scores:validKeys.map(function(bk){return sm[mk][bk];}),
+        ranks:validKeys.map(function(bk){return br[bk][mk];}),
+        totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
     });
-    results.sort(function(a,b){ return b.elo-a.elo; });
+    results.sort(function(a,b){ return b.winRate-a.winRate || b.elo-a.elo; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
