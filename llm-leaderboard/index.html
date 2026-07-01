@@ -20,7 +20,6 @@ permalink: /llm-leaderboard/
       <a href="{{ site.baseurl }}/bench/">ClawProBench ↗</a>
       <a href="{{ site.baseurl }}/code-agent-bench/">CodeAgentBench ↗</a>
       <a class="is-active" href="{{ site.baseurl }}/llm-leaderboard/" aria-current="page">LLMLeadBoard <strong>CURRENT</strong></a>
-      <a href="{{ site.baseurl }}/llm-leaderboard/ranking">综合排名 Ranking</a>
     </div>
 
     <div class="llm-board-hero">
@@ -86,6 +85,30 @@ permalink: /llm-leaderboard/
           </div>
         </div>
         <div class="llm-board-filter-panel-body" id="llm-board-filter-benches-body"></div>
+      </div>
+    </div>
+
+    <!-- ===== Ranking / Heatmap Section ===== -->
+    <div class="llm-ranking-section" id="llm-ranking-section">
+      <div class="llm-ranking-header">
+        <h2>🏆 综合排名</h2>
+        <div class="llm-ranking-collections" id="rankingCollections"></div>
+      </div>
+      <div class="llm-ranking-custom" id="rankingCustom" style="display:none;">
+        <strong>自定义 Benchmark：</strong>
+        <div class="llm-ranking-bench-cb" id="rankingBenchCb"></div>
+      </div>
+      <div class="llm-ranking-controls">
+        <label class="llm-ranking-min-label">最少 benchmark 数:
+          <input type="number" id="rankingMinBench" value="5" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+        </label>
+        <span class="llm-ranking-info" id="rankingInfo"></span>
+      </div>
+      <div class="llm-ranking-table-wrap">
+        <table class="llm-ranking-table" id="rankingTable">
+          <thead id="rankingThead"></thead>
+          <tbody id="rankingTbody"></tbody>
+        </table>
       </div>
     </div>
 
@@ -305,3 +328,210 @@ permalink: /llm-leaderboard/
 
 <script src="{{ '/assets/js/llm-leaderboard.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 <script src="{{ '/assets/js/llm-board-extras.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+
+<!-- Ranking Section Styles -->
+<style>
+.llm-ranking-section {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.llm-ranking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.llm-ranking-header h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary, #c45a3c);
+  margin: 0;
+}
+.llm-ranking-collections {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.llm-ranking-col-btn {
+  padding: 5px 14px;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-radius: 18px;
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s;
+  color: #6b6b65;
+}
+.llm-ranking-col-btn:hover { border-color: var(--primary, #c45a3c); color: var(--primary, #c45a3c); }
+.llm-ranking-col-btn.active { background: var(--primary, #c45a3c); color: #fff; border-color: var(--primary, #c45a3c); }
+.llm-ranking-custom { margin-bottom: 12px; font-size: 0.85rem; }
+.llm-ranking-custom strong { display: block; margin-bottom: 6px; color: #2b2b2b; }
+.llm-ranking-bench-cb { display: flex; flex-wrap: wrap; gap: 5px; }
+.llm-ranking-bench-cb label {
+  display: flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px; font-size: 0.75rem; cursor: pointer;
+  transition: all 0.12s; background: #fff;
+}
+.llm-ranking-bench-cb label:hover { border-color: var(--primary, #c45a3c); }
+.llm-ranking-bench-cb label:has(input:checked) { border-color: var(--primary, #c45a3c); background: rgba(196,90,60,0.06); }
+.llm-ranking-bench-cb input { accent-color: var(--primary, #c45a3c); }
+.llm-ranking-controls { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+.llm-ranking-min-label { font-size: 0.82rem; color: #6b6b65; display: flex; align-items: center; gap: 6px; }
+.llm-ranking-info { font-size: 0.8rem; color: #6b6b65; font-weight: 600; }
+.llm-ranking-table-wrap { overflow-x: auto; border-radius: 10px; }
+.llm-ranking-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.llm-ranking-table thead th {
+  position: sticky; top: 0; background: #2b2b2b; color: #fff;
+  padding: 9px 7px; font-weight: 700; text-align: center; white-space: nowrap; z-index: 5;
+  font-size: 0.75rem;
+}
+.llm-ranking-table thead th:nth-child(1),
+.llm-ranking-table thead th:nth-child(2),
+.llm-ranking-table thead th:nth-child(3) { background: #1a1a1a; text-align: left; padding-left: 10px; }
+.llm-ranking-table thead th:nth-child(4) { background: #1a1a1a; }
+.llm-ranking-table tbody tr { transition: background 0.08s; }
+.llm-ranking-table tbody tr:hover { background: rgba(196,90,60,0.03); }
+.llm-ranking-table td {
+  padding: 6px 7px; text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.06); white-space: nowrap;
+}
+.llm-ranking-table td:nth-child(1) { font-weight: 800; font-size: 0.88rem; padding-left: 10px; text-align: left; width: 44px; }
+.llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; }
+.llm-ranking-table td:nth-child(3) { text-align: left; color: #6b6b65; font-size: 0.75rem; }
+.llm-ranking-table td:nth-child(4) { font-weight: 800; font-size: 0.88rem; background: rgba(196,90,60,0.05); }
+.rank-gold { color: #d4a017; }
+.rank-silver { color: #888; }
+.rank-bronze { color: #b87333; }
+.heatmap-cell { font-weight: 700; font-size: 0.76rem; min-width: 56px; }
+.no-data-cell { color: #ddd; font-weight: 400; }
+</style>
+
+<!-- Ranking Section Script -->
+<script>
+(function(){
+  var boardData = JSON.parse(document.getElementById('llm-board-data').textContent);
+  var rows = boardData.rows || [];
+  var categories = boardData.categories || [];
+
+  var benchLabels = {}, benchCat = {};
+  categories.forEach(function(c){ (c.columns||[]).forEach(function(col){ benchLabels[col.key]=col.label; benchCat[col.key]=c.name; }); });
+
+  var collections = {
+    'Code':     { label:'🖥️ Code', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1'] },
+    'General':  { label:' General', keys:['browsecomp','mcp_atlas','hle_tools','mmlu_pro','supergpqa','gpqa','hle','livecodebench','imoanswerbench','aime26','mrcr_v2_128k','longbench_v2','ifeval','ifbench','mmmlu'] },
+    'Reasoning':{ label:' Reasoning', keys:['aime26','aime_2025','beyondaime','gpqa','supergpqa','mmlu_pro','hmmt_2025_feb','imoanswerbench'] },
+    'Agent':    { label:'🤖 Agent', keys:['browsecomp','mcp_atlas','tau2_bench_avg','skillsbench','agentif','forte','rw_search'] },
+    'Multimodal':{ label:'️ Multimodal', keys:['mmmu_pro','mathvision','worldvqa','babyvision','charxiv_rq','erqa','videomme_w_sub'] },
+    'Custom':   { label:'✏️ Custom', keys:[] }
+  };
+  Object.keys(collections).forEach(function(n){ collections[n].keys = collections[n].keys.filter(function(k){ return benchLabels[k]; }); });
+
+  var activeCol = 'General', activeKeys = collections['General'].keys.slice(), minB = 5;
+
+  // Build collection buttons
+  var colEl = document.getElementById('rankingCollections');
+  Object.keys(collections).forEach(function(name){
+    var btn = document.createElement('button');
+    btn.className = 'llm-ranking-col-btn' + (name===activeCol?' active':'');
+    btn.textContent = collections[name].label;
+    btn.onclick = function(){
+      colEl.querySelectorAll('.llm-ranking-col-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeCol = name;
+      document.getElementById('rankingCustom').style.display = name==='Custom'?'block':'none';
+      if(name!=='Custom'){ activeKeys = collections[name].keys.slice(); renderRanking(); }
+    };
+    colEl.appendChild(btn);
+  });
+
+  // Build custom checkboxes
+  var cbEl = document.getElementById('rankingBenchCb');
+  Object.keys(benchLabels).sort().forEach(function(key){
+    var label = document.createElement('label');
+    var cb = document.createElement('input'); cb.type='checkbox'; cb.value=key;
+    cb.checked = activeKeys.indexOf(key)!==-1;
+    cb.onchange = function(){ activeKeys = Array.from(cbEl.querySelectorAll('input:checked')).map(function(c){return c.value;}); renderRanking(); };
+    var span = document.createElement('span'); span.textContent = benchLabels[key];
+    label.appendChild(cb); label.appendChild(span); cbEl.appendChild(label);
+  });
+
+  document.getElementById('rankingMinBench').onchange = function(){ minB = parseInt(this.value)||5; renderRanking(); };
+
+  function scoreMap(){
+    var m={};
+    rows.forEach(function(r){
+      var mk=r.company+'|'+r.model; m[mk]={};
+      if(r.scores) Object.keys(r.scores).forEach(function(bk){
+        var e=r.scores[bk]; if(e&&e.length>0){ var v=parseFloat(e[0].value); if(!isNaN(v)) m[mk][bk]=v; }
+      });
+    });
+    return m;
+  }
+
+  function computeRanking(keys, min){
+    var sm=scoreMap(), mks=Object.keys(sm), br={};
+    keys.forEach(function(bk){
+      var scored=[];
+      mks.forEach(function(mk){ if(sm[mk].hasOwnProperty(bk)) scored.push({k:mk,s:sm[mk][bk]}); });
+      scored.sort(function(a,b){return b.s-a.s;});
+      var r={}; scored.forEach(function(it,i){ r[it.k]=i+1; }); br[bk]=r;
+    });
+    var results=[];
+    mks.forEach(function(mk){
+      var ranks=[]; keys.forEach(function(bk){ if(br[bk].hasOwnProperty(mk)) ranks.push(br[bk][mk]); });
+      if(ranks.length>=min){
+        var avg=ranks.reduce(function(s,v){return s+v;},0)/ranks.length;
+        var p=mk.split('|');
+        results.push({company:p[0],model:p[1],avg:avg,cnt:ranks.length,
+          scores:keys.map(function(bk){return sm[mk][bk];})});
+      }
+    });
+    results.sort(function(a,b){return a.avg-b.avg;});
+    return {results:results, br:br};
+  }
+
+  function rankColor(rank,total){
+    if(total<=1) return 'hsl(120,70%,42%)';
+    var ratio=(rank-1)/(total-1);
+    var hue=Math.max(0,120-ratio*120);
+    var light=38+ratio*18;
+    return 'hsl('+hue.toFixed(0)+',72%,'+light.toFixed(0)+'%)';
+  }
+
+  function renderRanking(){
+    var keys=activeKeys.filter(function(k){return benchLabels[k];});
+    var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
+    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; return; }
+    var data=computeRanking(keys,minB), results=data.results, br=data.br;
+    if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+keys.length+' benchmarks · 最少'+minB+'项';
+    var h='<tr><th>排名</th><th>模型</th><th>厂商</th><th>均位次</th>';
+    keys.forEach(function(bk){ h+='<th>'+benchLabels[bk]+'</th>'; }); h+='</tr>'; thead.innerHTML=h;
+    var html='';
+    results.forEach(function(r,idx){
+      var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(1)+'</td>';
+      keys.forEach(function(bk,bi){
+        var s=r.scores[bi];
+        if(s!==undefined&&s!==null){
+          var rk=br[bk][r.company+'|'+r.model], tot=Object.keys(br[bk]).length;
+          var color=rankColor(rk,tot), tc=rk<=tot*0.3?'#fff':'#222';
+          html+='<td class="heatmap-cell" style="background:'+color+';color:'+tc+';">'+s+'</td>';
+        } else { html+='<td class="no-data-cell">—</td>'; }
+      });
+      html+='</tr>';
+    });
+    if(results.length===0) html='<tr><td colspan="'+(4+keys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
+    tbody.innerHTML=html;
+  }
+
+  renderRanking();
+})();
+</script>
