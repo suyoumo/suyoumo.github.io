@@ -424,11 +424,8 @@ permalink: /llm-leaderboard/
   categories.forEach(function(c){ (c.columns||[]).forEach(function(col){ benchLabels[col.key]=col.label; benchCat[col.key]=c.name; }); });
 
   var collections = {
-    'Code':     { label:'🖥️ Code', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1'] },
+    'Code':     { label:'️ Code', keys:['terminal_bench_2','swe_verified','swe_pro','terminal_bench_2_1'] },
     'General':  { label:' General', keys:['browsecomp','mcp_atlas','hle_tools','mmlu_pro','supergpqa','gpqa','hle','livecodebench','imoanswerbench','aime26','mrcr_v2_128k','longbench_v2','ifeval','ifbench','mmmlu'] },
-    'Reasoning':{ label:' Reasoning', keys:['aime26','aime_2025','beyondaime','gpqa','supergpqa','mmlu_pro','hmmt_2025_feb','imoanswerbench'] },
-    'Agent':    { label:'🤖 Agent', keys:['browsecomp','mcp_atlas','tau2_bench_avg','skillsbench','agentif','forte','rw_search'] },
-    'Multimodal':{ label:'️ Multimodal', keys:['mmmu_pro','mathvision','worldvqa','babyvision','charxiv_rq','erqa','videomme_w_sub'] },
     'Custom':   { label:'✏️ Custom', keys:[] }
   };
   Object.keys(collections).forEach(function(n){ collections[n].keys = collections[n].keys.filter(function(k){ return benchLabels[k]; }); });
