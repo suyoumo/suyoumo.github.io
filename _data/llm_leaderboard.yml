@@ -260,6 +260,10 @@ sources:
   label: SciCode Benchmark
   short_label: SciCode
   url: https://artificialanalysis.ai
+- id: claude_fable5
+  label: Claude Fable 5 report
+  short_label: Fable 5
+  url: https://anthropic.com
 categories:
 - name: Coding Agent
   columns:
@@ -559,6 +563,16 @@ categories:
     label: Kimi Claw 24/7 Bench
   - key: mcp_mark_verified
     label: MCP Mark Verified
+  - key: automation_bench
+    label: AutomationBench
+  - key: legal_agent_bench
+    label: Legal Agent Benchmark
+  - key: biomystery_bench
+    label: BioMysteryBench
+  - key: exploit_bench
+    label: ExploitBench
+  - key: healthbench_pro
+    label: HealthBench Professional
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -8071,6 +8085,34 @@ rows:
     - value: '53.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    gdpval_mm:
+    - value: '22.5'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    blueprint_bench_2:
+    - value: '14.5'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '15.5'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    legal_agent_bench:
+    - value: '10.4'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    biomystery_bench:
+    - value: '40.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    exploit_bench:
+    - value: '69.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    healthbench_pro:
+    - value: '56.9'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
@@ -9941,6 +9983,30 @@ rows:
     - value: '56.1'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    gdpval_mm:
+    - value: '24.9'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    blueprint_bench_2:
+    - value: '36.2'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '12.9'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    legal_agent_bench:
+    - value: '2.1'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    exploit_bench:
+    - value: '34.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    healthbench_pro:
+    - value: '51.8'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -11503,6 +11569,22 @@ rows:
     - value: '1486'
       source_label: TextArena
       source_url: https://text-arena.com
+    gdpval_mm:
+    - value: '16.7'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    blueprint_bench_2:
+    - value: '26.5'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '9.6'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    legal_agent_bench:
+    - value: '0.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -14756,3 +14838,67 @@ rows:
     - value: '47.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+- company: Anthropic
+  model: Claude Fable 5
+  mode: ''
+  released: '2026-07-01'
+  sources:
+  - label: Claude Fable 5 report
+    url: https://anthropic.com
+  scores:
+    swe_pro:
+    - value: '80.3'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    frontierswe:
+    - value: '29.3'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    gdpval_aa:
+    - value: '1932'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    gdpval_mm:
+    - value: '29.8'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    blueprint_bench_2:
+    - value: '38.6'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '17.4'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    osworld_verified:
+    - value: '85.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    legal_agent_bench:
+    - value: '13.3'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    hle:
+    - value: '59.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    hle_tools:
+    - value: '64.5'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    biomystery_bench:
+    - value: '46.1'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    terminal_bench_2_1:
+    - value: '88.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    exploit_bench:
+    - value: '78.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
+    healthbench_pro:
+    - value: '66.0'
+      source_label: Claude Fable 5
+      source_url: https://anthropic.com
