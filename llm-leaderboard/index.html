@@ -43,6 +43,50 @@ permalink: /llm-leaderboard/
       </div>
     </div>
 
+    <!-- ===== Ranking / Heatmap Section ===== -->
+    <div class="llm-ranking-section" id="llm-ranking-section">
+      <div class="llm-ranking-header">
+        <h2>🏆 综合排名</h2>
+        <div class="llm-ranking-collections" id="rankingCollections"></div>
+      </div>
+      <div class="llm-ranking-custom" id="rankingCustom" style="display:none;">
+        <strong>自定义 Benchmark：</strong>
+        <div class="llm-ranking-bench-cb" id="rankingBenchCb"></div>
+      </div>
+      <div class="llm-ranking-controls">
+        <label class="llm-ranking-min-label">最少 benchmark 数:
+          <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+        </label>
+        <label class="llm-ranking-min-label">每 bench 最少模型数:
+          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+        </label>
+        <label class="llm-ranking-min-label">排序方式:
+          <select id="rankingSortMode" style="padding:3px 6px;border:1px solid var(--border);border-radius:6px;font-size:0.82rem;">
+            <option value="wins" selected>胜率</option>
+            <option value="percentile">百分位</option>
+          </select>
+        </label>
+        <span class="llm-ranking-info" id="rankingInfo"></span>
+      </div>
+      <div class="llm-ranking-table-wrap">
+        <table class="llm-ranking-table" id="rankingTable">
+          <thead id="rankingThead"></thead>
+          <tbody id="rankingTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="llm-ranking-note">
+      <strong>📋 排名机制说明：</strong>
+      <ol>
+        <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
+        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
+        <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
+        <li><b>两种排序方式</b>：<b>共享胜负</b>——每两个模型只在共有 benchmark 上比较，胜场多者排前；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。两种方式各有价值，可切换对比。</li>
+        <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
+      </ol>
+    </div>
+
     <div class="llm-board-toolbar" id="llm-board-toolbar">
       <button class="llm-board-filter-button" id="llm-board-filter-models-btn" type="button" aria-haspopup="dialog" aria-expanded="false">
         <span class="llm-board-filter-button-label">Models</span>
@@ -86,50 +130,6 @@ permalink: /llm-leaderboard/
         </div>
         <div class="llm-board-filter-panel-body" id="llm-board-filter-benches-body"></div>
       </div>
-    </div>
-
-    <!-- ===== Ranking / Heatmap Section ===== -->
-    <div class="llm-ranking-section" id="llm-ranking-section">
-      <div class="llm-ranking-header">
-        <h2>🏆 综合排名</h2>
-        <div class="llm-ranking-collections" id="rankingCollections"></div>
-      </div>
-      <div class="llm-ranking-custom" id="rankingCustom" style="display:none;">
-        <strong>自定义 Benchmark：</strong>
-        <div class="llm-ranking-bench-cb" id="rankingBenchCb"></div>
-      </div>
-      <div class="llm-ranking-controls">
-        <label class="llm-ranking-min-label">最少 benchmark 数:
-          <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
-        </label>
-        <label class="llm-ranking-min-label">每 bench 最少模型数:
-          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
-        </label>
-        <label class="llm-ranking-min-label">排序方式:
-          <select id="rankingSortMode" style="padding:3px 6px;border:1px solid var(--border);border-radius:6px;font-size:0.82rem;">
-            <option value="wins" selected>胜率</option>
-            <option value="percentile">百分位</option>
-          </select>
-        </label>
-        <span class="llm-ranking-info" id="rankingInfo"></span>
-      </div>
-      <div class="llm-ranking-table-wrap">
-        <table class="llm-ranking-table" id="rankingTable">
-          <thead id="rankingThead"></thead>
-          <tbody id="rankingTbody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="llm-ranking-note">
-      <strong>📋 排名机制说明：</strong>
-      <ol>
-        <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
-        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
-        <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
-        <li><b>两种排序方式</b>：<b>共享胜负</b>——每两个模型只在共有 benchmark 上比较，胜场多者排前；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。两种方式各有价值，可切换对比。</li>
-        <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
-      </ol>
     </div>
 
     <div class="llm-board-table-card" id="llm-board-card">
