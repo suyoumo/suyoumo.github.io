@@ -121,7 +121,7 @@ permalink: /llm-leaderboard/
         <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
         <li><b>每 benchmark 最少模型数</b>（默认 10）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
         <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
-        <li><b>均百分位</b>：模型在各 benchmark 的百分位取算术平均。所有 benchmark 等权，无额外加权。</li>
+        <li><b>共享 benchmark 胜负排名</b>：每两个模型只在它们都有的 benchmark 上比较，分数高的赢。总胜场多的排名靠前。这样不同 benchmark 覆盖的模型也能公平比较。</li>
         <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
       </ol>
     </div>
@@ -510,15 +510,33 @@ permalink: /llm-leaderboard/
     keys.forEach(function(bk){
       var scored=[];
       mks.forEach(function(mk){ if(sm[mk].hasOwnProperty(bk)) scored.push({k:mk,s:sm[mk][bk]}); });
-      // Skip benchmarks with too few models
       if(scored.length < minModelsPerBench) return;
       scored.sort(function(a,b){return b.s-a.s;});
       var r={}, p={};
       scored.forEach(function(it,i){ r[it.k]=i+1; p[it.k]=(i+1)/scored.length; });
       br[bk]=r; brPercentile[bk]=p;
     });
-    // Filter keys to only those with enough models
     var validKeys = keys.filter(function(bk){ return brPercentile[bk]; });
+
+    // Pairwise win-count ranking: for each pair of models, count wins on shared benchmarks
+    var wins = {};
+    mks.forEach(function(mk){ wins[mk] = 0; });
+    for(var i=0; i<mks.length; i++){
+      for(var j=i+1; j<mks.length; j++){
+        var mkA=mks[i], mkB=mks[j];
+        var sharedBench = validKeys.filter(function(bk){ return sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk); });
+        if(sharedBench.length === 0) continue;
+        var winsA=0, winsB=0;
+        sharedBench.forEach(function(bk){
+          if(sm[mkA][bk] > sm[mkB][bk]) winsA++;
+          else if(sm[mkB][bk] > sm[mkA][bk]) winsB++;
+        });
+        if(winsA > winsB) wins[mkA] += winsA;
+        else if(winsB > winsA) wins[mkB] += winsB;
+      }
+    }
+
+    // Compute average percentile for display, but rank by wins
     var results=[];
     mks.forEach(function(mk){
       var percentiles=[];
@@ -526,13 +544,13 @@ permalink: /llm-leaderboard/
       if(percentiles.length>=min){
         var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
         var p=mk.split('|');
-        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,
+        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],
           scores:validKeys.map(function(bk){return sm[mk][bk];}),
           ranks:validKeys.map(function(bk){return br[bk][mk];}),
           totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
       }
     });
-    results.sort(function(a,b){return a.avg-b.avg;});
+    results.sort(function(a,b){ return b.wins-a.wins || a.avg-b.avg; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
@@ -552,7 +570,7 @@ permalink: /llm-leaderboard/
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · 百分位排名';
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · 共享 benchmark 胜负排名';
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
