@@ -1,0 +1,626 @@
+---
+layout: default
+title: LLM Ranking
+---
+
+<style>
+  :root {
+    --primary: #c45a3c;
+    --dark: #2b2b2b;
+    --gray: #6b6b65;
+    --light-bg: #faf7f2;
+    --border: rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--light-bg);
+    color: var(--dark);
+    padding: 20px;
+  }
+
+  .ranking-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ranking-header h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+
+  .collection-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .collection-btn {
+    padding: 6px 16px;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    background: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--gray);
+  }
+
+  .collection-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .collection-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  .ranking-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .min-bench-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  .min-bench-control input {
+    width: 50px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .ranking-info {
+    font-size: 0.82rem;
+    color: var(--gray);
+    font-weight: 600;
+  }
+
+  .ranking-table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    background: #fff;
+  }
+
+  .ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .ranking-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--dark);
+    color: #fff;
+    padding: 10px 8px;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  .ranking-table thead th:first-child,
+  .ranking-table thead th:nth-child(2),
+  .ranking-table thead th:nth-child(3) {
+    background: #1a1a1a;
+    text-align: left;
+    padding-left: 12px;
+  }
+
+  .ranking-table thead th:nth-child(4) {
+    background: #1a1a1a;
+  }
+
+  .ranking-table tbody tr {
+    transition: background 0.1s;
+  }
+
+  .ranking-table tbody tr:hover {
+    background: rgba(196, 90, 60, 0.04);
+  }
+
+  .ranking-table td {
+    padding: 7px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .ranking-table td:first-child {
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding-left: 12px;
+    text-align: left;
+    width: 50px;
+  }
+
+  .ranking-table td:nth-child(2) {
+    text-align: left;
+    padding-left: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .ranking-table td:nth-child(3) {
+    text-align: left;
+    color: var(--gray);
+    font-size: 0.78rem;
+  }
+
+  .ranking-table td:nth-child(4) {
+    font-weight: 800;
+    font-size: 0.9rem;
+    background: rgba(196, 90, 60, 0.06);
+  }
+
+  .rank-cell {
+    font-weight: 800;
+  }
+
+  .rank-1 { color: #d4a017; }
+  .rank-2 { color: #888; }
+  .rank-3 { color: #b87333; }
+
+  .heatmap-cell {
+    font-weight: 700;
+    font-size: 0.78rem;
+    min-width: 60px;
+  }
+
+  .no-data {
+    color: #ccc;
+    font-weight: 400;
+  }
+
+  .benchmark-group-header {
+    background: #3a3a3a !important;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .coverage-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .coverage-section h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+
+  .coverage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  .coverage-table th {
+    background: var(--dark);
+    color: #fff;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 700;
+  }
+
+  .coverage-table td {
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .coverage-bar {
+    display: inline-block;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--primary);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .custom-bench-selector {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  }
+
+  .custom-bench-selector h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+
+  .bench-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .bench-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.12s;
+    background: #fff;
+  }
+
+  .bench-checkboxes label:hover {
+    border-color: var(--primary);
+  }
+
+  .bench-checkboxes input:checked + span {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .bench-checkboxes label:has(input:checked) {
+    border-color: var(--primary);
+    background: rgba(196, 90, 60, 0.06);
+  }
+
+  .bench-checkboxes input {
+    accent-color: var(--primary);
+  }
+</style>
+
+<div class="ranking-header">
+  <h1> LLM 综合排名</h1>
+  <div class="collection-selector" id="collectionSelector"></div>
+</div>
+
+<div class="custom-bench-selector" id="customSelector" style="display:none;">
+  <h3>自定义选择 Benchmark</h3>
+  <div class="bench-checkboxes" id="benchCheckboxes"></div>
+</div>
+
+<div class="ranking-controls">
+  <div class="min-bench-control">
+    <label>最少 benchmark 数:</label>
+    <input type="number" id="minBenchInput" value="5" min="1" max="20">
+  </div>
+  <div class="ranking-info" id="rankingInfo"></div>
+</div>
+
+<div class="ranking-table-wrap">
+  <table class="ranking-table" id="rankingTable">
+    <thead id="rankingThead"></thead>
+    <tbody id="rankingTbody"></tbody>
+  </table>
+</div>
+
+<div class="coverage-section">
+  <h2>📊 Benchmark 模型覆盖率</h2>
+  <p style="font-size:0.82rem;color:var(--gray);margin-bottom:12px;">
+    按有结果的模型数量从高到低排列，帮助你选择有意义的 benchmark 集合。
+  </p>
+  <table class="coverage-table" id="coverageTable">
+    <thead><tr><th>Benchmark</th><th>类别</th><th>模型数</th><th>覆盖率</th></tr></thead>
+    <tbody id="coverageTbody"></tbody>
+  </table>
+</div>
+
+<script>
+(function() {
+  // Data from Jekyll
+  var board = {{ site.data.llm_leaderboard | jsonify }};
+  var rows = board.rows || [];
+  var categories = board.categories || [];
+
+  // Build benchmark key→label map
+  var benchLabels = {};
+  var benchCategory = {};
+  categories.forEach(function(cat) {
+    (cat.columns || []).forEach(function(col) {
+      benchLabels[col.key] = col.label;
+      benchCategory[col.key] = cat.name;
+    });
+  });
+
+  // Default collections
+  var collections = {
+    'Code': {
+      label: '️ Code',
+      keys: ['terminal_bench_2', 'swe_verified', 'swe_pro', 'terminal_bench_2_1']
+    },
+    'General': {
+      label: '🧠 General',
+      keys: ['browsecomp', 'mcp_atlas', 'hle_tools', 'mmlu_pro', 'supergpqa', 'gpqa', 'hle', 'livecodebench', 'imoanswerbench', 'aime26', 'mrcr_v2_128k', 'longbench_v2', 'ifeval', 'ifbench', 'mmmlu']
+    },
+    'Reasoning': {
+      label: ' Reasoning',
+      keys: ['aime26', 'aime_2025', 'beyondaime', 'gpqa', 'supergpqa', 'mmlu_pro', 'hmmt_2025_feb', 'imoanswerbench']
+    },
+    'Agent': {
+      label: '🤖 Agent',
+      keys: ['browsecomp', 'mcp_atlas', 'tau2_bench_avg', 'skillsbench', 'agentif', 'forte', 'rw_search']
+    },
+    'Multimodal': {
+      label: '👁️ Multimodal',
+      keys: ['mmmu_pro', 'mathvision', 'worldvqa', 'babyvision', 'charxiv_rq', 'erqa', 'videomme_w_sub']
+    },
+    'Custom': {
+      label: '️ Custom',
+      keys: []
+    }
+  };
+
+  // Filter out keys that don't exist
+  Object.keys(collections).forEach(function(name) {
+    collections[name].keys = collections[name].keys.filter(function(k) { return benchLabels[k]; });
+  });
+
+  var activeCollection = 'General';
+  var activeBenchKeys = collections['General'].keys.slice();
+  var minBench = 5;
+
+  // Build collection selector
+  var selEl = document.getElementById('collectionSelector');
+  Object.keys(collections).forEach(function(name) {
+    var btn = document.createElement('button');
+    btn.className = 'collection-btn' + (name === activeCollection ? ' active' : '');
+    btn.textContent = collections[name].label;
+    btn.dataset.name = name;
+    btn.addEventListener('click', function() {
+      selEl.querySelectorAll('.collection-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeCollection = name;
+      if (name === 'Custom') {
+        document.getElementById('customSelector').style.display = 'block';
+      } else {
+        document.getElementById('customSelector').style.display = 'none';
+        activeBenchKeys = collections[name].keys.slice();
+        renderRanking();
+      }
+    });
+    selEl.appendChild(btn);
+  });
+
+  // Build custom benchmark checkboxes
+  var cbContainer = document.getElementById('benchCheckboxes');
+  var allBenchKeys = Object.keys(benchLabels).sort();
+  allBenchKeys.forEach(function(key) {
+    var label = document.createElement('label');
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = key;
+    cb.checked = activeBenchKeys.indexOf(key) !== -1;
+    cb.addEventListener('change', function() {
+      activeBenchKeys = Array.from(cbContainer.querySelectorAll('input:checked')).map(function(c) { return c.value; });
+      renderRanking();
+    });
+    var span = document.createElement('span');
+    span.textContent = benchLabels[key];
+    label.appendChild(cb);
+    label.appendChild(span);
+    cbContainer.appendChild(label);
+  });
+
+  // Min bench input
+  document.getElementById('minBenchInput').addEventListener('change', function() {
+    minBench = parseInt(this.value) || 5;
+    renderRanking();
+  });
+
+  // Score lookup: model → bench key → score value
+  function buildScoreMap() {
+    var map = {};
+    rows.forEach(function(row) {
+      var modelKey = row.company + '|' + row.model;
+      map[modelKey] = {};
+      if (row.scores) {
+        Object.keys(row.scores).forEach(function(benchKey) {
+          var entries = row.scores[benchKey];
+          if (entries && entries.length > 0) {
+            var val = parseFloat(entries[0].value);
+            if (!isNaN(val)) {
+              map[modelKey][benchKey] = val;
+            }
+          }
+        });
+      }
+    });
+    return map;
+  }
+
+  // Compute ranking
+  function computeRanking(benchKeys, minB) {
+    var scoreMap = buildScoreMap();
+    var modelKeys = Object.keys(scoreMap);
+
+    // Per-benchmark ranking
+    var benchRanks = {};
+    benchKeys.forEach(function(bk) {
+      var scored = [];
+      modelKeys.forEach(function(mk) {
+        if (scoreMap[mk].hasOwnProperty(bk)) {
+          scored.push({ key: mk, score: scoreMap[mk][bk] });
+        }
+      });
+      scored.sort(function(a, b) { return b.score - a.score; });
+      var ranks = {};
+      scored.forEach(function(item, idx) {
+        ranks[item.key] = idx + 1;
+      });
+      benchRanks[bk] = ranks;
+    });
+
+    // Average rank per model
+    var results = [];
+    modelKeys.forEach(function(mk) {
+      var ranks = [];
+      benchKeys.forEach(function(bk) {
+        if (benchRanks[bk].hasOwnProperty(mk)) {
+          ranks.push(benchRanks[bk][mk]);
+        }
+      });
+      if (ranks.length >= minB) {
+        var avg = ranks.reduce(function(s, v) { return s + v; }, 0) / ranks.length;
+        var parts = mk.split('|');
+        results.push({
+          company: parts[0],
+          model: parts[1],
+          avgRank: avg,
+          benchCount: ranks.length,
+          ranks: ranks,
+          scores: benchKeys.map(function(bk) { return scoreMap[mk][bk]; })
+        });
+      }
+    });
+
+    results.sort(function(a, b) { return a.avgRank - b.avgRank; });
+    return { results: results, benchRanks: benchRanks };
+  }
+
+  // Color for heatmap cell based on rank position
+  function rankColor(rank, total) {
+    if (total <= 1) return 'hsl(120, 70%, 45%)';
+    var ratio = (rank - 1) / (total - 1);
+    // Green (120°) → Yellow (60°) → Red (0°)
+    var hue = Math.max(0, 120 - ratio * 120);
+    var lightness = 40 + ratio * 15;
+    return 'hsl(' + hue.toFixed(0) + ', 75%, ' + lightness.toFixed(0) + '%)';
+  }
+
+  // Render ranking table
+  function renderRanking() {
+    var benchKeys = activeBenchKeys.filter(function(k) { return benchLabels[k]; });
+    if (benchKeys.length === 0) {
+      document.getElementById('rankingThead').innerHTML = '';
+      document.getElementById('rankingTbody').innerHTML = '<tr><td colspan="4" style="padding:20px;text-align:center;color:var(--gray);">请选择至少一个 benchmark</td></tr>';
+      document.getElementById('rankingInfo').textContent = '';
+      return;
+    }
+
+    var data = computeRanking(benchKeys, minBench);
+    var results = data.results;
+    var benchRanks = data.benchRanks;
+
+    // Update custom checkboxes
+    if (activeCollection === 'Custom') {
+      cbContainer.querySelectorAll('input').forEach(function(cb) {
+        cb.checked = benchKeys.indexOf(cb.value) !== -1;
+      });
+    }
+
+    // Info
+    document.getElementById('rankingInfo').textContent =
+      results.length + ' 模型 · ' + benchKeys.length + ' benchmarks · 最少 ' + minBench + ' 项';
+
+    // Header
+    var thead = document.getElementById('rankingThead');
+    var headerRow1 = '<tr><th>排名</th><th>模型</th><th>厂商</th><th>均位次</th>';
+    benchKeys.forEach(function(bk) {
+      headerRow1 += '<th>' + benchLabels[bk] + '</th>';
+    });
+    headerRow1 += '</tr>';
+    thead.innerHTML = headerRow1;
+
+    // Body
+    var tbody = document.getElementById('rankingTbody');
+    var html = '';
+    results.forEach(function(r, idx) {
+      var rankClass = '';
+      if (idx === 0) rankClass = 'rank-1';
+      else if (idx === 1) rankClass = 'rank-2';
+      else if (idx === 2) rankClass = 'rank-3';
+
+      html += '<tr>';
+      html += '<td class="' + rankClass + '">' + (idx + 1) + '</td>';
+      html += '<td>' + r.model + '</td>';
+      html += '<td>' + r.company + '</td>';
+      html += '<td>' + r.avgRank.toFixed(1) + '</td>';
+
+      benchKeys.forEach(function(bk, bi) {
+        var score = r.scores[bi];
+        if (score !== undefined && score !== null) {
+          var rankInBench = benchRanks[bk][r.company + '|' + r.model];
+          var totalInBench = Object.keys(benchRanks[bk]).length;
+          var color = rankColor(rankInBench, totalInBench);
+          var textColor = rankInBench <= totalInBench * 0.3 ? '#fff' : '#222';
+          html += '<td class="heatmap-cell" style="background:' + color + ';color:' + textColor + ';">' + score + '</td>';
+        } else {
+          html += '<td class="no-data">—</td>';
+        }
+      });
+
+      html += '</tr>';
+    });
+
+    if (results.length === 0) {
+      html = '<tr><td colspan="' + (4 + benchKeys.length) + '" style="padding:20px;text-align:center;color:var(--gray);">没有满足条件的模型（最少 ' + minBench + ' 个 benchmark 有结果）</td></tr>';
+    }
+
+    tbody.innerHTML = html;
+  }
+
+  // Render coverage table
+  function renderCoverage() {
+    var scoreMap = buildScoreMap();
+    var modelKeys = Object.keys(scoreMap);
+    var totalModels = modelKeys.length;
+
+    var coverage = [];
+    Object.keys(benchLabels).forEach(function(key) {
+      var count = 0;
+      modelKeys.forEach(function(mk) {
+        if (scoreMap[mk].hasOwnProperty(key)) count++;
+      });
+      coverage.push({ key: key, label: benchLabels[key], category: benchCategory[key] || '', count: count });
+    });
+
+    coverage.sort(function(a, b) { return b.count - a.count; });
+
+    var tbody = document.getElementById('coverageTbody');
+    var html = '';
+    coverage.forEach(function(item) {
+      var pct = totalModels > 0 ? (item.count / totalModels * 100) : 0;
+      var barWidth = Math.max(2, pct * 2);
+      html += '<tr>';
+      html += '<td><strong>' + item.label + '</strong> <span style="color:var(--gray);font-size:0.75rem;">' + item.key + '</span></td>';
+      html += '<td>' + item.category + '</td>';
+      html += '<td>' + item.count + '</td>';
+      html += '<td><span class="coverage-bar" style="width:' + barWidth + 'px;"></span>' + pct.toFixed(1) + '%</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  // Init
+  renderRanking();
+  renderCoverage();
+})();
+</script>
