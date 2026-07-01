@@ -244,6 +244,10 @@ sources:
   label: GLM-5.2 report
   short_label: GLM-5.2
   url: https://bigmodel.cn
+- id: kimi_k27code
+  label: Kimi K2.7 Code report
+  short_label: K2.7 Code
+  url: https://kimi.moonshot.cn
 categories:
 - name: Coding Agent
   columns:
@@ -397,6 +401,10 @@ categories:
     label: SWE-Marathon
   - key: deepswe
     label: DeepSWE
+  - key: kimi_code_bench_v2
+    label: Kimi Code Bench v2
+  - key: mls_bench_lite
+    label: MLS Bench Lite
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -529,6 +537,10 @@ categories:
     label: FORTE
   - key: agentif
     label: AgentIF
+  - key: kimi_claw_247
+    label: Kimi Claw 24/7 Bench
+  - key: mcp_mark_verified
+    label: MCP Mark Verified
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -7873,6 +7885,26 @@ rows:
     - value: '58.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    kimi_code_bench_v2:
+    - value: '67.4'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '42.8'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    kimi_claw_247:
+    - value: '50.4'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_atlas:
+    - value: '81.3'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_mark_verified:
+    - value: '76.4'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
@@ -9671,6 +9703,22 @@ rows:
     - value: '70.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    kimi_code_bench_v2:
+    - value: '69.0'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '35.5'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    kimi_claw_247:
+    - value: '52.8'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_mark_verified:
+    - value: '92.9'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -12910,6 +12958,26 @@ rows:
     - value: '35.45'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
+    kimi_code_bench_v2:
+    - value: '50.9'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    program_bench:
+    - value: '48.3'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '26.7'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    kimi_claw_247:
+    - value: '42.9'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_mark_verified:
+    - value: '72.8'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
@@ -14314,3 +14382,35 @@ rows:
     - value: '46.2'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+- company: Moonshot
+  model: Kimi K2.7 Code
+  mode: ''
+  released: '2026-07-01'
+  sources:
+  - label: Kimi K2.7 Code report
+    url: https://kimi.moonshot.cn
+  scores:
+    kimi_code_bench_v2:
+    - value: '62.0'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    program_bench:
+    - value: '53.6'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '35.1'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    kimi_claw_247:
+    - value: '46.9'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_atlas:
+    - value: '76.0'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    mcp_mark_verified:
+    - value: '81.1'
+      source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
