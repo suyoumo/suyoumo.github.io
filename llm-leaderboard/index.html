@@ -525,10 +525,12 @@ permalink: /llm-leaderboard/
     });
     var validKeys = keys.filter(function(bk){ return brPercentile[bk]; });
 
-    // Pairwise win-count ranking: for each pair of models, compare on shared benchmarks
+    // ELO-based ranking: models gain/lose ELO based on pairwise comparisons
+    var elo = {};
     var wins = {};
     var totalOpponents = {};
-    mks.forEach(function(mk){ wins[mk] = 0; totalOpponents[mk] = 0; });
+    mks.forEach(function(mk){ elo[mk] = 1000; wins[mk] = 0; totalOpponents[mk] = 0; });
+    var K = 32; // ELO K-factor
     for(var i=0; i<mks.length; i++){
       for(var j=i+1; j<mks.length; j++){
         var mkA=mks[i], mkB=mks[j];
@@ -541,13 +543,23 @@ permalink: /llm-leaderboard/
           if(sm[mkA][bk] > sm[mkB][bk]) winsA++;
           else if(sm[mkB][bk] > sm[mkA][bk]) winsB++;
         });
-        // Winner is who wins more shared benchmarks; each pairwise = 1 win
+        // Score: ratio of benchmark wins (0 to 1)
+        var totalShared = sharedBench.length;
+        var scoreA = winsA / totalShared;
+        var scoreB = winsB / totalShared;
+        // Expected scores based on current ELO
+        var expA = 1 / (1 + Math.pow(10, (elo[mkB] - elo[mkA]) / 400));
+        var expB = 1 / (1 + Math.pow(10, (elo[mkA] - elo[mkB]) / 400));
+        // Update ELO
+        elo[mkA] += K * (scoreA - expA);
+        elo[mkB] += K * (scoreB - expB);
+        // Track wins for display
         if(winsA > winsB) wins[mkA]++;
         else if(winsB > winsA) wins[mkB]++;
       }
     }
 
-    // Compute average percentile for display, but rank by wins
+    // Compute average percentile for display, rank by ELO
     var results=[];
     mks.forEach(function(mk){
       var percentiles=[];
@@ -557,13 +569,13 @@ permalink: /llm-leaderboard/
         var p=mk.split('|');
         var opp = totalOpponents[mk] || 0;
         var winRate = opp > 0 ? wins[mk] / opp : 0;
-        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,
+        results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,elo:elo[mk],
           scores:validKeys.map(function(bk){return sm[mk][bk];}),
           ranks:validKeys.map(function(bk){return br[bk][mk];}),
           totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
       }
     });
-    results.sort(function(a,b){ return b.wins-a.wins || a.avg-b.avg; });
+    results.sort(function(a,b){ return b.elo-a.elo; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
@@ -584,10 +596,10 @@ permalink: /llm-leaderboard/
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'共享胜负排名':'百分位排名');
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'胜率排名':'百分位排名');
     // Sort by selected mode
     if(sortMode === 'percentile') results.sort(function(a,b){ return a.avg-b.avg; });
-    else results.sort(function(a,b){ return b.wins-a.wins || a.avg-b.avg; });
+    else results.sort(function(a,b){ return b.winRate-a.winRate || b.elo-a.elo; });
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
@@ -601,7 +613,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.winRate*100)+'% ('+r.wins+'/'+r.opponents+')</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td>'+r.model+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+Math.round(r.winRate*100)+'%)</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
