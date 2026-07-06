@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "schema_version": "code_agent_bench_data.v1",
+    "benchmark": "TerminalBench-2.1",
+    "suite": "TerminalBench 2.1 zh89",
+    "language_variant": "zh",
+    "task_count": 89,
+    "attempts_per_task": 3,
+    "rank_metric": "final_score",
+    "final_score_formula": "solved / total",
+    "generated_at": "2026-07-06"
+  },
+  "agents": [
+    {
+      "key": "opencode",
+      "label": "OpenCode",
+      "slug": "opencode"
+    }
+  ],
+  "rows": [
+    {
+      "id": "opencode-minimax-m3",
+      "model_dir": "opencode-minimax-m3",
+      "lane_key": "opencode-minimax-m3",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli",
+      "provider": "minimax",
+      "provider_label": "MiniMax",
+      "model_raw": "minimax/MiniMax-M3",
+      "model_name": "MiniMax-M3",
+      "model_label": "MiniMax M3",
+      "task_count": 89,
+      "attempts_per_task": 1,
+      "total_attempts": 89,
+      "pass_at_n": [
+        0.3146
+      ],
+      "final_score": 31.46,
+      "cost_usd": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "latency_s": null,
+      "source_url": "terminal/minimax-m3"
+    },
+    {
+      "id": "opencode-stepfun-3.7-flash",
+      "model_dir": "opencode-stepfun-3.7-flash",
+      "lane_key": "opencode-stepfun-3.7-flash",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli",
+      "provider": "stepfun",
+      "provider_label": "StepFun",
+      "model_raw": "stepfun/step-3.7-flash",
+      "model_name": "step-3.7-flash",
+      "model_label": "Step 3.7 Flash",
+      "task_count": 89,
+      "attempts_per_task": 3,
+      "total_attempts": 267,
+      "pass_at_n": [
+        0.9888
+      ],
+      "final_score": 98.88,
+      "cost_usd": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "latency_s": null,
+      "source_url": "terminal/stepfun-step-3.7-flash"
+    }
+  ],
+  "excluded_rows": []
+}
