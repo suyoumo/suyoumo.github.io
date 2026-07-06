@@ -268,6 +268,10 @@ sources:
   label: Claude Sonnet 5 report
   short_label: Sonnet 5
   url: https://anthropic.com
+- id: hunyuan3
+  label: Hunyuan 3 report
+  short_label: Hunyuan 3
+  url: https://hunyuan.tencent.com
 categories:
 - name: Coding Agent
   columns:
@@ -1438,6 +1442,42 @@ rows:
     - value: '1475'
       source_label: TextArena
       source_url: https://text-arena.com
+    browsecomp:
+    - value: '86.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '72.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '88.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '45.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '22.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '65.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '41.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '18.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '13.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Qwen
   model: Qwen3.7-Plus
   mode: ''
@@ -5938,7 +5978,7 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     nl2repo:
-    - value: '35.5'
+    - value: '41.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     qwen_web_bench:
@@ -6165,6 +6205,34 @@ rows:
     - value: '50.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    wide_search:
+    - value: '75.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '90.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '20.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '58.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '50.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '18.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '14.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
@@ -6277,6 +6345,50 @@ rows:
     - value: '43.8'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    terminal_bench_2_1:
+    - value: '52.58'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '39.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepswe:
+    - value: '7.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '74.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '87.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '18.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '61.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '43.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '35.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '16.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '11.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: High reasoning effort
@@ -7982,7 +8094,7 @@ rows:
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     terminal_bench_2_1:
-    - value: '74.6'
+    - value: '85.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     - value: '82.7'
@@ -8080,7 +8192,7 @@ rows:
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
     mcp_atlas:
-    - value: '81.3'
+    - value: '82.2'
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
     mcp_mark_verified:
@@ -8127,6 +8239,62 @@ rows:
     - value: '56.9'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    swe_multilingual:
+    - value: '84.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_verified:
+    - value: '88.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '69.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    browsecomp:
+    - value: '84.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '72.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '93.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '59.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '42.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '72.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '58.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '64.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    gpqa:
+    - value: '93.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '24.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '16.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
@@ -9858,7 +10026,7 @@ rows:
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     mcp_atlas:
-    - value: '75.3'
+    - value: '81.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     toolathlon:
@@ -9890,11 +10058,11 @@ rows:
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     terminal_bench_2_1:
-    - value: '78.2'
+    - value: '84.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     hle:
-    - value: '41.4'
+    - value: '46.9'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     hle_tools:
@@ -9930,7 +10098,7 @@ rows:
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     apex_agents:
-    - value: '35.4'
+    - value: '38.4'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     forte:
@@ -10041,6 +10209,50 @@ rows:
     - value: '51.8'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    swe_multilingual:
+    - value: '77.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_verified:
+    - value: '84.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '50.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '80.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '95.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '67.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '63.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '61.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    imoanswerbench:
+    - value: '92.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '27.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '21.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -11370,7 +11582,7 @@ rows:
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     hle:
-    - value: '44.4'
+    - value: '45.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     - value: '44.4'
@@ -11469,7 +11681,7 @@ rows:
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     mcp_atlas:
-    - value: '69.2'
+    - value: '78.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     - value: '69.2'
@@ -11512,7 +11724,7 @@ rows:
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
     terminal_bench_2_1:
-    - value: '70.3'
+    - value: '74.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     osworld_verified:
@@ -11619,6 +11831,34 @@ rows:
     - value: '0.0'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    wide_search:
+    - value: '71.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '90.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '50.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '46.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '53.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '21.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '16.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -13878,7 +14118,7 @@ rows:
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
     nl2repo:
-    - value: '41.0'
+    - value: '42.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     - value: '42.7'
@@ -14147,6 +14387,38 @@ rows:
     - value: '1473'
       source_label: TextArena
       source_url: https://text-arena.com
+    swe_verified:
+    - value: '75.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '76.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '89.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '24.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '62.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '48.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '21.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '14.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Zhipu AI
   model: GLM-5
   mode: ''
@@ -14809,7 +15081,7 @@ rows:
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
     deepswe:
-    - value: '42'
+    - value: '46.2'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     code_agent_bench:
@@ -14828,6 +15100,42 @@ rows:
     - value: '50.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    swe_multilingual:
+    - value: '83.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_verified:
+    - value: '84.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '48.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '29.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '62.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '59.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '51.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '23.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '21.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -15008,3 +15316,95 @@ rows:
     - value: '28.2'
       source_label: Claude Sonnet 5
       source_url: https://anthropic.com
+- company: Tencent
+  model: Hunyuan 3
+  mode: ''
+  released: '2026-07-06'
+  sources:
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
+  scores:
+    swe_multilingual:
+    - value: '75.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_verified:
+    - value: '78.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_pro:
+    - value: '57.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    terminal_bench_2_1:
+    - value: '71.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '45.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepswe:
+    - value: '28.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    browsecomp:
+    - value: '84.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '76.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '91.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    mcp_atlas:
+    - value: '79.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '48.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '25.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '68.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '53.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '55.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hle_tools:
+    - value: '53.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    gpqa:
+    - value: '90.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hle:
+    - value: '37.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    imoanswerbench:
+    - value: '90.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '23.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '17.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
