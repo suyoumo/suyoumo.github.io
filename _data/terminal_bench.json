@@ -7,7 +7,7 @@
     "task_count": 89,
     "attempts_per_task": 3,
     "rank_metric": "final_score",
-    "final_score_formula": "solved / total",
+    "final_score_formula": "average pass rate across attempts",
     "generated_at": "2026-07-06"
   },
   "agents": [
@@ -18,6 +18,36 @@
     }
   ],
   "rows": [
+    {
+      "id": "opencode-stepfun-3.7-flash",
+      "model_dir": "opencode-stepfun-3.7-flash",
+      "lane_key": "opencode-stepfun-3.7-flash",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli",
+      "provider": "stepfun",
+      "provider_label": "StepFun",
+      "model_raw": "stepfun/step-3.7-flash",
+      "model_name": "step-3.7-flash",
+      "model_label": "Step 3.7 Flash",
+      "task_count": 89,
+      "attempts_per_task": 3,
+      "total_attempts": 267,
+      "pass_at_n": [
+        0.1348,
+        0.1348,
+        0.1348
+      ],
+      "final_score": 13.48,
+      "pass_at_3": 98.88,
+      "pass_cubed": 0.0,
+      "cost_usd": null,
+      "input_tokens": null,
+      "output_tokens": null,
+      "latency_s": null,
+      "source_url": "terminal/stepfun-step-3.7-flash"
+    },
     {
       "id": "opencode-minimax-m3",
       "model_dir": "opencode-minimax-m3",
@@ -38,37 +68,13 @@
         0.3146
       ],
       "final_score": 31.46,
+      "pass_at_3": 31.46,
+      "pass_cubed": 31.46,
       "cost_usd": null,
       "input_tokens": null,
       "output_tokens": null,
       "latency_s": null,
       "source_url": "terminal/minimax-m3"
-    },
-    {
-      "id": "opencode-stepfun-3.7-flash",
-      "model_dir": "opencode-stepfun-3.7-flash",
-      "lane_key": "opencode-stepfun-3.7-flash",
-      "agent": "opencode",
-      "agent_label": "OpenCode",
-      "agent_slug": "opencode",
-      "agent_version": "opencode-cli",
-      "provider": "stepfun",
-      "provider_label": "StepFun",
-      "model_raw": "stepfun/step-3.7-flash",
-      "model_name": "step-3.7-flash",
-      "model_label": "Step 3.7 Flash",
-      "task_count": 89,
-      "attempts_per_task": 3,
-      "total_attempts": 267,
-      "pass_at_n": [
-        0.9888
-      ],
-      "final_score": 98.88,
-      "cost_usd": null,
-      "input_tokens": null,
-      "output_tokens": null,
-      "latency_s": null,
-      "source_url": "terminal/stepfun-step-3.7-flash"
     }
   ],
   "excluded_rows": []
