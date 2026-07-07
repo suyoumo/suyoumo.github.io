@@ -14,7 +14,7 @@ permalink: /terminal-bench/
       <div class="code-agent-hero-copy">
         <p class="bench-kicker">Terminal-Bench 2.1 agent results</p>
         <h1>TerminalBench 2.1</h1>
-        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks, {{ meta.attempts_per_task }} attempts per task. Rankings sort by Final Score. Each column shows results by agent used.</p>
+        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks. All models run via OpenCode agent. Rankings sort by Final Score (pass@1 × 100). Step 3.7 Flash ran with 3 attempts per task; MiniMax-M3 ran with 1 attempt.</p>
         <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
           <span>Leaderboard Family:</span>
           <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
@@ -22,8 +22,13 @@ permalink: /terminal-bench/
           <a class="is-active" href="{{ site.baseurl }}/terminal-bench/" aria-current="page">TerminalBench <strong>CURRENT</strong></a>
           <a href="{{ site.baseurl }}/llm-leaderboard/">LLMLeadBoard</a>
         </div>
+        <div class="leaderboard-family-switch code-agent-family-switch code-agent-sub-switch" aria-label="CodeAgentBench sub-leaderboard" style="margin-top:0.5rem">
+          <span>CodeAgentBench:</span>
+          <a href="{{ site.baseurl }}/code-agent-bench/">SWE-Bench-Pro</a>
+          <a class="is-active" href="{{ site.baseurl }}/terminal-bench/" aria-current="page">TerminalBench 2.1 <strong>CURRENT</strong></a>
+        </div>
       </div>
-      <div class="code-agent-summary-grid" aria-label="CodeAgentBench summary">
+      <div class="code-agent-summary-grid" aria-label="TerminalBench 2.1 summary">
         <div>
           <span>Best Final Score</span>
           <strong>{{ top.final_score | round: 2 }}</strong>
@@ -32,19 +37,12 @@ permalink: /terminal-bench/
         <div>
           <span>Completed Models</span>
           <strong>{{ meta.completed_model_count }}</strong>
-          {% assign partial_model_count = meta.partial_model_count | default: 0 %}
-          {% if partial_model_count == 0 %}
-          <em>No partial progress rows</em>
-          {% elsif partial_model_count == 1 %}
-          <em>1 partial progress row shown separately</em>
-          {% else %}
-          <em>{{ partial_model_count }} partial progress rows shown separately</em>
-          {% endif %}
+          <em>All via OpenCode agent</em>
         </div>
         <div>
-          <span>Scoreable Attempts</span>
-          <strong>{{ meta.total_attempts }}</strong>
-          <em>{{ meta.task_count }} tasks x {{ meta.attempts_per_task }} tries</em>
+          <span>Tasks</span>
+          <strong>{{ meta.task_count }}</strong>
+          <em>{{ meta.benchmark }}</em>
         </div>
         <div>
           <span>Exported</span>
@@ -58,11 +56,11 @@ permalink: /terminal-bench/
       <div class="bench-section-head">
         <div class="bench-head-copy">
           <h2>Benchmark <span>Leaderboard</span></h2>
-          <p>Final Score is the primary ranking signal. It weights Pass^3 most strongly for stable agent performance, while Pass@3 keeps each model's best-of-three reach visible.</p>
+          <p>Final Score = pass@1 × 100. Pass@3 shows tasks solved at least once across 3 attempts (only applicable for models with multiple attempts). Pass^3 shows tasks solved in all 3 attempts.</p>
         </div>
       </div>
 
-      <div class="bench-filter-strip code-agent-filter-strip" aria-label="CodeAgentBench agent filter">
+      <div class="bench-filter-strip code-agent-filter-strip" aria-label="TerminalBench agent filter">
         <span>Agent</span>
         <div class="bench-dataset-tabs" id="code-agent-filter">
           <button class="is-active" type="button" data-code-agent-filter="all">All Agents</button>
@@ -83,13 +81,10 @@ permalink: /terminal-bench/
                 <th data-sort-key="final-score" data-sort-type="number">Final Score <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="attempt-score" data-sort-type="number">Attempt Score <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="attempt-score" data-sort-type="number">Pass@1 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="solved-attempts" data-sort-type="number">Solved Attempts <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="scoreable-attempt-coverage" data-sort-type="number">Coverage <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="total-tokens" data-sort-type="number">Tokens K (In / Out / Total) <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="archive-size-mb" data-sort-type="number">Log Archive <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="full-run-tree-size-mb" data-sort-type="number">Full Tree <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="attempts-per-task" data-sort-type="number">Attempts <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="total-tokens" data-sort-type="number">Tokens (In / Out / Total) <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="exported-at" data-sort-type="text">Exported <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="model-dir" data-sort-type="text">Model Dir <span class="bench-sort-indicator"></span></th>
               </tr>
@@ -124,6 +119,7 @@ permalink: /terminal-bench/
                 data-archive-size-mb="{{ row.archive_size_mb }}"
                 data-full-run-tree-size-mb="{{ row.full_run_tree_size_mb }}"
                 data-exported-at="{{ row.exported_at | escape }}"
+                data-attempts-per-task="{{ row.attempts_per_task }}"
               >
                 <td data-value="{{ row.rank }}">{{ row.rank }}</td>
                 <td class="bench-model-column">
@@ -151,45 +147,47 @@ permalink: /terminal-bench/
                   <span class="code-agent-version-pill" title="{{ row.agent_version_source | escape }}">{{ row.agent_version }}</span>
                 </td>
                 <td data-value="{{ row.final_score }}">
-                  <span class="bench-score"{% if row.final_score_status %} title="{{ row.final_score_status | escape }}"{% endif %}>{{ row.final_score | round: 2 }}</span>
-                  {% if row.partial_export %}
-                  <span class="code-agent-partial-badge">Partial</span>
-                  {% endif %}
+                  <span class="bench-score">{{ row.final_score | round: 2 }}</span>
                 </td>
                 <td data-value="{{ row.pass_3_rate }}">
+                  {% if row.attempts_per_task >= 3 %}
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.pass_3_rate | times: 100 }}%"></span></div>
                     <strong>{{ row.pass_3_count }}/{{ pass_3_denominator }} - {{ row.pass_3_rate | times: 100 | round: 1 }}%</strong>
                   </div>
+                  {% else %}
+                  <span class="code-agent-empty-metric" title="Only {{ row.attempts_per_task }} attempt per task — pass^3 not applicable">N/A</span>
+                  {% endif %}
                 </td>
                 <td data-value="{{ row.pass_at_3_rate }}">
+                  {% if row.attempts_per_task >= 3 %}
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.pass_at_3_rate | times: 100 }}%"></span></div>
                     <strong>{{ row.pass_at_3_count }}/{{ pass_at_3_denominator }} - {{ row.pass_at_3_rate | times: 100 | round: 1 }}%</strong>
                   </div>
+                  {% else %}
+                  <span class="code-agent-empty-metric" title="Only {{ row.attempts_per_task }} attempt per task — pass@3 not applicable">N/A</span>
+                  {% endif %}
                 </td>
                 <td data-value="{{ row.attempt_score }}">
                   <div class="bench-pass-cell">
                     <div class="bench-pass-bar"><span style="width: {{ row.attempt_score | times: 100 }}%"></span></div>
-                    <strong>{{ row.solved_attempts }}/{{ row.scoreable_attempts }} - {{ row.attempt_score | times: 100 | round: 1 }}%</strong>
+                    <strong>{{ row.solved_unique_tasks }}/{{ row.task_count }} - {{ row.attempt_score | times: 100 | round: 1 }}%</strong>
                   </div>
                 </td>
                 <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
-                <td data-value="{{ row.solved_attempts }}">{{ row.solved_attempts }}/{{ row.scoreable_attempts }}</td>
-                <td data-value="{{ row.scoreable_attempt_coverage }}"><span class="code-agent-gate">{{ row.scoreable_attempts }}/{{ row.planned_task_attempts }}</span> {{ row.scoreable_attempt_coverage | times: 100 | round: 0 }}%</td>
+                <td data-value="{{ row.attempts_per_task }}">{{ row.attempts_per_task }}x</td>
                 <td data-value="{{ row.total_tokens | default: 0 }}">
-                  {% if row.total_tokens %}
-                  <span class="code-agent-token-cell" title="{{ row.token_task_count }} exported token records include usage across {{ row.scoreable_attempts }} scoreable attempts">
+                  {% if row.total_tokens and row.total_tokens > 0 %}
+                  <span class="code-agent-token-cell">
                     <span><em>In</em> {{ row.input_tokens_display }}</span>
                     <span><em>Out</em> {{ row.output_tokens_display }}</span>
                     <span><em>Total</em> {{ row.total_tokens_display }}</span>
                   </span>
                   {% else %}
-                  <span class="code-agent-empty-metric" title="No non-zero token usage was exported across {{ row.scoreable_attempts }} scoreable attempts">--</span>
+                  <span class="code-agent-empty-metric">--</span>
                   {% endif %}
                 </td>
-                <td data-value="{{ row.archive_size_mb }}">{{ row.archive_size_mb }} MB</td>
-                <td data-value="{{ row.full_run_tree_size_mb }}">{{ row.full_run_tree_size_mb }} MB</td>
                 <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
                 <td data-value="{{ row.model_dir }}">
                   <code class="code-agent-model-dir">{{ row.model_dir }}</code>
@@ -203,13 +201,14 @@ permalink: /terminal-bench/
 
       <div class="bench-leaderboard-note code-agent-note">
         <span>Notes:</span>
-        <span><code>Final Score = 100 × S^0.55 × R^0.25 × A^0.20</code>, where <code>S=(Pass^3)^(1/3)</code>, <code>R=1-(1-Pass@3)^(1/3)</code>, and <code>A=Attempt Score</code>.</span>
-        <span><code>Pass^3</code> counts tasks solved in all 3 attempts.</span>
-        <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts.</span>
-        <span><code>Attempt Score</code> is solved scoreable attempts divided by 453.</span>
-        <span><code>Tokens</code> are shown in K and summed across all exported attempts. Input includes cache read/write tokens when exported. OpenCode rows use per-step <code>command.log</code> usage when available; other rows fall back to per-task <code>run_summary.json</code> fields. <code>--</code> means non-zero usage was not exported.</span>
-        <span><code>Agent Version</code> combines each run's exported runtime label with the current local CLI version command when historical reports do not include exact semver.</span>
-        <span>Completed rows are rankable only when the exported summary reports 453 scoreable attempts; partial rows are shown as progress references at the bottom.</span>
+        <span>All models run via <strong>OpenCode</strong> agent on TerminalBench 2.1 (zh89 variant, 89 tasks).</span>
+        <span><code>Final Score</code> = pass@1 × 100 (percentage of tasks solved on first attempt).</span>
+        <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts. Only applicable for models with multiple attempts per task.</span>
+        <span><code>Pass^3</code> counts tasks solved in all 3 attempts. Only applicable for models with multiple attempts per task.</span>
+        <span><code>Pass@1</code> shows the primary solve rate (first attempt or best single attempt).</span>
+        <span><strong>Step 3.7 Flash</strong>: 3 attempts per task, pass@3 = 17/89 (19.1%), pass@3 estimate = 21.6%.</span>
+        <span><strong>MiniMax-M3</strong>: 1 attempt per task only — pass@3 and pass^3 are not applicable.</span>
+        <span><code>Tokens</code> are summed across all attempts. Input includes cache tokens when available.</span>
       </div>
     </section>
 
@@ -217,7 +216,7 @@ permalink: /terminal-bench/
       <div class="bench-chart-head">
         <div class="bench-head-copy">
           <h2>Visual <span>Leaderboard</span></h2>
-          <p>Switch metrics to compare the same agent/model pairs by reach, consistency, and per-attempt solve rate.</p>
+          <p>Switch metrics to compare models by different performance dimensions.</p>
         </div>
         <div class="bench-chart-toolbar">
           <label class="bench-chart-filter" for="code-agent-chart-metric">
@@ -226,14 +225,11 @@ permalink: /terminal-bench/
               <option value="final-score" data-format="decimal2" selected>Final Score</option>
               <option value="pass-3-rate" data-format="percent">Pass^3</option>
               <option value="pass-at-3-rate" data-format="percent">Pass@3</option>
-              <option value="attempt-score" data-format="percent">Attempt Score</option>
+              <option value="attempt-score" data-format="percent">Pass@1</option>
               <option value="solved-unique-tasks" data-format="integer">Solved Tasks</option>
-              <option value="solved-attempts" data-format="integer">Solved Attempts</option>
               <option value="total-tokens" data-format="compact">Total Tokens</option>
               <option value="input-tokens" data-format="compact">Input Tokens</option>
               <option value="output-tokens" data-format="compact">Output Tokens</option>
-              <option value="archive-size-mb" data-format="size">Log Archive</option>
-              <option value="full-run-tree-size-mb" data-format="size">Full Tree</option>
             </select>
           </label>
           <label class="bench-chart-filter bench-chart-filter-compact" for="code-agent-chart-limit">
@@ -293,7 +289,7 @@ permalink: /terminal-bench/
       <div class="bench-chart-head">
         <div class="bench-head-copy">
           <h2>Reach <span>vs Consistency</span></h2>
-          <p>Pass@3 shows whether an agent can solve a task at least once; Pass^3 shows whether it solves the same task all three times. The gap is useful when comparing stochastic or retry-sensitive agents.</p>
+          <p>Pass@3 shows whether an agent can solve a task at least once; Pass^3 shows whether it solves the same task all three times. Only models with multiple attempts are plotted.</p>
         </div>
       </div>
 
@@ -303,6 +299,7 @@ permalink: /terminal-bench/
           <div class="bench-scatter-plot" id="code-agent-scatter-plot">
             <div class="bench-scatter-grid"></div>
             {% for row in board.rows %}
+            {% if row.attempts_per_task >= 3 %}
             <div
               class="bench-scatter-point code-agent-scatter-point"
               data-agent="{{ row.agent }}"
@@ -316,6 +313,7 @@ permalink: /terminal-bench/
               <span class="bench-scatter-line"></span>
               <span class="bench-scatter-name">{{ row.agent_label }} - {{ row.model_name }}</span>
             </div>
+            {% endif %}
             {% endfor %}
           </div>
           <div class="bench-scatter-x-axis" id="code-agent-scatter-x-axis"></div>
