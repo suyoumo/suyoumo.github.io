@@ -283,10 +283,14 @@ categories:
     label: SWE-Pro
   - key: hy_backend
     label: Hy-Backend
+  - key: hy_backend_2_0
+    label: Hy-Backend 2.0
   - key: hy_vibe
     label: Hy-Vibe
   - key: hy_swe_max
     label: Hy-SWE Max
+  - key: hy_companybench
+    label: Hy-CompanyBench
   - key: swe_multilingual
     label: SWE-Multilingual
   - key: nl2repo
@@ -569,6 +573,14 @@ categories:
     label: xDailyBench
   - key: apex_agents
     label: APEX Agents
+  - key: e_bench
+    label: e-bench
+  - key: hy_finmodelbench
+    label: Hy-FinModelBench
+  - key: prodbench
+    label: ProdBench
+  - key: hy_skills_world
+    label: Hy-SkillsWorld
   - key: forte
     label: FORTE
   - key: agentif
@@ -717,6 +729,10 @@ categories:
     label: FrontierMath T1-3
   - key: frontiermath_t4
     label: FrontierMath T4
+  - key: frontier_science_research
+    label: FrontierScience-Research
+  - key: frontier_science_olympiad
+    label: FrontierScience-Olympiad
   - key: arena_ai_text
     label: Arena AI (text)
   - key: facts_grounding
@@ -749,8 +765,22 @@ categories:
     label: HMMT 2025 Feb (heavy)
   - key: gpqa_tools
     label: GPQA (w/ Tools)
+  - key: hy_euler_pro
+    label: Hy-Euler Pro
   - key: usamo_2026
     label: USAMO 2026
+  - key: matharena_apex
+    label: MathArena Apex
+  - key: arxivmath
+    label: ArxivMath
+  - key: horizonmath
+    label: HorizonMath
+  - key: hy_math
+    label: Hy-Math
+  - key: cmt_benchmark
+    label: CMT-Benchmark
+  - key: superchem
+    label: SuperChem
   - key: imo_2025
     label: IMO 2025
   - key: writing_bench
@@ -1253,6 +1283,8 @@ rows:
   sources:
   - label: Qwen3.7 report
     url: https://qwen.ai/blog?id=qwen3.7
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     terminal_bench_2:
     - value: '69.7'
@@ -1262,18 +1294,30 @@ rows:
     - value: '80.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '80.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '60.6'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '60.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_multilingual:
     - value: '78.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '78.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     nl2repo:
     - value: '47.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '47.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     scicode:
     - value: '53.5'
       source_label: Qwen3.7
@@ -1302,6 +1346,9 @@ rows:
     - value: '59.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '46.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     bfcl_v4:
     - value: '75.0'
       source_label: Qwen3.7
@@ -1311,6 +1358,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mcp_atlas:
+    - value: '79.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '76.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
@@ -1330,6 +1380,9 @@ rows:
     - value: '53.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '53.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     qwenworldbench:
     - value: '57.3'
       source_label: Qwen3.7
@@ -1338,10 +1391,16 @@ rows:
     - value: '92.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '92.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '41.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '41.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     livecodebench:
     - value: '91.6'
       source_label: Qwen3.7
@@ -1354,6 +1413,9 @@ rows:
     - value: '90.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '90.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     critpt:
     - value: '11.4'
       source_label: Qwen3.7
@@ -1434,10 +1496,16 @@ rows:
     - value: '75.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '71.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     deepswe:
     - value: '18'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
+    - value: '14.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     text_arena:
     - value: '1475'
       source_label: TextArena
@@ -1476,6 +1544,82 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '13.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '24.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '48.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '43.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '50.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '57.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '15.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '42.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '50.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '24.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '74.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '57.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '44.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '56.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '6.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '66.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '76.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '40.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '60.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '70.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Qwen
@@ -2668,19 +2812,30 @@ rows:
   sources:
   - label: Hunyuan 3 Preview report
     url: https://hy.tencent.com/research/hy3
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     gpqa:
     - value: '87.2'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '87.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '30.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '30.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     phybench:
     - value: '71.4'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '71.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontiersci_olympiad:
     - value: '70.0'
       source_label: HY3
@@ -2689,6 +2844,9 @@ rows:
     - value: '84.3'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '84.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     arc_agi_1:
     - value: '62.4'
       source_label: HY3
@@ -2709,14 +2867,23 @@ rows:
     - value: '68.3'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '68.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_verified:
     - value: '74.4'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '74.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '46.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '46.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     terminal_bench_2:
     - value: '54.4'
       source_label: HY3
@@ -2733,10 +2900,16 @@ rows:
     - value: '30.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '30.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     browsecomp:
     - value: '67.1'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '67.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     widesearch:
     - value: '70.2'
       source_label: HY3
@@ -2761,11 +2934,20 @@ rows:
     - value: '55.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '55.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     wildclawbench:
     - value: '45.3'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '45.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     skillsbench:
+    - value: '29.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '25.6'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
@@ -2777,6 +2959,9 @@ rows:
     - value: '66.3'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '66.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     longbench_v2:
     - value: '65.4'
       source_label: HY3
@@ -2785,10 +2970,116 @@ rows:
     - value: '22.8'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '22.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '15.7'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '15.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    terminal_bench_2_1:
+    - value: '58.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '35.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepswe:
+    - value: '0.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '12.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '8.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '67.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '82.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    mcp_atlas:
+    - value: '66.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '32.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '12.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '10.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '26.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '10.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '26.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hle_tools:
+    - value: '35.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '2.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '19.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '70.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '37.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '12.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '46.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '1.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '26.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '19.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '47.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Tencent
   model: Hunyuan 2.0 Think
   mode: Think
@@ -5723,6 +6014,8 @@ rows:
   sources:
   - label: Seed2.1 model card
     url: https://seed.bytedance.com/en/seed2_1
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     kina:
     - value: '48.3'
@@ -5752,6 +6045,9 @@ rows:
     - value: '47.0'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '47.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     program_bench:
     - value: '50.3'
       source_label: Seed2.1
@@ -5760,6 +6056,9 @@ rows:
     - value: '71.0'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '71.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_atlas_qna:
     - value: '35.2'
       source_label: Seed2.1
@@ -5768,6 +6067,9 @@ rows:
     - value: '57.5'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '51.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     mathvision:
     - value: '92.6'
       source_label: Seed2.1
@@ -5832,6 +6134,153 @@ rows:
     - value: '33.8'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '33.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_multilingual:
+    - value: '75.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_verified:
+    - value: '76.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepswe:
+    - value: '15.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '23.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '55.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '20.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    browsecomp:
+    - value: '86.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wide_search:
+    - value: '76.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    deepsearch_qa:
+    - value: '90.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    mcp_atlas:
+    - value: '80.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon:
+    - value: '44.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    claw_eval_pass3:
+    - value: '62.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    wildclawbench:
+    - value: '47.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '53.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '47.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '52.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '18.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '48.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hle_tools:
+    - value: '55.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '15.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    gpqa:
+    - value: '89.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hle:
+    - value: '35.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '25.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '70.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '60.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '31.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '53.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '6.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '65.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '77.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '31.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    imoanswerbench:
+    - value: '88.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '59.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench:
+    - value: '23.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cl_bench_life:
+    - value: '13.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '70.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: Doubao
   model: Seed2.1 Turbo
   mode: ''
@@ -5957,6 +6406,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.7
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     terminal_bench_2:
     - value: '67.9'
@@ -5966,6 +6417,9 @@ rows:
     - value: '80.6'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '80.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '59.0'
       source_label: Qwen3.7
@@ -5973,14 +6427,23 @@ rows:
     - value: '55.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '55.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_multilingual:
     - value: '76.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '76.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     nl2repo:
     - value: '41.5'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '41.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     qwen_web_bench:
     - value: '1570'
       source_label: Qwen3.7
@@ -6005,6 +6468,9 @@ rows:
     - value: '52.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '40.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     bfcl_v4:
     - value: '70.6'
       source_label: Qwen3.7
@@ -6014,6 +6480,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mcp_atlas:
+    - value: '79.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '73.6'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
@@ -6033,6 +6502,9 @@ rows:
     - value: '48.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '48.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     qwenworldbench:
     - value: '52.3'
       source_label: Qwen3.7
@@ -6041,10 +6513,16 @@ rows:
     - value: '90.1'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '90.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '37.7'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '37.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     livecodebench:
     - value: '93.5'
       source_label: Qwen3.7
@@ -6057,6 +6535,9 @@ rows:
     - value: '89.8'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '89.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     critpt:
     - value: '12.9'
       source_label: Qwen3.7
@@ -6149,6 +6630,9 @@ rows:
     - value: '83.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '83.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     gdpval_aa:
     - value: '1554'
       source_label: DeepSeek-V4
@@ -6157,6 +6641,9 @@ rows:
     - value: '51.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '45.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     code_agent_bench:
     - value: '32.95'
       source_label: CodeAgentBench
@@ -6177,6 +6664,9 @@ rows:
     - value: '64.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '60.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontierswe:
     - value: '29.0'
       source_label: GLM-5.2
@@ -6190,6 +6680,9 @@ rows:
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
     deepswe:
+    - value: '9.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '8'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
@@ -6218,7 +6711,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     claw_eval_pass3:
-    - value: '58.4'
+    - value: '62.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     wildclawbench:
@@ -6233,6 +6726,82 @@ rows:
     - value: '14.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '17.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '43.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '18.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '34.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '57.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '15.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '41.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '25.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '21.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '70.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '59.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '38.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '56.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '5.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '63.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '75.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '35.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '61.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '71.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
@@ -6240,6 +6809,8 @@ rows:
   sources:
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     mmlu_pro:
     - value: '86.2'
@@ -6257,10 +6828,16 @@ rows:
     - value: '88.1'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '88.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '34.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '34.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     livecodebench:
     - value: '91.6'
       source_label: DeepSeek-V4
@@ -6277,6 +6854,9 @@ rows:
     - value: '88.4'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '88.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     apex:
     - value: '33.0'
       source_label: DeepSeek-V4
@@ -6301,23 +6881,41 @@ rows:
     - value: '79.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '79.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '52.6'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '52.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_multilingual:
     - value: '73.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '73.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     browsecomp:
     - value: '73.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '73.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle_tools:
     - value: '45.1'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '45.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     mcp_atlas:
+    - value: '77.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '69.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
@@ -6329,6 +6927,9 @@ rows:
     - value: '47.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '43.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     code_agent_bench:
     - value: '28.99'
       source_label: CodeAgentBench
@@ -6387,6 +6988,82 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '11.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '16.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '40.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '28.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '31.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '54.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '10.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '38.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '9.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '16.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '73.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '57.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '33.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '52.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '4.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '66.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '76.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '26.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '51.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '64.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: DeepSeek
@@ -8088,12 +8765,20 @@ rows:
   sources:
   - label: Claude Opus 4.8 announcement
     url: https://www.anthropic.com/news/claude-opus-4-8
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     swe_pro:
     - value: '69.2'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '69.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     terminal_bench_2_1:
+    - value: '85.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '85.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
@@ -8104,10 +8789,16 @@ rows:
     - value: '49.8'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '49.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle_tools:
     - value: '57.9'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '57.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     osworld_verified:
     - value: '83.4'
       source_label: Opus 4.8
@@ -8151,6 +8842,9 @@ rows:
     - value: '83.5'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '83.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     program_bench:
     - value: '71.9'
       source_label: GLM-5.2
@@ -8176,6 +8870,9 @@ rows:
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
     deepswe:
+    - value: '62.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '58'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
@@ -8192,6 +8889,9 @@ rows:
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
     mcp_atlas:
+    - value: '84.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '82.2'
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
@@ -8293,6 +8993,70 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '16.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '38.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '63.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '65.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '68.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '74.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '27.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '59.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '64.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '32.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '74.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '92.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '71.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '79.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '43.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '66.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '72.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Anthropic
@@ -9998,6 +10762,8 @@ rows:
   sources:
   - label: GPT-5.5 report
     url: https://openai.com/index/gpt-5-5/
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     swe_pro:
     - value: '58.6'
@@ -10006,6 +10772,9 @@ rows:
     - value: '58.6'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '58.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     terminal_bench_2:
     - value: '82.7'
       source_label: GPT-5.5
@@ -10025,7 +10794,13 @@ rows:
     - value: '84.4'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '84.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     mcp_atlas:
+    - value: '82.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '81.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
@@ -10033,6 +10808,9 @@ rows:
     - value: '55.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '55.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     tau2_bench_telecom:
     - value: '98.0'
       source_label: GPT-5.5
@@ -10061,14 +10839,23 @@ rows:
     - value: '84.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '79.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '46.9'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '46.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle_tools:
     - value: '52.2'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '52.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     gdpval_aa:
     - value: '1769'
       source_label: Opus 4.8
@@ -10101,6 +10888,9 @@ rows:
     - value: '38.4'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '38.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     forte:
     - value: '77.8'
       source_label: GPT-5.5
@@ -10133,6 +10923,9 @@ rows:
     - value: '93.6'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '93.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontierswe:
     - value: '72.6'
       source_label: GLM-5.2
@@ -10154,6 +10947,9 @@ rows:
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
     deepswe:
+    - value: '70.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '70'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
@@ -10251,6 +11047,82 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '21.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '38.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '65.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '51.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '72.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '85.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '21.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '56.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '77.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '33.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '73.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '98.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '85.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '71.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '11.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '91.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '77.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '43.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '66.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '76.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: OpenAI
@@ -11561,6 +12433,8 @@ rows:
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   - label: Gemini 3.1 Pro report
     url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     mmlu_pro:
     - value: '91.0'
@@ -11581,10 +12455,16 @@ rows:
     - value: '94.3'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '94.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '45.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '45.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '44.4'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
@@ -11607,6 +12487,9 @@ rows:
     - value: '81.0'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '81.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     apex:
     - value: '60.9'
       source_label: DeepSeek-V4
@@ -11643,6 +12526,9 @@ rows:
     - value: '80.6'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '80.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '54.2'
       source_label: DeepSeek-V4
@@ -11653,6 +12539,9 @@ rows:
     - value: '54.2'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '54.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     browsecomp:
     - value: '85.9'
       source_label: DeepSeek-V4
@@ -11660,6 +12549,9 @@ rows:
     - value: '85.9'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '85.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle_tools:
     - value: '51.6'
       source_label: DeepSeek-V4
@@ -11670,6 +12562,9 @@ rows:
     - value: '51.4'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '51.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     gdpval_aa:
     - value: '1314'
       source_label: DeepSeek-V4
@@ -11681,6 +12576,9 @@ rows:
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
     mcp_atlas:
+    - value: '82.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '78.2'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
@@ -11691,6 +12589,9 @@ rows:
     - value: '48.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '48.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     arc_agi_2:
     - value: '77.1'
       source_label: Gemini 3.1 Pro
@@ -11727,6 +12628,9 @@ rows:
     - value: '74.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '74.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     osworld_verified:
     - value: '76.2'
       source_label: Opus 4.8
@@ -11759,6 +12663,9 @@ rows:
     - value: '33.5'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '33.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     mmlongbench_128k:
     - value: '70.7'
       source_label: Gemini 3.1 Pro
@@ -11787,6 +12694,9 @@ rows:
     - value: '33.4'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '33.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontierswe:
     - value: '39.6'
       source_label: GLM-5.2
@@ -11807,6 +12717,9 @@ rows:
     - value: '10'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
+    - value: '0.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     agent_arena:
     - value: '-1.09'
       source_label: AgentArena
@@ -11857,6 +12770,62 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '16.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '42.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '54.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '54.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '16.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '79.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '61.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '60.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '64.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '7.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '63.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '82.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '47.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '69.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '74.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Google
@@ -14096,6 +15065,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.7
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     terminal_bench_2:
     - value: '63.5'
@@ -14117,6 +15088,9 @@ rows:
     - value: '58.4'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '58.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     nl2repo:
     - value: '42.7'
       source_label: Qwen3.7
@@ -14124,6 +15098,9 @@ rows:
     - value: '42.7'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '42.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     scicode:
     - value: '45.1'
       source_label: Qwen3.7
@@ -14152,6 +15129,9 @@ rows:
     - value: '53.1'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '43.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     bfcl_v4:
     - value: '70.9'
       source_label: Qwen3.7
@@ -14161,6 +15141,9 @@ rows:
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
     mcp_atlas:
+    - value: '77.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '71.8'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
@@ -14183,12 +15166,15 @@ rows:
     - value: '52.3'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
-    - value: '50.4'
-      source_label: DeepSeek-V4
-      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     - value: '52.3'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '52.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    - value: '50.4'
+      source_label: DeepSeek-V4
+      source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     qwenworldbench:
     - value: '50.2'
       source_label: Qwen3.7
@@ -14200,6 +15186,9 @@ rows:
     - value: '86.2'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '86.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle:
     - value: '34.7'
       source_label: Qwen3.7
@@ -14207,6 +15196,9 @@ rows:
     - value: '31.0'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '31.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hmmt_2026_feb:
     - value: '89.4'
       source_label: Qwen3.7
@@ -14221,6 +15213,9 @@ rows:
     - value: '83.8'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
+    - value: '83.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     critpt:
     - value: '4.6'
       source_label: Qwen3.7
@@ -14304,10 +15299,16 @@ rows:
     - value: '73.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '73.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     browsecomp:
     - value: '79.3'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
+    - value: '79.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '68.0'
       source_label: GLM-5.1
       source_url: https://z.ai/blog/glm-5-1
@@ -14316,6 +15317,9 @@ rows:
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
     toolathlon:
+    - value: '41.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '40.7'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
@@ -14355,6 +15359,9 @@ rows:
     - value: '63.5'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '60.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontierswe:
     - value: '30.5'
       source_label: GLM-5.2
@@ -14379,6 +15386,9 @@ rows:
     - value: '18'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
+    - value: '18.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     agent_arena:
     - value: '1.40'
       source_label: AgentArena
@@ -14417,6 +15427,74 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '14.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '24.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '46.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '28.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '41.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '56.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '17.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '37.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '15.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '13.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '65.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '37.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '11.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '6.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '70.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '25.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '51.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '71.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Zhipu AI
@@ -15007,15 +16085,23 @@ rows:
   sources:
   - label: GLM-5.2 report
     url: https://bigmodel.cn
+  - label: Hunyuan 3 report
+    url: https://hunyuan.tencent.com
   scores:
     hle:
     - value: '40.5'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '40.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     hle_tools:
     - value: '54.7'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '54.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     critpt:
     - value: '20.9'
       source_label: GLM-5.2
@@ -15036,18 +16122,30 @@ rows:
     - value: '91.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '91.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     gpqa:
     - value: '91.2'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '91.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     swe_pro:
     - value: '62.1'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '62.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     nl2repo:
     - value: '48.9'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '48.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     program_bench:
     - value: '63.7'
       source_label: GLM-5.2
@@ -15056,6 +16154,9 @@ rows:
     - value: '81.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '77.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     frontierswe:
     - value: '74.4'
       source_label: GLM-5.2
@@ -15069,6 +16170,9 @@ rows:
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
     mcp_atlas:
+    - value: '82.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '76.8'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
@@ -15084,6 +16188,9 @@ rows:
     - value: '46.2'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
+    - value: '42.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     code_agent_bench:
     - value: '37.59'
       source_label: CodeAgentBench
@@ -15109,7 +16216,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     toolathlon:
-    - value: '48.2'
+    - value: '46.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     apex_agents:
@@ -15134,6 +16241,82 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '21.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '30.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '63.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '55.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '52.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '77.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '21.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '56.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '42.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '19.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '72.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '41.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '16.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '44.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '7.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '16.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '71.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '34.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '60.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '73.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Moonshot
@@ -15406,5 +16589,81 @@ rows:
       source_url: https://hunyuan.tencent.com
     cl_bench_life:
     - value: '17.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '25.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '49.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '41.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '50.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench:
+    - value: '69.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    prodbench:
+    - value: '23.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_skills_world:
+    - value: '45.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_euler_pro:
+    - value: '24.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_research:
+    - value: '21.3'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    frontier_science_olympiad:
+    - value: '74.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    usamo_2026:
+    - value: '72.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex:
+    - value: '38.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '52.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '7.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_math:
+    - value: '60.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    phybench:
+    - value: '77.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cmt_benchmark:
+    - value: '37.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '54.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    aa_lcr:
+    - value: '73.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com

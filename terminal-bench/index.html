@@ -14,12 +14,11 @@ permalink: /terminal-bench/
       <div class="code-agent-hero-copy">
         <p class="bench-kicker">Terminal-Bench 2.1 agent results</p>
         <h1>TerminalBench 2.1</h1>
-        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks. All models run via OpenCode agent. Rankings sort by Final Score (pass@1 × 100). Step 3.7 Flash ran with 3 attempts per task; MiniMax-M3 ran with 1 attempt.</p>
+        <p class="bench-intro">A leaderboard for coding agents on {{ meta.benchmark }}: {{ meta.task_count }} tasks. All models run via OpenCode agent. Rankings sort by Final Score (pass@1 × 100). Multi-attempt metrics are shown as secondary diagnostics when available.</p>
         <div class="leaderboard-family-switch code-agent-family-switch" aria-label="Leaderboard family">
           <span>Leaderboard Family:</span>
           <a href="{{ site.baseurl }}/bench/">ClawProBench</a>
-          <a href="{{ site.baseurl }}/code-agent-bench/">CodeAgentBench</a>
-          <a class="is-active" href="{{ site.baseurl }}/terminal-bench/" aria-current="page">TerminalBench <strong>CURRENT</strong></a>
+          <a class="is-active" href="{{ site.baseurl }}/code-agent-bench/" aria-current="page">CodeAgentBench <strong>CURRENT</strong></a>
           <a href="{{ site.baseurl }}/llm-leaderboard/">LLMLeadBoard</a>
         </div>
         <div class="leaderboard-family-switch code-agent-family-switch code-agent-sub-switch" aria-label="CodeAgentBench sub-leaderboard" style="margin-top:0.5rem">
@@ -56,7 +55,7 @@ permalink: /terminal-bench/
       <div class="bench-section-head">
         <div class="bench-head-copy">
           <h2>Benchmark <span>Leaderboard</span></h2>
-          <p>Final Score = pass@1 × 100. Pass@3 shows tasks solved at least once across 3 attempts (only applicable for models with multiple attempts). Pass^3 shows tasks solved in all 3 attempts.</p>
+          <p>Final Score = pass@1 × 100. TerminalBench rows can be single-try or multi-try; Pass@3 and Pass^3 are secondary diagnostics and are not part of Final Score.</p>
         </div>
       </div>
 
@@ -79,12 +78,12 @@ permalink: /terminal-bench/
                 <th data-sort-key="model-name" data-sort-type="text">Agent / Model <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="agent-version" data-sort-type="text">Agent Version <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="final-score" data-sort-type="number">Final Score <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
-                <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="attempt-score" data-sort-type="number">Pass@1 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="solved-unique-tasks" data-sort-type="number">Solved Tasks <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="attempts-per-task" data-sort-type="number">Attempts <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="total-tokens" data-sort-type="number">Tokens (In / Out / Total) <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="pass-3-rate" data-sort-type="number">Pass^3 <span class="bench-sort-indicator"></span></th>
+                <th data-sort-key="pass-at-3-rate" data-sort-type="number">Pass@3 <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="exported-at" data-sort-type="text">Exported <span class="bench-sort-indicator"></span></th>
                 <th data-sort-key="model-dir" data-sort-type="text">Model Dir <span class="bench-sort-indicator"></span></th>
               </tr>
@@ -149,6 +148,25 @@ permalink: /terminal-bench/
                 <td data-value="{{ row.final_score }}">
                   <span class="bench-score">{{ row.final_score | round: 2 }}</span>
                 </td>
+                <td data-value="{{ row.attempt_score }}">
+                  <div class="bench-pass-cell">
+                    <div class="bench-pass-bar"><span style="width: {{ row.attempt_score | times: 100 }}%"></span></div>
+                    <strong>{{ row.solved_unique_tasks }}/{{ row.task_count }} - {{ row.attempt_score | times: 100 | round: 1 }}%</strong>
+                  </div>
+                </td>
+                <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
+                <td data-value="{{ row.attempts_per_task }}">{{ row.attempts_per_task }}x</td>
+                <td data-value="{{ row.total_tokens | default: 0 }}">
+                  {% if row.total_tokens and row.total_tokens > 0 %}
+                  <span class="code-agent-token-cell">
+                    <span><em>In</em> {{ row.input_tokens_display }}</span>
+                    <span><em>Out</em> {{ row.output_tokens_display }}</span>
+                    <span><em>Total</em> {{ row.total_tokens_display }}</span>
+                  </span>
+                  {% else %}
+                  <span class="code-agent-empty-metric">--</span>
+                  {% endif %}
+                </td>
                 <td data-value="{{ row.pass_3_rate }}">
                   {% if row.attempts_per_task >= 3 %}
                   <div class="bench-pass-cell">
@@ -169,25 +187,6 @@ permalink: /terminal-bench/
                   <span class="code-agent-empty-metric" title="Only {{ row.attempts_per_task }} attempt per task — pass@3 not applicable">N/A</span>
                   {% endif %}
                 </td>
-                <td data-value="{{ row.attempt_score }}">
-                  <div class="bench-pass-cell">
-                    <div class="bench-pass-bar"><span style="width: {{ row.attempt_score | times: 100 }}%"></span></div>
-                    <strong>{{ row.solved_unique_tasks }}/{{ row.task_count }} - {{ row.attempt_score | times: 100 | round: 1 }}%</strong>
-                  </div>
-                </td>
-                <td data-value="{{ row.solved_unique_tasks }}">{{ row.solved_unique_tasks }}/{{ row.task_count }}</td>
-                <td data-value="{{ row.attempts_per_task }}">{{ row.attempts_per_task }}x</td>
-                <td data-value="{{ row.total_tokens | default: 0 }}">
-                  {% if row.total_tokens and row.total_tokens > 0 %}
-                  <span class="code-agent-token-cell">
-                    <span><em>In</em> {{ row.input_tokens_display }}</span>
-                    <span><em>Out</em> {{ row.output_tokens_display }}</span>
-                    <span><em>Total</em> {{ row.total_tokens_display }}</span>
-                  </span>
-                  {% else %}
-                  <span class="code-agent-empty-metric">--</span>
-                  {% endif %}
-                </td>
                 <td data-value="{{ row.exported_at }}">{{ row.exported_at | slice: 0, 10 }}</td>
                 <td data-value="{{ row.model_dir }}">
                   <code class="code-agent-model-dir">{{ row.model_dir }}</code>
@@ -202,7 +201,7 @@ permalink: /terminal-bench/
       <div class="bench-leaderboard-note code-agent-note">
         <span>Notes:</span>
         <span>All models run via <strong>OpenCode</strong> agent on TerminalBench 2.1 (zh89 variant, 89 tasks).</span>
-        <span><code>Final Score</code> = pass@1 × 100 (percentage of tasks solved on first attempt).</span>
+        <span><code>Final Score</code> = pass@1 × 100 only; it does not use <code>Pass@3</code> or <code>Pass^3</code>.</span>
         <span><code>Pass@3</code> counts tasks solved at least once across 3 attempts. Only applicable for models with multiple attempts per task.</span>
         <span><code>Pass^3</code> counts tasks solved in all 3 attempts. Only applicable for models with multiple attempts per task.</span>
         <span><code>Pass@1</code> shows the primary solve rate (first attempt or best single attempt).</span>
