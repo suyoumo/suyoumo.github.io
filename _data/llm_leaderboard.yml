@@ -683,6 +683,10 @@ categories:
     label: GPQA
   - key: hle
     label: HLE
+  - key: aa_omniscience_accuracy
+    label: AA-Omniscience Accuracy
+  - key: aa_omniscience_non_hallucination
+    label: AA-Omniscience Non-Hallucination Rate
   - key: hmmt_2026_feb
     label: HMMT 2026 Feb
   - key: hmmt_2025_feb
@@ -11343,6 +11347,42 @@ rows:
     - value: '36.09'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
+    scicode:
+    - value: '53.2'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    terminal_bench_hard:
+    - value: '53.0'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    hle:
+    - value: '39.9'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    ifbench:
+    - value: '75.4'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    tau2_bench_telecom:
+    - value: '86.0'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    aa_lcr:
+    - value: '74.0'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    critpt:
+    - value: '16.9'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    aa_omniscience_accuracy:
+    - value: '51.8'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
+    aa_omniscience_non_hallucination:
+    - value: '13.1'
+      source_label: GPT-5.3
+      source_url: https://openai.com/index/gpt-5-3-codex/
 - company: OpenAI
   model: GPT-5.2
   mode: High
