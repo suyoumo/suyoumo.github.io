@@ -8,18 +8,18 @@
     "attempts_per_task": "1-3",
     "rank_metric": "final_score",
     "final_score_formula": "pass@1 × 100",
-    "completed_model_count": 4,
+    "completed_model_count": 5,
     "partial_model_count": 0,
     "excluded_model_count": 0,
-    "exported_at": "2026-07-07",
-    "total_attempts": 534
+    "exported_at": "2026-07-08",
+    "total_attempts": 623
   },
   "agents": [
     {
       "key": "opencode",
       "slug": "opencode",
       "label": "OpenCode",
-      "count": 4,
+      "count": 5,
       "best_pass_at_3_rate": 0.1910
     }
   ],
@@ -76,6 +76,57 @@
       "note": "1 try only — no pass@3 / pass^3 available"
     },
     {
+      "id": "opencode-mimo-v2.5",
+      "model_dir": "opencode-mimo-v2.5",
+      "lane_key": "opencode-mimo-v2.5",
+      "agent": "opencode",
+      "agent_label": "OpenCode",
+      "agent_slug": "opencode",
+      "agent_version": "opencode-cli 1.17.8",
+      "agent_version_source": "opencode-cli: opencode --version in current local environment for the TerminalBench 2.1 export",
+      "provider": "xiaomi",
+      "provider_label": "MiMo",
+      "model_raw": "xiaomi-token-plan-cn/mimo-v2.5",
+      "model_name": "MiMo v2.5",
+      "model_label": "MiMo v2.5",
+      "logo": "logo-xiaomi.png",
+      "task_count": 89,
+      "attempts_per_task": 1,
+      "planned_task_attempts": 89,
+      "scoreable_attempts": 89,
+      "scoreable_attempt_coverage": 1.0,
+      "non_scoreable_attempts": 3,
+      "solved_attempts": 21,
+      "solved_unique_tasks": 21,
+      "pass_at_3_count": 0,
+      "pass_at_3_rate": 0,
+      "pass_at_3_denominator": 89,
+      "pass_3_count": 0,
+      "pass_3_rate": 0,
+      "pass_3_denominator": 89,
+      "attempt_score": 0.2360,
+      "final_score": 23.60,
+      "pass_at_n": [0.2360],
+      "pass_at_3": 0,
+      "pass_cubed": 0,
+      "cost_usd": null,
+      "input_tokens": 178941,
+      "output_tokens": 574,
+      "total_tokens": 179516,
+      "input_tokens_display": "178.9M",
+      "output_tokens_display": "0.6M",
+      "total_tokens_display": "179.5M",
+      "token_task_count": 89,
+      "archive_size_mb": 0,
+      "full_run_tree_size_mb": 0,
+      "latency_s": null,
+      "exported_at": "2026-07-08",
+      "source_url": "terminal/mimo-v2.5",
+      "partial_export": false,
+      "rank": 2,
+      "note": "Selected pass@1 aggregate across repair/resume attempts — no clean pass@3 / pass^3 available"
+    },
+    {
       "id": "opencode-mimo-v2.5-pro",
       "model_dir": "opencode-mimo-v2.5-pro",
       "lane_key": "opencode-mimo-v2.5-pro",
@@ -123,7 +174,7 @@
       "exported_at": "2026-07-07",
       "source_url": "terminal/mimo-v2.5-pro",
       "partial_export": false,
-      "rank": 2,
+      "rank": 3,
       "note": "Selected pass@1 aggregate across repair/resume attempts — no clean pass@3 / pass^3 available"
     },
     {
@@ -174,7 +225,7 @@
       "exported_at": "2026-07-06",
       "source_url": "terminal/stepfun-step-3.7-flash",
       "partial_export": false,
-      "rank": 3
+      "rank": 4
     },
     {
       "id": "opencode-gpt-5.4-mini",
@@ -224,7 +275,7 @@
       "exported_at": "2026-07-07",
       "source_url": "terminal/gpt-5.4-mini",
       "partial_export": false,
-      "rank": 4,
+      "rank": 5,
       "note": "Selected pass@1 aggregate across repair/resume attempts — no clean pass@3 / pass^3 available"
     }
   ],
