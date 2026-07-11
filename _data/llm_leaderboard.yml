@@ -124,6 +124,18 @@ sources:
   label: GPT-5.5 report
   short_label: GPT-5.5
   url: https://openai.com/index/gpt-5-5/
+- id: gpt56
+  label: GPT-5.6 report
+  short_label: GPT-5.6
+  url: https://openai.com/index/gpt-5-6/
+- id: claude_mythos5
+  label: Claude Mythos 5 report
+  short_label: Mythos 5
+  url: https://anthropic.com
+- id: claude_mythos_preview
+  label: Claude Mythos Preview report
+  short_label: Mythos Preview
+  url: https://anthropic.com
 - id: grok45
   label: Grok 4.5 report
   short_label: Grok 4.5
@@ -402,7 +414,9 @@ categories:
   - key: mm_clawbench
     label: MM-ClawBench
   - key: artificial_analysis
-    label: Artificial Analysis
+    label: AA Coding Agent Index v1.1
+  - key: sec_bench_pro
+    label: SEC-Bench Pro
   - key: terminal_bench_hard
     label: Terminal-Bench Hard
   - key: oj_bench
@@ -421,8 +435,18 @@ categories:
     label: FrontierSWE
   - key: posttrainbench
     label: PostTrainBench
+  - key: posttrainbench_lite
+    label: PostTrainBench Lite
   - key: swe_marathon
     label: SWE-Marathon
+  - key: internal_research_debugging_evaluation
+    label: Internal Research Debugging Eval
+  - key: kernelgen_1p
+    label: KernelGen 1P
+  - key: nanogpt
+    label: NanoGPT
+  - key: rsi_index
+    label: RSI Index
   - key: deepswe
     label: DeepSWE
   - key: kimi_code_bench_v2
@@ -485,6 +509,14 @@ categories:
     label: MCP-Universe
   - key: toolathlon
     label: Toolathlon
+  - key: agents_last_exam
+    label: Agents' Last Exam
+  - key: management_consulting_tasks_internal
+    label: Management Consulting Tasks (Internal)
+  - key: big_finance_bench
+    label: Big Finance Bench
+  - key: aa_intelligence_index_v4_1
+    label: AA Intelligence Index v4.1
   - key: bfcl_v4
     label: BFCL-V4
   - key: acebench_en
@@ -499,6 +531,12 @@ categories:
     label: HLE w/ tools
   - key: browsecomp
     label: BrowseComp
+  - key: osworld_2_0
+    label: OSWorld 2.0
+  - key: benchcad
+    label: BenchCAD
+  - key: benchcad_python_tools
+    label: BenchCAD (Python Tools)
   - key: rw_search
     label: RW Search
   - key: gdpval_aa
@@ -603,6 +641,8 @@ categories:
     label: BioMysteryBench
   - key: exploit_bench
     label: ExploitBench
+  - key: exploitgym
+    label: ExploitGym
   - key: healthbench_pro
     label: HealthBench Professional
   - key: browsecomp_tools
@@ -739,6 +779,8 @@ categories:
     label: FrontierMath T1-3
   - key: frontiermath_t4
     label: FrontierMath T4
+  - key: arc_agi_3
+    label: ARC-AGI-3
   - key: frontier_science_research
     label: FrontierScience-Research
   - key: frontier_science_olympiad
@@ -837,6 +879,10 @@ categories:
     label: MRCRv2 8N 64-128k
   - key: mrcr_v2_128_256k
     label: MRCRv2 8N 128-256k
+  - key: mrcr_v2_256_512k
+    label: MRCRv2 8N 256-512k
+  - key: mrcr_v2_512k_1m
+    label: MRCRv2 8N 512k-1M
   - key: loca_bench_256k
     label: LOCA-Bench (256k)
   - key: browsecomp_lc_128k
@@ -847,6 +893,10 @@ categories:
     label: MRCR v2 (8-needle)
   - key: graphwalks_bfs_128k
     label: Graphwalks Bfs (<128k)
+  - key: graphwalks_bfs_256k
+    label: Graphwalks Bfs (256k)
+  - key: graphwalks_bfs_1m
+    label: Graphwalks Bfs (1M)
   - key: graphwalks_parents_128k
     label: Graphwalks Parents (<128k)
   - key: longfact_objects
@@ -891,6 +941,8 @@ categories:
     label: MMMU
   - key: mmmu_pro
     label: MMMU-Pro
+  - key: mmmu_pro_tools
+    label: MMMU-Pro (Tools)
   - key: mathvision
     label: MathVision
   - key: mathverse
@@ -919,6 +971,8 @@ categories:
     label: OCRBench
   - key: mmlongbench_doc
     label: MMLongBench-Doc
+  - key: gdp_pdf
+    label: GDP.pdf
   - key: mmlongbench_128k
     label: MMLongBench-128K
   - key: cc_ocr
@@ -8909,6 +8963,8 @@ rows:
     url: https://www.anthropic.com/news/claude-opus-4-8
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     swe_pro:
     - value: '69.2'
@@ -9201,6 +9257,66 @@ rows:
     - value: '72.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    agents_last_exam:
+    - value: '45.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '31.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    big_finance_bench:
+    - value: '44'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '55.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '72.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    osworld_2_0:
+    - value: '54.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '27.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '51.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '78.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '80'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '56.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '22.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '85.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '68.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '1.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     tau3_banking:
     - value: '29'
       source_label: Artificial Analysis
@@ -10914,6 +11030,482 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
 - company: OpenAI
+  model: GPT-5.6 Sol
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    agents_last_exam:
+    - value: '52.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdpval_aa:
+    - value: '1747.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '43.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    big_finance_bench:
+    - value: '53'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '58.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '80'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_pro:
+    - value: '64.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    deepswe_1_1:
+    - value: '72.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    terminal_bench_2_1:
+    - value: '88.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    healthbench_pro:
+    - value: '60.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    osworld_2_0:
+    - value: '62.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    browsecomp:
+    - value: '90.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '70.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '83.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    sec_bench_pro:
+    - value: '71.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '84.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploit_bench:
+    - value: '73.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploitgym:
+    - value: '33.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    internal_research_debugging_evaluation:
+    - value: '68.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    kernelgen_1p:
+    - value: '61.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    nanogpt:
+    - value: '9.69'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    posttrainbench_lite:
+    - value: '50.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    rsi_index:
+    - value: '57.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro:
+    - value: '83'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro_tools:
+    - value: '84.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '30.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '94.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '89'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '83'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    automation_bench:
+    - value: '18.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '58'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_256_512k:
+    - value: '91.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_512k_1m:
+    - value: '73.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '90.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '77.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '7.78'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: OpenAI
+  model: GPT-5.6 Sol Ultra
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    browsecomp:
+    - value: '92.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    sec_bench_pro:
+    - value: '74.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    terminal_bench_2_1:
+    - value: '91.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: OpenAI
+  model: GPT-5.6 Terra
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    agents_last_exam:
+    - value: '50.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdpval_aa:
+    - value: '1593'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '37.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    big_finance_bench:
+    - value: '51'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '55'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '77.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_pro:
+    - value: '63.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    deepswe_1_1:
+    - value: '69.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    terminal_bench_2_1:
+    - value: '87.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    healthbench_pro:
+    - value: '57.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    osworld_2_0:
+    - value: '50.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    browsecomp:
+    - value: '87.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '62.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '78.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    sec_bench_pro:
+    - value: '57.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '81.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploit_bench:
+    - value: '52.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploitgym:
+    - value: '23.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    internal_research_debugging_evaluation:
+    - value: '67.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    kernelgen_1p:
+    - value: '49.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    nanogpt:
+    - value: '14.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    posttrainbench_lite:
+    - value: '51.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    rsi_index:
+    - value: '56.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro:
+    - value: '80.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro_tools:
+    - value: '82.0'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '24.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '92.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '84.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '68.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    automation_bench:
+    - value: '15.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '53.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_256_512k:
+    - value: '89.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_512k_1m:
+    - value: '72.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '76.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '71.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '0.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: OpenAI
+  model: GPT-5.6 Luna
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    agents_last_exam:
+    - value: '50.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdpval_aa:
+    - value: '1591.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '35.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    big_finance_bench:
+    - value: '36'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '51.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '74.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_pro:
+    - value: '62.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    deepswe_1_1:
+    - value: '67.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    terminal_bench_2_1:
+    - value: '84.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    healthbench_pro:
+    - value: '55.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    osworld_2_0:
+    - value: '45.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    browsecomp:
+    - value: '83.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '63.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '73.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    sec_bench_pro:
+    - value: '48.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '77.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploit_bench:
+    - value: '33.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploitgym:
+    - value: '12.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    internal_research_debugging_evaluation:
+    - value: '50.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    kernelgen_1p:
+    - value: '22.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    nanogpt:
+    - value: '1.66'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    posttrainbench_lite:
+    - value: '29.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    rsi_index:
+    - value: '41.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro:
+    - value: '78.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro_tools:
+    - value: '79.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '22.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '92.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '78.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '58.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    automation_bench:
+    - value: '14.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '53.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_256_512k:
+    - value: '41.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_512k_1m:
+    - value: '41.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '81.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '51.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '0.18'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: OpenAI
   model: GPT-5.5
   mode: xHigh
   released: '2026-05-10'
@@ -10922,8 +11514,13 @@ rows:
     url: https://openai.com/index/gpt-5-5/
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     swe_pro:
+    - value: '59.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     - value: '58.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
@@ -10994,6 +11591,9 @@ rows:
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
     terminal_bench_2_1:
+    - value: '85.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     - value: '84.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
@@ -11156,6 +11756,9 @@ rows:
       source_label: Claude Fable 5
       source_url: https://anthropic.com
     exploit_bench:
+    - value: '47.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     - value: '34.0'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
@@ -11283,6 +11886,106 @@ rows:
     - value: '76.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    agents_last_exam:
+    - value: '46.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '31.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    big_finance_bench:
+    - value: '49'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '54.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '76.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    osworld_2_0:
+    - value: '47.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '44.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '55.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    sec_bench_pro:
+    - value: '45.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '81.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploitgym:
+    - value: '15.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    internal_research_debugging_evaluation:
+    - value: '50'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    kernelgen_1p:
+    - value: '29.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    nanogpt:
+    - value: '2.65'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    posttrainbench_lite:
+    - value: '38.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    rsi_index:
+    - value: '41.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mmmu_pro_tools:
+    - value: '83.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '26'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '85.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '72.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_256_512k:
+    - value: '81.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    mrcr_v2_512k_1m:
+    - value: '74'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '73.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '45.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '0.43'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     tau3_banking:
     - value: '31'
       source_label: Artificial Analysis
@@ -11296,6 +11999,8 @@ rows:
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   - label: GPT-5.4 report
     url: https://openai.com/index/gpt-5-4/
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     mmlu_pro:
     - value: '87.5'
@@ -11457,6 +12162,10 @@ rows:
     - value: '56.6'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    healthbench_pro:
+    - value: '48.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     tau3_banking:
     - value: '30'
       source_label: Artificial Analysis
@@ -12641,6 +13350,8 @@ rows:
     url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     mmlu_pro:
     - value: '91.0'
@@ -13034,6 +13745,34 @@ rows:
     - value: '74.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    agents_last_exam:
+    - value: '32.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '13.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '46.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '42.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '59.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '16.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    arc_agi_3:
+    - value: '0.42'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     tau3_banking:
     - value: '16'
       source_label: Artificial Analysis
@@ -13620,6 +14359,8 @@ rows:
   sources:
   - label: Gemini 3.5 Flash report
     url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     terminal_bench_2_1:
     - value: '76.2'
@@ -13685,6 +14426,14 @@ rows:
     - value: '28'
       source_label: DeepSWE v1
       source_url: https://deepswe.com
+    aa_intelligence_index_v4_1:
+    - value: '50.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    automation_bench:
+    - value: '14.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     agent_arena:
     - value: '-1.13'
       source_label: AgentArena
@@ -16614,12 +17363,122 @@ rows:
       source_label: Kimi K2.7 Code
       source_url: ''
 - company: Anthropic
+  model: Claude Mythos 5
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    swe_pro:
+    - value: '80.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    terminal_bench_2_1:
+    - value: '88'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    healthbench_pro:
+    - value: '66'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    browsecomp:
+    - value: '88'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '38.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '65'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '83.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploit_bench:
+    - value: '78'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '94.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '61.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '91.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '79.4'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: Anthropic
+  model: Claude Mythos Preview
+  mode: ''
+  released: '2026-07-11'
+  sources:
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
+  scores:
+    swe_pro:
+    - value: '77.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    healthbench_pro:
+    - value: '64.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    browsecomp:
+    - value: '87.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad:
+    - value: '35.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    benchcad_python_tools:
+    - value: '61'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    cybergym:
+    - value: '83'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    exploit_bench:
+    - value: '74.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '94.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '61.1'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_256k:
+    - value: '85.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    graphwalks_bfs_1m:
+    - value: '74.3'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+- company: Anthropic
   model: Claude Fable 5
   mode: ''
   released: '2026-07-01'
   sources:
   - label: Claude Fable 5 report
     url: https://anthropic.com
+  - label: GPT-5.6 report
+    url: https://openai.com/index/gpt-5-6/
   scores:
     swe_pro:
     - value: '80.3'
@@ -16630,6 +17489,9 @@ rows:
       source_label: Claude Fable 5
       source_url: https://anthropic.com
     gdpval_aa:
+    - value: '1759.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     - value: '1756'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
@@ -16685,6 +17547,42 @@ rows:
     - value: '70'
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
+    agents_last_exam:
+    - value: '40.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    management_consulting_tasks_internal:
+    - value: '35.5'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    aa_intelligence_index_v4_1:
+    - value: '59.9'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    artificial_analysis:
+    - value: '77.2'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gpqa:
+    - value: '92.6'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t13:
+    - value: '87'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    frontiermath_t4:
+    - value: '87.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon:
+    - value: '61.7'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
+    gdp_pdf:
+    - value: '29.8'
+      source_label: GPT-5.6 report
+      source_url: https://openai.com/index/gpt-5-6/
     tau3_bench:
     - value: '26.8'
       source_label: Claude Fable 5

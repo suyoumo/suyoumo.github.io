@@ -478,15 +478,15 @@ permalink: /llm-leaderboard/
 
   var collections = {
     'Overall':  { label:' 综合', minBench:6, keys:[
-      'agent_arena','claw_eval_pass3','code_agent_bench','deepswe','deepswe_1_1','livecodebench','nl2repo','program_bench','scicode','skillsbench','swe_multilingual','swe_pro','swe_verified','terminal_bench_2','terminal_bench_2_1','wildclawbench',
-      'apex_agents','browsecomp','deepsearch_qa','forte','gdpval_aa','hle_tools','mcp_atlas','officeqa_pro','osworld_verified','tau3_bench','tau3_banking','toolathlon','wide_search',
-      'aime26','arxivmath','frontier_science_research','gpqa','hle','imoanswerbench','mmlu_pro','phybench','supergpqa','text_arena','usamo_2026',
-      'aa_lcr','cl_bench','cl_bench_life','longbench_v2','mrcr_v2_128k',
+      'agent_arena','artificial_analysis','claw_eval_pass3','code_agent_bench','deepswe','deepswe_1_1','livecodebench','nl2repo','program_bench','scicode','sec_bench_pro','skillsbench','swe_multilingual','swe_pro','swe_verified','terminal_bench_2','terminal_bench_2_1','wildclawbench',
+      'aa_intelligence_index_v4_1','agents_last_exam','apex_agents','automation_bench','benchcad','benchcad_python_tools','big_finance_bench','browsecomp','cybergym','deepsearch_qa','exploit_bench','forte','gdpval_aa','healthbench_pro','hle_tools','management_consulting_tasks_internal','mcp_atlas','officeqa_pro','osworld_2_0','osworld_verified','tau3_bench','tau3_banking','toolathlon','wide_search',
+      'aime26','arc_agi_3','arxivmath','frontier_science_research','frontiermath_t13','frontiermath_t4','gpqa','hle','imoanswerbench','mmlu_pro','phybench','supergpqa','text_arena','usamo_2026',
+      'aa_lcr','cl_bench','cl_bench_life','graphwalks_bfs_256k','graphwalks_bfs_1m','longbench_v2','mrcr_v2_128k',
       'ifeval','ifbench','mmmlu',
-      'mmmu_pro'
+      'gdp_pdf','mmmu_pro'
     ] },
-    'Code':     { label:'️ Code', minBench:2, keys:['agent_arena','claw_eval_pass3','code_agent_bench','deepswe','deepswe_1_1','livecodebench','nl2repo','program_bench','scicode','skillsbench','swe_multilingual','swe_pro','swe_verified','terminal_bench_2','terminal_bench_2_1','wildclawbench'] },
-    'General':  { label:' General', minBench:5, keys:['apex_agents','browsecomp','deepsearch_qa','forte','gdpval_aa','hle_tools','mcp_atlas','officeqa_pro','osworld_verified','tau3_bench','tau3_banking','toolathlon','wide_search','aime26','aa_lcr','arxivmath','cl_bench','cl_bench_life','frontier_science_research','gpqa','hle','ifeval','ifbench','imoanswerbench','longbench_v2','mmmlu','mmlu_pro','mrcr_v2_128k','mmmu_pro','phybench','supergpqa','text_arena','usamo_2026'] },
+    'Code':     { label:'️ Code', minBench:2, keys:['agent_arena','artificial_analysis','claw_eval_pass3','code_agent_bench','deepswe','deepswe_1_1','livecodebench','nl2repo','program_bench','scicode','sec_bench_pro','skillsbench','swe_multilingual','swe_pro','swe_verified','terminal_bench_2','terminal_bench_2_1','wildclawbench'] },
+    'General':  { label:' General', minBench:5, keys:['aa_intelligence_index_v4_1','agents_last_exam','apex_agents','automation_bench','benchcad','benchcad_python_tools','big_finance_bench','browsecomp','cybergym','deepsearch_qa','exploit_bench','forte','gdp_pdf','gdpval_aa','healthbench_pro','hle_tools','management_consulting_tasks_internal','mcp_atlas','officeqa_pro','osworld_2_0','osworld_verified','tau3_bench','tau3_banking','toolathlon','wide_search','aime26','arc_agi_3','aa_lcr','arxivmath','cl_bench','cl_bench_life','frontier_science_research','frontiermath_t13','frontiermath_t4','gpqa','graphwalks_bfs_256k','graphwalks_bfs_1m','hle','ifeval','ifbench','imoanswerbench','longbench_v2','mmmlu','mmlu_pro','mrcr_v2_128k','mmmu_pro','phybench','supergpqa','text_arena','usamo_2026'] },
     'Custom':   { label:'✏️ Custom', minBench:5, keys:[] }
   };
   Object.keys(collections).forEach(function(n){ collections[n].keys = collections[n].keys.filter(function(k){ return benchLabels[k]; }); });
