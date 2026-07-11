@@ -128,6 +128,10 @@ sources:
   label: GPT-5.6 report
   short_label: GPT-5.6
   url: https://openai.com/index/gpt-5-6/
+- id: muse11
+  label: Muse Spark 1.1 report
+  short_label: Muse 1.1
+  url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
 - id: claude_mythos5
   label: Claude Mythos 5 report
   short_label: Mythos 5
@@ -395,6 +399,10 @@ categories:
     label: OctoCodingbench
   - key: swe_atlas_qna
     label: SWE Atlas-QnA
+  - key: vibe_code_bench_v1_1
+    label: Vibe Code Bench v1.1
+  - key: meta_internal_coding_bench
+    label: Meta Internal Coding Bench
   - key: swe_rficiency
     label: SWE-rficiency
   - key: livesglbench
@@ -509,6 +517,8 @@ categories:
     label: MCP-Universe
   - key: toolathlon
     label: Toolathlon
+  - key: jobbench
+    label: JobBench
   - key: agents_last_exam
     label: Agents' Last Exam
   - key: management_consulting_tasks_internal
@@ -8965,6 +8975,8 @@ rows:
     url: https://hunyuan.tencent.com
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
+  - label: Muse Spark 1.1 report
+    url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
   scores:
     swe_pro:
     - value: '69.2'
@@ -8973,6 +8985,9 @@ rows:
     - value: '69.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '69.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     terminal_bench_2_1:
     - value: '85.4'
       source_label: Hunyuan 3
@@ -8983,6 +8998,9 @@ rows:
     - value: '82.7'
       source_label: Sonnet 5 report
       source_url: https://anthropic.com
+    - value: '82.7'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     hle:
     - value: '49.8'
       source_label: Opus 4.8
@@ -8997,6 +9015,9 @@ rows:
     - value: '57.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '57.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     osworld_verified:
     - value: '83.4'
       source_label: Opus 4.8
@@ -9012,6 +9033,9 @@ rows:
     - value: '53.9'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '53.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     forte:
     - value: '77.2'
       source_label: Opus 4.8
@@ -9067,6 +9091,9 @@ rows:
     - value: '59'
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
+    - value: '59.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     deepswe:
     - value: '62.8'
       source_label: Hunyuan 3
@@ -9093,6 +9120,13 @@ rows:
     - value: '82.2'
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
+    - value: '82.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    jobbench:
+    - value: '48.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     mcp_mark_verified:
     - value: '76.4'
       source_label: Kimi K2.7 Code
@@ -9109,6 +9143,18 @@ rows:
     - value: '53.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    toolathlon:
+    - value: '76.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    charxiv_rq:
+    - value: '89.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    babyvision:
+    - value: '81.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     gdpval_mm:
     - value: '22.5'
       source_label: Claude Fable 5
@@ -9161,6 +9207,14 @@ rows:
     - value: '93.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    deepsearchqa:
+    - value: '84.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    meta_internal_coding_bench:
+    - value: '69.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     toolathlon:
     - value: '59.9'
       source_label: Hunyuan 3
@@ -11029,6 +11083,146 @@ rows:
     - value: '14'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+- company: Meta
+  model: Muse Spark 1.1
+  mode: ''
+  released: '2026-07-09'
+  sources:
+  - label: Muse Spark 1.1 report
+    url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+  scores:
+    mcp_atlas:
+    - value: '88.1'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    jobbench:
+    - value: '54.7'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    toolathlon:
+    - value: '75.6'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    osworld_verified:
+    - value: '80.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    hle_tools:
+    - value: '62.1'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    finance_agent_v2:
+    - value: '57.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    terminal_bench_2_1:
+    - value: '80.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    swe_pro:
+    - value: '61.5'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepswe_1_1:
+    - value: '53.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    charxiv_rq:
+    - value: '88.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    babyvision:
+    - value: '76.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepsearch_qa:
+    - value: '84.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepsearchqa:
+    - value: '84.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    swe_atlas_qna:
+    - value: '42.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    vibe_code_bench_v1_1:
+    - value: '72.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    meta_internal_coding_bench:
+    - value: '68.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+- company: Meta
+  model: Muse Spark
+  mode: ''
+  released: '2026-04-08'
+  sources:
+  - label: Muse Spark 1.1 report
+    url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+  scores:
+    mcp_atlas:
+    - value: '82.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    jobbench:
+    - value: '17.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    toolathlon:
+    - value: '49.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    osworld_verified:
+    - value: '53.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    hle_tools:
+    - value: '50.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    terminal_bench_2_1:
+    - value: '67.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    swe_pro:
+    - value: '55.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepswe_1_1:
+    - value: '10.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    charxiv_rq:
+    - value: '88.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    babyvision:
+    - value: '39.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepsearch_qa:
+    - value: '76.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    deepsearchqa:
+    - value: '76.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    swe_atlas_qna:
+    - value: '24.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    vibe_code_bench_v1_1:
+    - value: '19.7'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    meta_internal_coding_bench:
+    - value: '58.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
 - company: OpenAI
   model: GPT-5.6 Sol
   mode: ''
@@ -11516,6 +11710,8 @@ rows:
     url: https://hunyuan.tencent.com
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
+  - label: Muse Spark 1.1 report
+    url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
   scores:
     swe_pro:
     - value: '59.4'
@@ -11530,6 +11726,9 @@ rows:
     - value: '58.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '58.6'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     terminal_bench_2:
     - value: '82.7'
       source_label: GPT-5.5
@@ -11541,6 +11740,9 @@ rows:
     - value: '78.7'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '78.7'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     mmmu_pro:
     - value: '81.2'
       source_label: GPT-5.5
@@ -11559,7 +11761,17 @@ rows:
     - value: '81.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '75.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    jobbench:
+    - value: '38.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     toolathlon:
+    - value: '73.5'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     - value: '55.6'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
@@ -11600,6 +11812,9 @@ rows:
     - value: '79.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '83.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     hle:
     - value: '46.9'
       source_label: Opus 4.8
@@ -11614,6 +11829,9 @@ rows:
     - value: '52.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '52.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     gdpval_aa:
     - value: '1769'
       source_label: Opus 4.8
@@ -11622,6 +11840,9 @@ rows:
     - value: '51.8'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '51.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     kina:
     - value: '52.6'
       source_label: GPT-5.5
@@ -11704,6 +11925,9 @@ rows:
     - value: '67'
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
+    - value: '67.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     deepswe:
     - value: '70.8'
       source_label: Hunyuan 3
@@ -11786,6 +12010,14 @@ rows:
     - value: '95.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    deepsearchqa:
+    - value: '87.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    meta_internal_coding_bench:
+    - value: '67.1'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     claw_eval_pass3:
     - value: '67.8'
       source_label: Hunyuan 3
@@ -11950,6 +12182,14 @@ rows:
     - value: '41.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    charxiv_rq:
+    - value: '84.8'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    babyvision:
+    - value: '83.6'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     mmmu_pro_tools:
     - value: '83.2'
       source_label: GPT-5.6 report
@@ -13352,6 +13592,8 @@ rows:
     url: https://hunyuan.tencent.com
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
+  - label: Muse Spark 1.1 report
+    url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
   scores:
     mmlu_pro:
     - value: '91.0'
@@ -13459,6 +13701,9 @@ rows:
     - value: '54.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '54.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     browsecomp:
     - value: '85.9'
       source_label: DeepSeek-V4
@@ -13482,6 +13727,9 @@ rows:
     - value: '51.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '51.4'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     gdpval_aa:
     - value: '1314'
       source_label: DeepSeek-V4
@@ -13502,7 +13750,17 @@ rows:
     - value: '69.2'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '78.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    jobbench:
+    - value: '15.9'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     toolathlon:
+    - value: '61.1'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     - value: '48.8'
       source_label: DeepSeek-V4
       source_url: https://api-docs.deepseek.com/zh-cn/news/news260424
@@ -13548,14 +13806,23 @@ rows:
     - value: '74.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '70.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     osworld_verified:
     - value: '76.2'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '76.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     finance_agent_v2:
     - value: '43.0'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '43.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     kina:
     - value: '53.2'
       source_label: Gemini 3.1 Pro
@@ -13630,6 +13897,9 @@ rows:
     - value: '12'
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
+    - value: '12.0'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     deepswe:
     - value: '10'
       source_label: DeepSWE v1
@@ -13669,6 +13939,14 @@ rows:
     - value: '90.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    deepsearchqa:
+    - value: '71.3'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    meta_internal_coding_bench:
+    - value: '59.2'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     claw_eval_pass3:
     - value: '50.0'
       source_label: Hunyuan 3
@@ -14062,6 +14340,9 @@ rows:
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     babyvision:
+    - value: '51.5'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     - value: '49.7'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
@@ -14158,6 +14439,9 @@ rows:
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
     charxiv_rq:
+    - value: '81.6'
+      source_label: Muse Spark 1.1 report
+      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     - value: '81.4'
       source_label: Seed2.0 T8
       source_url: https://seed.bytedance.com/en/seed2
