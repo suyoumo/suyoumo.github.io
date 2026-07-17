@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function shouldUseClosedRankDefault(key, direction) {
-      return currentDatasetView === 'all' && key === 'final_score' && direction === 'desc';
+      return false;
     }
 
     function appendAllRowsByClosedRank(key, index, direction) {
