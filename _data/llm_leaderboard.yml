@@ -497,6 +497,8 @@ categories:
     label: NL2Repo-Bench
   - key: agent_arena
     label: AgentArena
+  - key: deck_bench
+    label: DECK-Bench (Internal)
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -665,6 +667,10 @@ categories:
     label: AndroidWorld
   - key: blueprint_bench_2
     label: Blueprint-Bench 2
+  - key: aa_briefcase
+    label: AA-Briefcase (Elo-score)
+  - key: spreadsheetbench_2
+    label: SpreadsheetBench 2
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -1045,6 +1051,18 @@ categories:
     label: SURDS
   - key: vladbench
     label: VLADBench
+  - key: charxiv_rq_python
+    label: CharXiv (RQ) w/ python
+  - key: mathvision_python
+    label: MathVision w/ python
+  - key: babyvision_python
+    label: BabyVision w/ python
+  - key: zerobench_main_pass5
+    label: ZeroBench_main (pass@5)
+  - key: zerobench_main_python_pass5
+    label: ZeroBench_main w/ python (pass@5)
+  - key: perception_bench
+    label: PerceptionBench
 - name: Generation
   columns:
   - key: geneval
@@ -1578,10 +1596,6 @@ rows:
     - value: '14.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
-    text_arena:
-    - value: '1475'
-      source_label: TextArena
-      source_url: https://text-arena.com
     browsecomp:
     - value: '86.2'
       source_label: Hunyuan 3
@@ -1698,6 +1712,10 @@ rows:
     - value: '11'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1475'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Qwen
   model: Qwen3.7-Plus
   mode: ''
@@ -2007,7 +2025,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     text_arena:
-    - value: '1464'
+    - value: '1460'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Qwen
@@ -2351,14 +2369,14 @@ rows:
     - value: '-4.20'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1444'
-      source_label: TextArena
-      source_url: https://text-arena.com
     tau3_banking:
     - value: '16'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1443'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Qwen
   model: Qwen3.5-397B-A17B
   mode: ''
@@ -2729,14 +2747,14 @@ rows:
     - value: '31.39'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
-    text_arena:
-    - value: '1443'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '42.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1442'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Meituan
   model: LongCat-Flash-Thinking-2601
   mode: Thinking
@@ -3240,6 +3258,10 @@ rows:
     - value: '72.3'
       source_label: ERNIE 5.1
       source_url: https://ernie.baidu.com/blog/posts/ernie-5.1-0508-release/
+    text_arena:
+    - value: '1468'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Baidu
   model: ERNIE 5.0
   mode: ''
@@ -6770,10 +6792,6 @@ rows:
     - value: '-2.67'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1457'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '50.0'
       source_label: SciCode
@@ -6886,6 +6904,10 @@ rows:
     - value: '26'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1458'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
@@ -7022,10 +7044,6 @@ rows:
     - value: '-1.57'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1437'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '43.8'
       source_label: SciCode
@@ -7150,6 +7168,10 @@ rows:
     - value: '64.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    text_arena:
+    - value: '1438'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: High reasoning effort
@@ -7254,14 +7276,14 @@ rows:
     - value: '-2.67'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1457'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '50.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1458'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: High reasoning effort
@@ -7362,14 +7384,14 @@ rows:
     - value: '-1.57'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1437'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '43.8'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1438'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Non-think
@@ -7462,14 +7484,14 @@ rows:
     - value: '-2.67'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1457'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '50.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1458'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Non-think
@@ -7558,14 +7580,14 @@ rows:
     - value: '-1.57'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1437'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '43.8'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1438'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: Deepseek-Prover-V2
   mode: ''
@@ -7670,6 +7692,10 @@ rows:
     - value: '38.9'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1425'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-R1-0528
   mode: Thinking
@@ -7810,6 +7836,10 @@ rows:
     - value: '30.69'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
+    text_arena:
+    - value: '1465'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: MiMo
   model: MiMo-V2.5
   mode: Thinking
@@ -7878,6 +7908,10 @@ rows:
     - value: '67.8'
       source_label: MiMo-V2.5 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1465'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: MiMo
   model: MiMo-V2-Omni
   mode: ''
@@ -7910,6 +7944,10 @@ rows:
     - value: '66.7'
       source_label: MiMo-V2-Omni
       source_url: https://github.com/XiaomiMiMo/MiMo
+    text_arena:
+    - value: '1430'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: MiMo
   model: MiMo-V2-Flash
   mode: Thinking
@@ -7998,6 +8036,10 @@ rows:
     - value: '86.7'
       source_label: MiMo-V2-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
+    text_arena:
+    - value: '1448'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: MiniMax
   model: MiniMax-M3
   mode: Thinking
@@ -8166,10 +8208,6 @@ rows:
     - value: '-2.28'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1447'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '45.1'
       source_label: SciCode
@@ -8178,6 +8216,10 @@ rows:
     - value: '13'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1445'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: MiniMax
   model: MiniMax-M2.7
   mode: Thinking
@@ -9081,6 +9123,9 @@ rows:
     - value: '26.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '40.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     tool_decathlon:
     - value: '59.9'
       source_label: GLM-5.2
@@ -9102,6 +9147,9 @@ rows:
     kimi_code_bench_v2:
     - value: '67.4'
       source_label: Kimi K2.7 Code
+      source_url: https://kimi.moonshot.cn
+    - value: '71.7'
+      source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
     mls_bench_lite:
     - value: '42.8'
@@ -9133,18 +9181,17 @@ rows:
     - value: '9.37'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1484'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '53.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
     toolathlon:
+    - value: '59.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     - value: '76.2'
-      source_label: Muse Spark 1.1 report
-      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     charxiv_rq:
     - value: '89.9'
       source_label: Muse Spark 1.1 report
@@ -9165,6 +9212,9 @@ rows:
     - value: '15.5'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '27.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     legal_agent_bench:
     - value: '10.4'
       source_label: Claude Fable 5
@@ -9213,10 +9263,6 @@ rows:
     - value: '69.0'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
-    toolathlon:
-    - value: '59.9'
-      source_label: Hunyuan 3
-      source_url: https://hunyuan.tencent.com
     apex_agents:
     - value: '42.5'
       source_label: Hunyuan 3
@@ -9369,6 +9415,70 @@ rows:
     - value: '29'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1483'
+      source_label: TextArena
+      source_url: https://text-arena.com
+    deck_bench:
+    - value: '66.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1354.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    officeqa_pro:
+    - value: '63.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '31.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro:
+    - value: '78.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro_tools:
+    - value: '82.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq_python:
+    - value: '89.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision:
+    - value: '86.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision_python:
+    - value: '97.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    babyvision_python:
+    - value: '81.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_pass5:
+    - value: '17.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_python_pass5:
+    - value: '34.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    worldvqa:
+    - value: '39.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    omnidocbench15:
+    - value: '87.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    perception_bench:
+    - value: '47.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
 - company: Anthropic
   model: Claude Opus 4.7
   mode: ''
@@ -9532,7 +9642,7 @@ rows:
       source_label: AgentArena
       source_url: https://agent-arena.com
     text_arena:
-    - value: '1502'
+    - value: '1503'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Anthropic
@@ -9794,14 +9904,14 @@ rows:
     - value: '6.47'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1503'
-      source_label: TextArena
-      source_url: https://text-arena.com
     tau3_banking:
     - value: '28'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1504'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Anthropic
   model: Claude Opus 4.5
   mode: ''
@@ -10571,7 +10681,7 @@ rows:
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
     text_arena:
-    - value: '1473'
+    - value: '1469'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Anthropic
@@ -10654,10 +10764,6 @@ rows:
     - value: '2.18'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1472'
-      source_label: TextArena
-      source_url: https://text-arena.com
     swe_pro:
     - value: '58.1'
       source_label: Claude Sonnet 5
@@ -10670,6 +10776,10 @@ rows:
     - value: '31'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1471'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Anthropic
   model: Claude Sonnet 4.5
   mode: ''
@@ -11077,6 +11187,10 @@ rows:
     - value: '14'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1456'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Meta
   model: Muse Spark 1.1
   mode: ''
@@ -11149,6 +11263,10 @@ rows:
     - value: '68.3'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    text_arena:
+    - value: '1493'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Meta
   model: Muse Spark
   mode: ''
@@ -11217,6 +11335,10 @@ rows:
     - value: '58.8'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    text_arena:
+    - value: '1487'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: OpenAI
   model: GPT-5.6 Sol
   mode: ''
@@ -11233,6 +11355,9 @@ rows:
     - value: '1747.8'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '1748.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     management_consulting_tasks_internal:
     - value: '43.2'
       source_label: GPT-5.6 report
@@ -11341,10 +11466,16 @@ rows:
     - value: '18.1'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '29.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '74.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     mrcr_v2_256_512k:
     - value: '91.5'
       source_label: GPT-5.6 report
@@ -11365,6 +11496,114 @@ rows:
     - value: '7.78'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    text_arena:
+    - value: '1486'
+      source_label: TextArena
+      source_url: https://text-arena.com
+    deepswe:
+    - value: '73.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    program_bench:
+    - value: '77.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    frontierswe:
+    - value: '71.3'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    swe_marathon:
+    - value: '39.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    posttrainbench:
+    - value: '34.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '46.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    kimi_code_bench_v2:
+    - value: '64.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    deck_bench:
+    - value: '74.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mcp_atlas:
+    - value: '83.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    jobbench:
+    - value: '46.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1495.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    apex_agents:
+    - value: '39.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    officeqa_pro:
+    - value: '63.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '32.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    hle:
+    - value: '44.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    hle_tools:
+    - value: '58.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq:
+    - value: '84.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq_python:
+    - value: '89.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision:
+    - value: '95.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision_python:
+    - value: '97.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    babyvision_python:
+    - value: '88.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_pass5:
+    - value: '17.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_python_pass5:
+    - value: '35.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    worldvqa:
+    - value: '41.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    omnidocbench15:
+    - value: '85.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    perception_bench:
+    - value: '59.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -11784,6 +12023,9 @@ rows:
     - value: '54.1'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '60.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     terminal_bench_2_1:
     - value: '85.6'
       source_label: GPT-5.6 report
@@ -11845,6 +12087,9 @@ rows:
     - value: '65.9'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '70.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     apex_agents:
     - value: '38.4'
       source_label: GPT-5.5
@@ -11852,6 +12097,9 @@ rows:
     - value: '38.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '38.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     forte:
     - value: '77.8'
       source_label: GPT-5.5
@@ -11899,6 +12147,9 @@ rows:
     - value: '12.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '14.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     tool_decathlon:
     - value: '55.6'
       source_label: GLM-5.2
@@ -11937,10 +12188,6 @@ rows:
     - value: '8.21'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1481'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '56.1'
       source_label: SciCode
@@ -11957,6 +12204,9 @@ rows:
     - value: '12.9'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '22.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     legal_agent_bench:
     - value: '2.1'
       source_label: Claude Fable 5
@@ -12208,6 +12458,58 @@ rows:
     - value: '31'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1482'
+      source_label: TextArena
+      source_url: https://text-arena.com
+    deck_bench:
+    - value: '68.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1158.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '29.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq_python:
+    - value: '89.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision:
+    - value: '92.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision_python:
+    - value: '96.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    babyvision_python:
+    - value: '83.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_pass5:
+    - value: '22.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_python_pass5:
+    - value: '41.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    worldvqa:
+    - value: '38.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    omnidocbench15:
+    - value: '89.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    perception_bench:
+    - value: '55.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -12372,10 +12674,6 @@ rows:
     - value: '6.65'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1478'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '56.6'
       source_label: SciCode
@@ -12388,6 +12686,10 @@ rows:
     - value: '30'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1478'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: OpenAI
   model: GPT-5.3-Codex
   mode: xHigh
@@ -13889,10 +14191,6 @@ rows:
     - value: '-1.09'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1486'
-      source_label: TextArena
-      source_url: https://text-arena.com
     gdpval_mm:
     - value: '16.7'
       source_label: Claude Fable 5
@@ -14029,6 +14327,10 @@ rows:
     - value: '16'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1485'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -14610,6 +14912,10 @@ rows:
     - value: '14.7'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    text_arena:
+    - value: '1486'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Google
   model: Gemini 3.5 Flash
   mode: High
@@ -14692,10 +14998,6 @@ rows:
     - value: '-1.13'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1476'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '53.1'
       source_label: SciCode
@@ -14704,6 +15006,10 @@ rows:
     - value: '25'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1476'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Google
   model: Gemini 3 Flash
   mode: High
@@ -15324,6 +15630,10 @@ rows:
     - value: '89.0'
       source_label: Seed2.0 T9
       source_url: https://seed.bytedance.com/en/seed2
+    text_arena:
+    - value: '1486'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Google
   model: Gemini 3 Flash
   mode: ''
@@ -15528,6 +15838,10 @@ rows:
     - value: '1452'
       source_label: Gemma 4
       source_url: https://deepmind.google/models/gemma/
+    text_arena:
+    - value: '1451'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Moonshot
   model: Kimi K2.6
   mode: Thinking
@@ -15814,14 +16128,14 @@ rows:
     - value: '-1.82'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1461'
-      source_label: TextArena
-      source_url: https://text-arena.com
     tau3_banking:
     - value: '21'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1461'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Moonshot
   model: Kimi K2.5
   mode: ''
@@ -16161,6 +16475,10 @@ rows:
     - value: '49.0'
       source_label: K2.5
       source_url: https://moonshotai.github.io/Kimi-K2/
+    text_arena:
+    - value: '1450'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Moonshot
   model: Kimi K2 Thinking
   mode: Heavy
@@ -16277,6 +16595,10 @@ rows:
     - value: '97.5'
       source_label: K2 Thinking
       source_url: https://moonshotai.github.io/Kimi-K2/
+    text_arena:
+    - value: '1430'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-5.1
   mode: Thinking
@@ -16614,10 +16936,6 @@ rows:
     - value: '1.40'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1473'
-      source_label: TextArena
-      source_url: https://text-arena.com
     swe_verified:
     - value: '75.0'
       source_label: Hunyuan 3
@@ -16722,6 +17040,10 @@ rows:
     - value: '12'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1471'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-5
   mode: ''
@@ -16955,6 +17277,10 @@ rows:
     - value: '4432.12'
       source_label: GLM-5
       source_url: https://z.ai/blog/glm-5
+    text_arena:
+    - value: '1471'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-4.7
   mode: Thinking
@@ -17035,14 +17361,14 @@ rows:
     - value: '24.03'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
-    text_arena:
-    - value: '1442'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '45.1'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1442'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-4.6
   mode: Thinking
@@ -17115,6 +17441,10 @@ rows:
     - value: '75.9'
       source_label: GLM-4.6
       source_url: https://z.ai/blog/glm-4-6
+    text_arena:
+    - value: '1425'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Huawei
   model: openPangu-2.0-Flash-Thinking
   mode: ''
@@ -17382,6 +17712,9 @@ rows:
     - value: '77.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '82.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     frontierswe:
     - value: '74.4'
       source_label: GLM-5.2
@@ -17424,10 +17757,6 @@ rows:
     - value: '6.93'
       source_label: AgentArena
       source_url: https://agent-arena.com
-    text_arena:
-    - value: '1470'
-      source_label: TextArena
-      source_url: https://text-arena.com
     scicode:
     - value: '50.5'
       source_label: SciCode
@@ -17444,10 +17773,16 @@ rows:
     - value: '46.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '59.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     apex_agents:
     - value: '29.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '35.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     claw_eval_pass3:
     - value: '62.4'
       source_label: Hunyuan 3
@@ -17548,6 +17883,46 @@ rows:
     - value: '27'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1468'
+      source_label: TextArena
+      source_url: https://text-arena.com
+    mls_bench_lite:
+    - value: '40.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    kimi_code_bench_v2:
+    - value: '64.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    deck_bench:
+    - value: '68.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    gdpval_aa:
+    - value: '1514.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    automation_bench:
+    - value: '12.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    jobbench:
+    - value: '43.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1260.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    officeqa_pro:
+    - value: '41.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '28.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -17742,6 +18117,9 @@ rows:
     - value: '29.3'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '86.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     gdpval_aa:
     - value: '1759.6'
       source_label: GPT-5.6 report
@@ -17749,6 +18127,9 @@ rows:
     - value: '1756'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '1760.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     gdpval_mm:
     - value: '29.8'
       source_label: Claude Fable 5
@@ -17761,6 +18142,9 @@ rows:
     - value: '17.4'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '29.1'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     osworld_verified:
     - value: '85.0'
       source_label: Claude Fable 5
@@ -17829,6 +18213,9 @@ rows:
     - value: '61.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '77.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
     gdp_pdf:
     - value: '29.8'
       source_label: GPT-5.6 report
@@ -17841,6 +18228,118 @@ rows:
     - value: '27'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1507'
+      source_label: TextArena
+      source_url: https://text-arena.com
+    deepswe:
+    - value: '70.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    program_bench:
+    - value: '76.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    swe_marathon:
+    - value: '35.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    posttrainbench:
+    - value: '41.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '49.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    kimi_code_bench_v2:
+    - value: '76.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    deck_bench:
+    - value: '73.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    browsecomp:
+    - value: '88.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    deepsearch_qa:
+    - value: '94.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mcp_atlas:
+    - value: '84.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    jobbench:
+    - value: '57.4'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1583.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    apex_agents:
+    - value: '43.3'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    officeqa_pro:
+    - value: '69.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '34.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro:
+    - value: '81.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro_tools:
+    - value: '86.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq:
+    - value: '88.9'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq_python:
+    - value: '93.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision:
+    - value: '94.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    mathvision_python:
+    - value: '98.6'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    babyvision_python:
+    - value: '90.5'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_pass5:
+    - value: '23.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_python_pass5:
+    - value: '46.0'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    worldvqa:
+    - value: '56.7'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    omnidocbench15:
+    - value: '89.8'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
+    perception_bench:
+    - value: '57.2'
+      source_label: Kimi K3 report
+      source_url: https://kimi.moonshot.cn
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -17885,6 +18384,10 @@ rows:
     - value: '28'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1461'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: xAI
   model: Grok 4.5
   mode: ''
@@ -17953,6 +18456,10 @@ rows:
     - value: '33'
       source_label: Grok 4.5 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1465'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Tencent
   model: Hunyuan 3
   mode: ''
@@ -18121,3 +18628,155 @@ rows:
     - value: '73.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+- company: Moonshot
+  model: Kimi K3
+  mode: ''
+  released: '2026-07-17'
+  sources:
+  - label: Kimi K3 report
+    url: https://kimi.moonshot.cn
+  scores:
+    deepswe:
+    - value: '67.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    program_bench:
+    - value: '77.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    terminal_bench_2_1:
+    - value: '88.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    frontierswe:
+    - value: '81.2'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    swe_marathon:
+    - value: '42.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    posttrainbench:
+    - value: '36.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mls_bench_lite:
+    - value: '48.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    kimi_code_bench_v2:
+    - value: '72.9'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    deck_bench:
+    - value: '73.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    gdpval_aa:
+    - value: '1668.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    browsecomp:
+    - value: '91.2'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    deepsearch_qa:
+    - value: '95.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    toolathlon:
+    - value: '73.2'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mcp_atlas:
+    - value: '84.2'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    automation_bench:
+    - value: '30.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    jobbench:
+    - value: '52.9'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    aa_briefcase:
+    - value: '1548.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    apex_agents:
+    - value: '37.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    officeqa_pro:
+    - value: '63.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    spreadsheetbench_2:
+    - value: '34.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    gpqa:
+    - value: '93.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hle:
+    - value: '43.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hle_tools:
+    - value: '56.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro:
+    - value: '81.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mmmu_pro_tools:
+    - value: '83.4'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq:
+    - value: '84.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    charxiv_rq_python:
+    - value: '91.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mathvision:
+    - value: '94.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    mathvision_python:
+    - value: '97.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    babyvision_python:
+    - value: '85.7'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_pass5:
+    - value: '23.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    zerobench_main_python_pass5:
+    - value: '41.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    worldvqa:
+    - value: '51.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    omnidocbench15:
+    - value: '91.1'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    perception_bench:
+    - value: '58.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    text_arena:
+    - value: '1486'
+      source_label: TextArena
+      source_url: https://text-arena.com
