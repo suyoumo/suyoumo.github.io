@@ -563,12 +563,11 @@ permalink: /llm-leaderboard/
     var totalOpponents = {};
     qualifiedMks.forEach(function(mk){ elo[mk] = 1000; wins[mk] = 0; totalOpponents[mk] = 0; });
     var K = 32;
-    var minSharedBench = 5; // Minimum shared benchmarks required for a valid matchup
     for(var i=0; i<qualifiedMks.length; i++){
       for(var j=i+1; j<qualifiedMks.length; j++){
         var mkA=qualifiedMks[i], mkB=qualifiedMks[j];
         var sharedBench = validKeys.filter(function(bk){ return sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk); });
-        if(sharedBench.length < minSharedBench) continue; // Require at least 3 shared benchmarks
+        if(sharedBench.length === 0) continue;
         totalOpponents[mkA]++;
         totalOpponents[mkB]++;
         var winsA=0, winsB=0;
