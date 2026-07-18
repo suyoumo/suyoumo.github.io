@@ -531,7 +531,12 @@ permalink: /llm-leaderboard/
       var mk=r.company+'|'+r.model;
       if(!m[mk]) m[mk]={};
       if(r.scores) Object.keys(r.scores).forEach(function(bk){
-        var e=r.scores[bk]; if(e&&e.length>0){ var v=parseFloat(e[0].value); if(!isNaN(v)){ if(!m[mk].hasOwnProperty(bk)||v>m[mk][bk]) m[mk][bk]=v; } }
+        var e=r.scores[bk]; if(e&&e.length>0){ 
+          // 取所有分数中的最高分
+          var maxV = NaN;
+          e.forEach(function(s){ var v=parseFloat(s.value); if(!isNaN(v) && (isNaN(maxV) || v>maxV)) maxV=v; });
+          if(!isNaN(maxV)){ if(!m[mk].hasOwnProperty(bk)||maxV>m[mk][bk]) m[mk][bk]=maxV; }
+        }
       });
     });
     return m;
