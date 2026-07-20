@@ -215,5 +215,23 @@
       ro.observe(tableWrap);
       ro.observe(table);
     }
+
+    // The extras script rewrites score cells (multi-source chips) and the
+    // filters hide/show rows and columns — both can change the real table's
+    // column widths after the initial sync, leaving the clone stale.
+    // Re-sync whenever the real table mutates. The sync only writes to the
+    // clone/scrollbars, never to the observed table, so there is no loop.
+    if (window.MutationObserver) {
+      let mutationSyncQueued = false;
+      const mo = new MutationObserver(function () {
+        if (mutationSyncQueued) return;
+        mutationSyncQueued = true;
+        window.requestAnimationFrame(function () {
+          mutationSyncQueued = false;
+          syncTopScrollbarWidth();
+        });
+      });
+      mo.observe(table, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+    }
   });
 })();

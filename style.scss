@@ -554,7 +554,6 @@ $llm-radius-ctl: 10px;
   overflow-x: auto;
   border-radius: 0 0 $llm-radius-card $llm-radius-card;
   -webkit-overflow-scrolling: touch;
-  scrollbar-gutter: stable both-edges;
 }
 
 .llm-board-table-wrap::-webkit-scrollbar {
@@ -640,8 +639,9 @@ $llm-radius-ctl: 10px;
   display: none;
 }
 
-.llm-board-sticky-head-table {
+.llm-board-table.llm-board-sticky-head-table {
   margin: 0;
+  min-width: 0; /* the clone gets an exact measured width; min-width would stretch fixed-layout columns differently than the auto-layout original */
   background: rgba(255, 255, 255, 0.985);
 }
 
@@ -4540,7 +4540,6 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 .bench-table-wrap-leaderboard {
   position: relative;
   --bench-sticky-table-top: 136px;
-  scrollbar-gutter: stable both-edges;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -4616,6 +4615,7 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 
 .bench-table-sticky-head-table {
   margin: 0;
+  min-width: 0; /* the clone gets an exact measured width; min-width would stretch fixed-layout columns differently than the auto-layout original */
 }
 
 .bench-table-sticky-head-table thead th {

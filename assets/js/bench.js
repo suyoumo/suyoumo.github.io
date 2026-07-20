@@ -194,12 +194,15 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const stickyCols = Array.from(colgroup.children);
+      let totalWidth = 0;
 
       Array.from(sourceHeadRow.cells).forEach(function (cell, index) {
         const stickyCell = stickyHeadRow.cells[index];
         const stickyCol = stickyCols[index];
         if (!stickyCell) return;
-        const width = Math.ceil(cell.getBoundingClientRect().width);
+        // Exact fractional width — Math.ceil drifted up to 1px per column,
+        // which accumulated into a visible misalignment across 20+ columns.
+        const width = cell.getBoundingClientRect().width;
         if (stickyCol) {
           stickyCol.style.width = width + 'px';
           stickyCol.style.minWidth = width + 'px';
@@ -208,10 +211,11 @@ document.addEventListener('DOMContentLoaded', function () {
         stickyCell.style.width = width + 'px';
         stickyCell.style.minWidth = width + 'px';
         stickyCell.style.maxWidth = width + 'px';
+        totalWidth += width;
       });
 
       leaderboardStickyHeadViewport.style.width = leaderboardTableWrap ? leaderboardTableWrap.clientWidth + 'px' : '';
-      leaderboardStickyHeadTable.style.width = table.scrollWidth + 'px';
+      leaderboardStickyHeadTable.style.width = totalWidth + 'px';
       leaderboardStickyHeadTable.style.tableLayout = 'fixed';
       syncLeaderboardHorizontalScroll(leaderboardTableWrap ? leaderboardTableWrap.scrollLeft : 0, 'table');
     }
@@ -666,6 +670,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         resizeObserver.observe(leaderboardTableWrap);
         resizeObserver.observe(table);
+      }
+
+      // Sorting, dataset-view switches and rank-data syncs rewrite cell
+      // content and can change the real table's column widths after the
+      // initial sync, leaving the clone stale. Re-sync on any table
+      // mutation. The sync only writes to the clone/scrollbars, never to
+      // the observed table, so there is no loop.
+      if (window.MutationObserver) {
+        let mutationSyncQueued = false;
+        const mutationObserver = new MutationObserver(function () {
+          if (mutationSyncQueued) return;
+          mutationSyncQueued = true;
+          window.requestAnimationFrame(function () {
+            mutationSyncQueued = false;
+            syncTopScrollbarWidth();
+          });
+        });
+        mutationObserver.observe(table, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
       }
     }
 
