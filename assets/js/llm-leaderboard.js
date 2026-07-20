@@ -121,42 +121,57 @@
 
     function setOffsets() {
       const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
-      const scrollbarHeight = topScrollbar && topScrollbar.classList.contains('is-visible')
-        ? topScrollbar.getBoundingClientRect().height
-        : 0;
+      // Both layers are always rendered, so their heights are constants here —
+      // no dependence on whether they currently happen to be shown.
+      const scrollbarHeight = topScrollbar ? topScrollbar.getBoundingClientRect().height : 0;
       if (topScrollbar) topScrollbar.style.top = Math.ceil(headerHeight + 8) + 'px';
       if (stickyHead) stickyHead.style.top = Math.ceil(headerHeight + scrollbarHeight + 8) + 'px';
     }
 
     function syncTopScrollbarWidth() {
       if (!topScrollbar || !topScrollbarInner || !topScrollbarTrack) return;
+      // The layers stay in the DOM permanently; visibility is class-driven.
+      topScrollbar.hidden = false;
+      if (stickyHead) stickyHead.hidden = false;
       topScrollbar.style.width = tableWrap.clientWidth + 'px';
       topScrollbarInner.style.width = table.scrollWidth + 'px';
       syncHorizontal(tableWrap.scrollLeft, 'table');
       syncStickyWidths();
+      // Collapse the layers' flow space so they overlap the table instead of
+      // pushing it down — this is what lets visibility toggling stay layout-free.
+      topScrollbar.style.marginBottom = (-topScrollbar.offsetHeight) + 'px';
+      if (stickyHead) stickyHead.style.marginBottom = (-stickyHead.offsetHeight) + 'px';
       setOffsets();
     }
 
+    let visibilityTicking = false;
     function updateVisibility() {
+      visibilityTicking = false;
       if (!topScrollbar || !topScrollbarTrack) return;
+      // Only cheap rect reads + class toggles here — measuring column widths
+      // on every scroll frame was the other half of the old jitter.
       const canScrollX = table.scrollWidth - tableWrap.clientWidth > 2;
       const cardRect = card.getBoundingClientRect();
       const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const scrollbarHeight = topScrollbar.getBoundingClientRect().height;
       const shouldShow = canScrollX && cardRect.top <= headerHeight + 20 && cardRect.bottom >= headerHeight + 84;
       const headRect = tableWrap.getBoundingClientRect();
-      const stickyHeadTop = headerHeight + (shouldShow && topScrollbar ? topScrollbar.getBoundingClientRect().height : 0) + 8;
+      const stickyHeadTop = headerHeight + scrollbarHeight + 8;
       const shouldShowSticky = headRect.top <= stickyHeadTop && cardRect.bottom >= stickyHeadTop + 56;
 
-      topScrollbar.hidden = !shouldShow;
-      topScrollbar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
       topScrollbar.classList.toggle('is-visible', shouldShow);
+      topScrollbar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
       if (stickyHead) {
-        stickyHead.hidden = !shouldShowSticky;
-        stickyHead.setAttribute('aria-hidden', shouldShowSticky ? 'false' : 'true');
         stickyHead.classList.toggle('is-visible', shouldShowSticky);
+        stickyHead.setAttribute('aria-hidden', shouldShowSticky ? 'false' : 'true');
       }
-      syncStickyWidths();
-      setOffsets();
+    }
+
+    function onVisibilityScroll() {
+      if (!visibilityTicking) {
+        visibilityTicking = true;
+        window.requestAnimationFrame(updateVisibility);
+      }
     }
 
     buildStickyHeader();
@@ -182,7 +197,7 @@
       }, { passive: true });
     }
 
-    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('scroll', onVisibilityScroll, { passive: true });
     window.addEventListener('resize', function () {
       syncTopScrollbarWidth();
       updateVisibility();

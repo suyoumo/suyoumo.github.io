@@ -219,12 +219,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function setStickyOffsets() {
       if (!leaderboardTableWrap) return;
       const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
-      const scrollbarHeight = leaderboardTopScrollbar && leaderboardTopScrollbar.classList.contains('is-visible')
-        ? leaderboardTopScrollbar.getBoundingClientRect().height
-        : 0;
-      const stickyHeadHeight = leaderboardStickyHead && leaderboardStickyHead.classList.contains('is-visible')
-        ? leaderboardStickyHead.getBoundingClientRect().height
-        : 0;
+      // Both layers are always rendered, so their heights are constants here —
+      // no dependence on whether they currently happen to be shown.
+      const scrollbarHeight = leaderboardTopScrollbar ? leaderboardTopScrollbar.getBoundingClientRect().height : 0;
+      const stickyHeadHeight = leaderboardStickyHead ? leaderboardStickyHead.getBoundingClientRect().height : 0;
       const rankCell = table.querySelector('thead th:first-child');
       const rankWidth = rankCell ? Math.ceil(rankCell.getBoundingClientRect().width) : 84;
       leaderboardTableWrap.style.setProperty('--bench-sticky-table-top', Math.ceil(headerHeight + scrollbarHeight + 8) + 'px');
@@ -242,34 +240,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function syncTopScrollbarWidth() {
       if (!leaderboardTableWrap || !leaderboardTopScrollbarInner || !leaderboardTopScrollbarTrack || !leaderboardTopScrollbar) return;
+      // The layers stay in the DOM permanently; visibility is class-driven.
+      leaderboardTopScrollbar.hidden = false;
+      if (leaderboardStickyHead) leaderboardStickyHead.hidden = false;
       leaderboardTopScrollbar.style.width = leaderboardTableWrap.clientWidth + 'px';
       leaderboardTopScrollbarInner.style.width = table.scrollWidth + 'px';
       syncLeaderboardHorizontalScroll(leaderboardTableWrap.scrollLeft, 'table');
       syncStickyHeaderWidths();
+      // Collapse the layers' flow space so they overlap the table instead of
+      // pushing it down — this is what lets visibility toggling stay layout-free.
+      leaderboardTopScrollbar.style.marginBottom = (-leaderboardTopScrollbar.offsetHeight) + 'px';
+      if (leaderboardStickyHead) leaderboardStickyHead.style.marginBottom = (-leaderboardStickyHead.offsetHeight) + 'px';
       setStickyOffsets();
     }
 
+    let stickyVisibilityTicking = false;
     function updateTopScrollbarVisibility() {
+      stickyVisibilityTicking = false;
       if (!leaderboardTableWrap || !leaderboardTopScrollbar || !leaderboardTopScrollbarTrack || !leaderboardCard) return;
 
+      // Only cheap rect reads + class toggles here — measuring column widths
+      // on every scroll frame was the other half of the old jitter.
       const canScrollX = table.scrollWidth - leaderboardTableWrap.clientWidth > 2;
       const cardRect = leaderboardCard.getBoundingClientRect();
       const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const scrollbarHeight = leaderboardTopScrollbar.getBoundingClientRect().height;
       const shouldShow = canScrollX && cardRect.top <= headerHeight + 20 && cardRect.bottom >= headerHeight + 84;
       const headRect = leaderboardTableWrap.getBoundingClientRect();
-      const stickyHeadTop = headerHeight + (shouldShow ? (leaderboardTopScrollbar ? leaderboardTopScrollbar.getBoundingClientRect().height : 0) : 0) + 8;
+      const stickyHeadTop = headerHeight + scrollbarHeight + 8;
       const shouldShowStickyHead = headRect.top <= stickyHeadTop && cardRect.bottom >= stickyHeadTop + 56;
 
-      leaderboardTopScrollbar.hidden = !shouldShow;
-      leaderboardTopScrollbar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
       leaderboardTopScrollbar.classList.toggle('is-visible', shouldShow);
+      leaderboardTopScrollbar.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
       if (leaderboardStickyHead) {
-        leaderboardStickyHead.hidden = !shouldShowStickyHead;
-        leaderboardStickyHead.setAttribute('aria-hidden', shouldShowStickyHead ? 'false' : 'true');
         leaderboardStickyHead.classList.toggle('is-visible', shouldShowStickyHead);
+        leaderboardStickyHead.setAttribute('aria-hidden', shouldShowStickyHead ? 'false' : 'true');
       }
-      syncStickyHeaderWidths();
-      setStickyOffsets();
+    }
+
+    function onStickyVisibilityScroll() {
+      if (!stickyVisibilityTicking) {
+        stickyVisibilityTicking = true;
+        window.requestAnimationFrame(updateTopScrollbarVisibility);
+      }
     }
 
     function parseDateValue(value) {
@@ -636,7 +649,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, { passive: true });
       }
 
-      window.addEventListener('scroll', updateTopScrollbarVisibility, { passive: true });
+      window.addEventListener('scroll', onStickyVisibilityScroll, { passive: true });
       window.addEventListener('resize', function () {
         syncTopScrollbarWidth();
         updateTopScrollbarVisibility();

@@ -574,14 +574,14 @@ $llm-radius-ctl: 10px;
   position: sticky;
   top: 72px;
   z-index: 35;
-  display: none;
+  visibility: hidden; /* toggled via .is-visible — never display, so no layout shift mid-scroll */
   padding: 0 0 8px;
   margin-bottom: 2px;
   pointer-events: none;
 }
 
 .llm-board-top-scrollbar.is-visible {
-  display: block;
+  visibility: visible;
 }
 
 .llm-board-top-scrollbar-track {
@@ -618,7 +618,7 @@ $llm-radius-ctl: 10px;
   position: sticky;
   top: 136px;
   z-index: 34;
-  display: none;
+  visibility: hidden; /* toggled via .is-visible — never display, so no layout shift mid-scroll */
   overflow: hidden;
   border-bottom: 1px solid $llm-line;
   background: rgba(255, 255, 255, 0.985);
@@ -626,7 +626,7 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-board-sticky-head.is-visible {
-  display: block;
+  visibility: visible;
 }
 
 .llm-board-sticky-head-viewport {
@@ -4548,14 +4548,14 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   position: sticky;
   top: 72px;
   z-index: 35;
-  display: none;
+  visibility: hidden; /* toggled via .is-visible — never display, so no layout shift mid-scroll */
   padding: 0 0 8px;
   margin-bottom: 2px;
   pointer-events: none;
 }
 
 .bench-table-top-scrollbar.is-visible {
-  display: block;
+  visibility: visible;
 }
 
 .bench-table-top-scrollbar-track {
@@ -4592,7 +4592,7 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   position: sticky;
   top: var(--bench-sticky-table-top, 136px);
   z-index: 34;
-  display: none;
+  visibility: hidden; /* toggled via .is-visible — never display, so no layout shift mid-scroll */
   overflow: hidden;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   background: rgba(255, 255, 255, 0.97);
@@ -4600,7 +4600,7 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 }
 
 .bench-table-sticky-head.is-visible {
-  display: block;
+  visibility: visible;
 }
 
 .bench-table-sticky-head-viewport {
@@ -4682,11 +4682,11 @@ html[data-bench-lang="zh"] .bench-language-toggle {
 
 @include mobile {
   .bench-table-top-scrollbar {
-    display: none !important;
+    visibility: hidden !important;
   }
 
   .bench-table-sticky-head {
-    display: none !important;
+    visibility: hidden !important;
   }
 
   .bench-table-rich th:first-child,

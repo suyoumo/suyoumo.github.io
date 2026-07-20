@@ -460,9 +460,13 @@ permalink: /llm-leaderboard/
   padding: 9px 7px; font-weight: 700; text-align: center; white-space: nowrap; z-index: 5;
   font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase;
   border-bottom: 1px solid rgba(25,25,24,0.08);
-  border-right: 1px solid rgba(25,25,24,0.05);
+  border-right: 1px solid rgba(25,25,24,0.07);
 }
 .llm-ranking-table thead th:last-child { border-right: none; }
+/* Stronger divider where one benchmark category ends and the next begins */
+.llm-ranking-table thead th.rank-group-end,
+.llm-ranking-table thead th.benchmark-group-header { border-right: 1px solid rgba(25,25,24,0.25); }
+.llm-ranking-table thead th.benchmark-group-header:last-child { border-right: none; }
 .llm-ranking-table thead th:nth-child(1),
 .llm-ranking-table thead th:nth-child(2),
 .llm-ranking-table thead th:nth-child(3) { text-align: left; padding-left: 10px; }
@@ -471,8 +475,11 @@ permalink: /llm-leaderboard/
 .llm-ranking-table td {
   padding: 6px 7px; text-align: center;
   border-bottom: 1px solid rgba(25,25,24,0.05); white-space: nowrap;
+  border-right: 1px solid rgba(25,25,24,0.07);
   font-variant-numeric: tabular-nums;
 }
+.llm-ranking-table td:last-child { border-right: none; }
+.llm-ranking-table td.rank-group-end { border-right: 1px solid rgba(25,25,24,0.25); }
 .llm-ranking-table td:nth-child(1) { font-weight: 800; font-size: 0.88rem; padding-left: 10px; text-align: left; width: 44px; }
 .llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
 .llm-ranking-table td:nth-child(2):hover::after {
@@ -691,11 +698,15 @@ permalink: /llm-leaderboard/
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
+    // Mark the last column of each category group so CSS can draw a
+    // stronger divider at group boundaries.
+    var keyCats = validKeys.map(function(bk){ return benchCat[bk]||'Other'; });
+    var isGroupEnd = keyCats.map(function(c,i){ return i<keyCats.length-1 && c!==keyCats[i+1]; });
     var h1='<tr><th rowspan="2" style="text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="text-align:left;">厂商</th><th rowspan="2">均百分位</th><th rowspan="2">胜率</th>';
     catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
-    validKeys.forEach(function(bk){ h2+='<th>'+benchLabels[bk]+'</th>'; });
+    validKeys.forEach(function(bk,bi){ h2+='<th'+(isGroupEnd[bi]?' class="rank-group-end"':'')+'>'+benchLabels[bk]+'</th>'; });
     h2+='</tr>';
     thead.innerHTML=h1+h2;
     var html='';
@@ -707,8 +718,8 @@ permalink: /llm-leaderboard/
         if(s!==undefined&&s!==null){
           var rk=r.ranks[bi], tot=r.totals[bi];
           var color=rankColor(rk,tot), tc=rankTextColor(rk,tot);
-          html+='<td class="heatmap-cell" style="background:'+color+';color:'+tc+';">'+s+'</td>';
-        } else { html+='<td class="no-data-cell">—</td>'; }
+          html+='<td class="heatmap-cell'+(isGroupEnd[bi]?' rank-group-end':'')+'" style="background:'+color+';color:'+tc+';">'+s+'</td>';
+        } else { html+='<td class="no-data-cell'+(isGroupEnd[bi]?' rank-group-end':'')+'">—</td>'; }
       });
       html+='</tr>';
     });
@@ -741,9 +752,10 @@ permalink: /llm-leaderboard/
     var table = document.getElementById('rankingTable');
     var thead = table.tHead;
     if(!thead || !thead.rows.length){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
-    var headCols = thead.rows[thead.rows.length-1].cells.length;
+    // Placeholder rows ("请选择 benchmark" / "无满足条件的模型") span all
+    // columns in a single cell — there is no grid to mirror then.
     var bodyRow = table.tBodies[0] && table.tBodies[0].rows[0];
-    if(!bodyRow || bodyRow.cells.length !== headCols){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
+    if(!bodyRow || bodyRow.cells.length < 2){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
 
     rankStickyTable.innerHTML='';
     rankStickyTable.appendChild(thead.cloneNode(true));
