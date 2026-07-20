@@ -68,7 +68,12 @@ permalink: /llm-leaderboard/
         </label>
         <span class="llm-ranking-info" id="rankingInfo"></span>
       </div>
-      <div class="llm-ranking-table-wrap">
+      <div class="llm-ranking-sticky-head" id="rankingStickyHead" aria-hidden="true">
+        <div class="llm-ranking-sticky-head-viewport" id="rankingStickyHeadViewport">
+          <table class="llm-ranking-table llm-ranking-sticky-head-table" id="rankingStickyHeadTable" aria-hidden="true"></table>
+        </div>
+      </div>
+      <div class="llm-ranking-table-wrap" id="rankingTableWrap">
         <table class="llm-ranking-table" id="rankingTable">
           <thead id="rankingThead"></thead>
           <tbody id="rankingTbody"></tbody>
@@ -428,6 +433,27 @@ permalink: /llm-leaderboard/
 }
 .llm-ranking-info { font-size: 0.8rem; color: #6b6b65; font-weight: 600; }
 .llm-ranking-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(25,25,24,0.06); }
+/* Floating clone of the ranking thead, pinned under the site header.
+ * It is ALWAYS rendered (visibility toggled only) so showing/hiding never
+ * changes layout — a display/hidden toggle would shift content height
+ * mid-scroll and feed back into the show condition (that loop was the
+ * old leaderboard floating header's flicker). */
+.llm-ranking-sticky-head {
+  position: sticky;
+  top: 65px; /* JS re-measures the real site header height */
+  z-index: 30;
+  visibility: hidden;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 1px; /* aligns the clone with the wrap's 1px-bordered content box */
+  background: #faf7f2;
+  border-bottom: 1px solid rgba(25,25,24,0.08);
+  box-shadow: 0 10px 24px rgba(60,42,28,0.08);
+}
+.llm-ranking-sticky-head.is-visible { visibility: visible; }
+.llm-ranking-sticky-head-viewport { overflow: hidden; }
+.llm-ranking-sticky-head-table { margin: 0; }
+.llm-ranking-sticky-head-table thead th { border-top: none; }
 .llm-ranking-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .llm-ranking-table thead th {
   position: sticky; top: 0; background: #faf7f2; color: #6b6b65;
@@ -654,7 +680,7 @@ permalink: /llm-leaderboard/
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
     var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     var sortMode = document.getElementById('rankingSortMode').value;
-    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; return; }
+    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; buildRankSticky(); updateRankSticky(); return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
@@ -688,6 +714,79 @@ permalink: /llm-leaderboard/
     });
     if(results.length===0) html='<tr><td colspan="'+(5+validKeys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
     tbody.innerHTML=html;
+    buildRankSticky();
+    updateRankSticky();
+  }
+
+  // ===== Floating column header for the ranking table =====
+  // The clone is always rendered and only its VISIBILITY is toggled, so
+  // showing/hiding never changes layout — no geometry feedback loop, no
+  // flicker at the pin boundary. Widths are measured only on render/resize,
+  // never on scroll.
+  var rankWrap = document.getElementById('rankingTableWrap');
+  var rankSticky = document.getElementById('rankingStickyHead');
+  var rankStickyViewport = document.getElementById('rankingStickyHeadViewport');
+  var rankStickyTable = document.getElementById('rankingStickyHeadTable');
+  var siteHeaderEl = document.querySelector('.site-header');
+
+  function siteHeaderHeight(){ return siteHeaderEl ? siteHeaderEl.getBoundingClientRect().height : 64; }
+
+  function hideRankSticky(){
+    rankSticky.classList.remove('is-visible');
+    rankSticky.setAttribute('aria-hidden','true');
+  }
+
+  function buildRankSticky(){
+    if(!rankWrap || !rankSticky) return;
+    var table = document.getElementById('rankingTable');
+    var thead = table.tHead;
+    if(!thead || !thead.rows.length){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
+    var headCols = thead.rows[thead.rows.length-1].cells.length;
+    var bodyRow = table.tBodies[0] && table.tBodies[0].rows[0];
+    if(!bodyRow || bodyRow.cells.length !== headCols){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
+
+    rankStickyTable.innerHTML='';
+    rankStickyTable.appendChild(thead.cloneNode(true));
+    // Exact fractional widths from the real first body row — rounding drift
+    // over ~80 columns would misalign the clone's benchmark cells.
+    var colgroup = document.createElement('colgroup');
+    var total = 0;
+    Array.from(bodyRow.cells).forEach(function(cell){
+      var w = cell.getBoundingClientRect().width;
+      var col = document.createElement('col');
+      col.style.width = w+'px'; col.style.minWidth = w+'px'; col.style.maxWidth = w+'px';
+      colgroup.appendChild(col);
+      total += w;
+    });
+    rankStickyTable.insertBefore(colgroup, rankStickyTable.firstChild);
+    rankStickyTable.style.width = total+'px';
+    rankStickyTable.style.tableLayout = 'fixed';
+    rankStickyViewport.scrollLeft = rankWrap.scrollLeft;
+    // Pull the table up under the clone so the always-rendered clone
+    // reserves zero flow space.
+    rankSticky.style.marginBottom = (-rankSticky.offsetHeight)+'px';
+    rankSticky.style.top = Math.ceil(siteHeaderHeight())+'px';
+  }
+
+  var rankStickyTicking = false;
+  function updateRankSticky(){
+    rankStickyTicking = false;
+    if(!rankWrap || !rankSticky || !rankStickyTable.tHead) return;
+    var top = siteHeaderHeight();
+    var rect = rankWrap.getBoundingClientRect();
+    var show = rect.top <= top && rect.bottom > top + rankSticky.offsetHeight;
+    rankSticky.classList.toggle('is-visible', show);
+    rankSticky.setAttribute('aria-hidden', show ? 'false' : 'true');
+  }
+  function onRankStickyScroll(){
+    if(!rankStickyTicking){ rankStickyTicking = true; requestAnimationFrame(updateRankSticky); }
+  }
+
+  if(rankWrap && rankSticky){
+    rankWrap.addEventListener('scroll', function(){ rankStickyViewport.scrollLeft = rankWrap.scrollLeft; }, { passive:true });
+    window.addEventListener('scroll', onRankStickyScroll, { passive:true });
+    window.addEventListener('resize', function(){ buildRankSticky(); updateRankSticky(); }, { passive:true });
+    window.addEventListener('load', function(){ buildRankSticky(); updateRankSticky(); });
   }
 
   renderRanking();
