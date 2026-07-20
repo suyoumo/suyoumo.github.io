@@ -55,13 +55,13 @@ permalink: /llm-leaderboard/
       </div>
       <div class="llm-ranking-controls">
         <label class="llm-ranking-min-label">最少 benchmark 数:
-          <input type="number" id="rankingMinBench" value="6" min="1" max="30" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+          <input type="number" id="rankingMinBench" value="6" min="1" max="30">
         </label>
         <label class="llm-ranking-min-label">每 bench 最少模型数:
-          <input type="number" id="rankingMinModels" value="5" min="2" max="20" style="width:50px;padding:3px 6px;border:1px solid var(--border);border-radius:6px;text-align:center;font-size:0.82rem;">
+          <input type="number" id="rankingMinModels" value="5" min="2" max="20">
         </label>
         <label class="llm-ranking-min-label">排序方式:
-          <select id="rankingSortMode" style="padding:3px 6px;border:1px solid var(--border);border-radius:6px;font-size:0.82rem;">
+          <select id="rankingSortMode">
             <option value="wins" selected>胜率</option>
             <option value="percentile">百分位</option>
           </select>
@@ -353,10 +353,11 @@ permalink: /llm-leaderboard/
 <style>
 .llm-ranking-section {
   margin-bottom: 24px;
-  padding: 20px;
+  padding: 22px;
   background: #fff;
+  border: 1px solid rgba(25,25,24,0.08);
   border-radius: 14px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 2px rgba(60,42,28,0.05);
 }
 .llm-ranking-header {
   display: flex;
@@ -367,60 +368,84 @@ permalink: /llm-leaderboard/
   margin-bottom: 14px;
 }
 .llm-ranking-header h2 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--primary, #c45a3c);
+  letter-spacing: -0.01em;
+  color: #191918;
   margin: 0;
 }
 .llm-ranking-collections {
   display: flex;
-  gap: 6px;
+  gap: 2px;
   flex-wrap: wrap;
+  padding: 3px;
+  background: rgba(25,25,24,0.05);
+  border-radius: 999px;
 }
 .llm-ranking-col-btn {
   padding: 5px 14px;
-  border: 2px solid rgba(0,0,0,0.08);
-  border-radius: 18px;
-  background: #fff;
-  font-size: 0.82rem;
-  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.12s;
+  transition: background 0.12s, color 0.12s;
   color: #6b6b65;
 }
-.llm-ranking-col-btn:hover { border-color: var(--primary, #c45a3c); color: var(--primary, #c45a3c); }
-.llm-ranking-col-btn.active { background: var(--primary, #c45a3c); color: #fff; border-color: var(--primary, #c45a3c); }
+.llm-ranking-col-btn:hover { color: #191918; }
+.llm-ranking-col-btn.active { background: #fff; color: #191918; box-shadow: 0 1px 3px rgba(25,25,24,0.14); }
 .llm-ranking-custom { margin-bottom: 12px; font-size: 0.85rem; }
 .llm-ranking-custom strong { display: block; margin-bottom: 6px; color: #2b2b2b; }
 .llm-ranking-bench-cb { display: flex; flex-wrap: wrap; gap: 5px; }
 .llm-ranking-bench-cb label {
   display: flex; align-items: center; gap: 4px;
-  padding: 3px 10px; border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 14px; font-size: 0.75rem; cursor: pointer;
+  padding: 3px 10px; border: 1px solid rgba(25,25,24,0.08);
+  border-radius: 999px; font-size: 0.75rem; cursor: pointer;
   transition: all 0.12s; background: #fff;
 }
-.llm-ranking-bench-cb label:hover { border-color: var(--primary, #c45a3c); }
-.llm-ranking-bench-cb label:has(input:checked) { border-color: var(--primary, #c45a3c); background: rgba(196,90,60,0.06); }
-.llm-ranking-bench-cb input { accent-color: var(--primary, #c45a3c); }
+.llm-ranking-bench-cb label:hover { border-color: #c45a3c; }
+.llm-ranking-bench-cb label:has(input:checked) { border-color: #c45a3c; background: rgba(196,90,60,0.06); }
+.llm-ranking-bench-cb input { accent-color: #c45a3c; }
 .llm-ranking-controls { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
-.llm-ranking-min-label { font-size: 0.82rem; color: #6b6b65; display: flex; align-items: center; gap: 6px; }
+.llm-ranking-min-label { font-size: 0.8rem; color: #6b6b65; display: flex; align-items: center; gap: 6px; }
+.llm-ranking-controls input,
+.llm-ranking-controls select {
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid rgba(25,25,24,0.1);
+  border-radius: 8px;
+  background: #fff;
+  color: #2b2b2b;
+  font-size: 0.82rem;
+}
+.llm-ranking-controls input { width: 52px; text-align: center; }
+.llm-ranking-controls input:focus,
+.llm-ranking-controls select:focus {
+  outline: none;
+  border-color: rgba(196,90,60,0.5);
+  box-shadow: 0 0 0 3px rgba(196,90,60,0.1);
+}
 .llm-ranking-info { font-size: 0.8rem; color: #6b6b65; font-weight: 600; }
-.llm-ranking-table-wrap { overflow-x: auto; border-radius: 10px; }
+.llm-ranking-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(25,25,24,0.06); }
 .llm-ranking-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .llm-ranking-table thead th {
-  position: sticky; top: 0; background: #2b2b2b; color: #fff;
+  position: sticky; top: 0; background: #faf7f2; color: #6b6b65;
   padding: 9px 7px; font-weight: 700; text-align: center; white-space: nowrap; z-index: 5;
-  font-size: 0.75rem;
+  font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase;
+  border-bottom: 1px solid rgba(25,25,24,0.08);
+  border-right: 1px solid rgba(25,25,24,0.05);
 }
+.llm-ranking-table thead th:last-child { border-right: none; }
 .llm-ranking-table thead th:nth-child(1),
 .llm-ranking-table thead th:nth-child(2),
-.llm-ranking-table thead th:nth-child(3) { background: #1a1a1a; text-align: left; padding-left: 10px; }
-.llm-ranking-table thead th:nth-child(4) { background: #1a1a1a; }
+.llm-ranking-table thead th:nth-child(3) { text-align: left; padding-left: 10px; }
 .llm-ranking-table tbody tr { transition: background 0.08s; }
 .llm-ranking-table tbody tr:hover { background: rgba(196,90,60,0.03); }
 .llm-ranking-table td {
   padding: 6px 7px; text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.06); white-space: nowrap;
+  border-bottom: 1px solid rgba(25,25,24,0.05); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .llm-ranking-table td:nth-child(1) { font-weight: 800; font-size: 0.88rem; padding-left: 10px; text-align: left; width: 44px; }
 .llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
@@ -442,28 +467,26 @@ permalink: /llm-leaderboard/
 }
 .llm-ranking-table td:nth-child(3) { text-align: left; color: #6b6b65; font-size: 0.75rem; }
 .llm-ranking-table td:nth-child(4) { font-weight: 800; font-size: 0.88rem; background: rgba(196,90,60,0.05); }
-.rank-gold { color: #d4a017; }
-.rank-silver { color: #888; }
-.rank-bronze { color: #b87333; }
+.rank-gold,
+.rank-silver,
+.rank-bronze { color: #c45a3c; }
 .heatmap-cell { font-weight: 700; font-size: 0.76rem; min-width: 56px; }
-.no-data-cell { color: #ddd; font-weight: 400; }
-.benchmark-group-header { background: #3a3a3a !important; font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; color: #ddd; border-bottom: 2px solid #555; }
-.llm-ranking-table thead th { border-right: 1px solid rgba(255,255,255,0.1); }
-.llm-ranking-table thead th:last-child { border-right: none; }
+.no-data-cell { color: rgba(25,25,24,0.18); font-weight: 400; }
+.benchmark-group-header { background: rgba(196,90,60,0.07) !important; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: #c45a3c; border-bottom: 2px solid rgba(196,90,60,0.25) !important; }
 .llm-ranking-note {
   margin: 16px 0 24px;
   padding: 14px 18px;
-  background: rgba(196,90,60,0.04);
-  border-left: 3px solid var(--primary, #c45a3c);
-  border-radius: 0 8px 8px 0;
+  background: rgba(25,25,24,0.025);
+  border: 1px solid rgba(25,25,24,0.06);
+  border-radius: 10px;
   font-size: 0.82rem;
   color: #555;
   line-height: 1.7;
 }
-.llm-ranking-note strong { color: var(--primary, #c45a3c); }
+.llm-ranking-note strong { color: #2b2b2b; }
 .llm-ranking-note ol { margin: 6px 0 0; padding-left: 20px; }
 .llm-ranking-note li { margin-bottom: 4px; }
-.llm-ranking-note code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px; font-size: 0.78rem; }
+.llm-ranking-note code { background: rgba(25,25,24,0.06); padding: 1px 5px; border-radius: 3px; font-size: 0.78rem; }
 </style>
 
 <!-- Ranking Section Script -->
@@ -610,12 +633,16 @@ permalink: /llm-leaderboard/
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
+  // Single-hue heat ramp on the brand orange: best rank = deep, worst = faint.
   function rankColor(rank,total){
-    if(total<=1) return 'hsl(120,70%,42%)';
+    if(total<=1) return 'rgba(196,90,60,0.85)';
     var ratio=(rank-1)/(total-1);
-    var hue=Math.max(0,120-ratio*120);
-    var light=38+ratio*18;
-    return 'hsl('+hue.toFixed(0)+',72%,'+light.toFixed(0)+'%)';
+    return 'rgba(196,90,60,'+(0.88-ratio*0.82).toFixed(3)+')';
+  }
+
+  function rankTextColor(rank,total){
+    if(total<=1) return '#fff';
+    return ((rank-1)/(total-1))<0.56?'#fff':'#5a463d';
   }
 
   function renderRanking(){
@@ -634,7 +661,7 @@ permalink: /llm-leaderboard/
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
-    var h1='<tr><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="background:#1a1a1a;text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="background:#1a1a1a;text-align:left;">厂商</th><th rowspan="2" style="background:#1a1a1a;">均百分位</th><th rowspan="2" style="background:#1a1a1a;">胜率</th>';
+    var h1='<tr><th rowspan="2" style="text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="text-align:left;">厂商</th><th rowspan="2">均百分位</th><th rowspan="2">胜率</th>';
     catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
@@ -649,7 +676,7 @@ permalink: /llm-leaderboard/
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
           var rk=r.ranks[bi], tot=r.totals[bi];
-          var color=rankColor(rk,tot), tc=rk<=tot*0.3?'#fff':'#222';
+          var color=rankColor(rk,tot), tc=rankTextColor(rk,tot);
           html+='<td class="heatmap-cell" style="background:'+color+';color:'+tc+';">'+s+'</td>';
         } else { html+='<td class="no-data-cell">—</td>'; }
       });
