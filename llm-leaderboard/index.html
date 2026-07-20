@@ -633,16 +633,20 @@ permalink: /llm-leaderboard/
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
-  // Single-hue heat ramp on the brand orange: best rank = deep, worst = faint.
+  // Multi-hue heat ramp, muted to sit well on the warm page:
+  // best rank = deep green, mid = soft amber, worst = warm soft red.
   function rankColor(rank,total){
-    if(total<=1) return 'rgba(196,90,60,0.85)';
+    if(total<=1) return 'hsl(145,48%,42%)';
     var ratio=(rank-1)/(total-1);
-    return 'rgba(196,90,60,'+(0.88-ratio*0.82).toFixed(3)+')';
+    var hue=145-ratio*137;   // 145 (green) -> 8 (warm red)
+    var sat=52-ratio*8;      // 52% -> 44%
+    var light=41+ratio*19;   // 41% -> 60%
+    return 'hsl('+hue.toFixed(0)+','+sat.toFixed(0)+'%,'+light.toFixed(0)+'%)';
   }
 
   function rankTextColor(rank,total){
     if(total<=1) return '#fff';
-    return ((rank-1)/(total-1))<0.56?'#fff':'#5a463d';
+    return ((rank-1)/(total-1))<0.28?'#fff':'#3c3428';
   }
 
   function renderRanking(){
