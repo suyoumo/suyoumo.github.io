@@ -687,7 +687,9 @@ permalink: /llm-leaderboard/
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
     var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     var sortMode = document.getElementById('rankingSortMode').value;
-    console.log('DEBUG: activeCol='+activeCol+' activeKeys.len='+activeKeys.length+' keys.len='+keys.length+' first3='+JSON.stringify(keys.slice(0,3)));
+    if(activeCol !== 'Overall' && activeCol !== 'Custom') {
+      alert('DEBUG: activeCol='+activeCol+' activeKeys.len='+activeKeys.length+' keys.len='+keys.length+'\nfirst3 keys='+JSON.stringify(keys.slice(0,3))+'\nfirst3 activeKeys='+JSON.stringify(activeKeys.slice(0,3)));
+    }
     if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; buildRankSticky(); updateRankSticky(); return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     console.log('DEBUG: validKeys.len='+validKeys.length+' results.len='+results.length+' first3valid='+JSON.stringify(validKeys.slice(0,3)));
