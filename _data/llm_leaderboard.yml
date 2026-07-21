@@ -1378,6 +1378,10 @@ rows:
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
   scores:
+    agent_arena:
+    - value: '4.94'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     terminal_bench_2:
     - value: '69.7'
       source_label: Qwen3.7
@@ -1734,6 +1738,10 @@ rows:
   - label: Qwen3.7-Plus result
     url: https://qwen.ai/blog?id=qwen3.7
   scores:
+    agent_arena:
+    - value: '-0.90'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     terminal_bench_2:
     - value: '70.3'
       source_label: Qwen3.7-Plus
@@ -2375,10 +2383,6 @@ rows:
     - value: '28.43'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
-    agent_arena:
-    - value: '-4.20'
-      source_label: AgentArena
-      source_url: https://agent-arena.com
     tau3_banking:
     - value: '16'
       source_label: Artificial Analysis
@@ -6799,7 +6803,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-2.67'
+    - value: '-1.02'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7059,7 +7063,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     agent_arena:
-    - value: '-1.57'
+    - value: '-3.78'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7291,7 +7295,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-2.67'
+    - value: '-1.02'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7407,7 +7411,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     agent_arena:
-    - value: '-1.57'
+    - value: '-3.78'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7507,7 +7511,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-2.67'
+    - value: '-1.02'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7611,7 +7615,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     agent_arena:
-    - value: '-1.57'
+    - value: '-3.78'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -7830,6 +7834,10 @@ rows:
   - label: MiMo-V2.5-Pro report
     url: https://github.com/XiaomiMiMo/MiMo
   scores:
+    agent_arena:
+    - value: '-2.98'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     swe_pro:
     - value: '57.2'
       source_label: MiMo-V2.5-Pro
@@ -8246,7 +8254,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-2.28'
+    - value: '-1.10'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -8280,6 +8288,10 @@ rows:
   - label: MiniMax-M2.7 report
     url: https://www.minimaxi.com/
   scores:
+    agent_arena:
+    - value: '-11.49'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     swe_pro:
     - value: '56.2'
       source_label: MiniMax M2.7
@@ -9230,7 +9242,7 @@ rows:
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
     agent_arena:
-    - value: '9.37'
+    - value: '5.34'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -9542,6 +9554,18 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
 - company: Anthropic
+  model: Claude Opus 4.8
+  mode: Thinking
+  released: '2026-05-28'
+  sources:
+  - label: AgentArena
+    url: https://agent-arena.com
+  scores:
+    agent_arena:
+    - value: '10.04'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
+- company: Anthropic
   model: Claude Opus 4.7
   mode: ''
   released: '2026-04-16'
@@ -9700,13 +9724,25 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '8.16'
+    - value: '8.07'
       source_label: AgentArena
       source_url: https://agent-arena.com
     text_arena:
     - value: '1503'
       source_label: TextArena
       source_url: https://text-arena.com
+- company: Anthropic
+  model: Claude Opus 4.7
+  mode: Thinking
+  released: '2026-04-16'
+  sources:
+  - label: AgentArena
+    url: https://agent-arena.com
+  scores:
+    agent_arena:
+    - value: '8.30'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
 - company: Anthropic
   model: Claude Opus 4.6
   mode: Max
@@ -9963,7 +9999,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '6.47'
+    - value: '6.65'
       source_label: AgentArena
       source_url: https://agent-arena.com
     tau3_banking:
@@ -10823,7 +10859,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '2.18'
+    - value: '5.23'
       source_label: AgentArena
       source_url: https://agent-arena.com
     swe_pro:
@@ -11261,6 +11297,10 @@ rows:
   - label: Muse Spark 1.1 report
     url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
   scores:
+    agent_arena:
+    - value: '4.97'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     mcp_atlas:
     - value: '88.1'
       source_label: Muse Spark 1.1 report
@@ -11416,6 +11456,10 @@ rows:
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
   scores:
+    agent_arena:
+    - value: '9.86'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     agents_last_exam:
     - value: '52.7'
       source_label: GPT-5.6 report
@@ -12261,7 +12305,7 @@ rows:
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
     agent_arena:
-    - value: '8.21'
+    - value: '8.80'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -12757,7 +12801,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '6.65'
+    - value: '5.57'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -14274,7 +14318,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     agent_arena:
-    - value: '-1.09'
+    - value: '-0.19'
       source_label: AgentArena
       source_url: https://agent-arena.com
     gdpval_mm:
@@ -15085,7 +15129,7 @@ rows:
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
     agent_arena:
-    - value: '-1.13'
+    - value: '-0.67'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -15124,6 +15168,10 @@ rows:
   - label: Gemini 3 Flash report
     url: https://deepmind.google/models/gemini/flash/
   scores:
+    agent_arena:
+    - value: '-8.33'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     mmlu_pro:
     - value: '87.8'
       source_label: Seed2.0 T4
@@ -15914,6 +15962,10 @@ rows:
   - label: Gemma 4 report
     url: https://deepmind.google/models/gemma/
   scores:
+    agent_arena:
+    - value: '-13.97'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     mmlu:
     - value: '85.2'
       source_label: Gemma 4
@@ -16233,7 +16285,7 @@ rows:
       source_label: DeepSWE v1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-1.82'
+    - value: '-1.06'
       source_label: AgentArena
       source_url: https://agent-arena.com
     tau3_banking:
@@ -17049,7 +17101,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     agent_arena:
-    - value: '1.40'
+    - value: '5.19'
       source_label: AgentArena
       source_url: https://agent-arena.com
     swe_verified:
@@ -17870,7 +17922,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     agent_arena:
-    - value: '6.93'
+    - value: '6.47'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -18086,7 +18138,7 @@ rows:
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
     agent_arena:
-    - value: '-0.77'
+    - value: '-0.74'
       source_label: AgentArena
       source_url: https://agent-arena.com
     scicode:
@@ -18235,6 +18287,10 @@ rows:
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
   scores:
+    agent_arena:
+    - value: '13.22'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     swe_pro:
     - value: '80.3'
       source_label: Claude Fable 5
@@ -18484,6 +18540,10 @@ rows:
   - label: Claude Sonnet 5 report
     url: https://anthropic.com
   scores:
+    agent_arena:
+    - value: '9.10'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     swe_pro:
     - value: '63.2'
       source_label: Claude Sonnet 5
@@ -18546,6 +18606,10 @@ rows:
   - label: Grok 4.5 report
     url: https://x.ai/news/grok-4-5
   scores:
+    agent_arena:
+    - value: '5.62'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     deepswe:
     - value: '62.0'
       source_label: Grok 4.5 report
@@ -18800,6 +18864,10 @@ rows:
   - label: Kimi K3 report
     url: https://kimi.moonshot.cn
   scores:
+    agent_arena:
+    - value: '9.62'
+      source_label: AgentArena
+      source_url: https://agent-arena.com
     deepswe:
     - value: '67.5'
       source_label: Kimi K3
