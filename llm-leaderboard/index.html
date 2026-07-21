@@ -687,8 +687,10 @@ permalink: /llm-leaderboard/
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
     var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     var sortMode = document.getElementById('rankingSortMode').value;
+    console.log('DEBUG: activeCol='+activeCol+' activeKeys.len='+activeKeys.length+' keys.len='+keys.length+' first3='+JSON.stringify(keys.slice(0,3)));
     if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; buildRankSticky(); updateRankSticky(); return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
+    console.log('DEBUG: validKeys.len='+validKeys.length+' results.len='+results.length+' first3valid='+JSON.stringify(validKeys.slice(0,3)));
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
     document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'胜率排名':'百分位排名');
