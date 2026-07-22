@@ -15113,6 +15113,8 @@ rows:
   sources:
   - label: Gemini 3.6 Flash report
     url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+  - label: Artificial Analysis
+    url: https://artificialanalysis.ai
   scores:
     swe_pro:
     - value: '58.7'
@@ -15154,6 +15156,46 @@ rows:
     - value: '54.0'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_pct:
+    - value: '46'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '25'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '53'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '38'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gpqa:
+    - value: '93'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '11'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '50'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '46'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '70'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '961'
+      source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
 - company: Google
   model: Gemini 3.5 Flash
   mode: High
