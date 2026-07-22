@@ -104,6 +104,10 @@ sources:
   label: Gemini 3.5 Flash report
   short_label: Gemini 3.5 Flash
   url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+- id: gemini36flash
+  label: Gemini 3.6 Flash report
+  short_label: Gemini 3.6 Flash
+  url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - id: gemma4
   label: Gemma 4 report
   short_label: Gemma 4
@@ -419,6 +423,8 @@ categories:
     label: t3-bench
   - key: mle_bench_lite
     label: MLE-Bench lite
+  - key: mle_bench
+    label: MLE-Bench
   - key: mm_clawbench
     label: MM-ClawBench
   - key: artificial_analysis
@@ -551,6 +557,8 @@ categories:
     label: RW Search
   - key: gdpval_aa
     label: GDPval-AA
+  - key: gdpval_aa_v2
+    label: GDPval-AA v2 (Elo)
   - key: widesearch
     label: WideSearch
   - key: webarena
@@ -12040,6 +12048,26 @@ rows:
     - value: '0.18'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    mle_bench:
+    - value: '47.6'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    osworld_verified:
+    - value: '72.6'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '1584'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq:
+    - value: '82.7'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_v2_128k:
+    - value: '74.8'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - company: OpenAI
   model: GPT-5.5
   mode: xHigh
@@ -14465,6 +14493,34 @@ rows:
     - value: '42.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    terminal_bench_2_1:
+    - value: '73.8'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mle_bench:
+    - value: '42.6'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    osworld_verified:
+    - value: '76.2'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '965'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq:
+    - value: '83.3'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq_python:
+    - value: '83.2'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_v2_128k:
+    - value: '84.9'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -15051,6 +15107,54 @@ rows:
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Google
+  model: Gemini 3.6 Flash
+  mode: ''
+  released: '2026-07-15'
+  sources:
+  - label: Gemini 3.6 Flash report
+    url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+  scores:
+    swe_pro:
+    - value: '58.7'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    deepswe_1_1:
+    - value: '49'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    terminal_bench_2_1:
+    - value: '78.0'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mle_bench:
+    - value: '63.9'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    osworld_verified:
+    - value: '83.0'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '1421'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq:
+    - value: '85.2'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq_python:
+    - value: '89.4'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_v2_128k:
+    - value: '91.8'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_1m:
+    - value: '54.0'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+- company: Google
   model: Gemini 3.5 Flash
   mode: High
   released: '2026-04-15'
@@ -15158,6 +15262,18 @@ rows:
     - value: '50.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    mle_bench:
+    - value: '49.7'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '1349'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq_python:
+    - value: '84.9'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - company: Google
   model: Gemini 3 Flash
   mode: High
@@ -18598,6 +18714,30 @@ rows:
     - value: '45.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    deepswe_1_1:
+    - value: '54'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mle_bench:
+    - value: '66.9'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '1607'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq:
+    - value: '77.0'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq_python:
+    - value: '88.3'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_v2_128k:
+    - value: '71.6'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - company: xAI
   model: Grok 4.5
   mode: ''
@@ -18688,6 +18828,22 @@ rows:
     - value: '41.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    mle_bench:
+    - value: '43.2'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    gdpval_aa_v2:
+    - value: '1535'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    charxiv_rq:
+    - value: '81.6'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    mrcr_v2_128k:
+    - value: '81.4'
+      source_label: Gemini 3.6 Flash
+      source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
 - company: Tencent
   model: Hunyuan 3
   mode: ''
