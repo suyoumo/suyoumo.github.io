@@ -216,6 +216,10 @@ sources:
   label: Ling-2.6-1T report
   short_label: Ling 2.6
   url: https://huggingface.co/inclusionAI
+- id: ling_30_flash
+  label: Ling-3.0-Flash result table
+  short_label: Ling 3.0 Flash
+  url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - id: ring_25
   label: Ring-2.5-1T report
   short_label: Ring 2.5
@@ -497,6 +501,8 @@ categories:
     label: Aider Polyglot
   - key: artifactsbench
     label: ArtifactsBench
+  - key: miniappbench
+    label: MiniAppBench
   - key: codesimpleqa
     label: CodeSimpleQA
   - key: nl2repo_bench
@@ -881,6 +887,8 @@ categories:
   columns:
   - key: mrcr_v2_128k
     label: MRCR-v2 128k
+  - key: mrcr_v2_256k
+    label: MRCR-v2 256k
   - key: mrcr_1m
     label: MRCR 1M
   - key: corpusqa_1m
@@ -6955,6 +6963,8 @@ rows:
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
   scores:
     mmlu_pro:
     - value: '86.2'
@@ -7001,6 +7011,9 @@ rows:
     - value: '88.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '87.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     apex:
     - value: '33.0'
       source_label: DeepSeek-V4
@@ -7090,6 +7103,9 @@ rows:
     - value: '52.58'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '62.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     nl2repo:
     - value: '39.4'
       source_label: Hunyuan 3
@@ -7102,6 +7118,9 @@ rows:
     - value: '74.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '74.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     deepsearch_qa:
     - value: '87.7'
       source_label: Hunyuan 3
@@ -7122,6 +7141,9 @@ rows:
     - value: '35.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '53.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     cl_bench:
     - value: '16.4'
       source_label: Hunyuan 3
@@ -7206,10 +7228,69 @@ rows:
     - value: '64.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '63.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     text_arena:
     - value: '1438'
       source_label: TextArena
       source_url: https://text-arena.com
+    artifactsbench:
+    - value: '64.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '14.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '22.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '59.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '1189'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '73.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    draco:
+    - value: '71.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '79.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '93.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '74.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '96.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '88.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '84.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '86.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: High reasoning effort
@@ -8351,6 +8432,8 @@ rows:
   sources:
   - label: MiniMax-M2.7 report
     url: https://www.minimaxi.com/
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
   scores:
     agent_arena:
     - value: '-11.49'
@@ -8396,6 +8479,98 @@ rows:
     - value: '47.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    swe_multilingual:
+    - value: '76.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '55.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '55.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '20.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '8.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '53.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '28.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '63.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '1159'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '75.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '76.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    draco:
+    - value: '66.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '75.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '86.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '66.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '94.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '71.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '66.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '28.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '75.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '27.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aa_lcr:
+    - value: '68.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '82.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - company: MiniMax
   model: MiniMax-M2.5
   mode: Thinking
@@ -8651,6 +8826,8 @@ rows:
   sources:
   - label: Step 3.7 Flash report
     url: https://stepfun.com/
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
   scores:
     swe_pro:
     - value: '56.3'
@@ -8660,6 +8837,9 @@ rows:
     - value: '59.5'
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
+    - value: '39.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     simplevqa:
     - value: '79.2'
       source_label: Step 3.7 Flash
@@ -8720,6 +8900,9 @@ rows:
     - value: '63.9'
       source_label: Step 3.7 Flash
       source_url: https://stepfun.com/
+    - value: '63.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     code_agent_bench:
     - value: '28.01'
       source_label: CodeAgentBench
@@ -8728,6 +8911,82 @@ rows:
     - value: '40.0'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    artifactsbench:
+    - value: '59.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '28.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '11.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '52.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '24.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '65.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '1017'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '56.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '75.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '67.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '91.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '71.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '95.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '87.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '19.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '78.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '39.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '25.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '84.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - company: StepFun
   model: Step 3.5 Flash
   mode: Thinking
@@ -8815,11 +9074,16 @@ rows:
   sources:
   - label: Ring-2.6-1T report
     url: https://huggingface.co/inclusionAI
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
   scores:
     aime26:
     - value: '95.83'
       source_label: Ring 2.6
       source_url: https://huggingface.co/inclusionAI
+    - value: '95.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
     gpqa:
     - value: '88.27'
       source_label: Ring 2.6
@@ -8884,6 +9148,198 @@ rows:
     - value: '16.2'
       source_label: Ring-2.6-1T Artificial Analysis
       source_url: https://artificialanalysis.ai
+    swe_pro:
+    - value: '53.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    swe_multilingual:
+    - value: '56.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '43.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '65.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '19.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '14.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '61.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '11.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '64.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '920'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '62.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '71.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '86.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '72.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '93.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '86.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '87.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '90.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '76.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '89.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+- company: InclusionAI
+  model: Ling-3.0-Flash
+  mode: Thinking
+  released: '2026-07-26'
+  sources:
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+  scores:
+    swe_pro:
+    - value: '56.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    swe_multilingual:
+    - value: '72.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '57.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '77.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '25.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '28.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '65.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '44.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '73.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '1107'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '73.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '72.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_agent_swarm:
+    - value: '82.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    draco:
+    - value: '70.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '74.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '93.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '77.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '93.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '87.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '83.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '22.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '82.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '90.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '81.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aa_lcr:
+    - value: '65.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '87.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - company: InclusionAI
   model: Ling-2.6-1T
   mode: Thinking
@@ -11087,6 +11543,120 @@ rows:
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Anthropic
+  model: Claude Sonnet 4.6
+  mode: Max
+  released: '2026-02-17'
+  sources:
+  - label: Claude Sonnet 4.6 announcement
+    url: https://www.anthropic.com/news/claude-sonnet-4-6
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+  scores:
+    swe_pro:
+    - value: '48.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    swe_multilingual:
+    - value: '75.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '71.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '68.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '46.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '30.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '66.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '54.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '73.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '1377'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '79.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '74.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_agent_swarm:
+    - value: '82.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    draco:
+    - value: '75.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '56.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '94.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '71.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '94.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '85.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '82.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '30.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '83.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '92.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '92.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aa_lcr:
+    - value: '70.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '84.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+- company: Anthropic
   model: Claude Sonnet 4.5
   mode: ''
   released: '2025-09-29'
@@ -13208,6 +13778,106 @@ rows:
     - value: '74'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+- company: OpenAI
+  model: GPT-5.4-mini
+  mode: High
+  released: '2026-07-26'
+  sources:
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+  scores:
+    swe_pro:
+    - value: '47.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    swe_multilingual:
+    - value: '71.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '55.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '66.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '58.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '11.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '55.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '44.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '68.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '70.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    draco:
+    - value: '61.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '69.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '93.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '69.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '92.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '83.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '74.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '20.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '80.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '56.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '50.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aa_lcr:
+    - value: '63.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '84.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
 - company: OpenAI
   model: GPT-5.3-Codex
   mode: xHigh
@@ -19702,3 +20372,107 @@ rows:
     - value: '75'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+- company: NVIDIA
+  model: Nemotron-3-Super-120B-A12B
+  mode: ''
+  released: '2026-07-26'
+  sources:
+  - label: Ling-3.0-Flash result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+  scores:
+    swe_pro:
+    - value: '34.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    swe_multilingual:
+    - value: '42.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    terminal_bench_2_1:
+    - value: '39.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    artifactsbench:
+    - value: '51.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    miniappbench:
+    - value: '5.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    tau3_banking:
+    - value: '10.1'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mcp_atlas:
+    - value: '49.4'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    skillsbench:
+    - value: '20.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    bfcl_v4:
+    - value: '60.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    gdpval_aa_v2:
+    - value: '699'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    wide_search:
+    - value: '19.5'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    browsecomp_ctx:
+    - value: '31.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    ifbench:
+    - value: '72.6'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    sysbench:
+    - value: '90.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    lifebench:
+    - value: '60.2'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aime26:
+    - value: '91.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hmmt_2026_feb:
+    - value: '84.9'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    imoanswerbench:
+    - value: '77.0'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    hle:
+    - value: '18.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    livecodebench:
+    - value: '78.7'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_128k:
+    - value: '40.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    mrcr_v2_256k:
+    - value: '35.8'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    aa_lcr:
+    - value: '58.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+    multi_if:
+    - value: '82.3'
+      source_label: Ling-3.0-Flash result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
