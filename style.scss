@@ -1066,7 +1066,7 @@ $llm-radius-ctl: 10px;
 .llm-board-filter-panel-body {
   overflow: hidden;
   padding: 0;
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -1075,7 +1075,7 @@ $llm-radius-ctl: 10px;
 /* Two-column layout: sidebar + detail */
 .llm-filter-two-col {
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-height: 0;
   overflow: hidden;
 }
@@ -1170,8 +1170,9 @@ $llm-radius-ctl: 10px;
 
 /* Right detail panel */
 .llm-filter-detail {
-  flex: 1 1 auto;
+  flex: 1 1 0%;
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1217,13 +1218,35 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-filter-detail-list {
-  overflow-y: auto;
-  flex: 1 1 auto;
+  overflow-y: scroll;
+  flex: 1 1 0%;
   min-height: 0;
   padding: 6px 10px 10px;
   display: flex;
   flex-direction: column;
   gap: 1px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196, 90, 60, 0.35) rgba(0, 0, 0, 0.04);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    display: block;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(196, 90, 60, 0.35);
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(196, 90, 60, 0.55);
+    }
+  }
 }
 
 .llm-board-filter-item {
