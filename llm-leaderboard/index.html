@@ -190,7 +190,7 @@ permalink: /llm-leaderboard/
                 {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
             <tr data-model-name="{{ first_row.model }}" data-company="{{ first_row.company }}">
               <td class="llm-sticky-col llm-model-cell">
-                <strong>{{ first_row.model }}</strong>
+                <strong title="{{ first_row.model }}">{{ first_row.model }}</strong>
                 <span>{{ first_row.company }}</span>
               </td>
               <td>
