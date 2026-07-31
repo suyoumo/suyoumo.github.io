@@ -220,6 +220,10 @@ sources:
   label: Ling-3.0-Flash result table
   short_label: Ling 3.0 Flash
   url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+- id: deepseek_v4_flash_0731
+  label: DeepSeek-V4-Flash-0731 result table
+  short_label: DS-V4-Flash-0731
+  url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
 - id: ring_25
   label: Ring-2.5-1T report
   short_label: Ring 2.5
@@ -511,6 +515,10 @@ categories:
     label: AgentArena
   - key: deck_bench
     label: DECK-Bench (Internal)
+  - key: dsbench_fullstack
+    label: DSBench-FullStack
+  - key: dsbench_hard
+    label: DSBench-Hard
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -6954,6 +6962,50 @@ rows:
     - value: '43'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+- company: DeepSeek
+  model: DeepSeek-V4-Flash-0731
+  mode: ''
+  released: '2026-07-31'
+  sources:
+  - label: DeepSeek-V4-Flash-0731 result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+  scores:
+    terminal_bench_2_1:
+    - value: '82.7'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    nl2repo:
+    - value: '54.2'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    cybergym:
+    - value: '76.7'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    deepswe:
+    - value: '54.4'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    toolathlon:
+    - value: '70.3'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    agents_last_exam:
+    - value: '25.2'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    automation_bench:
+    - value: '25.1'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    dsbench_fullstack:
+    - value: '68.7'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    dsbench_hard:
+    - value: '59.6'
+      source_label: DeepSeek-V4-Flash-0731 result table
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
