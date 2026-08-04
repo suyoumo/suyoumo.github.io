@@ -304,6 +304,10 @@ sources:
   label: Hunyuan 3 report
   short_label: Hunyuan 3
   url: https://hunyuan.tencent.com
+- id: qwen38
+  label: Qwen3.8 report
+  short_label: Qwen3.8
+  url: https://qwen.ai/blog?id=qwen3.8
 categories:
 - name: Coding Agent
   columns:
@@ -519,6 +523,14 @@ categories:
     label: DSBench-FullStack
   - key: dsbench_hard
     label: DSBench-Hard
+  - key: qwen_react_bench
+    label: QwenReactBench
+  - key: qwen_swe_bench
+    label: QwenSWEBench
+  - key: qwen_qoder_bench
+    label: QwenQoderBench
+  - key: android_bench
+    label: AndroidBench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -695,6 +707,16 @@ categories:
     label: SpreadsheetBench 2
   - key: enterpriseops_gym_aa
     label: EnterpriseOps-Gym-AA
+  - key: mobileworld
+    label: MobileWorld
+  - key: one_million_bench
+    label: $OneMillion-Bench
+  - key: plaw_bench
+    label: PLawBench
+  - key: prbench_legal
+    label: PRBench-Legal
+  - key: prbench_finance
+    label: PRBench-Finance
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -1089,6 +1111,30 @@ categories:
     label: ZeroBench_main w/ python (pass@5)
   - key: perception_bench
     label: PerceptionBench
+  - key: vision2web
+    label: Vision2Web
+  - key: qwen_blender_bench
+    label: QwenBlenderBench
+  - key: parametric_cad_bench
+    label: Parametric CAD Bench
+  - key: recreation_bench
+    label: RecreationBench
+  - key: present_bench
+    label: PresentBench
+  - key: slake
+    label: SLAKE
+  - key: pmc_vqa
+    label: PMC-VQA
+  - key: madqa
+    label: MADQA
+  - key: qwen_visual_office
+    label: QwenVisualOffice
+  - key: refadv_s
+    label: RefAdv-S
+  - key: dense200
+    label: Dense200
+  - key: coco
+    label: COCO
 - name: Generation
   columns:
   - key: geneval
@@ -1281,6 +1327,14 @@ categories:
     label: MM-BrowseComp
   - key: hle_vl
     label: HLE-VL
+  - key: videomme_v2_w_sub
+    label: VideoMME v2 (w/ Sub.)
+  - key: lvbench_w_mem
+    label: LVBench (w/ Mem.)
+  - key: egolife_w_mem
+    label: EgoLife (w/ Mem.)
+  - key: video_dr_w_search
+    label: VideoDR (w/ Search)
 - name: Seed2.0 Language & Reasoning
   columns:
   - key: healthbench
@@ -1424,6 +1478,9 @@ rows:
     - value: '60.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '60.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     swe_multilingual:
     - value: '78.3'
       source_label: Qwen3.7
@@ -1450,6 +1507,9 @@ rows:
     - value: '1608'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '1499'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     qwenclawbench:
     - value: '64.3'
       source_label: Qwen3.7
@@ -1458,6 +1518,9 @@ rows:
     - value: '67.2'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '64.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     claw_eval_avg:
     - value: '65.2'
       source_label: Qwen3.7
@@ -1469,6 +1532,9 @@ rows:
     - value: '46.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '61.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     bfcl_v4:
     - value: '75.0'
       source_label: Qwen3.7
@@ -1503,6 +1569,9 @@ rows:
     - value: '53.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '53.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     qwenworldbench:
     - value: '57.3'
       source_label: Qwen3.7
@@ -1514,6 +1583,9 @@ rows:
     - value: '92.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '92.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hle:
     - value: '41.4'
       source_label: Qwen3.7
@@ -1521,6 +1593,9 @@ rows:
     - value: '41.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '41.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     livecodebench:
     - value: '91.6'
       source_label: Qwen3.7
@@ -1564,6 +1639,9 @@ rows:
     - value: '79.1'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '79.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mrcr_v2_128k:
     - value: '90.4'
       source_label: Qwen3.7
@@ -1619,6 +1697,9 @@ rows:
     - value: '71.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '74.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepswe:
     - value: '18'
       source_label: DeepSWE v1
@@ -1634,6 +1715,9 @@ rows:
     - value: '72.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '75.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepsearch_qa:
     - value: '88.4'
       source_label: Hunyuan 3
@@ -1642,6 +1726,9 @@ rows:
     - value: '45.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '49.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     apex_agents:
     - value: '22.2'
       source_label: Hunyuan 3
@@ -1754,6 +1841,114 @@ rows:
     - value: '45.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    healthbench:
+    - value: '54.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '47.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    automation_bench:
+    - value: '14.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    charxiv_rq_python:
+    - value: '85.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mrcr_v2_256k:
+    - value: '86.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    paperbench:
+    - value: '64.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vision2web:
+    - value: '42.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '51.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    charxiv_rq:
+    - value: '85.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_verified:
+    - value: '73.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    one_million_bench:
+    - value: '44.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    deepswe_1_1:
+    - value: '21.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision_python:
+    - value: '64.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    frontierswe:
+    - value: '40.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    longbench_v2:
+    - value: '65.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench:
+    - value: '63.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_qoder_bench:
+    - value: '36.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    jobbench:
+    - value: '31.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    plaw_bench:
+    - value: '58.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mls_bench_lite:
+    - value: '31.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_legal:
+    - value: '48.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '70.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspace_bench:
+    - value: '61.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    android_bench:
+    - value: '56.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_finance:
+    - value: '46.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    agents_last_exam:
+    - value: '31.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_react_bench:
+    - value: '1538'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Qwen
   model: Qwen3.7-Plus
   mode: ''
@@ -1934,38 +2129,65 @@ rows:
     - value: '79.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '79.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision:
     - value: '90.3'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '90.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision:
     - value: 70.4/64.7
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '70.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq:
     - value: 85.9/84.4
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '85.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hipho:
     - value: '84.1'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '84.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     erqa:
     - value: '69.8'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '69.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     visfactor:
     - value: '42.8'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '42.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     medxpertqa_mm:
     - value: '71.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '71.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     screenspot_pro:
     - value: '79.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '79.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     osworld_verified:
     - value: '73.3'
       source_label: Qwen3.7-Plus
@@ -1974,6 +2196,9 @@ rows:
     - value: '81.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '81.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     qwenvision2code:
     - value: '1772.0'
       source_label: Qwen3.7-Plus
@@ -1982,14 +2207,23 @@ rows:
     - value: '55.7'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '60.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     simplevqa:
     - value: '81.7'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '70.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     worldvqa:
     - value: '61.1'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '43.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmsearchplus:
     - value: '41.4'
       source_label: Qwen3.7-Plus
@@ -2006,22 +2240,37 @@ rows:
     - value: '86.9'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '86.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     countqa:
     - value: '77.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '77.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     omnidocbench15:
     - value: '91.4'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '91.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     ocr_bench_v2_en:
     - value: '70.7'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '70.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     ocr_bench_v2_zh:
     - value: '67.1'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '67.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     odinw13:
     - value: '51.1'
       source_label: Qwen3.7-Plus
@@ -2030,6 +2279,9 @@ rows:
     - value: '83.4'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '83.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     ego3d_bench:
     - value: '5.9'
       source_label: Qwen3.7-Plus
@@ -2038,6 +2290,9 @@ rows:
     - value: '77.2'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '77.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     vladbench:
     - value: '77.2'
       source_label: Qwen3.7-Plus
@@ -2046,30 +2301,169 @@ rows:
     - value: '88.0'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '88.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     videommmu:
     - value: '85.4'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '85.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mlvu_mavg:
     - value: '87.4'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '87.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     tvbench:
     - value: '78.2'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '78.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     lvbench:
     - value: '76.2'
       source_label: Qwen3.7-Plus
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '76.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     code_agent_bench:
     - value: '31.21'
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     text_arena:
-    - value: '1460'
+    - value: '1459'
       source_label: TextArena
       source_url: https://text-arena.com
+    mtvqa:
+    - value: '51.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_sub:
+    - value: '41.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '87.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '83.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '80.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '84.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    charxiv_rq_python:
+    - value: '85.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '32.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '59.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    perception_bench:
+    - value: '51.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    video_dr_w_search:
+    - value: '41.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '41.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmvu:
+    - value: '76.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '36.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    egolife_w_mem:
+    - value: '68.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '30.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '65.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '55.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '74.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hle_vl:
+    - value: '25.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '60.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_pass5:
+    - value: '19.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision_python:
+    - value: '64.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '73.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench_w_mem:
+    - value: '74.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_2_0:
+    - value: '21.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '72.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '63.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_python_pass5:
+    - value: '19.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '83.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '73.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Qwen
   model: Qwen3.6-Plus
   mode: ''
@@ -2412,7 +2806,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1443'
+    - value: '1460'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Qwen
@@ -2790,7 +3184,7 @@ rows:
       source_label: SciCode
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1442'
+    - value: '1465'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Meituan
@@ -3654,10 +4048,6 @@ rows:
     - value: 1.35 / 1.54
       source_label: ERNIE 5.0
       source_url: https://ernie.baidu.com/blog/posts/ernie5.0/
-    text_arena:
-    - value: '1449'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Baidu
   model: ERNIE 4.5
   mode: ''
@@ -7283,10 +7673,6 @@ rows:
     - value: '63.0'
       source_label: Ling-3.0-Flash result table
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
-    text_arena:
-    - value: '1438'
-      source_label: TextArena
-      source_url: https://text-arena.com
     artifactsbench:
     - value: '64.0'
       source_label: Ling-3.0-Flash result table
@@ -7591,10 +7977,6 @@ rows:
     - value: '43.8'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1438'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Non-think
@@ -7819,10 +8201,6 @@ rows:
     - value: '43.8'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1438'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: DeepSeek
   model: Deepseek-Prover-V2
   mode: ''
@@ -7927,10 +8305,6 @@ rows:
     - value: '38.9'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1425'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: DeepSeek
   model: DeepSeek-R1-0528
   mode: Thinking
@@ -8076,7 +8450,7 @@ rows:
       source_label: CodeAgentBench
       source_url: https://suyoumo.github.io/code-agent-bench/
     text_arena:
-    - value: '1465'
+    - value: '1466'
       source_label: TextArena
       source_url: https://text-arena.com
     aa_briefcase:
@@ -8154,10 +8528,6 @@ rows:
     - value: '67.8'
       source_label: MiMo-V2.5 Artificial Analysis
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1465'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: MiMo
   model: MiMo-V2-Omni
   mode: ''
@@ -8190,10 +8560,6 @@ rows:
     - value: '66.7'
       source_label: MiMo-V2-Omni
       source_url: https://github.com/XiaomiMiMo/MiMo
-    text_arena:
-    - value: '1430'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: MiMo
   model: MiMo-V2-Flash
   mode: Thinking
@@ -8282,10 +8648,6 @@ rows:
     - value: '86.7'
       source_label: MiMo-V2-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
-    text_arena:
-    - value: '1448'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: MiniMax
   model: MiniMax-M3
   mode: Thinking
@@ -8462,10 +8824,6 @@ rows:
     - value: '13'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1445'
-      source_label: TextArena
-      source_url: https://text-arena.com
     aa_briefcase:
     - value: '1110'
       source_label: Artificial Analysis
@@ -9748,6 +10106,10 @@ rows:
     - value: '1693'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    text_arena:
+    - value: '1492'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -9772,6 +10134,9 @@ rows:
     - value: '69.2'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '69.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     terminal_bench_2_1:
     - value: '85.4'
       source_label: Hunyuan 3
@@ -9785,6 +10150,9 @@ rows:
     - value: '82.7'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '84.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hle:
     - value: '49.8'
       source_label: Opus 4.8
@@ -9792,6 +10160,9 @@ rows:
     - value: '49.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '45.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hle_tools:
     - value: '57.9'
       source_label: Opus 4.8
@@ -9802,10 +10173,16 @@ rows:
     - value: '57.9'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '57.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     osworld_verified:
     - value: '83.4'
       source_label: Opus 4.8
       source_url: https://www.anthropic.com/news/claude-opus-4-8
+    - value: '83.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_aa:
     - value: '1890'
       source_label: Opus 4.8
@@ -9859,6 +10236,9 @@ rows:
     - value: '75.1'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '70.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     posttrainbench:
     - value: '37.2'
       source_label: GLM-5.2
@@ -9881,6 +10261,9 @@ rows:
     - value: '59.0'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '59.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepswe:
     - value: '62.8'
       source_label: Hunyuan 3
@@ -9899,6 +10282,9 @@ rows:
     - value: '42.8'
       source_label: Kimi K2.7 Code
       source_url: https://kimi.moonshot.cn
+    - value: '42.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     kimi_claw_247:
     - value: '50.4'
       source_label: Kimi K2.7 Code
@@ -9917,6 +10303,9 @@ rows:
     - value: '48.4'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '48.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mcp_mark_verified:
     - value: '76.4'
       source_label: Kimi K2.7 Code
@@ -9936,14 +10325,23 @@ rows:
     - value: '76.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '76.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq:
     - value: '89.9'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '89.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision:
     - value: '81.2'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '81.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_mm:
     - value: '22.5'
       source_label: Claude Fable 5
@@ -9959,6 +10357,9 @@ rows:
     - value: '27.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '27.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     legal_agent_bench:
     - value: '10.4'
       source_label: Claude Fable 5
@@ -9995,6 +10396,9 @@ rows:
     - value: '72.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '72.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepsearch_qa:
     - value: '93.1'
       source_label: Hunyuan 3
@@ -10023,10 +10427,16 @@ rows:
     - value: '64.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '65.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gpqa:
     - value: '93.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '92.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     cl_bench:
     - value: '24.8'
       source_label: Hunyuan 3
@@ -10103,6 +10513,9 @@ rows:
     - value: '45.2'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '45.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     management_consulting_tasks_internal:
     - value: '31.6'
       source_label: GPT-5.6 report
@@ -10119,6 +10532,9 @@ rows:
     - value: '54.8'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '54.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     benchcad:
     - value: '27.3'
       source_label: GPT-5.6 report
@@ -10160,7 +10576,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1483'
+    - value: '1484'
       source_label: TextArena
       source_url: https://text-arena.com
     deck_bench:
@@ -10186,6 +10602,9 @@ rows:
     - value: '78.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '75.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmmu_pro_tools:
     - value: '82.7'
       source_label: Kimi K3 report
@@ -10194,10 +10613,16 @@ rows:
     - value: '89.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '78.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision:
     - value: '86.7'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '87.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision_python:
     - value: '97.1'
       source_label: Kimi K3 report
@@ -10206,26 +10631,44 @@ rows:
     - value: '81.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '28.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_pass5:
     - value: '17.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '34.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_python_pass5:
     - value: '34.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '17.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     worldvqa:
     - value: '39.1'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '33.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     omnidocbench15:
     - value: '87.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '86.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     perception_bench:
     - value: '47.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '47.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     enterpriseops_gym_aa:
     - value: '44.0'
       source_label: Artificial Analysis
@@ -10301,6 +10744,254 @@ rows:
     - value: '88.5'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    mmvu:
+    - value: '67.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    visfactor:
+    - value: '30.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '48.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '43.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    android_bench:
+    - value: '69.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '85.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_finance:
+    - value: '51.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench:
+    - value: '84.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mrcr_v2_256k:
+    - value: '83.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '62.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    egolife_w_mem:
+    - value: '78.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    longbench_v2:
+    - value: '69.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_qoder_bench:
+    - value: '62.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lingoqa:
+    - value: '73.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    surds:
+    - value: '62.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    realworldqa:
+    - value: '76.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    tvbench:
+    - value: '61.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '34.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    simplevqa:
+    - value: '67.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    paperbench:
+    - value: '80.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench:
+    - value: '67.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '86.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mlvu_mavg:
+    - value: '53.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vision2web:
+    - value: '62.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mtvqa:
+    - value: '48.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '76.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '67.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    countqa:
+    - value: '41.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '60.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    video_dr_w_search:
+    - value: '65.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_zh:
+    - value: '55.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '61.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench_w_mem:
+    - value: '84.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_en:
+    - value: '53.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '20.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '69.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '50.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '80.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_legal:
+    - value: '52.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_react_bench:
+    - value: '1694'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_svg:
+    - value: '1648'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    androidworld:
+    - value: '75.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videommmu:
+    - value: '75.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspace_bench:
+    - value: '66.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    plaw_bench:
+    - value: '69.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '67.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    healthbench:
+    - value: '52.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    screenspot_pro:
+    - value: '82.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_w_sub:
+    - value: '85.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    one_million_bench:
+    - value: '41.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '59.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ifbench:
+    - value: '62.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    medxpertqa_mm:
+    - value: '71.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '72.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_sub:
+    - value: '31.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '75.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '49.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '54.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '76.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hipho:
+    - value: '69.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '57.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '73.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Anthropic
   model: Claude Opus 4.8
   mode: Thinking
@@ -10520,7 +11211,7 @@ rows:
       source_label: AgentArena
       source_url: https://agent-arena.com
     text_arena:
-    - value: '1503'
+    - value: '1502'
       source_label: TextArena
       source_url: https://text-arena.com
     gdpval_aa_pct:
@@ -10887,7 +11578,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1504'
+    - value: '1505'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Anthropic
@@ -11658,10 +12349,6 @@ rows:
     - value: '28.5'
       source_label: Opus 4.6
       source_url: https://www.anthropic.com/news/claude-opus-4-6
-    text_arena:
-    - value: '1469'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Anthropic
   model: Claude Sonnet 4.6
   mode: ''
@@ -11755,7 +12442,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1471'
+    - value: '1472'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Anthropic
@@ -12279,10 +12966,6 @@ rows:
     - value: '14'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1456'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Meta
   model: Muse Spark 1.1
   mode: ''
@@ -12360,7 +13043,7 @@ rows:
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     text_arena:
-    - value: '1493'
+    - value: '1490'
       source_label: TextArena
       source_url: https://text-arena.com
     aa_briefcase:
@@ -12475,7 +13158,7 @@ rows:
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     text_arena:
-    - value: '1487'
+    - value: '1488'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: OpenAI
@@ -12494,6 +13177,9 @@ rows:
     - value: '52.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '53.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_aa:
     - value: '1747.8'
       source_label: GPT-5.6 report
@@ -12517,14 +13203,23 @@ rows:
     - value: '64.6'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '64.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepswe_1_1:
     - value: '72.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '73.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     terminal_bench_2_1:
     - value: '88.8'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '88.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     healthbench_pro:
     - value: '60.5'
       source_label: GPT-5.6 report
@@ -12533,6 +13228,9 @@ rows:
     - value: '62.6'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '62.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     browsecomp:
     - value: '90.4'
       source_label: GPT-5.6 report
@@ -12585,6 +13283,9 @@ rows:
     - value: '83'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '83.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmmu_pro_tools:
     - value: '84.6'
       source_label: GPT-5.6 report
@@ -12597,6 +13298,9 @@ rows:
     - value: '94.6'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '94.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     frontiermath_t13:
     - value: '89'
       source_label: GPT-5.6 report
@@ -12612,6 +13316,9 @@ rows:
     - value: '29.7'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '29.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -12619,6 +13326,9 @@ rows:
     - value: '74.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '74.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mrcr_v2_256_512k:
     - value: '91.5'
       source_label: GPT-5.6 report
@@ -12643,7 +13353,7 @@ rows:
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
     text_arena:
-    - value: '1486'
+    - value: '1483'
       source_label: TextArena
       source_url: https://text-arena.com
     deepswe:
@@ -12670,6 +13380,9 @@ rows:
     - value: '46.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '46.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     kimi_code_bench_v2:
     - value: '64.8'
       source_label: Kimi K3 report
@@ -12686,6 +13399,9 @@ rows:
     - value: '46.5'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '45.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     aa_briefcase:
     - value: '1495.0'
       source_label: Kimi K3 report
@@ -12709,50 +13425,86 @@ rows:
     - value: '44.5'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '47.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hle_tools:
     - value: '58.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '58.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq:
     - value: '84.6'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '89.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq_python:
     - value: '89.1'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '85.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision:
     - value: '95.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '90.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision_python:
     - value: '97.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '97.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision_python:
     - value: '88.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '65.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_pass5:
     - value: '17.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '35.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_python_pass5:
     - value: '35.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '22.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     worldvqa:
     - value: '41.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '45.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     omnidocbench15:
     - value: '85.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '86.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     perception_bench:
     - value: '59.7'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '59.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_aa_pct:
     - value: '62'
       source_label: Artificial Analysis
@@ -12817,6 +13569,266 @@ rows:
     - value: '60.5'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    video_dr_w_search:
+    - value: '71.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    egolife_w_mem:
+    - value: '70.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench_w_mem:
+    - value: '84.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    tvbench:
+    - value: '83.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mlvu_mavg:
+    - value: '87.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmvu:
+    - value: '81.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videommmu:
+    - value: '85.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '71.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_w_sub:
+    - value: '89.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '59.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    visfactor:
+    - value: '62.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '61.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '55.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '69.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    countqa:
+    - value: '68.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '82.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    simplevqa:
+    - value: '66.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    surds:
+    - value: '63.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lingoqa:
+    - value: '72.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    realworldqa:
+    - value: '83.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '87.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mtvqa:
+    - value: '52.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '68.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_zh:
+    - value: '57.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_en:
+    - value: '69.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '82.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '47.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '86.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '68.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '78.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    androidworld:
+    - value: '77.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '69.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    screenspot_pro:
+    - value: '81.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '62.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    medxpertqa_mm:
+    - value: '81.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '85.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '79.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hipho:
+    - value: '86.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '89.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_sub:
+    - value: '46.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hle_vl:
+    - value: '51.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    longbench_v2:
+    - value: '67.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mrcr_v2_256k:
+    - value: '93.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_finance:
+    - value: '55.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_legal:
+    - value: '57.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    plaw_bench:
+    - value: '72.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    healthbench:
+    - value: '55.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    one_million_bench:
+    - value: '53.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ifbench:
+    - value: '72.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    skillsbench:
+    - value: '73.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspace_bench:
+    - value: '65.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_svg:
+    - value: '1758'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_qoder_bench:
+    - value: '53.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench:
+    - value: '73.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    android_bench:
+    - value: '74.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_verified:
+    - value: '83.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '76.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vision2web:
+    - value: '62.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench:
+    - value: '78.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '70.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '88.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '71.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_react_bench:
+    - value: '1564'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    paperbench:
+    - value: '90.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '29.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -13025,6 +14037,10 @@ rows:
     - value: '74'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1468'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: OpenAI
   model: GPT-5.6 Luna
   mode: ''
@@ -14014,7 +15030,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1478'
+    - value: '1477'
       source_label: TextArena
       source_url: https://text-arena.com
     gdpval_aa_pct:
@@ -15510,6 +16526,9 @@ rows:
     - value: '80.5'
       source_label: Gemini 3.1 Pro
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-1-pro
+    - value: '80.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmmlu:
     - value: '92.6'
       source_label: Gemini 3.1 Pro
@@ -15539,6 +16558,9 @@ rows:
     - value: '76.2'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '76.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     finance_agent_v2:
     - value: '43.0'
       source_label: Opus 4.8
@@ -15798,14 +16820,228 @@ rows:
     - value: '83.3'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '89.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq_python:
     - value: '83.2'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '84.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mrcr_v2_128k:
     - value: '84.9'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    zerobench_sub:
+    - value: '36.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '82.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hipho:
+    - value: '85.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '79.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '82.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    medxpertqa_mm:
+    - value: '80.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '62.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_2_0:
+    - value: '30.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videommmu:
+    - value: '85.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    screenspot_pro:
+    - value: '68.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '64.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    androidworld:
+    - value: '70.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmvu:
+    - value: '77.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '55.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '23.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '73.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '16.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '55.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_python_pass5:
+    - value: '17.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_en:
+    - value: '64.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mlvu_mavg:
+    - value: '84.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_zh:
+    - value: '58.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    tvbench:
+    - value: '73.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '58.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '68.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mtvqa:
+    - value: '54.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench:
+    - value: '75.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '81.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '39.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    perception_bench:
+    - value: '56.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    realworldqa:
+    - value: '83.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '68.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lingoqa:
+    - value: '66.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    surds:
+    - value: '64.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    simplevqa:
+    - value: '73.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    worldvqa:
+    - value: '54.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '84.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision_python:
+    - value: '55.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    countqa:
+    - value: '72.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '71.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '68.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '69.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '72.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    visfactor:
+    - value: '39.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '74.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_w_sub:
+    - value: '86.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '66.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mathvision:
+    - value: '87.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mathvision_python:
+    - value: '95.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hle_vl:
+    - value: '43.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_pass5:
+    - value: '23.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    omnidocbench15:
+    - value: '90.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -16481,6 +17717,10 @@ rows:
     - value: '961'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1483'
+      source_label: TextArena
+      source_url: https://text-arena.com
 - company: Google
   model: Gemini 3.5 Flash
   mode: High
@@ -17461,10 +18701,6 @@ rows:
     - value: '1452'
       source_label: Gemma 4
       source_url: https://deepmind.google/models/gemma/
-    text_arena:
-    - value: '1451'
-      source_label: TextArena
-      source_url: https://text-arena.com
     aa_briefcase:
     - value: '364'
       source_label: Artificial Analysis
@@ -18110,10 +19346,6 @@ rows:
     - value: '49.0'
       source_label: K2.5
       source_url: https://moonshotai.github.io/Kimi-K2/
-    text_arena:
-    - value: '1450'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Moonshot
   model: Kimi K2 Thinking
   mode: Heavy
@@ -18230,10 +19462,6 @@ rows:
     - value: '97.5'
       source_label: K2 Thinking
       source_url: https://moonshotai.github.io/Kimi-K2/
-    text_arena:
-    - value: '1430'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-5.1
   mode: Thinking
@@ -18676,7 +19904,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1471'
+    - value: '1469'
       source_label: TextArena
       source_url: https://text-arena.com
 - company: Zhipu AI
@@ -18912,10 +20140,6 @@ rows:
     - value: '4432.12'
       source_label: GLM-5
       source_url: https://z.ai/blog/glm-5
-    text_arena:
-    - value: '1471'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-4.7
   mode: Thinking
@@ -19000,10 +20224,6 @@ rows:
     - value: '45.1'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
-    text_arena:
-    - value: '1442'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Zhipu AI
   model: GLM-4.6
   mode: Thinking
@@ -19076,10 +20296,6 @@ rows:
     - value: '75.9'
       source_label: GLM-4.6
       source_url: https://z.ai/blog/glm-4-6
-    text_arena:
-    - value: '1425'
-      source_label: TextArena
-      source_url: https://text-arena.com
 - company: Huawei
   model: openPangu-2.0-Flash-Thinking
   mode: ''
@@ -19519,7 +20735,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1468'
+    - value: '1469'
       source_label: TextArena
       source_url: https://text-arena.com
     mls_bench_lite:
@@ -19774,6 +20990,9 @@ rows:
     - value: '80.3'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '80.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     frontierswe:
     - value: '29.3'
       source_label: Claude Fable 5
@@ -19781,6 +21000,9 @@ rows:
     - value: '86.6'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '88.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_aa:
     - value: '1759.6'
       source_label: GPT-5.6 report
@@ -19806,10 +21028,16 @@ rows:
     - value: '29.1'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '29.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     osworld_verified:
     - value: '85.0'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '85.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     legal_agent_bench:
     - value: '13.3'
       source_label: Claude Fable 5
@@ -19821,10 +21049,16 @@ rows:
     - value: '59.0'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '53.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     hle_tools:
     - value: '64.5'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '64.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     biomystery_bench:
     - value: '46.1'
       source_label: Claude Fable 5
@@ -19833,6 +21067,9 @@ rows:
     - value: '84.6'
       source_label: Claude Fable 5
       source_url: https://anthropic.com
+    - value: '84.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     exploit_bench:
     - value: '78.0'
       source_label: Claude Fable 5
@@ -19849,6 +21086,9 @@ rows:
     - value: '70'
       source_label: DeepSWE v1.1
       source_url: https://deepswe.com
+    - value: '70.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     agents_last_exam:
     - value: '40.5'
       source_label: GPT-5.6 report
@@ -19865,6 +21105,9 @@ rows:
     - value: '92.6'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '92.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     frontiermath_t13:
     - value: '87'
       source_label: GPT-5.6 report
@@ -19880,6 +21123,9 @@ rows:
     - value: '77.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '77.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     gdp_pdf:
     - value: '29.8'
       source_label: GPT-5.6 report
@@ -19893,7 +21139,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1507'
+    - value: '1509'
       source_label: TextArena
       source_url: https://text-arena.com
     deepswe:
@@ -19916,6 +21162,9 @@ rows:
     - value: '49.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '49.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     kimi_code_bench_v2:
     - value: '76.9'
       source_label: Kimi K3 report
@@ -19940,6 +21189,9 @@ rows:
     - value: '57.4'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '57.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     aa_briefcase:
     - value: '1583.0'
       source_label: Kimi K3 report
@@ -19963,6 +21215,9 @@ rows:
     - value: '81.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '81.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmmu_pro_tools:
     - value: '86.5'
       source_label: Kimi K3 report
@@ -19971,42 +21226,72 @@ rows:
     - value: '88.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '93.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     charxiv_rq_python:
     - value: '93.5'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '87.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision:
     - value: '94.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '92.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision_python:
     - value: '98.6'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '98.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision_python:
     - value: '90.5'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '42.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_pass5:
     - value: '23.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '46.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_python_pass5:
     - value: '46.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '20.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     worldvqa:
     - value: '56.7'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '53.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     omnidocbench15:
     - value: '89.8'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '89.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     perception_bench:
     - value: '57.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '57.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     enterpriseops_gym_aa:
     - value: '51.0'
       source_label: Artificial Analysis
@@ -20078,6 +21363,238 @@ rows:
     - value: '89.0'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    egolife_w_mem:
+    - value: '82.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '70.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lingoqa:
+    - value: '77.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '75.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    surds:
+    - value: '79.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '85.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    realworldqa:
+    - value: '85.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '52.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    simplevqa:
+    - value: '73.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '71.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_zh:
+    - value: '58.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_legal:
+    - value: '57.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '86.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    wide_search:
+    - value: '81.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    one_million_bench:
+    - value: '55.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    medxpertqa_mm:
+    - value: '80.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '32.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_react_bench:
+    - value: '1770'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '63.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '86.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_2_0:
+    - value: '66.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '61.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_sub:
+    - value: '37.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    screenspot_pro:
+    - value: '87.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '80.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    skillsbench:
+    - value: '70.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vision2web:
+    - value: '70.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '71.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench_w_mem:
+    - value: '90.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspace_bench:
+    - value: '68.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    countqa:
+    - value: '63.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    androidworld:
+    - value: '88.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmvu:
+    - value: '72.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_svg:
+    - value: '1690'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mtvqa:
+    - value: '41.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '77.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ifbench:
+    - value: '63.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_qoder_bench:
+    - value: '63.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    plaw_bench:
+    - value: '70.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '69.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hipho:
+    - value: '78.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench:
+    - value: '86.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '68.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '87.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    paperbench:
+    - value: '88.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    android_bench:
+    - value: '84.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '85.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '56.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    video_dr_w_search:
+    - value: '77.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    visfactor:
+    - value: '54.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '79.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videommmu:
+    - value: '81.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '72.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '90.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_en:
+    - value: '65.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '56.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '31.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_finance:
+    - value: '55.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -20127,7 +21644,7 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1461'
+    - value: '1462'
       source_label: TextArena
       source_url: https://text-arena.com
     aa_briefcase:
@@ -20269,7 +21786,7 @@ rows:
       source_label: Grok 4.5 Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
-    - value: '1465'
+    - value: '1469'
       source_label: TextArena
       source_url: https://text-arena.com
     aa_briefcase:
@@ -20640,7 +22157,7 @@ rows:
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     text_arena:
-    - value: '1486'
+    - value: '1485'
       source_label: TextArena
       source_url: https://text-arena.com
     tau3_banking:
@@ -20786,3 +22303,408 @@ rows:
     - value: '82.3'
       source_label: Ling-3.0-Flash result table
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+- company: Qwen
+  model: Qwen3.8-Max
+  mode: ''
+  released: '2026-08-04'
+  sources:
+  - label: Qwen3.8 report
+    url: https://qwen.ai/blog?id=qwen3.8
+  scores:
+    swe_pro:
+    - value: '67.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    terminal_bench_2_1:
+    - value: '86.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '81'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    paperbench:
+    - value: '93.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    frontierswe:
+    - value: '73.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_react_bench:
+    - value: '1724'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '74.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    jobbench:
+    - value: '53.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    agents_last_exam:
+    - value: '52.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '91.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision_python:
+    - value: '82.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    charxiv_rq:
+    - value: '93.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    charxiv_rq_python:
+    - value: '88.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '77.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    perception_bench:
+    - value: '63.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench:
+    - value: '81.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vision2web:
+    - value: '69.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mobileworld:
+    - value: '77.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_verified:
+    - value: '86.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    deepswe_1_1:
+    - value: '56.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '55.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mls_bench_lite:
+    - value: '41.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    android_bench:
+    - value: '70.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench:
+    - value: '80.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_qoder_bench:
+    - value: '58.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_svg:
+    - value: '1713'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspace_bench:
+    - value: '67.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    skillsbench:
+    - value: '70.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    automation_bench:
+    - value: '27.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    toolathlon:
+    - value: '72.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    wide_search:
+    - value: '81.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hle_tools:
+    - value: '56.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    gpqa:
+    - value: '92.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '92'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '43.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '40'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    ifbench:
+    - value: '82.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    one_million_bench:
+    - value: '52.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    healthbench:
+    - value: '60.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    plaw_bench:
+    - value: '73.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_legal:
+    - value: '57.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    prbench_finance:
+    - value: '58.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mrcr_v2_256k:
+    - value: '92.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    longbench_v2:
+    - value: '66.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmmu_pro:
+    - value: '82.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mathvision:
+    - value: '97.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mathvision_python:
+    - value: '95.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hle_vl:
+    - value: '52.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_pass5:
+    - value: '49.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_main_python_pass5:
+    - value: '24.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    zerobench_sub:
+    - value: '48.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    logicvista:
+    - value: '91.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hipho:
+    - value: '90.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    phyx_openended:
+    - value: '83.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    slake:
+    - value: '90.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    medxpertqa_mm:
+    - value: '80.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    pmc_vqa:
+    - value: '66.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    osworld_2_0:
+    - value: '46.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    screenspot_pro:
+    - value: '84.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    webarena:
+    - value: '66.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    androidworld:
+    - value: '85.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '74.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_blender_bench:
+    - value: '69.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    parametric_cad_bench:
+    - value: '91.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    recreation_bench:
+    - value: '51.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    present_bench:
+    - value: '79.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    omnidocbench15:
+    - value: '92.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_en:
+    - value: '74.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    ocr_bench_v2_zh:
+    - value: '68.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    cc_ocr:
+    - value: '79.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mtvqa:
+    - value: '56.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    madqa:
+    - value: '91.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_visual_office:
+    - value: '44.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    realworldqa:
+    - value: '88.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lingoqa:
+    - value: '84.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    surds:
+    - value: '77.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    simplevqa:
+    - value: '75.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    worldvqa:
+    - value: '53.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmstar:
+    - value: '85.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    countqa:
+    - value: '82.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    refadv_s:
+    - value: '80.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    dense200:
+    - value: '87.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coco:
+    - value: '78.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    visfactor:
+    - value: '60.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    vlms_are_biased:
+    - value: '88.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_w_sub:
+    - value: '90.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videomme_v2_w_sub:
+    - value: '68.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    videommmu:
+    - value: '88.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmvu:
+    - value: '82.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mlvu_mavg:
+    - value: '90.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    tvbench:
+    - value: '81.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    lvbench_w_mem:
+    - value: '85.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    egolife_w_mem:
+    - value: '80.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    video_dr_w_search:
+    - value: '73.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    gdpval_aa_pct:
+    - value: '55'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '40'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '45'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '19'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '31'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    text_arena:
+    - value: '1496'
+      source_label: TextArena
+      source_url: https://text-arena.com
