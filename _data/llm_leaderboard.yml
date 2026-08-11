@@ -136,6 +136,10 @@ sources:
   label: Muse Spark 1.1 report
   short_label: Muse 1.1
   url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+- id: muse12
+  label: Muse Spark 1.2 Artificial Analysis
+  short_label: Muse 1.2
+  url: https://artificialanalysis.ai
 - id: claude_mythos5
   label: Claude Mythos 5 report
   short_label: Mythos 5
@@ -13024,17 +13028,17 @@ rows:
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     terminal_bench_2_1:
-    - value: '80.0'
-      source_label: Muse Spark 1.1 report
-      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '76.2'
+      source_label: Muse Spark 1.1 Artificial Analysis
+      source_url: https://artificialanalysis.ai
     swe_pro:
     - value: '61.5'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
     deepswe_1_1:
-    - value: '53.3'
-      source_label: Muse Spark 1.1 report
-      source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '53.0'
+      source_label: Muse Spark 1.1 Artificial Analysis
+      source_url: https://artificialanalysis.ai
     charxiv_rq:
     - value: '88.4'
       source_label: Muse Spark 1.1 report
@@ -13079,36 +13083,100 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     tau3_banking:
-    - value: '25'
-      source_label: Artificial Analysis
+    - value: '32'
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '58'
-      source_label: Artificial Analysis
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     hle:
-    - value: '45'
-      source_label: Artificial Analysis
+    - value: '46'
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '90'
-      source_label: Artificial Analysis
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '15'
-      source_label: Artificial Analysis
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
-    - value: '41'
-      source_label: Artificial Analysis
+    - value: '52'
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     aa_lcr:
-    - value: '63'
-      source_label: Artificial Analysis
+    - value: '81'
+      source_label: Muse Spark 1.1 Artificial Analysis
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
-    - value: '62'
-      source_label: Artificial Analysis
+    - value: '50'
+      source_label: Muse Spark 1.1 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2:
+    - value: '1380'
+      source_label: Muse Spark 1.1 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+- company: Meta
+  model: Muse Spark 1.2
+  mode: ''
+  released: '2026-08-11'
+  sources:
+  - label: Muse Spark 1.2 Artificial Analysis
+    url: https://artificialanalysis.ai
+  scores:
+    terminal_bench_2_1:
+    - value: '82.9'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    deepswe_1_1:
+    - value: '59.3'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    meta_internal_coding_bench:
+    - value: '70.6'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2:
+    - value: '1640'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '35'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '56'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '45'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gpqa:
+    - value: '90'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '18'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '45'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '67'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Muse Spark 1.2 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1358'
+      source_label: Muse Spark 1.2 Artificial Analysis
       source_url: https://artificialanalysis.ai
 - company: Meta
   model: Muse Spark
@@ -22487,14 +22555,14 @@ rows:
     - value: '92.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
-    - value: '92'
+    - value: '93'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     hle:
     - value: '43.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
-    - value: '40'
+    - value: '43'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     ifbench:
@@ -22730,23 +22798,35 @@ rows:
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     gdpval_aa_pct:
-    - value: '55'
+    - value: '62'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     tau3_banking:
-    - value: '40'
+    - value: '51'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     scicode:
-    - value: '45'
+    - value: '53'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     critpt:
-    - value: '19'
+    - value: '20'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
-    - value: '31'
+    - value: '32'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '58'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '74'
+      source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2:
+    - value: '1740'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
     text_arena:
