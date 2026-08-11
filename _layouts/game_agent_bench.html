@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>{% if page.title %}{{ page.title }} - {% endif %}3DGameAgentBench</title>
+    {% include meta.html %}
+    <script>document.documentElement.classList.add('game-agent-js');</script>
+    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css?v={{ site.time | date: '%s' }}" />
+  </head>
+
+  <body class="game-agent-body">
+    <header class="game-agent-nav" id="top">
+      <div class="game-agent-nav-inner">
+        <a class="game-agent-brand" href="{{ site.baseurl }}/3d-game-agent-bench/" aria-label="3DGameAgentBench home">
+          <span class="game-agent-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>3DGameAgentBench</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="{{ site.baseurl }}/code-agent-bench/">CodeAgentBench</a>
+          <a href="#mission">使命</a>
+          <a href="#contribute">招募</a>
+          <a class="game-agent-nav-contact" href="#contact">联系</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      {{ content }}
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var revealNodes = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+        if (!('IntersectionObserver' in window)) {
+          revealNodes.forEach(function (node) { node.classList.add('is-visible'); });
+          return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14 });
+
+        revealNodes.forEach(function (node) { observer.observe(node); });
+      });
+    </script>
+  </body>
+</html>
