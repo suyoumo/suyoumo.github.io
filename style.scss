@@ -3743,12 +3743,36 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
 .bench-nav {
   margin-left: auto;
   justify-content: flex-end;
+  justify-content: safe flex-end;
 }
 
 .bench-nav a,
 .bench-language-toggle {
-  font-size: 0.95rem;
-  padding: 12px 18px;
+  font-size: 0.9rem;
+  padding: 12px 13px;
+}
+
+.bench-nav-recruit {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0, 159, 152, 0.1);
+  color: #007d77;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+
+  &::before {
+    width: 5px;
+    height: 5px;
+    margin-right: 5px;
+    border-radius: 50%;
+    background: #009f98;
+    content: "";
+  }
 }
 
 .bench-language-toggle {
@@ -3763,6 +3787,7 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
   font-family: inherit;
   font-weight: 600;
   line-height: inherit;
+  white-space: nowrap;
   transition: all 0.2s ease;
 
   &:hover,
@@ -9770,4 +9795,8 @@ $game-orange: #ff9e63;
   .site-header { top: 10px; width: calc(100% - 20px); margin-top: 10px; }
   .header-inner { height: 52px; gap: 8px; padding: 0 8px 0 14px; }
   .site-name { font-size: 0.88rem; }
+  .bench-nav { justify-content: flex-start; }
+  .bench-brand { gap: 10px; }
+  .bench-brand-logo-wrap { width: 40px; height: 40px; flex-basis: 40px; }
+  .bench-brand-logo { width: 40px; height: 40px; border-radius: 12px; }
 }
