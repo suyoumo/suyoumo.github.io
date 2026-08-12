@@ -36,6 +36,9 @@
           <span class="bench-brand-text">{{ bench_brand_name }}</span>
         </a>
         <nav class="site-nav bench-nav">
+          <a class="bench-home-link" href="{{ site.baseurl }}/" aria-label="返回主页" data-i18n-skip>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          </a>
           <button class="bench-language-toggle" type="button" data-bench-language-toggle aria-label="切换到中文">中文</button>
           <a href="{{ site.baseurl }}{{ bench_home_url }}" {% if page.url == bench_home_url or page.url == '/bench/index.html' or page.url == '/code-agent-bench/index.html' %}class="active"{% endif %}>Home</a>
           {% unless is_code_agent_bench %}
