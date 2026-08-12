@@ -5,48 +5,61 @@ permalink: /3d-game-agent-bench/
 excerpt: 世界首个面向 Three.js 3D 游戏长程生成的 benchmark。
 ---
 
-<section class="game-agent-hero">
-  <div class="game-agent-grid" aria-hidden="true"></div>
-  <div class="game-agent-orbit game-agent-orbit-one" aria-hidden="true"></div>
-  <div class="game-agent-orbit game-agent-orbit-two" aria-hidden="true"></div>
+<section class="game-agent-hero" aria-labelledby="game-agent-title">
+  <div class="game-agent-mesh" aria-hidden="true">
+    <i class="game-agent-mesh-ring game-agent-mesh-ring-1"></i>
+    <i class="game-agent-mesh-ring game-agent-mesh-ring-2"></i>
+    <i class="game-agent-mesh-ring game-agent-mesh-ring-3"></i>
+    <i class="game-agent-mesh-ring game-agent-mesh-ring-4"></i>
+    <i class="game-agent-mesh-ring game-agent-mesh-ring-5"></i>
+    <i class="game-agent-mesh-axis game-agent-mesh-axis-1"></i>
+    <i class="game-agent-mesh-axis game-agent-mesh-axis-2"></i>
+    <i class="game-agent-mesh-axis game-agent-mesh-axis-3"></i>
+    <b class="game-agent-mesh-node game-agent-mesh-node-1"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-2"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-3"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-4"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-5"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-6"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-7"></b>
+    <b class="game-agent-mesh-node game-agent-mesh-node-8"></b>
+  </div>
   <div class="game-agent-hero-inner">
     <div class="game-agent-hero-copy" data-reveal>
-      <p class="game-agent-status"><span></span> PRIVATE BUILD / ACCEPTING CONTRIBUTORS</p>
-      <h1>Build the benchmark<br />for games that <em>evolve.</em></h1>
-      <p class="game-agent-hero-lead">世界首个面向 <strong>Three.js 3D 游戏</strong>的长程生成 benchmark。</p>
-      <p class="game-agent-hero-detail">不是一轮生成的演示，而是连续需求、真实变更与可复核游戏行为组成的长程挑战。</p>
+      <a class="game-agent-status" href="#contact"><span></span> 正在招募出题作者 <b aria-hidden="true">→</b></a>
+      <p class="game-agent-hero-kicker">3DGameAgentBench / PRIVATE RESEARCH PREVIEW</p>
+      <h1 id="game-agent-title">The world's first benchmark for <em>long-horizon 3D game generation.</em></h1>
+      <p class="game-agent-hero-lead">面向 <strong>Three.js 3D 游戏</strong>，衡量 AI agent 能否在连续需求中持续构建、修改，并守住已经成立的玩法。</p>
       <div class="game-agent-hero-actions">
-        <a class="game-agent-button game-agent-button-primary" href="#contribute">加入出题作者 <span aria-hidden="true">↘</span></a>
-        <a class="game-agent-button game-agent-button-secondary" href="#mission">了解方向 <span aria-hidden="true">↓</span></a>
+        <a class="game-agent-button game-agent-button-primary" href="#contribute">参与供题 <span aria-hidden="true">→</span></a>
+        <a class="game-agent-button game-agent-button-secondary" href="#mission">了解 benchmark <span aria-hidden="true">↓</span></a>
       </div>
-    </div>
-
-    <div class="game-agent-hero-stage" data-reveal>
-      <div class="game-agent-stage-caption game-agent-stage-caption-top"><span>LONG-HORIZON</span><b>01 / 03</b></div>
-      <div class="game-agent-wireframe" aria-hidden="true">
-        <div class="game-agent-wireframe-floor"></div>
-        <div class="game-agent-wireframe-frame"></div>
-        <div class="game-agent-wireframe-tower game-agent-wireframe-tower-left"></div>
-        <div class="game-agent-wireframe-tower game-agent-wireframe-tower-right"></div>
-        <div class="game-agent-wireframe-core"><span></span><span></span><span></span></div>
-        <div class="game-agent-wireframe-path"></div>
-        <div class="game-agent-wireframe-pawn"><i></i><i></i><i></i></div>
+      <div class="game-agent-hero-meta" aria-label="Benchmark focus">
+        <span>THREE.JS</span>
+        <span>ITERATIVE GENERATION</span>
+        <span>VERIFIABLE BEHAVIOR</span>
       </div>
-      <div class="game-agent-stage-caption game-agent-stage-caption-bottom"><span>THREE.JS / STATEFUL TASKS</span><b>BUILD / MODIFY / VERIFY</b></div>
     </div>
   </div>
-  <a class="game-agent-scroll-cue" href="#mission" aria-label="Scroll to mission"><span></span></a>
 </section>
+
+<div class="game-agent-signal" aria-hidden="true">
+  <div class="game-agent-section-shell">
+    <span><b>01</b> BUILD PLAYABLE WORLDS</span>
+    <span><b>02</b> CHANGE THEM OVER TIME</span>
+    <span><b>03</b> VERIFY WHAT STILL HOLDS</span>
+  </div>
+</div>
 
 <section class="game-agent-statement" id="mission">
   <div class="game-agent-section-shell game-agent-statement-grid">
     <div data-reveal>
       <p class="game-agent-eyebrow">WHY THIS EXISTS</p>
-      <h2>Games expose whether an agent can carry intent across time.</h2>
+      <h2>Games remember every change.</h2>
     </div>
     <div class="game-agent-statement-copy" data-reveal>
-      <p>3DGameAgentBench evaluates agents building and revising interactive Three.js games through a sequence of user-driven requirements.</p>
-      <p>每一轮都要接住新要求，也要守住先前已成立的玩法、交互和状态。项目细节保持受限开放，参与者将直接帮助定义这一评测边界。</p>
+      <p>3DGameAgentBench evaluates agents as they build and revise an interactive Three.js game through a sequence of user requirements.</p>
+      <p>每一轮都要接住新要求，也要守住此前的玩法、交互与状态。公开目标很简单，benchmark 内部细节保持保密。</p>
     </div>
   </div>
 </section>
@@ -54,24 +67,30 @@ excerpt: 世界首个面向 Three.js 3D 游戏长程生成的 benchmark。
 <section class="game-agent-principles">
   <div class="game-agent-section-shell">
     <div class="game-agent-section-head" data-reveal>
-      <p class="game-agent-eyebrow">THE WORK</p>
-      <h2>Long-horizon by design.</h2>
+      <p class="game-agent-eyebrow">HOW IT WORKS</p>
+      <h2>One game. Many rounds.</h2>
+      <p class="game-agent-section-intro">长程生成不是一次性 demo，而是在同一份游戏代码上持续演进。</p>
     </div>
     <div class="game-agent-principle-grid">
-      <article data-reveal>
-        <span class="game-agent-index">01</span>
+      <article class="game-agent-principle-build" data-reveal>
+        <span class="game-agent-index">01 / BUILD</span>
+        <span class="game-agent-step-icon" aria-hidden="true">+</span>
         <h3>Build</h3>
-        <p>从可玩的 Three.js 3D 游戏原型开始，建立可见、可操作的基础状态。</p>
+        <p>从可玩的 Three.js 3D 游戏开始，建立清晰、可操作的基础状态。</p>
       </article>
-      <article data-reveal>
-        <span class="game-agent-index">02</span>
+      <span class="game-agent-step-arrow" aria-hidden="true">→</span>
+      <article class="game-agent-principle-change" data-reveal>
+        <span class="game-agent-index">02 / CHANGE</span>
+        <span class="game-agent-step-icon" aria-hidden="true">↻</span>
         <h3>Change</h3>
-        <p>连续追加、修改和撤销需求，让新旧系统在同一份游戏代码中真正发生耦合。</p>
+        <p>连续追加、修改和撤销需求，让新的能力与旧系统真正发生耦合。</p>
       </article>
-      <article data-reveal>
-        <span class="game-agent-index">03</span>
+      <span class="game-agent-step-arrow" aria-hidden="true">→</span>
+      <article class="game-agent-principle-verify" data-reveal>
+        <span class="game-agent-index">03 / VERIFY</span>
+        <span class="game-agent-step-icon" aria-hidden="true">✓</span>
         <h3>Verify</h3>
-        <p>用明确可观察的行为复核每一轮，让长程生成不止停留在“看起来能跑”。</p>
+        <p>用可观察的游戏行为复核每一轮，确认新需求成立，已有能力没有丢失。</p>
       </article>
     </div>
   </div>
@@ -82,18 +101,18 @@ excerpt: 世界首个面向 Three.js 3D 游戏长程生成的 benchmark。
     <div class="game-agent-section-head game-agent-evidence-head" data-reveal>
       <div>
         <p class="game-agent-eyebrow">PRIVATE PREVIEW</p>
-        <h2 id="preview-heading">A controlled view of the work.</h2>
+        <h2 id="preview-heading">A glimpse, not a disclosure.</h2>
       </div>
-      <p>Limited research preview. Task internals and implementation details are intentionally withheld.</p>
+      <p>Limited research preview. Task data, implementation details and benchmark internals are intentionally withheld.</p>
     </div>
     <div class="game-agent-preview-grid">
-      <figure class="game-agent-preview-card game-agent-preview-card-wide" data-reveal>
+      <figure class="game-agent-preview-card" data-reveal>
         <div class="game-agent-preview-image-wrap"><img src="{{ site.baseurl }}/assets/images/3d-game-agent-bench/assessment-queue.jpg" alt="3D game evaluation runs in a restricted benchmark preview" /></div>
-        <figcaption><span>RUN ARCHIVE</span><b>Sequential game scenarios</b></figcaption>
+        <figcaption><span>RESTRICTED VIEW / 01</span><b>Long-horizon runs</b></figcaption>
       </figure>
       <figure class="game-agent-preview-card" data-reveal>
         <div class="game-agent-preview-image-wrap"><img src="{{ site.baseurl }}/assets/images/3d-game-agent-bench/assessment-trace.jpg" alt="3D game evaluation trace in a restricted benchmark preview" /></div>
-        <figcaption><span>TRACE VIEW</span><b>Observable behavior checks</b></figcaption>
+        <figcaption><span>RESTRICTED VIEW / 02</span><b>Behavior review</b></figcaption>
       </figure>
     </div>
   </div>
@@ -102,15 +121,20 @@ excerpt: 世界首个面向 Three.js 3D 游戏长程生成的 benchmark。
 <section class="game-agent-contribute" id="contribute">
   <div class="game-agent-section-shell game-agent-contribute-grid">
     <div class="game-agent-contribute-copy" data-reveal>
-      <p class="game-agent-eyebrow">OPEN CALL / CONTRIBUTORS</p>
-      <h2>Bring a game idea<br />that can survive change.</h2>
-      <p>我们正在招募能设计 3D 游戏长程任务的出题作者。你不需要了解平台内部实现；带来一个值得反复迭代的游戏构想即可。</p>
-      <a class="game-agent-text-link" href="#contact">查看联系入口 <span aria-hidden="true">→</span></a>
+      <p class="game-agent-eyebrow">OPEN CALL / TASK AUTHORS</p>
+      <h2>Create a game worth changing.</h2>
+      <p>我们正在招募 3D 游戏长程任务的出题作者。你不需要了解平台内部实现，也不需要安装我们的系统；带来一个值得连续迭代的 Three.js 游戏构想即可。</p>
+      <div class="game-agent-deliverables" aria-label="Submission deliverables">
+        <span>题目文档</span>
+        <span>每轮 HTML</span>
+        <span>末轮复核视频</span>
+      </div>
+      <a class="game-agent-text-link" href="#contact">扫码联系 <span aria-hidden="true">→</span></a>
     </div>
     <ol class="game-agent-contribute-steps" data-reveal>
-      <li><span>01</span><div><b>Design a playable arc</b><p>将游戏创意组织为多轮连续的用户需求。</p></div></li>
-      <li><span>02</span><div><b>Generate through iterations</b><p>用你熟悉的 AI 编程工具逐轮推进同一份游戏。</p></div></li>
-      <li><span>03</span><div><b>Record what holds</b><p>留下每轮产物与可观察的复核证据，提交审核。</p></div></li>
+      <li><span>01</span><div><b>Design the arc</b><p>把一个 Three.js 游戏创意拆成 4 至 8 轮连续需求。</p></div></li>
+      <li><span>02</span><div><b>Generate every round</b><p>用自己的 AI 编程工具在同一份代码和同一段对话上逐轮推进，每轮产物原样保留。</p></div></li>
+      <li><span>03</span><div><b>Review and submit</b><p>按评分点实际游玩并记录结果，提交单文件 HTML 与末轮复核视频。</p></div></li>
     </ol>
   </div>
 </section>
@@ -119,8 +143,8 @@ excerpt: 世界首个面向 Three.js 3D 游戏长程生成的 benchmark。
   <div class="game-agent-section-shell game-agent-contact-panel" data-reveal>
     <div class="game-agent-contact-copy">
       <p class="game-agent-eyebrow">CONTACT / XIAOHONGSHU</p>
-      <h2>Scan to start a conversation.</h2>
-      <p>扫描小红书二维码联系我，说明你想参与 3DGameAgentBench 招募即可。项目资料将在合适阶段按需沟通。</p>
+      <h2>Let's build the first set of worlds.</h2>
+      <p>扫描小红书二维码联系我，备注“3DGameAgentBench 供题”。项目资料将在合适阶段按需沟通。</p>
       <div class="game-agent-contact-meta"><span>3D GAME AGENTS</span><span>THREE.JS</span><span>LONG-HORIZON EVALS</span></div>
     </div>
     <div class="game-agent-qr-wrap">
