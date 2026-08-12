@@ -9685,6 +9685,18 @@ $game-orange: #ff9e63;
 .game-agent-contribute-steps b { color: #202224; font-size: 1rem; }
 .game-agent-contribute-steps p { color: #73797c; font-size: 0.87rem; line-height: 1.65; }
 
+.game-agent-contribute-note { padding: 15px 17px; border: 1px solid rgba(17, 18, 20, 0.13); border-radius: 14px; background: #fff; font-size: 0.9rem; }
+.game-agent-contribute-note b { color: #151617; }
+
+.game-agent-join { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: 52px; align-items: center; margin-top: 64px; padding: 38px 42px; border: 1px solid rgba(17, 18, 20, 0.12); border-radius: 22px; background: #fff; box-shadow: 0 14px 38px rgba(17, 18, 20, 0.05); }
+.game-agent-join-qr img { display: block; width: 100%; border: 1px solid rgba(17, 18, 20, 0.1); border-radius: 14px; }
+.game-agent-join-qr p { margin-top: 12px; color: #687174; font-size: 0.78rem; text-align: center; }
+.game-agent-join-title { margin: 0 0 14px; color: #151617; font-size: 1.06rem; font-weight: 700; letter-spacing: -0.02em; }
+.game-agent-join ul { margin: 0; padding: 0; list-style: none; }
+.game-agent-join li { display: grid; grid-template-columns: 148px 1fr; gap: 16px; padding: 11px 0; border-top: 1px solid rgba(17, 18, 20, 0.08); }
+.game-agent-join li b { color: #202224; font-size: 0.92rem; }
+.game-agent-join li span { color: #656a6d; font-size: 0.9rem; line-height: 1.65; }
+
 .game-agent-contact { padding: 110px 0 118px; background: #eef7f5; }
 .game-agent-contact-panel { grid-template-columns: minmax(0, 1fr) 220px; gap: 70px; }
 .game-agent-contact-copy > p:not(.game-agent-eyebrow) { max-width: 570px; margin: 27px 0 24px; color: #5d6567; font-size: 1rem; line-height: 1.8; }
@@ -9746,6 +9758,9 @@ $game-orange: #ff9e63;
   .game-agent-preview-grid { grid-template-columns: 1fr; }
   .game-agent-preview-card figcaption { min-height: 64px; padding: 14px 16px; }
   .game-agent-contribute-grid { gap: 40px; }
+  .game-agent-join { grid-template-columns: 1fr; gap: 26px; margin-top: 44px; padding: 26px 22px; }
+  .game-agent-join-qr { max-width: 228px; margin: 0 auto; }
+  .game-agent-join li { grid-template-columns: 1fr; gap: 3px; }
   .game-agent-contact-panel { grid-template-columns: 1fr; gap: 38px; }
   .game-agent-qr-wrap { justify-self: start; }
   .game-agent-footer .game-agent-section-shell { align-items: flex-start; flex-direction: column; gap: 8px; }
