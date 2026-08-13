@@ -316,6 +316,10 @@ sources:
   label: DeepSeek V4 Pro report
   short_label: DS-V4-Pro
   url: https://api-docs.deepseek.com
+- id: grok46
+  label: Grok 4.6 report
+  short_label: Grok4.6
+  url: https://x.ai/news/grok-4-6
 categories:
 - name: Coding Agent
   columns:
@@ -539,6 +543,14 @@ categories:
     label: QwenQoderBench
   - key: android_bench
     label: AndroidBench
+  - key: cursorbench
+    label: CursorBench
+  - key: frontiercode
+    label: FrontierCode
+  - key: terminal_bench_3
+    label: Terminal-Bench 3.0
+  - key: apex_swe
+    label: APEX-SWE
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -567,6 +579,8 @@ categories:
     label: Management Consulting Tasks (Internal)
   - key: big_finance_bench
     label: Big Finance Bench
+  - key: harvey_lab_vals
+    label: Harvey LAB (Vals)
   - key: bfcl_v4
     label: BFCL-V4
   - key: acebench_en
@@ -22031,6 +22045,96 @@ rows:
     aa_omniscience_non_hallucination:
     - value: '63'
       source_label: AA benchmark chart
+      source_url: https://artificialanalysis.ai
+- company: xAI
+  model: Grok 4.6 High
+  mode: ''
+  released: '2026-08-13'
+  sources:
+  - label: Grok 4.6 report
+    url: https://x.ai/news/grok-4-6
+  - label: Artificial Analysis
+    url: https://artificialanalysis.ai
+  scores:
+    aa_intelligence_index_v4_1:
+    - value: '61'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    gdpval_aa_v2:
+    - value: '1753'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    cursorbench:
+    - value: '69.9'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    deepswe_1_1:
+    - value: '65.9'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    frontiercode:
+    - value: '61.3'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    apex_agents:
+    - value: '57.5'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    terminal_bench_3:
+    - value: '26'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    apex_swe:
+    - value: '56.4'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    aa_briefcase:
+    - value: '1577'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    harvey_lab_vals:
+    - value: '15.8'
+      source_label: Grok 4.6 report
+      source_url: https://x.ai/news/grok-4-6
+    gdpval_aa_pct:
+    - value: '62'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '51'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1:
+    - value: '88'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '43'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gpqa:
+    - value: '95'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '17'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '48'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '66'
+      source_label: Grok 4.6 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '75'
+      source_label: Grok 4.6 Artificial Analysis
       source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.5
