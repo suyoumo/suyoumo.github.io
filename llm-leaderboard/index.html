@@ -68,7 +68,7 @@ permalink: /llm-leaderboard/
         </label>
         <label class="llm-ranking-min-label">排序方式:
           <select id="rankingSortMode">
-            <option value="wins" selected>胜率</option>
+            <option value="wins" selected>对局得分率</option>
             <option value="percentile">百分位</option>
           </select>
         </label>
@@ -93,7 +93,7 @@ permalink: /llm-leaderboard/
         <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
         <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
         <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
-        <li><b>两种排序方式</b>：<b>共享胜负</b>——每两个模型只在共有 benchmark 上比较，胜场多者排前；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。两种方式各有价值，可切换对比。</li>
+        <li><b>两种排序方式</b>：<b>对局得分率</b>——每两个模型只在共有 benchmark 上比较；赢得 benchmark 更多的一方得 1 分，数量相同各得 0.5 分，另一方得 0 分，最后按总得分 / 有效对手数排序。ELO 也使用相同的 1 / 0.5 / 0 对局分值；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。</li>
         <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
       </ol>
     </div>
@@ -651,8 +651,18 @@ permalink: /llm-leaderboard/
     // ELO-based ranking: only among qualified models
     var elo = {};
     var wins = {};
+    var draws = {};
+    var losses = {};
+    var matchPoints = {};
     var totalOpponents = {};
-    qualifiedMks.forEach(function(mk){ elo[mk] = 1000; wins[mk] = 0; totalOpponents[mk] = 0; });
+    qualifiedMks.forEach(function(mk){
+      elo[mk] = 1000;
+      wins[mk] = 0;
+      draws[mk] = 0;
+      losses[mk] = 0;
+      matchPoints[mk] = 0;
+      totalOpponents[mk] = 0;
+    });
     var K = 32;
     for(var i=0; i<qualifiedMks.length; i++){
       for(var j=i+1; j<qualifiedMks.length; j++){
@@ -666,15 +676,31 @@ permalink: /llm-leaderboard/
           if(sm[mkA][bk] > sm[mkB][bk]) winsA++;
           else if(sm[mkB][bk] > sm[mkA][bk]) winsB++;
         });
-        var totalShared = sharedBench.length;
-        var scoreA = winsA / totalShared;
-        var scoreB = winsB / totalShared;
+        var scoreA, scoreB;
+        if(winsA > winsB){
+          wins[mkA]++;
+          losses[mkB]++;
+          matchPoints[mkA] += 1;
+          scoreA = 1;
+          scoreB = 0;
+        } else if(winsB > winsA){
+          wins[mkB]++;
+          losses[mkA]++;
+          matchPoints[mkB] += 1;
+          scoreA = 0;
+          scoreB = 1;
+        } else {
+          draws[mkA]++;
+          draws[mkB]++;
+          matchPoints[mkA] += 0.5;
+          matchPoints[mkB] += 0.5;
+          scoreA = 0.5;
+          scoreB = 0.5;
+        }
         var expA = 1 / (1 + Math.pow(10, (elo[mkB] - elo[mkA]) / 400));
         var expB = 1 / (1 + Math.pow(10, (elo[mkA] - elo[mkB]) / 400));
         elo[mkA] += K * (scoreA - expA);
         elo[mkB] += K * (scoreB - expB);
-        if(winsA > winsB) wins[mkA]++;
-        else if(winsB > winsA) wins[mkB]++;
       }
     }
 
@@ -686,13 +712,13 @@ permalink: /llm-leaderboard/
       var avg=percentiles.reduce(function(s,v){return s+v;},0)/percentiles.length;
       var p=mk.split('|');
       var opp = totalOpponents[mk] || 0;
-      var winRate = opp > 0 ? wins[mk] / opp : 0;
-      results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],winRate:winRate,opponents:opp,elo:elo[mk],
+      var scoreRate = opp > 0 ? matchPoints[mk] / opp : 0;
+      results.push({company:p[0],model:p[1],avg:avg,cnt:percentiles.length,wins:wins[mk],draws:draws[mk],losses:losses[mk],scoreRate:scoreRate,opponents:opp,elo:elo[mk],
         scores:validKeys.map(function(bk){return sm[mk][bk];}),
         ranks:validKeys.map(function(bk){return br[bk][mk];}),
         totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
     });
-    results.sort(function(a,b){ return b.winRate-a.winRate || b.elo-a.elo; });
+    results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
@@ -721,10 +747,10 @@ permalink: /llm-leaderboard/
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'胜率排名':'百分位排名');
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'对局得分率排名':'百分位排名');
     // Sort by selected mode
     if(sortMode === 'percentile') results.sort(function(a,b){ return a.avg-b.avg; });
-    else results.sort(function(a,b){ return b.winRate-a.winRate || b.elo-a.elo; });
+    else results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
@@ -732,7 +758,7 @@ permalink: /llm-leaderboard/
     // stronger divider at group boundaries.
     var keyCats = validKeys.map(function(bk){ return benchCat[bk]||'Other'; });
     var isGroupEnd = keyCats.map(function(c,i){ return i<keyCats.length-1 && c!==keyCats[i+1]; });
-    var h1='<tr><th rowspan="2" style="text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="text-align:left;">厂商</th><th rowspan="2">均百分位</th><th rowspan="2">胜率</th>';
+    var h1='<tr><th rowspan="2" style="text-align:left;padding-left:10px;">排名</th><th rowspan="2" style="text-align:left;padding-left:10px;">模型</th><th rowspan="2" style="text-align:left;">厂商</th><th rowspan="2">均百分位</th><th rowspan="2">对局得分率</th>';
     catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
@@ -742,7 +768,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td class="llm-sticky-col llm-model-cell" title="'+r.model+'"><strong title="'+r.model+'">'+r.model+'</strong></td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+(r.winRate*100).toFixed(1)+'%, '+r.wins+'/'+r.opponents+')</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td class="llm-sticky-col llm-model-cell" title="'+r.model+'"><strong title="'+r.model+'">'+r.model+'</strong></td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+(r.scoreRate*100).toFixed(1)+'%, '+r.wins+'胜/'+r.draws+'平/'+r.losses+'负)</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){
