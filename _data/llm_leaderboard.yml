@@ -357,6 +357,8 @@ categories:
     label: ClawEval Pass^3
   - key: wildclawbench
     label: WildClawBench
+  - key: vibelifebench
+    label: VibeLifeBench
   - key: skillsbench
     label: SkillsBench
   - key: qwenclawbench
@@ -639,6 +641,8 @@ categories:
     label: PinchBench
   - key: deepsearch_qa
     label: DeepSearch QA-F1
+  - key: vibesearchbench
+    label: VibeSearchBench
   - key: deepsearch_qa_ctx
     label: DeepSearch QA-F1 (w/ctx)
   - key: gdpval_mm
@@ -873,6 +877,8 @@ categories:
     label: FrontierMath T4
   - key: arc_agi_3
     label: ARC-AGI-3
+  - key: arc_agi_3_general
+    label: ARC-AGI-3 (general harness)
   - key: frontier_science_research
     label: FrontierScience-Research
   - key: frontier_science_olympiad
@@ -1071,6 +1077,8 @@ categories:
     label: MMLongBench-Doc
   - key: gdp_pdf
     label: GDP.pdf
+  - key: gdp_pdf_mean_criteria
+    label: GDP.pdf (mean-criteria)
   - key: mmlongbench_128k
     label: MMLongBench-128K
   - key: cc_ocr
@@ -1095,6 +1103,8 @@ categories:
     label: VideoMME(w/o sub.)
   - key: videommmu
     label: VideoMMMU
+  - key: mme_video_v2
+    label: MME Video-V2
   - key: mlvu_mavg
     label: MLVU (M-Avg)
   - key: screenspot_pro
@@ -1223,6 +1233,10 @@ categories:
     label: SEED-TTS (zh/en)↓
   - key: mmau_pro
     label: MMAU-Pro
+  - key: audiomc
+    label: AudioMC
+  - key: voicebench
+    label: VoiceBench
   - key: bigbench_audio
     label: BigBench Audio
 - name: Seed2.0 Vision & Video
@@ -1341,6 +1355,8 @@ categories:
     label: CGBench
   - key: longvideobench
     label: LongVideoBench
+  - key: videozerobench
+    label: VideoZeroBench
   - key: videoeval_pro
     label: VideoEval-Pro
   - key: lvbench
@@ -1429,6 +1445,8 @@ categories:
     label: SpreadsheetBench Verified
   - key: browsecomp_zh
     label: BrowseComp-zh
+  - key: livebrowsecomp
+    label: LiveBrowseComp
   - key: hle_text
     label: HLE-text
   - key: hle_verified_seed
@@ -1995,6 +2013,8 @@ rows:
   sources:
   - label: Qwen3.7-Plus result
     url: https://qwen.ai/blog?id=qwen3.7
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     agent_arena:
     - value: '-0.90'
@@ -2171,6 +2191,9 @@ rows:
     - value: '79.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '80.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mathvision:
     - value: '90.3'
       source_label: Qwen3.7-Plus
@@ -2178,6 +2201,9 @@ rows:
     - value: '90.3'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '89.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     babyvision:
     - value: 70.4/64.7
       source_label: Qwen3.7-Plus
@@ -2185,6 +2211,9 @@ rows:
     - value: '70.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '47.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     charxiv_rq:
     - value: 85.9/84.4
       source_label: Qwen3.7-Plus
@@ -2192,6 +2221,9 @@ rows:
     - value: '85.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '84.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hipho:
     - value: '84.1'
       source_label: Qwen3.7-Plus
@@ -2199,6 +2231,9 @@ rows:
     - value: '84.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '72.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     erqa:
     - value: '69.8'
       source_label: Qwen3.7-Plus
@@ -2256,6 +2291,9 @@ rows:
     - value: '70.3'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '67.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     worldvqa:
     - value: '61.1'
       source_label: Qwen3.7-Plus
@@ -2263,6 +2301,9 @@ rows:
     - value: '43.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '35.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmsearchplus:
     - value: '41.4'
       source_label: Qwen3.7-Plus
@@ -2350,6 +2391,9 @@ rows:
     - value: '85.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '87.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mlvu_mavg:
     - value: '87.4'
       source_label: Qwen3.7-Plus
@@ -2419,6 +2463,9 @@ rows:
     - value: '51.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '52.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     video_dr_w_search:
     - value: '41.0'
       source_label: Qwen3.8
@@ -2431,6 +2478,9 @@ rows:
     - value: '76.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '80.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     vlms_are_biased:
     - value: '36.6'
       source_label: Qwen3.8
@@ -2467,6 +2517,9 @@ rows:
     - value: '19.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '13.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     babyvision_python:
     - value: '64.7'
       source_label: Qwen3.8
@@ -2503,6 +2556,22 @@ rows:
     - value: '73.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    gdp_pdf_mean_criteria:
+    - value: '50.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mme_video_v2:
+    - value: '32.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    longvideobench:
+    - value: '77.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videozerobench:
+    - value: '16.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Qwen
   model: Qwen3.6-Plus
   mode: ''
@@ -5003,6 +5072,8 @@ rows:
   sources:
   - label: Seed2.0 model card
     url: https://seed.bytedance.com/en/seed2
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     mmlu_pro:
     - value: '87.7'
@@ -5680,6 +5751,18 @@ rows:
     - value: '24.0'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
+    voicebench:
+    - value: '87.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    audiomc:
+    - value: '49.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmau_pro:
+    - value: '67.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Doubao
   model: Seed2.0 Mini
   mode: ''
@@ -6592,6 +6675,8 @@ rows:
     url: https://seed.bytedance.com/en/seed2_1
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     kina:
     - value: '48.3'
@@ -6624,6 +6709,9 @@ rows:
     - value: '47.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '47.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     program_bench:
     - value: '50.3'
       source_label: Seed2.1
@@ -6635,6 +6723,9 @@ rows:
     - value: '71.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '71.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_atlas_qna:
     - value: '35.2'
       source_label: Seed2.1
@@ -6646,6 +6737,9 @@ rows:
     - value: '51.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '57.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mathvision:
     - value: '92.6'
       source_label: Seed2.1
@@ -6713,14 +6807,23 @@ rows:
     - value: '33.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '33.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_multilingual:
     - value: '75.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '75.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_verified:
     - value: '76.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '76.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepswe:
     - value: '15.0'
       source_label: Hunyuan 3
@@ -6745,10 +6848,16 @@ rows:
     - value: '76.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '76.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearch_qa:
     - value: '90.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '90.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mcp_atlas:
     - value: '80.6'
       source_label: Hunyuan 3
@@ -6761,14 +6870,23 @@ rows:
     - value: '62.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '62.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wildclawbench:
     - value: '47.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '61.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     skillsbench:
     - value: '53.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '60.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     e_bench:
     - value: '47.9'
       source_label: Hunyuan 3
@@ -6789,6 +6907,9 @@ rows:
     - value: '55.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '55.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hy_euler_pro:
     - value: '15.2'
       source_label: Hunyuan 3
@@ -6841,6 +6962,9 @@ rows:
     - value: '88.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '91.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     superchem:
     - value: '59.8'
       source_label: Hunyuan 3
@@ -6864,6 +6988,34 @@ rows:
     - value: '13.1'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    ifbench:
+    - value: '69.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '89.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '21.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '86.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '80.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '47.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '28.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Doubao
   model: Seed2.1 Turbo
   mode: ''
@@ -6871,6 +7023,8 @@ rows:
   sources:
   - label: Seed2.1 model card
     url: https://seed.bytedance.com/en/seed2_1
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     kina:
     - value: '46.6'
@@ -6900,6 +7054,9 @@ rows:
     - value: '43.7'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '43.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     program_bench:
     - value: '49.4'
       source_label: Seed2.1
@@ -6908,6 +7065,9 @@ rows:
     - value: '67.6'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '67.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_atlas_qna:
     - value: '30.6'
       source_label: Seed2.1
@@ -6916,18 +7076,30 @@ rows:
     - value: '57.0'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '57.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mathvision:
     - value: '90.1'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '89.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmmu_pro:
     - value: '80.1'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '80.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     worldvqa:
     - value: '48.6'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '49.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     zerobench_main_tools:
     - value: '11.0'
       source_label: Seed2.1
@@ -6936,10 +7108,16 @@ rows:
     - value: '62.9'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '62.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     charxiv_rq:
     - value: '82.5'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '83.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     erqa:
     - value: '71.3'
       source_label: Seed2.1
@@ -6980,6 +7158,101 @@ rows:
     - value: '29.2'
       source_label: Seed2.1
       source_url: https://seed.bytedance.com/en/seed2_1
+    - value: '29.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    imoanswerbench:
+    - value: '91.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '65.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '88.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    claw_eval_pass3:
+    - value: '64.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wildclawbench:
+    - value: '62.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '22.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '84.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '73.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hle_tools:
+    - value: '54.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '43.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '77.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '89.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '28.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    simplevqa:
+    - value: '73.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hipho:
+    - value: '81.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    zerobench_main_pass5:
+    - value: '18.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    gdp_pdf_mean_criteria:
+    - value: '60.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    perception_bench:
+    - value: '48.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mme_video_v2:
+    - value: '36.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmvu:
+    - value: '80.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videommmu:
+    - value: '85.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    longvideobench:
+    - value: '80.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videozerobench:
+    - value: '18.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: Max reasoning effort
@@ -7441,6 +7714,8 @@ rows:
   sources:
   - label: DeepSeek-V4-Flash-0731 result table
     url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     hle:
     - value: '37.8'
@@ -7453,6 +7728,9 @@ rows:
     - value: '51.5'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '50.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2_1:
     - value: '82.7'
       source_label: DeepSeek-V4-Flash-0731 result table
@@ -7460,10 +7738,16 @@ rows:
     - value: '79'
       source_label: DeepSeek V4 Pro official (AA)
       source_url: https://artificialanalysis.ai
+    - value: '82.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '54.2'
       source_label: DeepSeek-V4-Flash-0731 result table
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    - value: '54.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cybergym:
     - value: '76.7'
       source_label: DeepSeek-V4-Flash-0731 result table
@@ -7476,6 +7760,9 @@ rows:
     - value: '70.3'
       source_label: DeepSeek-V4-Flash-0731 result table
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4-flash-0731-score-table.png
+    - value: '70.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     automation_bench:
     - value: '25.1'
       source_label: DeepSeek-V4-Flash-0731 result table
@@ -7528,6 +7815,78 @@ rows:
     - value: '27.6'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    imoanswerbench:
+    - value: '91.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    codeforces:
+    - value: '3329'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '94.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '61.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '18.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '78.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '94.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    claw_eval_pass3:
+    - value: '78.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wildclawbench:
+    - value: '66.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '30.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    skillsbench:
+    - value: '61.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    apex_agents:
+    - value: '35.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '74.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '69.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '43.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '80.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '93.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '22.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: DeepSeek
   model: DeepSeek-V4-Pro-0813
   mode: ''
@@ -7629,6 +7988,8 @@ rows:
   sources:
   - label: DeepSeek V4 Pro report
     url: https://api-docs.deepseek.com
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     hle:
     - value: '37.7'
@@ -7638,14 +7999,23 @@ rows:
     - value: '48.2'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '48.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2_1:
     - value: '72.1'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '72.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '38.5'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '41.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cybergym:
     - value: '52.7'
       source_label: DeepSeek V4 Pro report
@@ -7658,6 +8028,9 @@ rows:
     - value: '55.9'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '55.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     automation_bench:
     - value: '12.8'
       source_label: DeepSeek V4 Pro report
@@ -7674,6 +8047,86 @@ rows:
     - value: '16.5'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    imoanswerbench:
+    - value: '89.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    codeforces:
+    - value: '3206'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '93.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '60.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '76.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '94.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    claw_eval_pass3:
+    - value: '59.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wildclawbench:
+    - value: '46.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '21.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_verified:
+    - value: '80.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_multilingual:
+    - value: '76.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_pro:
+    - value: '55.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    skillsbench:
+    - value: '50.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    apex_agents:
+    - value: '24.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '83.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '73.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '38.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '75.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '90.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '27.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: DeepSeek
   model: DeepSeek-V4-Flash-Preview
   mode: ''
@@ -7681,6 +8134,8 @@ rows:
   sources:
   - label: DeepSeek V4 Pro report
     url: https://api-docs.deepseek.com
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     hle:
     - value: '34.8'
@@ -7690,14 +8145,23 @@ rows:
     - value: '45.1'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '45.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2_1:
     - value: '61.8'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '61.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '39.4'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '39.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cybergym:
     - value: '38.7'
       source_label: DeepSeek V4 Pro report
@@ -7710,6 +8174,9 @@ rows:
     - value: '49.7'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '50.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     automation_bench:
     - value: '10.8'
       source_label: DeepSeek V4 Pro report
@@ -7726,6 +8193,78 @@ rows:
     - value: '15.8'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    imoanswerbench:
+    - value: '88.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    codeforces:
+    - value: '3052'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '91.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '37.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '79.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '95.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    claw_eval_pass3:
+    - value: '57.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wildclawbench:
+    - value: '40.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_verified:
+    - value: '79.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_multilingual:
+    - value: '73.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_pro:
+    - value: '52.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    skillsbench:
+    - value: '44.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    apex_agents:
+    - value: '13.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '73.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '67.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '36.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '74.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '87.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: DeepSeek
   model: DeepSeek-V4-Flash
   mode: Max reasoning effort
@@ -10636,6 +11175,8 @@ rows:
     url: https://openai.com/index/gpt-5-6/
   - label: Muse Spark 1.1 report
     url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     swe_pro:
     - value: '69.2'
@@ -10650,6 +11191,9 @@ rows:
     - value: '69.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '69.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2_1:
     - value: '85.4'
       source_label: Hunyuan 3
@@ -10666,6 +11210,9 @@ rows:
     - value: '84.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '84.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hle:
     - value: '57.9'
       source_label: Opus 5 comparison
@@ -10683,6 +11230,9 @@ rows:
     - value: '57.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '57.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     osworld_verified:
     - value: '83.4'
       source_label: Opus 4.8
@@ -10735,6 +11285,9 @@ rows:
     - value: '83.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '83.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     program_bench:
     - value: '71.9'
       source_label: GLM-5.2
@@ -10832,6 +11385,9 @@ rows:
     - value: '76.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '76.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     charxiv_rq:
     - value: '89.9'
       source_label: Muse Spark 1.1 report
@@ -10884,14 +11440,23 @@ rows:
     - value: '84.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '84.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_verified:
     - value: '88.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '88.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '69.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '69.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     browsecomp:
     - value: '84.3'
       source_label: Hunyuan 3
@@ -10903,10 +11468,16 @@ rows:
     - value: '72.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '72.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearch_qa:
     - value: '93.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '93.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearchqa:
     - value: '84.3'
       source_label: Muse Spark 1.1 report
@@ -10919,14 +11490,23 @@ rows:
     - value: '42.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '39.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     claw_eval_pass3:
     - value: '72.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '72.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wildclawbench:
     - value: '58.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '68.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     skillsbench:
     - value: '64.6'
       source_label: Hunyuan 3
@@ -10934,6 +11514,9 @@ rows:
     - value: '65.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '64.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     gpqa:
     - value: '93.6'
       source_label: Hunyuan 3
@@ -11076,6 +11659,9 @@ rows:
     - value: '1.5'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '1.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     tau3_banking:
     - value: '29'
       source_label: Artificial Analysis
@@ -11205,6 +11791,9 @@ rows:
     - value: '84.3'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '84.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hle_no_tools:
     - value: '49.8'
       source_label: Opus 5 comparison
@@ -11441,6 +12030,9 @@ rows:
     - value: '62.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '62.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     medxpertqa_mm:
     - value: '71.7'
       source_label: Qwen3.8
@@ -11481,6 +12073,42 @@ rows:
     - value: '73.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    codeforces:
+    - value: '3188'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '93.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '72.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '43.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '89.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '27.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '80.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '50.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '33.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Anthropic
   model: Claude Opus 4.8
   mode: Thinking
@@ -13608,6 +14236,10 @@ rows:
     - value: '59.3'
       source_label: Muse Spark 1.2 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '54.9'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     meta_internal_coding_bench:
     - value: '70.6'
       source_label: Muse Spark 1.2 Artificial Analysis
@@ -13616,6 +14248,10 @@ rows:
     - value: '1640'
       source_label: Muse Spark 1.2 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1628'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     tau3_banking:
     - value: '35'
       source_label: Muse Spark 1.2 Artificial Analysis
@@ -13652,18 +14288,8 @@ rows:
     - value: '1358'
       source_label: Muse Spark 1.2 Artificial Analysis
       source_url: https://artificialanalysis.ai
-    deepswe_1_1:
-    - value: '54.9'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     code_arena:
     - value: '1535'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    gdpval_aa_v2:
-    - value: '1628'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -14453,6 +15079,10 @@ rows:
     - value: '88'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '87.4'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     healthbench_pro:
     - value: '57.7'
       source_label: GPT-5.6 report
@@ -14537,6 +15167,10 @@ rows:
     - value: '15.2'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '23.6'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     toolathlon:
     - value: '53.1'
       source_label: GPT-5.6 report
@@ -14607,18 +15241,8 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
-    terminal_bench_2_1:
-    - value: '87.4'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     terminal_bench_3:
     - value: '20.8'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    automation_bench:
-    - value: '23.6'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -14876,6 +15500,8 @@ rows:
     url: https://openai.com/index/gpt-5-6/
   - label: Muse Spark 1.1 report
     url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     swe_pro:
     - value: '59.4'
@@ -14893,6 +15519,9 @@ rows:
     - value: '58.6'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '58.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2:
     - value: '82.7'
       source_label: GPT-5.5
@@ -14942,6 +15571,9 @@ rows:
     - value: '55.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '73.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     tau2_bench_telecom:
     - value: '98.0'
       source_label: GPT-5.5
@@ -14982,6 +15614,9 @@ rows:
     - value: '83.4'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '82.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hle:
     - value: '46.9'
       source_label: Opus 4.8
@@ -14999,6 +15634,9 @@ rows:
     - value: '52.2'
       source_label: Muse Spark 1.1 report
       source_url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+    - value: '52.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     gdpval_aa:
     - value: '1769'
       source_label: Opus 4.8
@@ -15043,6 +15681,9 @@ rows:
     - value: '38.5'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '37.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     forte:
     - value: '77.8'
       source_label: GPT-5.5
@@ -15169,6 +15810,9 @@ rows:
     - value: '77.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '76.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_verified:
     - value: '84.4'
       source_label: Hunyuan 3
@@ -15177,14 +15821,23 @@ rows:
     - value: '50.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '50.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wide_search:
     - value: '80.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '80.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearch_qa:
     - value: '95.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '95.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearchqa:
     - value: '87.8'
       source_label: Muse Spark 1.1 report
@@ -15197,18 +15850,30 @@ rows:
     - value: '67.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '67.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wildclawbench:
     - value: '63.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '65.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     skillsbench:
     - value: '61.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '66.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     imoanswerbench:
     - value: '92.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '92.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cl_bench:
     - value: '27.8'
       source_label: Hunyuan 3
@@ -15393,6 +16058,9 @@ rows:
     - value: '0.43'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '0.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     tau3_banking:
     - value: '31'
       source_label: Artificial Analysis
@@ -15483,6 +16151,50 @@ rows:
     - value: '19.7'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    codeforces:
+    - value: '3362'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '96.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '85.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '21.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '75.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '94.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '30.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '84.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '75.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '46.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '26.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: OpenAI
   model: GPT-5.4
   mode: xHigh
@@ -16970,6 +17682,8 @@ rows:
     url: https://openai.com/index/gpt-5-6/
   - label: Muse Spark 1.1 report
     url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     mmlu_pro:
     - value: '91.0'
@@ -17166,6 +17880,9 @@ rows:
     - value: '80.5'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '84.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmmlu:
     - value: '92.6'
       source_label: Gemini 3.1 Pro
@@ -17436,6 +18153,9 @@ rows:
     - value: '89.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '84.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     charxiv_rq_python:
     - value: '83.2'
       source_label: Gemini 3.6 Flash
@@ -17455,6 +18175,9 @@ rows:
     - value: '85.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     phyx_openended:
     - value: '79.4'
       source_label: Qwen3.8
@@ -17563,6 +18286,9 @@ rows:
     - value: '56.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '55.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     realworldqa:
     - value: '83.5'
       source_label: Qwen3.8
@@ -17583,10 +18309,16 @@ rows:
     - value: '73.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '72.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     worldvqa:
     - value: '54.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '44.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmstar:
     - value: '84.0'
       source_label: Qwen3.8
@@ -17607,6 +18339,9 @@ rows:
     - value: '68.3'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '51.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     dense200:
     - value: '69.7'
       source_label: Qwen3.8
@@ -17635,6 +18370,9 @@ rows:
     - value: '87.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '89.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mathvision_python:
     - value: '95.7'
       source_label: Qwen3.8
@@ -17647,6 +18385,9 @@ rows:
     - value: '23.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '16.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     omnidocbench15:
     - value: '90.0'
       source_label: Qwen3.8
@@ -17661,6 +18402,10 @@ rows:
     - value: '32.7'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    gdp_pdf_mean_criteria:
+    - value: '69.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Google
   model: Gemini 3 Pro
   mode: High
@@ -18266,6 +19011,10 @@ rows:
     - value: '49'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '48.6'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     terminal_bench_2_1:
     - value: '78.0'
       source_label: Gemini 3.6 Flash
@@ -18282,6 +19031,10 @@ rows:
     - value: '1421'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '1422'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     charxiv_rq:
     - value: '85.2'
       source_label: Gemini 3.6 Flash
@@ -18306,6 +19059,10 @@ rows:
     - value: '25'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '30'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     scicode:
     - value: '53'
       source_label: Artificial Analysis
@@ -18314,6 +19071,10 @@ rows:
     - value: '38'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '41'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     gpqa:
     - value: '93'
       source_label: Artificial Analysis
@@ -18330,25 +19091,32 @@ rows:
     - value: '46'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     aa_lcr:
     - value: '70'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '79'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     aa_briefcase:
     - value: '961'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '963'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     text_arena:
     - value: '1483'
       source_label: TextArena
       source_url: https://text-arena.com
     frontiercode:
     - value: '34.4'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    deepswe_1_1:
-    - value: '48.6'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -18372,11 +19140,6 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
-    gdpval_aa_v2:
-    - value: '1422'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     harvey_lab_aa:
     - value: '85.1'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -18387,33 +19150,8 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
-    aa_briefcase:
-    - value: '963'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    tau3_banking:
-    - value: '30'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    hle:
-    - value: '41'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     hle_verified:
     - value: '51.2'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    aa_omniscience_non_hallucination:
-    - value: '44'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    aa_lcr:
-    - value: '79'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -18466,6 +19204,8 @@ rows:
     url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     terminal_bench_2_1:
     - value: '76.2'
@@ -18499,10 +19239,16 @@ rows:
     - value: '84.2'
       source_label: Gemini 3.5 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    - value: '80.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmmu_pro:
     - value: '83.6'
       source_label: Gemini 3.5 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-5-flash
+    - value: '84.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     blueprint_bench_2:
     - value: '33.6'
       source_label: Gemini 3.5 Flash
@@ -18601,6 +19347,70 @@ rows:
     - value: '39'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    worldvqa:
+    - value: '51.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    simplevqa:
+    - value: '74.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mathvision:
+    - value: '91.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hipho:
+    - value: '86.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    zerobench_main_pass5:
+    - value: '21.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    gdp_pdf_mean_criteria:
+    - value: '65.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    perception_bench:
+    - value: '60.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    babyvision:
+    - value: '51.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mme_video_v2:
+    - value: '52.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmvu:
+    - value: '81.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videommmu:
+    - value: '88.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    longvideobench:
+    - value: '79.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videozerobench:
+    - value: '23.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    voicebench:
+    - value: '93.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    audiomc:
+    - value: '54.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmau_pro:
+    - value: '69.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Google
   model: Gemini 3 Flash
   mode: High
@@ -21243,6 +22053,8 @@ rows:
     url: https://bigmodel.cn
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     hle:
     - value: '40.5'
@@ -21258,6 +22070,9 @@ rows:
     - value: '54.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '54.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     critpt:
     - value: '20.9'
       source_label: GLM-5.2
@@ -21281,6 +22096,9 @@ rows:
     - value: '91.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '91.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     gpqa:
     - value: '91.2'
       source_label: GLM-5.2
@@ -21295,6 +22113,9 @@ rows:
     - value: '62.1'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '62.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '48.9'
       source_label: GLM-5.2
@@ -21302,6 +22123,9 @@ rows:
     - value: '48.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '48.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     program_bench:
     - value: '63.7'
       source_label: GLM-5.2
@@ -21316,6 +22140,9 @@ rows:
     - value: '82.7'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '81.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     frontierswe:
     - value: '74.4'
       source_label: GLM-5.2
@@ -21366,10 +22193,16 @@ rows:
     - value: '83.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '83.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_verified:
     - value: '84.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '84.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     toolathlon:
     - value: '46.6'
       source_label: Hunyuan 3
@@ -21377,6 +22210,9 @@ rows:
     - value: '59.9'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '59.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     apex_agents:
     - value: '29.9'
       source_label: Hunyuan 3
@@ -21384,18 +22220,30 @@ rows:
     - value: '35.6'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '33.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     claw_eval_pass3:
     - value: '62.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '62.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wildclawbench:
     - value: '59.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '54.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     skillsbench:
     - value: '51.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '51.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cl_bench:
     - value: '23.1'
       source_label: Hunyuan 3
@@ -21565,6 +22413,58 @@ rows:
     - value: '23.8'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    codeforces:
+    - value: '2851'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '83.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '22.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '10.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '78.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '92.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '25.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '76.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '71.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '40.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '82.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '91.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '25.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -22385,6 +23285,10 @@ rows:
     - value: '80.5'
       source_label: Claude Sonnet 5
       source_url: https://anthropic.com
+    - value: '80.4'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     hle:
     - value: '43.2'
       source_label: Claude Sonnet 5
@@ -22435,6 +23339,10 @@ rows:
     - value: '54'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '53.8'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     mle_bench:
     - value: '66.9'
       source_label: Gemini 3.6 Flash
@@ -22443,14 +23351,26 @@ rows:
     - value: '1607'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '1598'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     charxiv_rq:
     - value: '77.0'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '77.0'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     charxiv_rq_python:
     - value: '88.3'
       source_label: Gemini 3.6 Flash
       source_url: https://deepmind.google/models/evals-methodology/gemini-3-6-flash
+    - value: '88.3'
+      source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     mrcr_v2_128k:
     - value: '71.6'
       source_label: Gemini 3.6 Flash
@@ -22484,18 +23404,8 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
-    deepswe_1_1:
-    - value: '53.8'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     code_arena:
     - value: '1541'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    terminal_bench_2_1:
-    - value: '80.4'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -22509,11 +23419,6 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
-    gdpval_aa_v2:
-    - value: '1598'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
     harvey_lab_aa:
     - value: '90.1'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -22521,16 +23426,6 @@ rows:
       preferred: true
     gdp_pdf:
     - value: '28.0'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    charxiv_rq:
-    - value: '77.0'
-      source_label: Artificial Analysis (Gemini 3.7)
-      source_url: https://artificialanalysis.ai
-      preferred: true
-    charxiv_rq_python:
-    - value: '88.3'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
@@ -22784,27 +23679,44 @@ rows:
   sources:
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     swe_multilingual:
     - value: '75.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '75.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_verified:
     - value: '78.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '78.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     swe_pro:
     - value: '57.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '57.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     terminal_bench_2_1:
     - value: '71.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '71.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     nl2repo:
     - value: '45.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '45.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepswe:
     - value: '28.0'
       source_label: Hunyuan 3
@@ -22817,10 +23729,16 @@ rows:
     - value: '76.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '76.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     deepsearch_qa:
     - value: '91.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '91.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mcp_atlas:
     - value: '79.1'
       source_label: Hunyuan 3
@@ -22829,26 +23747,44 @@ rows:
     - value: '48.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '56.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     apex_agents:
     - value: '25.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '25.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     claw_eval_pass3:
     - value: '68.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '68.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     wildclawbench:
     - value: '53.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '53.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     skillsbench:
     - value: '55.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '55.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     hle_tools:
     - value: '53.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '53.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     gpqa:
     - value: '90.4'
       source_label: Hunyuan 3
@@ -22861,6 +23797,9 @@ rows:
     - value: '90.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '90.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     cl_bench:
     - value: '23.8'
       source_label: Hunyuan 3
@@ -22945,6 +23884,46 @@ rows:
     - value: '73.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    codeforces:
+    - value: '2758'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '91.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '35.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '74.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '94.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '27.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '84.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '69.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '40.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '23.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: Moonshot
   model: Kimi K3
   mode: ''
@@ -22952,6 +23931,8 @@ rows:
   sources:
   - label: Kimi K3 report
     url: https://kimi.moonshot.cn
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
   scores:
     agent_arena:
     - value: '9.62'
@@ -22969,6 +23950,9 @@ rows:
     - value: '88.3'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '88.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     frontierswe:
     - value: '81.2'
       source_label: Kimi K3
@@ -23005,10 +23989,16 @@ rows:
     - value: '95.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '95.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     toolathlon:
     - value: '76.5'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '76.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mcp_atlas:
     - value: '84.2'
       source_label: Kimi K3
@@ -23035,6 +24025,9 @@ rows:
     - value: '37.6'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '41.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     officeqa_pro:
     - value: '63.3'
       source_label: Kimi K3
@@ -23058,10 +24051,16 @@ rows:
     - value: '56.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '56.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmmu_pro:
     - value: '81.6'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '80.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mmmu_pro_tools:
     - value: '83.4'
       source_label: Kimi K3
@@ -23070,6 +24069,9 @@ rows:
     - value: '84.8'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '83.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     charxiv_rq_python:
     - value: '91.3'
       source_label: Kimi K3
@@ -23078,6 +24080,9 @@ rows:
     - value: '94.3'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '93.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     mathvision_python:
     - value: '97.8'
       source_label: Kimi K3
@@ -23090,6 +24095,9 @@ rows:
     - value: '23.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '24.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     zerobench_main_python_pass5:
     - value: '41.0'
       source_label: Kimi K3
@@ -23098,6 +24106,9 @@ rows:
     - value: '51.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '51.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     omnidocbench15:
     - value: '91.1'
       source_label: Kimi K3
@@ -23106,6 +24117,9 @@ rows:
     - value: '58.5'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '58.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     text_arena:
     - value: '1485'
       source_label: TextArena
@@ -23167,6 +24181,58 @@ rows:
     - value: '27.6'
       source_label: Agents' Last Exam
       source_url: https://artificialanalysis.ai
+    arc_agi_2:
+    - value: '60.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '27.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_pro:
+    - value: '63.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '91.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    simplevqa:
+    - value: '71.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hipho:
+    - value: '80.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    gdp_pdf_mean_criteria:
+    - value: '71.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    babyvision:
+    - value: '52.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mme_video_v2:
+    - value: '32.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmvu:
+    - value: '83.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videommmu:
+    - value: '86.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    longvideobench:
+    - value: '80.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videozerobench:
+    - value: '19.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
 - company: NVIDIA
   model: Nemotron-3-Super-120B-A12B
   mode: ''
@@ -23717,7 +24783,7 @@ rows:
     url: https://artificialanalysis.ai
 - company: Google
   model: Gemini 3.7 Flash
-  mode: 'High'
+  mode: High
   released: '2026-08-14'
   sources:
   - label: Artificial Analysis (Gemini 3.7)
@@ -23878,3 +24944,267 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+- company: RedNote
+  model: dots3-note Preview
+  mode: ''
+  released: '2026-08-14'
+  sources:
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
+  scores:
+    imoanswerbench:
+    - value: '90.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    codeforces:
+    - value: '3056'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livecodebench:
+    - value: '91.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_2:
+    - value: '81.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3:
+    - value: '6.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    arc_agi_3_general:
+    - value: '32.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifbench:
+    - value: '80.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    ifeval:
+    - value: '93.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    claw_eval_pass3:
+    - value: '73.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wildclawbench:
+    - value: '61.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibelifebench:
+    - value: '28.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    terminal_bench_2_1:
+    - value: '75.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_verified:
+    - value: '78.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_multilingual:
+    - value: '75.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    swe_pro:
+    - value: '61.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    nl2repo:
+    - value: '49.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    toolathlon:
+    - value: '55.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    skillsbench:
+    - value: '52.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    apex_agents:
+    - value: '30.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_ctx:
+    - value: '83.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    browsecomp_zh:
+    - value: '75.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hle_tools:
+    - value: '52.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    livebrowsecomp:
+    - value: '46.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    wide_search:
+    - value: '78.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    deepsearch_qa:
+    - value: '92.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    vibesearchbench:
+    - value: '25.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    worldvqa:
+    - value: '42.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    simplevqa:
+    - value: '72.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmmu_pro:
+    - value: '79.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mathvision:
+    - value: '87.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hipho:
+    - value: '74.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    zerobench_main_pass5:
+    - value: '19.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    charxiv_rq:
+    - value: '83.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    gdp_pdf_mean_criteria:
+    - value: '60.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    perception_bench:
+    - value: '53.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    babyvision:
+    - value: '50.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mme_video_v2:
+    - value: '39.3'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmvu:
+    - value: '79.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videommmu:
+    - value: '86.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    longvideobench:
+    - value: '76.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    videozerobench:
+    - value: '17.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    voicebench:
+    - value: '92.4'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    audiomc:
+    - value: '46.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmau_pro:
+    - value: '69.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+- company: Thinking Machines
+  model: Inkling-Small
+  mode: ''
+  released: ''
+  sources:
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
+  scores:
+    worldvqa:
+    - value: '16.2'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    simplevqa:
+    - value: '50.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmmu_pro:
+    - value: '74.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mathvision:
+    - value: '81.8'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    hipho:
+    - value: '76.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    zerobench_main_pass5:
+    - value: '11.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    charxiv_rq:
+    - value: '76.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    gdp_pdf_mean_criteria:
+    - value: '53.5'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    perception_bench:
+    - value: '37.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    babyvision:
+    - value: '27.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    voicebench:
+    - value: '90.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    audiomc:
+    - value: '54.9'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmau_pro:
+    - value: '65.6'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+- company: Qwen
+  model: Qwen3.5 Omni Plus
+  mode: ''
+  released: ''
+  sources:
+  - label: dots3-note report
+    url: https://news.qq.com/rain/a/20260814A0CXZ700
+  scores:
+    voicebench:
+    - value: '93.1'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    audiomc:
+    - value: '42.7'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    mmau_pro:
+    - value: '70.0'
+      source_label: dots3-note report
+      source_url: https://news.qq.com/rain/a/20260814A0CXZ700
