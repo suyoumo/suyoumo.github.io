@@ -618,9 +618,11 @@ permalink: /llm-leaderboard/
       if(!m[mk]) m[mk]={};
       if(r.scores) Object.keys(r.scores).forEach(function(bk){
         var e=r.scores[bk]; if(e&&e.length>0){ 
-          // 取所有分数中的最高分
+          // 优先使用 preferred 标记的来源（更新的实测批次），否则取所有分数中的最高分
+          var pref=e.filter(function(s){ return s.preferred; });
+          var pool=pref.length?pref:e;
           var maxV = NaN;
-          e.forEach(function(s){ var v=parseFloat(s.value); if(!isNaN(v) && (isNaN(maxV) || v>maxV)) maxV=v; });
+          pool.forEach(function(s){ var v=parseFloat(s.value); if(!isNaN(v) && (isNaN(maxV) || v>maxV)) maxV=v; });
           if(!isNaN(maxV)){ if(!m[mk].hasOwnProperty(bk)||maxV>m[mk][bk]) m[mk][bk]=maxV; }
         }
       });
