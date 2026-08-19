@@ -1,0 +1,59 @@
+---
+layout: default
+title: 模型详情 · LLMLeadBoard
+permalink: /llm-leaderboard/model/
+---
+{% assign board = site.data.llm_leaderboard %}
+
+<div class="llm-model-page">
+  <p class="mp-back"><a href="{{ '/llm-leaderboard/' | relative_url }}">← 返回 LLMLeadBoard</a></p>
+  <div id="llm-model-page"></div>
+</div>
+
+<script id="llm-model-data" type="application/json">{{ board | jsonify }}</script>
+
+<style>
+.llm-model-page { max-width: 1180px; margin: 0 auto; padding: 18px 16px 60px; }
+.mp-back a { color: #b4552d; text-decoration: none; font-size: 0.9rem; }
+.mp-back a:hover { text-decoration: underline; }
+.mp-card { background: #fff; border: 1px solid rgba(25,25,24,0.08); border-radius: 14px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 1px 2px rgba(60,42,28,0.05); }
+.mp-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 14px; }
+.mp-head h1 { margin: 0; font-size: 1.6rem; color: #191918; }
+.mp-meta { color: #6b6b65; font-size: 0.88rem; }
+.mp-sources { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.mp-sources a { font-size: 0.78rem; color: #b4552d; background: rgba(180,85,45,0.08); border-radius: 999px; padding: 3px 10px; text-decoration: none; }
+.mp-sources a:hover { background: rgba(180,85,45,0.16); }
+.mp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.mp-tile { border: 1px solid rgba(25,25,24,0.08); border-radius: 12px; padding: 12px 14px; background: #fbfaf8; }
+.mp-tile h3 { margin: 0 0 8px; font-size: 0.85rem; color: #6b6b65; font-weight: 600; }
+.mp-tile .mp-rank { font-size: 1.5rem; font-weight: 800; color: #191918; }
+.mp-tile .mp-sub { font-size: 0.78rem; color: #6b6b65; margin-top: 4px; }
+.mp-tile.mp-out { opacity: 0.55; }
+.mp-sec-title { margin: 26px 0 12px; font-size: 1.05rem; color: #191918; }
+.mp-sec-title small { color: #6b6b65; font-weight: 400; margin-left: 8px; }
+.mp-coll-block { margin-bottom: 18px; }
+.mp-coll-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.mp-coll-head strong { font-size: 0.95rem; color: #191918; }
+.mp-coll-head span { font-size: 0.78rem; color: #6b6b65; }
+.mp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mp-chip { border-radius: 8px; padding: 6px 10px; font-size: 0.78rem; display: inline-flex; gap: 8px; align-items: baseline; }
+.mp-chip .mp-chip-label { opacity: 0.85; }
+.mp-chip .mp-chip-val { font-weight: 800; }
+.mp-toolbar { margin: 8px 0 12px; font-size: 0.82rem; color: #3c3428; display: flex; gap: 14px; align-items: center; }
+.mp-cat { margin: 14px 0 6px; font-size: 0.82rem; color: #b4552d; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.mp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 22px; }
+@media (max-width: 760px) { .mp-grid { grid-template-columns: 1fr; } }
+.mp-item { display: flex; justify-content: space-between; gap: 12px; padding: 7px 2px; border-bottom: 1px dashed rgba(25,25,24,0.12); }
+.mp-bench { color: #191918; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.mp-badge { font-size: 0.62rem; border-radius: 4px; padding: 1px 5px; font-weight: 700; }
+.mp-badge-o { background: #2e7d4f; color: #fff; }
+.mp-badge-c { background: #3f73d4; color: #fff; }
+.mp-badge-g { background: #d99a2b; color: #fff; }
+.mp-scores { text-align: right; font-size: 0.85rem; color: #191918; }
+.mp-scores .mp-entry { display: block; }
+.mp-scores strong { font-weight: 800; }
+.mp-src { color: #8a8a84; font-size: 0.7rem; background: rgba(25,25,24,0.06); border-radius: 999px; padding: 1px 8px; margin-left: 6px; }
+</style>
+
+<script src="{{ '/assets/js/llm-ranking-core.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+<script src="{{ '/assets/js/llm-model-page.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
