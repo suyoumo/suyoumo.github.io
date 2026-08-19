@@ -34,10 +34,10 @@
 
     root.innerHTML =
       '<div class="cp-card"><div class="cp-pick">' +
-      '<div><label for="cp-a">模型 A</label><select id="cp-a"></select></div>' +
-      '<button class="cp-swap" id="cp-swap" type="button">⇄ 互换</button>' +
-      '<div><label for="cp-b">模型 B</label><select id="cp-b"></select></div>' +
-      '</div><div class="cp-toolbar" style="margin-top:12px;"><label><input type="checkbox" id="cp-all"> 包含全部共有 bench（不限于综合排名 Overall）</label></div>' +
+      '<div class="cp-field"><label for="cp-a">模型 A</label><div class="cp-select-wrap"><select id="cp-a"></select></div></div>' +
+      '<button class="cp-swap" id="cp-swap" type="button" title="互换 A/B" aria-label="互换 A/B">⇄</button>' +
+      '<div class="cp-field"><label for="cp-b">模型 B</label><div class="cp-select-wrap"><select id="cp-b"></select></div></div>' +
+      '</div><div class="cp-toolbar"><label class="cp-switch"><input type="checkbox" id="cp-all"><span class="cp-slider"></span><span>包含全部共有 bench（不限于综合排名 Overall）</span></label></div>' +
       '<div id="cp-body"></div></div>';
 
     var elA = document.getElementById('cp-a'), elB = document.getElementById('cp-b');
@@ -75,9 +75,13 @@
       var ra = rankOf[A], rb = rankOf[B];
       var total = shared.length || 1;
       var html = '<div class="cp-sum">';
-      html += '<div class="cp-a"><div class="cp-side"><span class="cp-name"><a href="../model/?m=' + encodeURIComponent(pa[1]) + '">' + C.escapeHtml(pa[1]) + '</a></span><span class="cp-meta">' + C.escapeHtml(pa[0]) + (ra ? ' · 综合 #' + ra.rank + ' · 得分率 ' + (ra.r.scoreRate * 100).toFixed(1) + '%' : '') + '</span></div><div class="cp-sum-num">' + winA.length + ' 领先</div></div>';
-      html += '<div class="cp-mid"><div class="cp-draw">' + draw.length + ' 打平</div><div class="cp-meta" style="font-size:0.78rem;color:#8a8a84;">共有 ' + shared.length + ' 个 bench</div></div>';
-      html += '<div class="cp-b" style="text-align:right;"><div class="cp-side" style="justify-content:flex-end;"><span class="cp-meta">' + (rb ? '综合 #' + rb.rank + ' · 得分率 ' + (rb.r.scoreRate * 100).toFixed(1) + '% · ' : '') + C.escapeHtml(pb[0]) + '</span><span class="cp-name"><a href="../model/?m=' + encodeURIComponent(pb[1]) + '">' + C.escapeHtml(pb[1]) + '</a></span></div><div class="cp-sum-num">' + winB.length + ' 领先</div></div>';
+      html += '<div class="cp-side-card cp-a"><div class="cp-side-top"><span class="cp-name"><a href="../model/?m=' + encodeURIComponent(pa[1]) + '">' + C.escapeHtml(pa[1]) + '</a></span>' + (ra ? '<span class="cp-rank-pill">综合 #' + ra.rank + '</span>' : '') + '</div>' +
+        '<div class="cp-meta">' + C.escapeHtml(pa[0]) + (ra ? ' · 得分率 ' + (ra.r.scoreRate * 100).toFixed(1) + '%' : '') + '</div>' +
+        '<div class="cp-sum-num">' + winA.length + '<small>bench 领先</small></div></div>';
+      html += '<div class="cp-mid"><div class="cp-vs">VS</div><div class="cp-draw">' + draw.length + ' 打平</div><div class="cp-shared">共有 ' + shared.length + ' 个 bench</div></div>';
+      html += '<div class="cp-side-card cp-b"><div class="cp-side-top"><span class="cp-name"><a href="../model/?m=' + encodeURIComponent(pb[1]) + '">' + C.escapeHtml(pb[1]) + '</a></span>' + (rb ? '<span class="cp-rank-pill">综合 #' + rb.rank + '</span>' : '') + '</div>' +
+        '<div class="cp-meta">' + C.escapeHtml(pb[0]) + (rb ? ' · 得分率 ' + (rb.r.scoreRate * 100).toFixed(1) + '%' : '') + '</div>' +
+        '<div class="cp-sum-num">' + winB.length + '<small>bench 领先</small></div></div>';
       html += '</div>';
       html += '<div class="cp-bar"><div class="cp-seg-a" style="width:' + (winA.length / total * 100) + '%"></div><div class="cp-seg-d" style="width:' + (draw.length / total * 100) + '%"></div><div class="cp-seg-b" style="width:' + (winB.length / total * 100) + '%"></div></div>';
       html += '<div class="cp-note">口径与综合排名对局一致：Overall 有效 bench、每 bench 取 preferred/最高分；' + (all ? '当前显示全部共有 bench。' : '勾选"包含全部共有 bench"可看综合之外的维度。') + '</div>';
@@ -88,9 +92,9 @@
           var w = Math.min(50, Math.abs(it.m) * 50).toFixed(1);
           var fill = it.a === it.b ? '' : (it.a > it.b ? '<div class="cp-fill cp-fill-a" style="width:' + w + '%"></div>' : '<div class="cp-fill cp-fill-b" style="width:' + w + '%"></div>');
           return '<div class="cp-row"><div class="cp-bench">' + C.escapeHtml(benchLabels[it.bk]) + '</div>' +
-            '<div class="cp-val ' + (it.a > it.b ? 'cp-hi-a' : '') + '">' + fmt(it.a) + '</div>' +
+            '<div class="cp-val cp-val-a ' + (it.a > it.b ? 'cp-hi-a' : '') + '">' + fmt(it.a) + '</div>' +
             '<div class="cp-track">' + fill + '</div>' +
-            '<div class="cp-val ' + (it.b > it.a ? 'cp-hi-b' : '') + '">' + fmt(it.b) + '</div></div>';
+            '<div class="cp-val cp-val-b ' + (it.b > it.a ? 'cp-hi-b' : '') + '">' + fmt(it.b) + '</div></div>';
         }).join('');
       }
 

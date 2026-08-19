@@ -24,11 +24,20 @@
     var mk = modelRows[0].company + '|' + modelRows[0].model;
 
     var html = '';
-    html += '<div class="mp-card"><div class="mp-head"><h1>' + C.escapeHtml(name) + '</h1>' +
-      '<span class="mp-meta">' + C.escapeHtml(modelRows[0].company) + '</span>' +
-      modelRows.map(function (r) { return '<span class="mp-meta">模式 ' + C.escapeHtml(r.mode || '--') + '</span>'; }).join('') +
-      modelRows.map(function (r) { return r.released ? '<span class="mp-meta">发布 ' + C.escapeHtml(r.released) + '</span>' : ''; }).join('') +
-      '<a class="mp-meta" style="color:#b4552d;" href="../compare/?a=' + encodeURIComponent(name) + '">对比其他模型 →</a>' +
+    var modes = [], released = [];
+    modelRows.forEach(function (r) {
+      if (r.mode && modes.indexOf(r.mode) === -1) modes.push(r.mode);
+      if (r.released && released.indexOf(r.released) === -1) released.push(r.released);
+    });
+    var pills = '';
+    modes.forEach(function (m) { pills += '<span class="mp-pill">模式 ' + C.escapeHtml(m) + '</span>'; });
+    released.forEach(function (d) { pills += '<span class="mp-pill">发布 ' + C.escapeHtml(d) + '</span>'; });
+    html += '<div class="mp-hero"><div class="mp-hero-top">' +
+      '<div class="mp-hero-title"><div class="mp-company">' + C.escapeHtml(modelRows[0].company) + '</div>' +
+      '<h1>' + C.escapeHtml(name) + '</h1>' +
+      (pills ? '<div class="mp-pills">' + pills + '</div>' : '') +
+      '</div>' +
+      '<a class="mp-compare-btn" href="../compare/?a=' + encodeURIComponent(name) + '">对比其他模型 →</a>' +
       '</div>';
     var seenSrc = {};
     var srcHtml = '';
@@ -38,7 +47,7 @@
         srcHtml += s.url ? '<a href="' + C.escapeHtml(s.url) + '" target="_blank" rel="noopener">' + C.escapeHtml(s.label) + '</a>' : '<a>' + C.escapeHtml(s.label) + '</a>';
       });
     });
-    if (srcHtml) html += '<div class="mp-sources">' + srcHtml + '</div>';
+    if (srcHtml) html += '<div class="mp-sources"><span class="mp-sources-label">来源</span>' + srcHtml + '</div>';
 
     var rankData = {};
     ['Overall', 'Code', 'General'].forEach(function (n) {
@@ -50,14 +59,17 @@
       var rd = rankData[n];
       var idx = -1;
       rd.results.forEach(function (r, i) { if (r.mk === mk) idx = i; });
+      var tileTitle = C.escapeHtml((collections[n].label || n).trim()) + ' 排名';
       if (idx >= 0) {
         var r = rd.results[idx];
-        html += '<div class="mp-tile"><h3>' + C.escapeHtml((collections[n].label || n).trim()) + ' 排名</h3>' +
-          '<div class="mp-rank">#' + (idx + 1) + '<span class="mp-meta"> / ' + rd.results.length + '</span></div>' +
-          '<div class="mp-sub">得分率 ' + (r.scoreRate * 100).toFixed(1) + '% · ' + r.wins + '胜/' + r.draws + '平/' + r.losses + '负</div>' +
-          '<div class="mp-sub">均百分位 ' + r.avg.toFixed(3) + ' · 命中 ' + r.cnt + '/' + rd.validKeys.length + ' bench</div></div>';
+        html += '<div class="mp-tile"><div class="mp-tile-head"><h3>' + tileTitle + '</h3>' +
+          '<span class="mp-tile-tag">命中 ' + r.cnt + '/' + rd.validKeys.length + '</span></div>' +
+          '<div class="mp-rank">#' + (idx + 1) + ' <small>/ ' + rd.results.length + '</small></div>' +
+          '<div class="mp-meter"><span style="width:' + Math.min(100, Math.max(2, r.scoreRate * 100)).toFixed(1) + '%"></span></div>' +
+          '<div class="mp-sub">得分率 <strong>' + (r.scoreRate * 100).toFixed(1) + '%</strong> · ' + r.wins + ' 胜 ' + r.draws + ' 平 ' + r.losses + ' 负</div>' +
+          '<div class="mp-sub">均百分位 ' + r.avg.toFixed(3) + '</div></div>';
       } else {
-        html += '<div class="mp-tile mp-out"><h3>' + C.escapeHtml((collections[n].label || n).trim()) + ' 排名</h3>' +
+        html += '<div class="mp-tile mp-out"><div class="mp-tile-head"><h3>' + tileTitle + '</h3></div>' +
           '<div class="mp-rank">--</div><div class="mp-sub">未达入围线（≥' + collections[n].minBench + ' 个 bench）</div></div>';
       }
     });
@@ -82,7 +94,7 @@
           var rk = rd.br[bk][mk], tot = Object.keys(rd.br[bk]).length;
           group += '<span class="mp-chip" style="background:' + C.rankColor(rk, tot) + ';color:' + C.rankTextColor(rk, tot) + ';">' +
             '<span class="mp-chip-label">' + C.escapeHtml(benchLabels[bk]) + '</span><span class="mp-chip-val">' + pooled + '</span>' +
-            '<span class="mp-chip-label">#' + rk + '/' + tot + '</span></span>';
+            '<span class="mp-chip-rank">#' + rk + '/' + tot + '</span></span>';
         });
         if (group) chips += '<div class="mp-coll-block"><div class="mp-coll-head"><span>' + C.escapeHtml(cat) + '</span></div><div class="mp-chips">' + group + '</div></div>';
       });
@@ -91,7 +103,7 @@
     html += '</div>';
 
     html += '<h2 class="mp-sec-title">全部 benchmark 分数<small>徽章：综=Overall · C=Code · G=General</small></h2>';
-    html += '<div class="mp-toolbar"><label><input type="checkbox" id="mp-only-composite"> 仅显示综合排名（Overall）包含的 bench</label></div>';
+    html += '<div class="mp-toolbar"><label class="mp-switch"><input type="checkbox" id="mp-only-composite"><span class="mp-slider"></span><span>仅显示综合排名（Overall）包含的 bench</span></label></div>';
     html += '<div class="mp-card">';
     (board.categories || []).forEach(function (cat) {
       var items = [];
@@ -112,7 +124,7 @@
         items.push('<div class="mp-item" data-composite="' + (setOf.Overall[col.key] ? '1' : '0') + '"><div class="mp-bench">' + C.escapeHtml(col.label) + badges + '</div><div class="mp-scores">' + scores + '</div></div>');
       });
       if (!items.length) return;
-      html += '<div class="mp-cat">' + C.escapeHtml(cat.name) + ' <span class="mp-meta">(' + items.length + ')</span></div><div class="mp-grid">' + items.join('') + '</div>';
+      html += '<div class="mp-cat">' + C.escapeHtml(cat.name) + ' <span class="mp-cat-count">(' + items.length + ')</span></div><div class="mp-grid">' + items.join('') + '</div>';
     });
     html += '</div>';
 
