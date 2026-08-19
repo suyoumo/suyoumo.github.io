@@ -120,12 +120,12 @@
     }
 
     function setOffsets() {
-      const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const headerBottom = siteHeader ? siteHeader.getBoundingClientRect().bottom : 64;
       // Both layers are always rendered, so their heights are constants here —
       // no dependence on whether they currently happen to be shown.
       const scrollbarHeight = topScrollbar ? topScrollbar.getBoundingClientRect().height : 0;
-      if (topScrollbar) topScrollbar.style.top = Math.ceil(headerHeight + 8) + 'px';
-      if (stickyHead) stickyHead.style.top = Math.ceil(headerHeight + scrollbarHeight + 8) + 'px';
+      if (topScrollbar) topScrollbar.style.top = Math.ceil(headerBottom + 8) + 'px';
+      if (stickyHead) stickyHead.style.top = Math.ceil(headerBottom + scrollbarHeight + 8) + 'px';
     }
 
     function syncTopScrollbarWidth() {
@@ -152,11 +152,11 @@
       // on every scroll frame was the other half of the old jitter.
       const canScrollX = table.scrollWidth - tableWrap.clientWidth > 2;
       const cardRect = card.getBoundingClientRect();
-      const headerHeight = siteHeader ? siteHeader.getBoundingClientRect().height : 64;
+      const headerBottom = siteHeader ? siteHeader.getBoundingClientRect().bottom : 64;
       const scrollbarHeight = topScrollbar.getBoundingClientRect().height;
-      const shouldShow = canScrollX && cardRect.top <= headerHeight + 20 && cardRect.bottom >= headerHeight + 84;
+      const shouldShow = canScrollX && cardRect.top <= headerBottom + 20 && cardRect.bottom >= headerBottom + 84;
       const headRect = tableWrap.getBoundingClientRect();
-      const stickyHeadTop = headerHeight + scrollbarHeight + 8;
+      const stickyHeadTop = headerBottom + scrollbarHeight + 8;
       const shouldShowSticky = headRect.top <= stickyHeadTop && cardRect.bottom >= stickyHeadTop + 56;
 
       topScrollbar.classList.toggle('is-visible', shouldShow);

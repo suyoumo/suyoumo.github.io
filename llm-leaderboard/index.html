@@ -803,7 +803,7 @@ permalink: /llm-leaderboard/
   var rankStickyTable = document.getElementById('rankingStickyHeadTable');
   var siteHeaderEl = document.querySelector('.site-header');
 
-  function siteHeaderHeight(){ return siteHeaderEl ? siteHeaderEl.getBoundingClientRect().height : 64; }
+  function siteHeaderBottom(){ return siteHeaderEl ? Math.ceil(siteHeaderEl.getBoundingClientRect().bottom) + 8 : 72; }
 
   function hideRankSticky(){
     rankSticky.classList.remove('is-visible');
@@ -846,14 +846,14 @@ permalink: /llm-leaderboard/
     // Pull the table up under the clone so the always-rendered clone
     // reserves zero flow space.
     rankSticky.style.marginBottom = (-rankSticky.offsetHeight)+'px';
-    rankSticky.style.top = Math.ceil(siteHeaderHeight())+'px';
+    rankSticky.style.top = siteHeaderBottom()+'px';
   }
 
   var rankStickyTicking = false;
   function updateRankSticky(){
     rankStickyTicking = false;
     if(!rankWrap || !rankSticky || !rankStickyTable.tHead) return;
-    var top = siteHeaderHeight();
+    var top = siteHeaderBottom();
     var rect = rankWrap.getBoundingClientRect();
     var show = rect.top <= top && rect.bottom > top + rankSticky.offsetHeight;
     rankSticky.classList.toggle('is-visible', show);
