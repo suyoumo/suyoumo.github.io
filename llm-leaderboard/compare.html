@@ -99,6 +99,19 @@ permalink: /llm-leaderboard/compare/
 .cp-fill { position: absolute; top: 3px; bottom: 3px; border-radius: 999px; animation: cpGrow .6s cubic-bezier(.22,.8,.36,1) both; }
 .cp-fill-a { background: linear-gradient(270deg, #2e7d4f, #4da273); right: 50%; margin-right: 2px; }
 .cp-fill-b { background: linear-gradient(90deg, #b4502d, #d9754a); left: 50%; margin-left: 2px; }
+
+/* ===== Search & win-rate breakdown ===== */
+.cp-search { width: 100%; margin-bottom: 6px; padding: 7px 12px; border-radius: 10px; border: 1px dashed rgba(25,25,24,0.2); background: rgba(255,255,255,0.7); font-size: 0.82rem; color: #191918; transition: border-color .15s, background .15s; }
+.cp-search:focus { outline: none; border-color: #c45a3c; border-style: solid; background: #fff; }
+.cp-opp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+.cp-opp-head { font-size: 0.9rem; font-weight: 800; color: #191918; margin-bottom: 4px; }
+.cp-opp-head small { font-weight: 400; color: #8a8a84; }
+.cp-opp-title { margin: 12px 0 4px; font-size: 0.8rem; font-weight: 800; }
+.cp-opp-title small { font-weight: 400; color: #8a8a84; }
+.cp-opp { display: flex; justify-content: space-between; gap: 10px; width: 100%; border: none; background: none; padding: 6px 8px; font-size: 0.83rem; cursor: pointer; border-bottom: 1px dashed rgba(25,25,24,0.1); color: #191918; text-align: left; border-radius: 6px; transition: background .12s; }
+.cp-opp:hover { background: #f3efe9; }
+.cp-opp small { color: #8a8a84; }
+.cp-opp-score { font-weight: 700; color: #6b6b65; font-variant-numeric: tabular-nums; }
 @media (max-width: 760px) {
   .cp-pick { grid-template-columns: 1fr; }
   .cp-swap { justify-self: center; }
