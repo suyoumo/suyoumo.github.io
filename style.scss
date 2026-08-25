@@ -3752,24 +3752,6 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
   padding: 12px 12px;
 }
 
-.bench-nav a.bench-nav-paper {
-  gap: 6px;
-  margin-left: 4px;
-  padding: 7px 14px;
-  border: 1px solid rgba(25, 25, 24, 0.12);
-  border-radius: 999px;
-  background: #fff;
-  box-shadow: 0 1px 2px rgba(25, 25, 24, 0.06);
-  color: $black;
-  font-weight: 600;
-  white-space: nowrap;
-
-  &:hover {
-    border-color: rgba(25, 25, 24, 0.24);
-    background: $cream;
-  }
-}
-
 .bench-nav-recruit {
   display: inline-flex;
   align-items: center;
@@ -3855,6 +3837,22 @@ html[data-bench-lang="zh"] .bench-language-toggle {
   @include mobile {
     font-size: 2.4rem;
   }
+}
+
+.bench-hero-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin: 0 0 18px;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+a.bench-hero-paper {
+  flex: 0 0 auto;
 }
 
 .bench-intro {

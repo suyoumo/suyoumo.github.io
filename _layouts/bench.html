@@ -45,9 +45,6 @@
           <a href="{{ site.baseurl }}{{ bench_tasks_url }}" {% if page.url contains bench_tasks_url %}class="active"{% endif %}>Tasks</a>
           <a href="{{ site.baseurl }}/bench/blog/" {% if page.url contains '/bench/blog' %}class="active"{% endif %}>Blog</a>
           <a href="{{ site.baseurl }}/about">AboutMe</a>
-          {% unless is_code_agent_bench %}
-          <a class="bench-nav-paper" href="https://arxiv.org/abs/2608.22510" target="_blank" rel="noopener" data-i18n-skip>📝 arxiv文章地址</a>
-          {% endunless %}
           <a href="{{ bench_github_url }}" target="_blank" rel="noopener">GitHub</a>
         </nav>
       </div>
