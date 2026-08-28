@@ -561,6 +561,12 @@ categories:
     label: APEX-SWE
   - key: code_arena
     label: Code Arena
+  - key: swe_atlas_codebase_qa
+    label: SWE Atlas - Codebase Q&A
+  - key: swe_atlas_test_writing
+    label: SWE Atlas - Test Writing
+  - key: swe_atlas_refactoring
+    label: SWE Atlas - Refactoring
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -759,6 +765,24 @@ categories:
     label: AutomationBench-AA
   - key: aa_analyst_agent
     label: AA-AnalystAgent
+  - key: harbor_index
+    label: Harbor-Index
+  - key: onemillionbench
+    label: OneMillionBench
+  - key: hy_lifesearch
+    label: Hy-LifeSearch
+  - key: hy_browsecomp_pro2
+    label: Hy-BrowseComp-Pro2
+  - key: toolathlon_verified
+    label: Toolathlon-Verified
+  - key: workspacebench
+    label: WorkspaceBench
+  - key: e_bench_code
+    label: E-Bench-Code
+  - key: hy_finagentbench
+    label: Hy-FinAgentBench
+  - key: hy_finmodelbench_v2
+    label: Hy-FinmodelBench v2
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -961,6 +985,12 @@ categories:
     label: HLE-Verified
   - key: labbench2
     label: LABBench2
+  - key: biomysterybench
+    label: BioMysteryBench
+  - key: matharena_apex_2025
+    label: MathArena Apex 2025
+  - key: brokenarxiv
+    label: BrokenArXiv
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -3470,14 +3500,14 @@ rows:
     - value: '87.2'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
-    - value: '87.2'
+    - value: '90.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hle:
     - value: '30.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
-    - value: '30.0'
+    - value: '34.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     phybench:
@@ -3518,7 +3548,7 @@ rows:
     - value: '68.3'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
-    - value: '68.3'
+    - value: '75.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     swe_verified:
@@ -3532,7 +3562,7 @@ rows:
     - value: '46.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
-    - value: '46.0'
+    - value: '57.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     terminal_bench_2:
@@ -3551,7 +3581,7 @@ rows:
     - value: '30.0'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
-    - value: '30.0'
+    - value: '49.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     browsecomp:
@@ -3565,6 +3595,9 @@ rows:
     - value: '70.2'
       source_label: HY3
       source_url: https://hy.tencent.com/research/hy3
+    - value: '81.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
     finsearchcomp:
     - value: '62.2'
       source_label: HY3
@@ -3596,7 +3629,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     skillsbench:
-    - value: '29.1'
+    - value: '55.3'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     - value: '25.6'
@@ -3632,23 +3665,23 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     terminal_bench_2_1:
-    - value: '58.0'
+    - value: '70.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     nl2repo:
-    - value: '35.3'
+    - value: '45.6'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     deepswe:
-    - value: '0.9'
+    - value: '28.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hy_backend_2_0:
-    - value: '12.2'
+    - value: '26.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hy_companybench:
-    - value: '8.3'
+    - value: '29.8'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     wide_search:
@@ -3660,7 +3693,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     mcp_atlas:
-    - value: '66.1'
+    - value: '75.0'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     toolathlon:
@@ -3668,11 +3701,11 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     apex_agents:
-    - value: '12.4'
+    - value: '24.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     e_bench:
-    - value: '10.9'
+    - value: '48.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hy_finmodelbench:
@@ -3688,7 +3721,7 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hle_tools:
-    - value: '35.4'
+    - value: '51.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hy_euler_pro:
@@ -3712,11 +3745,11 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     arxivmath:
-    - value: '46.1'
+    - value: '51.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     horizonmath:
-    - value: '1.8'
+    - value: '3.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     hy_math:
@@ -3728,7 +3761,115 @@ rows:
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
     superchem:
-    - value: '47.0'
+    - value: '52.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_codebase_qa:
+    - value: '30.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_test_writing:
+    - value: '35.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_refactoring:
+    - value: '32.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    swe_marathon:
+    - value: '5.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    cybergym:
+    - value: '51.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    program_bench:
+    - value: '3.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    posttrainbench:
+    - value: '14.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    harbor_index:
+    - value: '15.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    onemillionbench:
+    - value: '51.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    draco:
+    - value: '65.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_lifesearch:
+    - value: '38.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_browsecomp_pro2:
+    - value: '55.0'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    officeqa_pro:
+    - value: '54.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    toolathlon_verified:
+    - value: '56.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    jobbench:
+    - value: '34.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    workspacebench:
+    - value: '58.2'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    agents_last_exam:
+    - value: '17.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    gdpval_aa_v2:
+    - value: '1213'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    automation_bench:
+    - value: '16.1'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    bankertoolbench:
+    - value: '68.8'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    e_bench_code:
+    - value: '64.4'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finagentbench:
+    - value: '69.5'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench_v2:
+    - value: '28.6'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    biomysterybench:
+    - value: '54.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    critpt:
+    - value: '4.9'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    matharena_apex_2025:
+    - value: '38.7'
+      source_label: Hunyuan 3
+      source_url: https://hunyuan.tencent.com
+    brokenarxiv:
+    - value: '26.7'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
 - company: Tencent
@@ -8032,6 +8173,146 @@ rows:
     - value: '79'
       source_label: DeepSeek V4 Pro official (AA)
       source_url: https://artificialanalysis.ai
+    swe_multilingual:
+    - value: '77.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    swe_pro:
+    - value: '60.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    swe_atlas_codebase_qa:
+    - value: '53.4'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    swe_atlas_test_writing:
+    - value: '45.6'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    swe_atlas_refactoring:
+    - value: '48.6'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    swe_marathon:
+    - value: '19.0'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    program_bench:
+    - value: '15.5'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    posttrainbench:
+    - value: '24.5'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    harbor_index:
+    - value: '36.9'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_backend_2_0:
+    - value: '33.8'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_swe_max:
+    - value: '65.7'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_companybench:
+    - value: '64.4'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    widesearch:
+    - value: '81.8'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    onemillionbench:
+    - value: '62.0'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    draco:
+    - value: '77.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_lifesearch:
+    - value: '46.9'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_browsecomp_pro2:
+    - value: '46.5'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    officeqa_pro:
+    - value: '65.4'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    mcp_atlas:
+    - value: '82.5'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    toolathlon_verified:
+    - value: '74.1'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    apex_agents:
+    - value: '32.4'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    skillsbench:
+    - value: '65.0'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    jobbench:
+    - value: '54.1'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    workspacebench:
+    - value: '65.4'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    bankertoolbench:
+    - value: '73.1'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    e_bench:
+    - value: '61.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    e_bench_code:
+    - value: '64.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_finagentbench:
+    - value: '78.5'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    hy_finmodelbench_v2:
+    - value: '51.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    biomysterybench:
+    - value: '61.6'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    superchem:
+    - value: '62.0'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    arxivmath:
+    - value: '62.1'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    horizonmath:
+    - value: '4.42'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    matharena_apex_2025:
+    - value: '66.3'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
+    brokenarxiv:
+    - value: '43.1'
+      source_label: DeepSeek-V4-Pro-0813
+      source_url: https://api-docs.deepseek.com
 - company: DeepSeek
   model: DeepSeek-V4-Pro-Preview
   mode: ''
@@ -11212,6 +11493,9 @@ rows:
     - value: '28'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '29.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
     aa_omniscience:
     - value: '53'
       source_label: Opus 5 comparison
@@ -11232,6 +11516,166 @@ rows:
     - value: '1492'
       source_label: TextArena
       source_url: https://text-arena.com
+    swe_multilingual:
+    - value: '89.5'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    swe_pro:
+    - value: '79.2'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    swe_atlas_codebase_qa:
+    - value: '57.5'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    swe_atlas_test_writing:
+    - value: '68.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    swe_atlas_refactoring:
+    - value: '60.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    swe_marathon:
+    - value: '50.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    nl2repo:
+    - value: '75.3'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    program_bench:
+    - value: '39.5'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    posttrainbench:
+    - value: '35.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    harbor_index:
+    - value: '56.9'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_backend_2_0:
+    - value: '40.3'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_swe_max:
+    - value: '70.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_companybench:
+    - value: '72.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    widesearch:
+    - value: '84.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    onemillionbench:
+    - value: '68.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    draco:
+    - value: '88.6'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_lifesearch:
+    - value: '56.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_browsecomp_pro2:
+    - value: '61.3'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    officeqa_pro:
+    - value: '66.9'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    mcp_atlas:
+    - value: '85.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    toolathlon_verified:
+    - value: '76.5'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    apex_agents:
+    - value: '41.8'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    skillsbench:
+    - value: '63.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    jobbench:
+    - value: '68.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    workspacebench:
+    - value: '75.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    agents_last_exam:
+    - value: '25.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '48.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    bankertoolbench:
+    - value: '81.9'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    e_bench:
+    - value: '77.8'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    e_bench_code:
+    - value: '82.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_finagentbench:
+    - value: '82.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hy_finmodelbench_v2:
+    - value: '66.0'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    biomysterybench:
+    - value: '72.1'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    hle_tools:
+    - value: '60.9'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    gpqa:
+    - value: '93.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    superchem:
+    - value: '76.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    arxivmath:
+    - value: '71.5'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    horizonmath:
+    - value: '5.3'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    matharena_apex_2025:
+    - value: '91.4'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    brokenarxiv:
+    - value: '77.7'
+      source_label: Claude Opus 5
+      source_url: https://anthropic.com
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -14672,6 +15116,9 @@ rows:
     - value: '45.8'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '45.8'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -14731,6 +15178,9 @@ rows:
     - value: '42.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '42.5'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     posttrainbench:
     - value: '34.6'
       source_label: Kimi K3 report
@@ -14738,6 +15188,9 @@ rows:
     - value: '36.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '36.2'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     mls_bench_lite:
     - value: '46.2'
       source_label: Kimi K3 report
@@ -14779,6 +15232,9 @@ rows:
     - value: '63.2'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '65.4'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     spreadsheetbench_2:
     - value: '32.4'
       source_label: Kimi K3 report
@@ -14787,6 +15243,9 @@ rows:
     - value: '47'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '49.5'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     hle_tools:
     - value: '58.0'
       source_label: Kimi K3 report
@@ -14797,6 +15256,9 @@ rows:
     - value: '64.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '60.2'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     charxiv_rq:
     - value: '84.6'
       source_label: Kimi K3 report
@@ -14887,6 +15349,9 @@ rows:
     - value: '32'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '32.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
     aa_omniscience_accuracy:
     - value: '59'
       source_label: Artificial Analysis
@@ -15197,6 +15662,114 @@ rows:
     - value: '34.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    swe_multilingual:
+    - value: '74.1'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_atlas_codebase_qa:
+    - value: '58.1'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_atlas_test_writing:
+    - value: '49.6'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    swe_atlas_refactoring:
+    - value: '52.4'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    nl2repo:
+    - value: '56.8'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    harbor_index:
+    - value: '46.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_backend_2_0:
+    - value: '49.6'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_swe_max:
+    - value: '69.8'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_companybench:
+    - value: '70.6'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    widesearch:
+    - value: '86.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    onemillionbench:
+    - value: '67.1'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    draco:
+    - value: '77.7'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_lifesearch:
+    - value: '63.4'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_browsecomp_pro2:
+    - value: '56.4'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    toolathlon_verified:
+    - value: '73.2'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    workspacebench:
+    - value: '65.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    bankertoolbench:
+    - value: '79.0'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    e_bench:
+    - value: '80.6'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    e_bench_code:
+    - value: '83.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_finagentbench:
+    - value: '83.0'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    hy_finmodelbench_v2:
+    - value: '65.3'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    biomysterybench:
+    - value: '73.1'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    superchem:
+    - value: '73.6'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    arxivmath:
+    - value: '79.5'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    horizonmath:
+    - value: '10.62'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    matharena_apex_2025:
+    - value: '90.0'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
+    brokenarxiv:
+    - value: '64.4'
+      source_label: GPT-5.6
+      source_url: https://openai.com/index/gpt-5-6/
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -24432,14 +25005,14 @@ rows:
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     automation_bench:
-    - value: '30.8'
+    - value: '46.7'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     - value: '46.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
     jobbench:
-    - value: '52.9'
+    - value: '54.3'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     aa_briefcase:
@@ -24453,14 +25026,14 @@ rows:
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     apex_agents:
-    - value: '37.6'
+    - value: '41.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     - value: '41.0'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
     officeqa_pro:
-    - value: '63.3'
+    - value: '65.4'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     spreadsheetbench_2:
@@ -24472,14 +25045,14 @@ rows:
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     hle:
-    - value: '43.5'
+    - value: '46.9'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     - value: '44.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     hle_tools:
-    - value: '56.0'
+    - value: '57.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
     - value: '56.0'
@@ -24574,6 +25147,9 @@ rows:
     - value: '23.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '23.4'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
     aa_omniscience_accuracy:
     - value: '46.0'
       source_label: Artificial Analysis
@@ -24701,6 +25277,110 @@ rows:
     - value: '1682'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    swe_multilingual:
+    - value: '80.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    swe_atlas_codebase_qa:
+    - value: '35.2'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    swe_atlas_test_writing:
+    - value: '35.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    swe_atlas_refactoring:
+    - value: '37.4'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_backend_2_0:
+    - value: '37.9'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_swe_max:
+    - value: '65.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_companybench:
+    - value: '63.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    widesearch:
+    - value: '81.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    onemillionbench:
+    - value: '63.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    draco:
+    - value: '77.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_lifesearch:
+    - value: '45.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_browsecomp_pro2:
+    - value: '58.1'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    toolathlon_verified:
+    - value: '76.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    skillsbench:
+    - value: '51.9'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    workspacebench:
+    - value: '65.0'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    bankertoolbench:
+    - value: '73.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    e_bench:
+    - value: '73.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    e_bench_code:
+    - value: '77.6'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_finagentbench:
+    - value: '78.5'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    hy_finmodelbench_v2:
+    - value: '52.4'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    biomysterybench:
+    - value: '61.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    superchem:
+    - value: '66.9'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    arxivmath:
+    - value: '60.8'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    horizonmath:
+    - value: '7.08'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    matharena_apex_2025:
+    - value: '68.4'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
+    brokenarxiv:
+    - value: '56.3'
+      source_label: Kimi K3
+      source_url: https://kimi.moonshot.cn
 - company: NVIDIA
   model: Nemotron-3-Super-120B-A12B
   mode: ''
@@ -24928,7 +25608,7 @@ rows:
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     automation_bench:
-    - value: '27.3'
+    - value: '39.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     - value: '39.8'
@@ -25256,6 +25936,9 @@ rows:
     - value: '10.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '17.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     cybergym:
     - value: '78.5'
       source_label: GLM-5.3 report
@@ -25272,6 +25955,130 @@ rows:
     - value: '81'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    swe_multilingual:
+    - value: '82.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    deepswe:
+    - value: '56.6'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_codebase_qa:
+    - value: '55.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_test_writing:
+    - value: '52.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_refactoring:
+    - value: '51.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_marathon:
+    - value: '31.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    harbor_index:
+    - value: '38.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_backend_2_0:
+    - value: '34.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_swe_max:
+    - value: '65.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_companybench:
+    - value: '63.3'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    widesearch:
+    - value: '81.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    onemillionbench:
+    - value: '63.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    draco:
+    - value: '76.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_lifesearch:
+    - value: '47.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_browsecomp_pro2:
+    - value: '46.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    officeqa_pro:
+    - value: '65.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mcp_atlas:
+    - value: '81.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    toolathlon_verified:
+    - value: '72.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    apex_agents:
+    - value: '34.0'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workspacebench:
+    - value: '67.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    bankertoolbench:
+    - value: '74.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    e_bench:
+    - value: '66.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    e_bench_code:
+    - value: '67.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_finagentbench:
+    - value: '77.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    hy_finmodelbench_v2:
+    - value: '52.5'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    biomysterybench:
+    - value: '58.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    superchem:
+    - value: '61.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    arxivmath:
+    - value: '67.1'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    horizonmath:
+    - value: '5.31'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    matharena_apex_2025:
+    - value: '72.8'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    brokenarxiv:
+    - value: '42.7'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: xAI
   model: Grok 4.3
   mode: ''
@@ -25819,6 +26626,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '42.3'
+      source_label: GLM-5.3
+      source_url: https://z.ai
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
@@ -25827,6 +26637,9 @@ rows:
     - value: '19'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '19.1'
+      source_label: GLM-5.3
+      source_url: https://z.ai
     aa_omniscience_accuracy:
     - value: '34'
       source_label: Artificial Analysis (GLM-5.3)
@@ -25843,6 +26656,314 @@ rows:
     - value: '84'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    swe_multilingual:
+    - value: '81.3'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    swe_pro:
+    - value: '64.6'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    deepswe:
+    - value: '66.9'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    swe_atlas_codebase_qa:
+    - value: '55.8'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    swe_atlas_test_writing:
+    - value: '49.6'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    swe_atlas_refactoring:
+    - value: '51.9'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    harbor_index:
+    - value: '42.5'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_backend_2_0:
+    - value: '41.9'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_swe_max:
+    - value: '67.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_companybench:
+    - value: '64.5'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    widesearch:
+    - value: '83.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    onemillionbench:
+    - value: '64.5'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    draco:
+    - value: '78.1'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_lifesearch:
+    - value: '49.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_browsecomp_pro2:
+    - value: '48.4'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    officeqa_pro:
+    - value: '66.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    mcp_atlas:
+    - value: '81.9'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    toolathlon_verified:
+    - value: '73.0'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    apex_agents:
+    - value: '38.1'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    skillsbench:
+    - value: '63.3'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    jobbench:
+    - value: '58.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    workspacebench:
+    - value: '68.2'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    bankertoolbench:
+    - value: '77.8'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    e_bench:
+    - value: '71.4'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    e_bench_code:
+    - value: '66.5'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_finagentbench:
+    - value: '80.4'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    hy_finmodelbench_v2:
+    - value: '57.8'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    biomysterybench:
+    - value: '69.0'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+    superchem:
+    - value: '58.5'
+      source_label: GLM-5.3
+      source_url: https://z.ai
+- company: Tencent
+  model: Hunyuan 4 Preview
+  mode: ''
+  released: '2026-08-28'
+  sources:
+  - label: Hunyuan 4 Preview
+    url: https://hunyuan.tencent.com
+  scores:
+    swe_multilingual:
+    - value: '82.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    swe_pro:
+    - value: '65.7'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    deepswe:
+    - value: '64.3'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_codebase_qa:
+    - value: '64.0'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_test_writing:
+    - value: '57.8'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    swe_atlas_refactoring:
+    - value: '53.3'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    swe_marathon:
+    - value: '31.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    terminal_bench_2_1:
+    - value: '85.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    nl2repo:
+    - value: '58.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    cybergym:
+    - value: '78.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    program_bench:
+    - value: '17.5'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    posttrainbench:
+    - value: '35.6'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    harbor_index:
+    - value: '39.6'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_backend_2_0:
+    - value: '35.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_swe_max:
+    - value: '64.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_companybench:
+    - value: '62.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    widesearch:
+    - value: '83.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    onemillionbench:
+    - value: '65.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    draco:
+    - value: '77.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_lifesearch:
+    - value: '49.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_browsecomp_pro2:
+    - value: '56.1'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    officeqa_pro:
+    - value: '66.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    mcp_atlas:
+    - value: '83.7'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    toolathlon_verified:
+    - value: '74.1'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '37.1'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    skillsbench:
+    - value: '62.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    jobbench:
+    - value: '61.7'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    workspacebench:
+    - value: '60.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    agents_last_exam:
+    - value: '22.8'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    gdpval_aa_v2:
+    - value: '1678'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    automation_bench:
+    - value: '32.1'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    bankertoolbench:
+    - value: '78.6'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    e_bench:
+    - value: '77.1'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    e_bench_code:
+    - value: '79.0'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_finagentbench:
+    - value: '79.7'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hy_finmodelbench_v2:
+    - value: '57.0'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    biomysterybench:
+    - value: '71.3'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hle_tools:
+    - value: '55.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    critpt:
+    - value: '16.9'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    gpqa:
+    - value: '92.3'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    hle:
+    - value: '43.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    superchem:
+    - value: '66.4'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    arxivmath:
+    - value: '66.6'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    horizonmath:
+    - value: '8.8'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    matharena_apex_2025:
+    - value: '74.2'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
+    brokenarxiv:
+    - value: '54.6'
+      source_label: Hunyuan 4 Preview
+      source_url: https://hunyuan.tencent.com
 collections:
   overall:
     label: ' 综合'
