@@ -86,7 +86,7 @@ Hunyuan 4 Preview 的发布，是混元团队的一次有力反击。
 
 但也要清醒地看到，Hunyuan 4 Preview 仍然是一个"追赶者"的角色。与 Claude Opus 5 相比，在 HLE、CritPt、MathArena 等极限推理任务上仍有 20 分以上的差距。与 Kimi K3 相比，在 Toolathlon、APEX-Agents 等 Agent 任务上仍有 2-4 分的差距。与 GPT-5.6 Sol 相比，在 DeepSWE、CritPt、BrokenArXiv 等任务上仍有 8-15 分的差距。
 
-"千淘万漉虽辛苦，吹尽狂沙始到金。"混元系列的榜单轨迹本身就是一部追赶史。从 Hunyuan 2.0 的 52.7 分（ClawProBench 排名第 50），到 Hunyuan T1 的 34.7 分（排名第 69），再到 Hunyuan 3 Preview 的中游水平（SWE-bench Multilingual 68.3，GPQA 87.2），Hunyuan 3 正式版的稳步提升（SWE-bench Multilingual 75.8，GPQA 90.4），直至 Hunyuan 4 Preview 叩开第一梯队的大门（SWE-bench Multilingual 82.9，GPQA 92.3）——每一步都不容易，但每一步都在前进。
+"伏久者飞必高，开先者谢独早。"混元系列的榜单轨迹本身就是一部追赶史。从 Hunyuan 2.0 的 52.7 分（ClawProBench 排名第 50），到 Hunyuan T1 的 34.7 分（排名第 69），再到 Hunyuan 3 Preview 的中游水平（SWE-bench Multilingual 68.3，GPQA 87.2），Hunyuan 3 正式版的稳步提升（SWE-bench Multilingual 75.8，GPQA 90.4），直至 Hunyuan 4 Preview 叩开第一梯队的大门（SWE-bench Multilingual 82.9，GPQA 92.3）——每一步都不容易，但每一步都在前进。
 
 前方是风急浪大的太平洋，GPT-5.6 Sol 和 Claude Opus 5 的船队已经驶出了很远。但混元团队显然已经准备好了——这艘船的速度，正在加快。
 
