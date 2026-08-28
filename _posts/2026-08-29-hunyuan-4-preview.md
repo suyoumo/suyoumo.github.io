@@ -12,7 +12,13 @@ tags: [hunyuan, tencent, llm-eval]
 
 发布时的竞争态势可以用"群狼环伺"来形容。DeepSeek V4 Pro 0813 刚刚站稳脚跟，Qwen 3.8 Max 以 137 个 benchmark 的覆盖度傲视群雄，GLM-5.3 在多个维度展现出强劲实力，Kimi K3 凭借 Agent 能力的跃升重返第一梯队，而北美的 GPT-5.6 Sol 和 Claude Opus 5 依然把守着推理能力的天花板。在这个战场上，Hunyuan 3 Preview 的表现只能算中游——SWE-bench Multilingual 68.3 分，Toolathlon 56.2 分，GPQA 87.2 分，与头部有明显差距。
 
-Hunyuan 4 Preview 的核心改进可以用"全面跃升"来概括。编程能力上，SWE-bench Multilingual 从 68.3 提升到 82.9（+14.6），SWE-bench Pro 从 46.0 提升到 65.7（+19.7），DeepSWE 从 28.0 飙升到 64.3（+36.3），SWE-Marathon 从 5.0 提升到 31.9（+26.9）。Agent 能力上，Toolathlon-Verified 从 56.2 提升到 74.1（+17.9），JobBench 从 34.6 提升到 61.7（+27.1），E-Bench 从 48.5 提升到 77.1（+28.6），GDPval-AA v2 Elo 分数从 1213 提升到 1678（+465）。推理能力上，GPQA Diamond 从 87.2 提升到 92.3，MathArena Apex 2025 从 38.7 提升到 74.2（+35.5），BrokenArXiv 从 26.7 提升到 54.6（+27.9）。
+Hunyuan 4 Preview 的核心改进可以用"全面跃升"来概括。如果看三代模型的演进轨迹，进步更加清晰：
+
+**编程能力**：SWE-bench Multilingual 从 Hunyuan 3 的 75.8 提升到 Hunyuan 4 Preview 的 82.9（Hunyuan 3 Preview 为 68.3），SWE-bench Pro 从 57.9 提升到 65.7（Preview 为 46.0），DeepSWE 从 28.0 飙升到 64.3（三代中 Preview 和正式版都是 28.0），SWE-Marathon 从 5.0 提升到 31.9（Preview 为 5.0）。
+
+**Agent 能力**：E-Bench 从 Hunyuan 3 的 50.2 提升到 77.1（Preview 为 48.5），Hy-SWE Max 从 49.0 提升到 64.2（Preview 为 30.0），Hy-CompanyBench 从 41.7 提升到 62.4（Preview 为 29.8）。新增的 Toolathlon-Verified 从 Preview 的 56.2 提升到 74.1，JobBench 从 34.6 提升到 61.7，GDPval-AA v2 Elo 分数从 1213 提升到 1678（+465）。
+
+**推理能力**：GPQA Diamond 从 Hunyuan 3 的 90.4 提升到 92.3（Preview 为 87.2），HLE 从 37.0 提升到 43.4（Preview 为 30.0），MathArena Apex 2025 从 38.7 提升到 74.2（+35.5），BrokenArXiv 从 26.7 提升到 54.6（+27.9）。
 
 从定位来看，Hunyuan 4 Preview 瞄准的是全能型选手——编程、Agent、搜索、推理四个维度都有显著进步，没有明显的短板。在榜单上，这个进步让混元系列从 Hunyuan 3 Preview 的中游位置，一举进入到与 DeepSeek V4 Pro、Qwen 3.8 Max、GLM-5.3 同列的第一梯队。
 
@@ -80,7 +86,7 @@ Hunyuan 4 Preview 的发布，是混元团队的一次有力反击。
 
 但也要清醒地看到，Hunyuan 4 Preview 仍然是一个"追赶者"的角色。与 Claude Opus 5 相比，在 HLE、CritPt、MathArena 等极限推理任务上仍有 20 分以上的差距。与 Kimi K3 相比，在 Toolathlon、APEX-Agents 等 Agent 任务上仍有 2-4 分的差距。与 GPT-5.6 Sol 相比，在 DeepSWE、CritPt、BrokenArXiv 等任务上仍有 8-15 分的差距。
 
-"沉舟侧畔千帆过，病树前头万木春。"混元系列的榜单轨迹本身就是一部追赶史。从 Hunyuan 2.0 的 52.7 分，到 Hunyuan 3 Preview 的中游水平，再到 Hunyuan 4 Preview 的第一梯队门槛——每一步都不容易，但每一步都在前进。
+"千淘万漉虽辛苦，吹尽狂沙始到金。"混元系列的榜单轨迹本身就是一部追赶史。从 Hunyuan 2.0 的 52.7 分（ClawProBench 排名第 50），到 Hunyuan T1 的 34.7 分（排名第 69），再到 Hunyuan 3 Preview 的中游水平（SWE-bench Multilingual 68.3，GPQA 87.2），Hunyuan 3 正式版的稳步提升（SWE-bench Multilingual 75.8，GPQA 90.4），直至 Hunyuan 4 Preview 叩开第一梯队的大门（SWE-bench Multilingual 82.9，GPQA 92.3）——每一步都不容易，但每一步都在前进。
 
 前方是风急浪大的太平洋，GPT-5.6 Sol 和 Claude Opus 5 的船队已经驶出了很远。但混元团队显然已经准备好了——这艘船的速度，正在加快。
 
