@@ -1,0 +1,115 @@
+---
+layout: default
+title: 2026 年 8 月模型榜
+permalink: /llm-leaderboard/monthly/
+---
+
+{% assign monthly = site.data.llm_monthly_rankings %}
+
+<section class="llm-monthly-page">
+  <div class="llm-monthly-shell">
+    <div class="llm-monthly-topline">
+      <a class="llm-monthly-back" href="{{ '/llm-leaderboard/' | relative_url }}">← 返回 LLMLeadBoard</a>
+      <span class="llm-monthly-snapshot"><i aria-hidden="true"></i>{{ monthly.month_label }}快照</span>
+    </div>
+
+    <header class="llm-monthly-hero">
+      <p class="llm-board-kicker">Monthly Top 10</p>
+      <h1>8 月模型榜</h1>
+      <p>全球与国产大模型前 10 名。选择分类，直接查看当月排名。</p>
+      <div class="llm-monthly-meta">
+        <span>2026.08</span>
+        <span>截至 8 月 31 日</span>
+        <span>对局得分率排名</span>
+      </div>
+    </header>
+
+    <div class="llm-monthly-tabs" role="tablist" aria-label="榜单分类">
+      {% for category in monthly.categories %}
+      <button
+        class="llm-monthly-tab{% if forloop.first %} is-active{% endif %}"
+        id="monthly-tab-{{ category.key }}"
+        type="button"
+        role="tab"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        aria-controls="monthly-panel-{{ category.key }}"
+        tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+        data-monthly-tab="{{ category.key }}"
+      >
+        <strong>{{ category.label }}</strong>
+        <span>{{ category.description }}</span>
+      </button>
+      {% endfor %}
+    </div>
+
+    {% for category in monthly.categories %}
+    <section
+      class="llm-monthly-panel"
+      id="monthly-panel-{{ category.key }}"
+      role="tabpanel"
+      aria-labelledby="monthly-tab-{{ category.key }}"
+      data-monthly-panel="{{ category.key }}"
+      {% unless forloop.first %}hidden{% endunless %}
+    >
+      <div class="llm-monthly-grid">
+        <article class="llm-monthly-card">
+          <div class="llm-monthly-card-head">
+            <div>
+              <span class="llm-monthly-eyebrow">GLOBAL</span>
+              <h2>全球 Top 10</h2>
+            </div>
+            <span class="llm-monthly-card-count">10 MODELS</span>
+          </div>
+          <div class="llm-monthly-table-wrap">
+            <table class="llm-monthly-table">
+              <thead>
+                <tr><th>排名</th><th>模型</th><th>厂商</th></tr>
+              </thead>
+              <tbody>
+                {% for entry in category.global %}
+                <tr>
+                  <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
+                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a></td>
+                  <td>{{ entry.company }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="llm-monthly-card is-domestic">
+          <div class="llm-monthly-card-head">
+            <div>
+              <span class="llm-monthly-eyebrow">CHINA</span>
+              <h2>国产 Top 10</h2>
+            </div>
+            <span class="llm-monthly-card-count">10 MODELS</span>
+          </div>
+          <div class="llm-monthly-table-wrap">
+            <table class="llm-monthly-table">
+              <thead>
+                <tr><th>排名</th><th>模型</th><th>厂商</th><th>全球</th></tr>
+              </thead>
+              <tbody>
+                {% for entry in category.domestic %}
+                <tr>
+                  <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
+                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a></td>
+                  <td>{{ entry.company }}</td>
+                  <td><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+    {% endfor %}
+
+    <p class="llm-monthly-note">本页为 {{ monthly.month_label }}静态快照，排名沿用主榜默认口径；国产榜从全球排名中筛选国产模型后重新编号。</p>
+  </div>
+</section>
+
+<script src="{{ '/assets/js/llm-monthly.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>

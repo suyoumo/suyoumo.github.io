@@ -51,7 +51,10 @@ permalink: /llm-leaderboard/
 
     <div class="llm-board-hint">
       <span>点击模型名查看该模型的综合排名与全部 benchmark 分数</span>
-      <a class="llm-compare-btn" href="{{ '/llm-leaderboard/compare/' | relative_url }}">模型对局对比 →</a>
+      <div class="llm-board-hint-actions">
+        <a class="llm-monthly-btn" href="{{ '/llm-leaderboard/monthly/' | relative_url }}">8 月榜单 <strong>TOP 10</strong> →</a>
+        <a class="llm-compare-btn" href="{{ '/llm-leaderboard/compare/' | relative_url }}">模型对局对比 →</a>
+      </div>
     </div>
 
     <!-- ===== Ranking / Heatmap Section ===== -->
@@ -370,8 +373,14 @@ permalink: /llm-leaderboard/
 .llm-model-link { color: inherit; text-decoration: none; }
 .llm-model-link:hover { text-decoration: underline; }
 .llm-board-hint { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 14px 2px; font-size: 0.85rem; color: #6b6b65; }
-.llm-compare-btn { background: #b4552d; color: #fff; border-radius: 999px; padding: 7px 16px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
-.llm-compare-btn:hover { background: #9c4826; }
+.llm-board-hint-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.llm-monthly-btn,
+.llm-compare-btn { display: inline-flex; align-items: center; gap: 7px; border-radius: 999px; padding: 8px 16px; text-decoration: none; font-size: 0.82rem; font-weight: 700; transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s; }
+.llm-monthly-btn { border: 1px solid #b4552d; background: #b4552d; color: #fff; }
+.llm-monthly-btn strong { font-size: 0.62rem; letter-spacing: 0.09em; }
+.llm-monthly-btn:hover { background: #9c4826; border-color: #9c4826; color: #fff; transform: translateY(-1px); }
+.llm-compare-btn { border: 1px solid rgba(25,25,24,0.1); background: #fff; color: #4f4f4a; }
+.llm-compare-btn:hover { border-color: rgba(180,85,45,0.32); background: rgba(180,85,45,0.05); color: #9c4826; }
 .llm-ranking-section {
   margin-bottom: 24px;
   padding: 22px;
