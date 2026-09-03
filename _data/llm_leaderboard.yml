@@ -316,6 +316,10 @@ sources:
   label: Qwen3.8 report
   short_label: Qwen3.8
   url: https://qwen.ai/blog?id=qwen3.8
+- id: qwen38max0902
+  label: Qwen3.8-Max-0902 report
+  short_label: Qwen3.8-Max-0902
+  url: https://qwen.ai/blog?id=qwen3.8
 - id: deepseek_v4_pro
   label: DeepSeek V4 Pro report
   short_label: DS-V4-Pro
@@ -569,6 +573,8 @@ categories:
     label: QwenReactBench
   - key: qwen_swe_bench
     label: QwenSWEBench
+  - key: qwen_swe_bench_v2
+    label: QwenSWEBench V2
   - key: qwen_qoder_bench
     label: QwenQoderBench
   - key: android_bench
@@ -611,6 +617,8 @@ categories:
     label: Toolathlon
   - key: jobbench
     label: JobBench
+  - key: workarena
+    label: WorkArena
   - key: agents_last_exam
     label: Agents' Last Exam
   - key: management_consulting_tasks_internal
@@ -11439,6 +11447,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Gemini 3.8)
     url: https://artificialanalysis.ai
+  - label: Qwen3.8-Max-0902 report
+    url: https://qwen.ai/blog?id=qwen3.8
   scores:
     frontier_bench:
     - value: '43.3'
@@ -11570,6 +11580,9 @@ rows:
     - value: '50.0'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '50.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     nl2repo:
     - value: '75.3'
       source_label: Claude Opus 5
@@ -11626,6 +11639,9 @@ rows:
     - value: '76.5'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '77.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     apex_agents:
     - value: '41.8'
       source_label: Claude Opus 5
@@ -11638,6 +11654,9 @@ rows:
     - value: '68.0'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '67.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     workspacebench:
     - value: '75.0'
       source_label: Claude Opus 5
@@ -11650,6 +11669,9 @@ rows:
     - value: '48.7'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '50.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     bankertoolbench:
     - value: '81.9'
       source_label: Claude Opus 5
@@ -11706,10 +11728,16 @@ rows:
     - value: '39.5'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '41.5'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     deepswe_1_1:
     - value: '74.0'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '73.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     finance_agent_v2:
     - value: '58.6'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -11758,6 +11786,42 @@ rows:
     - value: '84.2'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    terminal_bench_3:
+    - value: '42.7'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '72.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mls_bench_lite:
+    - value: '49.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_qna:
+    - value: '63.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench_v2:
+    - value: '68.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '79.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workarena:
+    - value: '1437'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmmu_pro:
+    - value: '82.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '67.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -15114,6 +15178,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Gemini 3.8)
     url: https://artificialanalysis.ai
+  - label: Qwen3.8-Max-0902 report
+    url: https://qwen.ai/blog?id=qwen3.8
   scores:
     agent_arena:
     - value: '9.86'
@@ -15158,6 +15224,9 @@ rows:
     - value: '72.7'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '72.7'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     terminal_bench_2_1:
     - value: '88.8'
       source_label: GPT-5.6 report
@@ -15246,6 +15315,9 @@ rows:
     - value: '83.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '83.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mmmu_pro_tools:
     - value: '84.6'
       source_label: GPT-5.6 report
@@ -15288,6 +15360,9 @@ rows:
     - value: '45.8'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '45.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -15343,6 +15418,9 @@ rows:
     - value: '42.5'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '42.5'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     posttrainbench:
     - value: '34.6'
       source_label: Kimi K3 report
@@ -15359,6 +15437,9 @@ rows:
       source_url: https://kimi.moonshot.cn
     - value: '46.2'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '46.2'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     kimi_code_bench_v2:
     - value: '64.8'
@@ -15378,6 +15459,9 @@ rows:
       source_url: https://kimi.moonshot.cn
     - value: '45.4'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '45.4'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     aa_briefcase:
     - value: '1495.0'
@@ -15679,6 +15763,9 @@ rows:
     - value: '78.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '81.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     androidworld:
     - value: '77.6'
       source_label: Qwen3.8
@@ -15802,13 +15889,22 @@ rows:
     - value: '70.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '70.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision:
     - value: '88.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '88.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     coworkbench:
     - value: '71.5'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '71.5'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     qwen_react_bench:
     - value: '1564'
@@ -15833,6 +15929,9 @@ rows:
     - value: '34.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '34.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     swe_multilingual:
     - value: '74.1'
       source_label: GPT-5.6
@@ -15893,6 +15992,9 @@ rows:
     - value: '73.2'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '74.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     workspacebench:
     - value: '65.3'
       source_label: GPT-5.6
@@ -15945,6 +16047,9 @@ rows:
     - value: '25.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '23.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     finance_agent_v2:
     - value: '53.8'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -15977,6 +16082,14 @@ rows:
     - value: '82.1'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    swe_atlas_qna:
+    - value: '46.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workarena:
+    - value: '1482'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -23834,6 +23947,8 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Qwen3.8-Max-0902 report
+    url: https://qwen.ai/blog?id=qwen3.8
   scores:
     agent_arena:
     - value: '13.22'
@@ -23890,6 +24005,9 @@ rows:
     - value: '46.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '46.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     osworld_verified:
     - value: '85.0'
       source_label: Claude Fable 5
@@ -23951,6 +24069,9 @@ rows:
     - value: '69.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '69.7'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     cybergym:
     - value: '83.1'
       source_label: DeepSeek V4 Pro report
@@ -24033,6 +24154,9 @@ rows:
     - value: '33.1'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '45.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     posttrainbench:
     - value: '41.4'
       source_label: Kimi K3 report
@@ -24046,6 +24170,9 @@ rows:
       source_url: https://kimi.moonshot.cn
     - value: '49.9'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '49.9'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     kimi_code_bench_v2:
     - value: '76.9'
@@ -24074,6 +24201,9 @@ rows:
     - value: '57.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '57.4'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     aa_briefcase:
     - value: '1583.0'
       source_label: Kimi K3 report
@@ -24099,6 +24229,9 @@ rows:
       source_url: https://kimi.moonshot.cn
     - value: '81.2'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '81.2'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     mmmu_pro_tools:
     - value: '86.5'
@@ -24252,6 +24385,9 @@ rows:
     - value: '70.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '70.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     lingoqa:
     - value: '77.4'
       source_label: Qwen3.8
@@ -24259,6 +24395,9 @@ rows:
     coworkbench:
     - value: '75.9'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '75.9'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     surds:
     - value: '79.4'
@@ -24388,6 +24527,9 @@ rows:
     - value: '77.5'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '81.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     ifbench:
     - value: '63.5'
       source_label: Qwen3.8
@@ -24460,6 +24602,9 @@ rows:
     - value: '90.5'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '90.5'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     ocr_bench_v2_en:
     - value: '65.3'
       source_label: Qwen3.8
@@ -24487,6 +24632,9 @@ rows:
     - value: '33.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '34.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     exploitgym:
     - value: 181 / 247
       source_label: GLM-5.3 report
@@ -24495,6 +24643,25 @@ rows:
     - value: '33.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '33.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '70.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_qna:
+    - value: '39.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench_v2:
+    - value: '67.1'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    toolathlon_verified:
+    - value: '77.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -25794,6 +25961,8 @@ rows:
   sources:
   - label: Qwen3.8 report
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Qwen3.8-Max-0902 report
+    url: https://qwen.ai/blog?id=qwen3.8
   - label: GLM-5.3 report
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
@@ -25826,13 +25995,22 @@ rows:
     - value: '74.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '74.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     jobbench:
     - value: '53.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '53.4'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision:
     - value: '91.3'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '91.3'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     babyvision_python:
     - value: '82.0'
@@ -25849,6 +26027,9 @@ rows:
     erqa:
     - value: '77.8'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '77.8'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     perception_bench:
     - value: '63.5'
@@ -25877,13 +26058,22 @@ rows:
     - value: '56.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '56.6'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     nl2repo_bench:
     - value: '55.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '55.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mls_bench_lite:
     - value: '41.0'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '41.0'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     android_bench:
     - value: '70.2'
@@ -25984,6 +26174,9 @@ rows:
     - value: '82.3'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     mathvision:
     - value: '97.7'
       source_label: Qwen3.8
@@ -26051,6 +26244,9 @@ rows:
     claw_eval_mm:
     - value: '74.8'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '77.2'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     qwen_blender_bench:
     - value: '69.9'
@@ -26274,6 +26470,9 @@ rows:
     - value: '31.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '39.1'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     harbor_index:
     - value: '38.8'
       source_label: Qwen3.8
@@ -26321,6 +26520,9 @@ rows:
     toolathlon_verified:
     - value: '72.5'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '72.5'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     apex_agents:
     - value: '34.0'
@@ -26377,6 +26579,101 @@ rows:
     program_bench:
     - value: '17.5'
       source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '10.5'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    terminal_bench_3:
+    - value: '11.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_qna:
+    - value: '60.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench_v2:
+    - value: '55.1'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workarena:
+    - value: '1348'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+- company: Qwen
+  model: Qwen3.8-Max-0902
+  mode: ''
+  released: '2026-09-02'
+  sources:
+  - label: Qwen3.8-Max-0902 report
+    url: https://qwen.ai/blog?id=qwen3.8
+  scores:
+    terminal_bench_3:
+    - value: '29.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    deepswe_1_1:
+    - value: '69.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    nl2repo_bench:
+    - value: '64.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    program_bench:
+    - value: '28.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_marathon:
+    - value: '44.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mls_bench_lite:
+    - value: '50.1'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    swe_atlas_qna:
+    - value: '66.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    qwen_swe_bench_v2:
+    - value: '70.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    coworkbench:
+    - value: '76.1'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    jobbench:
+    - value: '64.0'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    automation_bench:
+    - value: '50.8'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    toolathlon_verified:
+    - value: '73.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    workarena:
+    - value: '1468'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    mmmu_pro:
+    - value: '82.7'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    erqa:
+    - value: '78.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    claw_eval_mm:
+    - value: '80.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    babyvision:
+    - value: '93.8'
+      source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
 - company: xAI
   model: Grok 4.3
