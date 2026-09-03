@@ -340,6 +340,10 @@ sources:
   label: Muse Glimmer 30B result
   short_label: Muse Glimmer-30B
   url: https://artificialanalysis.ai
+- id: gemini38flash
+  label: Artificial Analysis (Gemini 3.8)
+  short_label: Gemini 3.8
+  url: https://artificialanalysis.ai
 categories:
 - name: Coding Agent
   columns:
@@ -405,6 +409,8 @@ categories:
     label: Terminal-Bench 2.1
   - key: terminal_bench_2_1_aa
     label: Terminal-Bench 2.1 (AA)
+  - key: terminal_bench_4_0
+    label: Terminal-Bench 4.0
   - key: swe_bench_multimodal
     label: SWE-bench Multimodal
   - key: openrca
@@ -11431,6 +11437,8 @@ rows:
     url: https://www.anthropic.com/news/claude-opus-5
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
   scores:
     frontier_bench:
     - value: '43.3'
@@ -11440,6 +11448,9 @@ rows:
     - value: '1861'
       source_label: Opus 5
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '1824'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     arc_agi_3:
     - value: '30.2'
       source_label: Opus 5
@@ -11695,6 +11706,58 @@ rows:
     - value: '39.5'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    deepswe_1_1:
+    - value: '74.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    finance_agent_v2:
+    - value: '58.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '6.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1_aa:
+    - value: '89.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '51.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '37.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    charxiv_rq:
+    - value: '83.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    lvbench:
+    - value: '75.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    hle_verified:
+    - value: '54.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    osworld_2_0:
+    - value: '75.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench:
+    - value: '90.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench_difficult:
+    - value: '49.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    labbench2:
+    - value: '84.2'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -15049,6 +15112,8 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
   scores:
     agent_arena:
     - value: '9.86'
@@ -15090,6 +15155,9 @@ rows:
     - value: '72.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '72.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
     - value: '88.8'
       source_label: GPT-5.6 report
@@ -15111,6 +15179,9 @@ rows:
     - value: '62.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '62.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     browsecomp:
     - value: '90.4'
       source_label: GPT-5.6 report
@@ -15183,6 +15254,9 @@ rows:
     - value: '30.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '35.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94.6'
       source_label: GPT-5.6 report
@@ -15354,6 +15428,9 @@ rows:
     - value: '89.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '85.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     charxiv_rq_python:
     - value: '89.1'
       source_label: Kimi K3 report
@@ -15459,6 +15536,9 @@ rows:
     - value: '1730'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '1710'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     browsecomp_ctx:
     - value: '90.4'
       source_label: Opus 5 comparison
@@ -15715,6 +15795,9 @@ rows:
     - value: '78.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     erqa:
     - value: '70.0'
       source_label: Qwen3.8
@@ -15862,6 +15945,38 @@ rows:
     - value: '25.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    finance_agent_v2:
+    - value: '53.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '2.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1_aa:
+    - value: '88.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '37.3'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    hle_verified:
+    - value: '54.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench:
+    - value: '79.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench_difficult:
+    - value: '44.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    labbench2:
+    - value: '82.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -15897,6 +16012,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
   scores:
     gdpval_aa:
     - value: '1593'
@@ -15922,6 +16039,9 @@ rows:
     - value: '69.6'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '69.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     healthbench_pro:
     - value: '57.7'
       source_label: GPT-5.6 report
@@ -15930,6 +16050,9 @@ rows:
     - value: '50.2'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '50.2'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     browsecomp:
     - value: '87.5'
       source_label: GPT-5.6 report
@@ -15990,6 +16113,9 @@ rows:
     - value: '24.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '29.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '93'
       source_label: Artificial Analysis
@@ -16094,6 +16220,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '1528'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '85.2'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -16104,11 +16233,17 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '85.9'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     lvbench:
     - value: '78.9'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '82.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     mrcr_v2_8_needle:
     - value: '93.5'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -16119,21 +16254,33 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '51.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     biomystery_bench:
     - value: '83.8'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '79.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     biomystery_bench_difficult:
     - value: '49.4'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '44.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     labbench2:
     - value: '81.2'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '81.2'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1_aa:
     - value: '88'
       source_label: Artificial Analysis
@@ -16142,6 +16289,21 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '87.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    finance_agent_v2:
+    - value: '53.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '0.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '23.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.6 Luna
   mode: ''
@@ -24342,6 +24504,8 @@ rows:
     url: https://anthropic.com
   - label: Artificial Analysis (Gemini 3.7)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
   scores:
     agent_arena:
     - value: '9.10'
@@ -24409,6 +24573,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '53.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     mle_bench:
     - value: '66.9'
       source_label: Gemini 3.6 Flash
@@ -24421,6 +24588,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '1584'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     charxiv_rq:
     - value: '77.0'
       source_label: Gemini 3.6 Flash
@@ -24429,6 +24599,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '70.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     charxiv_rq_python:
     - value: '88.3'
       source_label: Gemini 3.6 Flash
@@ -24495,11 +24668,17 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '28.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     lvbench:
     - value: '68.5'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '68.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     mrcr_v2_8_needle:
     - value: '81.5'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -24515,26 +24694,57 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '31.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     biomystery_bench:
     - value: '87.5'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '87.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     biomystery_bench_difficult:
     - value: '34.1'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '34.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     labbench2:
     - value: '80.1'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '80.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1_aa:
     - value: '80.4'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '80.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    finance_agent_v2:
+    - value: '53.9'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '5.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '12.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    osworld_2_0:
+    - value: '42.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.6 High
   mode: ''
@@ -26204,6 +26414,10 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8 charts)
+    url: https://artificialanalysis.ai
   scores:
     frontiercode:
     - value: '43.6'
@@ -26215,6 +26429,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '65.3'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     code_arena:
     - value: '1588'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -26235,11 +26452,17 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '63'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2:
     - value: '1525'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '1482'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '90.7'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -26250,9 +26473,16 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '34.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1132'
       source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
+    - value: '1134'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
       preferred: true
     aa_analyst_agent:
@@ -26269,51 +26499,81 @@ rows:
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '33'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     scicode:
     - value: '57'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '57'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '48'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '48'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '95'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '95'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '14'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '14'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     hle_verified:
     - value: '53.6'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '53.6'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '55'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '55'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '35'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '35'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '80'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     charxiv_rq:
     - value: '84.5'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '84.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     charxiv_rq_python:
     - value: '88.7'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -26324,6 +26584,9 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '85.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     mrcr_v2_8_needle:
     - value: '97.0'
       source_label: Artificial Analysis (Gemini 3.7)
@@ -26334,9 +26597,16 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '85'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
     osworld_2_0:
     - value: '47.9'
       source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+      preferred: true
+    - value: '50.6'
+      source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
       preferred: true
     agents_last_exam:
@@ -26349,24 +26619,56 @@ rows:
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '87.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     biomystery_bench_difficult:
     - value: '43.5'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '43.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     labbench2:
     - value: '82.1'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '82.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1_aa:
     - value: '85.8'
       source_label: Artificial Analysis (Gemini 3.7)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '85.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '86'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+      preferred: true
     program_bench:
     - value: '5.5'
       source_label: Artificial Analysis (Gemini 3.7)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_pct:
+    - value: '51'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    finance_agent_v2:
+    - value: '59.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '8.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '11.2'
+      source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
 - company: RedNote
   model: dots3-note Preview
@@ -27501,6 +27803,125 @@ rows:
     - value: '78.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+- company: Google
+  model: Gemini 3.8 Flash
+  mode: High
+  released: '2026-09-03'
+  sources:
+  - label: Artificial Analysis (Gemini 3.8)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Gemini 3.8 charts)
+    url: https://artificialanalysis.ai
+  - label: Gemini 3.8 Flash methodology
+    url: https://deepmind.google/models/evals-methodology/gemini-3-8-flash
+  scores:
+    deepswe_1_1:
+    - value: '73.7'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2:
+    - value: '1545'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_pct:
+    - value: '52'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    finance_agent_v2:
+    - value: '53.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    legal_agent_bench:
+    - value: '10.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1_aa:
+    - value: '89.4'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '88'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '19.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '45'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '48'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    gpqa:
+    - value: '95'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '18'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '55'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '45'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '81'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1213'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '51'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '35.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    charxiv_rq:
+    - value: '86.2'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    lvbench:
+    - value: '87.8/87.1'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    hle_verified:
+    - value: '54.9'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    osworld_2_0:
+    - value: '59.0'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench:
+    - value: '88.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    biomystery_bench_difficult:
+    - value: '56.5'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    labbench2:
+    - value: '86.2'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '86'
+      source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
 collections:
   overall:
     label: ' 综合'
@@ -27527,6 +27948,7 @@ collections:
     - terminal_bench_2
     - terminal_bench_2_1
     - terminal_bench_2_1_aa
+    - terminal_bench_4_0
     - terminal_bench_3
     - wildclawbench
     - aa_intelligence_index_v4_1
