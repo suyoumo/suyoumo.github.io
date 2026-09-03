@@ -652,6 +652,29 @@ $llm-radius-ctl: 10px;
   }
 }
 
+.llm-monthly-history {
+  margin-top: 18px;
+}
+
+.llm-monthly-history-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid $llm-line;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: $gray;
+  font-size: 0.78rem;
+  font-weight: 800;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: rgba(196, 90, 60, 0.35);
+    background: rgba(196, 90, 60, 0.06);
+    color: $primary;
+  }
+}
+
 .llm-monthly-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
