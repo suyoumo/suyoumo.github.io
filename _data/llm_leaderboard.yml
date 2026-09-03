@@ -567,8 +567,6 @@ categories:
     label: MiniAppBench
   - key: codesimpleqa
     label: CodeSimpleQA
-  - key: nl2repo_bench
-    label: NL2Repo-Bench
   - key: agent_arena
     label: AgentArena
   - key: deck_bench
@@ -1625,6 +1623,9 @@ rows:
     - value: '47.2'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '47.2'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     scicode:
     - value: '53.5'
       source_label: Qwen3.7
@@ -1973,10 +1974,6 @@ rows:
       source_url: https://artificialanalysis.ai
     healthbench:
     - value: '54.5'
-      source_label: Qwen3.8
-      source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
-    - value: '47.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     automation_bench:
@@ -5215,12 +5212,11 @@ rows:
     - value: '47.7'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '27.9'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '3.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '27.9'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     tob_complex_workflows:
@@ -5905,12 +5901,11 @@ rows:
     - value: '38.3'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '24.6'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '1.0'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '24.6'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
     tob_reference_qa:
@@ -11605,6 +11600,9 @@ rows:
     - value: '75.3'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '72.3'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     posttrainbench:
     - value: '35.0'
       source_label: Claude Opus 5
@@ -11818,10 +11816,6 @@ rows:
       source_url: https://artificialanalysis.ai
     terminal_bench_3:
     - value: '42.7'
-      source_label: Qwen3.8-Max-0902 report
-      source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
-    - value: '72.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
     mls_bench_lite:
@@ -12183,6 +12177,9 @@ rows:
     - value: '69.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '69.4'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
     browsecomp:
     - value: '84.3'
       source_label: Hunyuan 3
@@ -12692,10 +12689,6 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.8
     dense200:
     - value: '20.8'
-      source_label: Qwen3.8
-      source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
-    - value: '69.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     coco:
@@ -13595,6 +13588,9 @@ rows:
     - value: '3.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
+    - value: '43.2'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
     qwen_web_bench:
     - value: '1517.9'
       source_label: Qwen3.6
@@ -14225,10 +14221,6 @@ rows:
     - value: '44.0'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '43.2'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
     tob_complex_workflows:
     - value: '64.8'
       source_label: Seed2.0 T13
@@ -14822,12 +14814,11 @@ rows:
     - value: '33.7'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '39.9'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '3.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '39.9'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     tob_complex_workflows:
@@ -18281,12 +18272,11 @@ rows:
     - value: '41.3'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '49.3'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '8.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '49.3'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     tob_complex_workflows:
@@ -18813,12 +18803,11 @@ rows:
     - value: '35.0'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '19.5'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '2.0'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '19.5'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
     tob_reference_qa:
@@ -20133,12 +20122,11 @@ rows:
     - value: '42.8'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '34.2'
-      source_label: Seed2.0 T13
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '4.0'
+      source_label: Seed2.0 T13
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '34.2'
       source_label: Seed2.0 T13
       source_url: https://seed.bytedance.com/en/seed2
     tob_complex_workflows:
@@ -20943,12 +20931,11 @@ rows:
     - value: '44.0'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
-    nl2repo_bench:
-    - value: '27.6'
-      source_label: Seed2.0 T14
-      source_url: https://seed.bytedance.com/en/seed2
     nl2repo:
     - value: '2.0'
+      source_label: Seed2.0 T14
+      source_url: https://seed.bytedance.com/en/seed2
+    - value: '27.6'
       source_label: Seed2.0 T14
       source_url: https://seed.bytedance.com/en/seed2
     tob_reference_qa:
@@ -24720,7 +24707,7 @@ rows:
     - value: '33.0'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
+    nl2repo:
     - value: '70.2'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
@@ -26236,13 +26223,6 @@ rows:
     - value: '56.6'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
-    - value: '55.9'
-      source_label: Qwen3.8
-      source_url: https://qwen.ai/blog?id=qwen3.8
-    - value: '55.9'
-      source_label: Qwen3.8-Max-0902 report
-      source_url: https://qwen.ai/blog?id=qwen3.8
     mls_bench_lite:
     - value: '41.0'
       source_label: Qwen3.8
@@ -26605,6 +26585,12 @@ rows:
     - value: '55.9'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '55.9'
+      source_label: Qwen3.8
+      source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '55.9'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     cybergym:
     - value: '78.5'
       source_label: GLM-5.3 report
@@ -26790,7 +26776,7 @@ rows:
     - value: '69.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
-    nl2repo_bench:
+    nl2repo:
     - value: '64.9'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
@@ -28491,12 +28477,14 @@ collections:
     - deepswe
     - deepswe_1_1
     - livecodebench
+    - mls_bench_lite
     - nl2repo
     - program_bench
     - scicode
     - sec_bench_pro
     - skillsbench
     - swe_multilingual
+    - swe_marathon
     - swe_pro
     - swe_verified
     - terminal_bench_2
