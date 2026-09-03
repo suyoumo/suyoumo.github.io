@@ -304,6 +304,14 @@ sources:
   label: Claude Fable 5 report
   short_label: Fable 5
   url: https://anthropic.com
+- id: claude_fable51
+  label: Claude Fable 5.1 report
+  short_label: Fable 5.1
+  url: https://anthropic.com
+- id: artificial_analysis_fable51
+  label: Artificial Analysis (Fable 5.1)
+  short_label: Fable 5.1 (AA)
+  url: https://artificialanalysis.ai
 - id: claude_sonnet5
   label: Claude Sonnet 5 report
   short_label: Sonnet 5
@@ -585,6 +593,8 @@ categories:
     label: FrontierCode
   - key: terminal_bench_3
     label: Terminal-Bench 3.0
+  - key: terminal_bench_science_0_1
+    label: Terminal-Bench-Science 0.1
   - key: apex_swe
     label: APEX-SWE
   - key: code_arena
@@ -11449,6 +11459,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Qwen3.8-Max-0902 report
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Claude Fable 5.1 report
+    url: https://anthropic.com
   scores:
     frontier_bench:
     - value: '43.3'
@@ -11461,6 +11473,9 @@ rows:
     - value: '1824'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '1824'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     arc_agi_3:
     - value: '30.2'
       source_label: Opus 5
@@ -11477,6 +11492,9 @@ rows:
     - value: '64.7'
       source_label: Opus 5
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '56.6'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     osworld_2:
     - value: '70.6'
       source_label: Opus 5
@@ -11672,6 +11690,9 @@ rows:
     - value: '50.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '26.9'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     bankertoolbench:
     - value: '81.9'
       source_label: Claude Opus 5
@@ -11699,6 +11720,9 @@ rows:
     hle_tools:
     - value: '60.9'
       source_label: Claude Opus 5
+      source_url: https://anthropic.com
+    - value: '63.6'
+      source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
     gpqa:
     - value: '93.7'
@@ -11754,6 +11778,9 @@ rows:
     - value: '51.8'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '52.3'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     gdp_pdf:
     - value: '37.0'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -11774,6 +11801,9 @@ rows:
     - value: '75.4'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '75.4/39.6'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     biomystery_bench:
     - value: '90.1'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -11822,6 +11852,14 @@ rows:
     - value: '67.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    terminal_bench_science_0_1:
+    - value: '29.0'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    cursorbench:
+    - value: '70.0'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -15180,6 +15218,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Qwen3.8-Max-0902 report
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Claude Fable 5.1 report
+    url: https://anthropic.com
   scores:
     agent_arena:
     - value: '9.86'
@@ -15363,6 +15403,9 @@ rows:
     - value: '45.8'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '19.6'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -15623,6 +15666,9 @@ rows:
     - value: '1710'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '1711'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     browsecomp_ctx:
     - value: '90.4'
       source_label: Opus 5 comparison
@@ -16066,6 +16112,9 @@ rows:
     - value: '37.3'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '37.3'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     hle_verified:
     - value: '54.5'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -16090,6 +16139,14 @@ rows:
     - value: '1482'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    terminal_bench_science_0_1:
+    - value: '22.4'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    cursorbench:
+    - value: '67.2'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
 - company: OpenAI
   model: GPT-5.6 Sol Ultra
   mode: ''
@@ -23949,6 +24006,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Qwen3.8-Max-0902 report
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Claude Fable 5.1 report
+    url: https://anthropic.com
   scores:
     agent_arena:
     - value: '13.22'
@@ -24008,6 +24067,9 @@ rows:
     - value: '46.2'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '17.1'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     osworld_verified:
     - value: '85.0'
       source_label: Claude Fable 5
@@ -24023,6 +24085,9 @@ rows:
     - value: '63.9'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '57.8'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     hle_tools:
     - value: '64.5'
       source_label: Claude Fable 5
@@ -24033,6 +24098,9 @@ rows:
     - value: '63.9'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '63.8'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     biomystery_bench:
     - value: '46.1'
       source_label: Claude Fable 5
@@ -24345,6 +24413,9 @@ rows:
     - value: '1743'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '1723'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     browsecomp_ctx:
     - value: '87.4'
       source_label: Opus 5 comparison
@@ -24467,6 +24538,9 @@ rows:
     - value: '66.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '72.9/36.1'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
     vlms_are_biased:
     - value: '61.2'
       source_label: Qwen3.8
@@ -24662,6 +24736,107 @@ rows:
     - value: '77.9'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    terminal_bench_science_0_1:
+    - value: '24.7'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    terminal_bench_4_0:
+    - value: '42.0'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    cursorbench:
+    - value: '70.5'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+- company: Anthropic
+  model: Claude Fable 5.1
+  mode: Max with fallback
+  released: '2026-09-03'
+  sources:
+  - label: Claude Fable 5.1 report
+    url: https://anthropic.com
+  - label: Artificial Analysis (Fable 5.1)
+    url: https://artificialanalysis.ai
+  scores:
+    terminal_bench_science_0_1:
+    - value: '52.6'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    terminal_bench_4_0:
+    - value: '55.8'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    gdpval_aa_v2:
+    - value: '1853'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    osworld_2_0:
+    - value: '77.9/41.7'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    hle:
+    - value: '60.9'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    - value: '59'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    hle_tools:
+    - value: '65.0'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '31.4'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    cursorbench:
+    - value: '73.47'
+      source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    gdpval_aa_pct:
+    - value: '68'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '47'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1_aa:
+    - value: '91'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '62'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    gpqa:
+    - value: '94'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '30'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '67'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '27'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '80'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1694'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '93'
+      source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
