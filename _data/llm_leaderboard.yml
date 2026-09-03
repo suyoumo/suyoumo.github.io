@@ -24844,6 +24844,7 @@ rows:
     - value: '55.8'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+      preferred: true
     - value: '60.9'
       source_label: 'Claude Fable 5.1 report (fallback: Mythos 5.1)'
       source_url: https://anthropic.com
@@ -24870,6 +24871,9 @@ rows:
     - value: '31.4'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '46.2'
+      source_label: Qwen3.8-Max-0902 report
+      source_url: https://qwen.ai/blog?id=qwen3.8
     cursorbench:
     - value: '73.47'
       source_label: Claude Fable 5.1 report
@@ -24918,22 +24922,6 @@ rows:
     - value: '93'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
-- company: Anthropic
-  model: Claude Mythos 5.1
-  mode: ''
-  released: '2026-09-03'
-  sources:
-  - label: Claude Fable 5.1 report
-    url: https://anthropic.com
-  scores:
-    terminal_bench_4_0:
-    - value: '60.9'
-      source_label: 'Claude Fable 5.1 report (fallback: Mythos 5.1)'
-      source_url: https://anthropic.com
-    automation_bench:
-    - value: '46.2'
-      source_label: Qwen3.8-Max-0902 report
-      source_url: https://qwen.ai/blog?id=qwen3.8
     deepswe_1_1:
     - value: '69.7'
       source_label: Qwen3.8-Max-0902 report
