@@ -632,6 +632,9 @@ permalink: /llm-leaderboard/
       if(!m[mk]) m[mk]={};
       if(r.scores) Object.keys(r.scores).forEach(function(bk){
         var e=r.scores[bk]; if(e&&e.length>0){ 
+          // 主榜单中的部分分数可以显式排除，避免进入综合排名。
+          e=e.filter(function(s){ return !s.exclude_from_ranking; });
+          if(e.length===0) return;
           // 优先使用 preferred 标记的来源（更新的实测批次），否则取所有分数中的最高分
           var pref=e.filter(function(s){ return s.preferred; });
           var pool=pref.length?pref:e;

@@ -29,6 +29,9 @@ window.LLMCore = (function () {
       if (!m[mk]) m[mk] = {};
       if (r.scores) Object.keys(r.scores).forEach(function (bk) {
         var e = r.scores[bk]; if (e && e.length > 0) {
+          // Scores marked as partial are display-only and must not affect rankings.
+          e = e.filter(function (s) { return !s.exclude_from_ranking; });
+          if (e.length === 0) return;
           var pref = e.filter(function (s) { return s.preferred; });
           var pool = pref.length ? pref : e;
           var maxV = NaN;

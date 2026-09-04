@@ -132,6 +132,14 @@ sources:
   label: GPT-5.6 report
   short_label: GPT-5.6
   url: https://openai.com/index/gpt-5-6/
+- id: gpt6_astra
+  label: GPT-6 Astra report
+  short_label: GPT-6 Astra
+  url: https://openai.com
+- id: artificial_analysis_gpt6_astra
+  label: Artificial Analysis (GPT-6 Astra)
+  short_label: GPT-6 Astra (AA)
+  url: https://artificialanalysis.ai
 - id: muse11
   label: Muse Spark 1.1 report
   short_label: Muse 1.1
@@ -601,10 +609,20 @@ categories:
     label: CursorBench
   - key: frontiercode
     label: FrontierCode
+  - key: frontiercode_extended
+    label: FrontierCode 1.1 Extended (score)
+  - key: frontiercode_main
+    label: FrontierCode 1.1 Main (score)
   - key: terminal_bench_3
     label: Terminal-Bench 3.0
   - key: terminal_bench_science_0_1
     label: Terminal-Bench-Science 0.1
+  - key: internal_database_migration_tasks
+    label: Internal Database Migration Tasks
+  - key: aa_coding_agent_index_v1_4
+    label: AA Coding Agent Index v1.4
+  - key: sre_bench
+    label: SRE-Bench
   - key: apex_swe
     label: APEX-SWE
   - key: code_arena
@@ -665,6 +683,12 @@ categories:
     label: OSWorld 2.0
   - key: benchcad
     label: BenchCAD
+  - key: openscore_string_quartets
+    label: OpenScore String Quartets (1 - OMR-NED)
+  - key: internal_design_tasks
+    label: Internal Design Tasks
+  - key: internal_data_science_tasks
+    label: Internal Data Science Tasks
   - key: benchcad_python_tools
     label: BenchCAD (Python Tools)
   - key: rw_search
@@ -711,6 +735,8 @@ categories:
     label: GDPval-MM
   - key: gdpval_aa_pct
     label: GDPval-AA (percentage)
+  - key: aa_intelligence_index_v4_1
+    label: AA Intelligence Index v4.1.1
   - key: gaia
     label: GAIA
   - key: gaia2_search
@@ -779,10 +805,30 @@ categories:
     label: BioMysteryBench (Human difficult)
   - key: exploit_bench
     label: ExploitBench
+  - key: exploit_bench_june_aug_2026
+    label: ExploitBench (June-Aug 2026)
   - key: exploitgym
     label: ExploitGym
+  - key: internal_computer_use_safety
+    label: Internal computer use safety benchmark (lower is better)
+  - key: internal_computer_use_safety_autoreview
+    label: Internal computer use safety benchmark, w/ AutoReview (lower is better)
+  - key: internal_circumvention
+    label: Internal circumvention benchmark (lower is better)
+  - key: exploitgym_honeypot
+    label: ExploitGym honeypot (lower is better)
+  - key: impossible_exploitgym
+    label: Impossible ExploitGym
+  - key: internal_hallucination
+    label: Internal hallucination benchmark (lower is better)
   - key: healthbench_pro
     label: HealthBench Professional
+  - key: genebench_pro
+    label: GeneBench Pro
+  - key: medchembench_internal
+    label: MedChemBench (Internal)
+  - key: lifescibench
+    label: LifeSciBench
   - key: browsecomp_tools
     label: BrowseComp (w/ Tools)
   - key: tau2_bench_avg_tools
@@ -11502,6 +11548,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.8
   - label: Claude Fable 5.1 report
     url: https://anthropic.com
+  - label: GPT-6 Astra report
+    url: https://openai.com
   scores:
     frontier_bench:
     - value: '43.3'
@@ -11929,6 +11977,26 @@ rows:
     - value: '59.1'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    aa_intelligence_index_v4_1:
+    - value: '63.1'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '63.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_coding_agent_index_v1_4:
+    - value: '68.1'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    sre_bench:
+    - value: '12.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety:
+    - value: '11.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -15397,6 +15465,10 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.8
   - label: Claude Fable 5.1 report
     url: https://anthropic.com
+  - label: GPT-6 Astra report
+    url: https://openai.com
+  - label: Artificial Analysis (GPT-6 Astra)
+    url: https://artificialanalysis.ai
   scores:
     agent_arena:
     - value: '9.86'
@@ -16359,6 +16431,74 @@ rows:
     - value: '60.5'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    openscore_string_quartets:
+    - value: '0.19'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_design_tasks:
+    - value: '47.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_data_science_tasks:
+    - value: '30.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_intelligence_index_v4_1:
+    - value: '60.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '60.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_database_migration_tasks:
+    - value: '42.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_coding_agent_index_v1_4:
+    - value: '65.1'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    genebench_pro:
+    - value: '28.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    medchembench_internal:
+    - value: '47.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    lifescibench:
+    - value: '59.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploit_bench_june_aug_2026:
+    - value: '11.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    sre_bench:
+    - value: '55.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety:
+    - value: '22.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety_autoreview:
+    - value: '4.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_circumvention:
+    - value: '0.29'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploitgym_honeypot:
+    - value: '48.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_hallucination:
+    - value: '12.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
 - company: OpenAI
   model: GPT-5.6 Terra
   mode: ''
@@ -24192,6 +24332,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.8
   - label: Claude Fable 5.1 report
     url: https://anthropic.com
+  - label: GPT-6 Astra report
+    url: https://openai.com
   scores:
     agent_arena:
     - value: '13.22'
@@ -24880,6 +25022,34 @@ rows:
     - value: '70.5'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    internal_design_tasks:
+    - value: '35.8'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_data_science_tasks:
+    - value: '34.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_intelligence_index_v4_1:
+    - value: '62.1'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '64.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_coding_agent_index_v1_4:
+    - value: '67.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_database_migration_tasks:
+    - value: '50.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety:
+    - value: '18.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
 - company: Anthropic
   model: Claude Fable 5.1
   mode: Max with fallback
@@ -24889,6 +25059,8 @@ rows:
     url: https://anthropic.com
   - label: Artificial Analysis (Fable 5.1)
     url: https://artificialanalysis.ai
+  - label: GPT-6 Astra report
+    url: https://openai.com
   scores:
     terminal_bench_science_0_1:
     - value: '52.6'
@@ -25036,6 +25208,26 @@ rows:
     - value: '77.9'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    aa_intelligence_index_v4_1:
+    - value: '65.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '63.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_main:
+    - value: '50.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_database_migration_tasks:
+    - value: '57.8'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety:
+    - value: '9.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -28484,6 +28676,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Gemini 3.8 Flash methodology
     url: https://deepmind.google/models/evals-methodology/gemini-3-8-flash
+  - label: GPT-6 Astra report
+    url: https://openai.com
   scores:
     deepswe_1_1:
     - value: '73.7'
@@ -28592,6 +28786,22 @@ rows:
     - value: '86'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    aa_intelligence_index_v4_1:
+    - value: '58.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '56.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_main:
+    - value: '43.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_coding_agent_index_v1_4:
+    - value: '61.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
 - company: Meta
   model: Muse Spark 1.3
   mode: Max
@@ -28785,6 +28995,225 @@ rows:
     mmmu_pro:
     - value: '75'
       source_label: Artificial Analysis (DeepSeek-V4-Flash-Vision-Exp)
+      source_url: https://artificialanalysis.ai
+- company: OpenAI
+  model: GPT-6 Astra
+  mode: Max reasoning effort
+  released: '2026-09-04'
+  sources:
+  - label: GPT-6 Astra report
+    url: https://openai.com
+  - label: Artificial Analysis (GPT-6 Astra)
+    url: https://artificialanalysis.ai
+  scores:
+    agents_last_exam:
+    - value: '59.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    osworld_2_0:
+    - value: '72.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+      partial: true
+      exclude_from_ranking: true
+    screenspot_pro:
+    - value: '92.7'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    automation_bench:
+    - value: '41.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    benchcad:
+    - value: '95.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    browsecomp:
+    - value: '91.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    openscore_string_quartets:
+    - value: '0.84'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_design_tasks:
+    - value: '50.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_data_science_tasks:
+    - value: '40.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_intelligence_index_v4_1:
+    - value: '61.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    terminal_bench_4_0:
+    - value: '57.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    deepswe_1_1:
+    - value: '74.1'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_extended:
+    - value: '64.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiercode_main:
+    - value: '53.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_database_migration_tasks:
+    - value: '63.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    aa_coding_agent_index_v1_4:
+    - value: '67.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    terminal_bench_science_0_1:
+    - value: '64.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    frontiermath_t4:
+    - value: '97.6'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    gpqa:
+    - value: '96.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    - value: '96'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    hle_tools:
+    - value: '57.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    genebench_pro:
+    - value: '37.8'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    medchembench_internal:
+    - value: '49.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    lifescibench:
+    - value: '60.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    healthbench_pro:
+    - value: '63.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploit_bench:
+    - value: '100.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploitgym:
+    - value: '42.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploit_bench_june_aug_2026:
+    - value: '39.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    sre_bench:
+    - value: '88.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    sec_bench_pro:
+    - value: '85.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety:
+    - value: '2.4'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_computer_use_safety_autoreview:
+    - value: '1.8'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_circumvention:
+    - value: '0.00'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    exploitgym_honeypot:
+    - value: '0.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    impossible_exploitgym:
+    - value: '100.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    internal_hallucination:
+    - value: '4.2'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    mrcr_v2_256_512k:
+    - value: '100.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    mrcr_v2_512k_1m:
+    - value: '96.3'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    arc_agi_3:
+    - value: '99.9'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    arc_agi_2:
+    - value: '95.0'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    arc_agi_1:
+    - value: '98.5'
+      source_label: GPT-6 Astra report
+      source_url: https://openai.com
+    gdpval_aa_pct:
+    - value: '56'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    tau3_banking:
+    - value: '41'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1_aa:
+    - value: '88'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '55'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '32'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '63'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '49'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '74'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1570'
+      source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '87'
+      source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
 collections:
   overall:
