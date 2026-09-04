@@ -75,8 +75,8 @@
     });
     html += '</div></div>';
 
-    html += '<h2 class="mp-sec-title">综合排名各榜单分数<small>颜色为该 bench 上的百分位位次（绿=靠前）</small></h2><div class="mp-card">';
-    ['Overall', 'Code', 'General'].forEach(function (n) {
+    html += '<h2 class="mp-sec-title">Code 与 General 榜单分数<small>综合排名 = Code + General；颜色为该 bench 上的百分位位次（绿=靠前）</small></h2><div class="mp-card">';
+    ['Code', 'General'].forEach(function (n) {
       var rd = rankData[n];
       var chips = '';
       var catOrder = [];
