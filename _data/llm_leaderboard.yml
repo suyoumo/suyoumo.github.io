@@ -376,6 +376,11 @@ sources:
   label: Artificial Analysis (Gemini 3.8)
   short_label: Gemini 3.8
   url: https://artificialanalysis.ai
+
+- id: deepseek_v41_flash
+  label: DeepSeek V4.1-Flash report
+  short_label: DS-V4.1-Flash
+  url: https://api-docs.deepseek.com
 categories:
 - name: Coding Agent
   columns:
@@ -1207,6 +1212,8 @@ categories:
     label: ChartQA
   - key: chartography
     label: Chartography
+  - key: chartography_tools
+    label: Chartography (w/tools)
   - key: docvqa_eval
     label: DocVQAEval
   - key: ocrbench
@@ -29233,6 +29240,91 @@ rows:
     - value: '75'
       source_label: Artificial Analysis (DeepSeek-V4-Flash-Vision-Exp)
       source_url: https://artificialanalysis.ai
+- company: DeepSeek
+  model: DeepSeek-V4.1-Flash
+  mode: ''
+  released: '2026-09-10'
+  sources:
+  - label: DeepSeek V4.1-Flash report
+    url: https://api-docs.deepseek.com
+  scores:
+    gpqa:
+    - value: '90.9'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    hle:
+    - value: '36.8'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    codeforces:
+    - value: '3471'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    matharena_apex:
+    - value: '65.6'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    terminal_bench_2_1:
+    - value: '90.6'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    terminal_bench_3:
+    - value: '30.0'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    terminal_bench_4_0:
+    - value: '31.2'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    deepswe_1_1:
+    - value: '74.2'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    program_bench:
+    - value: '20.3'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    nl2repo:
+    - value: '65.4'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    cybergym:
+    - value: '88.1'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    sec_bench_pro:
+    - value: '62.8'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    exploitgym:
+    - value: '15.3'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    hle_tools:
+    - value: '63.9'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    automation_bench:
+    - value: '54.8'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    agents_last_exam:
+    - value: '31.8'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    chartography_tools:
+    - value: '78.9'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    babyvision:
+    - value: '89.6'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+    zerobench_main_tools:
+    - value: '49.0'
+      source_label: DeepSeek V4.1-Flash report
+      source_url: https://api-docs.deepseek.com
+
 - company: OpenAI
   model: GPT-6 Astra
   mode: Max reasoning effort
