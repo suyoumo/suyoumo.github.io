@@ -592,7 +592,9 @@ permalink: /llm-leaderboard/
 .rank-bronze { color: #c45a3c; }
 .heatmap-cell { font-weight: 700; font-size: 0.76rem; min-width: 56px; }
 .no-data-cell { color: rgba(25,25,24,0.18); font-weight: 400; }
-.benchmark-group-header { background: rgba(196,90,60,0.07) !important; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: #c45a3c; border-bottom: 2px solid rgba(196,90,60,0.25) !important; }
+/* Solid equivalent of rgba(196,90,60,0.07) over #faf7f2 — a translucent
+ * background lets scrolled rows bleed through the sticky header. */
+.benchmark-group-header { background: #f6ece5 !important; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: #c45a3c; border-bottom: 2px solid rgba(196,90,60,0.25) !important; }
 .llm-ranking-note {
   margin: 16px 0 24px;
   padding: 14px 18px;

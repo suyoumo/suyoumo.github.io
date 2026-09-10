@@ -1029,7 +1029,10 @@ $llm-radius-ctl: 10px;
   }
 
   .llm-board-group {
-    background: rgba(196, 90, 60, 0.055);
+    /* Solid equivalent of rgba(196,90,60,0.055) over $llm-head — a
+     * translucent background lets scrolled rows bleed through the
+     * sticky header. */
+    background: #f7eee8;
     color: $primary;
     font-family: $sans;
     font-size: 0.8rem;
