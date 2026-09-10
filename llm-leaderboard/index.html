@@ -80,12 +80,10 @@ permalink: /llm-leaderboard/
             <option value="percentile">百分位</option>
           </select>
         </label>
+        <label class="llm-ranking-min-label">显示行数:
+          <input type="number" id="rankingVisibleRows" value="20" min="0" max="200" title="表格内最多同时显示的数据行数，0 表示显示全部">
+        </label>
         <span class="llm-ranking-info" id="rankingInfo"></span>
-      </div>
-      <div class="llm-ranking-sticky-head" id="rankingStickyHead" aria-hidden="true">
-        <div class="llm-ranking-sticky-head-viewport" id="rankingStickyHeadViewport">
-          <table class="llm-ranking-table llm-ranking-sticky-head-table" id="rankingStickyHeadTable" aria-hidden="true"></table>
-        </div>
       </div>
       <div class="llm-ranking-table-wrap" id="rankingTableWrap">
         <table class="llm-ranking-table" id="rankingTable">
@@ -155,16 +153,10 @@ permalink: /llm-leaderboard/
       <div class="llm-board-table-meta">
         <span>包含报告中的目标模型与对比模型；横向滚动查看全部 benchmark</span>
         <span>Different scores from different reports are stacked in one cell.</span>
-      </div>
-      <div class="llm-board-top-scrollbar" id="llm-board-top-scrollbar" hidden aria-hidden="true">
-        <div class="llm-board-top-scrollbar-track" id="llm-board-top-scrollbar-track">
-          <div class="llm-board-top-scrollbar-inner" id="llm-board-top-scrollbar-inner"></div>
-        </div>
-      </div>
-      <div class="llm-board-sticky-head" id="llm-board-sticky-head" hidden aria-hidden="true">
-        <div class="llm-board-sticky-head-viewport" id="llm-board-sticky-head-viewport">
-          <table class="llm-board-table llm-board-sticky-head-table" id="llm-board-sticky-head-table" aria-hidden="true"></table>
-        </div>
+        <label class="llm-board-meta-rows" title="表格内最多同时显示的数据行数，0 表示显示全部">
+          <span>显示行数</span>
+          <input type="number" id="llm-board-visible-rows" value="20" min="0" max="200">
+        </label>
       </div>
       <div class="llm-board-table-wrap" id="llm-board-table-wrap">
         <table class="llm-board-table" id="llm-board-table">
@@ -481,29 +473,17 @@ permalink: /llm-leaderboard/
   box-shadow: 0 0 0 3px rgba(196,90,60,0.1);
 }
 .llm-ranking-info { font-size: 0.8rem; color: #6b6b65; font-weight: 600; }
-.llm-ranking-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(25,25,24,0.06); }
-/* Floating clone of the ranking thead, pinned under the site header.
- * It is ALWAYS rendered (visibility toggled only) so showing/hiding never
- * changes layout — a display/hidden toggle would shift content height
- * mid-scroll and feed back into the show condition (that loop was the
- * old leaderboard floating header's flicker). */
-.llm-ranking-sticky-head {
-  position: sticky;
-  top: 65px; /* JS re-measures the real site header height */
-  z-index: 30;
-  visibility: hidden;
-  overflow: hidden;
-  box-sizing: border-box;
-  padding: 0 1px; /* aligns the clone with the wrap's 1px-bordered content box */
-  background: #faf7f2;
-  border-bottom: 1px solid rgba(25,25,24,0.08);
-  box-shadow: 0 10px 24px rgba(60,42,28,0.08);
-}
-.llm-ranking-sticky-head.is-visible { visibility: visible; }
-.llm-ranking-sticky-head-viewport { overflow: hidden; }
-.llm-ranking-sticky-head-table { margin: 0; }
-.llm-ranking-sticky-head-table thead th { border-top: none; }
-.llm-ranking-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+/* The table scrolls INSIDE this wrap (both axes). max-height is set by JS
+ * from the "显示行数" control so the horizontal scrollbar is always within
+ * reach; the header and the first two columns stay pinned via position:sticky. */
+.llm-ranking-table-wrap { overflow: auto; border-radius: 10px; border: 1px solid rgba(25,25,24,0.06); }
+.llm-ranking-table-wrap::-webkit-scrollbar { width: 10px; height: 10px; }
+.llm-ranking-table-wrap::-webkit-scrollbar-thumb { background: rgba(25,25,24,0.16); border-radius: 999px; }
+.llm-ranking-table-wrap::-webkit-scrollbar-track { background: transparent; }
+.llm-ranking-table-wrap::-webkit-scrollbar-corner { background: transparent; }
+/* border-collapse: separate so the sticky header/columns keep their own
+ * borders while the rest of the grid slides underneath them. */
+.llm-ranking-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.8rem; }
 .llm-ranking-table thead th {
   position: sticky; top: 0; background: #faf7f2; color: #6b6b65;
   padding: 9px 7px; font-weight: 700; text-align: center; white-space: nowrap; z-index: 5;
@@ -516,6 +496,21 @@ permalink: /llm-leaderboard/
 .llm-ranking-table thead th.rank-group-end,
 .llm-ranking-table thead th.benchmark-group-header { border-right: 1px solid rgba(25,25,24,0.25); }
 .llm-ranking-table thead th.benchmark-group-header:last-child { border-right: none; }
+/* Two-row thead: row 2 (benchmark names) pins just below row 1 (category
+ * groups). --rank-head-row1-h is measured by JS after each render. */
+.llm-ranking-table thead tr:nth-child(2) th { top: var(--rank-head-row1-h, 34px); }
+/* Freeze the 排名 + 模型 columns while the benchmark columns scroll
+ * horizontally. --rank-col1-w is the measured width of the 排名 column. */
+.llm-ranking-table th:nth-child(1),
+.llm-ranking-table td:nth-child(1) { position: sticky; left: 0; }
+.llm-ranking-table th:nth-child(2),
+.llm-ranking-table td:nth-child(2) { position: sticky; left: var(--rank-col1-w, 44px); box-shadow: 1px 0 0 rgba(25,25,24,0.07); }
+.llm-ranking-table tbody td:nth-child(1),
+.llm-ranking-table tbody td:nth-child(2) { z-index: 3; background: #fff; }
+.llm-ranking-table tbody tr:hover td:nth-child(1),
+.llm-ranking-table tbody tr:hover td:nth-child(2) { background: #fdf6f3; }
+.llm-ranking-table thead th:nth-child(1),
+.llm-ranking-table thead th:nth-child(2) { z-index: 8; }
 .llm-ranking-table thead th:nth-child(1),
 .llm-ranking-table thead th:nth-child(2),
 .llm-ranking-table thead th:nth-child(3) { text-align: left; padding-left: 10px; }
@@ -530,7 +525,7 @@ permalink: /llm-leaderboard/
 .llm-ranking-table td:last-child { border-right: none; }
 .llm-ranking-table td.rank-group-end { border-right: 1px solid rgba(25,25,24,0.25); }
 .llm-ranking-table td:nth-child(1) { font-weight: 800; font-size: 0.88rem; padding-left: 10px; text-align: left; width: 44px; }
-.llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
+.llm-ranking-table td:nth-child(2) { text-align: left; padding-left: 10px; font-weight: 700; max-width: 155px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .llm-ranking-table td:nth-child(2):hover::after {
   content: attr(data-fullname);
   position: absolute;
@@ -762,7 +757,7 @@ permalink: /llm-leaderboard/
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
     var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     var sortMode = document.getElementById('rankingSortMode').value;
-    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; buildRankSticky(); updateRankSticky(); return; }
+    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; applyRankingViewport(); return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
     var skipped = keys.length - validKeys.length;
@@ -800,87 +795,54 @@ permalink: /llm-leaderboard/
     });
     if(results.length===0) html='<tr><td colspan="'+(5+validKeys.length)+'" style="padding:20px;text-align:center;color:#999;">无满足条件的模型</td></tr>';
     tbody.innerHTML=html;
-    buildRankSticky();
-    updateRankSticky();
+    applyRankingViewport();
   }
 
-  // ===== Floating column header for the ranking table =====
-  // The clone is always rendered and only its VISIBILITY is toggled, so
-  // showing/hiding never changes layout — no geometry feedback loop, no
-  // flicker at the pin boundary. Widths are measured only on render/resize,
-  // never on scroll.
+  // ===== In-wrap viewport: sticky header/columns + configurable row count =====
+  // The wrap scrolls on both axes; CSS position:sticky keeps the two header
+  // rows and the 排名/模型 columns pinned. JS only feeds three measurements:
+  //   --rank-head-row1-h : height of the first header row (row 2 pins below it)
+  //   --rank-col1-w      : width of the 排名 column (模型 column pins after it)
+  //   wrap max-height    : thead height + N data rows, from the 显示行数 control
   var rankWrap = document.getElementById('rankingTableWrap');
-  var rankSticky = document.getElementById('rankingStickyHead');
-  var rankStickyViewport = document.getElementById('rankingStickyHeadViewport');
-  var rankStickyTable = document.getElementById('rankingStickyHeadTable');
-  var siteHeaderEl = document.querySelector('.site-header');
+  var rankRowsInput = document.getElementById('rankingVisibleRows');
+  try {
+    var savedRankRows = parseInt(window.localStorage.getItem('llm-ranking-visible-rows'), 10);
+    if (!isNaN(savedRankRows) && rankRowsInput) rankRowsInput.value = savedRankRows;
+  } catch (e) {}
 
-  function siteHeaderBottom(){ return siteHeaderEl ? Math.ceil(siteHeaderEl.getBoundingClientRect().bottom) + 8 : 72; }
-
-  function hideRankSticky(){
-    rankSticky.classList.remove('is-visible');
-    rankSticky.setAttribute('aria-hidden','true');
-  }
-
-  function buildRankSticky(){
-    if(!rankWrap || !rankSticky) return;
+  function applyRankingViewport(){
     var table = document.getElementById('rankingTable');
     var thead = table.tHead;
-    if(!thead || !thead.rows.length){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
+    if (!thead || !thead.rows.length) { rankWrap.style.maxHeight = ''; return; }
+    table.style.setProperty('--rank-head-row1-h', thead.rows[0].offsetHeight + 'px');
     // Placeholder rows ("请选择 benchmark" / "无满足条件的模型") span all
-    // columns in a single cell — there is no grid to mirror then.
+    // columns in a single cell — there is no column grid to measure then.
     var bodyRow = table.tBodies[0] && table.tBodies[0].rows[0];
-    if(!bodyRow || bodyRow.cells.length < 2){ rankStickyTable.innerHTML=''; hideRankSticky(); return; }
+    if (bodyRow && bodyRow.cells.length >= 2) {
+      table.style.setProperty('--rank-col1-w', bodyRow.cells[0].getBoundingClientRect().width + 'px');
+    }
+    var n = parseInt(rankRowsInput.value, 10);
+    if (isNaN(n) || n <= 0) { rankWrap.style.maxHeight = ''; return; }
+    var h = thead.offsetHeight, count = 0;
+    var bodyRows = table.tBodies[0].rows;
+    for (var i = 0; i < bodyRows.length && count < n; i++) {
+      if (bodyRows[i].offsetParent === null) continue;
+      h += bodyRows[i].offsetHeight;
+      count++;
+    }
+    // No cap needed when every row fits.
+    rankWrap.style.maxHeight = (count >= n && bodyRows.length > n) ? (h + 2) + 'px' : '';
+  }
 
-    rankStickyTable.innerHTML='';
-    // The clone must NOT keep id="rankingThead": the sticky container sits
-    // before the real table in document order, so a duplicate id would make
-    // getElementById('rankingThead') return this stale clone on the next
-    // render, leaving the real header stuck on the previous collection.
-    var clonedHead = thead.cloneNode(true);
-    clonedHead.removeAttribute('id');
-    rankStickyTable.appendChild(clonedHead);
-    // Exact fractional widths from the real first body row — rounding drift
-    // over ~80 columns would misalign the clone's benchmark cells.
-    var colgroup = document.createElement('colgroup');
-    var total = 0;
-    Array.from(bodyRow.cells).forEach(function(cell){
-      var w = cell.getBoundingClientRect().width;
-      var col = document.createElement('col');
-      col.style.width = w+'px'; col.style.minWidth = w+'px'; col.style.maxWidth = w+'px';
-      colgroup.appendChild(col);
-      total += w;
+  if (rankRowsInput) {
+    rankRowsInput.addEventListener('change', function(){
+      try { window.localStorage.setItem('llm-ranking-visible-rows', rankRowsInput.value); } catch (e) {}
+      applyRankingViewport();
     });
-    rankStickyTable.insertBefore(colgroup, rankStickyTable.firstChild);
-    rankStickyTable.style.width = total+'px';
-    rankStickyTable.style.tableLayout = 'fixed';
-    rankStickyViewport.scrollLeft = rankWrap.scrollLeft;
-    // Pull the table up under the clone so the always-rendered clone
-    // reserves zero flow space.
-    rankSticky.style.marginBottom = (-rankSticky.offsetHeight)+'px';
-    rankSticky.style.top = siteHeaderBottom()+'px';
   }
-
-  var rankStickyTicking = false;
-  function updateRankSticky(){
-    rankStickyTicking = false;
-    if(!rankWrap || !rankSticky || !rankStickyTable.tHead) return;
-    var top = siteHeaderBottom();
-    var rect = rankWrap.getBoundingClientRect();
-    var show = rect.top <= top && rect.bottom > top + rankSticky.offsetHeight;
-    rankSticky.classList.toggle('is-visible', show);
-    rankSticky.setAttribute('aria-hidden', show ? 'false' : 'true');
-  }
-  function onRankStickyScroll(){
-    if(!rankStickyTicking){ rankStickyTicking = true; requestAnimationFrame(updateRankSticky); }
-  }
-
-  if(rankWrap && rankSticky){
-    rankWrap.addEventListener('scroll', function(){ rankStickyViewport.scrollLeft = rankWrap.scrollLeft; }, { passive:true });
-    window.addEventListener('scroll', onRankStickyScroll, { passive:true });
-    window.addEventListener('resize', function(){ buildRankSticky(); updateRankSticky(); }, { passive:true });
-    window.addEventListener('load', function(){ buildRankSticky(); updateRankSticky(); });
-  }
+  window.addEventListener('resize', applyRankingViewport, { passive:true });
+  window.addEventListener('load', applyRankingViewport);
 
   renderRanking();
 })();

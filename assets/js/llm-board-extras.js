@@ -625,9 +625,9 @@
         filterCounter.textContent = visibleModels + ' models · ' + visibleBenches + ' benchmarks';
       }
 
-      // Resync sticky head widths (the global llm-leaderboard.js exposes
-      // nothing, but it does observe ResizeObserver on table — toggling
-      // display triggers reflow and the observer will re-run).
+      // Resync the table viewport (llm-leaderboard.js re-measures the row
+      // cap and header offsets via its ResizeObserver/MutationObserver on
+      // the table — toggling display triggers reflow and they will re-run).
       // As a belt-and-suspenders, dispatch a synthetic resize:
       window.dispatchEvent(new Event('resize'));
     }
