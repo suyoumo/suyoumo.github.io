@@ -19,7 +19,7 @@ permalink: /llm-leaderboard/monthly/
       <p>全球与国产大模型前 10 名。选择分类，直接查看当月排名。</p>
       <div class="llm-monthly-meta">
         <span>2026.09</span>
-        <span>截至 9 月 10 日</span>
+        <span>更新于 {{ monthly.as_of }}</span>
         <span>对局得分率排名</span>
       </div>
       <div class="llm-monthly-history">
@@ -72,7 +72,7 @@ permalink: /llm-leaderboard/monthly/
                 {% for entry in category.global %}
                 <tr>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
-                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a></td>
+                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
                 </tr>
                 {% endfor %}
@@ -98,7 +98,7 @@ permalink: /llm-leaderboard/monthly/
                 {% for entry in category.domestic %}
                 <tr>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
-                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a></td>
+                  <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
                   <td><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
                 </tr>
@@ -111,7 +111,7 @@ permalink: /llm-leaderboard/monthly/
     </section>
     {% endfor %}
 
-    <p class="llm-monthly-note">本页为 {{ monthly.month_label }}静态快照，排名沿用主榜默认口径；国产榜从全球排名中筛选国产模型后重新编号。</p>
+    <p class="llm-monthly-note">本页为 {{ monthly.month_label }}静态快照，排名沿用主榜默认口径；国产榜从全球排名中筛选国产模型后重新编号。标注「新」的为本次更新新入榜的模型。</p>
   </div>
 </section>
 
