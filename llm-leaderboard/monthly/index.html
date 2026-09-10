@@ -66,7 +66,7 @@ permalink: /llm-leaderboard/monthly/
           <div class="llm-monthly-table-wrap">
             <table class="llm-monthly-table">
               <thead>
-                <tr><th>排名</th><th>模型</th><th>厂商</th></tr>
+                <tr><th>排名</th><th>模型</th><th>厂商</th><th class="llm-monthly-date-col">发布日期</th></tr>
               </thead>
               <tbody>
                 {% for entry in category.global %}
@@ -74,6 +74,7 @@ permalink: /llm-leaderboard/monthly/
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
+                  <td class="llm-monthly-date">{{ entry.released }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -92,7 +93,7 @@ permalink: /llm-leaderboard/monthly/
           <div class="llm-monthly-table-wrap">
             <table class="llm-monthly-table">
               <thead>
-                <tr><th>排名</th><th>模型</th><th>厂商</th><th>全球</th></tr>
+                <tr><th>排名</th><th>模型</th><th>厂商</th><th>全球</th><th class="llm-monthly-date-col">发布日期</th></tr>
               </thead>
               <tbody>
                 {% for entry in category.domestic %}
@@ -101,6 +102,7 @@ permalink: /llm-leaderboard/monthly/
                   <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
                   <td><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
+                  <td class="llm-monthly-date">{{ entry.released }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
