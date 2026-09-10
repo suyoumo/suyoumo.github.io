@@ -64,7 +64,15 @@ permalink: /llm-leaderboard/
         <div class="llm-ranking-collections" id="rankingCollections"></div>
       </div>
       <div class="llm-ranking-custom" id="rankingCustom" style="display:none;">
-        <strong>自定义 Benchmark：</strong>
+        <div class="llm-ranking-custom-head">
+          <strong>自定义 Benchmark <span id="customBenchCount"></span></strong>
+          <div class="llm-ranking-custom-actions">
+            <button type="button" id="btnCustomClear">清空</button>
+            <button type="button" id="btnCustomSelectAll">全选</button>
+            <button type="button" id="btnCustomReset">恢复默认</button>
+            <input type="search" id="customBenchSearch" placeholder="快速搜索 Benchmark..." autocomplete="off" />
+          </div>
+        </div>
         <div class="llm-ranking-bench-cb" id="rankingBenchCb"></div>
       </div>
       <div class="llm-ranking-controls">
@@ -442,7 +450,23 @@ permalink: /llm-leaderboard/
 .llm-ranking-col-btn:hover { color: #191918; }
 .llm-ranking-col-btn.active { background: #fff; color: #191918; box-shadow: 0 1px 3px rgba(25,25,24,0.14); }
 .llm-ranking-custom { margin-bottom: 12px; font-size: 0.85rem; }
-.llm-ranking-custom strong { display: block; margin-bottom: 6px; color: #2b2b2b; }
+.llm-ranking-custom-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.llm-ranking-custom-head strong { color: #2b2b2b; }
+.llm-ranking-custom-head strong span { color: #6b6b65; font-weight: 600; font-size: 0.78rem; }
+.llm-ranking-custom-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.llm-ranking-custom-actions button {
+  padding: 3px 12px; border: 1px solid rgba(25,25,24,0.1); border-radius: 999px;
+  background: #fff; font-size: 0.75rem; font-weight: 600; color: #6b6b65;
+  cursor: pointer; transition: border-color 0.12s, color 0.12s;
+}
+.llm-ranking-custom-actions button:hover { border-color: #c45a3c; color: #c45a3c; }
+.llm-ranking-custom-actions input[type="search"] {
+  height: 26px; padding: 2px 12px; border: 1px solid rgba(25,25,24,0.1);
+  border-radius: 999px; background: #fff; color: #2b2b2b; font-size: 0.78rem; width: 180px;
+}
+.llm-ranking-custom-actions input[type="search"]:focus {
+  outline: none; border-color: rgba(196,90,60,0.5); box-shadow: 0 0 0 3px rgba(196,90,60,0.1);
+}
 .llm-ranking-bench-cb { display: flex; flex-wrap: wrap; gap: 5px; }
 .llm-ranking-bench-cb label {
   display: flex; align-items: center; gap: 4px;
@@ -499,18 +523,37 @@ permalink: /llm-leaderboard/
 /* Two-row thead: row 2 (benchmark names) pins just below row 1 (category
  * groups). --rank-head-row1-h is measured by JS after each render. */
 .llm-ranking-table thead tr:nth-child(2) th { top: var(--rank-head-row1-h, 34px); }
-/* Freeze the 排名 + 模型 columns while the benchmark columns scroll
- * horizontally. --rank-col1-w is the measured width of the 排名 column. */
+/* Freeze 排名/模型/厂商/均百分位/对局得分率 while the benchmark columns
+ * scroll horizontally. --rank-colN-w are measured by JS after each render. */
 .llm-ranking-table th:nth-child(1),
 .llm-ranking-table td:nth-child(1) { position: sticky; left: 0; }
 .llm-ranking-table th:nth-child(2),
-.llm-ranking-table td:nth-child(2) { position: sticky; left: var(--rank-col1-w, 44px); box-shadow: 1px 0 0 rgba(25,25,24,0.07); }
-.llm-ranking-table tbody td:nth-child(1),
-.llm-ranking-table tbody td:nth-child(2) { z-index: 3; background: #fff; }
-.llm-ranking-table tbody tr:hover td:nth-child(1),
-.llm-ranking-table tbody tr:hover td:nth-child(2) { background: #fdf6f3; }
-.llm-ranking-table thead th:nth-child(1),
-.llm-ranking-table thead th:nth-child(2) { z-index: 8; }
+.llm-ranking-table td:nth-child(2) { position: sticky; left: var(--rank-col1-w, 44px); }
+.llm-ranking-table th:nth-child(3),
+.llm-ranking-table td:nth-child(3) { position: sticky; left: calc(var(--rank-col1-w, 44px) + var(--rank-col2-w, 155px)); }
+.llm-ranking-table th:nth-child(4),
+.llm-ranking-table td:nth-child(4) { position: sticky; left: calc(var(--rank-col1-w, 44px) + var(--rank-col2-w, 155px) + var(--rank-col3-w, 95px)); }
+.llm-ranking-table th:nth-child(5),
+.llm-ranking-table td:nth-child(5) { position: sticky; left: calc(var(--rank-col1-w, 44px) + var(--rank-col2-w, 155px) + var(--rank-col3-w, 95px) + var(--rank-col4-w, 75px)); }
+.llm-ranking-table tbody td:nth-child(-n+5) { z-index: 3; background: #fff; }
+/* 均百分位 has a tinted background in the normal grid — keep an opaque
+ * equivalent on the frozen cell so scrolling columns don't show through. */
+.llm-ranking-table tbody td:nth-child(4) { background: #fcf7f5; }
+.llm-ranking-table thead th:nth-child(-n+5) { z-index: 8; }
+.llm-ranking-table tbody tr:hover td:nth-child(-n+5) { background: #fdf8f5; }
+/* Shadow on the last frozen column once benchmark columns slide under it */
+.llm-ranking-table-wrap.is-scrolled-x th:nth-child(5),
+.llm-ranking-table-wrap.is-scrolled-x td:nth-child(5) { box-shadow: 4px 0 8px -2px rgba(60,42,28,0.18); }
+/* Small screens: freezing all five columns would eat the viewport, degrade
+ * to 排名 + 模型 only and move the shadow to the 模型 column. */
+@media (max-width: 767px) {
+  .llm-ranking-table th:nth-child(n+3):nth-child(-n+5),
+  .llm-ranking-table td:nth-child(n+3):nth-child(-n+5) { position: static; }
+  .llm-ranking-table-wrap.is-scrolled-x th:nth-child(5),
+  .llm-ranking-table-wrap.is-scrolled-x td:nth-child(5) { box-shadow: none; }
+  .llm-ranking-table-wrap.is-scrolled-x th:nth-child(2),
+  .llm-ranking-table-wrap.is-scrolled-x td:nth-child(2) { box-shadow: 4px 0 8px -2px rgba(60,42,28,0.18); }
+}
 .llm-ranking-table thead th:nth-child(1),
 .llm-ranking-table thead th:nth-child(2),
 .llm-ranking-table thead th:nth-child(3) { text-align: left; padding-left: 10px; }
@@ -586,7 +629,53 @@ permalink: /llm-leaderboard/
   };
   Object.keys(collections).forEach(function(n){ collections[n].keys = collections[n].keys.filter(function(k){ return benchLabels[k]; }); });
 
+  // Custom keys live in their own slot and are never overwritten by the
+  // preset collections. They persist across tab switches (in-memory) and
+  // across page loads (localStorage); only 恢复默认 restores the preset.
+  var CUSTOM_STORAGE_KEY = 'llm_leaderboard_custom_bench_keys_v1';
+  var defaultCustomKeys = collections['Overall'].keys.slice();
+  var savedCustomKeys = null;
+  try {
+    var rawCustom = window.localStorage.getItem(CUSTOM_STORAGE_KEY);
+    if (rawCustom) savedCustomKeys = JSON.parse(rawCustom);
+  } catch (e) {}
+  if (Array.isArray(savedCustomKeys)) {
+    // Respect a saved list even when the user deliberately emptied it.
+    collections['Custom'].keys = savedCustomKeys.filter(function(k){ return benchLabels[k]; });
+  } else {
+    collections['Custom'].keys = defaultCustomKeys.slice();
+  }
+
   var activeCol = 'Overall', activeKeys = collections['Overall'].keys.slice(), minB = collections['Overall'].minBench;
+
+  var customSaveTimer = null;
+  function persistCustomKeys(){
+    if (customSaveTimer) clearTimeout(customSaveTimer);
+    customSaveTimer = setTimeout(function(){
+      try { window.localStorage.setItem(CUSTOM_STORAGE_KEY, JSON.stringify(collections['Custom'].keys)); } catch (e) {}
+    }, 300);
+  }
+
+  var customCountEl = document.getElementById('customBenchCount');
+  function updateCustomCount(){
+    if (customCountEl) customCountEl.textContent = '(已选 ' + collections['Custom'].keys.length + '/' + Object.keys(benchLabels).length + ')';
+  }
+
+  function updateCustomSelection(keys){
+    collections['Custom'].keys = keys.slice();
+    persistCustomKeys();
+    updateCustomCount();
+    if (activeCol === 'Custom') {
+      activeKeys = keys.slice();
+      renderRanking();
+    }
+  }
+
+  function syncCustomCheckboxes(){
+    cbEl.querySelectorAll('input[type="checkbox"]').forEach(function(cb){
+      cb.checked = collections['Custom'].keys.indexOf(cb.value) !== -1;
+    });
+  }
 
   // Build collection buttons
   var colEl = document.getElementById('rankingCollections');
@@ -601,7 +690,11 @@ permalink: /llm-leaderboard/
       minB = collections[name].minBench;
       document.getElementById('rankingMinBench').value = minB;
       document.getElementById('rankingCustom').style.display = name==='Custom'?'block':'none';
-      if(name!=='Custom'){ activeKeys = collections[name].keys.slice(); renderRanking(); }
+      // Every collection owns its keys; switching back to Custom restores
+      // exactly what the user picked there instead of a preset leftover.
+      activeKeys = collections[name].keys.slice();
+      if (name === 'Custom') syncCustomCheckboxes();
+      renderRanking();
     };
     colEl.appendChild(btn);
   });
@@ -611,11 +704,36 @@ permalink: /llm-leaderboard/
   Object.keys(benchLabels).sort().forEach(function(key){
     var label = document.createElement('label');
     var cb = document.createElement('input'); cb.type='checkbox'; cb.value=key;
-    cb.checked = activeKeys.indexOf(key)!==-1;
-    cb.onchange = function(){ activeKeys = Array.from(cbEl.querySelectorAll('input:checked')).map(function(c){return c.value;}); renderRanking(); };
+    cb.checked = collections['Custom'].keys.indexOf(key)!==-1;
+    cb.onchange = function(){
+      updateCustomSelection(Array.from(cbEl.querySelectorAll('input:checked')).map(function(c){return c.value;}));
+    };
     var span = document.createElement('span'); span.textContent = benchLabels[key];
     label.appendChild(cb); label.appendChild(span); cbEl.appendChild(label);
   });
+
+  // Custom panel bulk actions + search
+  document.getElementById('btnCustomClear').onclick = function(){
+    cbEl.querySelectorAll('input[type="checkbox"]').forEach(function(cb){ cb.checked = false; });
+    updateCustomSelection([]);
+  };
+  document.getElementById('btnCustomSelectAll').onclick = function(){
+    cbEl.querySelectorAll('input[type="checkbox"]').forEach(function(cb){ cb.checked = true; });
+    updateCustomSelection(Object.keys(benchLabels));
+  };
+  document.getElementById('btnCustomReset').onclick = function(){
+    updateCustomSelection(defaultCustomKeys);
+    syncCustomCheckboxes();
+  };
+  document.getElementById('customBenchSearch').addEventListener('input', function(){
+    var q = this.value.toLowerCase().trim();
+    cbEl.querySelectorAll('label').forEach(function(lab){
+      var cb = lab.querySelector('input');
+      var hay = (lab.textContent + ' ' + cb.value).toLowerCase();
+      lab.style.display = (!q || hay.indexOf(q) !== -1) ? '' : 'none';
+    });
+  });
+  updateCustomCount();
 
   document.getElementById('rankingMinBench').onchange = function(){ minB = parseInt(this.value)||5; renderRanking(); };
   document.getElementById('rankingSortMode').onchange = function(){ renderRanking(); };
@@ -757,9 +875,9 @@ permalink: /llm-leaderboard/
     var thead=document.getElementById('rankingThead'), tbody=document.getElementById('rankingTbody');
     var minModels = parseInt(document.getElementById('rankingMinModels').value)||5;
     var sortMode = document.getElementById('rankingSortMode').value;
-    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请选择 benchmark</td></tr>'; document.getElementById('rankingInfo').textContent=''; applyRankingViewport(); return; }
+    if(keys.length===0){ thead.innerHTML=''; tbody.innerHTML='<tr><td colspan="4" style="padding:20px;text-align:center;color:#999;">请至少选择 1 个 Benchmark 以计算排名</td></tr>'; document.getElementById('rankingInfo').textContent=''; applyRankingViewport(); return; }
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
-    if(activeCol==='Custom') cbEl.querySelectorAll('input').forEach(function(cb){ cb.checked=keys.indexOf(cb.value)!==-1; });
+    if(activeCol==='Custom') syncCustomCheckboxes();
     var skipped = keys.length - validKeys.length;
     document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'对局得分率排名':'百分位排名');
     // Sort by selected mode
@@ -800,10 +918,12 @@ permalink: /llm-leaderboard/
 
   // ===== In-wrap viewport: sticky header/columns + configurable row count =====
   // The wrap scrolls on both axes; CSS position:sticky keeps the two header
-  // rows and the 排名/模型 columns pinned. JS only feeds three measurements:
+  // rows and the five identity columns pinned. JS only feeds measurements:
   //   --rank-head-row1-h : height of the first header row (row 2 pins below it)
-  //   --rank-col1-w      : width of the 排名 column (模型 column pins after it)
+  //   --rank-colN-w      : widths of the first four columns (each frozen
+  //                        column's left offset is the sum before it)
   //   wrap max-height    : thead height + N data rows, from the 显示行数 control
+  //   .is-scrolled-x     : toggles the shadow on the last frozen column
   var rankWrap = document.getElementById('rankingTableWrap');
   var rankRowsInput = document.getElementById('rankingVisibleRows');
   try {
@@ -816,11 +936,13 @@ permalink: /llm-leaderboard/
     var thead = table.tHead;
     if (!thead || !thead.rows.length) { rankWrap.style.maxHeight = ''; return; }
     table.style.setProperty('--rank-head-row1-h', thead.rows[0].offsetHeight + 'px');
-    // Placeholder rows ("请选择 benchmark" / "无满足条件的模型") span all
-    // columns in a single cell — there is no column grid to measure then.
+    // Placeholder rows ("请至少选择 1 个 Benchmark" / "无满足条件的模型")
+    // span all columns in a single cell — no column grid to measure then.
     var bodyRow = table.tBodies[0] && table.tBodies[0].rows[0];
-    if (bodyRow && bodyRow.cells.length >= 2) {
-      table.style.setProperty('--rank-col1-w', bodyRow.cells[0].getBoundingClientRect().width + 'px');
+    if (bodyRow && bodyRow.cells.length >= 5) {
+      for (var ci = 0; ci < 4; ci++) {
+        table.style.setProperty('--rank-col' + (ci + 1) + '-w', bodyRow.cells[ci].getBoundingClientRect().width + 'px');
+      }
     }
     var n = parseInt(rankRowsInput.value, 10);
     if (isNaN(n) || n <= 0) { rankWrap.style.maxHeight = ''; return; }
@@ -841,6 +963,9 @@ permalink: /llm-leaderboard/
       applyRankingViewport();
     });
   }
+  rankWrap.addEventListener('scroll', function(){
+    rankWrap.classList.toggle('is-scrolled-x', rankWrap.scrollLeft > 2);
+  }, { passive:true });
   window.addEventListener('resize', applyRankingViewport, { passive:true });
   window.addEventListener('load', applyRankingViewport);
 
