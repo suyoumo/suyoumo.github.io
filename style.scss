@@ -4134,6 +4134,15 @@ html[data-bench-lang="zh"] .bench-task-full .bench-lang-zh {
   }
 }
 
+.bench-nav-guess {
+  background: rgba(255, 107, 53, 0.12);
+  color: #ff6b35;
+
+  &::before {
+    background: #ff6b35;
+  }
+}
+
 .bench-language-toggle {
   appearance: none;
   border: 0;
@@ -9365,6 +9374,15 @@ $game-orange: #ff9e63;
   &:focus-visible { border-color: var(--game-cyan); color: var(--game-cyan); }
 }
 
+.game-agent-button-guess {
+  background: #ff6b35;
+  color: #fff;
+  border-color: #ff6b35;
+
+  &:hover,
+  &:focus-visible { background: #e55a2b; border-color: #e55a2b; color: #fff; }
+}
+
 .game-agent-hero-stage {
   position: relative;
   min-height: 510px;
@@ -9980,6 +9998,9 @@ $game-orange: #ff9e63;
 .game-agent-button-secondary { border-color: rgba(17, 18, 20, 0.15); background: rgba(255, 255, 255, 0.65); color: #151617; }
 .game-agent-button-secondary:hover,
 .game-agent-button-secondary:focus-visible { border-color: rgba(0, 159, 152, 0.45); background: #f0f8f7; color: #007d77; }
+.game-agent-button-guess { background: #ff6b35; color: #fff; border-color: #ff6b35; }
+.game-agent-button-guess:hover,
+.game-agent-button-guess:focus-visible { background: #e55a2b; border-color: #e55a2b; color: #fff; }
 
 .game-agent-hero-meta {
   display: flex;
