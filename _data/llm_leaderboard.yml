@@ -208,6 +208,10 @@ sources:
   label: Step 3.7 Flash report
   short_label: Step 3.7 Flash
   url: https://stepfun.com/
+- id: step5preview
+  label: Step 5 Preview report
+  short_label: Step 5 Preview
+  url: https://stepfun.com/
 - id: minimax_m21
   label: MiniMax-M2.1 report
   short_label: MiniMax M2.1
@@ -640,6 +644,14 @@ categories:
     label: SWE Atlas - Test Writing
   - key: swe_atlas_refactoring
     label: SWE Atlas - Refactoring
+  - key: roadmapbench
+    label: RoadmapBench
+  - key: stepcodebench
+    label: StepCodeBench
+  - key: stepcodebench_daily
+    label: StepCode-Bench-Daily
+  - key: stepcodebench_general
+    label: StepCode-Bench-General
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -888,6 +900,16 @@ categories:
     label: Hy-FinAgentBench
   - key: hy_finmodelbench_v2
     label: Hy-FinmodelBench v2
+  - key: finstepbench_livesearch
+    label: FinStepBench-LiveSearch
+  - key: finstepbench_corporatevaluation
+    label: FinStepBench-CorporateValuation
+  - key: finstepbench_financedr
+    label: FinStepBench-FinanceDR
+  - key: frontierfinance
+    label: FrontierFinance
+  - key: aa_briefcase_rubric
+    label: AA-Briefcase Rubric Score
 - name: Knowledge & Reasoning
   columns:
   - key: kina
@@ -10941,6 +10963,188 @@ rows:
     - value: '84.6'
       source_label: Ling-3.0-Flash result table
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+- company: StepFun
+  model: Step 5 Preview
+  mode: High
+  released: '2026-09-20'
+  sources:
+  - label: Step 5 Preview report
+    url: https://stepfun.com/
+  scores:
+    gpqa:
+    - value: '93.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    hle:
+    - value: '46.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    aa_lcr:
+    - value: '88.3'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    critpt:
+    - value: '20.9'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    aa_omniscience_accuracy:
+    - value: '42.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    aa_omniscience_non_hallucination:
+    - value: '57.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    deepswe_1_1:
+    - value: '67.7'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    terminal_bench_2_1:
+    - value: '85.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    terminal_bench_4_0:
+    - value: '33.3'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    cybergym:
+    - value: '84.7'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    scicode:
+    - value: '58.9'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    roadmapbench:
+    - value: '54.3'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    program_bench:
+    - value: '80.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    swe_marathon:
+    - value: '72.7'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+      partial: true
+      exclude_from_ranking: true
+    mls_bench_lite:
+    - value: '40.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    swe_atlas_qna:
+    - value: '63.6'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    swe_atlas_test_writing:
+    - value: '50.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    stepcodebench:
+    - value: '49.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    stepcodebench_daily:
+    - value: '64.9'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    stepcodebench_general:
+    - value: '65.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    gdpval_aa_v2:
+    - value: '1571'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    tau3_banking:
+    - value: '42.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    automation_bench_aa:
+    - value: '51.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    automation_bench:
+    - value: '44.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    aa_briefcase:
+    - value: '1417'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    aa_briefcase_rubric:
+    - value: '47.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    toolathlon_verified:
+    - value: '74.1'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    mcp_atlas:
+    - value: '85.6'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    present_bench:
+    - value: '76.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    officeqa_pro:
+    - value: '60.3'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    spreadsheetbench_2:
+    - value: '29.4'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    jobbench:
+    - value: '59.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    apex_agents:
+    - value: '37.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    draco:
+    - value: '83.3'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    browsecomp:
+    - value: '88.7'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    hle_tools:
+    - value: '59.4'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    finstepbench_livesearch:
+    - value: '74.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    finstepbench_corporatevaluation:
+    - value: '60.6'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    finstepbench_financedr:
+    - value: '55.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    frontierfinance:
+    - value: '66.4'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    agents_last_exam:
+    - value: '29.5'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    mmmu_pro:
+    - value: '76.0'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
+    gdp_pdf:
+    - value: '14.8'
+      source_label: Step 5 Preview
+      source_url: https://stepfun.com/
 - company: StepFun
   model: Step 3.5 Flash
   mode: Thinking
