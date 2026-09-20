@@ -20,7 +20,7 @@
     var collections = C.collections(board, benchLabels);
     var inColl = {};
     Object.keys(collections).forEach(function (n) {
-      if (collections[n].keys.indexOf(key) !== -1) inColl[n] = collections[n].label || n;
+      if (collections[n].keys.indexOf(key) !== -1) inColl[n] = String(collections[n].label || n).replace(/[\uFE0F\u200B]/g, '').trim();
     });
 
     // A few benchmarks live in more than one category — list them all.
