@@ -76,6 +76,24 @@
     ranked.sort(function (a, b) { return b.v - a.v || a.mk.localeCompare(b.mk); });
     muted.sort(function (a, b) { return b.v - a.v || a.mk.localeCompare(b.mk); });
 
+    // Which ranking boards each model actually qualified for (min-bench rule).
+    // Some models report this benchmark but sit in none of 综合/Code/General.
+    var sm = C.scoreMap(board.rows);
+    var boardQualified = { 'Overall': {}, 'Code': {}, 'General': {} };
+    ['Overall', 'Code', 'General'].forEach(function (n) {
+      var rd = C.computeRanking(sm, collections[n].keys, collections[n].minBench);
+      rd.results.forEach(function (r, i) { boardQualified[n][r.mk] = i + 1; });
+    });
+    var badgesFor = function (mk) {
+      var out = '';
+      var any = false;
+      [['Overall', '综'], ['Code', 'C'], ['General', 'G']].forEach(function (p) {
+        if (boardQualified[p[0]][mk]) { any = true; out += '<span class="bp-badge bp-badge-' + p[0].toLowerCase() + '" title="入围' + C.escapeHtml(String(inColl[p[0]] || p[0]).trim() || p[0]) + '榜">#' + boardQualified[p[0]][mk] + '</span>'; }
+      });
+      if (!any) out = '<span class="bp-badge bp-badge-none" title="未入围综合 / Code / General 任一榜单">未入围</span>';
+      return out;
+    };
+
     var vals = ranked.map(function (r) { return r.v; }).sort(function (a, b) { return a - b; });
     var median = vals.length ? (vals.length % 2 ? vals[(vals.length - 1) / 2] : (vals[vals.length / 2 - 1] + vals[vals.length / 2]) / 2) : NaN;
     var mean = vals.length ? vals.reduce(function (s, v) { return s + v; }, 0) / vals.length : NaN;
@@ -107,8 +125,12 @@
 
     // ===== Rows =====
     var total = ranked.length + muted.length;
+    var inOverall = 0;
+    models.forEach(function (mk) { if (byMk[mk].entries.length && boardQualified.Overall[mk]) inOverall++; });
     html += '<div class="bp-sec-title">全部模型分数<small>按参与排名的分数降序；灰色条为不计入排名的报分</small></div>';
-    html += '<div class="bp-toolbar"><div class="bp-search"><input id="bpSearch" type="search" placeholder="搜索模型或厂商…" autocomplete="off"></div><span class="bp-count" id="bpCount"></span></div>';
+    html += '<div class="bp-toolbar"><div class="bp-search"><input id="bpSearch" type="search" placeholder="搜索模型或厂商…" autocomplete="off"></div>' +
+      '<label class="bp-switch"><input type="checkbox" id="bpOnlyOverall"><span class="bp-slider"></span><span>仅显示综合榜入围模型（' + inOverall + '/' + total + '）</span></label>' +
+      '<span class="bp-count" id="bpCount"></span></div>';
     html += '<div class="bp-card" id="bpList">';
 
     var rowHtml = function (r, rankNo, isMuted) {
@@ -131,9 +153,10 @@
         entries += '<span class="bp-entry' + (isBest ? ' bp-best' : '') + (excluded ? ' bp-excluded' : '') + '">' +
           '<span class="bp-dot"></span><strong>' + C.escapeHtml(s.value) + '</strong>' + src + flags + '</span>';
       });
-      return '<div class="bp-row' + (isMuted ? ' bp-muted' : '') + '" data-hay="' + C.escapeHtml((r.m.model + ' ' + r.m.company).toLowerCase()) + '">' +
+      return '<div class="bp-row' + (isMuted ? ' bp-muted' : '') + '" data-hay="' + C.escapeHtml((r.m.model + ' ' + r.m.company).toLowerCase()) + '"' +
+        ' data-overall="' + (boardQualified.Overall[r.mk] ? '1' : '0') + '">' +
         '<div class="bp-rank" style="color:' + rc + ';">' + (isMuted ? '—' : '#' + rankNo) + '</div>' +
-        '<div class="bp-identity"><a class="bp-model" href="../model/?m=' + encodeURIComponent(r.m.model) + '"><span>' + C.escapeHtml(r.m.model) + '</span></a>' +
+        '<div class="bp-identity"><a class="bp-model" href="../model/?m=' + encodeURIComponent(r.m.model) + '"><span>' + C.escapeHtml(r.m.model) + '</span></a><span class="bp-badges">' + badgesFor(r.mk) + '</span>' +
         '<div class="bp-company">' + C.escapeHtml(r.m.company) + '</div>' +
         '<div class="bp-entries">' + entries + '</div></div>' +
         '<div class="bp-value-col"><div class="bp-value">' + C.escapeHtml(bestEntry.value) + (isMuted ? '<small>不计排名</small>' : '') + '</div>' +
@@ -147,21 +170,24 @@
 
     root.innerHTML = html;
 
-    // ===== Search filter =====
+    // ===== Search + overall-board filter =====
     var search = document.getElementById('bpSearch');
     var countEl = document.getElementById('bpCount');
+    var onlyOverall = document.getElementById('bpOnlyOverall');
     var list = document.getElementById('bpList');
     var applyFilter = function () {
       var q = (search.value || '').toLowerCase().trim();
+      var only = onlyOverall.checked;
       var visible = 0;
       list.querySelectorAll('.bp-row').forEach(function (el) {
-        var show = !q || el.dataset.hay.indexOf(q) !== -1;
+        var show = (!q || el.dataset.hay.indexOf(q) !== -1) && (!only || el.dataset.overall === '1');
         el.style.display = show ? '' : 'none';
         if (show) visible++;
       });
-      countEl.textContent = q ? ('匹配 ' + visible + ' / ' + total + ' 个模型') : ('共 ' + total + ' 个模型');
+      countEl.textContent = (q || only) ? ('显示 ' + visible + ' / ' + total + ' 个模型') : ('共 ' + total + ' 个模型');
     };
     search.addEventListener('input', applyFilter);
+    onlyOverall.addEventListener('change', applyFilter);
     applyFilter();
   });
 })();
