@@ -181,7 +181,7 @@ permalink: /llm-leaderboard/
             <tr>
               {% for group in board.categories %}
                 {% for metric in group.columns %}
-                <th data-bench-key="{{ metric.key }}" data-cat-name="{{ group.name }}">{{ metric.label }}</th>
+                <th data-bench-key="{{ metric.key }}" data-cat-name="{{ group.name }}"><a class="llm-bench-link" title="查看该 benchmark 全部模型分数" href="{{ '/llm-leaderboard/bench/' | relative_url }}?b={{ metric.key | url_encode }}">{{ metric.label }}</a></th>
                 {% endfor %}
               {% endfor %}
             </tr>
@@ -616,6 +616,7 @@ permalink: /llm-leaderboard/
 (function(){
   var boardData = JSON.parse(document.getElementById('llm-board-data').textContent);
   var modelPageBase = '{{ "/llm-leaderboard/model/" | relative_url }}';
+  var benchPageBase = '{{ "/llm-leaderboard/bench/" | relative_url }}';
   var rows = boardData.rows || [];
   var categories = boardData.categories || [];
 
@@ -896,7 +897,7 @@ permalink: /llm-leaderboard/
     catOrder.forEach(function(cat){ h1+='<th class="benchmark-group-header" colspan="'+catKeysMap[cat].length+'">'+cat+'</th>'; });
     h1+='</tr>';
     var h2='<tr>';
-    validKeys.forEach(function(bk,bi){ h2+='<th'+(isGroupEnd[bi]?' class="rank-group-end"':'')+'>'+benchLabels[bk]+'</th>'; });
+    validKeys.forEach(function(bk,bi){ h2+='<th'+(isGroupEnd[bi]?' class="rank-group-end"':'')+'><a class="llm-bench-link" href="'+benchPageBase+'?b='+encodeURIComponent(bk)+'">'+benchLabels[bk]+'</a></th>'; });
     h2+='</tr>';
     thead.innerHTML=h1+h2;
     var html='';

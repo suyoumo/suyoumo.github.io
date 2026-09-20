@@ -1,0 +1,101 @@
+---
+layout: default
+title: Benchmark 详情 · LLMLeadBoard
+permalink: /llm-leaderboard/bench/
+---
+{% assign board = site.data.llm_leaderboard %}
+
+<div class="llm-bench-page">
+  <p class="bp-back"><a href="{{ '/llm-leaderboard/' | relative_url }}">← 返回 LLMLeadBoard</a></p>
+  <div id="llm-bench-page"></div>
+</div>
+
+<script id="llm-bench-data" type="application/json">{{ board | jsonify }}</script>
+
+<style>
+.llm-bench-page { max-width: 1080px; margin: 0 auto; padding: 22px 16px 72px; }
+@keyframes bpRise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes bpGrow { from { width: 0; } }
+.bp-back { margin: 0 0 14px; }
+.bp-back a { display: inline-flex; align-items: center; gap: 6px; color: #6b6b65; text-decoration: none; font-size: 0.84rem; font-weight: 600; padding: 6px 14px; border: 1px solid rgba(25,25,24,0.12); border-radius: 999px; background: rgba(255,255,255,0.6); transition: color .15s, border-color .15s, background .15s; }
+.bp-back a:hover { color: #b4552d; border-color: rgba(196,90,60,0.4); background: #fff; }
+.bp-meta { color: #6b6b65; font-size: 0.86rem; }
+
+/* ===== Hero ===== */
+.bp-hero { position: relative; overflow: hidden; background: #fff; border: 1px solid rgba(25,25,24,0.08); border-radius: 18px; padding: 26px 28px 24px; margin-bottom: 26px; box-shadow: 0 2px 6px rgba(60,42,28,0.06), 0 16px 36px rgba(60,42,28,0.05); animation: bpRise .45s ease both; }
+.bp-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #c45a3c, #e0955a 55%, #ecd2a0); }
+.bp-hero::after { content: ''; position: absolute; top: -90px; right: -70px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(224,149,90,0.16), transparent 70%); pointer-events: none; }
+.bp-hero > * { position: relative; z-index: 1; }
+.bp-cat { font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #b4552d; margin-bottom: 5px; }
+.bp-hero h1 { margin: 0; font-size: 2.05rem; letter-spacing: -0.02em; color: #191918; line-height: 1.15; word-break: break-word; }
+.bp-hero .bp-key { display: inline-block; margin-top: 6px; font-size: 0.74rem; color: #8a8a84; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: rgba(25,25,24,0.05); border-radius: 6px; padding: 2px 8px; }
+.bp-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.bp-pill { font-size: 0.74rem; font-weight: 600; color: #55504a; background: rgba(25,25,24,0.05); border: 1px solid rgba(25,25,24,0.07); border-radius: 999px; padding: 3px 11px; }
+.bp-pill b { color: #191918; font-variant-numeric: tabular-nums; }
+
+/* ===== Stat tiles ===== */
+.bp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 22px; }
+.bp-tile { border: 1px solid rgba(25,25,24,0.09); border-radius: 14px; padding: 15px 18px 14px; background: linear-gradient(180deg, #fdfcfa, #faf7f2); }
+.bp-tile h3 { margin: 0 0 6px; font-size: 0.76rem; color: #6b6b65; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.bp-tile .bp-num { font-size: 1.7rem; font-weight: 800; color: #191918; letter-spacing: -0.02em; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.bp-tile .bp-num small { font-size: 0.85rem; font-weight: 600; color: #9a958c; }
+.bp-tile .bp-sub { font-size: 0.76rem; color: #6b6b65; margin-top: 5px; }
+.bp-tile .bp-sub a { color: #b4552d; text-decoration: none; font-weight: 600; }
+.bp-tile .bp-sub a:hover { text-decoration: underline; }
+
+/* ===== Toolbar ===== */
+.bp-sec-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 32px 0 14px; font-size: 1.12rem; color: #191918; letter-spacing: -0.01em; }
+.bp-sec-title::before { content: ''; width: 4px; height: 18px; border-radius: 2px; background: linear-gradient(180deg, #c45a3c, #e0955a); flex-shrink: 0; }
+.bp-sec-title small { color: #8a8a84; font-weight: 400; font-size: 0.79rem; }
+.bp-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.bp-search { flex: 1; min-width: 220px; max-width: 340px; position: relative; }
+.bp-search input { width: 100%; box-sizing: border-box; font-size: 0.86rem; color: #191918; background: #fff; border: 1px solid rgba(25,25,24,0.14); border-radius: 999px; padding: 9px 16px 9px 36px; outline: none; transition: border-color .15s, box-shadow .15s; }
+.bp-search input:focus { border-color: rgba(196,90,60,0.5); box-shadow: 0 0 0 3px rgba(196,90,60,0.12); }
+.bp-search::before { content: '⌕'; position: absolute; left: 14px; top: 50%; transform: translateY(-52%); color: #9a958c; font-size: 1.05rem; pointer-events: none; }
+.bp-count { font-size: 0.78rem; color: #8a8a84; font-variant-numeric: tabular-nums; }
+
+/* ===== Score rows ===== */
+.bp-card { background: #fff; border: 1px solid rgba(25,25,24,0.08); border-radius: 16px; padding: 8px 10px; box-shadow: 0 1px 3px rgba(60,42,28,0.05); animation: bpRise .5s 0.06s ease both; }
+.bp-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 210px; gap: 8px 16px; align-items: center; padding: 13px 14px; border-radius: 12px; transition: background .12s; }
+.bp-row:hover { background: rgba(196,90,60,0.045); }
+.bp-row + .bp-row { border-top: 1px solid rgba(25,25,24,0.06); }
+.bp-rank { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: center; letter-spacing: -0.02em; }
+.bp-identity { min-width: 0; }
+.bp-model { font-size: 0.98rem; font-weight: 700; color: #191918; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; max-width: 100%; }
+.bp-model:hover { color: #b4552d; }
+.bp-model span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bp-company { font-size: 0.76rem; color: #8a8a84; margin-top: 2px; }
+.bp-entries { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 7px; }
+.bp-entry { display: inline-flex; align-items: baseline; gap: 6px; font-size: 0.78rem; background: rgba(25,25,24,0.045); border-radius: 999px; padding: 2px 10px 2px 2px; }
+.bp-entry .bp-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(25,25,24,0.25); align-self: center; flex-shrink: 0; }
+.bp-entry.bp-best .bp-dot { background: linear-gradient(135deg, #c45a3c, #e0955a); }
+.bp-entry.bp-excluded { opacity: 0.62; }
+.bp-entry strong { color: #191918; font-variant-numeric: tabular-nums; }
+.bp-entry .bp-src { color: #6b6b65; }
+.bp-entry a.bp-src { color: #b4552d; text-decoration: none; }
+.bp-entry a.bp-src:hover { text-decoration: underline; }
+.bp-flag { font-size: 0.62rem; font-weight: 700; border-radius: 5px; padding: 1px 6px; letter-spacing: 0.02em; align-self: center; white-space: nowrap; }
+.bp-flag-exc { background: rgba(25,25,24,0.07); color: #6b6b65; }
+.bp-flag-pref { background: rgba(46,125,79,0.12); color: #2e7d4f; }
+.bp-value-col { text-align: right; }
+.bp-value { font-size: 1.45rem; font-weight: 800; color: #191918; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.1; }
+.bp-value small { font-size: 0.72rem; font-weight: 600; color: #9a958c; margin-left: 2px; }
+.bp-bar { height: 6px; border-radius: 999px; background: rgba(25,25,24,0.07); margin-top: 9px; overflow: hidden; }
+.bp-bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #c45a3c, #e0955a); animation: bpGrow .7s cubic-bezier(.22,.8,.36,1) both; }
+.bp-row.bp-muted .bp-value { color: #6b6b65; }
+.bp-row.bp-muted .bp-bar span { background: rgba(25,25,24,0.22); }
+.bp-empty { padding: 26px; text-align: center; color: #8a8a84; font-size: 0.88rem; }
+
+@media (max-width: 760px) {
+  .bp-hero { padding: 20px; }
+  .bp-hero h1 { font-size: 1.6rem; }
+  .bp-row { grid-template-columns: 40px minmax(0, 1fr); }
+  .bp-value-col { grid-column: 2; text-align: left; }
+  .bp-value { display: inline-block; font-size: 1.2rem; }
+  .bp-bar { margin-top: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .llm-bench-page * { animation: none !important; transition: none !important; } }
+</style>
+
+<script src="{{ '/assets/js/llm-ranking-core.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+<script src="{{ '/assets/js/llm-bench-page.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
