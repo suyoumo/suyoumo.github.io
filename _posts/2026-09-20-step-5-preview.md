@@ -14,7 +14,7 @@ tags: [step, stepfun, llm-eval]
 
 Step 5 Preview 的核心改进可以用"换了一台发动机"来概括。与 3.7 Flash 相比：MCP-Atlas 从 52.6 涨到 85.6（+33.0），Terminal-Bench 2.1 从 59.5 涨到 85.0（+25.5），HLE 从 19.9 涨到 46.5（+26.6），τ³-Banking 从 11.3 涨到 42.5（+31.2），AA-LCR 从 63.9 涨到 88.3（+24.4），GDPval-AA v2 的 Elo 从 1017 涨到 1571（+554）。九个共同 benchmark 无一例外全部上涨，且涨幅最小的 BrowseComp 也有 12.9 分。
 
-这个进步直接反映在榜单位次上：Step 5 Preview 首发即进入 Code 榜和 General 榜的国产第一（全球第八和第十），综合榜国产第二（全球第十二），仅次于 Qwen3.8-Max-0902。从查无此模型到两个分榜登顶，只用了一次发布。
+这个进步直接反映在榜单位次上：Step 5 Preview 首发即拿下 General 榜国产第一（全球第十）、Code 榜国产第三（全球第十），综合榜国产第二（全球第十二），仅次于 Qwen3.8-Max-0902。从查无此模型到直逼国产头名，只用了一次发布。
 
 ## 优势
 
@@ -28,7 +28,7 @@ Agent 是这次升级的主战场。MCP-Atlas 从 52.6 飙升到 85.6，这个�
 
 Terminal-Bench 2.1 从 59.5 提升到 85.0，超过 DeepSeek-V4.1-Flash 的 69.9 十五分以上，与 Kimi K3 的 88.3、GLM-5.3 的 88.2 只差三分。SciCode 从 40.0 提升到 58.9，与 Kimi K3 的 59.0 基本持平，超过 GPT-6 Astra 的 54.0 和 GLM-5.3 的 56.0，距 Claude Fable 5.1 的 62.0 尚有一步之遥。DeepSWE 1.1 拿到 67.7，处在 Kimi K3（67.5）、GLM-5.3（66.9）、DeepSeek-V4.1-Flash（63.9）环绕的国产第一梯队里。
 
-最能说明问题的是 ProgramBench：80.5 分，断层式领先——第二名的 Claude Fable 5.1 只有 33.0，Kimi K3 24.5，GLM-5.3 19.0，DeepSeek-V4.1-Flash 20.3。这个量级的差距在成熟 benchmark 上非常罕见。SWE Atlas 两个子项也有亮眼表现：Codebase Q&A 63.6、Test Writing 50.8。此外 Step 5 Preview 带来了三个新 benchmark，StepCodeBench 49.0 对 DeepSeek-V4.1-Flash 的 31.1、RoadmapBench 54.3 对 44.1，虽然新 benchmark 的横向参照还少，但首发数据已经摆出了身位。
+报告里最扎眼的是 ProgramBench 的 80.5——其他模型的分数都在 40 分以下（Claude Fable 5.1 为 33.0、Kimi K3 为 24.5、GLM-5.3 为 19.0），但这个数字与其他家口径不一致，榜单已将其标记为不计入排名，此处仅作记录。更硬的证据在 SWE Atlas 两个子项：Codebase Q&A 63.6、Test Writing 50.8。此外 Step 5 Preview 带来了三个新 benchmark，StepCodeBench 49.0 对 DeepSeek-V4.1-Flash 的 31.1、RoadmapBench 54.3 对 44.1，虽然新 benchmark 的横向参照还少，但首发数据已经摆出了身位。
 
 ### 搜索、知识与金融：AA-LCR 全榜第一
 
@@ -56,7 +56,7 @@ Apex Agents 37.8 落后于 Kimi K3 的 41.0，MLS Bench Lite 40.5 只算中游�
 
 楚庄王的大鸟三年不飞不鸣，满朝以为其呆，答话的人却知道，沉默是在攒翅膀。版本号从 3.7 直接到 5，阶跃星辰跳过的那个 4，像一段刻意留白的沉默。两个月做一个小版本，五个月憋一个大版本，这个行业里慢下来的人往往只有两种结局：要么被遗忘，要么让所有人重新记住自己的名字。从数据看，Step 5 Preview 属于后者——MCP-Atlas 从 52.6 到 85.6 的国产登顶，Terminal-Bench 2.1 从 59.5 到 85.0 的贴身缠斗，AA-LCR 88.3 对 Claude Fable 5.1 的 80.0，BrowseComp 沿着 51.6、75.8、88.7 三级台阶逼近 GPT-6 Astra 的 91.5。九个共同 benchmark 全线上涨，没有一处虚火。
 
-九月的牌桌格外拥挤，GPT-6 Astra 与 Claude Fable 5.1 同周落子，国产阵营里 Qwen、DeepSeek 轮番叫牌。Step 5 Preview 在 Code 和 General 两个分榜坐上国产第一，却在综合榜屈居 Qwen3.8-Max-0902 之后——这既是胜率制排序下"广参赛"的代价，也提醒它：宽覆盖的强者，还需要在每一处窄战场上都赢下来。
+九月的牌桌格外拥挤，GPT-6 Astra 与 Claude Fable 5.1 同周落子，国产阵营里 Qwen、DeepSeek 轮番叫牌。Step 5 Preview 首发即拿下 General 榜国产第一、Code 榜国产第三，综合榜屈居 Qwen3.8-Max-0902 之后——这既是胜率制排序下"广参赛"的代价，也提醒它：宽覆盖的强者，还需要在每一处窄战场上都赢下来。
 
 一鸣已经惊人，冲天还差最后一段：多模态的旧账、Terminal-Bench 4.0 上那 22 分的差距，都是翅膀上尚未长齐的羽。Preview 之名，正说明这只鸟自己也不敢说已经飞到了顶。等到正式版落地的那个月，才看得到它真正的高度。
 
