@@ -464,6 +464,8 @@ categories:
     label: Terminal-Bench 2.1 (AA)
   - key: terminal_bench_4_0
     label: Terminal-Bench 4.0
+  - key: terminal_bench_4_0_aa
+    label: Terminal-Bench 4.0 (AA)
   - key: swe_bench_multimodal
     label: SWE-bench Multimodal
   - key: openrca
@@ -10063,7 +10065,8 @@ rows:
     - value: '34.9'
       source_label: MiMo-V2.6-Pro
       source_url: https://github.com/XiaomiMiMo/MiMo
-    - value: '35'
+    terminal_bench_4_0_aa:
+    - value: '35.0'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
@@ -12322,12 +12325,13 @@ rows:
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
     terminal_bench_4_0:
-    - value: '51.8'
-      source_label: Artificial Analysis (Gemini 3.8)
-      source_url: https://artificialanalysis.ai
     - value: '52.3'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    terminal_bench_4_0_aa:
+    - value: '51.8'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '37.0'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -16869,11 +16873,12 @@ rows:
       source_url: https://artificialanalysis.ai
     terminal_bench_4_0:
     - value: '37.3'
-      source_label: Artificial Analysis (Gemini 3.8)
-      source_url: https://artificialanalysis.ai
-    - value: '37.3'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    terminal_bench_4_0_aa:
+    - value: '37.3'
+      source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
     hle_verified:
     - value: '54.5'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -17311,7 +17316,7 @@ rows:
     - value: '0.8'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '23.6'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
@@ -17538,7 +17543,7 @@ rows:
     - value: '81'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '55.1'
       source_label: Artificial Analysis (FrontierCode 1.1 Extended)
       source_url: https://artificialanalysis.ai
@@ -26106,7 +26111,7 @@ rows:
     - value: '5.0'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '12.4'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
@@ -26154,7 +26159,7 @@ rows:
     - value: '66'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '26.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
@@ -26345,7 +26350,7 @@ rows:
     - value: '67'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '17.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
@@ -28337,7 +28342,7 @@ rows:
     - value: '8.8'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '11.2'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
@@ -29525,7 +29530,7 @@ rows:
     - value: '88'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
-    terminal_bench_4_0:
+    terminal_bench_4_0_aa:
     - value: '19.1'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
@@ -30224,6 +30229,7 @@ collections:
     - terminal_bench_2_1
     - terminal_bench_2_1_aa
     - terminal_bench_4_0
+    - terminal_bench_4_0_aa
     - frontiercode_main
     - frontiercode_extended
     - cursorbench_3_2
@@ -30309,6 +30315,7 @@ collections:
     - terminal_bench_2_1
     - terminal_bench_2_1_aa
     - terminal_bench_4_0
+    - terminal_bench_4_0_aa
     - frontiercode_main
     - frontiercode_extended
     - cursorbench_3_2
