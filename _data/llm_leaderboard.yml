@@ -196,6 +196,14 @@ sources:
   label: MiMo-V2.5 report
   short_label: MiMo-V2.5
   url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v26_pro
+  label: MiMo-V2.6-Pro report
+  short_label: MiMo-V2.6-Pro
+  url: https://github.com/XiaomiMiMo/MiMo
+- id: mimo_v26_flash
+  label: MiMo-V2.6-Flash report
+  short_label: MiMo-V2.6-Flash
+  url: https://github.com/XiaomiMiMo/MiMo
 - id: mimo_v25_pro
   label: MiMo-V2.5-Pro report
   short_label: MiMo-V2.5-Pro
@@ -714,6 +722,8 @@ categories:
     label: RW Search
   - key: gdpval_aa
     label: GDPval-AA
+  - key: gdpval_aa_v2_pct
+    label: GDPval-AA v2.1 (Elo-500)/2000
   - key: gdpval_aa_v2
     label: GDPval-AA v2 (Elo)
   - key: widesearch
@@ -736,6 +746,8 @@ categories:
     label: Vending-Bench 2
   - key: officeqa_pro
     label: OfficeQA Pro
+  - key: mimo_cyber_bench
+    label: MiMo Cyber Bench
   - key: cybergym
     label: CyberGym
   - key: gdpval_winrate
@@ -860,6 +872,8 @@ categories:
     label: AndroidWorld
   - key: blueprint_bench_2
     label: Blueprint-Bench 2
+  - key: aa_briefcase_pct
+    label: AA-Briefcase v1.1 (Elo-500)/2000
   - key: aa_briefcase
     label: AA-Briefcase (Elo-score)
   - key: spreadsheetbench_2
@@ -1348,6 +1362,8 @@ categories:
     label: RefAdv-S
   - key: dense200
     label: Dense200
+  - key: mimo_visual_coding
+    label: MiMo Visual Coding
   - key: coco
     label: COCO
 - name: Generation
@@ -9994,6 +10010,200 @@ rows:
     - value: '873'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+- company: MiMo
+  model: MiMo-V2.6-Pro
+  mode: Thinking
+  released: '2026-09-22'
+  sources:
+  - label: MiMo-V2.6-Pro report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    deepswe_1_1:
+    - value: '71.9'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    program_bench:
+    - value: '26.5'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_coding_bench:
+    - value: '63.2'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    gdpval_aa_v2:
+    - value: '1673'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    toolathlon_verified:
+    - value: '76.9'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    automation_bench:
+    - value: '53.1'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    - value: '59'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    agents_last_exam:
+    - value: '31.6'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_4_0:
+    - value: '34.9'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    - value: '35'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    terminal_bench_2_1:
+    - value: '89.9'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    osworld_verified:
+    - value: '82.0'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    jobbench:
+    - value: '62.0'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_visual_coding:
+    - value: '72.3'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    cybergym:
+    - value: '94.0'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_cyber_bench:
+    - value: '81.7'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    exploitgym:
+    - value: '17.8'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    exploit_bench:
+    - value: '47.9'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    sec_bench_pro:
+    - value: '66.3'
+      source_label: MiMo-V2.6-Pro
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    aa_briefcase_pct:
+    - value: '51'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '59'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '61'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '49'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '19'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '27'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '35'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '59'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '86'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_rubric:
+    - value: '54.7'
+      source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+- company: MiMo
+  model: MiMo-V2.6-Flash
+  mode: Thinking
+  released: '2026-09-22'
+  sources:
+  - label: MiMo-V2.6-Flash report
+    url: https://github.com/XiaomiMiMo/MiMo
+  scores:
+    deepswe_1_1:
+    - value: '67.9'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    program_bench:
+    - value: '26.0'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_coding_bench:
+    - value: '61.2'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    toolathlon_verified:
+    - value: '73.6'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    automation_bench:
+    - value: '52.3'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    agents_last_exam:
+    - value: '27.6'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_4_0:
+    - value: '28.8'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    terminal_bench_2_1:
+    - value: '87.6'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    osworld_verified:
+    - value: '80.8'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    jobbench:
+    - value: '61.2'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_visual_coding:
+    - value: '71.5'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    cybergym:
+    - value: '95.1'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    mimo_cyber_bench:
+    - value: '77.2'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    exploitgym:
+    - value: '6.0'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    exploit_bench:
+    - value: '25.3'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
+    sec_bench_pro:
+    - value: '47.5'
+      source_label: MiMo-V2.6-Flash
+      source_url: https://github.com/XiaomiMiMo/MiMo
 - company: MiMo
   model: MiMo-V2.5
   mode: Thinking
