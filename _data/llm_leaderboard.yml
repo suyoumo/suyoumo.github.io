@@ -364,6 +364,10 @@ sources:
   label: DeepSeek V4 Pro report
   short_label: DS-V4-Pro
   url: https://api-docs.deepseek.com
+- id: grok47
+  label: Artificial Analysis (Grok 4.7)
+  short_label: Grok 4.7 (AA)
+  url: https://artificialanalysis.ai
 - id: grok46
   label: Grok 4.6 report
   short_label: Grok4.6
@@ -626,6 +630,8 @@ categories:
     label: CursorBench
   - key: cursorbench_3_2
     label: CursorBench 3.2
+  - key: cursorbench_4_0
+    label: CursorBench 4.0
   - key: frontiercode
     label: FrontierCode
   - key: frontiercode_extended
@@ -1116,6 +1122,8 @@ categories:
     label: SWE Atlas-Text Writing
   - key: paperbench
     label: PaperBench
+  - key: eebench
+    label: EEBench
   - key: structural_biology
     label: Structural Biology
   - key: biopipelinebench
@@ -1146,6 +1154,8 @@ categories:
     label: CorpusQA 1M
   - key: aa_lcr
     label: AA-LCR
+  - key: mlcr_aa
+    label: MLCR-AA
   - key: longbench_v2
     label: LongBench v2
   - key: cl_bench_life
@@ -15940,6 +15950,8 @@ rows:
     url: https://openai.com
   - label: Artificial Analysis (GPT-6 Astra)
     url: https://artificialanalysis.ai
+  - label: Grok 4.7 Artificial Analysis
+    url: https://artificialanalysis.ai
   scores:
     agent_arena:
     - value: '9.86'
@@ -16986,6 +16998,18 @@ rows:
     - value: '52.6'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    cursorbench_4_0:
+    - value: '41.7'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    eebench:
+    - value: '39.4'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    harvey_lab_vals:
+    - value: '2.5'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.6 Terra
   mode: ''
@@ -25639,6 +25663,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: GPT-6 Astra report
     url: https://openai.com
+  - label: Grok 4.7 Artificial Analysis
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_science_0_1:
     - value: '52.6'
@@ -25822,6 +25848,22 @@ rows:
     - value: '66.2'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    cursorbench_4_0:
+    - value: '51.8'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    eebench:
+    - value: '56.4'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    healthbench_pro:
+    - value: '62.1'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    harvey_lab_vals:
+    - value: '6.7'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -26093,6 +26135,90 @@ rows:
       source_label: Artificial Analysis (FrontierCode 1.1 Main)
       source_url: https://artificialanalysis.ai
 - company: xAI
+  model: Grok 4.7
+  mode: xHigh
+  released: '2026-09-22'
+  sources:
+  - label: Grok 4.7 Artificial Analysis
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '58'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '60'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '66'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '26.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '57.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '43.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '20.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '18.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '47'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '71'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '77.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '15'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_rubric:
+    - value: '55.4'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1657'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    cursorbench_4_0:
+    - value: '46.3'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    deepswe_1_1:
+    - value: '71.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    eebench:
+    - value: '64.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    harvey_lab_vals:
+    - value: '19.6'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    healthbench_pro:
+    - value: '56.7'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+- company: xAI
   model: Grok 4.6 High
   mode: ''
   released: '2026-08-13'
@@ -26102,6 +26228,8 @@ rows:
   - label: Artificial Analysis
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (τ³ 08-18)
+    url: https://artificialanalysis.ai
+  - label: Grok 4.7 Artificial Analysis
     url: https://artificialanalysis.ai
   scores:
     aa_intelligence_index_v4_1:
@@ -26205,6 +26333,42 @@ rows:
     - value: '61.0'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '53'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '57'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '67'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '17.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '17.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_rubric:
+    - value: '53.8'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    cursorbench_4_0:
+    - value: '40.4'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    eebench:
+    - value: '53.0'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    healthbench_pro:
+    - value: '48.5'
+      source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.5
   mode: ''
@@ -30123,7 +30287,7 @@ collections:
     - mmmu_pro
   code:
     label: ️ Code
-    min_bench: 2
+    min_bench: 3
     keys:
     - agent_arena
     - agents_last_exam
