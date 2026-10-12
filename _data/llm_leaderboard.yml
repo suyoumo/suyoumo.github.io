@@ -392,11 +392,38 @@ sources:
   label: Artificial Analysis (Gemini 3.8)
   short_label: Gemini 3.8
   url: https://artificialanalysis.ai
-
 - id: deepseek_v41_flash
   label: DeepSeek V4.1-Flash report
   short_label: DS-V4.1-Flash
   url: https://api-docs.deepseek.com
+- id: opus55
+  label: Claude Opus 5.5 report
+  short_label: Claude Opus 5.5 report
+  url: https://anthropic.com
+- id: sonnet55
+  label: Claude Sonnet 5.5 report
+  short_label: Claude Sonnet 5.5 report
+  url: https://anthropic.com
+- id: gemini4
+  label: Gemini 4 Argon report
+  short_label: Gemini 4 Argon report
+  url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+- id: haiku55
+  label: Artificial Analysis (Claude Haiku 5.5)
+  short_label: Artificial Analysis (Claude Haiku 5.5)
+  url: https://artificialanalysis.ai
+- id: aa_opus55
+  label: Artificial Analysis (Claude Opus 5.5)
+  short_label: Artificial Analysis (Claude Opus 5.5)
+  url: https://artificialanalysis.ai
+- id: beam
+  label: Beam report
+  short_label: Beam report
+  url: https://beam.ai
+- id: iquest
+  label: IQuest-Q1 report
+  short_label: IQuest-Q1 report
+  url: https://iquest.ai
 categories:
 - name: Coding Agent
   columns:
@@ -660,6 +687,8 @@ categories:
     label: SWE Atlas - Test Writing
   - key: swe_atlas_refactoring
     label: SWE Atlas - Refactoring
+  - key: swe_atlas_codebase_qna
+    label: SWE Atlas Codebase QnA
   - key: roadmapbench
     label: RoadmapBench
   - key: stepcodebench
@@ -668,6 +697,14 @@ categories:
     label: StepCode-Bench-Daily
   - key: stepcodebench_general
     label: StepCode-Bench-General
+  - key: frontierswe_v2
+    label: FrontierSWE v2
+  - key: swe_bench_pro_v2_hard
+    label: SWE-Bench Pro v2-Hard
+  - key: swe_bench_pro_v1
+    label: SWE-Bench Pro v1
+  - key: iquest_clibench
+    label: IQuest-CLIBench
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -932,6 +969,16 @@ categories:
     label: FrontierFinance
   - key: aa_briefcase_rubric
     label: AA-Briefcase Rubric Score
+  - key: osworld_2_1
+    label: OSWorld 2.1
+  - key: itbench_aa
+    label: ITBench-AA
+  - key: vals_index
+    label: Vals Index
+  - key: vals_finance_agent_v2
+    label: Vals Finance Agent v2
+  - key: cwe_bench_v1
+    label: CWE-bench v1
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -1144,6 +1191,10 @@ categories:
     label: MathArena Apex 2025
   - key: brokenarxiv
     label: BrokenArXiv
+  - key: riemannbench
+    label: RiemannBench
+  - key: aa_omniscience_index
+    label: AA Omniscience Index
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -7576,6 +7627,8 @@ rows:
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
   - label: Hunyuan 3 report
     url: https://hunyuan.tencent.com
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     terminal_bench_2:
     - value: '67.9'
@@ -7612,6 +7665,9 @@ rows:
     - value: '41.5'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '61.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     qwen_web_bench:
     - value: '1570'
       source_label: Qwen3.7
@@ -8016,6 +8072,10 @@ rows:
     - value: '64'
       source_label: DeepSeek V4 Pro official (AA)
       source_url: https://artificialanalysis.ai
+    cybergym:
+    - value: '83.3'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: DeepSeek
   model: DeepSeek-V4-Flash-0731
   mode: ''
@@ -8799,6 +8859,8 @@ rows:
     url: https://hunyuan.tencent.com
   - label: Ling-3.0-Flash result table
     url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.0-flash-score-table.png
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     mmlu_pro:
     - value: '86.2'
@@ -8832,6 +8894,9 @@ rows:
     - value: '35'
       source_label: DeepSeek V4 Pro official (AA)
       source_url: https://artificialanalysis.ai
+    - value: '38.6'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     livecodebench:
     - value: '91.6'
       source_label: DeepSeek-V4
@@ -8949,6 +9014,9 @@ rows:
     - value: '52.58'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '82.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     nl2repo:
     - value: '39.4'
       source_label: Hunyuan 3
@@ -9159,6 +9227,18 @@ rows:
     - value: '62'
       source_label: DeepSeek V4 Pro official (AA)
       source_url: https://artificialanalysis.ai
+    jobbench:
+    - value: '50.0'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+    agents_last_exam:
+    - value: '26.3'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+    iquest_clibench:
+    - value: '51.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: DeepSeek
   model: DeepSeek-V4-Pro
   mode: High reasoning effort
@@ -10029,6 +10109,8 @@ rows:
   sources:
   - label: MiMo-V2.6-Pro report
     url: https://github.com/XiaomiMiMo/MiMo
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     deepswe_1_1:
     - value: '71.9'
@@ -10068,6 +10150,9 @@ rows:
     terminal_bench_4_0_aa:
     - value: '35.0'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
     - value: '89.9'
@@ -10109,41 +10194,80 @@ rows:
     - value: '51'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '61'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '49'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '19'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '27'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '35'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '86'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '86'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_briefcase_rubric:
     - value: '54.7'
       source_label: MiMo-V2.6-Pro Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '6'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: MiMo
   model: MiMo-V2.6-Flash
@@ -10421,6 +10545,10 @@ rows:
     url: https://www.minimaxi.com/
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     swe_verified:
     - value: '80.5'
@@ -10534,6 +10662,9 @@ rows:
     - value: '78.1'
       source_label: MiniMax M3
       source_url: https://www.minimaxi.com/
+    - value: '79'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     videommmu:
     - value: '84.6'
       source_label: MiniMax M3
@@ -10558,10 +10689,19 @@ rows:
     - value: '37.0'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '39.0'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     critpt:
     - value: '3.7'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '4'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hmmt_2025_nov:
     - value: '84.4'
       source_label: GLM-5.2
@@ -10586,6 +10726,9 @@ rows:
     - value: '45.1'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '13'
       source_label: Artificial Analysis
@@ -10605,13 +10748,62 @@ rows:
     - value: '32.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '84'
       source_label: AA benchmark chart
       source_url: https://artificialanalysis.ai
+    - value: '82'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: AA benchmark chart
+      source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '30'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '37'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '2'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '17'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '0'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '0'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '17'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: MiniMax
   model: MiniMax-M2.7
@@ -11195,6 +11387,8 @@ rows:
   sources:
   - label: Step 5 Preview report
     url: https://stepfun.com/
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     gpqa:
     - value: '93.5'
@@ -11204,22 +11398,37 @@ rows:
     - value: '46.5'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '88.3'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '88'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '20.9'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '42.0'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '57.0'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     deepswe_1_1:
     - value: '67.7'
       source_label: Step 5 Preview
@@ -11240,6 +11449,9 @@ rows:
     - value: '58.9'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     roadmapbench:
     - value: '54.3'
       source_label: Step 5 Preview
@@ -11292,6 +11504,9 @@ rows:
     - value: '51.0'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     automation_bench:
     - value: '44.0'
       source_label: Step 5 Preview
@@ -11368,10 +11583,48 @@ rows:
     - value: '76.0'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '76'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '14.8'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
+    - value: '15'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '2'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '17'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: StepFun
   model: Step 3.5 Flash
   mode: Thinking
@@ -11990,6 +12243,10 @@ rows:
     url: https://anthropic.com
   - label: GPT-6 Astra report
     url: https://openai.com
+  - label: Claude Opus 5.5 report
+    url: https://anthropic.com
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     frontier_bench:
     - value: '43.3'
@@ -12008,6 +12265,9 @@ rows:
     - value: '1824'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1708'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     arc_agi_3:
     - value: '30.2'
       source_label: Opus 5
@@ -12027,6 +12287,9 @@ rows:
     - value: '56.6'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '39.9'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     osworld_2:
     - value: '70.6'
       source_label: Opus 5
@@ -12039,6 +12302,9 @@ rows:
     - value: '53.4'
       source_label: Opus 5
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '48.0'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     automationbench:
     - value: '26.0'
       source_label: Opus 5
@@ -12066,6 +12332,9 @@ rows:
     - value: '86.7'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '89.1'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     tau3_banking:
     - value: '32'
       source_label: Opus 5 comparison
@@ -12146,6 +12415,9 @@ rows:
     - value: '72.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '75.3'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     posttrainbench:
     - value: '35.0'
       source_label: Claude Opus 5
@@ -12219,6 +12491,9 @@ rows:
     - value: '65.7'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '65.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     workspacebench:
     - value: '75.0'
       source_label: Claude Opus 5
@@ -12227,6 +12502,9 @@ rows:
     - value: '25.1'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '32.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     automation_bench:
     - value: '48.7'
       source_label: Claude Opus 5
@@ -12240,6 +12518,9 @@ rows:
     - value: '50.3'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '26.9'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     bankertoolbench:
     - value: '81.9'
       source_label: Claude Opus 5
@@ -12270,6 +12551,9 @@ rows:
       source_url: https://anthropic.com
     - value: '63.6'
       source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    - value: '63.6'
+      source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
     gpqa:
     - value: '93.7'
@@ -12312,6 +12596,9 @@ rows:
     - value: '74.0'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '73.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     finance_agent_v2:
     - value: '58.6'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12327,6 +12614,9 @@ rows:
     terminal_bench_4_0:
     - value: '52.3'
       source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    - value: '52.3'
+      source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
     terminal_bench_4_0_aa:
     - value: '51.8'
@@ -12352,7 +12642,7 @@ rows:
     - value: '75.4'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
-    - value: '75.4/39.6'
+    - value: 75.4/39.6
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
     - value: '68.3'
@@ -12406,6 +12696,9 @@ rows:
     - value: '29.0'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '29.0'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     cursorbench:
     - value: '70.0'
       source_label: Claude Fable 5.1 report
@@ -12454,6 +12747,22 @@ rows:
     - value: '62.8'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    cursorbench_4_0:
+    - value: '46.6'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    osworld_2_1:
+    - value: '74.0'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    chartography_tools:
+    - value: '83.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    iquest_clibench:
+    - value: '58.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -13079,12 +13388,9 @@ rows:
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
     zerobench_main_pass5:
-    - value: '17.0'
-      source_label: Kimi K3 report
-      source_url: https://kimi.moonshot.cn
     - value: '34.0'
-      source_label: Qwen3.8
-      source_url: https://qwen.ai/blog?id=qwen3.8
+      source_label: DeepSeek-V4-Flash-Vision-Exp report
+      source_url: https://artificialanalysis.ai
     zerobench_main_python_pass5:
     - value: '34.0'
       source_label: Kimi K3 report
@@ -13482,10 +13788,6 @@ rows:
       source_url: https://bigmodel.cn
     chartography:
     - value: '65.0'
-      source_label: DeepSeek-V4-Flash-Vision-Exp report
-      source_url: https://artificialanalysis.ai
-    zerobench_main_pass5:
-    - value: '34.0'
       source_label: DeepSeek-V4-Flash-Vision-Exp report
       source_url: https://artificialanalysis.ai
     cursorbench_3_2:
@@ -15956,6 +16258,12 @@ rows:
     url: https://artificialanalysis.ai
   - label: Grok 4.7 Artificial Analysis
     url: https://artificialanalysis.ai
+  - label: Claude Opus 5.5 report
+    url: https://anthropic.com
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     agent_arena:
     - value: '9.86'
@@ -16103,6 +16411,9 @@ rows:
     - value: '83.0'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mmmu_pro_tools:
     - value: '84.6'
       source_label: GPT-5.6 report
@@ -16113,6 +16424,9 @@ rows:
       source_url: https://openai.com/index/gpt-5-6/
     - value: '35.0'
       source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94.6'
@@ -16154,6 +16468,9 @@ rows:
     - value: '46.7'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '28.8'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -16292,6 +16609,9 @@ rows:
     - value: '49.5'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle_tools:
     - value: '58.0'
       source_label: Kimi K3 report
@@ -16394,6 +16714,9 @@ rows:
     - value: '57'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '32'
       source_label: Artificial Analysis
@@ -16401,13 +16724,22 @@ rows:
     - value: '32.3'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '59'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '84'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     frontier_bench:
     - value: '34.4'
@@ -16429,6 +16761,9 @@ rows:
     - value: '1710'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1588'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     browsecomp_ctx:
     - value: '90.4'
       source_label: Opus 5 comparison
@@ -16441,6 +16776,9 @@ rows:
     - value: '47.5'
       source_label: Opus 5 comparison
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '47.5'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     automationbench:
     - value: '18.1'
       source_label: Opus 5 comparison
@@ -16875,9 +17213,15 @@ rows:
     - value: '37.3'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '37.3'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     terminal_bench_4_0_aa:
     - value: '37.3'
       source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     hle_verified:
     - value: '54.5'
@@ -16907,6 +17251,12 @@ rows:
     - value: '22.4'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '22.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '22'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     cursorbench:
     - value: '67.2'
       source_label: Claude Fable 5.1 report
@@ -17007,6 +17357,9 @@ rows:
     - value: '41.7'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '41.7'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     eebench:
     - value: '39.4'
       source_label: Grok 4.7 Artificial Analysis
@@ -17015,6 +17368,42 @@ rows:
     - value: '2.5'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '8'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    iquest_clibench:
+    - value: '58.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: OpenAI
   model: GPT-5.6 Terra
   mode: ''
@@ -17029,6 +17418,8 @@ rows:
   - label: Artificial Analysis (Gemini 3.8)
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (FrontierCode 1.1 Extended)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
   scores:
     gdpval_aa:
@@ -17121,6 +17512,9 @@ rows:
     - value: '80.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mmmu_pro_tools:
     - value: '82.0'
       source_label: GPT-5.6 report
@@ -17131,6 +17525,9 @@ rows:
       source_url: https://openai.com/index/gpt-5-6/
     - value: '29.0'
       source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '24'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '93'
@@ -17192,21 +17589,36 @@ rows:
     - value: '54'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '42'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '30'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '30'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '45'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     text_arena:
     - value: '1468'
@@ -17323,6 +17735,9 @@ rows:
     - value: '55.8'
       source_label: Artificial Analysis (FrontierCode 1.1 Extended)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     cursorbench_3_2:
     - value: '64.9'
       source_label: CursorBench 3.2 (Max)
@@ -17339,6 +17754,38 @@ rows:
     - value: '46.9'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '12'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '38'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '14'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.6 Luna
   mode: ''
@@ -17349,6 +17796,8 @@ rows:
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (FrontierCode 1.1 Extended)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
   scores:
     gdpval_aa:
@@ -17435,6 +17884,9 @@ rows:
     - value: '78.4'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '79'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mmmu_pro_tools:
     - value: '79.5'
       source_label: GPT-5.6 report
@@ -17443,6 +17895,9 @@ rows:
     - value: '22.7'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '24'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '91'
       source_label: Artificial Analysis
@@ -17519,21 +17974,36 @@ rows:
     - value: '53'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '37'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '21'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '42'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '70'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '84'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     agents_last_exam:
     - value: '30.3'
@@ -17546,6 +18016,9 @@ rows:
     terminal_bench_4_0_aa:
     - value: '55.1'
       source_label: Artificial Analysis (FrontierCode 1.1 Extended)
+      source_url: https://artificialanalysis.ai
+    - value: '12'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     cursorbench_3_2:
     - value: '61.1'
@@ -17563,6 +18036,38 @@ rows:
     - value: '37.6'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '7'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '41'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '3'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.5
   mode: xHigh
@@ -17578,6 +18083,8 @@ rows:
     url: https://ai.meta.com/blog/introducing-muse-spark-meta-model-api/
   - label: dots3-note report
     url: https://news.qq.com/rain/a/20260814A0CXZ700
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     swe_pro:
     - value: '59.4'
@@ -17616,6 +18123,9 @@ rows:
     - value: '81.2'
       source_label: GPT-5.5
       source_url: https://openai.com/index/gpt-5-5/
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     browsecomp:
     - value: '84.4'
       source_label: GPT-5.5
@@ -17700,6 +18210,9 @@ rows:
     - value: '46.9'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle_tools:
     - value: '52.2'
       source_label: Opus 4.8
@@ -17769,6 +18282,9 @@ rows:
     - value: '27.1'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aime26:
     - value: '98.3'
       source_label: GLM-5.2
@@ -17844,6 +18360,9 @@ rows:
     scicode:
     - value: '56.1'
       source_label: SciCode
+      source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gdpval_mm:
     - value: '24.9'
@@ -18027,6 +18546,9 @@ rows:
     - value: '76.4'
       source_label: Hunyuan 3
       source_url: https://hunyuan.tencent.com
+    - value: '84'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     management_consulting_tasks_internal:
     - value: '31.3'
       source_label: GPT-5.6 report
@@ -18099,6 +18621,9 @@ rows:
     - value: '26'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     frontiermath_t13:
     - value: '85.3'
       source_label: GPT-5.6 report
@@ -18196,6 +18721,9 @@ rows:
     - value: '47.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_pct:
     - value: '49'
       source_label: Artificial Analysis
@@ -18203,6 +18731,9 @@ rows:
     aa_omniscience_accuracy:
     - value: '57'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     agents_last_exam:
     - value: '26.6'
@@ -18284,6 +18815,38 @@ rows:
     frontiercode_main:
     - value: '43.0'
       source_label: Artificial Analysis (FrontierCode 1.1 Main)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '15'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '11'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-5.4
@@ -22374,6 +22937,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.7
   - label: DeepSeek-V4 preview report
     url: https://api-docs.deepseek.com/zh-cn/news/news260424
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_2:
     - value: '66.7'
@@ -22417,6 +22982,9 @@ rows:
     - value: '52.2'
       source_label: K2.6
       source_url: https://moonshotai.github.io/Kimi-K2/
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     qwen_svg:
     - value: '1325'
       source_label: Qwen3.7
@@ -22486,6 +23054,9 @@ rows:
     - value: '36.4'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '37'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     livecodebench:
     - value: '89.6'
       source_label: Qwen3.7
@@ -22502,6 +23073,9 @@ rows:
     - value: '8.0'
       source_label: Qwen3.7
       source_url: https://qwen.ai/blog?id=qwen3.7
+    - value: '8'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     apex:
     - value: '24.0'
       source_label: Qwen3.7
@@ -22659,6 +23233,9 @@ rows:
     - value: '39.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '816'
       source_label: Artificial Analysis
@@ -22669,6 +23246,46 @@ rows:
       source_url: https://artificialanalysis.ai
     - value: '21.7'
       source_label: Agents' Last Exam
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '16'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '13'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '1'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '13'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '31'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '79'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: Moonshot
   model: Kimi K2.5
@@ -24167,6 +24784,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (GLM-5.3)
     url: https://artificialanalysis.ai
+  - label: Beam report
+    url: https://beam.ai
   scores:
     hle:
     - value: '40.5'
@@ -24178,6 +24797,9 @@ rows:
     - value: '41'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '40.5'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle_tools:
     - value: '54.7'
       source_label: GLM-5.2
@@ -24191,6 +24813,9 @@ rows:
     - value: '54.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '54.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     critpt:
     - value: '20.9'
       source_label: GLM-5.2
@@ -24198,10 +24823,16 @@ rows:
     - value: '21'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '20.9'
+      source_label: Beam report
+      source_url: https://beam.ai
     aime26:
     - value: '99.2'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '99.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     hmmt_2025_nov:
     - value: '94.4'
       source_label: GLM-5.2
@@ -24230,6 +24861,9 @@ rows:
     - value: '89'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '91.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     swe_pro:
     - value: '62.1'
       source_label: GLM-5.2
@@ -24269,6 +24903,9 @@ rows:
     - value: '81.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '81.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     frontierswe:
     - value: '74.4'
       source_label: GLM-5.2
@@ -24297,6 +24934,9 @@ rows:
     - value: '76.8'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
+    - value: '77.8'
+      source_label: Beam report
+      source_url: https://beam.ai
     tool_decathlon:
     - value: '48.2'
       source_label: GLM-5.2
@@ -24308,6 +24948,9 @@ rows:
     - value: '46.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '44.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     deepswe:
     - value: '46.2'
       source_label: DeepSWE v1
@@ -24475,6 +25118,9 @@ rows:
     - value: '77'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '78.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     tau3_banking:
     - value: '27'
       source_label: Artificial Analysis
@@ -24487,6 +25133,9 @@ rows:
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '37.1'
+      source_label: Beam report
+      source_url: https://beam.ai
     text_arena:
     - value: '1469'
       source_label: TextArena
@@ -24514,6 +25163,9 @@ rows:
     - value: '26.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '26.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     jobbench:
     - value: '43.4'
       source_label: Kimi K3 report
@@ -24603,6 +25255,9 @@ rows:
     - value: '78.0'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    - value: '73.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     ifeval:
     - value: '92.0'
       source_label: dots3-note report
@@ -24666,6 +25321,14 @@ rows:
     - value: '51.5'
       source_label: CursorBench 3.2 (High)
       source_url: https://cursor.com
+    swe_bench_pro_v1:
+    - value: '62.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    longbench_v2:
+    - value: '64.0'
+      source_label: Beam report
+      source_url: https://beam.ai
 - company: Zhipu AI
   model: GLM-5.3-Flash
   mode: ''
@@ -24673,11 +25336,18 @@ rows:
   sources:
   - label: GLM-5.3-Flash report
     url: https://bigmodel.cn
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     terminal_bench_2_1:
     - value: '84.3'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '84.3'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     deepswe_1_1:
     - value: '63.4'
       source_label: GLM-5.3-Flash
@@ -24686,6 +25356,9 @@ rows:
     - value: '26.3'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '25.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     automation_bench:
     - value: '48.8'
       source_label: GLM-5.3-Flash
@@ -24706,10 +25379,16 @@ rows:
     - value: '46'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '52'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '40'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '91'
       source_label: GLM-5.3-Flash
@@ -24718,18 +25397,78 @@ rows:
     - value: '15'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '16'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '28'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '28'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '72'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '72'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '78'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '15'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '1'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '5'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    jobbench:
+    - value: '49.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+    iquest_clibench:
+    - value: '49.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -24737,6 +25476,8 @@ rows:
   sources:
   - label: Kimi K2.7 Code report
     url: https://kimi.moonshot.cn
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     kimi_code_bench_v2:
     - value: '62.0'
@@ -24770,6 +25511,9 @@ rows:
     - value: '47.5'
       source_label: SciCode
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
     - value: '67.4'
       source_label: Kimi K2.7 Code
@@ -24790,6 +25534,9 @@ rows:
     - value: '32.8'
       source_label: Kimi K2.7 Code
       source_url: ''
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     swe_verified:
     - value: '78.2'
       source_label: Kimi K2.7 Code
@@ -24798,6 +25545,50 @@ rows:
     - value: '49.7'
       source_label: CursorBench 3.2
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '24'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '1'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '11'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '79'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '16'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: Anthropic
   model: Claude Mythos 5
   mode: ''
@@ -25431,7 +26222,7 @@ rows:
     - value: '66.1'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
-    - value: '72.9/36.1'
+    - value: 72.9/36.1
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
     vlms_are_biased:
@@ -25670,11 +26461,26 @@ rows:
     url: https://openai.com
   - label: Grok 4.7 Artificial Analysis
     url: https://artificialanalysis.ai
+  - label: Claude Opus 5.5 report
+    url: https://anthropic.com
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Gemini 4 Argon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-argon
   scores:
     terminal_bench_science_0_1:
     - value: '52.6'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '52.6'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '52.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     terminal_bench_4_0:
     - value: '55.8'
       source_label: Claude Fable 5.1 report
@@ -25683,12 +26489,21 @@ rows:
     - value: '60.9'
       source_label: 'Claude Fable 5.1 report (fallback: Mythos 5.1)'
       source_url: https://anthropic.com
+    - value: '55.8'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '57.9'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     gdpval_aa_v2:
     - value: '1853'
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
+    - value: '1735'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     osworld_2_0:
-    - value: '77.9/41.7'
+    - value: 77.9/41.7
       source_label: Claude Fable 5.1 report
       source_url: https://anthropic.com
     hle:
@@ -25698,9 +26513,15 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle_tools:
     - value: '65.0'
       source_label: Claude Fable 5.1 report
+      source_url: https://anthropic.com
+    - value: '65.6'
+      source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
     automation_bench:
     - value: '31.4'
@@ -25709,6 +26530,12 @@ rows:
     - value: '46.2'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '31.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '31.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     cursorbench:
     - value: '73.47'
       source_label: Claude Fable 5.1 report
@@ -25729,6 +26556,9 @@ rows:
     - value: '62'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94'
       source_label: Artificial Analysis (Fable 5.1)
@@ -25737,17 +26567,29 @@ rows:
     - value: '30'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '30'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '67'
       source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '27'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Fable 5.1)
+      source_url: https://artificialanalysis.ai
+    - value: '85'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1694'
@@ -25757,10 +26599,19 @@ rows:
     - value: '93'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '6'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '6.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     deepswe_1_1:
     - value: '69.7'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '67.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     swe_marathon:
     - value: '45.0'
       source_label: Qwen3.8-Max-0902 report
@@ -25829,6 +26680,9 @@ rows:
     - value: '50.9'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '50.3'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     internal_database_migration_tasks:
     - value: '57.8'
       source_label: GPT-6 Astra report
@@ -25857,6 +26711,9 @@ rows:
     - value: '51.8'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '51.8'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     eebench:
     - value: '56.4'
       source_label: Grok 4.7 Artificial Analysis
@@ -25869,6 +26726,94 @@ rows:
     - value: '6.7'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    osworld_2_1:
+    - value: '80.7'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    chartography_tools:
+    - value: '88.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    aa_briefcase_pct:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '63'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '52'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '71'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    vals_index:
+    - value: '65.8'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vals_finance_agent_v2:
+    - value: '58.9'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    frontierswe_v2:
+    - value: '56.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vibe_code_bench_v1_1:
+    - value: '90.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    posttrainbench:
+    - value: '40.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    labbench2:
+    - value: '68.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    riemannbench:
+    - value: '65.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_128k:
+    - value: '91.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_1m:
+    - value: '65.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    chartography:
+    - value: '46.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    lvbench:
+    - value: '79.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    cwe_bench_v1:
+    - value: '58.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -25880,6 +26825,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Gemini 3.8)
     url: https://artificialanalysis.ai
+  - label: Claude Sonnet 5.5 report
+    url: https://anthropic.com
   scores:
     agent_arena:
     - value: '9.10'
@@ -25900,6 +26847,9 @@ rows:
     hle_tools:
     - value: '57.4'
       source_label: Claude Sonnet 5
+      source_url: https://anthropic.com
+    - value: '54.9'
+      source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
     osworld_verified:
     - value: '81.2'
@@ -25932,6 +26882,9 @@ rows:
     - value: '1388'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1359'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
     enterpriseops_gym_aa:
     - value: '45.0'
       source_label: Artificial Analysis
@@ -25965,6 +26918,9 @@ rows:
     - value: '1584'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '1449'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
     charxiv_rq:
     - value: '77.0'
       source_label: Gemini 3.6 Flash
@@ -26139,6 +27095,25 @@ rows:
     - value: '42.7'
       source_label: Artificial Analysis (FrontierCode 1.1 Main)
       source_url: https://artificialanalysis.ai
+    - value: '42.4'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    terminal_bench_4_0:
+    - value: '10.3'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    cursorbench_4_0:
+    - value: '34.1'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    osworld_2_1:
+    - value: '57.0'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    chartography:
+    - value: '15.6'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
 - company: xAI
   model: Grok 4.7
   mode: xHigh
@@ -26146,54 +27121,92 @@ rows:
   sources:
   - label: Grok 4.7 Artificial Analysis
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '58'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '60'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '66'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '66'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '26.0'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '57.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '43.0'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '20.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '18.0'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '47'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '71'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '71'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '77.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '77'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mlcr_aa:
     - value: '15'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '15'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_briefcase_rubric:
     - value: '55.4'
@@ -26222,6 +27235,14 @@ rows:
     healthbench_pro:
     - value: '56.7'
       source_label: Grok 4.7 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '9'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.6 High
@@ -26757,6 +27778,10 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Beam report
+    url: https://beam.ai
   scores:
     agent_arena:
     - value: '9.62'
@@ -26776,6 +27801,9 @@ rows:
     - value: '88.3'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '88.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     frontierswe:
     - value: '81.2'
       source_label: Kimi K3
@@ -26814,6 +27842,9 @@ rows:
     - value: '91.2'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '91.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     deepsearch_qa:
     - value: '95.0'
       source_label: Kimi K3
@@ -26835,6 +27866,9 @@ rows:
     - value: '84.2'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '82.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     automation_bench:
     - value: '46.7'
       source_label: Kimi K3
@@ -26842,6 +27876,9 @@ rows:
     - value: '46.7'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '46.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     jobbench:
     - value: '54.3'
       source_label: Kimi K3
@@ -26875,6 +27912,9 @@ rows:
     - value: '93.5'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '93.5'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle:
     - value: '46.9'
       source_label: Kimi K3
@@ -26882,6 +27922,12 @@ rows:
     - value: '44.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46.9'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle_tools:
     - value: '57.0'
       source_label: Kimi K3
@@ -26899,6 +27945,9 @@ rows:
     - value: '80.9'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mmmu_pro_tools:
     - value: '83.4'
       source_label: Kimi K3
@@ -26970,10 +28019,19 @@ rows:
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '37.1'
+      source_label: Beam report
+      source_url: https://beam.ai
     scicode:
     - value: '59.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     critpt:
     - value: '23.0'
       source_label: Artificial Analysis
@@ -26981,13 +28039,25 @@ rows:
     - value: '23.4'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '23'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '23.4'
+      source_label: Beam report
+      source_url: https://beam.ai
     aa_omniscience_accuracy:
     - value: '46.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '49.0'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '45.0'
@@ -26995,6 +28065,9 @@ rows:
       source_url: https://artificialanalysis.ai
     - value: '45.0'
       source_label: Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gdpval_aa_pct:
     - value: '59'
@@ -27004,6 +28077,12 @@ rows:
     - value: '75'
       source_label: AA benchmark chart
       source_url: https://artificialanalysis.ai
+    - value: '89'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '88.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     cybergym:
     - value: '80.0'
       source_label: DeepSeek V4 Pro report
@@ -27092,6 +28171,9 @@ rows:
     - value: '67.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '68.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
@@ -27226,6 +28308,54 @@ rows:
     - value: '50.5'
       source_label: CursorBench 3.2 (Low)
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '52'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '13'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '22'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '5'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '38'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    swe_bench_pro_v2_hard:
+    - value: '88.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_atlas_codebase_qna:
+    - value: '68.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    deepsearchqa:
+    - value: '95.0'
+      source_label: Beam report
+      source_url: https://beam.ai
 - company: NVIDIA
   model: Nemotron-3-Super-120B-A12B
   mode: ''
@@ -27343,6 +28473,10 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Beam report
+    url: https://beam.ai
   scores:
     swe_pro:
     - value: '67.7'
@@ -27355,6 +28489,9 @@ rows:
     - value: '86.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '86.6'
+      source_label: Beam report
+      source_url: https://beam.ai
     paperbench:
     - value: '93.0'
       source_label: Qwen3.8
@@ -27437,6 +28574,9 @@ rows:
     - value: '56.6'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '51.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     mls_bench_lite:
     - value: '41.0'
       source_label: Qwen3.8
@@ -27475,6 +28615,9 @@ rows:
     - value: '39.8'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '39.8'
+      source_label: Beam report
+      source_url: https://beam.ai
     toolathlon:
     - value: '72.5'
       source_label: Qwen3.8
@@ -27493,6 +28636,9 @@ rows:
     - value: '56.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '56.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     gpqa:
     - value: '92.6'
       source_label: Qwen3.8
@@ -27500,6 +28646,9 @@ rows:
     - value: '93'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '92.6'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle:
     - value: '43.6'
       source_label: Qwen3.8
@@ -27507,10 +28656,19 @@ rows:
     - value: '43'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '43.6'
+      source_label: Beam report
+      source_url: https://beam.ai
     ifbench:
     - value: '82.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82.8'
+      source_label: Beam report
+      source_url: https://beam.ai
     one_million_bench:
     - value: '52.5'
       source_label: Qwen3.8
@@ -27539,6 +28697,9 @@ rows:
     - value: '66.3'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '66.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     mmmu_pro:
     - value: '82.3'
       source_label: Qwen3.8
@@ -27546,6 +28707,9 @@ rows:
     - value: '82.3'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mathvision:
     - value: '97.7'
       source_label: Qwen3.8
@@ -27757,26 +28921,53 @@ rows:
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '55.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     scicode:
     - value: '53'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '52.1'
+      source_label: Beam report
+      source_url: https://beam.ai
     critpt:
     - value: '20'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '20.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     aa_omniscience_accuracy:
     - value: '32'
       source_label: Qwen3.8 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '58'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: Qwen3.8 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '78'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '80.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     gdpval_aa_v2:
     - value: '1740'
       source_label: Qwen3.8 Artificial Analysis
@@ -27892,6 +29083,9 @@ rows:
     - value: '81.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '84.5'
+      source_label: Beam report
+      source_url: https://beam.ai
     toolathlon_verified:
     - value: '72.5'
       source_label: Qwen3.8
@@ -27974,6 +29168,34 @@ rows:
     - value: '1348'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    aa_briefcase_pct:
+    - value: '44'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    swe_bench_pro_v1:
+    - value: '67.7'
+      source_label: Beam report
+      source_url: https://beam.ai
 - company: Qwen
   model: Qwen3.8-Max-0902
   mode: ''
@@ -27981,6 +29203,8 @@ rows:
   sources:
   - label: Qwen3.8-Max-0902 report
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_3:
     - value: '29.0'
@@ -28038,6 +29262,9 @@ rows:
     - value: '82.7'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     erqa:
     - value: '78.3'
       source_label: Qwen3.8-Max-0902 report
@@ -28050,6 +29277,70 @@ rows:
     - value: '93.8'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    aa_briefcase_pct:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '52'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '23'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '71'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '12'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '45'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '40'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.3
   mode: ''
@@ -28629,11 +29920,20 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (GLM-5.3)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Beam report
+    url: https://beam.ai
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     terminal_bench_2_1:
     - value: '88.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '88.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     terminal_bench_3:
     - value: '28.3'
       source_label: GLM-5.3 report
@@ -28642,10 +29942,19 @@ rows:
     - value: '66.9'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '61.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    - value: '66.9'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '58.0'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     frontierswe:
     - value: '78.1'
       source_label: GLM-5.3 report
@@ -28662,6 +29971,9 @@ rows:
     - value: '84.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '84.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     exploitgym:
     - value: 105 / 130
       source_label: GLM-5.3 report
@@ -28678,6 +29990,9 @@ rows:
     - value: '48.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '48.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     agents_last_exam:
     - value: '28.5'
       source_label: GLM-5.3 report
@@ -28686,6 +30001,9 @@ rows:
     - value: '62.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '62.5'
+      source_label: Beam report
+      source_url: https://beam.ai
     gdpval_aa_v2:
     - value: '1769'
       source_label: GLM-5.3 report
@@ -28699,6 +30017,12 @@ rows:
     - value: '56'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '59.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle:
     - value: '42'
       source_label: Artificial Analysis (GLM-5.3)
@@ -28706,10 +30030,19 @@ rows:
     - value: '42.3'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '42.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '91.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     critpt:
     - value: '19'
       source_label: Artificial Analysis (GLM-5.3)
@@ -28717,18 +30050,36 @@ rows:
     - value: '19.1'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '19.1'
+      source_label: Beam report
+      source_url: https://beam.ai
     aa_omniscience_accuracy:
     - value: '34'
       source_label: Artificial Analysis (GLM-5.3)
+      source_url: https://artificialanalysis.ai
+    - value: '34'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '70'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '70'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '76'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '79.7'
+      source_label: Beam report
+      source_url: https://beam.ai
     terminal_bench_2_1_aa:
     - value: '84'
       source_label: Artificial Analysis (GLM-5.3)
@@ -28801,6 +30152,9 @@ rows:
     - value: '81.9'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '84.2'
+      source_label: Beam report
+      source_url: https://beam.ai
     toolathlon_verified:
     - value: '73.0'
       source_label: GLM-5.3
@@ -28817,6 +30171,9 @@ rows:
     - value: '58.2'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '61.4'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     workspacebench:
     - value: '68.2'
       source_label: GLM-5.3
@@ -28853,6 +30210,58 @@ rows:
     - value: '19.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    aa_briefcase_pct:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '62'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '11'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '0'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '36'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    swe_bench_pro_v2_hard:
+    - value: '84.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_atlas_codebase_qna:
+    - value: '61.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_omniscience_index:
+    - value: '22.6'
+      source_label: Beam report
+      source_url: https://beam.ai
 - company: Tencent
   model: Hunyuan 4 Preview
   mode: ''
@@ -28860,6 +30269,8 @@ rows:
   sources:
   - label: Hunyuan 4 Preview
     url: https://hunyuan.tencent.com
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     swe_multilingual:
     - value: '82.9'
@@ -28893,14 +30304,23 @@ rows:
     - value: '85.4'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '85.4'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     nl2repo:
     - value: '58.9'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '58.9'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     cybergym:
     - value: '78.4'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '78.4'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     posttrainbench:
     - value: '35.6'
       source_label: Hunyuan 4 Preview
@@ -29021,6 +30441,9 @@ rows:
     - value: '43.4'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '43.4'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     superchem:
     - value: '66.4'
       source_label: Hunyuan 4 Preview
@@ -29045,6 +30468,10 @@ rows:
     - value: '17.5'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    deepswe_1_1:
+    - value: '64.3'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
 - company: Qwen
   model: Qwen3.8-Flash-Next
   mode: ''
@@ -29144,6 +30571,8 @@ rows:
   sources:
   - label: Qwen3.8-27B result
     url: https://qwen.ai/blog?id=qwen3.8
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     gdpval_aa_v2:
     - value: '52'
@@ -29161,10 +30590,16 @@ rows:
     - value: '45'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '34'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '34'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '91'
       source_label: Qwen3.8-27B
@@ -29173,18 +30608,30 @@ rows:
     - value: '5'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '5'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '16'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '16'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '70'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '70'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '77'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '82'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1413'
       source_label: Qwen3.8-27B
@@ -29193,10 +30640,16 @@ rows:
     - value: '44'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '44'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     mmmu_pro:
     - value: '76'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '76'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
     - value: '73.0'
       source_label: Qwen3.8-27B
@@ -29301,6 +30754,38 @@ rows:
     - value: '85.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    aa_briefcase_pct:
+    - value: '45'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '6'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '17'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '0'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '22'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: Qwen
   model: Qwen3.6-27B
   mode: ''
@@ -29502,6 +30987,8 @@ rows:
     url: https://deepmind.google/models/evals-methodology/gemini-3-8-flash
   - label: GPT-6 Astra report
     url: https://openai.com
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
   scores:
     deepswe_1_1:
     - value: '73.7'
@@ -29534,6 +31021,9 @@ rows:
     - value: '19.1'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '45'
       source_label: Artificial Analysis (Gemini 3.8 charts)
@@ -29542,9 +31032,15 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '48'
       source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '95'
@@ -29554,17 +31050,29 @@ rows:
     - value: '18'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '55'
       source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '45'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '81'
       source_label: Artificial Analysis (Gemini 3.8 charts)
+      source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1213'
@@ -29574,16 +31082,22 @@ rows:
     - value: '51'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '35.0'
       source_label: Artificial Analysis (Gemini 3.8)
+      source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     charxiv_rq:
     - value: '86.2'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
     lvbench:
-    - value: '87.8/87.1'
+    - value: 87.8/87.1
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
     hle_verified:
@@ -29610,6 +31124,9 @@ rows:
     - value: '86'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
+    - value: '86'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_intelligence_index_v4_1:
     - value: '58.7'
       source_label: GPT-6 Astra report
@@ -29633,12 +31150,38 @@ rows:
     - value: '67.0'
       source_label: CursorBench 3.2 (Medium)
       source_url: https://cursor.com
+    aa_briefcase_pct:
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '0'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '22'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
 - company: Meta
   model: Muse Spark 1.3
   mode: Max
   released: 2026-09-03
   sources:
   - label: Muse Spark 1.3 Artificial Analysis
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
   scores:
     gdpval_aa_v2:
@@ -29701,9 +31244,15 @@ rows:
     - value: '57'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '49'
       source_label: Muse Spark 1.3 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94'
@@ -29713,17 +31262,65 @@ rows:
     - value: '25'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '25'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '44'
       source_label: Muse Spark 1.3 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '66'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '79'
       source_label: Muse Spark 1.3 Artificial Analysis
+      source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase_pct:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '9'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '11'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '43'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
 - company: DeepSeek
   model: DeepSeek-V4-Flash-Vision-Exp
@@ -29835,6 +31432,12 @@ rows:
   - label: DeepSeek V4.1-Flash report
     url: https://api-docs.deepseek.com
   - label: DeepSeek-V4.1-Flash 实测 (0920)
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Beam report
+    url: https://beam.ai
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
   scores:
     gpqa:
     - value: '86.3'
@@ -29842,12 +31445,21 @@ rows:
     - value: '90.9'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '90.9'
+      source_label: Beam report
+      source_url: https://beam.ai
     hle:
     - value: '27.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     - value: '36.8'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '39.1'
+      source_label: Beam report
+      source_url: https://beam.ai
     codeforces:
     - value: '3471'
       source_label: DeepSeek V4.1-Flash report
@@ -29862,6 +31474,9 @@ rows:
     - value: '90.6'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '90.6'
+      source_label: Beam report
+      source_url: https://beam.ai
     terminal_bench_3:
     - value: '30.0'
       source_label: DeepSeek V4.1-Flash report
@@ -29878,6 +31493,12 @@ rows:
     - value: '74.2'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '74.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    - value: '74.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     program_bench:
     - value: '20.3'
       source_label: DeepSeek V4.1-Flash report
@@ -29892,6 +31513,9 @@ rows:
     - value: '88.1'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '88.1'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     sec_bench_pro:
     - value: '62.8'
       source_label: DeepSeek V4.1-Flash report
@@ -29906,18 +31530,27 @@ rows:
     - value: '63.9'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '63.9'
+      source_label: Beam report
+      source_url: https://beam.ai
     automation_bench:
     - value: '37.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     - value: '54.8'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '54.8'
+      source_label: Beam report
+      source_url: https://beam.ai
     agents_last_exam:
     - value: '20.4'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     - value: '31.8'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '31.8'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
     chartography_tools:
     - value: '54.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -29943,18 +31576,36 @@ rows:
     mmmu_pro:
     - value: '68.7'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '77'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '15.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '13'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '30.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     aa_lcr:
     - value: '74.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '84'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '84.0'
+      source_label: Beam report
+      source_url: https://beam.ai
     critpt:
     - value: '12.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '14'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '14.3'
+      source_label: Beam report
+      source_url: https://beam.ai
     mls_bench_lite:
     - value: '26.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -29970,9 +31621,15 @@ rows:
     aa_omniscience_accuracy:
     - value: '35.4'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '48.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
+    - value: '4'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     jobbench:
     - value: '44.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -29985,7 +31642,49 @@ rows:
     aa_briefcase:
     - value: '1187'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
-
+    aa_briefcase_pct:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '69'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '52'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '52.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    harvey_lab_aa:
+    - value: '2'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '9'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '23'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_index:
+    - value: '6.6'
+      source_label: Beam report
+      source_url: https://beam.ai
 - company: OpenAI
   model: GPT-6 Astra
   mode: Max reasoning effort
@@ -29995,17 +31694,29 @@ rows:
     url: https://openai.com
   - label: Artificial Analysis (GPT-6 Astra)
     url: https://artificialanalysis.ai
+  - label: Claude Opus 5.5 report
+    url: https://anthropic.com
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Gemini 4 Argon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-argon
   scores:
     agents_last_exam:
     - value: '59.3'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '34.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     osworld_2_0:
     - value: '72.6'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
       partial: true
       exclude_from_ranking: true
+    - value: '72.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     screenspot_pro:
     - value: '92.7'
       source_label: GPT-6 Astra report
@@ -30014,6 +31725,12 @@ rows:
     - value: '41.4'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '41.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '41.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     benchcad:
     - value: '95.9'
       source_label: GPT-6 Astra report
@@ -30042,10 +31759,19 @@ rows:
     - value: '57.9'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '57.9'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '58.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     deepswe_1_1:
     - value: '74.1'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '74.1'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     frontiercode_extended:
     - value: '64.5'
       source_label: GPT-6 Astra report
@@ -30054,6 +31780,9 @@ rows:
     - value: '53.3'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '53.3'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     internal_database_migration_tasks:
     - value: '63.9'
       source_label: GPT-6 Astra report
@@ -30066,6 +31795,15 @@ rows:
     - value: '64.6'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '64.6'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '63'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '68.1'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
     frontiermath_t4:
     - value: '97.6'
       source_label: GPT-6 Astra report
@@ -30081,6 +31819,9 @@ rows:
     - value: '57.2'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '57.2'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
     genebench_pro:
     - value: '37.8'
       source_label: GPT-6 Astra report
@@ -30177,25 +31918,43 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '55'
       source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '32'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '63'
       source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '49'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: Artificial Analysis (GPT-6 Astra)
+      source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1570'
@@ -30205,6 +31964,1249 @@ rows:
     - value: '87'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
+    - value: '87'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2:
+    - value: '1542'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    aa_briefcase_pct:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '68'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '31'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '9'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '5.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    aa_analyst_agent:
+    - value: '51'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    vals_index:
+    - value: '63.1'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vals_finance_agent_v2:
+    - value: '53.5'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    frontierswe_v2:
+    - value: '65.5'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vibe_code_bench_v1_1:
+    - value: '89.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    posttrainbench:
+    - value: '44.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    labbench2:
+    - value: '85.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    riemannbench:
+    - value: '72.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_128k:
+    - value: '98.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_1m:
+    - value: '71.8'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    chartography:
+    - value: '71.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    lvbench:
+    - value: '87.5'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    cwe_bench_v1:
+    - value: '68.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+- company: Anthropic
+  model: Claude Opus 5.5
+  mode: Max with fallback
+  released: ''
+  sources:
+  - label: Claude Opus 5.5 report
+    url: https://anthropic.com
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Claude Sonnet 5.5 report
+    url: https://anthropic.com
+  - label: Gemini 4 Argon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  scores:
+    terminal_bench_4_0:
+    - value: '66.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '66.4'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    - value: '66.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    frontiercode_main:
+    - value: '54.4'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '54.4'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    cursorbench_4_0:
+    - value: '57.8'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '57.8'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    gdpval_aa_v2:
+    - value: '1846'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '1846'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    automation_bench:
+    - value: '40.0'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '42.5'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    hle_tools:
+    - value: '67.7'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '67.7'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    terminal_bench_science_0_1:
+    - value: '58.7'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '59'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '63.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    osworld_2_1:
+    - value: '81.8'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    - value: '81.8'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    chartography_tools:
+    - value: '89.0'
+      source_label: Claude Opus 5.5 report
+      source_url: https://anthropic.com
+    aa_briefcase_pct:
+    - value: '65'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '68'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '70'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '67'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '61'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '66'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '41'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '85'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '4'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '3.8'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    aa_analyst_agent:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    itbench_aa:
+    - value: '38'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '88'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '67'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_briefcase:
+    - value: '1822'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    chartography:
+    - value: '64.4'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    - value: '66.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vals_index:
+    - value: '67.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vals_finance_agent_v2:
+    - value: '58.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    deepswe_1_1:
+    - value: '74.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    frontierswe_v2:
+    - value: '62.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vibe_code_bench_v1_1:
+    - value: '90.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    posttrainbench:
+    - value: '49.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    labbench2:
+    - value: '73.1'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    riemannbench:
+    - value: '69.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_128k:
+    - value: '90.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_1m:
+    - value: '66.8'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    agents_last_exam:
+    - value: '38.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    lvbench:
+    - value: '83.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    cwe_bench_v1:
+    - value: '67.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+- company: Anthropic
+  model: Claude Sonnet 5.5
+  mode: Max with fallback
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Claude Sonnet 5.5 report
+    url: https://anthropic.com
+  scores:
+    aa_briefcase_pct:
+    - value: '66'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '67'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '72'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '64'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '61'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '31'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '3'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '75'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '70.6'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    frontiercode_main:
+    - value: 46.2/52.1
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    cursorbench_4_0:
+    - value: '55.5'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    gdpval_aa_v2:
+    - value: '1844'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    aa_briefcase:
+    - value: '1811'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    hle_tools:
+    - value: '64.5'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    osworld_2_1:
+    - value: '80.1'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    chartography:
+    - value: '61.6'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+- company: Anthropic
+  model: Claude Haiku 5.5
+  mode: Max
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Haiku 5.5)
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '44'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '21'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '36'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '36'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '1'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '1'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '20'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '63'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+- company: OpenAI
+  model: GPT-6.1 Sol
+  mode: ''
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Claude Sonnet 5.5 report
+    url: https://anthropic.com
+  scores:
+    aa_briefcase_pct:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '65'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '31'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '32'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '62'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '7'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_analyst_agent:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '86'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '34'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '49.3'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    gdpval_aa_v2:
+    - value: '1487'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    aa_briefcase:
+    - value: '1483'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+    chartography:
+    - value: '53.6'
+      source_label: Claude Sonnet 5.5 report
+      source_url: https://anthropic.com
+- company: Google
+  model: Gemini 4 Argon
+  mode: High
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Gemini 4 Argon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  scores:
+    aa_briefcase_pct:
+    - value: '49'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '78'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '62'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '57'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '22'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '50'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '85'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    vals_index:
+    - value: '68.9'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    automation_bench:
+    - value: '51.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vals_finance_agent_v2:
+    - value: '65.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    harvey_lab_aa:
+    - value: '19.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    deepswe_1_1:
+    - value: '77.9'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    frontierswe_v2:
+    - value: '55.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    vibe_code_bench_v1_1:
+    - value: '91.9'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    terminal_bench_4_0:
+    - value: '57.4'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    posttrainbench:
+    - value: '45.3'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    terminal_bench_science_0_1:
+    - value: '57.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    labbench2:
+    - value: '88.8'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    riemannbench:
+    - value: '76.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_128k:
+    - value: '99.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    graphwalks_bfs_1m:
+    - value: '84.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    agents_last_exam:
+    - value: '39.5'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    osworld_2_0:
+    - value: '69.2'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    chartography:
+    - value: '71.6'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    lvbench:
+    - value: '91.7'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    cwe_bench_v1:
+    - value: '68.0'
+      source_label: Gemini 4 Argon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+- company: Mistral
+  model: Mistral Large 4 Preview
+  mode: ''
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Claude Haiku 5.5)
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '45'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '46'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '60'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '27'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '35'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '11'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '11'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '26'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '58'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '81'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '3'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '3'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '76'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '76'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+- company: OpenAI
+  model: GPT-6 Luna
+  mode: ''
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '42'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '47'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '53'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '13'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '55'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '39'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '23'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '19'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '44'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '23'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '3'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '9'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mmmu_pro:
+    - value: '80'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    mlcr_aa:
+    - value: '16'
+      source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+- company: InclusionAI
+  model: Ling-3.1-Flash
+  mode: Thinking
+  released: ''
+  sources:
+  - label: Artificial Analysis (Claude Haiku 5.5)
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '45'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '56'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '62'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '33'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '54'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '39'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '10'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '18'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '29'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '62'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+- company: Beam
+  model: Beam
+  mode: ''
+  released: ''
+  sources:
+  - label: Beam report
+    url: https://beam.ai
+  scores:
+    deepswe_1_1:
+    - value: '44.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_bench_pro_v2_hard:
+    - value: '77.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_bench_pro_v1:
+    - value: '65.5'
+      source_label: Beam report
+      source_url: https://beam.ai
+    terminal_bench_2_1:
+    - value: '80.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_atlas_codebase_qna:
+    - value: '34.6'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_multilingual:
+    - value: '78.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_verified:
+    - value: '80.9'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aime26:
+    - value: '97.8'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle:
+    - value: '36.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle_tools:
+    - value: '51.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    scicode:
+    - value: '49.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    critpt:
+    - value: '16.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    gpqa:
+    - value: '90.5'
+      source_label: Beam report
+      source_url: https://beam.ai
+    mcp_atlas:
+    - value: '78.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    automation_bench:
+    - value: '37.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    tau3_banking:
+    - value: '38.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    browsecomp:
+    - value: '77.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    deepsearchqa:
+    - value: '80.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_lcr:
+    - value: '79.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    longbench_v2:
+    - value: '66.9'
+      source_label: Beam report
+      source_url: https://beam.ai
+    ifbench:
+    - value: '79.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_omniscience_index:
+    - value: '13.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+- company: Thinking Machines
+  model: Inkling
+  mode: ''
+  released: ''
+  sources:
+  - label: Beam report
+    url: https://beam.ai
+  scores:
+    swe_bench_pro_v2_hard:
+    - value: '56.9'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_bench_pro_v1:
+    - value: '54.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    terminal_bench_2_1:
+    - value: '63.8'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_verified:
+    - value: '77.6'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aime26:
+    - value: '97.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle:
+    - value: '29.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle_tools:
+    - value: '46.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    scicode:
+    - value: '46.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    critpt:
+    - value: '5.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    gpqa:
+    - value: '87.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+    mcp_atlas:
+    - value: '76.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    tau3_banking:
+    - value: '25.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    browsecomp:
+    - value: '77.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_lcr:
+    - value: '77.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    ifbench:
+    - value: '79.8'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_omniscience_index:
+    - value: '14.2'
+      source_label: Beam report
+      source_url: https://beam.ai
+- company: NVIDIA
+  model: Nemotron-3-Ultra
+  mode: ''
+  released: ''
+  sources:
+  - label: Beam report
+    url: https://beam.ai
+  scores:
+    swe_bench_pro_v1:
+    - value: '46.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    terminal_bench_2_1:
+    - value: '56.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_multilingual:
+    - value: '67.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    swe_verified:
+    - value: '70.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle:
+    - value: '26.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    hle_tools:
+    - value: '37.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    scicode:
+    - value: '44.6'
+      source_label: Beam report
+      source_url: https://beam.ai
+    critpt:
+    - value: '3.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    gpqa:
+    - value: '87.0'
+      source_label: Beam report
+      source_url: https://beam.ai
+    mcp_atlas:
+    - value: '63.1'
+      source_label: Beam report
+      source_url: https://beam.ai
+    tau3_banking:
+    - value: '22.6'
+      source_label: Beam report
+      source_url: https://beam.ai
+    browsecomp:
+    - value: '44.4'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_lcr:
+    - value: '79.3'
+      source_label: Beam report
+      source_url: https://beam.ai
+    longbench_v2:
+    - value: '61.9'
+      source_label: Beam report
+      source_url: https://beam.ai
+    ifbench:
+    - value: '81.7'
+      source_label: Beam report
+      source_url: https://beam.ai
+    aa_omniscience_index:
+    - value: '8.6'
+      source_label: Beam report
+      source_url: https://beam.ai
+- company: IQuest
+  model: IQuest-Q1
+  mode: ''
+  released: ''
+  sources:
+  - label: IQuest-Q1 report
+    url: https://iquest.ai
+  scores:
+    deepswe_1_1:
+    - value: '64.6'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    nl2repo:
+    - value: '63.0'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    cybergym:
+    - value: '84.5'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    terminal_bench_2_1:
+    - value: '83.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    jobbench:
+    - value: '55.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    agents_last_exam:
+    - value: '29.6'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    hle:
+    - value: '39.2'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
+    iquest_clibench:
+    - value: '53.7'
+      source_label: IQuest-Q1 report
+      source_url: https://iquest.ai
+      exclude_from_ranking: true
 collections:
   overall:
     label: ' 综合'
