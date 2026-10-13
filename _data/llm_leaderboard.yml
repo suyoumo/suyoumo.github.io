@@ -424,6 +424,14 @@ sources:
   label: IQuest-Q1 report
   short_label: IQuest-Q1 report
   url: https://iquest.ai
+- id: aa_muse_wonder
+  label: Artificial Analysis (Muse Wonder)
+  short_label: Artificial Analysis (Muse Wonder)
+  url: https://artificialanalysis.ai
+- id: muse_wonder
+  label: Muse Wonder report
+  short_label: Muse Wonder report
+  url: https://ai.meta.com
 categories:
 - name: Coding Agent
   columns:
@@ -979,6 +987,8 @@ categories:
     label: Vals Finance Agent v2
   - key: cwe_bench_v1
     label: CWE-bench v1
+  - key: personal_superintelligence_index
+    label: Personal Superintelligence Index
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -1249,6 +1259,8 @@ categories:
     label: LongFact-Objects
   - key: longfact_concepts
     label: LongFact-Concepts
+  - key: memorybench
+    label: MemoryBench
 - name: Instruction & Multilingual
   columns:
   - key: ifeval
@@ -10111,6 +10123,8 @@ rows:
     url: https://github.com/XiaomiMiMo/MiMo
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     deepswe_1_1:
     - value: '71.9'
@@ -10153,6 +10167,9 @@ rows:
       source_url: https://artificialanalysis.ai
     - value: '35'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     terminal_bench_2_1:
     - value: '89.9'
@@ -10197,12 +10214,18 @@ rows:
     - value: '51'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '51'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '61'
@@ -10211,12 +10234,18 @@ rows:
     - value: '61'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '49'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '49'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '19'
@@ -10225,12 +10254,18 @@ rows:
     - value: '19'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '27'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '35'
@@ -10239,6 +10274,9 @@ rows:
     - value: '35'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10246,12 +10284,18 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '86'
       source_label: MiMo-V2.6-Pro Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '86'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '86'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_briefcase_rubric:
     - value: '54.7'
@@ -10261,13 +10305,23 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '6'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '6'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     mlcr_aa:
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: MiMo
   model: MiMo-V2.6-Flash
@@ -10549,6 +10603,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     swe_verified:
     - value: '80.5'
@@ -10695,12 +10751,18 @@ rows:
     - value: '39.0'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '39'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '3.7'
       source_label: GLM-5.2
       source_url: https://bigmodel.cn
     - value: '4'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '4'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     hmmt_2025_nov:
     - value: '84.4'
@@ -10729,6 +10791,9 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '13'
       source_label: Artificial Analysis
@@ -10751,12 +10816,18 @@ rows:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '84'
       source_label: AA benchmark chart
       source_url: https://artificialanalysis.ai
     - value: '82'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '82'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
@@ -10765,37 +10836,64 @@ rows:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_briefcase_pct:
     - value: '30'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '30'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '37'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '37'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '21'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '2'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '2'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '10'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '10'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '17'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '17'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '10'
@@ -10804,6 +10902,10 @@ rows:
     mlcr_aa:
     - value: '17'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '23'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: MiniMax
   model: MiniMax-M2.7
@@ -11389,6 +11491,8 @@ rows:
     url: https://stepfun.com/
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     gpqa:
     - value: '93.5'
@@ -11401,12 +11505,18 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '88.3'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
     - value: '88'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '88'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '20.9'
@@ -11415,6 +11525,9 @@ rows:
     - value: '21'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '42.0'
       source_label: Step 5 Preview
@@ -11422,12 +11535,18 @@ rows:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '57.0'
       source_label: Step 5 Preview
       source_url: https://stepfun.com/
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     deepswe_1_1:
     - value: '67.7'
@@ -11451,6 +11570,9 @@ rows:
       source_url: https://stepfun.com/
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     roadmapbench:
     - value: '54.3'
@@ -11506,6 +11628,9 @@ rows:
       source_url: https://stepfun.com/
     - value: '51'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '51'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench:
     - value: '44.0'
@@ -11593,25 +11718,43 @@ rows:
     - value: '15'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '15'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_briefcase_pct:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '2'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '2'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '35'
@@ -11624,6 +11767,10 @@ rows:
     mlcr_aa:
     - value: '17'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '38'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: StepFun
   model: Step 3.5 Flash
@@ -25340,6 +25487,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_2_1:
     - value: '84.3'
@@ -25382,12 +25531,18 @@ rows:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '40'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
     - value: '40'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '40'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '91'
@@ -25400,12 +25555,18 @@ rows:
     - value: '16'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '15'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '28'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
     - value: '28'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '28'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '72'
@@ -25414,6 +25575,9 @@ rows:
     - value: '72'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '72'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '78'
       source_label: GLM-5.3-Flash
@@ -25421,37 +25585,64 @@ rows:
     - value: '80'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_briefcase_pct:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '60'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '15'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '15'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '1'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '1'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '5'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '5'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '51'
@@ -25469,6 +25660,10 @@ rows:
     - value: '49.5'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    frontiercode_main:
+    - value: '41'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -26467,6 +26662,10 @@ rows:
     url: https://artificialanalysis.ai
   - label: Gemini 4 Argon report
     url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  - label: Muse Wonder report
+    url: https://ai.meta.com
   scores:
     terminal_bench_science_0_1:
     - value: '52.6'
@@ -26481,6 +26680,9 @@ rows:
     - value: '52.6'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '43'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0:
     - value: '55.8'
       source_label: Claude Fable 5.1 report
@@ -26515,6 +26717,9 @@ rows:
       source_url: https://artificialanalysis.ai
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     hle_tools:
     - value: '65.0'
@@ -26559,6 +26764,9 @@ rows:
     - value: '63'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94'
       source_label: Artificial Analysis (Fable 5.1)
@@ -26570,12 +26778,18 @@ rows:
     - value: '30'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '30'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '67'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
     - value: '67'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '27'
@@ -26584,12 +26798,18 @@ rows:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
     - value: '85'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '85'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1694'
@@ -26605,6 +26825,12 @@ rows:
     - value: '6.7'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '6'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '6.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     deepswe_1_1:
     - value: '69.7'
       source_label: Qwen3.8-Max-0902 report
@@ -26612,10 +26838,16 @@ rows:
     - value: '67.4'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '67.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     swe_marathon:
     - value: '45.0'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '45.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     mls_bench_lite:
     - value: '49.9'
       source_label: Qwen3.8-Max-0902 report
@@ -26624,6 +26856,9 @@ rows:
     - value: '57.4'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '73.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     mmmu_pro:
     - value: '81.2'
       source_label: Qwen3.8-Max-0902 report
@@ -26652,6 +26887,9 @@ rows:
     - value: '33.0'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '55.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     nl2repo:
     - value: '70.2'
       source_label: Qwen3.8-Max-0902 report
@@ -26672,6 +26910,9 @@ rows:
     - value: '65.7'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '53'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     frontiercode_extended:
     - value: '63.6'
       source_label: GPT-6 Astra report
@@ -26683,6 +26924,9 @@ rows:
     - value: '50.3'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     internal_database_migration_tasks:
     - value: '57.8'
       source_label: GPT-6 Astra report
@@ -26722,6 +26966,9 @@ rows:
     - value: '62.1'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '62.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     harvey_lab_vals:
     - value: '6.7'
       source_label: Grok 4.7 Artificial Analysis
@@ -26730,6 +26977,9 @@ rows:
     - value: '80.7'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '80.7'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     chartography_tools:
     - value: '88.4'
       source_label: Claude Opus 5.5 report
@@ -26738,22 +26988,46 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '63'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '32.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     terminal_bench_4_0_aa:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '52.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     gdp_pdf:
     - value: '26'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '27.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     aa_analyst_agent:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -26774,6 +27048,9 @@ rows:
     - value: '58.9'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '58.9'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     frontierswe_v2:
     - value: '56.3'
       source_label: Gemini 4 Argon report
@@ -26814,6 +27091,14 @@ rows:
     - value: '58.0'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    personal_superintelligence_index:
+    - value: '49.9'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    memorybench:
+    - value: '79.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -27123,6 +27408,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '58'
@@ -27131,12 +27418,18 @@ rows:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '60'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '61'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '66'
@@ -27145,12 +27438,18 @@ rows:
     - value: '66'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '66'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '26.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '26'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '57.0'
@@ -27159,12 +27458,18 @@ rows:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '43.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '43'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '20.0'
@@ -27173,12 +27478,18 @@ rows:
     - value: '20'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '18.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '47'
@@ -27187,6 +27498,9 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '71'
       source_label: Grok 4.7 Artificial Analysis
@@ -27194,12 +27508,18 @@ rows:
     - value: '71'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '71'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '77.0'
       source_label: Grok 4.7 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '77'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '77'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     mlcr_aa:
     - value: '15'
@@ -27240,9 +27560,16 @@ rows:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '9'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '34'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.6 High
@@ -27782,6 +28109,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Beam report
     url: https://beam.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     agent_arena:
     - value: '9.62'
@@ -27928,6 +28257,9 @@ rows:
     - value: '46.9'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle_tools:
     - value: '57.0'
       source_label: Kimi K3
@@ -28032,6 +28364,9 @@ rows:
     - value: '58.7'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '23.0'
       source_label: Artificial Analysis
@@ -28045,6 +28380,9 @@ rows:
     - value: '23.4'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '23'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '46.0'
       source_label: Artificial Analysis
@@ -28052,12 +28390,18 @@ rows:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '49.0'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '45.0'
@@ -28068,6 +28412,9 @@ rows:
       source_url: https://artificialanalysis.ai
     - value: '45'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdpval_aa_pct:
     - value: '59'
@@ -28083,6 +28430,9 @@ rows:
     - value: '88.7'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '89'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     cybergym:
     - value: '80.0'
       source_label: DeepSeek V4 Pro report
@@ -28312,25 +28662,43 @@ rows:
     - value: '50'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '50'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '13'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '13'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '22'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '22'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '5'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '5'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '39'
@@ -28356,6 +28724,10 @@ rows:
     - value: '95.0'
       source_label: Beam report
       source_url: https://beam.ai
+    frontiercode_main:
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
 - company: NVIDIA
   model: Nemotron-3-Super-120B-A12B
   mode: ''
@@ -29205,6 +29577,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.8
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_3:
     - value: '29.0'
@@ -29281,53 +29655,92 @@ rows:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '39'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '43'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '23'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '71'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '71'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '12'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '12'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '45'
@@ -29340,6 +29753,10 @@ rows:
     mlcr_aa:
     - value: '20'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '43'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: xAI
   model: Grok 4.3
@@ -29834,7 +30251,7 @@ rows:
 - company: Thinking Machines
   model: Inkling-Small
   mode: ''
-  released: ''
+  released: '2026-07-30'
   sources:
   - label: dots3-note report
     url: https://news.qq.com/rain/a/20260814A0CXZ700
@@ -29894,7 +30311,7 @@ rows:
 - company: Qwen
   model: Qwen3.5 Omni Plus
   mode: ''
-  released: ''
+  released: '2026-03-30'
   sources:
   - label: dots3-note report
     url: https://news.qq.com/rain/a/20260814A0CXZ700
@@ -29926,6 +30343,8 @@ rows:
     url: https://beam.ai
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     terminal_bench_2_1:
     - value: '88.2'
@@ -30023,6 +30442,9 @@ rows:
     - value: '59.0'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '42'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30036,6 +30458,9 @@ rows:
     - value: '42.3'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30056,6 +30481,9 @@ rows:
     - value: '19.1'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '19'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '34'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30063,12 +30491,18 @@ rows:
     - value: '34'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '34'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '70'
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
     - value: '70'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '70'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '76'
@@ -30080,6 +30514,9 @@ rows:
     - value: '79.7'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '80'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_2_1_aa:
     - value: '84'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30214,33 +30651,57 @@ rows:
     - value: '50'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '50'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '62'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '62'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '11'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '11'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     enterpriseops_gym_aa:
     - value: '36'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '36'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '10'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '10'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '46'
@@ -30262,6 +30723,10 @@ rows:
     - value: '22.6'
       source_label: Beam report
       source_url: https://beam.ai
+    frontiercode_main:
+    - value: '40'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
 - company: Tencent
   model: Hunyuan 4 Preview
   mode: ''
@@ -30573,6 +31038,8 @@ rows:
     url: https://qwen.ai/blog?id=qwen3.8
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     gdpval_aa_v2:
     - value: '52'
@@ -30593,12 +31060,18 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '34'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
     - value: '34'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '34'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '91'
@@ -30611,12 +31084,18 @@ rows:
     - value: '5'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '5'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '16'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
     - value: '16'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '16'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '70'
@@ -30625,12 +31104,18 @@ rows:
     - value: '70'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '70'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '77'
       source_label: Qwen3.8-27B
       source_url: https://qwen.ai/blog?id=qwen3.8
     - value: '82'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '82'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1413'
@@ -30642,6 +31127,9 @@ rows:
       source_url: https://qwen.ai/blog?id=qwen3.8
     - value: '44'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     mmmu_pro:
     - value: '76'
@@ -30758,25 +31246,43 @@ rows:
     - value: '45'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '6'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '6'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '17'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '17'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '19'
@@ -30785,6 +31291,10 @@ rows:
     mlcr_aa:
     - value: '22'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '34'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: Qwen
   model: Qwen3.6-27B
@@ -30989,6 +31499,8 @@ rows:
     url: https://openai.com
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     deepswe_1_1:
     - value: '73.7'
@@ -31024,6 +31536,9 @@ rows:
     - value: '20'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '45'
       source_label: Artificial Analysis (Gemini 3.8 charts)
@@ -31035,12 +31550,18 @@ rows:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '48'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '95'
@@ -31053,12 +31574,18 @@ rows:
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '55'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '45'
@@ -31067,12 +31594,18 @@ rows:
     - value: '45'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '81'
       source_label: Artificial Analysis (Gemini 3.8 charts)
       source_url: https://artificialanalysis.ai
     - value: '81'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1213'
@@ -31085,12 +31618,18 @@ rows:
     - value: '60'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '35.0'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
     - value: '21'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     charxiv_rq:
     - value: '86.2'
@@ -31139,6 +31678,9 @@ rows:
     - value: '43.6'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '36'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_coding_agent_index_v1_4:
     - value: '61.2'
       source_label: GPT-6 Astra report
@@ -31154,17 +31696,29 @@ rows:
     - value: '35'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '10'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '10'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '53'
@@ -31182,6 +31736,8 @@ rows:
   - label: Muse Spark 1.3 Artificial Analysis
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Claude Opus 5.5)
+    url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
   scores:
     gdpval_aa_v2:
@@ -31247,12 +31803,18 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '49'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '49'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gpqa:
     - value: '94'
@@ -31265,12 +31827,18 @@ rows:
     - value: '25'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '25'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '44'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
     - value: '44'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '66'
@@ -31279,6 +31847,9 @@ rows:
     - value: '67'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '79'
       source_label: Muse Spark 1.3 Artificial Analysis
@@ -31286,33 +31857,57 @@ rows:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_briefcase_pct:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '9'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '11'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '11'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '33'
@@ -31321,6 +31916,10 @@ rows:
     mlcr_aa:
     - value: '43'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '41'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: DeepSeek
   model: DeepSeek-V4-Flash-Vision-Exp
@@ -31438,6 +32037,8 @@ rows:
     url: https://beam.ai
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     gpqa:
     - value: '86.3'
@@ -31460,6 +32061,9 @@ rows:
     - value: '39.1'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '39'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     codeforces:
     - value: '3471'
       source_label: DeepSeek V4.1-Flash report
@@ -31585,6 +32189,9 @@ rows:
     - value: '13'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '13'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     tau3_banking:
     - value: '30.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -31597,6 +32204,9 @@ rows:
     - value: '84.0'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '84'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '12.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -31606,6 +32216,9 @@ rows:
     - value: '14.3'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '14'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     mls_bench_lite:
     - value: '26.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -31624,11 +32237,17 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '48.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     - value: '4'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '4'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     jobbench:
     - value: '44.3'
@@ -31646,17 +32265,29 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '69'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '69'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '52'
@@ -31665,13 +32296,22 @@ rows:
     - value: '52.0'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '2'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '2'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '9'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     itbench_aa:
     - value: '47'
@@ -31685,6 +32325,10 @@ rows:
     - value: '6.6'
       source_label: Beam report
       source_url: https://beam.ai
+    frontiercode_main:
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-6 Astra
   mode: Max reasoning effort
@@ -31700,6 +32344,10 @@ rows:
     url: https://artificialanalysis.ai
   - label: Gemini 4 Argon report
     url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  - label: Muse Wonder report
+    url: https://ai.meta.com
   scores:
     agents_last_exam:
     - value: '59.3'
@@ -31755,6 +32403,9 @@ rows:
     - value: '61.2'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '53'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     terminal_bench_4_0:
     - value: '57.9'
       source_label: GPT-6 Astra report
@@ -31772,6 +32423,9 @@ rows:
     - value: '74.1'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '74.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     frontiercode_extended:
     - value: '64.5'
       source_label: GPT-6 Astra report
@@ -31783,6 +32437,9 @@ rows:
     - value: '53.3'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     internal_database_migration_tasks:
     - value: '63.9'
       source_label: GPT-6 Astra report
@@ -31804,6 +32461,9 @@ rows:
     - value: '68.1'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '63'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     frontiermath_t4:
     - value: '97.6'
       source_label: GPT-6 Astra report
@@ -31838,6 +32498,9 @@ rows:
     - value: '63.4'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '65.3'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     exploit_bench:
     - value: '100.0'
       source_label: GPT-6 Astra report
@@ -31921,12 +32584,18 @@ rows:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '55'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     critpt:
     - value: '32'
@@ -31935,12 +32604,18 @@ rows:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '63'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
     - value: '63'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '63'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '49'
@@ -31949,12 +32624,18 @@ rows:
     - value: '49'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '74'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
     - value: '81'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_briefcase:
     - value: '1570'
@@ -31975,22 +32656,46 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '68'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '68'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '41.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     terminal_bench_4_0_aa:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '59.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     gdp_pdf:
     - value: '31'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '31'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '34.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     harvey_lab_aa:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -31998,6 +32703,12 @@ rows:
     - value: '5.4'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '9'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '8.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     aa_analyst_agent:
     - value: '51'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32018,6 +32729,9 @@ rows:
     - value: '53.5'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '53.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     frontierswe_v2:
     - value: '65.5'
       source_label: Gemini 4 Argon report
@@ -32058,6 +32772,30 @@ rows:
     - value: '68.0'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    personal_superintelligence_index:
+    - value: '54.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    jobbench:
+    - value: '66.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    osworld_2_1:
+    - value: '75.8'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    memorybench:
+    - value: '81.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    swe_marathon:
+    - value: '42.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    program_bench:
+    - value: '52.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
 - company: Anthropic
   model: Claude Opus 5.5
   mode: Max with fallback
@@ -32071,6 +32809,10 @@ rows:
     url: https://anthropic.com
   - label: Gemini 4 Argon report
     url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  - label: Muse Wonder report
+    url: https://ai.meta.com
   scores:
     terminal_bench_4_0:
     - value: '66.4'
@@ -32089,6 +32831,9 @@ rows:
     - value: '54.4'
       source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     cursorbench_4_0:
     - value: '57.8'
       source_label: Claude Opus 5.5 report
@@ -32127,6 +32872,9 @@ rows:
     - value: '63.3'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '59'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     osworld_2_1:
     - value: '81.8'
       source_label: Claude Opus 5.5 report
@@ -32134,6 +32882,9 @@ rows:
     - value: '81.8'
       source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
+    - value: '81.8'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     chartography_tools:
     - value: '89.0'
       source_label: Claude Opus 5.5 report
@@ -32142,45 +32893,87 @@ rows:
     - value: '65'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '65'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '68'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '68'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '70'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '70'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '41.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     terminal_bench_4_0_aa:
     - value: '60'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '59.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     scicode:
     - value: '67'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     hle:
     - value: '61'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '26'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '30.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     critpt:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '66'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '66'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '41'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '41'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '85'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '85'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '4'
@@ -32189,6 +32982,12 @@ rows:
     - value: '3.8'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '4'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '4.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     aa_analyst_agent:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32224,10 +33023,16 @@ rows:
     - value: '58.6'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '58.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     deepswe_1_1:
     - value: '74.2'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '74.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
     frontierswe_v2:
     - value: '62.3'
       source_label: Gemini 4 Argon report
@@ -32268,6 +33073,34 @@ rows:
     - value: '67.0'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    personal_superintelligence_index:
+    - value: '55.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    healthbench_pro:
+    - value: '65.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    jobbench:
+    - value: '75.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    memorybench:
+    - value: '81.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    swe_marathon:
+    - value: '46.3'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    program_bench:
+    - value: '70.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    aa_intelligence_index_v4_1:
+    - value: '58'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
 - company: Anthropic
   model: Claude Sonnet 5.5
   mode: Max with fallback
@@ -32277,58 +33110,99 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Sonnet 5.5 report
     url: https://anthropic.com
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '66'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '66'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '67'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '67'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '72'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '72'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '64'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '64'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '61'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '26'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '31'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '31'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '53'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '3'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '3'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '53'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '57'
@@ -32346,6 +33220,9 @@ rows:
     - value: 46.2/52.1
       source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     cursorbench_4_0:
     - value: '55.5'
       source_label: Claude Sonnet 5.5 report
@@ -32379,6 +33256,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Claude Haiku 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '54'
@@ -32387,12 +33266,18 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '56'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '35'
@@ -32401,12 +33286,18 @@ rows:
     - value: '35'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '33'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '55'
@@ -32415,12 +33306,18 @@ rows:
     - value: '55'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '44'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '44'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '21'
@@ -32429,12 +33326,18 @@ rows:
     - value: '21'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '19'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '19'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '36'
@@ -32443,12 +33346,18 @@ rows:
     - value: '36'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '36'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '60'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '60'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '83'
@@ -32457,12 +33366,18 @@ rows:
     - value: '83'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '1'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '1'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '1'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '20'
@@ -32471,12 +33386,19 @@ rows:
     - value: '20'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     mlcr_aa:
     - value: '63'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '63'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: OpenAI
   model: GPT-6.1 Sol
@@ -32487,58 +33409,99 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Sonnet 5.5 report
     url: https://anthropic.com
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '53'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '65'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '65'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '53'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '31'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '31'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '62'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '62'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '7'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '7'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_analyst_agent:
     - value: '50'
@@ -32556,6 +33519,9 @@ rows:
     - value: '49.3'
       source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2:
     - value: '1487'
       source_label: Claude Sonnet 5.5 report
@@ -32577,50 +33543,85 @@ rows:
     url: https://artificialanalysis.ai
   - label: Gemini 4 Argon report
     url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '49'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '78'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '78'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '62'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '62'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '57'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '22'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '22'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '50'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '50'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '85'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '85'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     vals_index:
     - value: '68.9'
@@ -32707,6 +33708,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Claude Haiku 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '45'
@@ -32715,12 +33718,18 @@ rows:
     - value: '45'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '46'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '60'
@@ -32729,12 +33738,18 @@ rows:
     - value: '60'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '60'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '27'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '54'
@@ -32743,12 +33758,18 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '35'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '35'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '19'
@@ -32757,12 +33778,18 @@ rows:
     - value: '19'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '11'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '11'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '11'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '26'
@@ -32771,12 +33798,18 @@ rows:
     - value: '26'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '26'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '58'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '81'
@@ -32785,12 +33818,18 @@ rows:
     - value: '81'
       source_label: Artificial Analysis (Claude Haiku 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '3'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
     - value: '3'
       source_label: Artificial Analysis (Claude Haiku 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '3'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     mmmu_pro:
     - value: '76'
@@ -32806,58 +33845,99 @@ rows:
   sources:
   - label: Artificial Analysis (Claude Opus 5.5)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
   scores:
     aa_briefcase_pct:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     gdpval_aa_v2_pct:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     automation_bench_aa:
     - value: '53'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '53'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_4_0_aa:
     - value: '13'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '13'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     scicode:
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     hle:
     - value: '39'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     gdp_pdf:
     - value: '23'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     critpt:
     - value: '19'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_omniscience_accuracy:
     - value: '44'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     aa_omniscience_non_hallucination:
     - value: '23'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     aa_lcr:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     harvey_lab_aa:
     - value: '3'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '3'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
     terminal_bench_science_0_1:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    - value: '9'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
     mmmu_pro:
     - value: '80'
@@ -32866,6 +33946,10 @@ rows:
     mlcr_aa:
     - value: '16'
       source_label: Artificial Analysis (Claude Opus 5.5)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '42'
+      source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
 - company: InclusionAI
   model: Ling-3.1-Flash
@@ -33207,6 +34291,290 @@ rows:
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
       exclude_from_ranking: true
+- company: Meta
+  model: Muse Wonder Full
+  mode: Max
+  released: ''
+  sources:
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  - label: Muse Wonder report
+    url: https://ai.meta.com
+  scores:
+    aa_briefcase_pct:
+    - value: '61'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '68'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '71'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '45.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    terminal_bench_4_0_aa:
+    - value: '57'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '57.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    scicode:
+    - value: '63'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '54'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '33.2'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    critpt:
+    - value: '33'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '43'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '77'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '84'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '13'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '13.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    personal_superintelligence_index:
+    - value: '59.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    vals_finance_agent_v2:
+    - value: '59.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    healthbench_pro:
+    - value: '62.3'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    jobbench:
+    - value: '75.3'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    osworld_2_1:
+    - value: '78.4'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    memorybench:
+    - value: '85.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    deepswe_1_1:
+    - value: '79.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    swe_marathon:
+    - value: '57.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    program_bench:
+    - value: '59.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    aa_intelligence_index_v4_1:
+    - value: '56'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+- company: Meta
+  model: Muse Wonder
+  mode: Max
+  released: ''
+  sources:
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  - label: Muse Wonder report
+    url: https://ai.meta.com
+  scores:
+    aa_briefcase_pct:
+    - value: '58'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '64'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '68'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '39.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    terminal_bench_4_0_aa:
+    - value: '52'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '52.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    scicode:
+    - value: '61'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '50'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '31'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '30.8'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    critpt:
+    - value: '28'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '41'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '73'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '80'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    harvey_lab_aa:
+    - value: '10'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    - value: '10.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    personal_superintelligence_index:
+    - value: '54.3'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    vals_finance_agent_v2:
+    - value: '56.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    healthbench_pro:
+    - value: '60.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    jobbench:
+    - value: '70.5'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    osworld_2_1:
+    - value: '72.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    memorybench:
+    - value: '85.6'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    deepswe_1_1:
+    - value: '78.8'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    swe_marathon:
+    - value: '53.1'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    program_bench:
+    - value: '50.0'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+    aa_intelligence_index_v4_1:
+    - value: '52'
+      source_label: Muse Wonder report
+      source_url: https://ai.meta.com
+- company: Meta
+  model: Muse Glimmer
+  mode: High
+  released: ''
+  sources:
+  - label: Artificial Analysis (Muse Wonder)
+    url: https://artificialanalysis.ai
+  scores:
+    aa_briefcase_pct:
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdpval_aa_v2_pct:
+    - value: '14'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    automation_bench_aa:
+    - value: '7'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_4_0_aa:
+    - value: '1'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    scicode:
+    - value: '45'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    hle:
+    - value: '22'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    gdp_pdf:
+    - value: '10'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    critpt:
+    - value: '3'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_accuracy:
+    - value: '27'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_omniscience_non_hallucination:
+    - value: '18'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    enterpriseops_gym_aa:
+    - value: '35'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    terminal_bench_science_0_1:
+    - value: '0'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
+    frontiercode_main:
+    - value: '14'
+      source_label: Artificial Analysis (Muse Wonder)
+      source_url: https://artificialanalysis.ai
 collections:
   overall:
     label: ' 综合'
