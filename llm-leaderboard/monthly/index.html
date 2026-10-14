@@ -58,10 +58,12 @@ permalink: /llm-leaderboard/monthly/
         {% assign podium_labels = '冠军,亚军,季军' | split: ',' %}
         {% for entry in category.global limit: 3 %}
         <div class="llm-podium-item is-p{{ forloop.index }}">
-          <span class="llm-podium-tag">{{ podium_labels[forloop.index0] }}</span>
+          <div class="llm-podium-top">
+            <span class="llm-podium-tag">{{ podium_labels[forloop.index0] }}</span>
+            <strong class="llm-podium-score">{{ entry.score }}</strong>
+          </div>
           <a class="llm-podium-model" href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>
           <span class="llm-podium-company">{{ entry.company }}{% if entry.new %} · 新{% endif %}</span>
-          <strong class="llm-podium-score">{{ entry.score }}</strong>
         </div>
         {% endfor %}
       </div>

@@ -575,7 +575,7 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-shell {
-  width: min(calc(100% - 48px), 1120px);
+  width: min(calc(100% - 48px), 1380px);
   margin: 0 auto;
 }
 
@@ -1046,8 +1046,9 @@ $llm-radius-ctl: 10px;
 .llm-podium-item {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: 16px 18px 14px;
+  gap: 4px;
+  min-width: 0;
+  padding: 15px 17px 13px;
   border: 1px solid $llm-line;
   border-radius: 14px;
   background: $llm-card;
@@ -1057,6 +1058,14 @@ $llm-radius-ctl: 10px;
     border-color: rgba(196, 90, 60, 0.45);
     background: linear-gradient(160deg, rgba(196, 90, 60, 0.09), rgba(196, 90, 60, 0.02) 55%), $llm-card;
   }
+}
+
+.llm-podium-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
 }
 
 .llm-podium-tag {
@@ -1070,6 +1079,7 @@ $llm-radius-ctl: 10px;
 
 .llm-podium-model {
   overflow: hidden;
+  min-width: 0;
   color: $black;
   font-size: 1.02rem;
   font-weight: 800;
@@ -1081,21 +1091,24 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-podium-company {
+  overflow: hidden;
+  min-width: 0;
   color: $gray;
   font-size: 0.7rem;
   font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .llm-podium-score {
-  margin-top: 4px;
   color: $primary;
   font-family: $mono;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 
-  .is-p1 & { font-size: 1.7rem; }
+  .is-p1 & { font-size: 1.5rem; }
 }
 
 .llm-monthly-note {
@@ -2763,9 +2776,10 @@ $llm-radius-ctl: 10px;
     margin-bottom: 14px;
   }
 
-  .llm-podium-item { padding: 12px 10px 10px; }
-  .llm-podium-model { font-size: 0.86rem; }
-  .llm-podium-score { font-size: 1.15rem; }
+  .llm-podium-item { padding: 11px 10px 10px; }
+  .llm-podium-top { gap: 6px; }
+  .llm-podium-model { font-size: 0.84rem; }
+  .llm-podium-score { font-size: 1.05rem; }
   .llm-podium-company { font-size: 0.6rem; }
 
   .llm-monthly-export { gap: 8px; padding: 12px 14px; }
