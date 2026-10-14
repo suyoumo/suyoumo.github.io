@@ -838,8 +838,17 @@ $llm-radius-ctl: 10px;
   th.llm-monthly-score,
   td.llm-monthly-score { width: 96px; }
 
+  th.llm-monthly-vendor-col,
+  td.llm-monthly-vendor-col {
+    width: 92px;
+    color: $gray;
+    font-size: 0.74rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
   th.llm-monthly-global-col,
-  td.llm-monthly-global-col { width: 58px; }
+  td.llm-monthly-global-col { width: 56px; }
 
   th:last-child,
   td:last-child { padding-right: 12px; }
@@ -873,22 +882,6 @@ $llm-radius-ctl: 10px;
 
     &:hover { color: $primary; }
   }
-}
-
-.llm-monthly-model-cell {
-  /* stays a normal table cell so the fixed layout keeps working; the name,
-     NEW chip and vendor are laid out with inline flow inside it */
-  min-width: 0;
-}
-
-.llm-monthly-vendor {
-  display: inline-block;
-  margin-left: 9px;
-  color: $gray;
-  font-size: 0.72rem;
-  font-weight: 650;
-  white-space: nowrap;
-  vertical-align: 1px;
 }
 
 .llm-monthly-rank {
@@ -2826,6 +2819,9 @@ $llm-radius-ctl: 10px;
 
     th:nth-child(2),
     td:nth-child(2) { width: 44%; }
+
+    th.llm-monthly-vendor-col,
+    td.llm-monthly-vendor-col { width: 74px; }
 
     th.llm-monthly-score,
     td.llm-monthly-score { width: 64px; }
