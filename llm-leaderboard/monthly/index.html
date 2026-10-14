@@ -54,6 +54,18 @@ permalink: /llm-leaderboard/monthly/
       data-monthly-panel="{{ category.key }}"
       {% unless forloop.first %}hidden{% endunless %}
     >
+      <div class="llm-monthly-podium">
+        {% assign podium_labels = '冠军,亚军,季军' | split: ',' %}
+        {% for entry in category.global limit: 3 %}
+        <div class="llm-podium-item is-p{{ forloop.index }}">
+          <span class="llm-podium-tag">{{ podium_labels[forloop.index0] }}</span>
+          <a class="llm-podium-model" href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>
+          <span class="llm-podium-company">{{ entry.company }}{% if entry.new %} · 新{% endif %}</span>
+          <strong class="llm-podium-score">{{ entry.score }}</strong>
+        </div>
+        {% endfor %}
+      </div>
+
       <div class="llm-monthly-grid">
         <article class="llm-monthly-card">
           <div class="llm-monthly-card-head">
@@ -74,7 +86,7 @@ permalink: /llm-leaderboard/monthly/
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
-                  <td class="llm-monthly-score">{{ entry.score }}</td>
+                  <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
                   <td class="llm-monthly-date">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
                 </tr>
                 {% endfor %}
@@ -86,6 +98,12 @@ permalink: /llm-leaderboard/monthly/
                data-cat-label="{{ category.label | escape }}" data-board-label="{{ card_board_label }}"
                data-month-label="{{ monthly.month_label | escape }}" data-as-of="{{ monthly.as_of }}">
             <span class="llm-monthly-export-title">导出分享图</span>
+            <span class="llm-export-presets" aria-label="快捷区间">
+              <button type="button" data-range="1,10">1-10</button>
+              <button type="button" data-range="1,30">1-30</button>
+              <button type="button" data-range="30,50">30-50</button>
+              <button type="button" data-range="1,50">全部</button>
+            </span>
             <span class="llm-monthly-export-range">第
               <input class="llm-export-start" type="number" min="1" value="1" inputmode="numeric" aria-label="起始名次"> –
               <input class="llm-export-end" type="number" min="1" value="30" inputmode="numeric" aria-label="结束名次"> 名
@@ -114,7 +132,7 @@ permalink: /llm-leaderboard/monthly/
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td>{{ entry.company }}</td>
-                  <td class="llm-monthly-score">{{ entry.score }}</td>
+                  <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
                   <td><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
                   <td class="llm-monthly-date">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
                 </tr>
@@ -127,6 +145,12 @@ permalink: /llm-leaderboard/monthly/
                data-cat-label="{{ category.label | escape }}" data-board-label="{{ card_board_label }}"
                data-month-label="{{ monthly.month_label | escape }}" data-as-of="{{ monthly.as_of }}">
             <span class="llm-monthly-export-title">导出分享图</span>
+            <span class="llm-export-presets" aria-label="快捷区间">
+              <button type="button" data-range="1,10">1-10</button>
+              <button type="button" data-range="1,30">1-30</button>
+              <button type="button" data-range="30,50">30-50</button>
+              <button type="button" data-range="1,50">全部</button>
+            </span>
             <span class="llm-monthly-export-range">第
               <input class="llm-export-start" type="number" min="1" value="1" inputmode="numeric" aria-label="起始名次"> –
               <input class="llm-export-end" type="number" min="1" value="30" inputmode="numeric" aria-label="结束名次"> 名

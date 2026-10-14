@@ -778,9 +778,23 @@ $llm-radius-ctl: 10px;
 
 .llm-monthly-card-count { opacity: 0.65; }
 
-.llm-monthly-table-wrap { overflow-x: auto; }
+.llm-monthly-table-wrap {
+  max-height: 580px;
+  overflow: auto;
+}
 
 .llm-monthly-table {
+
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: $llm-card;
+    box-shadow: 0 1px 0 $llm-line-soft;
+  }
+
+  tbody tr:nth-child(even) td { background: rgba(25, 25, 24, 0.014); }
+
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
@@ -818,7 +832,7 @@ $llm-radius-ctl: 10px;
   td:nth-child(2) { width: 42%; }
 
   th.llm-monthly-score,
-  td.llm-monthly-score { width: 64px; }
+  td.llm-monthly-score { width: 100px; }
 
   th:last-child,
   td:last-child { padding-right: 20px; }
@@ -897,11 +911,34 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-score {
-  color: $darkGray;
-  font-size: 0.8rem;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
+
+  .llm-score-num {
+    display: inline-block;
+    min-width: 3ch;
+    color: $darkGray;
+    font-size: 0.8rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .llm-score-bar {
+    display: inline-block;
+    width: 42px;
+    height: 4px;
+    margin-left: 6px;
+    border-radius: 999px;
+    background: rgba(25, 25, 24, 0.08);
+    overflow: hidden;
+    vertical-align: 2px;
+
+    i {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(196, 90, 60, 0.55), $primary);
+    }
+  }
 }
 
 .llm-monthly-export {
@@ -969,6 +1006,96 @@ $llm-radius-ctl: 10px;
   font-weight: 650;
 
   &.is-error { color: #b4552d; }
+}
+
+.llm-export-presets {
+  display: inline-flex;
+  gap: 6px;
+
+  button {
+    padding: 5px 10px;
+    border: 1px solid $llm-line;
+    border-radius: 999px;
+    background: $white;
+    color: $darkGray;
+    font-family: $mono;
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: rgba(196, 90, 60, 0.5);
+      color: $primary;
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(196, 90, 60, 0.55);
+      outline-offset: 1px;
+    }
+  }
+}
+
+.llm-monthly-podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.llm-podium-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px 18px 14px;
+  border: 1px solid $llm-line;
+  border-radius: 14px;
+  background: $llm-card;
+  box-shadow: $llm-shadow-rest;
+
+  &.is-p1 {
+    border-color: rgba(196, 90, 60, 0.45);
+    background: linear-gradient(160deg, rgba(196, 90, 60, 0.09), rgba(196, 90, 60, 0.02) 55%), $llm-card;
+  }
+}
+
+.llm-podium-tag {
+  color: $gray;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+
+  .is-p1 & { color: $primary; }
+}
+
+.llm-podium-model {
+  overflow: hidden;
+  color: $black;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover { color: $primary; }
+}
+
+.llm-podium-company {
+  color: $gray;
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+.llm-podium-score {
+  margin-top: 4px;
+  color: $primary;
+  font-family: $mono;
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+
+  .is-p1 & { font-size: 1.7rem; }
 }
 
 .llm-monthly-note {
@@ -2630,9 +2757,19 @@ $llm-radius-ctl: 10px;
     gap: 14px;
   }
 
-  .llm-monthly-card-head {
-    padding: 18px 16px 15px;
+  .llm-monthly-podium {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
   }
+
+  .llm-podium-item { padding: 12px 10px 10px; }
+  .llm-podium-model { font-size: 0.86rem; }
+  .llm-podium-score { font-size: 1.15rem; }
+  .llm-podium-company { font-size: 0.6rem; }
+
+  .llm-monthly-export { gap: 8px; padding: 12px 14px; }
+  .llm-monthly-export-title { display: none; }
 
   .llm-monthly-table {
     th,
@@ -2646,6 +2783,11 @@ $llm-radius-ctl: 10px;
 
     th:nth-child(2),
     td:nth-child(2) { width: 47%; }
+
+    th.llm-monthly-score,
+    td.llm-monthly-score { width: 48px; }
+
+    .llm-score-bar { display: none; }
 
     th:last-child,
     td:last-child { padding-right: 12px; }
