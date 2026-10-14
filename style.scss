@@ -830,24 +830,26 @@ $llm-radius-ctl: 10px;
     text-align: center;
   }
 
-  /* model column has no declared width, so it absorbs the table slack and the
-     score/date columns keep their tight declared widths and stay adjacent */
+  /* Only the model column is auto-width, so it alone absorbs the table slack;
+     every other column keeps its declared width and the score bar can stretch
+     right up to the date column. */
   th:nth-child(2),
   td:nth-child(2) { width: auto; }
 
   th.llm-monthly-score,
-  td.llm-monthly-score { width: 150px; }
+  td.llm-monthly-score { width: 132px; }
 
   th.llm-monthly-global-col,
-  td.llm-monthly-global-col { width: 62px; }
+  td.llm-monthly-global-col { width: 58px; }
 
   th:last-child,
-  td:last-child { padding-right: 20px; }
+  td:last-child { padding-right: 10px; }
 
   th.llm-monthly-date-col,
   td.llm-monthly-date {
-    width: 92px;
-    padding-left: 8px;
+    width: 96px;
+    padding-left: 6px;
+    padding-right: 6px;
     white-space: nowrap;
   }
 
