@@ -837,20 +837,20 @@ $llm-radius-ctl: 10px;
   td:nth-child(2) { width: auto; }
 
   th.llm-monthly-score,
-  td.llm-monthly-score { width: 132px; }
+  td.llm-monthly-score { width: 108px; }
 
   th.llm-monthly-global-col,
   td.llm-monthly-global-col { width: 58px; }
 
   th:last-child,
-  td:last-child { padding-right: 10px; }
+  td:last-child { padding-right: 12px; }
 
   th.llm-monthly-date-col,
   td.llm-monthly-date,
   td.llm-monthly-date-col {
-    width: 96px;
-    padding-left: 6px;
-    padding-right: 6px;
+    width: 100px;
+    padding-left: 12px;
+    padding-right: 12px;
     white-space: nowrap;
   }
 
@@ -877,19 +877,19 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-model-cell {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 3px 10px;
+  /* stays a normal table cell so the fixed layout keeps working; the name,
+     NEW chip and vendor are laid out with inline flow inside it */
   min-width: 0;
 }
 
 .llm-monthly-vendor {
-  flex: 0 0 auto;
+  display: inline-block;
+  margin-left: 9px;
   color: $gray;
   font-size: 0.72rem;
   font-weight: 650;
   white-space: nowrap;
+  vertical-align: 1px;
 }
 
 .llm-monthly-rank {
@@ -936,28 +936,29 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-score {
-  /* the bar stretches to fill the column so the score reads right up against
-     the next column instead of leaving a wide gap */
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  /* a normal table cell; the bar is an inline-block sized to fill the rest of
+     the column so the score sits right against the next column */
   white-space: nowrap;
 
   .llm-score-num {
-    flex: 0 0 auto;
+    display: inline-block;
+    width: 3.4em;
     color: $darkGray;
     font-size: 0.8rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
+    vertical-align: middle;
   }
 
   .llm-score-bar {
-    flex: 1 1 0;
-    min-width: 24px;
+    display: inline-block;
+    width: calc(100% - 3.4em - 13px);
     height: 5px;
+    margin-left: 6px;
     border-radius: 999px;
     background: rgba(25, 25, 24, 0.08);
     overflow: hidden;
+    vertical-align: middle;
 
     i {
       display: block;
