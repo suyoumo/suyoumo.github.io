@@ -24,7 +24,7 @@
   var PAD = 64;
   var ROW_H = 92;
   var HEADER_H = 232;
-  var FOOTER_H = 132;
+  var FOOTER_H = 168;
   var SCALE = 2;
 
   function rowsOf(card) {
@@ -201,24 +201,28 @@
       ctx.fillStyle = row.rank <= 3 ? ACCENT_DEEP : INK;
       ctx.font = '800 44px ' + MONO;
       ctx.fillText(row.score, CARD_W - PAD, cy + 15);
+
+      y += rowH;
     });
 
-    // footer
-    var fy = height - FOOTER_H + 56;
+    // footer: the metric note and the site link sit on separate lines so they
+    // cannot collide on narrow cards
+    var fy = height - FOOTER_H + 48;
     ctx.strokeStyle = LINE;
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(PAD, fy - 46);
-    ctx.lineTo(CARD_W - PAD, fy - 46);
+    ctx.moveTo(PAD, fy - 42);
+    ctx.lineTo(CARD_W - PAD, fy - 42);
     ctx.stroke();
 
     ctx.textAlign = 'left';
     ctx.fillStyle = SUB;
-    ctx.font = '600 24px ' + FONT;
+    ctx.font = '600 23px ' + FONT;
     ctx.fillText('得分 = 对局得分率（win rate）· ' + meta.asOf + ' 快照', PAD, fy);
     ctx.fillStyle = ACCENT_DEEP;
-    ctx.font = '800 24px ' + FONT;
-    ctx.textAlign = 'right';
-    ctx.fillText('suyoumo.github.io/llm-leaderboard', CARD_W - PAD, fy);
+    ctx.font = '800 22px ' + FONT;
+    ctx.textAlign = 'left';
+    ctx.fillText('suyoumo.github.io/llm-leaderboard', PAD, fy + 38);
 
     return canvas;
   }
