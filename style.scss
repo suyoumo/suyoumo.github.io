@@ -830,11 +830,11 @@ $llm-radius-ctl: 10px;
     text-align: center;
   }
 
-  /* Only the model column is auto-width, so it alone absorbs the table slack;
-     every other column keeps its declared width and the score bar can stretch
-     right up to the date column. */
+  /* The model column gets a fixed share of the table so it renders the same
+     width on both boards. The domestic board's extra 全球 column would
+     otherwise shrink it, which is what opened the gap before the score. */
   th:nth-child(2),
-  td:nth-child(2) { width: auto; }
+  td:nth-child(2) { width: 46%; }
 
   th.llm-monthly-score,
   td.llm-monthly-score { width: 108px; }
@@ -848,7 +848,7 @@ $llm-radius-ctl: 10px;
   th.llm-monthly-date-col,
   td.llm-monthly-date,
   td.llm-monthly-date-col {
-    width: 100px;
+    width: auto;
     padding-left: 12px;
     padding-right: 12px;
     white-space: nowrap;
@@ -2824,6 +2824,9 @@ $llm-radius-ctl: 10px;
       width: 46px;
       padding-left: 10px;
     }
+
+    th:nth-child(2),
+    td:nth-child(2) { width: 44%; }
 
     th.llm-monthly-score,
     td.llm-monthly-score { width: 64px; }
