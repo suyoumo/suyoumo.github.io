@@ -88,7 +88,7 @@ permalink: /llm-leaderboard/monthly/
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}<span class="llm-monthly-vendor">{{ entry.company }}</span></td>
                   <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
-                  <td class="llm-monthly-date">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
+                  <td class="llm-monthly-date llm-monthly-date-col">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -134,7 +134,7 @@ permalink: /llm-leaderboard/monthly/
                   <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}<span class="llm-monthly-vendor">{{ entry.company }}</span></td>
                   <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
                   <td class="llm-monthly-global-col"><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
-                  <td class="llm-monthly-date">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
+                  <td class="llm-monthly-date llm-monthly-date-col">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
                 </tr>
                 {% endfor %}
               </tbody>
