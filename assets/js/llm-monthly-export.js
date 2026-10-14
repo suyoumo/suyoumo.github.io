@@ -12,16 +12,19 @@
   var MIN_EXPORT = 10;
   var FONT = '"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", -apple-system, "Segoe UI", sans-serif';
   var MONO = 'ui-monospace, "SF Mono", Menlo, Consolas, monospace';
-  var ACCENT = '#e0825f';
-  var ACCENT_DEEP = '#c45a3c';
-  var INK = '#f5f2ec';
-  var SUB = '#a09d94';
-  var LINE = 'rgba(255, 255, 255, 0.08)';
+  // Anthropic-flavoured warm palette: ivory paper, coral accent, warm greys.
+  var ACCENT = '#d97757';
+  var ACCENT_DEEP = '#b8552f';
+  var INK = '#1f1e1d';
+  var SUB = '#7d7972';
+  var FAINT = '#a9a49b';
+  var LINE = '#e8e4da';
+  var ROW_ALT = '#f4f1ea';
   var CARD_W = 1080;
   var PAD = 64;
-  var ROW_H = 86;
-  var HEADER_H = 210;
-  var FOOTER_H = 128;
+  var ROW_H = 92;
+  var HEADER_H = 232;
+  var FOOTER_H = 132;
   var SCALE = 2;
 
   function rowsOf(card) {
@@ -46,80 +49,122 @@
     ctx.closePath();
   }
 
+  // Wrap a model name onto at most two lines, splitting on spaces and hyphens
+  // so long identifiers break cleanly instead of running off the card.
+  function wrapModel(ctx, text, maxWidth) {
+    var words = text.split(/(?=[ -])/);
+    var lines = [''];
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      var candidate = (lines[lines.length - 1] + w).trim();
+      if (ctx.measureText(candidate).width <= maxWidth || lines.length >= 2) {
+        if (ctx.measureText(candidate).width > maxWidth && lines.length >= 2) {
+          // second line still overflows: hard-truncate it
+          var acc = '';
+          for (var j = 0; j < w.length; j++) {
+            if (ctx.measureText(acc + w[j] + '…').width > maxWidth) break;
+            acc += w[j];
+          }
+          lines[lines.length - 1] = (lines[lines.length - 1] + acc).trim();
+          lines.push('…');
+          return lines;
+        }
+        lines[lines.length - 1] = candidate;
+      } else {
+        lines.push(w.trim());
+      }
+    }
+    return lines.filter(function (l) { return l !== ''; });
+  }
+
   function drawCard(meta, rows) {
-    var height = HEADER_H + rows.length * ROW_H + FOOTER_H;
+    // rows needing a two-line name get extra height
+    var measure = document.createElement('canvas').getContext('2d');
+    measure.font = '750 37px ' + FONT;
+    var nameMax = CARD_W - PAD * 2 - 92 - 150;
+    var wrapped = rows.map(function (row) {
+      return wrapModel(measure, row.model, nameMax);
+    });
+    var totalH = wrapped.reduce(function (sum, lines, i) {
+      return sum + (lines.length > 1 ? ROW_H + 34 : ROW_H);
+    }, 0);
+
+    var height = HEADER_H + totalH + FOOTER_H;
     var canvas = document.createElement('canvas');
     canvas.width = CARD_W * SCALE;
     canvas.height = height * SCALE;
     var ctx = canvas.getContext('2d');
     ctx.scale(SCALE, SCALE);
 
+    // ivory paper
     var bg = ctx.createLinearGradient(0, 0, CARD_W, height);
-    bg.addColorStop(0, '#1d1f26');
-    bg.addColorStop(1, '#101218');
+    bg.addColorStop(0, '#faf8f3');
+    bg.addColorStop(1, '#f2efe7');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, CARD_W, height);
 
-    // accent edge + brand dot
+    // accent top edge
     var edge = ctx.createLinearGradient(0, 0, CARD_W, 0);
     edge.addColorStop(0, ACCENT_DEEP);
-    edge.addColorStop(1, '#8a3a22');
+    edge.addColorStop(1, ACCENT);
     ctx.fillStyle = edge;
-    ctx.fillRect(0, 0, CARD_W, 10);
+    ctx.fillRect(0, 0, CARD_W, 9);
 
     ctx.fillStyle = ACCENT;
-    roundRect(ctx, PAD, 52, 14, 14, 4);
+    roundRect(ctx, PAD, 54, 13, 13, 4);
     ctx.fill();
     ctx.fillStyle = SUB;
-    ctx.font = '800 22px ' + FONT;
+    ctx.font = '800 21px ' + FONT;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
-    ctx.fillText('SUYOUMO · LLM 模型榜', PAD + 30, 66);
+    ctx.fillText('SUYOUMO · LLM 模型榜', PAD + 28, 68);
 
-    // title + range chip
+    // title + TOP-N chip
     ctx.fillStyle = INK;
-    ctx.font = '900 58px ' + FONT;
-    var titleY = 148;
+    ctx.font = '900 56px ' + FONT;
+    var titleY = 152;
     ctx.fillText(meta.title, PAD, titleY);
     var titleW = ctx.measureText(meta.title).width;
 
-    ctx.fillStyle = 'rgba(224, 130, 95, 0.16)';
+    ctx.fillStyle = 'rgba(217, 119, 87, 0.14)';
     var chipW = 118;
-    roundRect(ctx, PAD + titleW + 22, titleY - 44, chipW, 50, 25);
+    roundRect(ctx, PAD + titleW + 22, titleY - 42, chipW, 50, 25);
     ctx.fill();
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = ACCENT_DEEP;
     ctx.font = '800 26px ' + FONT;
     ctx.textAlign = 'center';
-    ctx.fillText('TOP ' + meta.start, PAD + titleW + 22 + chipW / 2, titleY - 10);
+    ctx.fillText('TOP ' + meta.start, PAD + titleW + 22 + chipW / 2, titleY - 8);
 
     ctx.textAlign = 'left';
     ctx.fillStyle = SUB;
     ctx.font = '600 27px ' + FONT;
-    ctx.fillText(meta.subtitle, PAD, titleY + 44);
+    ctx.fillText(meta.subtitle, PAD, titleY + 46);
 
     ctx.strokeStyle = LINE;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(PAD, HEADER_H - 14);
-    ctx.lineTo(CARD_W - PAD, HEADER_H - 14);
+    ctx.moveTo(PAD, HEADER_H - 16);
+    ctx.lineTo(CARD_W - PAD, HEADER_H - 16);
     ctx.stroke();
 
     // rows
+    var y = HEADER_H;
     rows.forEach(function (row, i) {
-      var y = HEADER_H + i * ROW_H;
-      var cy = y + ROW_H / 2;
+      var lines = wrapped[i];
+      var rowH = lines.length > 1 ? ROW_H + 34 : ROW_H;
+      var cy = y + rowH / 2;
 
       if (i % 2 === 1) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.028)';
-        roundRect(ctx, PAD - 18, y + 8, CARD_W - (PAD - 18) * 2, ROW_H - 16, 16);
+        ctx.fillStyle = ROW_ALT;
+        roundRect(ctx, PAD - 18, y + 7, CARD_W - (PAD - 18) * 2, rowH - 14, 16);
         ctx.fill();
       }
 
-      var badgeFill = 'rgba(255, 255, 255, 0.07)';
+      var badgeFill = '#eae6dc';
       var badgeInk = SUB;
-      if (row.rank === 1) { badgeFill = '#f0ede6'; badgeInk = '#16181d'; }
-      else if (row.rank === 2) { badgeFill = '#585b62'; badgeInk = '#f5f3ee'; }
-      else if (row.rank === 3) { badgeFill = 'rgba(224, 130, 95, 0.24)'; badgeInk = ACCENT; }
+      if (row.rank === 1) { badgeFill = ACCENT; badgeInk = '#fff'; }
+      else if (row.rank === 2) { badgeFill = '#b9b2a5'; badgeInk = '#fff'; }
+      else if (row.rank === 3) { badgeFill = 'rgba(217, 119, 87, 0.2)'; badgeInk = ACCENT_DEEP; }
       ctx.fillStyle = badgeFill;
       roundRect(ctx, PAD, cy - 29, 58, 58, 16);
       ctx.fill();
@@ -132,39 +177,45 @@
       ctx.fillStyle = INK;
       ctx.font = '750 37px ' + FONT;
       var nameX = PAD + 92;
-      ctx.fillText(row.model, nameX, cy - 4);
-      if (row.isNew) {
-        var nameW = ctx.measureText(row.model).width;
-        ctx.fillStyle = ACCENT_DEEP;
-        roundRect(ctx, nameX + nameW + 14, cy - 27, 66, 28, 8);
-        ctx.fill();
-        ctx.fillStyle = '#fff';
-        ctx.font = '800 16px ' + FONT;
-        ctx.fillText('NEW', nameX + nameW + 14 + 33, cy - 7);
+      if (lines.length > 1) {
+        ctx.fillText(lines[0], nameX, cy - 4);
+        ctx.fillText(lines[1], nameX, cy + 38);
+      } else {
+        ctx.fillText(lines[0], nameX, cy + 14);
       }
       ctx.fillStyle = SUB;
       ctx.font = '600 23px ' + FONT;
-      ctx.fillText(row.company, nameX, cy + 27);
+      var compY = lines.length > 1 ? cy + 76 : cy + 44;
+      ctx.fillText(row.company, nameX, compY);
+      if (row.isNew) {
+        var nameW = ctx.measureText(lines[0]).width;
+        ctx.fillStyle = ACCENT;
+        roundRect(ctx, nameX + nameW + 14, cy - 28, 62, 28, 8);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = '800 16px ' + FONT;
+        ctx.fillText('NEW', nameX + nameW + 14 + 31, cy - 8);
+      }
 
       ctx.textAlign = 'right';
-      ctx.fillStyle = row.rank <= 3 ? ACCENT : '#e3e0d8';
+      ctx.fillStyle = row.rank <= 3 ? ACCENT_DEEP : INK;
       ctx.font = '800 44px ' + MONO;
-      ctx.fillText(row.score, CARD_W - PAD, cy + 14);
+      ctx.fillText(row.score, CARD_W - PAD, cy + 15);
     });
 
     // footer
-    var fy = height - FOOTER_H + 52;
+    var fy = height - FOOTER_H + 56;
     ctx.strokeStyle = LINE;
     ctx.beginPath();
-    ctx.moveTo(PAD, fy - 44);
-    ctx.lineTo(CARD_W - PAD, fy - 44);
+    ctx.moveTo(PAD, fy - 46);
+    ctx.lineTo(CARD_W - PAD, fy - 46);
     ctx.stroke();
 
     ctx.textAlign = 'left';
     ctx.fillStyle = SUB;
     ctx.font = '600 24px ' + FONT;
     ctx.fillText('得分 = 对局得分率（win rate）· ' + meta.asOf + ' 快照', PAD, fy);
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = ACCENT_DEEP;
     ctx.font = '800 24px ' + FONT;
     ctx.textAlign = 'right';
     ctx.fillText('suyoumo.github.io/llm-leaderboard', CARD_W - PAD, fy);

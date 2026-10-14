@@ -829,10 +829,13 @@ $llm-radius-ctl: 10px;
   }
 
   th:nth-child(2),
-  td:nth-child(2) { width: 42%; }
+  td:nth-child(2) { width: 27%; }
+
+  th:nth-child(3),
+  td:nth-child(3) { width: 17%; }
 
   th.llm-monthly-score,
-  td.llm-monthly-score { width: 100px; }
+  td.llm-monthly-score { width: 96px; }
 
   th:last-child,
   td:last-child { padding-right: 20px; }
@@ -853,15 +856,18 @@ $llm-radius-ctl: 10px;
   tbody tr:hover td { background: rgba(196, 90, 60, 0.035); }
 
   a {
-    display: inline-block;
+    display: -webkit-box;
     overflow: hidden;
     max-width: 100%;
     color: $black;
     font-size: 0.84rem;
     font-weight: 750;
     line-height: 1.3;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /* Long model names wrap onto a second line instead of being cut off. */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow-wrap: anywhere;
+    white-space: normal;
 
     &:hover { color: $primary; }
   }
@@ -2796,7 +2802,10 @@ $llm-radius-ctl: 10px;
     }
 
     th:nth-child(2),
-    td:nth-child(2) { width: 47%; }
+    td:nth-child(2) { width: 40%; }
+
+    th:nth-child(3),
+    td:nth-child(3) { width: 20%; }
 
     th.llm-monthly-score,
     td.llm-monthly-score { width: 48px; }
