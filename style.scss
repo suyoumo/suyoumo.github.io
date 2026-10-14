@@ -932,11 +932,15 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-score {
+  /* the bar stretches to fill the column so the score reads right up against
+     the next column instead of leaving a wide gap */
+  display: flex;
+  align-items: center;
+  gap: 7px;
   white-space: nowrap;
 
   .llm-score-num {
-    display: inline-block;
-    min-width: 3ch;
+    flex: 0 0 auto;
     color: $darkGray;
     font-size: 0.8rem;
     font-weight: 800;
@@ -944,14 +948,12 @@ $llm-radius-ctl: 10px;
   }
 
   .llm-score-bar {
-    display: inline-block;
-    width: 42px;
+    flex: 1 1 0;
+    min-width: 0;
     height: 4px;
-    margin-left: 6px;
     border-radius: 999px;
     background: rgba(25, 25, 24, 0.08);
     overflow: hidden;
-    vertical-align: 2px;
 
     i {
       display: block;
@@ -2819,7 +2821,7 @@ $llm-radius-ctl: 10px;
     }
 
     th.llm-monthly-score,
-    td.llm-monthly-score { width: 52px; }
+    td.llm-monthly-score { width: 64px; }
 
     th.llm-monthly-global-col,
     td.llm-monthly-global-col { width: 50px; }
