@@ -119,21 +119,30 @@
     ctx.textBaseline = 'alphabetic';
     ctx.fillText('SUYOUMO · LLM 模型榜', PAD + 28, 68);
 
-    // title + TOP-N chip
-    ctx.fillStyle = INK;
-    ctx.font = '900 56px ' + FONT;
+    // title + TOP-N chip; the title shrinks before the chip is ever pushed
+    // off the card edge
     var titleY = 152;
-    ctx.fillText(meta.title, PAD, titleY);
-    var titleW = ctx.measureText(meta.title).width;
-
-    ctx.fillStyle = 'rgba(217, 119, 87, 0.14)';
     var chipW = 118;
-    roundRect(ctx, PAD + titleW + 22, titleY - 42, chipW, 50, 25);
+    var availTitle = CARD_W - PAD * 2 - chipW - 22;
+    ctx.fillStyle = INK;
+    var titleSize = 56;
+    ctx.font = '900 ' + titleSize + 'px ' + FONT;
+    var titleW = ctx.measureText(meta.title).width;
+    while (titleW > availTitle && titleSize > 34) {
+      titleSize -= 2;
+      ctx.font = '900 ' + titleSize + 'px ' + FONT;
+      titleW = ctx.measureText(meta.title).width;
+    }
+    ctx.fillText(meta.title, PAD, titleY);
+
+    var chipX = PAD + titleW + 22;
+    ctx.fillStyle = 'rgba(217, 119, 87, 0.14)';
+    roundRect(ctx, chipX, titleY - 42, chipW, 50, 25);
     ctx.fill();
     ctx.fillStyle = ACCENT_DEEP;
     ctx.font = '800 26px ' + FONT;
     ctx.textAlign = 'center';
-    ctx.fillText('TOP ' + meta.start, PAD + titleW + 22 + chipW / 2, titleY - 8);
+    ctx.fillText('TOP ' + meta.start, chipX + chipW / 2, titleY - 8);
 
     ctx.textAlign = 'left';
     ctx.fillStyle = SUB;
@@ -183,19 +192,26 @@
       } else {
         ctx.fillText(lines[0], nameX, cy + 14);
       }
+      // Measure the name while the 37px font is still active, then draw the
+      // NEW chip — measuring later would use the vendor font and land on top.
+      var nameW = ctx.measureText(lines[0]).width;
+      if (row.isNew) {
+        var chipX = nameX + nameW + 14;
+        var chipY = lines.length > 1 ? cy - 24 : cy - 8;
+        ctx.fillStyle = ACCENT;
+        roundRect(ctx, chipX, chipY, 62, 28, 8);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.font = '800 16px ' + FONT;
+        ctx.textAlign = 'center';
+        ctx.fillText('NEW', chipX + 31, chipY + 20);
+        ctx.textAlign = 'left';
+      }
+
       ctx.fillStyle = SUB;
       ctx.font = '600 23px ' + FONT;
       var compY = lines.length > 1 ? cy + 76 : cy + 44;
       ctx.fillText(row.company, nameX, compY);
-      if (row.isNew) {
-        var nameW = ctx.measureText(lines[0]).width;
-        ctx.fillStyle = ACCENT;
-        roundRect(ctx, nameX + nameW + 14, cy - 28, 62, 28, 8);
-        ctx.fill();
-        ctx.fillStyle = '#fff';
-        ctx.font = '800 16px ' + FONT;
-        ctx.fillText('NEW', nameX + nameW + 14 + 31, cy - 8);
-      }
 
       ctx.textAlign = 'right';
       ctx.fillStyle = row.rank <= 3 ? ACCENT_DEEP : INK;
