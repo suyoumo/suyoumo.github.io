@@ -779,7 +779,9 @@ $llm-radius-ctl: 10px;
 .llm-monthly-card-count { opacity: 0.65; }
 
 .llm-monthly-table-wrap {
-  max-height: 580px;
+  /* tall enough that the top 30 models are visible without inner scrolling;
+     the remaining rows scroll underneath the sticky header */
+  max-height: 1420px;
   overflow: auto;
 }
 
@@ -856,16 +858,13 @@ $llm-radius-ctl: 10px;
   tbody tr:hover td { background: rgba(196, 90, 60, 0.035); }
 
   a {
-    display: -webkit-box;
-    overflow: hidden;
-    max-width: 100%;
+    /* inline so the NEW badge stays on the same line as the name; the name
+       itself wraps onto a second line when the column is too narrow */
+    display: inline;
     color: $black;
     font-size: 0.84rem;
     font-weight: 750;
     line-height: 1.3;
-    /* Long model names wrap onto a second line instead of being cut off. */
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
     overflow-wrap: anywhere;
     white-space: normal;
 
@@ -2775,6 +2774,8 @@ $llm-radius-ctl: 10px;
     grid-template-columns: 1fr;
     gap: 14px;
   }
+
+  .llm-monthly-table-wrap { max-height: 760px; }
 
   .llm-monthly-podium {
     grid-template-columns: repeat(3, minmax(0, 1fr));
