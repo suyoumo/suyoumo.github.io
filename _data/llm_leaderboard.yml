@@ -396,6 +396,10 @@ sources:
   label: DeepSeek V4.1-Flash report
   short_label: DS-V4.1-Flash
   url: https://api-docs.deepseek.com
+- id: deepseek_v41_flash_1017
+  label: DeepSeek-V4.1-Flash-1017 result table
+  short_label: DS-V4.1-Flash-1017
+  url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
 - id: opus55
   label: Claude Opus 5.5 report
   short_label: Claude Opus 5.5 report
@@ -739,6 +743,8 @@ categories:
     label: WorkArena
   - key: agents_last_exam
     label: Agents' Last Exam
+  - key: apex_bench_1_1
+    label: Apex Bench v1.1
   - key: management_consulting_tasks_internal
     label: Management Consulting Tasks (Internal)
   - key: big_finance_bench
@@ -1413,6 +1419,8 @@ categories:
     label: MathVision w/ python
   - key: babyvision_python
     label: BabyVision w/ python
+  - key: babyvision_tools
+    label: BabyVision (w/tools)
   - key: zerobench_main_pass5
     label: ZeroBench_main (pass@5)
   - key: zerobench_main_python_pass5
@@ -32032,6 +32040,58 @@ rows:
     - value: '75'
       source_label: Artificial Analysis (DeepSeek-V4-Flash-Vision-Exp)
       source_url: https://artificialanalysis.ai
+- company: DeepSeek
+  model: DeepSeek-V4.1-Flash-1017
+  mode: ''
+  released: '2026-10-17'
+  sources:
+  - label: DeepSeek-V4.1-Flash-1017 result table
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  scores:
+    hle:
+    - value: '42.6/44.0*'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    terminal_bench_4_0:
+    - value: '42.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    deepswe_1_1:
+    - value: '77.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    program_bench:
+    - value: '29.1'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    nl2repo:
+    - value: '68.2'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    automation_bench:
+    - value: '60.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    agents_last_exam:
+    - value: '35.4'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    apex_bench_1_1:
+    - value: '72.1'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    chartography_tools:
+    - value: '83.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    babyvision_tools:
+    - value: '92.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    zerobench_main_tools:
+    - value: '51.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
 - company: DeepSeek
   model: DeepSeek-V4.1-Flash
   mode: ''
