@@ -30,6 +30,7 @@
       if (r.released && released.indexOf(r.released) === -1) released.push(r.released);
     });
     var pills = '';
+    if (modelRows[0].training_label) pills += '<span class="mp-pill">' + C.escapeHtml(modelRows[0].training_label) + '</span>';
     modes.forEach(function (m) { pills += '<span class="mp-pill">模式 ' + C.escapeHtml(m) + '</span>'; });
     released.forEach(function (d) { pills += '<span class="mp-pill">发布 ' + C.escapeHtml(d) + '</span>'; });
     html += '<div class="mp-hero"><div class="mp-hero-top">' +

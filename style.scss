@@ -927,6 +927,21 @@ $llm-radius-ctl: 10px;
   vertical-align: 2px;
 }
 
+.llm-training-label {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border: 1px solid rgba(196, 90, 60, 0.22);
+  border-radius: 999px;
+  background: rgba(196, 90, 60, 0.08);
+  color: darken($primary, 7%);
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.5;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
 .llm-monthly-score {
   /* a normal table cell; the bar is an inline-block sized to fill the rest of
      the column so the score sits right against the next column */

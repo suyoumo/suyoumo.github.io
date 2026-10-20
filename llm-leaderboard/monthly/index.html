@@ -84,9 +84,9 @@ permalink: /llm-leaderboard/monthly/
               </thead>
               <tbody>
                 {% for entry in category.global %}
-                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
+                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
-                  <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
+                  <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.training_label %}<small class="llm-training-label">{{ entry.training_label | escape }}</small>{% endif %}{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td class="llm-monthly-vendor-col">{{ entry.company }}</td>
                   <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
                   <td class="llm-monthly-date llm-monthly-date-col">{% if entry.released and entry.released != "" %}{{ entry.released }}{% else %}--{% endif %}</td>
@@ -130,9 +130,9 @@ permalink: /llm-leaderboard/monthly/
               </thead>
               <tbody>
                 {% for entry in category.domestic %}
-                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
+                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
-                  <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
+                  <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.training_label %}<small class="llm-training-label">{{ entry.training_label | escape }}</small>{% endif %}{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td class="llm-monthly-vendor-col">{{ entry.company }}</td>
                   <td class="llm-monthly-score"><span class="llm-score-num">{{ entry.score }}</span><span class="llm-score-bar" aria-hidden="true"><i style="width: {{ entry.score }}%"></i></span></td>
                   <td class="llm-monthly-global-col"><span class="llm-monthly-global-rank">#{{ entry.global_rank }}</span></td>
@@ -165,7 +165,7 @@ permalink: /llm-leaderboard/monthly/
     </section>
     {% endfor %}
 
-    <p class="llm-monthly-note">本页为 {{ monthly.month_label }}静态快照，收录全球与国产前 {{ monthly.top_n | default: 50 }} 名；排名沿用主榜默认口径（对局得分率），国产榜从全球排名中筛选国产模型后重新编号。标注「新」的为本次更新新入榜的模型。卡片下方可按名次区间导出分享图，每次至少 10 名。</p>
+    <p class="llm-monthly-note">本页为 {{ monthly.month_label }}静态快照，收录全球与国产前 {{ monthly.top_n | default: 50 }} 名；排名沿用主榜默认口径（对局得分率），国产榜从全球排名中筛选国产模型后重新编号。标注「新」的为本次更新新入榜的模型；「后训练」标注后训练模型。卡片下方可按名次区间导出分享图，每次至少 10 名。</p>
   </div>
 </section>
 

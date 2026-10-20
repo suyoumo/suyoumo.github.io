@@ -199,6 +199,7 @@ permalink: /llm-leaderboard/
             <tr data-model-name="{{ first_row.model }}" data-company="{{ first_row.company }}">
               <td class="llm-sticky-col llm-model-cell">
                 <a class="llm-model-link" href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ first_row.model | url_encode }}"><strong>{{ first_row.model }}</strong></a>
+                {% if first_row.training_label %}<small class="llm-training-label">{{ first_row.training_label | escape }}</small>{% endif %}
                 <span>{{ first_row.company }}</span>
               </td>
               <td>
@@ -618,6 +619,14 @@ permalink: /llm-leaderboard/
   var modelPageBase = '{{ "/llm-leaderboard/model/" | relative_url }}';
   var benchPageBase = '{{ "/llm-leaderboard/bench/" | relative_url }}';
   var rows = boardData.rows || [];
+  var trainingBadges = {};
+  rows.forEach(function(r){
+    if (!r.training_label) return;
+    var badge = document.createElement('small');
+    badge.className = 'llm-training-label';
+    badge.textContent = r.training_label;
+    trainingBadges[r.model] = badge.outerHTML;
+  });
   var categories = boardData.categories || [];
 
   var benchLabels = {}, benchCat = {};
@@ -903,7 +912,7 @@ permalink: /llm-leaderboard/
     var html='';
     results.forEach(function(r,idx){
       var rc=idx===0?'rank-gold':idx===1?'rank-silver':idx===2?'rank-bronze':'';
-      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td class="llm-sticky-col llm-model-cell" title="'+r.model+'"><a class="llm-model-link" href="'+modelPageBase+'?m='+encodeURIComponent(r.model)+'"><strong title="'+r.model+'">'+r.model+'</strong></a></td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+(r.scoreRate*100).toFixed(1)+'%, '+r.wins+'胜/'+r.draws+'平/'+r.losses+'负)</td>';
+      html+='<tr><td class="'+rc+'">'+(idx+1)+'</td><td class="llm-sticky-col llm-model-cell" title="'+r.model+'"><a class="llm-model-link" href="'+modelPageBase+'?m='+encodeURIComponent(r.model)+'"><strong title="'+r.model+'">'+r.model+'</strong></a>'+(trainingBadges[r.model]||'')+'</td><td>'+r.company+'</td><td>'+r.avg.toFixed(3)+'</td><td>'+Math.round(r.elo)+' ('+(r.scoreRate*100).toFixed(1)+'%, '+r.wins+'胜/'+r.draws+'平/'+r.losses+'负)</td>';
       validKeys.forEach(function(bk,bi){
         var s=r.scores[bi];
         if(s!==undefined&&s!==null){

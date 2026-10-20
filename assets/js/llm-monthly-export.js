@@ -33,6 +33,7 @@
         rank: parseInt(tr.dataset.rank, 10),
         model: tr.dataset.model || '',
         company: tr.dataset.company || '',
+        trainingLabel: tr.dataset.trainingLabel || '',
         score: tr.dataset.score || '',
         isNew: tr.dataset.new === 'true'
       };
@@ -212,6 +213,16 @@
       ctx.font = '600 23px ' + FONT;
       var compY = lines.length > 1 ? cy + 76 : cy + 44;
       ctx.fillText(row.company, nameX, compY);
+      if (row.trainingLabel) {
+        var labelX = nameX + ctx.measureText(row.company).width + 14;
+        ctx.font = '700 19px ' + FONT;
+        var labelW = ctx.measureText(row.trainingLabel).width + 20;
+        ctx.fillStyle = 'rgba(217, 119, 87, 0.12)';
+        roundRect(ctx, labelX, compY - 23, labelW, 30, 8);
+        ctx.fill();
+        ctx.fillStyle = ACCENT_DEEP;
+        ctx.fillText(row.trainingLabel, labelX + 10, compY);
+      }
 
       ctx.textAlign = 'right';
       ctx.fillStyle = row.rank <= 3 ? ACCENT_DEEP : INK;
