@@ -436,6 +436,18 @@ sources:
   label: Muse Wonder report
   short_label: Muse Wonder report
   url: https://ai.meta.com
+- id: minimax_m31_flash
+  label: MiniMax-M3.1-Flash report
+  short_label: MiniMax M3.1 Flash
+  url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+- id: minimax_m31_flash_aa
+  label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+  short_label: MiniMax M3.1 Flash (AA)
+  url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+- id: atria_dawn
+  label: Atria Dawn report
+  short_label: Atria Dawn
+  url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
 categories:
 - name: Coding Agent
   columns:
@@ -717,6 +729,10 @@ categories:
     label: SWE-Bench Pro v1
   - key: iquest_clibench
     label: IQuest-CLIBench
+  - key: swe_refactor_bench
+    label: SWE Refactor Bench
+  - key: posttrainbench_1_1
+    label: PostTrainBench v1.1
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -999,6 +1015,14 @@ categories:
     label: CWE-bench v1
   - key: personal_superintelligence_index
     label: Personal Superintelligence Index
+  - key: workspace_bench_lite
+    label: Workspace-Bench-Lite
+  - key: deepresearchbench_ii
+    label: DeepResearch Bench II
+  - key: harvey_lab
+    label: Harvey LAB
+  - key: aa_3d_pct
+    label: AA-3D (Elo-500)/2000
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -8328,6 +8352,8 @@ rows:
     url: https://bigmodel.cn
   - label: Artificial Analysis (τ³ 08-18)
     url: https://artificialanalysis.ai
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     hle:
     - value: '42.7'
@@ -8350,6 +8376,9 @@ rows:
     - value: '87.9'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '77.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     nl2repo:
     - value: '61.5'
       source_label: DeepSeek V4 Pro report
@@ -8357,6 +8386,9 @@ rows:
     - value: '61.1'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '49.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     cybergym:
     - value: '83.3'
       source_label: DeepSeek V4 Pro report
@@ -8364,10 +8396,16 @@ rows:
     - value: '83.3'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '83.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     deepswe:
     - value: '62.7'
       source_label: DeepSeek V4 Pro report
       source_url: https://api-docs.deepseek.com
+    - value: '54.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     toolathlon:
     - value: '74.1'
       source_label: DeepSeek V4 Pro report
@@ -8382,6 +8420,9 @@ rows:
     - value: '43.2'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '41.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     dsbench_fullstack:
     - value: '71.1'
       source_label: DeepSeek V4 Pro report
@@ -8401,6 +8442,10 @@ rows:
     - value: '39.6'
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
+      preferred: true
+    - value: '44.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
       preferred: true
     scicode:
     - value: '49'
@@ -8456,6 +8501,9 @@ rows:
     - value: '60.3'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    - value: '58.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     swe_atlas_codebase_qa:
     - value: '53.4'
       source_label: DeepSeek-V4-Pro-0813
@@ -8480,6 +8528,9 @@ rows:
     - value: '36.9'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    - value: '17.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     hy_backend_2_0:
     - value: '33.8'
       source_label: DeepSeek-V4-Pro-0813
@@ -8516,6 +8567,9 @@ rows:
     - value: '65.4'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    - value: '66.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     mcp_atlas:
     - value: '82.5'
       source_label: DeepSeek-V4-Pro-0813
@@ -8532,10 +8586,16 @@ rows:
     - value: '65.0'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    - value: '65.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     jobbench:
     - value: '54.1'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    - value: '54.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     workspacebench:
     - value: '65.4'
       source_label: DeepSeek-V4-Pro-0813
@@ -8588,6 +8648,50 @@ rows:
     - value: '15.5'
       source_label: DeepSeek-V4-Pro-0813
       source_url: https://api-docs.deepseek.com
+    wide_search:
+    - value: '81.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '86.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '62.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '58.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '87.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1493.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '46.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '29.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harvey_lab:
+    - value: '6.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    bfcl_v4:
+    - value: '71.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    browsecomp:
+    - value: '83.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
 - company: DeepSeek
   model: DeepSeek-V4-Pro-Preview
   mode: ''
@@ -10137,6 +10241,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
   scores:
     deepswe_1_1:
     - value: '71.9'
@@ -10183,6 +10289,9 @@ rows:
     - value: '35'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     terminal_bench_2_1:
     - value: '89.9'
       source_label: MiMo-V2.6-Pro
@@ -10229,6 +10338,9 @@ rows:
     - value: '51'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '51'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10239,6 +10351,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     scicode:
     - value: '61'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10249,6 +10364,9 @@ rows:
     - value: '60'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '61'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     hle:
     - value: '49'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10259,6 +10377,9 @@ rows:
     - value: '49'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '49'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
     gdp_pdf:
     - value: '19'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10269,6 +10390,9 @@ rows:
     - value: '19'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     critpt:
     - value: '27'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10279,6 +10403,9 @@ rows:
     - value: '27'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     aa_omniscience_accuracy:
     - value: '35'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10289,6 +10416,9 @@ rows:
     - value: '35'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '59'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10299,6 +10429,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     aa_lcr:
     - value: '86'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10309,6 +10442,9 @@ rows:
     - value: '86'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '86'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     aa_briefcase_rubric:
     - value: '54.7'
       source_label: MiMo-V2.6-Pro Artificial Analysis
@@ -10320,6 +10456,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     terminal_bench_science_0_1:
     - value: '6'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -10327,14 +10466,31 @@ rows:
     - value: '6'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '6'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/13.png
     mlcr_aa:
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     frontiercode_main:
     - value: '45'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    aa_analyst_agent:
+    - value: '38'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
+    aa_3d_pct:
+    - value: '24'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/18.png
 - company: MiMo
   model: MiMo-V2.6-Flash
   mode: Thinking
@@ -11505,6 +11661,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
   scores:
     gpqa:
     - value: '93.5'
@@ -11520,6 +11678,9 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
     aa_lcr:
     - value: '88.3'
       source_label: Step 5 Preview
@@ -11530,6 +11691,9 @@ rows:
     - value: '88'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '88'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     critpt:
     - value: '20.9'
       source_label: Step 5 Preview
@@ -11540,6 +11704,9 @@ rows:
     - value: '21'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '21'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     aa_omniscience_accuracy:
     - value: '42.0'
       source_label: Step 5 Preview
@@ -11550,6 +11717,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '42'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '57.0'
       source_label: Step 5 Preview
@@ -11560,6 +11730,9 @@ rows:
     - value: '57'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '57'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     deepswe_1_1:
     - value: '67.7'
       source_label: Step 5 Preview
@@ -11586,6 +11759,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     roadmapbench:
     - value: '54.3'
       source_label: Step 5 Preview
@@ -11644,6 +11820,9 @@ rows:
     - value: '51'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '51'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     automation_bench:
     - value: '44.0'
       source_label: Step 5 Preview
@@ -11723,6 +11902,9 @@ rows:
     - value: '76'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '76'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
     gdp_pdf:
     - value: '14.8'
       source_label: Step 5 Preview
@@ -11733,6 +11915,9 @@ rows:
     - value: '15'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '15'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     aa_briefcase_pct:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -11740,6 +11925,9 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '54'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -11747,6 +11935,9 @@ rows:
     - value: '54'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '54'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     terminal_bench_4_0_aa:
     - value: '33'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -11754,6 +11945,9 @@ rows:
     - value: '33'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '33'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     enterpriseops_gym_aa:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -11761,6 +11955,9 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/17.png
     terminal_bench_science_0_1:
     - value: '2'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -11768,22 +11965,41 @@ rows:
     - value: '2'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '2'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/13.png
     aa_analyst_agent:
     - value: '35'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '35'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
     itbench_aa:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/19.png
     mlcr_aa:
     - value: '17'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '17'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     frontiercode_main:
     - value: '38'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '38'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    aa_3d_pct:
+    - value: '18'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/18.png
 - company: StepFun
   model: Step 3.5 Flash
   mode: Thinking
@@ -12406,6 +12622,12 @@ rows:
     url: https://anthropic.com
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     frontier_bench:
     - value: '43.3'
@@ -12449,6 +12671,12 @@ rows:
     - value: '39.9'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '55.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '56.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     osworld_2:
     - value: '70.6'
       source_label: Opus 5
@@ -12457,6 +12685,9 @@ rows:
     - value: '68.8'
       source_label: Opus 5
       source_url: https://www.anthropic.com/news/claude-opus-5
+    - value: '72.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     frontiercode_main:
     - value: '53.4'
       source_label: Opus 5
@@ -12494,6 +12725,9 @@ rows:
     - value: '89.1'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '90.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     tau3_banking:
     - value: '32'
       source_label: Opus 5 comparison
@@ -12501,6 +12735,10 @@ rows:
     - value: '42.1'
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
+      preferred: true
+    - value: '48.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
       preferred: true
     scicode:
     - value: '55'
@@ -12545,6 +12783,9 @@ rows:
     - value: '79.2'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '76.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     swe_atlas_codebase_qa:
     - value: '57.5'
       source_label: Claude Opus 5
@@ -12577,6 +12818,15 @@ rows:
     - value: '75.3'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '75.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '75.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '79.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     posttrainbench:
     - value: '35.0'
       source_label: Claude Opus 5
@@ -12585,6 +12835,9 @@ rows:
     - value: '56.9'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '41.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     hy_backend_2_0:
     - value: '40.3'
       source_label: Claude Opus 5
@@ -12621,6 +12874,9 @@ rows:
     - value: '66.9'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '67.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     mcp_atlas:
     - value: '85.7'
       source_label: Claude Opus 5
@@ -12640,6 +12896,9 @@ rows:
     - value: '63.7'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '63.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     jobbench:
     - value: '68.0'
       source_label: Claude Opus 5
@@ -12653,6 +12912,9 @@ rows:
     - value: '65.7'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '68.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     workspacebench:
     - value: '75.0'
       source_label: Claude Opus 5
@@ -12664,6 +12926,12 @@ rows:
     - value: '32.2'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '32.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '28.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     automation_bench:
     - value: '48.7'
       source_label: Claude Opus 5
@@ -12680,10 +12948,22 @@ rows:
     - value: '26.9'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '50.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '50.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '49.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     bankertoolbench:
     - value: '81.9'
       source_label: Claude Opus 5
       source_url: https://anthropic.com
+    - value: '76.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     e_bench:
     - value: '77.8'
       source_label: Claude Opus 5
@@ -12745,6 +13025,9 @@ rows:
     - value: '41.5'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '37.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     deepswe_1_1:
     - value: '74.0'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12758,6 +13041,12 @@ rows:
     - value: '73.7'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '74.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '74.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     finance_agent_v2:
     - value: '58.6'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12777,6 +13066,12 @@ rows:
     - value: '52.3'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '51.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '51.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     terminal_bench_4_0_aa:
     - value: '51.8'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12785,10 +13080,16 @@ rows:
     - value: '37.0'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '21.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     charxiv_rq:
     - value: '83.7'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '83.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     lvbench:
     - value: '75.4'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12807,6 +13108,9 @@ rows:
     - value: '68.3'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '70.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     biomystery_bench:
     - value: '90.1'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -12918,10 +13222,80 @@ rows:
     - value: '83.4'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '84.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     iquest_clibench:
     - value: '58.2'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    loca_bench_256k:
+    - value: '53.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '40.4'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '31.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    babyvision_tools:
+    - value: '94.1'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '94.1'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    apex_bench_1_1:
+    - value: '65.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    zerobench_main_tools:
+    - value: '52.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    wide_search:
+    - value: '84.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '88.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '70.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '65.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '88.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1714.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '54.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '33.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harvey_lab:
+    - value: '22.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    browsecomp:
+    - value: '90.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
 - company: Anthropic
   model: Claude Opus 4.8
   mode: ''
@@ -16423,6 +16797,12 @@ rows:
     url: https://artificialanalysis.ai
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     agent_arena:
     - value: '9.86'
@@ -16435,6 +16815,9 @@ rows:
     - value: '1748.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '1611.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     management_consulting_tasks_internal:
     - value: '43.2'
       source_label: GPT-5.6 report
@@ -16454,6 +16837,9 @@ rows:
     - value: '64.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '59.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     deepswe_1_1:
     - value: '72.7'
       source_label: GPT-5.6 report
@@ -16473,6 +16859,12 @@ rows:
     - value: '73.0'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '73.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '73.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     terminal_bench_2_1:
     - value: '88.8'
       source_label: GPT-5.6 report
@@ -16486,6 +16878,9 @@ rows:
     - value: '88.8'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '86.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     healthbench_pro:
     - value: '60.5'
       source_label: Opus 5 comparison
@@ -16503,10 +16898,16 @@ rows:
     - value: '62.7'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '65.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     browsecomp:
     - value: '90.4'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '92.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
     benchcad:
     - value: '70.6'
       source_label: GPT-5.6 report
@@ -16526,6 +16927,12 @@ rows:
     - value: '83.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '83.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '83.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     exploit_bench:
     - value: '73.5'
       source_label: GPT-5.6 report
@@ -16587,6 +16994,9 @@ rows:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '27.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     gpqa:
     - value: '94.6'
       source_label: GPT-5.6 report
@@ -16630,6 +17040,15 @@ rows:
     - value: '28.8'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '45.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '45.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '45.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     toolathlon:
     - value: '58'
       source_label: GPT-5.6 report
@@ -16677,6 +17096,9 @@ rows:
     - value: '73.0'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '70.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     frontierswe:
     - value: '71.3'
       source_label: Kimi K3 report
@@ -16739,6 +17161,9 @@ rows:
     - value: '45.4'
       source_label: Muse Spark 1.3 Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '45.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     aa_briefcase:
     - value: '1495.0'
       source_label: Kimi K3 report
@@ -16757,10 +17182,16 @@ rows:
     - value: '65.4'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '66.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     spreadsheetbench_2:
     - value: '32.4'
       source_label: Kimi K3 report
       source_url: https://kimi.moonshot.cn
+    - value: '32.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     hle:
     - value: '47'
       source_label: Artificial Analysis
@@ -16771,6 +17202,12 @@ rows:
     - value: '49'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '49.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '44.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     hle_tools:
     - value: '58.0'
       source_label: Kimi K3 report
@@ -16794,6 +17231,9 @@ rows:
     - value: '85.8'
       source_label: Artificial Analysis (Gemini 3.8)
       source_url: https://artificialanalysis.ai
+    - value: '85.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     charxiv_rq_python:
     - value: '89.1'
       source_label: Kimi K3 report
@@ -16868,6 +17308,10 @@ rows:
     - value: '44.3'
       source_label: Artificial Analysis (τ³ 08-18)
       source_url: https://artificialanalysis.ai
+      preferred: true
+    - value: '46.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
       preferred: true
     scicode:
     - value: '57'
@@ -17149,10 +17593,16 @@ rows:
     - value: '73.5'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '62.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     workspace_bench:
     - value: '65.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '56.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     qwen_svg:
     - value: '1758'
       source_label: Qwen3.8
@@ -17217,6 +17667,9 @@ rows:
     - value: '90.5'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '92.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     qwen_visual_office:
     - value: '29.5'
       source_label: Qwen3.8
@@ -17228,6 +17681,12 @@ rows:
     - value: '28.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '30.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '26.7'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     terminal_bench_3:
     - value: '34.6'
       source_label: GLM-5.3 report
@@ -17258,10 +17717,22 @@ rows:
     - value: '56.8'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '56.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '56.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '60.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     harbor_index:
     - value: '46.3'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '35.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     hy_backend_2_0:
     - value: '49.6'
       source_label: GPT-5.6
@@ -17309,6 +17780,9 @@ rows:
     - value: '79.0'
       source_label: GPT-5.6
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '74.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     e_bench:
     - value: '80.6'
       source_label: GPT-5.6
@@ -17356,6 +17830,9 @@ rows:
     - value: '23.0'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '23.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     finance_agent_v2:
     - value: '53.8'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -17375,6 +17852,12 @@ rows:
     - value: '37.3'
       source_label: Claude Opus 5.5 report
       source_url: https://anthropic.com
+    - value: '39.9'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '39.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     terminal_bench_4_0_aa:
     - value: '37.3'
       source_label: Artificial Analysis (Gemini 3.8)
@@ -17563,6 +18046,61 @@ rows:
     - value: '58.5'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    loca_bench_256k:
+    - value: '60.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '36.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '28.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    babyvision_tools:
+    - value: '88.9'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '88.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    apex_bench_1_1:
+    - value: '54.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    chartography_tools:
+    - value: '79.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    zerobench_main_tools:
+    - value: '53.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    wide_search:
+    - value: '83.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '88.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '60.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '50.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harvey_lab:
+    - value: '5.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    deepsearch_qa:
+    - value: '93.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
 - company: OpenAI
   model: GPT-5.6 Terra
   mode: ''
@@ -25859,6 +26397,8 @@ rows:
   sources:
   - label: GPT-5.6 report
     url: https://openai.com/index/gpt-5-6/
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/1.png
   scores:
     swe_pro:
     - value: '77.8'
@@ -25884,6 +26424,9 @@ rows:
     - value: '83'
       source_label: GPT-5.6 report
       source_url: https://openai.com/index/gpt-5-6/
+    - value: '83.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/1.png
     exploit_bench:
     - value: '74.2'
       source_label: GPT-5.6 report
@@ -28128,6 +28671,14 @@ rows:
     url: https://beam.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     agent_arena:
     - value: '9.62'
@@ -28137,6 +28688,9 @@ rows:
     - value: '67.5'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '70.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     terminal_bench_2_1:
     - value: '88.3'
       source_label: Kimi K3
@@ -28150,6 +28704,9 @@ rows:
     - value: '88.3'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '84.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     frontierswe:
     - value: '81.2'
       source_label: Kimi K3
@@ -28184,6 +28741,9 @@ rows:
     - value: '1668.0'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '1606.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     browsecomp:
     - value: '91.2'
       source_label: Kimi K3
@@ -28191,6 +28751,9 @@ rows:
     - value: '91.2'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '91.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
     deepsearch_qa:
     - value: '95.0'
       source_label: Kimi K3
@@ -28198,6 +28761,9 @@ rows:
     - value: '95.0'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    - value: '95.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     toolathlon:
     - value: '76.5'
       source_label: DeepSeek V4 Pro report
@@ -28225,10 +28791,22 @@ rows:
     - value: '46.7'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '46.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '46.7'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '45.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     jobbench:
     - value: '54.3'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '54.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     aa_briefcase:
     - value: '1548.0'
       source_label: Kimi K3
@@ -28250,10 +28828,16 @@ rows:
     - value: '65.4'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '65.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     spreadsheetbench_2:
     - value: '34.8'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '35.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     gpqa:
     - value: '93.5'
       source_label: Kimi K3
@@ -28277,6 +28861,15 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '43.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '47'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
+    - value: '43.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     hle_tools:
     - value: '57.0'
       source_label: Kimi K3
@@ -28297,6 +28890,9 @@ rows:
     - value: '81'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '81'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
     mmmu_pro_tools:
     - value: '83.4'
       source_label: Kimi K3
@@ -28308,6 +28904,9 @@ rows:
     - value: '83.5'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    - value: '84.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     charxiv_rq_python:
     - value: '91.3'
       source_label: Kimi K3
@@ -28371,6 +28970,9 @@ rows:
     - value: '37.1'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '37.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     scicode:
     - value: '59.0'
       source_label: Artificial Analysis
@@ -28384,6 +28986,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     critpt:
     - value: '23.0'
       source_label: Artificial Analysis
@@ -28400,6 +29005,9 @@ rows:
     - value: '23'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     aa_omniscience_accuracy:
     - value: '46.0'
       source_label: Artificial Analysis
@@ -28410,6 +29018,9 @@ rows:
     - value: '48'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '49.0'
       source_label: Artificial Analysis
@@ -28420,6 +29031,9 @@ rows:
     - value: '47'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     enterpriseops_gym_aa:
     - value: '45.0'
       source_label: Artificial Analysis
@@ -28433,6 +29047,9 @@ rows:
     - value: '45'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/17.png
     gdpval_aa_pct:
     - value: '59'
       source_label: Artificial Analysis
@@ -28450,6 +29067,9 @@ rows:
     - value: '89'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '89'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     cybergym:
     - value: '80.0'
       source_label: DeepSeek V4 Pro report
@@ -28457,6 +29077,12 @@ rows:
     - value: '80.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '80.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '78.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     dsbench_fullstack:
     - value: '73.7'
       source_label: DeepSeek V4 Pro report
@@ -28478,6 +29104,12 @@ rows:
     - value: '27.6'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '28.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '27.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     arc_agi_2:
     - value: '60.4'
       source_label: dots3-note report
@@ -28490,6 +29122,9 @@ rows:
     - value: '63.4'
       source_label: dots3-note report
       source_url: https://news.qq.com/rain/a/20260814A0CXZ700
+    - value: '62.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     browsecomp_ctx:
     - value: '91.2'
       source_label: dots3-note report
@@ -28541,10 +29176,25 @@ rows:
     - value: '68.0'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '67.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '67.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '58.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '58.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '63.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     exploitgym:
     - value: 36 / 70
       source_label: GLM-5.3 report
@@ -28613,6 +29263,9 @@ rows:
     - value: '51.9'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '51.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     workspacebench:
     - value: '65.0'
       source_label: Kimi K3
@@ -28621,6 +29274,9 @@ rows:
     - value: '73.5'
       source_label: Kimi K3
       source_url: https://kimi.moonshot.cn
+    - value: '69.1'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     e_bench:
     - value: '73.8'
       source_label: Kimi K3
@@ -28665,6 +29321,9 @@ rows:
     - value: '24.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '17.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     cursorbench_3_2:
     - value: '60.8'
       source_label: CursorBench 3.2 (Max)
@@ -28682,6 +29341,9 @@ rows:
     - value: '50'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '50'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -28689,6 +29351,9 @@ rows:
     - value: '52'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     automation_bench_aa:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -28696,6 +29361,9 @@ rows:
     - value: '58'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     terminal_bench_4_0_aa:
     - value: '13'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -28703,6 +29371,9 @@ rows:
     - value: '13'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '13'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     gdp_pdf:
     - value: '22'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -28710,6 +29381,12 @@ rows:
     - value: '22'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '22.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '22'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     harvey_lab_aa:
     - value: '5'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -28717,18 +29394,30 @@ rows:
     - value: '5'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '5'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/16.png
     aa_analyst_agent:
     - value: '39'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
     itbench_aa:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/19.png
     mlcr_aa:
     - value: '38'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '38'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     swe_bench_pro_v2_hard:
     - value: '88.2'
       source_label: Beam report
@@ -28745,6 +29434,91 @@ rows:
     - value: '44'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    terminal_bench_4_0:
+    - value: '12.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '12.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    loca_bench_256k:
+    - value: '49.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    osworld_2_0:
+    - value: '58.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '36.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '19.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    babyvision_tools:
+    - value: '85.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '85.7'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    aa_3d_pct:
+    - value: '24'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/18.png
+    apex_bench_1_1:
+    - value: '47.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    chartography_tools:
+    - value: '68.1'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    zerobench_main_tools:
+    - value: '41.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    wide_search:
+    - value: '79.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '85.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '64.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '63.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '80.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '51.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harbor_index:
+    - value: '24.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    harvey_lab:
+    - value: '25.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    bfcl_v4:
+    - value: '69.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
 - company: NVIDIA
   model: Nemotron-3-Super-120B-A12B
   mode: ''
@@ -28866,11 +29640,16 @@ rows:
     url: https://artificialanalysis.ai
   - label: Beam report
     url: https://beam.ai
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     swe_pro:
     - value: '67.7'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '65.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     terminal_bench_2_1:
     - value: '86.6'
       source_label: Qwen3.8
@@ -28881,10 +29660,16 @@ rows:
     - value: '86.6'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '89.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     paperbench:
     - value: '93.0'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '94.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     frontierswe:
     - value: '73.5'
       source_label: Qwen3.8
@@ -28907,6 +29692,9 @@ rows:
     - value: '53.4'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '52.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     babyvision:
     - value: '91.3'
       source_label: Qwen3.8
@@ -28993,10 +29781,16 @@ rows:
     - value: '67.7'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '68.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     skillsbench:
     - value: '70.2'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '66.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     automation_bench:
     - value: '39.8'
       source_label: Qwen3.8
@@ -29007,6 +29801,9 @@ rows:
     - value: '39.8'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '49.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     toolathlon:
     - value: '72.5'
       source_label: Qwen3.8
@@ -29018,6 +29815,9 @@ rows:
     - value: '81.9'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '81.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     hle_tools:
     - value: '56.2'
       source_label: Qwen3.8
@@ -29313,6 +30113,10 @@ rows:
     - value: '55.2'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '55.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+      preferred: true
     scicode:
     - value: '53'
       source_label: Qwen3.8 Artificial Analysis
@@ -29385,10 +30189,16 @@ rows:
     - value: '55.9'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '63.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     cybergym:
     - value: '78.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '73.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     exploitgym:
     - value: 14 / 26
       source_label: GLM-5.3 report
@@ -29409,6 +30219,9 @@ rows:
     - value: '56.6'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '67.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     swe_atlas_codebase_qa:
     - value: '55.4'
       source_label: Qwen3.8
@@ -29432,6 +30245,9 @@ rows:
     - value: '38.8'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '25.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     hy_backend_2_0:
     - value: '34.9'
       source_label: Qwen3.8
@@ -29468,6 +30284,9 @@ rows:
     - value: '65.4'
       source_label: Qwen3.8
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '66.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     mcp_atlas:
     - value: '81.9'
       source_label: Qwen3.8
@@ -29585,6 +30404,30 @@ rows:
     - value: '67.7'
       source_label: Beam report
       source_url: https://beam.ai
+    mle_bench_lite:
+    - value: '81.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '68.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1710.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '49.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '34.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harvey_lab:
+    - value: '24.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
 - company: Qwen
   model: Qwen3.8-Max-0902
   mode: ''
@@ -29596,6 +30439,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
   scores:
     terminal_bench_3:
     - value: '29.0'
@@ -29656,6 +30501,9 @@ rows:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '83'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
     erqa:
     - value: '78.3'
       source_label: Qwen3.8-Max-0902 report
@@ -29675,6 +30523,9 @@ rows:
     - value: '56'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29682,6 +30533,9 @@ rows:
     - value: '58'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     automation_bench_aa:
     - value: '56'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29689,6 +30543,9 @@ rows:
     - value: '56'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '56'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     terminal_bench_4_0_aa:
     - value: '39'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29696,6 +30553,9 @@ rows:
     - value: '39'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '39'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     scicode:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29703,6 +30563,9 @@ rows:
     - value: '52'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     hle:
     - value: '43'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29710,6 +30573,9 @@ rows:
     - value: '43'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
     gdp_pdf:
     - value: '23'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29717,6 +30583,9 @@ rows:
     - value: '23'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     critpt:
     - value: '18'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29724,6 +30593,9 @@ rows:
     - value: '18'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '18'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     aa_omniscience_accuracy:
     - value: '32'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29731,6 +30603,9 @@ rows:
     - value: '32'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '32'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '71'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29738,6 +30613,9 @@ rows:
     - value: '71'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '71'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     aa_lcr:
     - value: '80'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29745,6 +30623,9 @@ rows:
     - value: '80'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     enterpriseops_gym_aa:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29752,6 +30633,9 @@ rows:
     - value: '48'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/17.png
     terminal_bench_science_0_1:
     - value: '12'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -29759,22 +30643,41 @@ rows:
     - value: '12'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '12'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/13.png
     aa_analyst_agent:
     - value: '45'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '45'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
     itbench_aa:
     - value: '40'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '40'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/19.png
     mlcr_aa:
     - value: '20'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '20'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     frontiercode_main:
     - value: '43'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '43'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    aa_3d_pct:
+    - value: '22'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/18.png
 - company: xAI
   model: Grok 4.3
   mode: ''
@@ -30362,6 +31265,14 @@ rows:
     url: https://iquest.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
   scores:
     terminal_bench_2_1:
     - value: '88.2'
@@ -30370,6 +31281,9 @@ rows:
     - value: '88.2'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '86.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     terminal_bench_3:
     - value: '28.3'
       source_label: GLM-5.3 report
@@ -30384,6 +31298,12 @@ rows:
     - value: '66.9'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '66.9'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '66.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
@@ -30391,6 +31311,15 @@ rows:
     - value: '58.0'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '58.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '58.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '54.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     frontierswe:
     - value: '78.1'
       source_label: GLM-5.3 report
@@ -30410,6 +31339,12 @@ rows:
     - value: '84.5'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '84.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '84.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     exploitgym:
     - value: 105 / 130
       source_label: GLM-5.3 report
@@ -30429,10 +31364,22 @@ rows:
     - value: '48.2'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '48.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '48.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '52.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     agents_last_exam:
     - value: '28.5'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '28.5'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     hle_tools:
     - value: '62.5'
       source_label: GLM-5.3 report
@@ -30449,6 +31396,9 @@ rows:
       source_label: Artificial Analysis (GLM-5.3)
       source_url: https://artificialanalysis.ai
       preferred: true
+    - value: '40.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     scicode:
     - value: '56'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30462,6 +31412,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '59'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     hle:
     - value: '42'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30478,6 +31431,16 @@ rows:
     - value: '42'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '42.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '42'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
+    - value: '42.0*'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+      exclude_from_ranking: true
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30501,6 +31464,9 @@ rows:
     - value: '19'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '19'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     aa_omniscience_accuracy:
     - value: '34'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30511,6 +31477,9 @@ rows:
     - value: '34'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '34'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '70'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30521,6 +31490,9 @@ rows:
     - value: '70'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '70'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     aa_lcr:
     - value: '76'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30534,6 +31506,9 @@ rows:
     - value: '80'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '80'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     terminal_bench_2_1_aa:
     - value: '84'
       source_label: Artificial Analysis (GLM-5.3)
@@ -30546,10 +31521,16 @@ rows:
     - value: '64.6'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '60.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     deepswe:
     - value: '66.9'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '67.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     swe_atlas_codebase_qa:
     - value: '55.8'
       source_label: GLM-5.3
@@ -30566,6 +31547,9 @@ rows:
     - value: '42.5'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '20.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     hy_backend_2_0:
     - value: '41.9'
       source_label: GLM-5.3
@@ -30602,6 +31586,9 @@ rows:
     - value: '66.2'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '65.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
     mcp_atlas:
     - value: '81.9'
       source_label: GLM-5.3
@@ -30621,6 +31608,9 @@ rows:
     - value: '63.3'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '63.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     jobbench:
     - value: '58.2'
       source_label: GLM-5.3
@@ -30628,6 +31618,9 @@ rows:
     - value: '61.4'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '58.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
     workspacebench:
     - value: '68.2'
       source_label: GLM-5.3
@@ -30636,6 +31629,9 @@ rows:
     - value: '77.8'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '74.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     e_bench:
     - value: '71.4'
       source_label: GLM-5.3
@@ -30664,6 +31660,9 @@ rows:
     - value: '19.0'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '19.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     aa_briefcase_pct:
     - value: '50'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30671,6 +31670,9 @@ rows:
     - value: '50'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '50'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '58'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30678,6 +31680,9 @@ rows:
     - value: '58'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '58'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     automation_bench_aa:
     - value: '62'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30685,6 +31690,9 @@ rows:
     - value: '62'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '62'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     terminal_bench_4_0_aa:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30692,6 +31700,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '42'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     gdp_pdf:
     - value: '11'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30699,6 +31710,12 @@ rows:
     - value: '11'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '11.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '11'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     harvey_lab_aa:
     - value: '0'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30706,6 +31723,9 @@ rows:
     - value: '0'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '0'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/16.png
     enterpriseops_gym_aa:
     - value: '36'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30713,6 +31733,9 @@ rows:
     - value: '36'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '36'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/17.png
     terminal_bench_science_0_1:
     - value: '10'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -30720,14 +31743,23 @@ rows:
     - value: '10'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '10'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/13.png
     itbench_aa:
     - value: '46'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/19.png
     mlcr_aa:
     - value: '48'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     swe_bench_pro_v2_hard:
     - value: '84.3'
       source_label: Beam report
@@ -30744,6 +31776,88 @@ rows:
     - value: '40'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '40'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    terminal_bench_4_0:
+    - value: '37.9'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '37.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    loca_bench_256k:
+    - value: '50.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '37.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '10.4'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    aa_analyst_agent:
+    - value: '39'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
+    aa_3d_pct:
+    - value: '14'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/18.png
+    apex_bench_1_1:
+    - value: '56.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    wide_search:
+    - value: '82.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '80.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '71.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '67.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '86.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1643.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '52.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '32.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    harvey_lab:
+    - value: '22.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    bfcl_v4:
+    - value: '74.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    deepsearch_qa:
+    - value: '94.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    browsecomp:
+    - value: '89.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
 - company: Tencent
   model: Hunyuan 4 Preview
   mode: ''
@@ -32047,19 +33161,37 @@ rows:
   sources:
   - label: DeepSeek-V4.1-Flash-1017 result table
     url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
   scores:
     hle:
     - value: '42.6/44.0*'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '44.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '43'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
     terminal_bench_4_0:
     - value: '42.3'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '42.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     deepswe_1_1:
     - value: '77.0'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '77.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     program_bench:
     - value: '29.1'
       source_label: DS-V4.1-Flash-1017
@@ -32068,10 +33200,16 @@ rows:
     - value: '68.2'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '68.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     automation_bench:
     - value: '60.5'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '60.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     agents_last_exam:
     - value: '35.4'
       source_label: DS-V4.1-Flash-1017
@@ -32088,10 +33226,61 @@ rows:
     - value: '92.5'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '92.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
     zerobench_main_tools:
     - value: '51.0'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    aa_briefcase_pct:
+    - value: '54'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+    aa_omniscience_accuracy:
+    - value: '43'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
+    aa_omniscience_non_hallucination:
+    - value: '33'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
+    automation_bench_aa:
+    - value: '67'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
+    gdpval_aa_v2_pct:
+    - value: '62'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
+    gdp_pdf:
+    - value: '17'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
+    terminal_bench_4_0_aa:
+    - value: '34'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
+    aa_lcr:
+    - value: '83'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
+    scicode:
+    - value: '56'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
+    critpt:
+    - value: '24'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
+    frontiercode_main:
+    - value: '44'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    mmmu_pro:
+    - value: '81'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
 - company: DeepSeek
   model: DeepSeek-V4.1-Flash
   mode: ''
@@ -32108,6 +33297,12 @@ rows:
     url: https://iquest.ai
   - label: Artificial Analysis (Muse Wonder)
     url: https://artificialanalysis.ai
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+  - label: DS-V4.1-Flash-1017
+    url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
   scores:
     gpqa:
     - value: '86.3'
@@ -32133,6 +33328,15 @@ rows:
     - value: '39'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '39.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '39'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
+    - value: '36.8/39.1*'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     codeforces:
     - value: '3471'
       source_label: DeepSeek V4.1-Flash report
@@ -32160,6 +33364,12 @@ rows:
     - value: '31.2'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '31.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '31.2'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     deepswe_1_1:
     - value: '63.9'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32172,14 +33382,29 @@ rows:
     - value: '74.2'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '74.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '74.2'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     program_bench:
     - value: '20.3'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '20.3'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     nl2repo:
     - value: '65.4'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '65.4'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '65.4'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     cybergym:
     - value: '77.5'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32215,6 +33440,12 @@ rows:
     - value: '54.8'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: '54.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '54.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     agents_last_exam:
     - value: '20.4'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32224,12 +33455,18 @@ rows:
     - value: '31.8'
       source_label: IQuest-Q1 report
       source_url: https://iquest.ai
+    - value: '31.8'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     chartography_tools:
     - value: '54.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
     - value: '78.9'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '78.9'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     babyvision_python:
     - value: '70.1'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32240,6 +33477,9 @@ rows:
     - value: '49.0'
       source_label: DeepSeek V4.1-Flash report
       source_url: https://api-docs.deepseek.com
+    - value: '49.0'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
     mmmlu:
     - value: '87.1'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32252,6 +33492,9 @@ rows:
     - value: '77'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '77'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
     gdp_pdf:
     - value: '15.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32261,6 +33504,12 @@ rows:
     - value: '13'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '12.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '13'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
     tau3_banking:
     - value: '30.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32276,6 +33525,9 @@ rows:
     - value: '84'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '84'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
     critpt:
     - value: '12.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32288,6 +33540,9 @@ rows:
     - value: '14'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '14'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
     mls_bench_lite:
     - value: '26.8'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32309,6 +33564,9 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
     aa_omniscience_non_hallucination:
     - value: '48.2'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32318,6 +33576,9 @@ rows:
     - value: '4'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '4'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
     jobbench:
     - value: '44.3'
       source_label: DeepSeek-V4.1-Flash 实测 (0920)
@@ -32337,6 +33598,9 @@ rows:
     - value: '46'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '46'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
     gdpval_aa_v2_pct:
     - value: '55'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32344,6 +33608,9 @@ rows:
     - value: '55'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '55'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
     automation_bench_aa:
     - value: '69'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32351,6 +33618,9 @@ rows:
     - value: '69'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '69'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
     terminal_bench_4_0_aa:
     - value: '27'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32358,6 +33628,9 @@ rows:
     - value: '27'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '27'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
     scicode:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32368,6 +33641,9 @@ rows:
     - value: '52'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '52'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
     harvey_lab_aa:
     - value: '2'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32375,6 +33651,9 @@ rows:
     - value: '2'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '2'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/16.png
     terminal_bench_science_0_1:
     - value: '9'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32382,14 +33661,23 @@ rows:
     - value: '9'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '9'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/13.png
     itbench_aa:
     - value: '47'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '47'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/19.png
     mlcr_aa:
     - value: '23'
       source_label: Artificial Analysis (Claude Opus 5.5)
       source_url: https://artificialanalysis.ai
+    - value: '23'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/20.png
     aa_omniscience_index:
     - value: '6.6'
       source_label: Beam report
@@ -32398,6 +33686,44 @@ rows:
     - value: '44'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+    - value: '44'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    bankertoolbench:
+    - value: '73.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    osworld_2_0:
+    - value: '54.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '30.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '11.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    babyvision_tools:
+    - value: '89.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '89.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    charxiv_rq:
+    - value: '69.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    aa_analyst_agent:
+    - value: '35'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/15.png
+    apex_bench_1_1:
+    - value: '64.6'
+      source_label: DS-V4.1-Flash-1017
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
 - company: OpenAI
   model: GPT-6 Astra
   mode: Max reasoning effort
@@ -34660,6 +35986,314 @@ rows:
     - value: '14'
       source_label: Artificial Analysis (Muse Wonder)
       source_url: https://artificialanalysis.ai
+- company: MiniMax
+  model: MiniMax-M3.1-Flash
+  mode: ''
+  released: ''
+  sources:
+  - label: MiniMax-M3.1-Flash report
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+  - label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+    url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+  scores:
+    automation_bench:
+    - value: '62.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    bankertoolbench:
+    - value: '76.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    gdp_pdf:
+    - value: '20.8'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '21'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/8.png
+    terminal_bench_4_0:
+    - value: '38.1'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    loca_bench_256k:
+    - value: '60.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    agents_last_exam:
+    - value: '29.6'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    osworld_2_0:
+    - value: '61.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    posttrainbench_1_1:
+    - value: '39.3'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    deepswe_1_1:
+    - value: '73.7'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    nl2repo:
+    - value: '61.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    swe_refactor_bench:
+    - value: '23.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    cybergym:
+    - value: '82.2'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    babyvision_tools:
+    - value: '91.0'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    hle:
+    - value: '43.4'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
+    charxiv_rq:
+    - value: '82.5'
+      source_label: MiniMax-M3.1-Flash report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    aa_briefcase_pct:
+    - value: '49'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/2.png
+    aa_omniscience_accuracy:
+    - value: '56'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/3.png
+    aa_omniscience_non_hallucination:
+    - value: '7'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/4.png
+    automation_bench_aa:
+    - value: '73'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
+    gdpval_aa_v2_pct:
+    - value: '48'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/6.png
+    terminal_bench_4_0_aa:
+    - value: '26'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/9.png
+    aa_lcr:
+    - value: '80'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/10.png
+    scicode:
+    - value: '53'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/11.png
+    critpt:
+    - value: '22'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/12.png
+    frontiercode_main:
+    - value: '39'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/14.png
+    mmmu_pro:
+    - value: '79'
+      source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
+- company: Atria
+  model: Atria Dawn
+  mode: ''
+  released: ''
+  sources:
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+  scores:
+    automation_bench:
+    - value: '54.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    cybergym:
+    - value: '86.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    skillsbench:
+    - value: '67.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    wide_search:
+    - value: '84.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '88.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '70.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '66.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '89.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    jobbench:
+    - value: '57.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1594.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '51.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '33.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    tau3_banking:
+    - value: '43.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    terminal_bench_2_1:
+    - value: '81.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    swe_pro:
+    - value: '61.7'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    nl2repo:
+    - value: '50.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    harbor_index:
+    - value: '17.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    deepswe:
+    - value: '49.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    harvey_lab:
+    - value: '27.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    bfcl_v4:
+    - value: '78.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    deepsearch_qa:
+    - value: '96.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    officeqa_pro:
+    - value: '67.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    browsecomp:
+    - value: '91.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
+- company: Atria
+  model: Atria Dawn Preview
+  mode: ''
+  released: ''
+  sources:
+  - label: Atria Dawn report
+    url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+  scores:
+    automation_bench:
+    - value: '53.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    cybergym:
+    - value: '86.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    skillsbench:
+    - value: '66.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    wide_search:
+    - value: '81.9'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    mle_bench_lite:
+    - value: '86.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench_lite:
+    - value: '68.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    workspace_bench:
+    - value: '65.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    paperbench:
+    - value: '87.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    jobbench:
+    - value: '50.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    gdpval_aa:
+    - value: '1583.8'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    deepresearchbench_ii:
+    - value: '51.1'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    spreadsheetbench_2:
+    - value: '31.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    tau3_banking:
+    - value: '41.2'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    terminal_bench_2_1:
+    - value: '78.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    swe_pro:
+    - value: '59.6'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    nl2repo:
+    - value: '51.4'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    harbor_index:
+    - value: '17.3'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    bfcl_v4:
+    - value: '77.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    deepsearch_qa:
+    - value: '96.0'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    browsecomp:
+    - value: '92.5'
+      source_label: Atria Dawn report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
 collections:
   overall:
     label: ' 综合'

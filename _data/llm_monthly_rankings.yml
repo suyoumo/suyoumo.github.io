@@ -1,113 +1,114 @@
 month: "2026-10"
 month_label: "2026 年 10 月"
-as_of: "2026-10-17"
+as_of: "2026-10-20"
 top_n: 50
 categories:
   - key: overall
     label: 综合
     description: 全部核心 benchmark
     global:
-      - { rank: 1, model: "Claude Opus 5.5", company: "Anthropic", score: "98.6", released: "2026-09-22" }
-      - { rank: 2, model: "Claude Sonnet 5.5", company: "Anthropic", score: "98.1", released: "2026-09-28" }
-      - { rank: 3, model: "GPT-6 Astra", company: "OpenAI", score: "96.5", released: "2026-09-04" }
-      - { rank: 4, model: "Claude Fable 5.1", company: "Anthropic", score: "96.5", released: "2026-09-03" }
-      - { rank: 5, model: "Muse Wonder Full", company: "Meta", score: "96.3", released: "2026-10-12" }
-      - { rank: 6, model: "Gemini 4 Argon", company: "Google", score: "94.4", released: "2026-09-30" }
-      - { rank: 7, model: "GPT-6.1 Sol", company: "OpenAI", score: "93.9", released: "2026-09-29" }
-      - { rank: 8, model: "Claude Opus 5", company: "Anthropic", score: "92.0", released: "2026-07-25" }
-      - { rank: 9, model: "Muse Wonder", company: "Meta", score: "91.6", released: "2026-10-12" }
-      - { rank: 10, model: "Claude Mythos 5", company: "Anthropic", score: "90.9", released: "2026-07-11" }
-      - { rank: 11, model: "Claude Fable 5", company: "Anthropic", score: "90.3", released: "2026-07-01" }
-      - { rank: 12, model: "GPT-5.6 Sol", company: "OpenAI", score: "90.3", released: "2026-07-11" }
-      - { rank: 13, model: "Claude Mythos Preview", company: "Anthropic", score: "89.3", released: "2026-07-11" }
-      - { rank: 14, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "88.7", new: true, released: "2026-10-17" }
-      - { rank: 15, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.6", released: "2026-09-22" }
-      - { rank: 16, model: "Muse Spark 1.3", company: "Meta", score: "88.1", released: "2026-09-02" }
-      - { rank: 17, model: "Gemini 3.8 Flash", company: "Google", score: "87.2", released: "2026-09-03" }
-      - { rank: 18, model: "Grok 4.6 High", company: "xAI", score: "82.3", released: "2026-08-13" }
-      - { rank: 19, model: "Kimi K3", company: "Moonshot", score: "81.9", released: "2026-07-17" }
-      - { rank: 20, model: "Qwen3.8-Max-0902", company: "Qwen", score: "81.5", released: "2026-09-02" }
-      - { rank: 21, model: "GPT-5.6 Terra", company: "OpenAI", score: "81.0", released: "2026-07-11" }
-      - { rank: 22, model: "GLM-5.3", company: "Zhipu AI", score: "80.5", released: "2026-08-14" }
-      - { rank: 23, model: "Step 5 Preview", company: "StepFun", score: "80.5", released: "2026-09-20" }
-      - { rank: 24, model: "Grok 4.7", company: "xAI", score: "79.2", released: "2026-09-22" }
-      - { rank: 25, model: "Claude Opus 4.8", company: "Anthropic", score: "78.3", released: "2026-05-28" }
-      - { rank: 26, model: "Gemini 3.7 Flash", company: "Google", score: "77.4", released: "2026-08-14" }
-      - { rank: 27, model: "MiMo-V2.6-Flash", company: "MiMo", score: "75.9", released: "2026-09-22" }
-      - { rank: 28, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "75.7", released: "2026-09-10" }
-      - { rank: 29, model: "Claude Haiku 5.5", company: "Anthropic", score: "75.2", released: "2026-10-07" }
-      - { rank: 30, model: "GPT-5.5", company: "OpenAI", score: "73.9", released: "2026-05-10" }
-      - { rank: 31, model: "Qwen3.8-Max", company: "Qwen", score: "72.6", released: "2026-08-04" }
-      - { rank: 32, model: "Muse Spark 1.1", company: "Meta", score: "72.6", released: "2026-07-09" }
-      - { rank: 33, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.9", released: "2026-08-28" }
-      - { rank: 34, model: "Muse Spark 1.2", company: "Meta", score: "71.7", released: "2026-08-05" }
-      - { rank: 35, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "69.5", released: "2026-08-13" }
-      - { rank: 36, model: "Grok 4.5", company: "xAI", score: "67.3", released: "2026-07-08" }
-      - { rank: 37, model: "GPT-6 Luna", company: "OpenAI", score: "67.0", released: "2026-09-22" }
-      - { rank: 38, model: "GPT-5.6 Luna", company: "OpenAI", score: "64.6", released: "2026-07-11" }
-      - { rank: 39, model: "Ling-3.1-Flash", company: "InclusionAI", score: "64.1", released: "2026-09-30" }
-      - { rank: 40, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "63.7", released: "2026-08-27" }
-      - { rank: 41, model: "GPT-5.4", company: "OpenAI", score: "63.3", released: "2026-03-05" }
-      - { rank: 42, model: "Claude Opus 4.7", company: "Anthropic", score: "62.4", released: "2026-04-16" }
-      - { rank: 43, model: "Claude Sonnet 5", company: "Anthropic", score: "61.5", released: "2026-07-01" }
-      - { rank: 44, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "61.5", released: "2026-07-31" }
-      - { rank: 45, model: "Gemini 3.6 Flash", company: "Google", score: "61.1", released: "2026-07-15" }
-      - { rank: 46, model: "GLM-5.2", company: "Zhipu AI", score: "60.6", released: "2026-07-01" }
-      - { rank: 47, model: "dots3-note Preview", company: "RedNote", score: "59.9", released: "2026-08-14" }
-      - { rank: 48, model: "GPT-5.3-Codex", company: "OpenAI", score: "58.4", released: "2026-01-22" }
-      - { rank: 49, model: "Gemini 3.5 Flash", company: "Google", score: "58.4", released: "2026-04-15" }
-      - { rank: 50, model: "Gemini 3.1 Pro", company: "Google", score: "57.5", released: "2026-02-19" }
+      - { rank: 1, model: "Claude Sonnet 5.5", company: "Anthropic", score: "98.2", released: "2026-09-28" }
+      - { rank: 2, model: "Claude Opus 5.5", company: "Anthropic", score: "97.8", released: "2026-09-22" }
+      - { rank: 3, model: "Claude Fable 5.1", company: "Anthropic", score: "96.6", released: "2026-09-03" }
+      - { rank: 4, model: "Muse Wonder Full", company: "Meta", score: "96.4", released: "2026-10-12" }
+      - { rank: 5, model: "GPT-6 Astra", company: "OpenAI", score: "95.3", released: "2026-09-04" }
+      - { rank: 6, model: "GPT-6.1 Sol", company: "OpenAI", score: "93.9", released: "2026-09-29" }
+      - { rank: 7, model: "Gemini 4 Argon", company: "Google", score: "92.7", released: "2026-09-30" }
+      - { rank: 8, model: "Claude Opus 5", company: "Anthropic", score: "92.7", released: "2026-07-25" }
+      - { rank: 9, model: "Muse Wonder", company: "Meta", score: "91.8", released: "2026-10-12" }
+      - { rank: 10, model: "GPT-5.6 Sol", company: "OpenAI", score: "91.4", released: "2026-07-11" }
+      - { rank: 11, model: "Claude Mythos 5", company: "Anthropic", score: "89.7", released: "2026-07-11" }
+      - { rank: 12, model: "Claude Fable 5", company: "Anthropic", score: "89.7", released: "2026-07-01" }
+      - { rank: 13, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.2", new: true, released: "2026-10-17" }
+      - { rank: 14, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.9", released: "2026-09-22" }
+      - { rank: 15, model: "Muse Spark 1.3", company: "Meta", score: "88.8", released: "2026-09-02" }
+      - { rank: 16, model: "Claude Mythos Preview", company: "Anthropic", score: "87.3", released: "2026-07-11" }
+      - { rank: 17, model: "Gemini 3.8 Flash", company: "Google", score: "86.6", released: "2026-09-03" }
+      - { rank: 18, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "82.3", new: true, released: "" }
+      - { rank: 19, model: "Grok 4.6 High", company: "xAI", score: "81.5", released: "2026-08-13" }
+      - { rank: 20, model: "Qwen3.8-Max-0902", company: "Qwen", score: "81.1", released: "2026-09-02" }
+      - { rank: 21, model: "Kimi K3", company: "Moonshot", score: "80.6", released: "2026-07-17" }
+      - { rank: 22, model: "GLM-5.3", company: "Zhipu AI", score: "80.2", released: "2026-08-14" }
+      - { rank: 23, model: "Atria Dawn", company: "Atria", score: "78.9", new: true, released: "" }
+      - { rank: 24, model: "GPT-5.6 Terra", company: "OpenAI", score: "78.9", released: "2026-07-11" }
+      - { rank: 25, model: "Step 5 Preview", company: "StepFun", score: "78.9", released: "2026-09-20" }
+      - { rank: 26, model: "Grok 4.7", company: "xAI", score: "78.0", released: "2026-09-22" }
+      - { rank: 27, model: "Claude Opus 4.8", company: "Anthropic", score: "76.3", released: "2026-05-28" }
+      - { rank: 28, model: "MiMo-V2.6-Flash", company: "MiMo", score: "75.6", released: "2026-09-22" }
+      - { rank: 29, model: "Atria Dawn Preview", company: "Atria", score: "75.5", new: true, released: "" }
+      - { rank: 30, model: "Gemini 3.7 Flash", company: "Google", score: "75.4", released: "2026-08-14" }
+      - { rank: 31, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "74.6", released: "2026-09-10" }
+      - { rank: 32, model: "Claude Haiku 5.5", company: "Anthropic", score: "74.5", released: "2026-10-07" }
+      - { rank: 33, model: "Qwen3.8-Max", company: "Qwen", score: "72.4", released: "2026-08-04" }
+      - { rank: 34, model: "GPT-5.5", company: "OpenAI", score: "72.0", released: "2026-05-10" }
+      - { rank: 35, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.7", released: "2026-08-28" }
+      - { rank: 36, model: "Muse Spark 1.1", company: "Meta", score: "71.1", released: "2026-07-09" }
+      - { rank: 37, model: "Muse Spark 1.2", company: "Meta", score: "70.3", released: "2026-08-05" }
+      - { rank: 38, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "67.2", released: "2026-08-13" }
+      - { rank: 39, model: "Grok 4.5", company: "xAI", score: "66.8", released: "2026-07-08" }
+      - { rank: 40, model: "GPT-6 Luna", company: "OpenAI", score: "66.4", released: "2026-09-22" }
+      - { rank: 41, model: "Ling-3.1-Flash", company: "InclusionAI", score: "63.5", released: "2026-09-30" }
+      - { rank: 42, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "62.9", released: "2026-08-27" }
+      - { rank: 43, model: "GPT-5.6 Luna", company: "OpenAI", score: "62.9", released: "2026-07-11" }
+      - { rank: 44, model: "GPT-5.4", company: "OpenAI", score: "61.6", released: "2026-03-05" }
+      - { rank: 45, model: "Claude Sonnet 5", company: "Anthropic", score: "60.8", released: "2026-07-01" }
+      - { rank: 46, model: "Claude Opus 4.7", company: "Anthropic", score: "60.8", released: "2026-04-16" }
+      - { rank: 47, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.9", released: "2026-07-31" }
+      - { rank: 48, model: "Gemini 3.6 Flash", company: "Google", score: "59.5", released: "2026-07-15" }
+      - { rank: 49, model: "dots3-note Preview", company: "RedNote", score: "59.2", released: "2026-08-14" }
+      - { rank: 50, model: "GLM-5.2", company: "Zhipu AI", score: "59.1", released: "2026-07-01" }
     domestic:
-      - { rank: 1, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "88.7", new: true, released: "2026-10-17" }
-      - { rank: 2, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.6", released: "2026-09-22" }
-      - { rank: 3, model: "Kimi K3", company: "Moonshot", score: "81.9", released: "2026-07-17" }
-      - { rank: 4, model: "Qwen3.8-Max-0902", company: "Qwen", score: "81.5", released: "2026-09-02" }
-      - { rank: 5, model: "GLM-5.3", company: "Zhipu AI", score: "80.5", released: "2026-08-14" }
-      - { rank: 6, model: "Step 5 Preview", company: "StepFun", score: "80.5", released: "2026-09-20" }
-      - { rank: 7, model: "MiMo-V2.6-Flash", company: "MiMo", score: "75.9", released: "2026-09-22" }
-      - { rank: 8, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "75.7", released: "2026-09-10" }
-      - { rank: 9, model: "Qwen3.8-Max", company: "Qwen", score: "72.6", released: "2026-08-04" }
-      - { rank: 10, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.9", released: "2026-08-28" }
-      - { rank: 11, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "69.5", released: "2026-08-13" }
-      - { rank: 12, model: "Ling-3.1-Flash", company: "InclusionAI", score: "64.1", released: "2026-09-30" }
-      - { rank: 13, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "63.7", released: "2026-08-27" }
-      - { rank: 14, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "61.5", released: "2026-07-31" }
-      - { rank: 15, model: "GLM-5.2", company: "Zhipu AI", score: "60.6", released: "2026-07-01" }
-      - { rank: 16, model: "dots3-note Preview", company: "RedNote", score: "59.9", released: "2026-08-14" }
-      - { rank: 17, model: "Qwen3.8-Flash-Next", company: "Qwen", score: "54.9", released: "2026-09-03" }
-      - { rank: 18, model: "Qwen3.8-27B", company: "Qwen", score: "54.4", released: "2026-09-03" }
-      - { rank: 19, model: "Qwen3.7-Max", company: "Qwen", score: "53.5", released: "2026-05-20" }
-      - { rank: 20, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "53.1", released: "2026-09-03" }
-      - { rank: 21, model: "Hunyuan 3", company: "Tencent", score: "50.9", released: "2026-07-06" }
-      - { rank: 22, model: "MiMo-V2.5-Pro", company: "MiMo", score: "47.3", released: "2026-04-15" }
-      - { rank: 23, model: "Seed2.1 Turbo", company: "Doubao", score: "46.7", released: "2026-06-30" }
-      - { rank: 24, model: "Kimi K2.6", company: "Moonshot", score: "46.5", released: "2026-04-20" }
-      - { rank: 25, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "46.5", released: "2026-04-24" }
-      - { rank: 26, model: "Seed2.1 Pro", company: "Doubao", score: "45.6", released: "2026-06-30" }
-      - { rank: 27, model: "LongCat-2.0", company: "Meituan", score: "44.9", released: "2026-06-30" }
-      - { rank: 28, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "43.4", released: "2026-04-24" }
-      - { rank: 29, model: "Qwen3.7-Plus", company: "Qwen", score: "43.4", released: "2026-05-20" }
-      - { rank: 30, model: "MiniMax-M3", company: "MiniMax", score: "42.9", released: "2026-05-25" }
-      - { rank: 31, model: "Kimi K2.7 Code", company: "Moonshot", score: "41.5", released: "2026-07-01" }
-      - { rank: 32, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "37.6", released: "2026-04-24" }
-      - { rank: 33, model: "Hunyuan 3 Preview", company: "Tencent", score: "37.2", released: "2026-04-23" }
-      - { rank: 34, model: "GLM-5.1", company: "Zhipu AI", score: "36.3", released: "2026-03-27" }
-      - { rank: 35, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "33.2", released: "2026-04-24" }
-      - { rank: 36, model: "Qwen3.6-Plus", company: "Qwen", score: "31.0", released: "2026-04-02" }
-      - { rank: 37, model: "Qwen3.6-27B", company: "Qwen", score: "30.4", released: "2026-05-20" }
-      - { rank: 38, model: "Seed2.0 Pro", company: "Doubao", score: "29.0", released: "2026-02-14" }
-      - { rank: 39, model: "GLM-5", company: "Zhipu AI", score: "26.1", released: "2026-02-11" }
-      - { rank: 40, model: "Kimi K2.5", company: "Moonshot", score: "24.3", released: "2026-01-27" }
-      - { rank: 41, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "23.5", released: "2026-02-16" }
-      - { rank: 42, model: "Ling-3.0-Flash", company: "InclusionAI", score: "21.7", released: "2026-07-26" }
-      - { rank: 43, model: "MiniMax-M2.5", company: "MiniMax", score: "21.4", released: "2026-02-15" }
-      - { rank: 44, model: "Step 3.5 Flash", company: "StepFun", score: "21.3", released: "2026-02-20" }
-      - { rank: 45, model: "Ring-2.6-1T", company: "InclusionAI", score: "19.0", released: "2026-04-20" }
-      - { rank: 46, model: "MiMo-V2.5", company: "MiMo", score: "18.6", released: "2026-03-15" }
-      - { rank: 47, model: "Seed2.0 Lite", company: "Doubao", score: "18.3", released: "2026-02-14" }
-      - { rank: 48, model: "openPangu-2.0-Flash-Thinking", company: "Huawei", score: "17.7", released: "2026-07-01" }
-      - { rank: 49, model: "GLM-4.7", company: "Zhipu AI", score: "17.4", released: "2025-11-15" }
-      - { rank: 50, model: "MiniMax-M2.7", company: "MiniMax", score: "17.3", released: "2026-04-10" }
+      - { rank: 1, global_rank: 13, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.2", new: true, released: "2026-10-17" }
+      - { rank: 2, global_rank: 14, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.9", released: "2026-09-22" }
+      - { rank: 3, global_rank: 18, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "82.3", new: true, released: "" }
+      - { rank: 4, global_rank: 20, model: "Qwen3.8-Max-0902", company: "Qwen", score: "81.1", released: "2026-09-02" }
+      - { rank: 5, global_rank: 21, model: "Kimi K3", company: "Moonshot", score: "80.6", released: "2026-07-17" }
+      - { rank: 6, global_rank: 22, model: "GLM-5.3", company: "Zhipu AI", score: "80.2", released: "2026-08-14" }
+      - { rank: 7, global_rank: 25, model: "Step 5 Preview", company: "StepFun", score: "78.9", released: "2026-09-20" }
+      - { rank: 8, global_rank: 28, model: "MiMo-V2.6-Flash", company: "MiMo", score: "75.6", released: "2026-09-22" }
+      - { rank: 9, global_rank: 31, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "74.6", released: "2026-09-10" }
+      - { rank: 10, global_rank: 33, model: "Qwen3.8-Max", company: "Qwen", score: "72.4", released: "2026-08-04" }
+      - { rank: 11, global_rank: 35, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.7", released: "2026-08-28" }
+      - { rank: 12, global_rank: 38, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "67.2", released: "2026-08-13" }
+      - { rank: 13, global_rank: 41, model: "Ling-3.1-Flash", company: "InclusionAI", score: "63.5", released: "2026-09-30" }
+      - { rank: 14, global_rank: 42, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "62.9", released: "2026-08-27" }
+      - { rank: 15, global_rank: 47, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.9", released: "2026-07-31" }
+      - { rank: 16, global_rank: 49, model: "dots3-note Preview", company: "RedNote", score: "59.2", released: "2026-08-14" }
+      - { rank: 17, global_rank: 50, model: "GLM-5.2", company: "Zhipu AI", score: "59.1", released: "2026-07-01" }
+      - { rank: 18, global_rank: 55, model: "Qwen3.8-Flash-Next", company: "Qwen", score: "55.2", released: "2026-09-03" }
+      - { rank: 19, global_rank: 56, model: "Qwen3.8-27B", company: "Qwen", score: "53.9", released: "2026-09-03" }
+      - { rank: 20, global_rank: 57, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "52.2", released: "2026-09-03" }
+      - { rank: 21, global_rank: 58, model: "Qwen3.7-Max", company: "Qwen", score: "52.2", released: "2026-05-20" }
+      - { rank: 22, global_rank: 59, model: "Hunyuan 3", company: "Tencent", score: "49.6", released: "2026-07-06" }
+      - { rank: 23, global_rank: 62, model: "Seed2.1 Turbo", company: "Doubao", score: "46.3", released: "2026-06-30" }
+      - { rank: 24, global_rank: 63, model: "MiMo-V2.5-Pro", company: "MiMo", score: "46.0", released: "2026-04-15" }
+      - { rank: 25, global_rank: 64, model: "Kimi K2.6", company: "Moonshot", score: "45.3", released: "2026-04-20" }
+      - { rank: 26, global_rank: 65, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "45.3", released: "2026-04-24" }
+      - { rank: 27, global_rank: 66, model: "Seed2.1 Pro", company: "Doubao", score: "44.4", released: "2026-06-30" }
+      - { rank: 28, global_rank: 67, model: "LongCat-2.0", company: "Meituan", score: "44.1", released: "2026-06-30" }
+      - { rank: 29, global_rank: 69, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "42.2", released: "2026-04-24" }
+      - { rank: 30, global_rank: 70, model: "Qwen3.7-Plus", company: "Qwen", score: "42.2", released: "2026-05-20" }
+      - { rank: 31, global_rank: 71, model: "MiniMax-M3", company: "MiniMax", score: "41.8", released: "2026-05-25" }
+      - { rank: 32, global_rank: 73, model: "Kimi K2.7 Code", company: "Moonshot", score: "40.4", released: "2026-07-01" }
+      - { rank: 33, global_rank: 75, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "36.6", released: "2026-04-24" }
+      - { rank: 34, global_rank: 76, model: "Hunyuan 3 Preview", company: "Tencent", score: "36.2", released: "2026-04-23" }
+      - { rank: 35, global_rank: 77, model: "GLM-5.1", company: "Zhipu AI", score: "35.3", released: "2026-03-27" }
+      - { rank: 36, global_rank: 80, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "32.3", released: "2026-04-24" }
+      - { rank: 37, global_rank: 83, model: "Qwen3.6-Plus", company: "Qwen", score: "30.2", released: "2026-04-02" }
+      - { rank: 38, global_rank: 85, model: "Qwen3.6-27B", company: "Qwen", score: "29.6", released: "2026-05-20" }
+      - { rank: 39, global_rank: 86, model: "Seed2.0 Pro", company: "Doubao", score: "28.7", released: "2026-02-14" }
+      - { rank: 40, global_rank: 87, model: "GLM-5", company: "Zhipu AI", score: "25.4", released: "2026-02-11" }
+      - { rank: 41, global_rank: 88, model: "Kimi K2.5", company: "Moonshot", score: "23.7", released: "2026-01-27" }
+      - { rank: 42, global_rank: 89, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "22.8", released: "2026-02-16" }
+      - { rank: 43, global_rank: 90, model: "Ling-3.0-Flash", company: "InclusionAI", score: "21.1", released: "2026-07-26" }
+      - { rank: 44, global_rank: 91, model: "MiniMax-M2.5", company: "MiniMax", score: "20.9", released: "2026-02-15" }
+      - { rank: 45, global_rank: 92, model: "Step 3.5 Flash", company: "StepFun", score: "20.5", released: "2026-02-20" }
+      - { rank: 46, global_rank: 93, model: "Ring-2.6-1T", company: "InclusionAI", score: "18.5", released: "2026-04-20" }
+      - { rank: 47, global_rank: 95, model: "MiMo-V2.5", company: "MiMo", score: "18.1", released: "2026-03-15" }
+      - { rank: 48, global_rank: 96, model: "Seed2.0 Lite", company: "Doubao", score: "17.8", released: "2026-02-14" }
+      - { rank: 49, global_rank: 98, model: "openPangu-2.0-Flash-Thinking", company: "Huawei", score: "17.3", released: "2026-07-01" }
+      - { rank: 50, global_rank: 99, model: "GLM-4.7", company: "Zhipu AI", score: "17.0", released: "2025-11-15" }
+
   - key: code
     label: Code
     description: 编程与代码智能体
@@ -115,206 +116,207 @@ categories:
       - { rank: 1, model: "Claude Opus 5.5", company: "Anthropic", score: "98.9", released: "2026-09-22" }
       - { rank: 2, model: "Muse Wonder Full", company: "Meta", score: "98.3", released: "2026-10-12" }
       - { rank: 3, model: "Claude Sonnet 5.5", company: "Anthropic", score: "97.6", released: "2026-09-28" }
-      - { rank: 4, model: "Gemini 4 Argon", company: "Google", score: "95.5", released: "2026-09-30" }
-      - { rank: 5, model: "Claude Fable 5.1", company: "Anthropic", score: "95.2", released: "2026-09-03" }
-      - { rank: 6, model: "GPT-6 Astra", company: "OpenAI", score: "94.4", released: "2026-09-04" }
-      - { rank: 7, model: "Muse Wonder", company: "Meta", score: "93.1", released: "2026-10-12" }
-      - { rank: 8, model: "Claude Opus 5", company: "Anthropic", score: "92.1", released: "2026-07-25" }
-      - { rank: 9, model: "Claude Fable 5", company: "Anthropic", score: "90.5", released: "2026-07-01" }
-      - { rank: 10, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.9", new: true, released: "2026-10-17" }
-      - { rank: 11, model: "GPT-5.6 Sol", company: "OpenAI", score: "88.6", released: "2026-07-11" }
-      - { rank: 12, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.5", released: "2026-09-22" }
-      - { rank: 13, model: "Muse Spark 1.3", company: "Meta", score: "85.4", released: "2026-09-02" }
+      - { rank: 4, model: "Gemini 4 Argon", company: "Google", score: "95.6", released: "2026-09-30" }
+      - { rank: 5, model: "Claude Fable 5.1", company: "Anthropic", score: "95.4", released: "2026-09-03" }
+      - { rank: 6, model: "GPT-6 Astra", company: "OpenAI", score: "94.5", released: "2026-09-04" }
+      - { rank: 7, model: "Muse Wonder", company: "Meta", score: "93.2", released: "2026-10-12" }
+      - { rank: 8, model: "Claude Opus 5", company: "Anthropic", score: "92.8", released: "2026-07-25" }
+      - { rank: 9, model: "Claude Fable 5", company: "Anthropic", score: "90.8", released: "2026-07-01" }
+      - { rank: 10, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.2", new: true, released: "2026-10-17" }
+      - { rank: 11, model: "GPT-5.6 Sol", company: "OpenAI", score: "88.9", released: "2026-07-11" }
+      - { rank: 12, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.9", released: "2026-09-22" }
+      - { rank: 13, model: "Muse Spark 1.3", company: "Meta", score: "85.9", released: "2026-09-02" }
       - { rank: 14, model: "GLM-5.3", company: "Zhipu AI", score: "82.2", released: "2026-08-14" }
-      - { rank: 15, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "80.9", released: "2026-09-10" }
-      - { rank: 16, model: "Gemini 3.8 Flash", company: "Google", score: "80.8", released: "2026-09-03" }
-      - { rank: 17, model: "GPT-5.6 Terra", company: "OpenAI", score: "80.6", released: "2026-07-11" }
-      - { rank: 18, model: "GPT-6.1 Sol", company: "OpenAI", score: "79.6", released: "2026-09-29" }
-      - { rank: 19, model: "Step 5 Preview", company: "StepFun", score: "78.6", released: "2026-09-20" }
-      - { rank: 20, model: "Kimi K3", company: "Moonshot", score: "78.2", released: "2026-07-17" }
-      - { rank: 21, model: "Claude Opus 4.8", company: "Anthropic", score: "77.0", released: "2026-05-28" }
-      - { rank: 22, model: "Qwen3.8-Max-0902", company: "Qwen", score: "75.5", released: "2026-09-02" }
-      - { rank: 23, model: "GPT-5.6 Luna", company: "OpenAI", score: "74.0", released: "2026-07-11" }
-      - { rank: 24, model: "Grok 4.7", company: "xAI", score: "73.3", released: "2026-09-22" }
-      - { rank: 25, model: "GPT-5.5", company: "OpenAI", score: "73.0", released: "2026-05-10" }
-      - { rank: 26, model: "Hunyuan 4 Preview", company: "Tencent", score: "72.1", released: "2026-08-28" }
-      - { rank: 27, model: "MiMo-V2.6-Flash", company: "MiMo", score: "72.0", released: "2026-09-22" }
-      - { rank: 28, model: "Qwen3.8-Max", company: "Qwen", score: "69.8", released: "2026-08-04" }
-      - { rank: 29, model: "Muse Spark 1.2", company: "Meta", score: "68.2", released: "2026-08-05" }
-      - { rank: 30, model: "Claude Haiku 5.5", company: "Anthropic", score: "67.9", released: "2026-10-07" }
-      - { rank: 31, model: "Gemini 3.7 Flash", company: "Google", score: "67.8", released: "2026-08-14" }
-      - { rank: 32, model: "Grok 4.6 High", company: "xAI", score: "67.6", released: "2026-08-13" }
-      - { rank: 33, model: "Claude Opus 4.7", company: "Anthropic", score: "66.2", released: "2026-04-16" }
-      - { rank: 34, model: "Muse Spark 1.1", company: "Meta", score: "65.3", released: "2026-07-09" }
-      - { rank: 35, model: "Grok 4.5", company: "xAI", score: "64.8", released: "2026-07-08" }
-      - { rank: 36, model: "Claude Sonnet 5", company: "Anthropic", score: "64.3", released: "2026-07-01" }
-      - { rank: 37, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "62.9", released: "2026-08-13" }
-      - { rank: 38, model: "dots3-note Preview", company: "RedNote", score: "61.9", released: "2026-08-14" }
-      - { rank: 39, model: "GPT-6 Luna", company: "OpenAI", score: "61.7", released: "2026-09-22" }
-      - { rank: 40, model: "GPT-5.4", company: "OpenAI", score: "59.5", released: "2026-03-05" }
-      - { rank: 41, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.5", released: "2026-07-31" }
-      - { rank: 42, model: "GLM-5.2", company: "Zhipu AI", score: "58.8", released: "2026-07-01" }
-      - { rank: 43, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "58.3", released: "2026-08-27" }
-      - { rank: 44, model: "GPT-5.3-Codex", company: "OpenAI", score: "57.1", released: "2026-01-22" }
-      - { rank: 45, model: "LongCat-2.0", company: "Meituan", score: "56.1", released: "2026-06-30" }
-      - { rank: 46, model: "Beam", company: "Reflection AI", score: "55.4", released: "2026-10-05" }
-      - { rank: 47, model: "Qwen3.7-Max", company: "Qwen", score: "54.9", released: "2026-05-20" }
-      - { rank: 48, model: "Gemini 3.6 Flash", company: "Google", score: "54.6", released: "2026-07-15" }
-      - { rank: 49, model: "Hunyuan 3", company: "Tencent", score: "54.0", released: "2026-07-06" }
-      - { rank: 50, model: "Claude Opus 4.6", company: "Anthropic", score: "53.9", released: "2026-02-05" }
+      - { rank: 15, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "81.5", released: "2026-09-10" }
+      - { rank: 16, model: "Gemini 3.8 Flash", company: "Google", score: "81.0", released: "2026-09-03" }
+      - { rank: 17, model: "GPT-5.6 Terra", company: "OpenAI", score: "80.7", released: "2026-07-11" }
+      - { rank: 18, model: "GPT-6.1 Sol", company: "OpenAI", score: "80.1", released: "2026-09-29" }
+      - { rank: 19, model: "Step 5 Preview", company: "StepFun", score: "78.8", released: "2026-09-20" }
+      - { rank: 20, model: "Claude Opus 4.8", company: "Anthropic", score: "77.6", released: "2026-05-28" }
+      - { rank: 21, model: "Kimi K3", company: "Moonshot", score: "77.4", released: "2026-07-17" }
+      - { rank: 22, model: "Qwen3.8-Max-0902", company: "Qwen", score: "76.3", released: "2026-09-02" }
+      - { rank: 23, model: "GPT-5.6 Luna", company: "OpenAI", score: "74.8", released: "2026-07-11" }
+      - { rank: 24, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "72.7", new: true, released: "" }
+      - { rank: 25, model: "Grok 4.7", company: "xAI", score: "72.4", released: "2026-09-22" }
+      - { rank: 26, model: "GPT-5.5", company: "OpenAI", score: "72.4", released: "2026-05-10" }
+      - { rank: 27, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.4", released: "2026-08-28" }
+      - { rank: 28, model: "MiMo-V2.6-Flash", company: "MiMo", score: "71.2", released: "2026-09-22" }
+      - { rank: 29, model: "Qwen3.8-Max", company: "Qwen", score: "70.7", released: "2026-08-04" }
+      - { rank: 30, model: "Muse Spark 1.2", company: "Meta", score: "68.7", released: "2026-08-05" }
+      - { rank: 31, model: "Claude Haiku 5.5", company: "Anthropic", score: "67.5", released: "2026-10-07" }
+      - { rank: 32, model: "Gemini 3.7 Flash", company: "Google", score: "67.0", released: "2026-08-14" }
+      - { rank: 33, model: "Grok 4.6 High", company: "xAI", score: "66.9", released: "2026-08-13" }
+      - { rank: 34, model: "Atria Dawn", company: "Atria", score: "66.7", new: true, released: "" }
+      - { rank: 35, model: "Claude Opus 4.7", company: "Anthropic", score: "66.2", released: "2026-04-16" }
+      - { rank: 36, model: "Muse Spark 1.1", company: "Meta", score: "65.3", released: "2026-07-09" }
+      - { rank: 37, model: "Grok 4.5", company: "xAI", score: "64.9", released: "2026-07-08" }
+      - { rank: 38, model: "Claude Sonnet 5", company: "Anthropic", score: "64.4", released: "2026-07-01" }
+      - { rank: 39, model: "Atria Dawn Preview", company: "Atria", score: "63.1", new: true, released: "" }
+      - { rank: 40, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "63.0", released: "2026-08-13" }
+      - { rank: 41, model: "GPT-6 Luna", company: "OpenAI", score: "61.4", released: "2026-09-22" }
+      - { rank: 42, model: "dots3-note Preview", company: "RedNote", score: "59.9", released: "2026-08-14" }
+      - { rank: 43, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.7", released: "2026-07-31" }
+      - { rank: 44, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "58.6", released: "2026-08-27" }
+      - { rank: 45, model: "GPT-5.4", company: "OpenAI", score: "58.3", released: "2026-03-05" }
+      - { rank: 46, model: "GLM-5.2", company: "Zhipu AI", score: "57.6", released: "2026-07-01" }
+      - { rank: 47, model: "GPT-5.3-Codex", company: "OpenAI", score: "55.9", released: "2026-01-22" }
+      - { rank: 48, model: "Beam", company: "Reflection AI", score: "54.8", released: "2026-10-05" }
+      - { rank: 49, model: "LongCat-2.0", company: "Meituan", score: "54.8", released: "2026-06-30" }
+      - { rank: 50, model: "Qwen3.7-Max", company: "Qwen", score: "53.8", released: "2026-05-20" }
     domestic:
-      - { rank: 1, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.9", new: true, released: "2026-10-17" }
-      - { rank: 2, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.5", released: "2026-09-22" }
-      - { rank: 3, model: "GLM-5.3", company: "Zhipu AI", score: "82.2", released: "2026-08-14" }
-      - { rank: 4, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "80.9", released: "2026-09-10" }
-      - { rank: 5, model: "Step 5 Preview", company: "StepFun", score: "78.6", released: "2026-09-20" }
-      - { rank: 6, model: "Kimi K3", company: "Moonshot", score: "78.2", released: "2026-07-17" }
-      - { rank: 7, model: "Qwen3.8-Max-0902", company: "Qwen", score: "75.5", released: "2026-09-02" }
-      - { rank: 8, model: "Hunyuan 4 Preview", company: "Tencent", score: "72.1", released: "2026-08-28" }
-      - { rank: 9, model: "MiMo-V2.6-Flash", company: "MiMo", score: "72.0", released: "2026-09-22" }
-      - { rank: 10, model: "Qwen3.8-Max", company: "Qwen", score: "69.8", released: "2026-08-04" }
-      - { rank: 11, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "62.9", released: "2026-08-13" }
-      - { rank: 12, model: "dots3-note Preview", company: "RedNote", score: "61.9", released: "2026-08-14" }
-      - { rank: 13, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.5", released: "2026-07-31" }
-      - { rank: 14, model: "GLM-5.2", company: "Zhipu AI", score: "58.8", released: "2026-07-01" }
-      - { rank: 15, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "58.3", released: "2026-08-27" }
-      - { rank: 16, model: "LongCat-2.0", company: "Meituan", score: "56.1", released: "2026-06-30" }
-      - { rank: 17, model: "Qwen3.7-Max", company: "Qwen", score: "54.9", released: "2026-05-20" }
-      - { rank: 18, model: "Hunyuan 3", company: "Tencent", score: "54.0", released: "2026-07-06" }
-      - { rank: 19, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "53.6", released: "2026-09-03" }
-      - { rank: 20, model: "Qwen3.8-27B", company: "Qwen", score: "50.0", released: "2026-09-03" }
-      - { rank: 21, model: "MiMo-V2.5-Pro", company: "MiMo", score: "50.0", released: "2026-04-15" }
-      - { rank: 22, model: "Kimi K2.6", company: "Moonshot", score: "48.0", released: "2026-04-20" }
-      - { rank: 23, model: "Seed2.1 Pro", company: "Doubao", score: "46.2", released: "2026-06-30" }
-      - { rank: 24, model: "Seed2.1 Turbo", company: "Doubao", score: "44.4", released: "2026-06-30" }
-      - { rank: 25, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "43.1", released: "2026-04-24" }
-      - { rank: 26, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "40.8", released: "2026-04-24" }
-      - { rank: 27, model: "Qwen3.7-Plus", company: "Qwen", score: "40.6", released: "2026-05-20" }
-      - { rank: 28, model: "Hunyuan 3 Preview", company: "Tencent", score: "40.4", released: "2026-04-23" }
-      - { rank: 29, model: "MiniMax-M3", company: "MiniMax", score: "39.2", released: "2026-05-25" }
-      - { rank: 30, model: "MiMo-V2-Pro", company: "MiMo", score: "37.3", released: "2025-11-20" }
-      - { rank: 31, model: "GLM-5.1", company: "Zhipu AI", score: "37.3", released: "2026-03-27" }
-      - { rank: 32, model: "Kimi K2.7 Code", company: "Moonshot", score: "36.3", released: "2026-07-01" }
-      - { rank: 33, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "32.8", released: "2026-04-24" }
-      - { rank: 34, model: "GLM-5", company: "Zhipu AI", score: "32.3", released: "2026-02-11" }
-      - { rank: 35, model: "MiniMax-M2.5", company: "MiniMax", score: "31.0", released: "2026-02-15" }
-      - { rank: 36, model: "Qwen3.6-Plus", company: "Qwen", score: "29.9", released: "2026-04-02" }
-      - { rank: 37, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "29.3", released: "2026-04-24" }
-      - { rank: 38, model: "Ling-3.0-Flash", company: "InclusionAI", score: "27.6", released: "2026-07-26" }
-      - { rank: 39, model: "MiMo-V2.5", company: "MiMo", score: "27.5", released: "2026-03-15" }
-      - { rank: 40, model: "Kimi K2.5", company: "Moonshot", score: "22.8", released: "2026-01-27" }
-      - { rank: 41, model: "Seed2.0 Pro", company: "Doubao", score: "21.8", released: "2026-02-14" }
-      - { rank: 42, model: "Qwen3.6-27B", company: "Qwen", score: "21.6", released: "2026-05-20" }
-      - { rank: 43, model: "MiniMax-M2.7", company: "MiniMax", score: "19.1", released: "2026-04-10" }
-      - { rank: 44, model: "Step 3.7 Flash", company: "StepFun", score: "18.3", released: "2026-04-25" }
-      - { rank: 45, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "14.4", released: "2026-02-16" }
-      - { rank: 46, model: "Step 3.5 Flash", company: "StepFun", score: "14.1", released: "2026-02-20" }
-      - { rank: 47, model: "Seed2.0 Lite", company: "Doubao", score: "12.4", released: "2026-02-14" }
-      - { rank: 48, model: "GLM-4.7", company: "Zhipu AI", score: "11.9", released: "2025-11-15" }
-      - { rank: 49, model: "MiniMax-M2.1", company: "MiniMax", score: "10.8", released: "2025-12-20" }
-      - { rank: 50, model: "Ring-2.6-1T", company: "InclusionAI", score: "9.9", released: "2026-04-20" }
+      - { rank: 1, global_rank: 10, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "89.2", released: "2026-10-17" }
+      - { rank: 2, global_rank: 12, model: "MiMo-V2.6-Pro", company: "MiMo", score: "88.9", released: "2026-09-22" }
+      - { rank: 3, global_rank: 14, model: "GLM-5.3", company: "Zhipu AI", score: "82.2", released: "2026-08-14" }
+      - { rank: 4, global_rank: 15, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "81.5", released: "2026-09-10" }
+      - { rank: 5, global_rank: 19, model: "Step 5 Preview", company: "StepFun", score: "78.8", released: "2026-09-20" }
+      - { rank: 6, global_rank: 21, model: "Kimi K3", company: "Moonshot", score: "77.4", released: "2026-07-17" }
+      - { rank: 7, global_rank: 22, model: "Qwen3.8-Max-0902", company: "Qwen", score: "76.3", released: "2026-09-02" }
+      - { rank: 8, global_rank: 24, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "72.7", new: true, released: "" }
+      - { rank: 9, global_rank: 27, model: "Hunyuan 4 Preview", company: "Tencent", score: "71.4", released: "2026-08-28" }
+      - { rank: 10, global_rank: 28, model: "MiMo-V2.6-Flash", company: "MiMo", score: "71.2", released: "2026-09-22" }
+      - { rank: 11, global_rank: 29, model: "Qwen3.8-Max", company: "Qwen", score: "70.7", released: "2026-08-04" }
+      - { rank: 12, global_rank: 40, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "63.0", released: "2026-08-13" }
+      - { rank: 13, global_rank: 42, model: "dots3-note Preview", company: "RedNote", score: "59.9", released: "2026-08-14" }
+      - { rank: 14, global_rank: 43, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.7", released: "2026-07-31" }
+      - { rank: 15, global_rank: 44, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "58.6", released: "2026-08-27" }
+      - { rank: 16, global_rank: 46, model: "GLM-5.2", company: "Zhipu AI", score: "57.6", released: "2026-07-01" }
+      - { rank: 17, global_rank: 49, model: "LongCat-2.0", company: "Meituan", score: "54.8", released: "2026-06-30" }
+      - { rank: 18, global_rank: 50, model: "Qwen3.7-Max", company: "Qwen", score: "53.8", released: "2026-05-20" }
+      - { rank: 19, global_rank: 51, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "53.5", released: "2026-09-03" }
+      - { rank: 20, global_rank: 54, model: "Hunyuan 3", company: "Tencent", score: "52.2", released: "2026-07-06" }
+      - { rank: 21, global_rank: 55, model: "MiMo-V2.5-Pro", company: "MiMo", score: "48.6", released: "2026-04-15" }
+      - { rank: 22, global_rank: 57, model: "Qwen3.8-27B", company: "Qwen", score: "48.5", released: "2026-09-03" }
+      - { rank: 23, global_rank: 58, model: "Kimi K2.6", company: "Moonshot", score: "46.7", released: "2026-04-20" }
+      - { rank: 24, global_rank: 61, model: "Seed2.1 Pro", company: "Doubao", score: "44.7", released: "2026-06-30" }
+      - { rank: 25, global_rank: 62, model: "Seed2.1 Turbo", company: "Doubao", score: "42.9", released: "2026-06-30" }
+      - { rank: 26, global_rank: 64, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "41.9", released: "2026-04-24" }
+      - { rank: 27, global_rank: 65, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "39.5", released: "2026-04-24" }
+      - { rank: 28, global_rank: 66, model: "Qwen3.7-Plus", company: "Qwen", score: "39.4", released: "2026-05-20" }
+      - { rank: 29, global_rank: 67, model: "Hunyuan 3 Preview", company: "Tencent", score: "39.2", released: "2026-04-23" }
+      - { rank: 30, global_rank: 68, model: "MiniMax-M3", company: "MiniMax", score: "38.1", released: "2026-05-25" }
+      - { rank: 31, global_rank: 71, model: "MiMo-V2-Pro", company: "MiMo", score: "37.3", released: "2025-11-20" }
+      - { rank: 32, global_rank: 72, model: "GLM-5.1", company: "Zhipu AI", score: "36.2", released: "2026-03-27" }
+      - { rank: 33, global_rank: 73, model: "Kimi K2.7 Code", company: "Moonshot", score: "35.2", released: "2026-07-01" }
+      - { rank: 34, global_rank: 74, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "31.9", released: "2026-04-24" }
+      - { rank: 35, global_rank: 75, model: "GLM-5", company: "Zhipu AI", score: "31.2", released: "2026-02-11" }
+      - { rank: 36, global_rank: 76, model: "MiniMax-M2.5", company: "MiniMax", score: "29.8", released: "2026-02-15" }
+      - { rank: 37, global_rank: 77, model: "Qwen3.6-Plus", company: "Qwen", score: "29.0", released: "2026-04-02" }
+      - { rank: 38, global_rank: 78, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "28.4", released: "2026-04-24" }
+      - { rank: 39, global_rank: 79, model: "Ling-3.0-Flash", company: "InclusionAI", score: "27.0", released: "2026-07-26" }
+      - { rank: 40, global_rank: 80, model: "MiMo-V2.5", company: "MiMo", score: "26.7", released: "2026-03-15" }
+      - { rank: 41, global_rank: 83, model: "Kimi K2.5", company: "Moonshot", score: "22.1", released: "2026-01-27" }
+      - { rank: 42, global_rank: 85, model: "Seed2.0 Pro", company: "Doubao", score: "21.2", released: "2026-02-14" }
+      - { rank: 43, global_rank: 86, model: "Qwen3.6-27B", company: "Qwen", score: "20.9", released: "2026-05-20" }
+      - { rank: 44, global_rank: 88, model: "MiniMax-M2.7", company: "MiniMax", score: "18.6", released: "2026-04-10" }
+      - { rank: 45, global_rank: 89, model: "Step 3.7 Flash", company: "StepFun", score: "17.6", released: "2026-04-25" }
+      - { rank: 46, global_rank: 92, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "13.9", released: "2026-02-16" }
+      - { rank: 47, global_rank: 93, model: "Step 3.5 Flash", company: "StepFun", score: "13.8", released: "2026-02-20" }
+      - { rank: 48, global_rank: 95, model: "Seed2.0 Lite", company: "Doubao", score: "12.0", released: "2026-02-14" }
+      - { rank: 49, global_rank: 96, model: "GLM-4.7", company: "Zhipu AI", score: "11.6", released: "2025-11-15" }
+      - { rank: 50, global_rank: 97, model: "MiniMax-M2.1", company: "MiniMax", score: "10.6", released: "2025-12-20" }
+
   - key: general
     label: General
     description: 通用能力与智能体
     global:
-      - { rank: 1, model: "Claude Opus 5.5", company: "Anthropic", score: "98.1", released: "2026-09-22" }
-      - { rank: 2, model: "Claude Sonnet 5.5", company: "Anthropic", score: "98.0", released: "2026-09-28" }
-      - { rank: 3, model: "Muse Wonder Full", company: "Meta", score: "96.1", released: "2026-10-12" }
-      - { rank: 4, model: "Claude Fable 5.1", company: "Anthropic", score: "95.9", released: "2026-09-03" }
-      - { rank: 5, model: "GPT-6 Astra", company: "OpenAI", score: "95.4", released: "2026-09-04" }
-      - { rank: 6, model: "Claude Opus 5", company: "Anthropic", score: "93.6", released: "2026-07-25" }
-      - { rank: 7, model: "GPT-6.1 Sol", company: "OpenAI", score: "93.6", released: "2026-09-29" }
-      - { rank: 8, model: "Claude Fable 5", company: "Anthropic", score: "91.3", released: "2026-07-01" }
-      - { rank: 9, model: "Gemini 4 Argon", company: "Google", score: "90.2", released: "2026-09-30" }
-      - { rank: 10, model: "Claude Mythos 5", company: "Anthropic", score: "90.0", released: "2026-07-11" }
-      - { rank: 11, model: "GPT-5.6 Sol", company: "OpenAI", score: "89.9", released: "2026-07-11" }
-      - { rank: 12, model: "Muse Wonder", company: "Meta", score: "89.8", released: "2026-10-12" }
-      - { rank: 13, model: "Muse Spark 1.3", company: "Meta", score: "88.3", released: "2026-09-02" }
-      - { rank: 14, model: "Claude Mythos Preview", company: "Anthropic", score: "86.8", released: "2026-07-11" }
-      - { rank: 15, model: "MiMo-V2.6-Pro", company: "MiMo", score: "85.9", released: "2026-09-22" }
-      - { rank: 16, model: "Gemini 3.8 Flash", company: "Google", score: "85.6", released: "2026-09-03" }
-      - { rank: 17, model: "Grok 4.6 High", company: "xAI", score: "84.6", released: "2026-08-13" }
-      - { rank: 18, model: "MiMo-V2.6-Flash", company: "MiMo", score: "83.6", released: "2026-09-22" }
-      - { rank: 19, model: "Kimi K3", company: "Moonshot", score: "82.1", released: "2026-07-17" }
-      - { rank: 20, model: "Step 5 Preview", company: "StepFun", score: "80.3", released: "2026-09-20" }
-      - { rank: 21, model: "Qwen3.8-Max-0902", company: "Qwen", score: "80.1", released: "2026-09-02" }
-      - { rank: 22, model: "Gemini 3.7 Flash", company: "Google", score: "79.8", released: "2026-08-14" }
-      - { rank: 23, model: "GLM-5.3", company: "Zhipu AI", score: "78.9", released: "2026-08-14" }
-      - { rank: 24, model: "Grok 4.7", company: "xAI", score: "77.2", released: "2026-09-22" }
-      - { rank: 25, model: "Claude Haiku 5.5", company: "Anthropic", score: "75.3", released: "2026-10-07" }
-      - { rank: 26, model: "Qwen3.8-Max", company: "Qwen", score: "75.2", released: "2026-08-04" }
-      - { rank: 27, model: "GPT-5.6 Terra", company: "OpenAI", score: "75.2", released: "2026-07-11" }
-      - { rank: 28, model: "GPT-5.5", company: "OpenAI", score: "75.2", released: "2026-05-10" }
-      - { rank: 29, model: "Claude Opus 4.8", company: "Anthropic", score: "75.2", released: "2026-05-28" }
-      - { rank: 30, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "75.2", released: "2026-08-13" }
-      - { rank: 31, model: "Muse Spark 1.1", company: "Meta", score: "74.3", released: "2026-07-09" }
-      - { rank: 32, model: "Hunyuan 4 Preview", company: "Tencent", score: "72.9", released: "2026-08-28" }
-      - { rank: 33, model: "Muse Spark 1.2", company: "Meta", score: "71.0", released: "2026-08-05" }
-      - { rank: 34, model: "GPT-6 Luna", company: "OpenAI", score: "66.3", released: "2026-09-22" }
-      - { rank: 35, model: "GPT-5.4", company: "OpenAI", score: "64.7", released: "2026-03-05" }
-      - { rank: 36, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "64.2", released: "2026-08-27" }
-      - { rank: 37, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "63.8", released: "2026-09-10" }
-      - { rank: 38, model: "Gemini 3.6 Flash", company: "Google", score: "63.8", released: "2026-07-15" }
-      - { rank: 39, model: "GLM-5.2", company: "Zhipu AI", score: "62.8", released: "2026-07-01" }
-      - { rank: 40, model: "dots3-note Preview", company: "RedNote", score: "62.1", released: "2026-08-14" }
-      - { rank: 41, model: "Ling-3.1-Flash", company: "InclusionAI", score: "61.1", released: "2026-09-30" }
-      - { rank: 42, model: "Grok 4.5", company: "xAI", score: "61.0", released: "2026-07-08" }
-      - { rank: 43, model: "Gemini 3.5 Flash", company: "Google", score: "61.0", released: "2026-04-15" }
-      - { rank: 44, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.6", released: "2026-07-31" }
-      - { rank: 45, model: "GPT-5.3-Codex", company: "OpenAI", score: "58.7", released: "2026-01-22" }
-      - { rank: 46, model: "Claude Opus 4.7", company: "Anthropic", score: "58.7", released: "2026-04-16" }
-      - { rank: 47, model: "GPT-5.6 Luna", company: "OpenAI", score: "57.8", released: "2026-07-11" }
-      - { rank: 48, model: "Gemini 3.1 Pro", company: "Google", score: "57.3", released: "2026-02-19" }
-      - { rank: 49, model: "Qwen3.8-27B", company: "Qwen", score: "56.9", released: "2026-09-03" }
-      - { rank: 50, model: "Claude Sonnet 5", company: "Anthropic", score: "56.4", released: "2026-07-01" }
+      - { rank: 1, model: "Claude Sonnet 5.5", company: "Anthropic", score: "98.1", released: "2026-09-28" }
+      - { rank: 2, model: "Claude Opus 5.5", company: "Anthropic", score: "97.2", released: "2026-09-22" }
+      - { rank: 3, model: "Muse Wonder Full", company: "Meta", score: "96.3", released: "2026-10-12" }
+      - { rank: 4, model: "Claude Fable 5.1", company: "Anthropic", score: "96.0", released: "2026-09-03" }
+      - { rank: 5, model: "GPT-6 Astra", company: "OpenAI", score: "94.2", released: "2026-09-04" }
+      - { rank: 6, model: "Claude Opus 5", company: "Anthropic", score: "93.8", released: "2026-07-25" }
+      - { rank: 7, model: "GPT-6.1 Sol", company: "OpenAI", score: "93.7", released: "2026-09-29" }
+      - { rank: 8, model: "Muse Wonder", company: "Meta", score: "90.2", released: "2026-10-12" }
+      - { rank: 9, model: "Claude Fable 5", company: "Anthropic", score: "89.8", released: "2026-07-01" }
+      - { rank: 10, model: "Muse Spark 1.3", company: "Meta", score: "88.7", released: "2026-09-02" }
+      - { rank: 11, model: "Gemini 4 Argon", company: "Google", score: "88.7", released: "2026-09-30" }
+      - { rank: 12, model: "GPT-5.6 Sol", company: "OpenAI", score: "88.5", released: "2026-07-11" }
+      - { rank: 13, model: "Claude Mythos 5", company: "Anthropic", score: "87.8", released: "2026-07-11" }
+      - { rank: 14, model: "MiMo-V2.6-Pro", company: "MiMo", score: "86.0", released: "2026-09-22" }
+      - { rank: 15, model: "Claude Mythos Preview", company: "Anthropic", score: "85.2", released: "2026-07-11" }
+      - { rank: 16, model: "Atria Dawn", company: "Atria", score: "85.1", new: true, released: "" }
+      - { rank: 17, model: "Gemini 3.8 Flash", company: "Google", score: "84.8", released: "2026-09-03" }
+      - { rank: 18, model: "Grok 4.6 High", company: "xAI", score: "83.3", released: "2026-08-13" }
+      - { rank: 19, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "83.0", released: "2026-10-17" }
+      - { rank: 20, model: "Atria Dawn Preview", company: "Atria", score: "82.4", new: true, released: "" }
+      - { rank: 21, model: "MiMo-V2.6-Flash", company: "MiMo", score: "81.6", released: "2026-09-22" }
+      - { rank: 22, model: "Kimi K3", company: "Moonshot", score: "81.0", released: "2026-07-17" }
+      - { rank: 23, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "80.7", new: true, released: "" }
+      - { rank: 24, model: "GLM-5.3", company: "Zhipu AI", score: "78.3", released: "2026-08-14" }
+      - { rank: 25, model: "Qwen3.8-Max-0902", company: "Qwen", score: "78.0", released: "2026-09-02" }
+      - { rank: 26, model: "Gemini 3.7 Flash", company: "Google", score: "77.4", released: "2026-08-14" }
+      - { rank: 27, model: "Step 5 Preview", company: "StepFun", score: "77.0", released: "2026-09-20" }
+      - { rank: 28, model: "Grok 4.7", company: "xAI", score: "75.7", released: "2026-09-22" }
+      - { rank: 29, model: "Qwen3.8-Max", company: "Qwen", score: "74.3", released: "2026-08-04" }
+      - { rank: 30, model: "GPT-5.5", company: "OpenAI", score: "73.9", released: "2026-05-10" }
+      - { rank: 31, model: "Claude Haiku 5.5", company: "Anthropic", score: "73.8", released: "2026-10-07" }
+      - { rank: 32, model: "GPT-5.6 Terra", company: "OpenAI", score: "72.6", released: "2026-07-11" }
+      - { rank: 33, model: "Muse Spark 1.1", company: "Meta", score: "72.1", released: "2026-07-09" }
+      - { rank: 34, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "72.1", released: "2026-08-13" }
+      - { rank: 35, model: "Claude Opus 4.8", company: "Anthropic", score: "71.7", released: "2026-05-28" }
+      - { rank: 36, model: "Hunyuan 4 Preview", company: "Tencent", score: "69.9", released: "2026-08-28" }
+      - { rank: 37, model: "Muse Spark 1.2", company: "Meta", score: "68.5", released: "2026-08-05" }
+      - { rank: 38, model: "GPT-6 Luna", company: "OpenAI", score: "65.0", released: "2026-09-22" }
+      - { rank: 39, model: "GPT-5.4", company: "OpenAI", score: "62.4", released: "2026-03-05" }
+      - { rank: 40, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "61.9", released: "2026-08-27" }
+      - { rank: 41, model: "Gemini 3.6 Flash", company: "Google", score: "61.5", released: "2026-07-15" }
+      - { rank: 42, model: "dots3-note Preview", company: "RedNote", score: "61.1", released: "2026-08-14" }
+      - { rank: 43, model: "GLM-5.2", company: "Zhipu AI", score: "60.6", released: "2026-07-01" }
+      - { rank: 44, model: "Ling-3.1-Flash", company: "InclusionAI", score: "59.9", released: "2026-09-30" }
+      - { rank: 45, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "59.7", released: "2026-09-10" }
+      - { rank: 46, model: "Gemini 3.5 Flash", company: "Google", score: "59.3", released: "2026-04-15" }
+      - { rank: 47, model: "Grok 4.5", company: "xAI", score: "58.8", released: "2026-07-08" }
+      - { rank: 48, model: "GPT-5.3-Codex", company: "OpenAI", score: "57.7", released: "2026-01-22" }
+      - { rank: 49, model: "Claude Opus 4.7", company: "Anthropic", score: "57.5", released: "2026-04-16" }
+      - { rank: 50, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "57.5", released: "2026-07-31" }
     domestic:
-      - { rank: 1, model: "MiMo-V2.6-Pro", company: "MiMo", score: "85.9", released: "2026-09-22" }
-      - { rank: 2, model: "MiMo-V2.6-Flash", company: "MiMo", score: "83.6", released: "2026-09-22" }
-      - { rank: 3, model: "Kimi K3", company: "Moonshot", score: "82.1", released: "2026-07-17" }
-      - { rank: 4, model: "Step 5 Preview", company: "StepFun", score: "80.3", released: "2026-09-20" }
-      - { rank: 5, model: "Qwen3.8-Max-0902", company: "Qwen", score: "80.1", released: "2026-09-02" }
-      - { rank: 6, model: "GLM-5.3", company: "Zhipu AI", score: "78.9", released: "2026-08-14" }
-      - { rank: 7, model: "Qwen3.8-Max", company: "Qwen", score: "75.2", released: "2026-08-04" }
-      - { rank: 8, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "75.2", released: "2026-08-13" }
-      - { rank: 9, model: "Hunyuan 4 Preview", company: "Tencent", score: "72.9", released: "2026-08-28" }
-      - { rank: 10, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "64.2", released: "2026-08-27" }
-      - { rank: 11, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "63.8", released: "2026-09-10" }
-      - { rank: 12, model: "GLM-5.2", company: "Zhipu AI", score: "62.8", released: "2026-07-01" }
-      - { rank: 13, model: "dots3-note Preview", company: "RedNote", score: "62.1", released: "2026-08-14" }
-      - { rank: 14, model: "Ling-3.1-Flash", company: "InclusionAI", score: "61.1", released: "2026-09-30" }
-      - { rank: 15, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "59.6", released: "2026-07-31" }
-      - { rank: 16, model: "Qwen3.8-27B", company: "Qwen", score: "56.9", released: "2026-09-03" }
-      - { rank: 17, model: "Qwen3.8-Flash-Next", company: "Qwen", score: "55.6", released: "2026-09-03" }
-      - { rank: 18, model: "Qwen3.7-Max", company: "Qwen", score: "51.4", released: "2026-05-20" }
-      - { rank: 19, model: "MiMo-V2.5-Pro", company: "MiMo", score: "50.5", released: "2026-04-15" }
-      - { rank: 20, model: "Seed2.1 Turbo", company: "Doubao", score: "50.0", released: "2026-06-30" }
-      - { rank: 21, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "49.5", released: "2026-09-03" }
-      - { rank: 22, model: "Hunyuan 3", company: "Tencent", score: "47.7", released: "2026-07-06" }
-      - { rank: 23, model: "Seed2.1 Pro", company: "Doubao", score: "47.2", released: "2026-06-30" }
-      - { rank: 24, model: "ERNIE 5.1", company: "Baidu", score: "46.7", released: "2026-05-09" }
-      - { rank: 25, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "44.9", released: "2026-04-24" }
-      - { rank: 26, model: "MiniMax-M3", company: "MiniMax", score: "43.6", released: "2026-05-25" }
-      - { rank: 27, model: "Kimi K2.7 Code", company: "Moonshot", score: "42.8", released: "2026-07-01" }
-      - { rank: 28, model: "Qwen3.7-Plus", company: "Qwen", score: "42.7", released: "2026-05-20" }
-      - { rank: 29, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "40.8", released: "2026-04-24" }
-      - { rank: 30, model: "Kimi K2.6", company: "Moonshot", score: "39.4", released: "2026-04-20" }
-      - { rank: 31, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "39.4", released: "2026-04-24" }
-      - { rank: 32, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "38.4", released: "2026-04-24" }
-      - { rank: 33, model: "Hunyuan 3 Preview", company: "Tencent", score: "33.5", released: "2026-04-23" }
-      - { rank: 34, model: "Qwen3.6-27B", company: "Qwen", score: "32.1", released: "2026-05-20" }
-      - { rank: 35, model: "Seed2.0 Pro", company: "Doubao", score: "31.0", released: "2026-02-14" }
-      - { rank: 36, model: "GLM-5.1", company: "Zhipu AI", score: "30.3", released: "2026-03-27" }
-      - { rank: 37, model: "LongCat-2.0", company: "Meituan", score: "29.7", released: "2026-06-30" }
-      - { rank: 38, model: "Qwen3.6-Plus", company: "Qwen", score: "29.4", released: "2026-04-02" }
-      - { rank: 39, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "23.4", released: "2026-02-16" }
-      - { rank: 40, model: "openPangu-2.0-Flash-Thinking", company: "Huawei", score: "22.0", released: "2026-07-01" }
-      - { rank: 41, model: "GLM-5", company: "Zhipu AI", score: "21.1", released: "2026-02-11" }
-      - { rank: 42, model: "Kimi K2.5", company: "Moonshot", score: "21.1", released: "2026-01-27" }
-      - { rank: 43, model: "Ling-3.0-Flash", company: "InclusionAI", score: "20.8", released: "2026-07-26" }
-      - { rank: 44, model: "Ring-2.6-1T", company: "InclusionAI", score: "20.4", released: "2026-04-20" }
-      - { rank: 45, model: "Seed2.0 Lite", company: "Doubao", score: "17.6", released: "2026-02-14" }
-      - { rank: 46, model: "ERNIE 5.0", company: "Baidu", score: "17.1", released: "2026-01-22" }
-      - { rank: 47, model: "MiniMax-M2.7", company: "MiniMax", score: "15.7", released: "2026-04-10" }
-      - { rank: 48, model: "GLM-4.7", company: "Zhipu AI", score: "15.3", released: "2025-11-15" }
-      - { rank: 49, model: "Kimi K2 Thinking", company: "Moonshot", score: "14.8", released: "2025-11-10" }
-      - { rank: 50, model: "Step 3.7 Flash", company: "StepFun", score: "14.4", released: "2026-04-25" }
+      - { rank: 1, global_rank: 14, model: "MiMo-V2.6-Pro", company: "MiMo", score: "86.0", released: "2026-09-22" }
+      - { rank: 2, global_rank: 19, model: "DeepSeek-V4.1-Flash-1017", company: "DeepSeek", score: "83.0", new: true, released: "2026-10-17" }
+      - { rank: 3, global_rank: 21, model: "MiMo-V2.6-Flash", company: "MiMo", score: "81.6", released: "2026-09-22" }
+      - { rank: 4, global_rank: 22, model: "Kimi K3", company: "Moonshot", score: "81.0", released: "2026-07-17" }
+      - { rank: 5, global_rank: 23, model: "MiniMax-M3.1-Flash", company: "MiniMax", score: "80.7", new: true, released: "" }
+      - { rank: 6, global_rank: 24, model: "GLM-5.3", company: "Zhipu AI", score: "78.3", released: "2026-08-14" }
+      - { rank: 7, global_rank: 25, model: "Qwen3.8-Max-0902", company: "Qwen", score: "78.0", released: "2026-09-02" }
+      - { rank: 8, global_rank: 27, model: "Step 5 Preview", company: "StepFun", score: "77.0", released: "2026-09-20" }
+      - { rank: 9, global_rank: 29, model: "Qwen3.8-Max", company: "Qwen", score: "74.3", released: "2026-08-04" }
+      - { rank: 10, global_rank: 34, model: "DeepSeek-V4-Pro-0813", company: "DeepSeek", score: "72.1", released: "2026-08-13" }
+      - { rank: 11, global_rank: 36, model: "Hunyuan 4 Preview", company: "Tencent", score: "69.9", released: "2026-08-28" }
+      - { rank: 12, global_rank: 40, model: "GLM-5.3-Flash", company: "Zhipu AI", score: "61.9", released: "2026-08-27" }
+      - { rank: 13, global_rank: 42, model: "dots3-note Preview", company: "RedNote", score: "61.1", released: "2026-08-14" }
+      - { rank: 14, global_rank: 43, model: "GLM-5.2", company: "Zhipu AI", score: "60.6", released: "2026-07-01" }
+      - { rank: 15, global_rank: 44, model: "Ling-3.1-Flash", company: "InclusionAI", score: "59.9", released: "2026-09-30" }
+      - { rank: 16, global_rank: 45, model: "DeepSeek-V4.1-Flash", company: "DeepSeek", score: "59.7", released: "2026-09-10" }
+      - { rank: 17, global_rank: 50, model: "DeepSeek-V4-Flash-0731", company: "DeepSeek", score: "57.5", released: "2026-07-31" }
+      - { rank: 18, global_rank: 51, model: "Qwen3.8-27B", company: "Qwen", score: "56.2", released: "2026-09-03" }
+      - { rank: 19, global_rank: 53, model: "Qwen3.8-Flash-Next", company: "Qwen", score: "55.4", released: "2026-09-03" }
+      - { rank: 20, global_rank: 57, model: "Qwen3.7-Max", company: "Qwen", score: "49.6", released: "2026-05-20" }
+      - { rank: 21, global_rank: 58, model: "Seed2.1 Turbo", company: "Doubao", score: "49.5", released: "2026-06-30" }
+      - { rank: 22, global_rank: 59, model: "MiMo-V2.5-Pro", company: "MiMo", score: "48.6", released: "2026-04-15" }
+      - { rank: 23, global_rank: 60, model: "DeepSeek-V4-Flash-Vision-Exp", company: "DeepSeek", score: "47.8", released: "2026-09-03" }
+      - { rank: 24, global_rank: 61, model: "ERNIE 5.1", company: "Baidu", score: "46.7", released: "2026-05-09" }
+      - { rank: 25, global_rank: 62, model: "Hunyuan 3", company: "Tencent", score: "46.0", released: "2026-07-06" }
+      - { rank: 26, global_rank: 63, model: "Seed2.1 Pro", company: "Doubao", score: "46.0", released: "2026-06-30" }
+      - { rank: 27, global_rank: 66, model: "DeepSeek-V4-Pro-Preview", company: "DeepSeek", score: "43.3", released: "2026-04-24" }
+      - { rank: 28, global_rank: 68, model: "MiniMax-M3", company: "MiniMax", score: "42.0", released: "2026-05-25" }
+      - { rank: 29, global_rank: 69, model: "Qwen3.7-Plus", company: "Qwen", score: "41.9", released: "2026-05-20" }
+      - { rank: 30, global_rank: 71, model: "Kimi K2.7 Code", company: "Moonshot", score: "41.2", released: "2026-07-01" }
+      - { rank: 31, global_rank: 72, model: "DeepSeek-V4-Pro", company: "DeepSeek", score: "39.4", released: "2026-04-24" }
+      - { rank: 32, global_rank: 73, model: "Kimi K2.6", company: "Moonshot", score: "38.1", released: "2026-04-20" }
+      - { rank: 33, global_rank: 74, model: "DeepSeek-V4-Flash", company: "DeepSeek", score: "38.1", released: "2026-04-24" }
+      - { rank: 34, global_rank: 75, model: "DeepSeek-V4-Flash-Preview", company: "DeepSeek", score: "37.1", released: "2026-04-24" }
+      - { rank: 35, global_rank: 79, model: "Hunyuan 3 Preview", company: "Tencent", score: "32.3", released: "2026-04-23" }
+      - { rank: 36, global_rank: 81, model: "Qwen3.6-27B", company: "Qwen", score: "31.0", released: "2026-05-20" }
+      - { rank: 37, global_rank: 83, model: "Seed2.0 Pro", company: "Doubao", score: "30.4", released: "2026-02-14" }
+      - { rank: 38, global_rank: 84, model: "GLM-5.1", company: "Zhipu AI", score: "29.2", released: "2026-03-27" }
+      - { rank: 39, global_rank: 85, model: "LongCat-2.0", company: "Meituan", score: "29.0", released: "2026-06-30" }
+      - { rank: 40, global_rank: 86, model: "Qwen3.6-Plus", company: "Qwen", score: "28.3", released: "2026-04-02" }
+      - { rank: 41, global_rank: 88, model: "Qwen3.5-397B-A17B", company: "Qwen", score: "22.6", released: "2026-02-16" }
+      - { rank: 42, global_rank: 89, model: "openPangu-2.0-Flash-Thinking", company: "Huawei", score: "21.6", released: "2026-07-01" }
+      - { rank: 43, global_rank: 91, model: "Kimi K2.5", company: "Moonshot", score: "20.7", released: "2026-01-27" }
+      - { rank: 44, global_rank: 92, model: "GLM-5", company: "Zhipu AI", score: "20.4", released: "2026-02-11" }
+      - { rank: 45, global_rank: 93, model: "Ling-3.0-Flash", company: "InclusionAI", score: "20.0", released: "2026-07-26" }
+      - { rank: 46, global_rank: 94, model: "Ring-2.6-1T", company: "InclusionAI", score: "19.6", released: "2026-04-20" }
+      - { rank: 47, global_rank: 96, model: "Seed2.0 Lite", company: "Doubao", score: "17.0", released: "2026-02-14" }
+      - { rank: 48, global_rank: 97, model: "ERNIE 5.0", company: "Baidu", score: "16.8", released: "2026-01-22" }
+      - { rank: 49, global_rank: 98, model: "MiniMax-M2.7", company: "MiniMax", score: "15.2", released: "2026-04-10" }
+      - { rank: 50, global_rank: 99, model: "GLM-4.7", company: "Zhipu AI", score: "14.7", released: "2025-11-15" }

@@ -1,0 +1,120 @@
+模型报告数据汇总
+================================================================================
+AA 百分比按截图整数录入，GDPval-AA v2.1 不换算为 Elo。
+13、15–20.png 中未展示 MiniMax 的项目不补造分数。
+PostTrainBench v1.1 使用独立 key，SWE Refactor Bench 与 AA-3D 为新项目。
+22.png 为已收录 DeepSeek 报告，沿用原来源，补充对比模型。GLM HLE 为纯文本子集，不参与综合排名。
+新模型发布日期及推理模式：截图未注明，留空。
+以下模型顺序与各表数值顺序一致；“-”表示未报告。
+
+MiniMax 厂商评测：1.png
+模型：MiniMax-M3.1-Flash | DeepSeek-V4.1-Flash-1017 | DeepSeek-V4.1-Flash | Kimi K3 | GLM-5.3 | GPT-5.6 Sol | Claude Opus 5
+automation_bench 62.8 60.5 54.8 46.7 48.8 45.8 50.3
+bankertoolbench 76.2 - 73.7 69.1 74.5 74.6 76.2
+gdp_pdf 20.8 - 12.8 22.0 11.2 27.2 21.6
+terminal_bench_4_0 38.1 42.3 31.2 12.6 37.9 39.9 51.8
+loca_bench_256k 60.3 - - 49.7 50.3 60.0 53.7
+agents_last_exam 29.6 - - 28.3 - 30.6 32.2
+osworld_2_0 61.7 - 54.3 58.3 - 65.7 70.6
+posttrainbench_1_1 39.3 - 30.5 36.6 37.5 36.2 40.4
+deepswe_1_1 73.7 77.0 74.2 67.5 66.9 73.0 74.0
+nl2repo 61.2 68.2 65.4 58.0 58.0 56.8 75.3
+swe_refactor_bench 23.0 - 11.8 19.5 10.4 28.5 31.0
+cybergym 82.2 - - 80.0 84.5 83.6 -
+babyvision_tools 91.0 92.5 89.6 85.7 - 88.9 94.1
+hle 43.4 44.0 39.2 43.5 42.3 49.5 55.6
+charxiv_rq 82.5 - 69.0 84.8 - 85.2 83.7
+
+Artificial Analysis：2.png
+模型：Qwen3.8-Max-0902 | DeepSeek-V4.1-Flash-1017 | MiMo-V2.6-Pro | GLM-5.3 | Kimi K3 | MiniMax-M3.1-Flash | Step 5 Preview | DeepSeek-V4.1-Flash
+aa_briefcase_pct 56 54 51 50 50 49 46 46
+
+Artificial Analysis：3.png
+模型：MiniMax-M3.1-Flash | Kimi K3 | DeepSeek-V4.1-Flash | DeepSeek-V4.1-Flash-1017 | Step 5 Preview | MiMo-V2.6-Pro | GLM-5.3 | Qwen3.8-Max-0902
+aa_omniscience_accuracy 56 48 46 43 42 35 34 32
+
+Artificial Analysis：4.png
+模型：Qwen3.8-Max-0902 | GLM-5.3 | MiMo-V2.6-Pro | Step 5 Preview | Kimi K3 | DeepSeek-V4.1-Flash-1017 | MiniMax-M3.1-Flash | DeepSeek-V4.1-Flash
+aa_omniscience_non_hallucination 71 70 59 57 47 33 7 4
+
+Artificial Analysis：5.png
+模型：MiniMax-M3.1-Flash | DeepSeek-V4.1-Flash | DeepSeek-V4.1-Flash-1017 | GLM-5.3 | MiMo-V2.6-Pro | Kimi K3 | Qwen3.8-Max-0902 | Step 5 Preview
+automation_bench_aa 73 69 67 62 59 58 56 51
+
+Artificial Analysis：6.png
+模型：DeepSeek-V4.1-Flash-1017 | MiMo-V2.6-Pro | Qwen3.8-Max-0902 | GLM-5.3 | DeepSeek-V4.1-Flash | Step 5 Preview | Kimi K3 | MiniMax-M3.1-Flash
+gdpval_aa_v2_pct 62 59 58 58 55 54 52 48
+
+Artificial Analysis：7.png
+模型：MiMo-V2.6-Pro | MiniMax-M3.1-Flash | Kimi K3 | Step 5 Preview | DeepSeek-V4.1-Flash-1017 | Qwen3.8-Max-0902 | GLM-5.3 | DeepSeek-V4.1-Flash
+hle 49 48 47 46 43 43 42 39
+
+Artificial Analysis：8.png
+模型：Qwen3.8-Max-0902 | Kimi K3 | MiniMax-M3.1-Flash | MiMo-V2.6-Pro | DeepSeek-V4.1-Flash-1017 | Step 5 Preview | DeepSeek-V4.1-Flash | GLM-5.3
+gdp_pdf 23 22 21 19 17 15 13 11
+
+Artificial Analysis：9.png
+模型：GLM-5.3 | Qwen3.8-Max-0902 | MiMo-V2.6-Pro | DeepSeek-V4.1-Flash-1017 | Step 5 Preview | DeepSeek-V4.1-Flash | MiniMax-M3.1-Flash | Kimi K3
+terminal_bench_4_0_aa 42 39 35 34 33 27 26 13
+
+Artificial Analysis：10.png
+模型：Kimi K3 | Step 5 Preview | MiMo-V2.6-Pro | DeepSeek-V4.1-Flash | DeepSeek-V4.1-Flash-1017 | Qwen3.8-Max-0902 | GLM-5.3 | MiniMax-M3.1-Flash
+aa_lcr 89 88 86 84 83 80 80 80
+
+Artificial Analysis：11.png
+模型：MiMo-V2.6-Pro | Kimi K3 | GLM-5.3 | Step 5 Preview | DeepSeek-V4.1-Flash-1017 | MiniMax-M3.1-Flash | Qwen3.8-Max-0902 | DeepSeek-V4.1-Flash
+scicode 61 59 59 59 56 53 52 52
+
+Artificial Analysis：12.png
+模型：MiMo-V2.6-Pro | DeepSeek-V4.1-Flash-1017 | Kimi K3 | MiniMax-M3.1-Flash | Step 5 Preview | GLM-5.3 | Qwen3.8-Max-0902 | DeepSeek-V4.1-Flash
+critpt 27 24 23 22 21 19 18 14
+
+Artificial Analysis：13.png
+模型：Qwen3.8-Max-0902 | GLM-5.3 | DeepSeek-V4.1-Flash | MiMo-V2.6-Pro | Step 5 Preview
+terminal_bench_science_0_1 12 10 9 6 2
+
+Artificial Analysis：14.png
+模型：MiMo-V2.6-Pro | DeepSeek-V4.1-Flash | DeepSeek-V4.1-Flash-1017 | Kimi K3 | Qwen3.8-Max-0902 | GLM-5.3 | MiniMax-M3.1-Flash | Step 5 Preview
+frontiercode_main 45 44 44 44 43 40 39 38
+
+Artificial Analysis：15.png
+模型：Qwen3.8-Max-0902 | GLM-5.3 | Kimi K3 | MiMo-V2.6-Pro | Step 5 Preview | DeepSeek-V4.1-Flash
+aa_analyst_agent 45 39 39 38 35 35
+
+Artificial Analysis：16.png
+模型：Kimi K3 | DeepSeek-V4.1-Flash | GLM-5.3
+harvey_lab_aa 5 2 0
+
+Artificial Analysis：17.png
+模型：Qwen3.8-Max-0902 | Step 5 Preview | Kimi K3 | GLM-5.3
+enterpriseops_gym_aa 48 47 45 36
+
+Artificial Analysis：18.png
+模型：Kimi K3 | MiMo-V2.6-Pro | Qwen3.8-Max-0902 | Step 5 Preview | GLM-5.3
+aa_3d_pct 24 24 22 18 14
+
+Artificial Analysis：19.png
+模型：Step 5 Preview | Kimi K3 | DeepSeek-V4.1-Flash | GLM-5.3 | Qwen3.8-Max-0902
+itbench_aa 56 48 47 46 40
+
+Artificial Analysis：20.png
+模型：GLM-5.3 | Kimi K3 | DeepSeek-V4.1-Flash | Qwen3.8-Max-0902 | MiMo-V2.6-Pro | Step 5 Preview
+mlcr_aa 48 38 23 20 18 17
+
+Artificial Analysis：21.png
+模型：Qwen3.8-Max-0902 | DeepSeek-V4.1-Flash-1017 | Kimi K3 | MiniMax-M3.1-Flash | DeepSeek-V4.1-Flash | Step 5 Preview
+mmmu_pro 83 81 81 79 77 76
+
+DeepSeek 对比表：22.png（沿用已存档来源）
+模型：DeepSeek-V4.1-Flash-1017 | DeepSeek-V4.1-Flash | Kimi K3 | GLM-5.3 | GPT-5.6 Sol | Claude Opus 5
+hle 42.6/44.0* 36.8/39.1* 43.5 42.0* 44.5 56.3
+terminal_bench_4_0 42.3 31.2 12.6 37.9 39.9 51.8
+deepswe_1_1 77.0 74.2 67.5 66.9 73.0 74.0
+program_bench 29.1 20.3 17.5 19.0 23.0 37.0
+nl2repo 68.2 65.4 58.0 58.0 56.8 75.3
+automation_bench 60.5 54.8 46.7 48.8 45.8 50.3
+agents_last_exam 35.4 31.8 27.6 28.5 26.7 28.6
+apex_bench_1_1 72.1 64.6 47.8 56.6 54.3 65.8
+chartography_tools 83.0 78.9 68.1 - 79.9 84.0
+babyvision_tools 92.5 89.6 85.7 - 88.9 94.1
+zerobench_main_tools 51.0 49.0 41.0 - 53.0 52.0

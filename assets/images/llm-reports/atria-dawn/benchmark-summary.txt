@@ -1,0 +1,47 @@
+模型报告数据汇总
+================================================================================
+模型名称为 Atria Dawn / Atria Dawn Preview。
+1.png 星号 CyberGym 83.1 对应 Claude Mythos Preview，非 Claude Opus 5。
+2–4.png 重叠行只录入一次；缺失值不录入。
+GDPval 为原表 Elo 分，不标记为 GDPval-AA v2。
+DeepResearch Bench II、Workspace-Bench-Lite、Harvey LAB 使用独立 key。
+新模型发布日期及推理模式：截图未注明，留空。
+以下模型顺序与各表数值顺序一致；“-”表示未报告。
+
+Atria Dawn：2.png
+模型：Atria Dawn | Atria Dawn Preview | DeepSeek-V4-Pro-0813 | Kimi K3 | Qwen3.8-Max | GLM-5.3 | GPT-5.6 Sol | Claude Opus 5
+automation_bench 54.7 53.8 41.7 45.9 49.7 52.5 45.7 49.4
+cybergym 86.8 86.5 83.3 78.7 73.8 84.5 83.6 -
+skillsbench 67.8 66.4 65.0 51.9 66.7 63.3 62.5 63.7
+wide_search 84.6 81.9 81.8 79.6 81.9 82.7 83.3 84.0
+mle_bench_lite 88.2 86.2 86.8 85.8 81.3 80.8 88.9 88.0
+workspace_bench_lite 70.0 68.2 62.1 64.9 68.7 71.7 60.5 70.1
+workspace_bench 66.1 65.0 58.2 63.5 68.0 67.4 56.0 65.8
+paperbench 89.6 87.0 87.4 80.5 94.1 86.9 92.8 88.9
+jobbench 57.5 50.3 54.1 54.3 52.7 58.2 45.4 68.0
+gdpval_aa 1594.2 1583.8 1493.3 1606.8 1710.9 1643.1 1611.1 1714.0
+deepresearchbench_ii 51.2 51.1 46.6 51.3 49.2 52.7 50.7 54.1
+spreadsheetbench_2 33.0 31.5 29.3 35.8 34.9 32.1 32.7 33.6
+
+Atria Dawn：3.png（与 2.png 重叠三行不重复录入）
+模型：Atria Dawn | Atria Dawn Preview | DeepSeek-V4-Pro-0813 | Kimi K3 | Qwen3.8-Max | GLM-5.3 | GPT-5.6 Sol | Claude Opus 5
+tau3_banking 43.3 41.2 44.3 37.1 55.2 40.2 46.9 48.7
+terminal_bench_2_1 81.0 78.3 77.0 84.0 89.6 86.0 86.2 90.2
+swe_pro 61.7 59.6 58.4 62.0 65.3 60.3 59.8 76.5
+nl2repo 50.0 51.4 49.5 63.1 63.2 54.8 60.7 79.9
+harbor_index 17.3 17.3 17.0 24.3 25.8 20.0 35.8 41.0
+deepswe 49.3 - 54.9 70.6 67.0 67.3 70.6 72.6
+harvey_lab 27.5 - 6.7 25.4 24.2 22.5 5.0 22.7
+bfcl_v4 78.4 77.0 71.4 69.1 - 74.1 - -
+deepsearch_qa 96.5 96.0 - 95.9 - 94.7 93.2 -
+officeqa_pro 67.1 - 66.2 65.4 66.2 65.8 66.4 67.2
+
+Atria Dawn：4.png（与 3.png 重叠两行不重复录入）
+模型：Atria Dawn | Atria Dawn Preview | DeepSeek-V4-Pro-0813 | Kimi K3 | Qwen3.8-Max | GLM-5.3 | GPT-5.6 Sol | Claude Opus 5
+browsecomp 91.3 92.5 83.4 91.2 - 89.6 92.2 90.8
+
+Atria 图表：1.png，CyberGym 星号为 Claude Mythos Preview
+模型：Claude Mythos Preview
+cybergym 83.1
+
+Atria 报告中的 4 个 τ³-Banking 新分数高于现有 preferred 分数，添加 preferred 标记以参与排名，旧来源保留。
