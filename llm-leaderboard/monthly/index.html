@@ -84,7 +84,7 @@ permalink: /llm-leaderboard/monthly/
               </thead>
               <tbody>
                 {% for entry in category.global %}
-                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
+                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.released and entry.released != "" %} data-released="{{ entry.released | escape }}"{% endif %}{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.training_label %}<small class="llm-training-label">{{ entry.training_label | escape }}</small>{% endif %}{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td class="llm-monthly-vendor-col">{{ entry.company }}</td>
@@ -130,7 +130,7 @@ permalink: /llm-leaderboard/monthly/
               </thead>
               <tbody>
                 {% for entry in category.domestic %}
-                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
+                <tr data-rank="{{ entry.rank }}" data-model="{{ entry.model | escape }}" data-company="{{ entry.company | escape }}" data-score="{{ entry.score }}"{% if entry.released and entry.released != "" %} data-released="{{ entry.released | escape }}"{% endif %}{% if entry.training_label %} data-training-label="{{ entry.training_label | escape }}"{% endif %}{% if entry.new %} data-new="true"{% endif %}{% unless entry.released and entry.released != "" %} data-nodate="true"{% endunless %}>
                   <td><span class="llm-monthly-rank is-rank-{{ entry.rank }}">{{ entry.rank }}</span></td>
                   <td class="llm-monthly-model-cell"><a href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ entry.model | url_encode }}">{{ entry.model }}</a>{% if entry.training_label %}<small class="llm-training-label">{{ entry.training_label | escape }}</small>{% endif %}{% if entry.new %}<span class="llm-monthly-new">新</span>{% endif %}</td>
                   <td class="llm-monthly-vendor-col">{{ entry.company }}</td>

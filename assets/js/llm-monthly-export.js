@@ -23,9 +23,17 @@
   var CARD_W = 1080;
   var PAD = 64;
   var ROW_H = 92;
-  var HEADER_H = 232;
+  var HEADER_H = 268;
   var FOOTER_H = 168;
   var SCALE = 2;
+  // Right-hand columns: the score keeps the hero position, the release date
+  // sits in its own column on the far right with a matching header label.
+  var DATE_COL_W = 140;
+  var SCORE_RESERVE = 130;
+  var SCORE_RIGHT = CARD_W - PAD - DATE_COL_W;
+  var DATE_RIGHT = CARD_W - PAD;
+  var NAME_X = PAD + 92;
+  var NEW_CHIP_W = 76;
 
   function rowsOf(card) {
     return Array.prototype.map.call(card.querySelectorAll('tbody tr'), function (tr) {
@@ -35,6 +43,7 @@
         company: tr.dataset.company || '',
         trainingLabel: tr.dataset.trainingLabel || '',
         score: tr.dataset.score || '',
+        released: tr.dataset.released || '',
         isNew: tr.dataset.new === 'true'
       };
     });
@@ -82,9 +91,10 @@
     // rows needing a two-line name get extra height
     var measure = document.createElement('canvas').getContext('2d');
     measure.font = '750 37px ' + FONT;
-    var nameMax = CARD_W - PAD * 2 - 92 - 150;
+    var nameMax = SCORE_RIGHT - SCORE_RESERVE - NAME_X;
     var wrapped = rows.map(function (row) {
-      return wrapModel(measure, row.model, nameMax);
+      // a NEW chip sits right after the name, so leave room for it
+      return wrapModel(measure, row.model, nameMax - (row.isNew ? NEW_CHIP_W : 0));
     });
     var totalH = wrapped.reduce(function (sum, lines, i) {
       return sum + (lines.length > 1 ? ROW_H + 34 : ROW_H);
@@ -148,13 +158,20 @@
     ctx.textAlign = 'left';
     ctx.fillStyle = SUB;
     ctx.font = '600 27px ' + FONT;
-    ctx.fillText(meta.subtitle, PAD, titleY + 46);
+    ctx.fillText(meta.subtitle, PAD, titleY + 42);
+
+    // column labels for the two right-hand columns
+    ctx.textAlign = 'right';
+    ctx.fillStyle = FAINT;
+    ctx.font = '700 19px ' + FONT;
+    ctx.fillText('得分', SCORE_RIGHT, HEADER_H - 32);
+    ctx.fillText('发布日期', DATE_RIGHT, HEADER_H - 32);
 
     ctx.strokeStyle = LINE;
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(PAD, HEADER_H - 16);
-    ctx.lineTo(CARD_W - PAD, HEADER_H - 16);
+    ctx.moveTo(PAD, HEADER_H - 20);
+    ctx.lineTo(CARD_W - PAD, HEADER_H - 20);
     ctx.stroke();
 
     // rows
@@ -186,7 +203,7 @@
       ctx.textAlign = 'left';
       ctx.fillStyle = INK;
       ctx.font = '750 37px ' + FONT;
-      var nameX = PAD + 92;
+      var nameX = NAME_X;
       if (lines.length > 1) {
         ctx.fillText(lines[0], nameX, cy - 4);
         ctx.fillText(lines[1], nameX, cy + 38);
@@ -227,7 +244,12 @@
       ctx.textAlign = 'right';
       ctx.fillStyle = row.rank <= 3 ? ACCENT_DEEP : INK;
       ctx.font = '800 44px ' + MONO;
-      ctx.fillText(row.score, CARD_W - PAD, cy + 15);
+      ctx.fillText(row.score, SCORE_RIGHT, cy + 15);
+
+      // release-date column, mirroring the table's 发布日期 cell
+      ctx.fillStyle = row.released ? SUB : FAINT;
+      ctx.font = '700 20px ' + MONO;
+      ctx.fillText(row.released || '--', DATE_RIGHT, cy + 7);
 
       y += rowH;
     });
