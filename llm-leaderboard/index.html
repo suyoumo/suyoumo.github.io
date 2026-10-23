@@ -129,6 +129,11 @@ permalink: /llm-leaderboard/
       </label>
       <span class="llm-board-filter-counter" id="llm-board-filter-counter" aria-live="polite"></span>
       <button class="llm-board-filter-reset" id="llm-board-filter-reset" type="button">Reset</button>
+      <button class="llm-board-pt-toggle" type="button" aria-pressed="false" data-pt-toggle>
+        <span class="llm-board-pt-dot" aria-hidden="true"></span>
+        <span data-pt-toggle-label>显示后训练模型</span>
+      </button>
+      <span class="llm-board-pt-note" data-pt-note></span>
 
       <!-- Model picker popover (anchored to toolbar via position:absolute) -->
       <div class="llm-board-filter-panel" id="llm-board-filter-models-panel" role="dialog" aria-label="Filter models" hidden>
@@ -196,7 +201,7 @@ permalink: /llm-leaderboard/
                 {% assign first_row = rows_in_group | first %}
                 {% assign is_merged = false %}
                 {% if rows_in_group.size > 1 %}{% assign is_merged = true %}{% endif %}
-            <tr data-model-name="{{ first_row.model }}" data-company="{{ first_row.company }}">
+            <tr data-model-name="{{ first_row.model }}" data-company="{{ first_row.company }}"{% if first_row.training_label %} data-post-trained="true"{% endif %}>
               <td class="llm-sticky-col llm-model-cell">
                 <a class="llm-model-link" href="{{ '/llm-leaderboard/model/' | relative_url }}?m={{ first_row.model | url_encode }}"><strong>{{ first_row.model }}</strong></a>
                 {% if first_row.training_label %}<small class="llm-training-label">{{ first_row.training_label | escape }}</small>{% endif %}
@@ -620,13 +625,21 @@ permalink: /llm-leaderboard/
   var benchPageBase = '{{ "/llm-leaderboard/bench/" | relative_url }}';
   var rows = boardData.rows || [];
   var trainingBadges = {};
+  var postTrainedModels = {};
   rows.forEach(function(r){
     if (!r.training_label) return;
     var badge = document.createElement('small');
     badge.className = 'llm-training-label';
     badge.textContent = r.training_label;
     trainingBadges[r.model] = badge.outerHTML;
+    postTrainedModels[r.company + '|' + r.model] = true;
   });
+  // While post-trained models are hidden they are left out of the ranking
+  // itself, so they occupy no rank position and the remaining models are
+  // ranked among themselves.
+  function hidingPostTrained(){
+    return window.LLM_BOARD_HIDE_POST_TRAINED !== false;
+  }
   var categories = boardData.categories || [];
 
   var benchLabels = {}, benchCat = {};
@@ -752,8 +765,10 @@ permalink: /llm-leaderboard/
 
   function scoreMap(){
     var m={};
+    var dropping = hidingPostTrained();
     rows.forEach(function(r){
       var mk=r.company+'|'+r.model;
+      if (dropping && postTrainedModels[mk]) return;
       if(!m[mk]) m[mk]={};
       if(r.scores) Object.keys(r.scores).forEach(function(bk){
         var e=r.scores[bk]; if(e&&e.length>0){ 
@@ -980,6 +995,12 @@ permalink: /llm-leaderboard/
   }, { passive:true });
   window.addEventListener('resize', applyRankingViewport, { passive:true });
   window.addEventListener('load', applyRankingViewport);
+
+  // The post-trained toggle lives in llm-board-extras.js; it flips the shared
+  // flag and lets the ranking recompute without those models.
+  document.addEventListener('llm-board-post-trained', function () {
+    renderRanking();
+  });
 
   renderRanking();
 })();

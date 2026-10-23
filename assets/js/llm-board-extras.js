@@ -14,7 +14,10 @@
     const state = {
       searchQuery: '',
       hiddenModels: new Set(),
-      hiddenBenches: new Set()
+      hiddenBenches: new Set(),
+      // Post-trained models stay out of the board until the reader asks for
+      // them: they are dropped from the score matrix and from the ranking.
+      hidePostTrained: true
     };
 
     const tbody = document.querySelector('#llm-board-table tbody');
@@ -535,6 +538,7 @@
         const c = tr.dataset.company || '';
         const passSearch = !q || (m + ' ' + c).toLowerCase().indexOf(q) !== -1;
         const passSelected = !state.hiddenModels.has(m);
+        const passPostTrained = !state.hidePostTrained || tr.dataset.postTrained !== 'true';
 
         // Bench data filter: if benchmarks have been filtered down, only
         // show this row when it has at least one non-empty score for
@@ -554,7 +558,7 @@
           }
         }
 
-        const show = passSearch && passSelected && passBenchData;
+        const show = passSearch && passSelected && passBenchData && passPostTrained;
         tr.style.display = show ? '' : 'none';
         if (show) {
           visibleModels++;
@@ -663,6 +667,45 @@
         afterChange();
       });
     }
+
+    /* ============ Post-trained models toggle ============ */
+    // The ranking table is computed by a separate script, so the two share the
+    // state through a global flag plus a DOM event.
+    const ptToggle = document.querySelector('[data-pt-toggle]');
+    const ptToggleLabel = document.querySelector('[data-pt-toggle-label]');
+    const ptNote = document.querySelector('[data-pt-note]');
+
+    function postTrainedCount() {
+      return tbody.querySelectorAll('tr[data-post-trained="true"]').length;
+    }
+
+    function refreshPostTrained() {
+      window.LLM_BOARD_HIDE_POST_TRAINED = state.hidePostTrained;
+      if (ptToggle) {
+        ptToggle.setAttribute('aria-pressed', state.hidePostTrained ? 'false' : 'true');
+      }
+      if (ptToggleLabel) {
+        ptToggleLabel.textContent = state.hidePostTrained ? '显示后训练模型' : '隐藏后训练模型';
+      }
+      if (ptNote) {
+        ptNote.textContent = state.hidePostTrained
+          ? ('已隐藏 ' + postTrainedCount() + ' 个后训练模型 · 排名已重算')
+          : '';
+        ptNote.hidden = !state.hidePostTrained;
+      }
+    }
+
+    if (ptToggle) {
+      ptToggle.addEventListener('click', function () {
+        state.hidePostTrained = !state.hidePostTrained;
+        applyFilter();
+        refreshPostTrained();
+        document.dispatchEvent(new CustomEvent('llm-board-post-trained', {
+          detail: { hidden: state.hidePostTrained }
+        }));
+      });
+    }
+    refreshPostTrained();
 
     /* ============ Popover open/close ============ */
     function closePanel(name) {

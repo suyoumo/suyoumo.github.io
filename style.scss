@@ -679,14 +679,18 @@ $llm-radius-ctl: 10px;
   }
 }
 
-// Post-trained models stay hidden on the monthly board until the toggle in
-// the hero reveals them. The class is only ever added by that toggle, so
-// archived snapshots without the button are untouched.
-.llm-monthly-page.is-hide-post-trained {
-  [data-post-trained="true"] {
-    display: none;
-  }
-}
+// Two variants of every monthly board: "full" ranks every model, "ex" leaves
+// the post-trained models out entirely so they occupy no rank position. The
+// page shows "ex" until the reader asks for the full board, then the toggle
+// class flips which one is displayed.
+.llm-monthly-page [data-board-variant="full"] { display: none; }
+.llm-monthly-page.show-post-trained [data-board-variant="full"] { display: revert; }
+.llm-monthly-page.show-post-trained .llm-podium-item[data-board-variant="full"] { display: flex; }
+.llm-monthly-page.show-post-trained [data-board-variant="ex"] { display: none; }
+
+.llm-monthly-page [data-count-variant="full"] { display: none; }
+.llm-monthly-page.show-post-trained [data-count-variant="full"] { display: inline; }
+.llm-monthly-page.show-post-trained [data-count-variant="ex"] { display: none; }
 
 .llm-monthly-pt-toggle {
   display: inline-flex;
@@ -1629,6 +1633,54 @@ $llm-radius-ctl: 10px;
     color: $primary;
     border-color: rgba(196, 90, 60, 0.32);
   }
+}
+
+.llm-board-pt-toggle {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid $llm-line;
+  background: $white;
+  color: $darkGray;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-family: $sans;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    background: rgba(196, 90, 60, 0.08);
+    color: $primary;
+    border-color: rgba(196, 90, 60, 0.32);
+  }
+
+  &[aria-pressed="true"] {
+    background: rgba(196, 90, 60, 0.1);
+    color: $primary;
+    border-color: rgba(196, 90, 60, 0.32);
+  }
+}
+
+.llm-board-pt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $llm-line;
+  transition: background 0.15s ease;
+}
+
+.llm-board-pt-toggle[aria-pressed="true"] .llm-board-pt-dot {
+  background: $primary;
+}
+
+.llm-board-pt-note {
+  color: $gray;
+  font-size: 0.76rem;
+  font-weight: 600;
+  opacity: 0.85;
 }
 
 /* ========== Filter popover panel ========== */

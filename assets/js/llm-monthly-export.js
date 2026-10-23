@@ -35,26 +35,28 @@
   var NAME_X = PAD + 92;
   var NEW_CHIP_W = 76;
 
-  function postTrainedHidden() {
+  // The monthly board ships two variants: "full" ranks every model, "ex" leaves
+  // the post-trained models out so they take up no rank position. The page
+  // shows "ex" until the reader asks for the full board.
+  function activeVariant() {
     var page = document.querySelector('.llm-monthly-page');
-    return !!(page && page.classList.contains('is-hide-post-trained'));
+    return (page && page.classList.contains('show-post-trained')) ? 'full' : 'ex';
   }
 
   function rowsOf(card) {
-    var hiding = postTrainedHidden();
-    return Array.prototype.map.call(card.querySelectorAll('tbody tr'), function (tr) {
-      return {
-        rank: parseInt(tr.dataset.rank, 10),
-        model: tr.dataset.model || '',
-        company: tr.dataset.company || '',
-        trainingLabel: tr.dataset.trainingLabel || '',
-        score: tr.dataset.score || '',
-        released: tr.dataset.released || '',
-        isNew: tr.dataset.new === 'true',
-        // post-trained rows hidden on the page stay out of the share card
-        hidden: hiding && tr.dataset.postTrained === 'true'
-      };
-    });
+    return Array.prototype.map.call(
+      card.querySelectorAll('tbody tr[data-board-variant="' + activeVariant() + '"]'),
+      function (tr) {
+        return {
+          rank: parseInt(tr.dataset.rank, 10),
+          model: tr.dataset.model || '',
+          company: tr.dataset.company || '',
+          trainingLabel: tr.dataset.trainingLabel || '',
+          score: tr.dataset.score || '',
+          released: tr.dataset.released || '',
+          isNew: tr.dataset.new === 'true'
+        };
+      });
   }
 
   function roundRect(ctx, x, y, w, h, r) {
@@ -317,7 +319,7 @@
       var btn = bar.querySelector('.llm-export-btn');
       if (!card || !msg || !startEl || !endEl || !btn) return;
 
-      var total = card.querySelectorAll('tbody tr').length;
+      var total = card.querySelectorAll('tbody tr[data-board-variant="' + activeVariant() + '"]').length;
       startEl.max = total;
       endEl.max = total;
       if (total < 30) endEl.value = Math.max(1, total);
@@ -350,9 +352,7 @@
         }
 
         var all = rowsOf(card);
-        // slice by the board's own rank range first, then drop the models the
-        // page is currently hiding, so the card matches what the reader sees
-        var rows = all.slice(start - 1, end).filter(function (row) { return !row.hidden; });
+        var rows = all.slice(start - 1, end);
         var catKey = panel ? panel.dataset.monthlyPanel : 'board';
         var month = (bar.dataset.monthLabel || '').replace(/\s+/g, '');
         var board = bar.dataset.boardLabel || '';

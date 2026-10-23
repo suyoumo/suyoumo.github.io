@@ -4,27 +4,30 @@
     var panels = Array.from(document.querySelectorAll('[data-monthly-panel]'));
     if (!tabs.length || !panels.length) return;
 
-    // Post-trained models stay hidden until the hero toggle reveals them.
+    // The board ships two variants: "full" ranks every model, "ex" leaves the
+    // post-trained models out so they take up no rank position. The page shows
+    // "ex" by default; the hero toggle switches to the full board.
     var page = document.querySelector('.llm-monthly-page');
     var toggle = document.querySelector('[data-pt-toggle]');
     var toggleLabel = document.querySelector('[data-pt-toggle-label]');
     var note = document.querySelector('[data-pt-note]');
-    var hiding = true;
+    var showingFull = false;
 
     function hiddenCount() {
       var active = panels.filter(function (panel) { return !panel.hidden; })[0] || panels[0];
       if (!active) return 0;
-      return active.querySelectorAll('tbody tr[data-post-trained="true"]').length;
+      return active.querySelectorAll(
+        'tbody tr[data-board-variant="full"][data-post-trained="true"]').length;
     }
 
     function refresh() {
       if (!page || !toggle) return;
-      page.classList.toggle('is-hide-post-trained', hiding);
-      toggle.setAttribute('aria-pressed', hiding ? 'false' : 'true');
-      if (toggleLabel) toggleLabel.textContent = hiding ? '显示后训练模型' : '隐藏后训练模型';
+      page.classList.toggle('show-post-trained', showingFull);
+      toggle.setAttribute('aria-pressed', showingFull ? 'true' : 'false');
+      if (toggleLabel) toggleLabel.textContent = showingFull ? '隐藏后训练模型' : '显示后训练模型';
       if (note) {
-        note.textContent = hiding ? ('已隐藏 ' + hiddenCount() + ' 个后训练模型 · 名次保留原位') : '';
-        note.hidden = !hiding;
+        note.textContent = showingFull ? '' : ('已隐藏 ' + hiddenCount() + ' 个后训练模型 · 名次已重排');
+        note.hidden = showingFull;
       }
     }
 
@@ -65,7 +68,7 @@
 
     if (toggle) {
       toggle.addEventListener('click', function () {
-        hiding = !hiding;
+        showingFull = !showingFull;
         refresh();
       });
     }
