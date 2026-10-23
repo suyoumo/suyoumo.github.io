@@ -35,7 +35,13 @@
   var NAME_X = PAD + 92;
   var NEW_CHIP_W = 76;
 
+  function postTrainedHidden() {
+    var page = document.querySelector('.llm-monthly-page');
+    return !!(page && page.classList.contains('is-hide-post-trained'));
+  }
+
   function rowsOf(card) {
+    var hiding = postTrainedHidden();
     return Array.prototype.map.call(card.querySelectorAll('tbody tr'), function (tr) {
       return {
         rank: parseInt(tr.dataset.rank, 10),
@@ -44,7 +50,9 @@
         trainingLabel: tr.dataset.trainingLabel || '',
         score: tr.dataset.score || '',
         released: tr.dataset.released || '',
-        isNew: tr.dataset.new === 'true'
+        isNew: tr.dataset.new === 'true',
+        // post-trained rows hidden on the page stay out of the share card
+        hidden: hiding && tr.dataset.postTrained === 'true'
       };
     });
   }
@@ -342,7 +350,9 @@
         }
 
         var all = rowsOf(card);
-        var rows = all.slice(start - 1, end);
+        // slice by the board's own rank range first, then drop the models the
+        // page is currently hiding, so the card matches what the reader sees
+        var rows = all.slice(start - 1, end).filter(function (row) { return !row.hidden; });
         var catKey = panel ? panel.dataset.monthlyPanel : 'board';
         var month = (bar.dataset.monthLabel || '').replace(/\s+/g, '');
         var board = bar.dataset.boardLabel || '';

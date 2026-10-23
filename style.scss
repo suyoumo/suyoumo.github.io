@@ -653,6 +653,10 @@ $llm-radius-ctl: 10px;
 }
 
 .llm-monthly-history {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   margin-top: 18px;
 }
 
@@ -673,6 +677,61 @@ $llm-radius-ctl: 10px;
     background: rgba(196, 90, 60, 0.06);
     color: $primary;
   }
+}
+
+// Post-trained models stay hidden on the monthly board until the toggle in
+// the hero reveals them. The class is only ever added by that toggle, so
+// archived snapshots without the button are untouched.
+.llm-monthly-page.is-hide-post-trained {
+  [data-post-trained="true"] {
+    display: none;
+  }
+}
+
+.llm-monthly-pt-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid $llm-line;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: $gray;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: rgba(196, 90, 60, 0.35);
+    background: rgba(196, 90, 60, 0.06);
+    color: $primary;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: rgba(196, 90, 60, 0.35);
+    background: rgba(196, 90, 60, 0.08);
+    color: $primary;
+  }
+}
+
+.llm-monthly-pt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $llm-line;
+  transition: background 0.15s ease;
+}
+
+.llm-monthly-pt-toggle[aria-pressed="true"] .llm-monthly-pt-dot {
+  background: $primary;
+}
+
+.llm-monthly-pt-note {
+  color: $gray;
+  font-size: 0.73rem;
+  font-weight: 700;
+  opacity: 0.8;
 }
 
 .llm-monthly-tabs {
