@@ -615,6 +615,8 @@ categories:
     label: FeatBench
   - key: code_agent_bench
     label: CodeAgentBench
+  - key: xdev_bench_hard
+    label: xdev-bench-hard (Internal)
   - key: deepswe_1_1
     label: DeepSWE 1.1
   - key: frontierswe
@@ -745,6 +747,8 @@ categories:
     label: SWE Refactor Bench
   - key: posttrainbench_1_1
     label: PostTrainBench v1.1
+  - key: posttrainbench_1_2
+    label: PostTrainBench v1.2
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -771,6 +775,8 @@ categories:
     label: WorkArena
   - key: agents_last_exam
     label: Agents' Last Exam
+  - key: agents_last_exam_cli
+    label: Agents' Last Exam (CLI)
   - key: apex_bench_1_1
     label: Apex Bench v1.1
   - key: management_consulting_tasks_internal
@@ -797,10 +803,16 @@ categories:
     label: OSWorld 2.0
   - key: benchcad
     label: BenchCAD
+  - key: benchcad_no_tools
+    label: BenchCAD (w/o Tools)
   - key: openscore_string_quartets
     label: OpenScore String Quartets (1 - OMR-NED)
   - key: internal_design_tasks
     label: Internal Design Tasks
+  - key: design_bench_internal
+    label: Design Bench (Internal, Elo)
+  - key: deck_arena_internal
+    label: DECK-Arena (Internal, Elo)
   - key: internal_data_science_tasks
     label: Internal Data Science Tasks
   - key: benchcad_python_tools
@@ -835,6 +847,10 @@ categories:
     label: OfficeQA Pro
   - key: officeqa_pro_v2
     label: OfficeQA Pro v2
+  - key: handbook_md
+    label: HANDBOOK.md
+  - key: business_operation_internal
+    label: Business Operation (Internal)
   - key: mimo_cyber_bench
     label: MiMo Cyber Bench
   - key: cybergym
@@ -941,6 +957,10 @@ categories:
     label: Impossible ExploitGym
   - key: internal_hallucination
     label: Internal hallucination benchmark (lower is better)
+  - key: kimi_hallu_bench_hard_tools
+    label: Kimi Hallu Bench Hard w/ tools (lower is better)
+  - key: kimi_hallu_bench_no_tools
+    label: Kimi Hallu Bench w/o tools (lower is better)
   - key: healthbench_pro
     label: HealthBench Professional
   - key: genebench_pro
@@ -1109,8 +1129,12 @@ categories:
     label: Chinese-SimpleQA
   - key: gpqa
     label: GPQA
+  - key: gpqa_diamond
+    label: GPQA-Diamond
   - key: hle
     label: HLE
+  - key: hle_diamond
+    label: HLE-Diamond
   - key: aa_omniscience_accuracy
     label: AA-Omniscience Accuracy
   - key: aa_omniscience_non_hallucination
@@ -1347,6 +1371,8 @@ categories:
     label: MMMU
   - key: mmmu_pro
     label: MMMU-Pro
+  - key: mmmu_pro_python
+    label: MMMU-Pro w/ python
   - key: mmmu_pro_tools
     label: MMMU-Pro (Tools)
   - key: mathvision
@@ -1383,6 +1409,8 @@ categories:
     label: MMLongBench-Doc
   - key: gdp_pdf
     label: GDP.pdf
+  - key: gdp_pdf_python
+    label: GDP.pdf w/ python
   - key: gdp_pdf_mean_criteria
     label: GDP.pdf (mean-criteria)
   - key: mmlongbench_128k
@@ -1461,6 +1489,8 @@ categories:
     label: BabyVision (w/tools)
   - key: zerobench_main_pass5
     label: ZeroBench_main (pass@5)
+  - key: zerobench_main_avg5_pass5
+    label: ZeroBench_main (avg@5 / pass@5)
   - key: zerobench_main_python_pass5
     label: ZeroBench_main w/ python (pass@5)
   - key: perception_bench
@@ -27395,6 +27425,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/6.png
+    - value: '57.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     hle_tools:
     - value: '65.0'
       source_label: Claude Fable 5.1 report
@@ -27507,6 +27540,9 @@ rows:
     - value: '1694'
       source_label: Artificial Analysis (Fable 5.1)
       source_url: https://artificialanalysis.ai
+    - value: '1672'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     harvey_lab_aa:
     - value: '93'
       source_label: Artificial Analysis (Fable 5.1)
@@ -27536,6 +27572,9 @@ rows:
     - value: '67.4'
       source_label: Muse Wonder report
       source_url: https://ai.meta.com
+    - value: '67.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     swe_marathon:
     - value: '45.0'
       source_label: Qwen3.8-Max-0902 report
@@ -27561,6 +27600,9 @@ rows:
     - value: '81.2'
       source_label: Qwen3.8-Max-0902 report
       source_url: https://qwen.ai/blog?id=qwen3.8
+    - value: '86.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     erqa:
     - value: '70.0'
       source_label: Qwen3.8-Max-0902 report
@@ -27588,6 +27630,9 @@ rows:
     - value: '55.5'
       source_label: Muse Wonder report
       source_url: https://ai.meta.com
+    - value: '53.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     nl2repo:
     - value: '70.2'
       source_label: Qwen3.8-Max-0902 report
@@ -27721,6 +27766,9 @@ rows:
     - value: '59'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/4.png
+    - value: '59.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     terminal_bench_4_0_aa:
     - value: '52'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -27862,6 +27910,95 @@ rows:
     - value: '59.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    benchcad_no_tools:
+    - value: '60.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    posttrainbench_1_2:
+    - value: '44.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    biomystery_bench:
+    - value: '81.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    charxiv_rq_python:
+    - value: '92.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    mmmu_pro_python:
+    - value: '88.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    gdp_pdf_python:
+    - value: '83.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    babyvision_python:
+    - value: '95.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    zerobench_main_python_pass5:
+    - value: '59.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    apex_agents:
+    - value: '68.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    officeqa_pro:
+    - value: '68.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    harvey_lab:
+    - value: '19.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    handbook_md:
+    - value: '38.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    business_operation_internal:
+    - value: '30.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '23.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: '55.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '93.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    charxiv_rq:
+    - value: '88.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    zerobench_main_pass5: []
+    perception_bench:
+    - value: '63.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    kimi_hallu_bench_no_tools:
+    - value: '11.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploit_bench:
+    - value: '83.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploitgym:
+    - value: '30.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    zerobench_main_avg5_pass5:
+    - value: 23.0/35.0
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -31547,6 +31684,9 @@ rows:
     - value: '66.9'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/1.png
+    - value: '66.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
@@ -31604,10 +31744,16 @@ rows:
     - value: 105 / 130
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '15.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
     exploit_bench:
     - value: '54.4'
       source_label: GLM-5.3 report
       source_url: https://bigmodel.cn
+    - value: '54.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
     toolathlon:
     - value: '73.0'
       source_label: GLM-5.3 report
@@ -31708,6 +31854,9 @@ rows:
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
       exclude_from_ranking: true
+    - value: 43.0*
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
@@ -31856,6 +32005,9 @@ rows:
     - value: '65.8'
       source_label: Atria Dawn report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/3.png
+    - value: '58.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     mcp_atlas:
     - value: '81.9'
       source_label: GLM-5.3
@@ -31871,6 +32023,9 @@ rows:
     - value: '38.1'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: '56.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     skillsbench:
     - value: '63.3'
       source_label: GLM-5.3
@@ -31933,6 +32088,9 @@ rows:
     - value: '19.0'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/2.png
+    - value: '19.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     aa_briefcase_pct:
     - value: '50'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -31963,6 +32121,9 @@ rows:
     - value: '62'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
+    - value: '62.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     terminal_bench_4_0_aa:
     - value: '42'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -32149,6 +32310,62 @@ rows:
     - value: '57.5'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    posttrainbench_1_2:
+    - value: '34.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    kimi_code_bench_v2:
+    - value: '61.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    biomystery_bench:
+    - value: '79.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    agents_last_exam_cli:
+    - value: '29.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    aa_briefcase:
+    - value: '1507'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    handbook_md:
+    - value: '20.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    business_operation_internal:
+    - value: '18.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    deck_arena_internal:
+    - value: '1119'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    design_bench_internal:
+    - value: '718'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '22.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: 25.1*
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '91.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_no_tools:
+    - value: '14.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    xdev_bench_hard:
+    - value: '57.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
 - company: Tencent
   model: Hunyuan 4 Preview
   mode: ''
@@ -33502,6 +33719,9 @@ rows:
     - value: '43'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/7.png
+    - value: '42.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     terminal_bench_4_0:
     - value: '42.3'
       source_label: DS-V4.1-Flash-1017
@@ -33519,10 +33739,16 @@ rows:
     - value: '77.0'
       source_label: MiniMax-M3.1-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: '77.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     program_bench:
     - value: '29.1'
       source_label: DS-V4.1-Flash-1017
       source_url: https://suyoumo.github.io/assets/images/llm-reports/deepseek-v4.1-flash-1017-score-table.png
+    - value: '29.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     nl2repo:
     - value: '68.2'
       source_label: DS-V4.1-Flash-1017
@@ -33585,6 +33811,9 @@ rows:
     - value: '67'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/5.png
+    - value: '66.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     gdpval_aa_v2_pct:
     - value: '62'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
@@ -33620,6 +33849,9 @@ rows:
     - value: '81'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/21.png
+    - value: '80.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     swe_marathon:
     - value: '40.0'
       source_label: Kimi K3.1 Pro report
@@ -33656,6 +33888,111 @@ rows:
     - value: '58.8'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    benchcad_no_tools:
+    - value: '41.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    posttrainbench_1_2:
+    - value: '30.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    kimi_code_bench_v2:
+    - value: '76.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    biomystery_bench:
+    - value: '80.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    charxiv_rq_python:
+    - value: '85.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    mmmu_pro_python:
+    - value: '82.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    gdp_pdf_python:
+    - value: '73.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    babyvision_python:
+    - value: '92.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    zerobench_main_python_pass5:
+    - value: '51.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    agents_last_exam_cli:
+    - value: '36.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    aa_briefcase:
+    - value: '1570'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    apex_agents:
+    - value: '63.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    officeqa_pro:
+    - value: '62.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    harvey_lab:
+    - value: '21.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    handbook_md:
+    - value: '28.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    business_operation_internal:
+    - value: '8.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    deck_arena_internal:
+    - value: '1231'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    design_bench_internal:
+    - value: '863'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '23.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: '21.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '92.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    charxiv_rq:
+    - value: '77.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    zerobench_main_pass5: []
+    perception_bench:
+    - value: '47.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    kimi_hallu_bench_no_tools:
+    - value: '13.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    xdev_bench_hard:
+    - value: '85.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    zerobench_main_avg5_pass5:
+    - value: 11.8/23.0
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
 - company: DeepSeek
   model: DeepSeek-V4.1-Flash
   mode: ''
@@ -34182,6 +34519,9 @@ rows:
     - value: '91.5'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '91.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
     openscore_string_quartets:
     - value: '0.84'
       source_label: GPT-6 Astra report
@@ -34224,6 +34564,9 @@ rows:
     - value: '74.1'
       source_label: Muse Wonder report
       source_url: https://ai.meta.com
+    - value: '74.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     frontiercode_extended:
     - value: '64.5'
       source_label: GPT-6 Astra report
@@ -34315,10 +34658,16 @@ rows:
     - value: '100.0'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '100'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
     exploitgym:
     - value: '42.4'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '42.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
     exploit_bench_june_aug_2026:
     - value: '39.0'
       source_label: GPT-6 Astra report
@@ -34413,6 +34762,9 @@ rows:
     - value: '55'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/6.png
+    - value: '53.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     critpt:
     - value: '32'
       source_label: Artificial Analysis (GPT-6 Astra)
@@ -34469,6 +34821,9 @@ rows:
     - value: '1570'
       source_label: Artificial Analysis (GPT-6 Astra)
       source_url: https://artificialanalysis.ai
+    - value: '1569'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     mmmu_pro:
     - value: '87'
       source_label: Artificial Analysis (GPT-6 Astra)
@@ -34479,6 +34834,9 @@ rows:
     - value: '87'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/19.png
+    - value: '86.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     gdpval_aa_v2:
     - value: '1542'
       source_label: Claude Opus 5.5 report
@@ -34516,6 +34874,9 @@ rows:
     - value: '68'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/4.png
+    - value: '68.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     terminal_bench_4_0_aa:
     - value: '59'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -34663,6 +35024,9 @@ rows:
     - value: '52.5'
       source_label: Muse Wonder report
       source_url: https://ai.meta.com
+    - value: '50.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     osworld_2_1_binary:
     - value: '34.3'
       source_label: Muse Wonder report
@@ -34695,6 +35059,87 @@ rows:
     - value: '58.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    posttrainbench_1_2:
+    - value: '41.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    biomystery_bench:
+    - value: '78.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    charxiv_rq_python:
+    - value: '92.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    mmmu_pro_python:
+    - value: '87.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    gdp_pdf_python:
+    - value: '85.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    babyvision_python:
+    - value: '96.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    zerobench_main_python_pass5:
+    - value: '58.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    agents_last_exam_cli:
+    - value: '38.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    apex_agents:
+    - value: '64.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    officeqa_pro:
+    - value: '66.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    business_operation_internal:
+    - value: '32.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    deck_arena_internal:
+    - value: '1423'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    design_bench_internal:
+    - value: '1076'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '5.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: '65.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '96.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    charxiv_rq:
+    - value: '90.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    zerobench_main_pass5: []
+    perception_bench:
+    - value: '77.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    kimi_hallu_bench_no_tools:
+    - value: '4.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    zerobench_main_avg5_pass5:
+    - value: 43.2/52.0
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
 - company: Anthropic
   model: Claude Opus 5.5
   mode: Max with fallback
@@ -34846,6 +35291,9 @@ rows:
     - value: '70'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/4.png
+    - value: '69.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     terminal_bench_4_0_aa:
     - value: '60'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -34879,6 +35327,9 @@ rows:
     - value: '61'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/6.png
+    - value: '59.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     gdp_pdf:
     - value: '26'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -34972,6 +35423,9 @@ rows:
     - value: '88'
       source_label: Artificial Analysis (GPT-6 Sol/Luna comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6-sol-luna/19.png
+    - value: '87.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     mlcr_aa:
     - value: '67'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -34983,6 +35437,9 @@ rows:
     - value: '1822'
       source_label: Claude Sonnet 5.5 report
       source_url: https://anthropic.com
+    - value: '1803'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     chartography:
     - value: '64.4'
       source_label: Claude Sonnet 5.5 report
@@ -35011,6 +35468,9 @@ rows:
     - value: '74.2'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/1.png
+    - value: '74.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     frontierswe_v2:
     - value: '62.3'
       source_label: Gemini 4 Argon report
@@ -35084,6 +35544,9 @@ rows:
     - value: '70.5'
       source_label: Muse Wonder report
       source_url: https://ai.meta.com
+    - value: '65.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
     aa_intelligence_index_v4_1:
     - value: '58'
       source_label: Muse Wonder report
@@ -35120,6 +35583,99 @@ rows:
     - value: '61.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    benchcad_no_tools:
+    - value: '73.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    posttrainbench_1_2:
+    - value: '43.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    browsecomp:
+    - value: '90.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    biomystery_bench:
+    - value: '81.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    charxiv_rq_python:
+    - value: '93.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    mmmu_pro_python:
+    - value: '89.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    gdp_pdf_python:
+    - value: '83.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    babyvision_python:
+    - value: '97.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    zerobench_main_python_pass5:
+    - value: '61.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    agents_last_exam_cli:
+    - value: '40.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    apex_agents:
+    - value: '73.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    handbook_md:
+    - value: '41.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    deck_arena_internal:
+    - value: '1253'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    design_bench_internal:
+    - value: '927'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '15.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: '60.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '93.9'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    charxiv_rq:
+    - value: '92.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    zerobench_main_pass5: []
+    perception_bench:
+    - value: '72.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    kimi_hallu_bench_no_tools:
+    - value: '6.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploit_bench:
+    - value: '91.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploitgym:
+    - value: '34.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    zerobench_main_avg5_pass5:
+    - value: 35.0/43.0
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
 - company: Anthropic
   model: Claude Sonnet 5.5
   mode: Max with fallback
@@ -37339,6 +37895,9 @@ rows:
     - value: '1678'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/4.png
+    - value: '1678'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     aa_omniscience_accuracy:
     - value: '51'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
@@ -37351,10 +37910,16 @@ rows:
     - value: '73'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/7.png
+    - value: '73.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
     hle:
     - value: '52'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/9.png
+    - value: '51.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
     terminal_bench_4_0_aa:
     - value: '67'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
@@ -37375,6 +37940,130 @@ rows:
     - value: '84'
       source_label: Artificial Analysis (Kimi K3.1 Pro comparison)
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/15.png
+    - value: '84.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    benchcad_no_tools:
+    - value: '72.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    program_bench:
+    - value: '31.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    deepswe_1_1:
+    - value: '75.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    posttrainbench_1_2:
+    - value: '36.5'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    kimi_code_bench_v2:
+    - value: '77.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    browsecomp:
+    - value: '92.1'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    biomystery_bench:
+    - value: '80.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    charxiv_rq_python:
+    - value: '93.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    mmmu_pro_python:
+    - value: '90.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    gdp_pdf_python:
+    - value: '85.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    babyvision_python:
+    - value: '95.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    zerobench_main_python_pass5:
+    - value: '63.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    agents_last_exam_cli:
+    - value: '44.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    apex_agents:
+    - value: '67.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    officeqa_pro:
+    - value: '67.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    harvey_lab:
+    - value: '23.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    handbook_md:
+    - value: '44.6'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    business_operation_internal:
+    - value: '37.8'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    deck_arena_internal:
+    - value: '1456'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    design_bench_internal:
+    - value: '957'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    kimi_hallu_bench_hard_tools:
+    - value: '8.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    hle_diamond:
+    - value: '39.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    gpqa_diamond:
+    - value: '94.2'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    charxiv_rq:
+    - value: '89.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
+    zerobench_main_pass5: []
+    perception_bench:
+    - value: '68.3'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    kimi_hallu_bench_no_tools:
+    - value: '5.4'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploit_bench:
+    - value: '74.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    exploitgym:
+    - value: '20.7'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    xdev_bench_hard:
+    - value: '81.0'
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/20.png
+    zerobench_main_avg5_pass5:
+    - value: 29.8/39.0
+      source_label: Kimi K3.1 Pro report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/19.png
 collections:
   overall:
     label: ' 综合'

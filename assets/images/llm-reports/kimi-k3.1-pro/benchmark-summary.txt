@@ -59,3 +59,41 @@ zerobench_main_tools 63.0 61.0 58.0 59.0 51.0 -
 对比校验：4-15.png 中其余模型的读数与本榜已有的 AA 来源数值基本一致，仅少数存在
 1-3 分或 Elo 级差异（如 aa_briefcase 的 Claude Fable 5.1 1671 vs 旧值 1694），
 判断为 AA 自身修订，未覆盖旧值。
+
+--------------------------------------------------------------------------------
+16.png ~ 20.png：官方详细对比表（Coding / Agentic / Reasoning / Cyber Security）
+--------------------------------------------------------------------------------
+列顺序：Kimi K3.1 Pro | Claude Fable 5.1 | GPT-6 Astra | Claude Opus 5.5 |
+        DeepSeek-V4.1-Flash-1017 | GLM-5.3
+转录用表中加粗（该行最优）做自洽校验：每行加粗值均为该行最大值，lower-is-better 两项为最小值。
+与 1-3.png 重复的单元格（同来源同值）未重复录入。
+
+新增 benchmark key（已注册到 categories，均未加入 collections）：
+  benchcad_no_tools            General Agent   BenchCAD (w/o Tools)
+  agents_last_exam_cli         General Agent   Agents' Last Exam (CLI)
+  handbook_md                  General Agent   HANDBOOK.md
+  business_operation_internal  General Agent   Business Operation (Internal)
+  design_bench_internal        General Agent   Design Bench (Internal, Elo)
+  deck_arena_internal          General Agent   DECK-Arena (Internal, Elo)
+  kimi_hallu_bench_hard_tools  General Agent   Kimi Hallu Bench Hard w/ tools (lower is better)
+  kimi_hallu_bench_no_tools    General Agent   Kimi Hallu Bench w/o tools (lower is better)
+  posttrainbench_1_2           Coding Agent    PostTrainBench v1.2
+  xdev_bench_hard              Coding Agent    xdev-bench-hard (Internal)
+  mmmu_pro_python              Multimodal      MMMU-Pro w/ python
+  gdp_pdf_python               Multimodal      GDP.pdf w/ python
+  hle_diamond                  Knowledge & Reasoning  HLE-Diamond
+  gpqa_diamond                 Knowledge & Reasoning  GPQA-Diamond
+
+映射判断说明：
+  Harvey Legal Agent        -> harvey_lab（与现有 Harvey LAB 同量纲）
+  ChartoGraphy w/ python    -> chartography_tools（与 3.png 的 w/ tools 数值完全一致）
+  ZeroBench_main w/python   -> zerobench_main_python_pass5
+  ZeroBench_main avg@5/pass@5 -> zerobench_main_pass5（复合值原样保留）
+  Kimi Code Bench 2.0       -> kimi_code_bench_v2
+  GLM-5.3 的 HLE-Full 43.0* 与 HLE-Diamond 25.1* 保留星号
+  ZeroBench_main (avg@5 / pass@5) -> 独立新列 zerobench_main_avg5_pass5
+     （不写入 pass@5 列：否则综合排名取斜杠前值会把 avg@5 当作 pass@5 参与比较）
+
+去重处理：
+  gdpval_aa_v2 在 2.png 与 18.png 均给出同一组数值，同来源只保留一条（2.png 的 *.0 记录）。
+  其余跨来源同值（如 aa_briefcase 1678 同时来自 AA 对比图与官方表）按榜单多来源设计保留。
