@@ -10,20 +10,37 @@
     var meta = C.benchMeta(board);
     var benchLabels = meta.labels;
     var collections = C.collections(board, benchLabels);
-    var sm = C.scoreMap(board.rows);
+    // The "#N" beside each option follows the main board's default view
+    // (post-trained models hidden). Post-trained models are still selectable,
+    // so their rank comes from the full field and is marked with *.
+    var sm = C.scoreMap(board.rows, { skipPostTrained: true });
+    var smFull = C.scoreMap(board.rows);
+    var ptSet = C.postTrainedSet(board.rows);
     var overallRank = C.computeRanking(sm, collections.Overall.keys, collections.Overall.minBench);
     var validKeys = overallRank.validKeys;
     var rankOf = {};
     overallRank.results.forEach(function (r, i) { rankOf[r.mk] = { rank: i + 1, r: r }; });
+    (function () {
+      var rf = C.computeRanking(smFull, collections.Overall.keys, collections.Overall.minBench);
+      rf.results.forEach(function (r, i) { if (!rankOf[r.mk]) rankOf[r.mk] = { rank: i + 1, r: r, full: true }; });
+    })();
 
-    var options = Object.keys(sm).sort(function (a, b) {
+    var options = Object.keys(smFull).sort(function (a, b) {
+      // Default-scope ranks come first; post-trained models carry a full-field
+      // rank on a different scale, so they follow in their own block instead
+      // of being interleaved with ranks they do not hold.
+      function tier(mk) { return rankOf[mk] ? (rankOf[mk].full ? 1 : 0) : 2; }
+      var ta = tier(a), tb = tier(b);
+      if (ta !== tb) return ta - tb;
       var ra = rankOf[a] ? rankOf[a].rank : 1e9, rb = rankOf[b] ? rankOf[b].rank : 1e9;
       if (ra !== rb) return ra - rb;
       return a.localeCompare(b);
     });
     function labelOf(mk) {
       var p = mk.split('|');
-      return p[1] + '（' + p[0] + '）' + (rankOf[mk] ? ' · #' + rankOf[mk].rank : '');
+      var rr = rankOf[mk];
+      if (!rr) return p[1] + '（' + p[0] + '）';
+      return p[1] + '（' + p[0] + '） · ' + (rr.full ? '含后训练 #' + rr.rank : '#' + rr.rank);
     }
     function companyKey(name) {
       for (var i = 0; i < options.length; i++) { if (options[i].split('|')[1] === name) return options[i]; }
@@ -101,12 +118,12 @@
     function pairDetail(A, B) {
       var shared = [];
       validKeys.forEach(function (bk) {
-        if (sm[A].hasOwnProperty(bk) && sm[B].hasOwnProperty(bk)) shared.push(bk);
+        if (smFull[A].hasOwnProperty(bk) && smFull[B].hasOwnProperty(bk)) shared.push(bk);
       });
       var w = 0, l = 0, d = 0;
       shared.forEach(function (bk) {
-        if (sm[A][bk] > sm[B][bk]) w++;
-        else if (sm[B][bk] > sm[A][bk]) l++;
+        if (smFull[A][bk] > smFull[B][bk]) w++;
+        else if (smFull[B][bk] > smFull[A][bk]) l++;
         else d++;
       });
       return { w: w, l: l, d: d, n: shared.length };
@@ -132,11 +149,11 @@
       var keys = all ? Object.keys(benchLabels) : validKeys;
       var shared = [];
       keys.forEach(function (bk) {
-        if (sm[A].hasOwnProperty(bk) && sm[B].hasOwnProperty(bk)) shared.push(bk);
+        if (smFull[A].hasOwnProperty(bk) && smFull[B].hasOwnProperty(bk)) shared.push(bk);
       });
       var winA = [], winB = [], draw = [];
       shared.forEach(function (bk) {
-        var a = sm[A][bk], b = sm[B][bk];
+        var a = smFull[A][bk], b = smFull[B][bk];
         var item = { bk: bk, a: a, b: b, m: (a - b) / Math.max(Math.abs(a), Math.abs(b), 1e-9) };
         if (a > b) winA.push(item); else if (b > a) winB.push(item); else draw.push(item);
       });

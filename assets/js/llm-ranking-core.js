@@ -22,10 +22,25 @@ window.LLMCore = (function () {
     };
   }
 
-  function scoreMap(rows) {
+  // Models tagged with a training_label (currently "后训练") are hidden and
+  // left out of the ranking on the main board by default, so they take up no
+  // rank position. Detail pages must rank the same set, or the #N they print
+  // disagrees with the board the reader just came from.
+  function postTrainedSet(rows) {
+    var s = {};
+    (rows || []).forEach(function (r) {
+      if (r.training_label) s[r.company + '|' + r.model] = true;
+    });
+    return s;
+  }
+
+  function scoreMap(rows, opts) {
+    opts = opts || {};
+    var skip = opts.skipPostTrained ? postTrainedSet(rows) : null;
     var m = {};
     (rows || []).forEach(function (r) {
       var mk = r.company + '|' + r.model;
+      if (skip && skip[mk]) return;
       if (!m[mk]) m[mk] = {};
       if (r.scores) Object.keys(r.scores).forEach(function (bk) {
         var e = r.scores[bk]; if (e && e.length > 0) {
@@ -116,6 +131,7 @@ window.LLMCore = (function () {
     benchMeta: benchMeta,
     collections: collections,
     scoreMap: scoreMap,
+    postTrainedSet: postTrainedSet,
     computeRanking: computeRanking,
     rankColor: rankColor,
     rankTextColor: rankTextColor

@@ -20,8 +20,13 @@
     var setOf = {};
     Object.keys(collections).forEach(function (n) { setOf[n] = {}; collections[n].keys.forEach(function (k) { setOf[n][k] = true; }); });
 
-    var sm = C.scoreMap(board.rows);
     var mk = modelRows[0].company + '|' + modelRows[0].model;
+    var postTrained = C.postTrainedSet(board.rows);
+    var isPostTrained = !!postTrained[mk];
+    // The board the reader came from hides post-trained models and re-ranks the
+    // rest, so the tiles use the same set. A post-trained model's own page has
+    // no rank in that view, so it falls back to the full field and says so.
+    var sm = C.scoreMap(board.rows, { skipPostTrained: !isPostTrained });
 
     var html = '';
     var modes = [], released = [];
@@ -68,13 +73,21 @@
           '<div class="mp-rank">#' + (idx + 1) + ' <small>/ ' + rd.results.length + '</small></div>' +
           '<div class="mp-meter"><span style="width:' + Math.min(100, Math.max(2, r.scoreRate * 100)).toFixed(1) + '%"></span></div>' +
           '<div class="mp-sub">得分率 <strong>' + (r.scoreRate * 100).toFixed(1) + '%</strong> · ' + r.wins + ' 胜 ' + r.draws + ' 平 ' + r.losses + ' 负</div>' +
-          '<div class="mp-sub">均百分位 ' + r.avg.toFixed(3) + '</div></div>';
+          '<div class="mp-sub">均百分位 ' + r.avg.toFixed(3) + '</div>' +
+          (isPostTrained ? '<div class="mp-sub">含后训练模型口径</div>' : '') + '</div>';
+      } else if (isPostTrained) {
+        html += '<div class="mp-tile mp-out"><div class="mp-tile-head"><h3>' + tileTitle + '</h3></div>' +
+          '<div class="mp-rank">--</div><div class="mp-sub">后训练模型，不参与默认排名</div></div>';
       } else {
         html += '<div class="mp-tile mp-out"><div class="mp-tile-head"><h3>' + tileTitle + '</h3></div>' +
           '<div class="mp-rank">--</div><div class="mp-sub">未达入围线（≥' + collections[n].minBench + ' 个 bench）</div></div>';
       }
     });
-    html += '</div></div>';
+    html += '</div>';
+    html += '<p class="mp-rank-note">' + (isPostTrained
+      ? '本模型标记为后训练模型，主榜默认隐藏此类模型，因此此处名次按“含后训练模型”口径计算，与主榜开启“显示后训练模型”时一致。'
+      : '排名口径与主榜一致：主榜默认隐藏后训练模型后重新计算，此处的名次与主榜默认视图一致。') +
+      '</p></div>';
 
     html += '<h2 class="mp-sec-title">Code 与 General 榜单分数<small>综合排名 = Code + General；颜色为该 bench 上的百分位位次（绿=靠前）</small></h2><div class="mp-card">';
     ['Code', 'General'].forEach(function (n) {

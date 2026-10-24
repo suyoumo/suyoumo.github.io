@@ -82,24 +82,40 @@
 
     // Which ranking boards each model actually qualified for (min-bench rule).
     // Some models report this benchmark but sit in none of the boards it feeds.
-    var sm = C.scoreMap(board.rows);
+    // The boards hide post-trained models by default, so a regular model's
+    // badge must be its rank in that reduced field to match the main board.
+    // Post-trained models have no rank there, so they keep the full-field rank
+    // and are marked with * (title explains the scope).
+    var ptSet = C.postTrainedSet(board.rows);
+    var sm = C.scoreMap(board.rows, { skipPostTrained: true });
+    var smFull = C.scoreMap(board.rows);
     var boardQualified = { 'Overall': {}, 'Code': {}, 'General': {} };
+    var boardQualifiedFull = { 'Overall': {}, 'Code': {}, 'General': {} };
     ['Overall', 'Code', 'General'].forEach(function (n) {
       var rd = C.computeRanking(sm, collections[n].keys, collections[n].minBench);
       rd.results.forEach(function (r, i) { boardQualified[n][r.mk] = i + 1; });
+      var rf = C.computeRanking(smFull, collections[n].keys, collections[n].minBench);
+      rf.results.forEach(function (r, i) { boardQualifiedFull[n][r.mk] = i + 1; });
     });
     var badgesFor = function (mk) {
       if (!boardOrder.length) return '';
+      var isPt = !!ptSet[mk];
+      var table = isPt ? boardQualifiedFull : boardQualified;
       var out = '';
       var any = false;
       boardOrder.forEach(function (n) {
-        if (boardQualified[n][mk]) { any = true; out += '<span class="bp-badge bp-badge-' + n.toLowerCase() + '" title="入围' + C.escapeHtml(inColl[n]) + '榜">#' + boardQualified[n][mk] + '</span>'; }
+        if (table[n][mk]) {
+          any = true;
+          var scope = isPt ? '含后训练模型口径' : '默认口径（隐藏后训练模型）';
+          out += '<span class="bp-badge bp-badge-' + n.toLowerCase() + '" title="' + C.escapeHtml(scope) + ' · 入围' + C.escapeHtml(inColl[n]) + '榜">#' + table[n][mk] + (isPt ? '*' : '') + '</span>';
+        }
       });
       if (!any) out = '<span class="bp-badge bp-badge-none" title="未入围' + boardOrder.map(function (n) { return C.escapeHtml(inColl[n]); }).join(' / ') + '榜">未入围</span>';
       return out;
     };
     var rankedInBoards = function (mk) {
-      return boardOrder.some(function (n) { return !!boardQualified[n][mk]; });
+      var table = ptSet[mk] ? boardQualifiedFull : boardQualified;
+      return boardOrder.some(function (n) { return !!table[n][mk]; });
     };
 
     var vals = ranked.map(function (r) { return r.v; }).sort(function (a, b) { return a - b; });
