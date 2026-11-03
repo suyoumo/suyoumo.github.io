@@ -643,8 +643,6 @@ categories:
     label: Kimi Code Bench 3.0 Long-horizon
   - key: mls_bench_lite
     label: MLS Bench Lite
-  - key: scicode
-    label: SciCode
   - key: livecodebench
     label: LiveCodeBench
   - key: codeforces
@@ -755,6 +753,8 @@ categories:
     label: FrontierCode 2.0
   - key: longcat_appdev
     label: LongCat AppDev (Internal)
+  - key: agents_last_exam
+    label: Agents' Last Exam
 - name: General Agent
   columns:
   - key: tau3_bench
@@ -779,8 +779,6 @@ categories:
     label: JobBench
   - key: workarena
     label: WorkArena
-  - key: agents_last_exam
-    label: Agents' Last Exam
   - key: agents_last_exam_cli
     label: Agents' Last Exam (CLI)
   - key: apex_bench_1_1
@@ -1809,7 +1807,7 @@ categories:
     label: FactScore
   - key: putnam_200
     label: Putnam-200
-- name: Seed2.0 Agents & Real World
+- name: Deep Research & Real-World Tasks
   columns:
   - key: spreadsheetbench_verified
     label: SpreadsheetBench Verified
@@ -42121,6 +42119,7 @@ collections:
     - hle_diamond
     - gdpval_aa_v2_pct
     - chartography
+    - aa_omniscience_accuracy
   code:
     label: ️ Code
     min_bench: 3
@@ -42135,7 +42134,6 @@ collections:
     - nl2repo
     - posttrainbench
     - program_bench
-    - scicode
     - sec_bench_pro
     - skillsbench
     - swe_multilingual
@@ -42220,3 +42218,4 @@ collections:
     - gdpval_aa_v2_pct
     - hle_diamond
     - aa_lcr_v1_1
+    - mlcr_aa
