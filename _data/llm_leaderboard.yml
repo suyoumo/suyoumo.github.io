@@ -707,8 +707,6 @@ categories:
     label: FrontierCode 1.1 Main (score)
   - key: terminal_bench_3
     label: Terminal-Bench 3.0
-  - key: terminal_bench_science_0_1
-    label: Terminal-Bench-Science 0.1
   - key: internal_database_migration_tasks
     label: Internal Database Migration Tasks
   - key: aa_coding_agent_index_v1_4
@@ -757,6 +755,8 @@ categories:
     label: Agents' Last Exam
 - name: General Agent
   columns:
+  - key: terminal_bench_science_0_1
+    label: Terminal-Bench-Science 0.1
   - key: tau3_bench
     label: TAU3-Bench
   - key: tau3_banking
@@ -42050,6 +42050,7 @@ collections:
     - terminal_bench_3
     - wildclawbench
     - aa_briefcase
+    - aa_lcr
     - aa_lcr_v1_1
     - agents_last_exam
     - apex_agents
@@ -42125,6 +42126,7 @@ collections:
     min_bench: 3
     keys:
     - agent_arena
+    - web_dev_arena
     - agents_last_exam
     - code_agent_bench
     - deepswe
@@ -42213,7 +42215,6 @@ collections:
     - automation_bench_aa
     - gdpval_aa_v2
     - aa_briefcase_pct
-    - web_dev_arena
     - terminal_bench_science_0_1
     - gdpval_aa_v2_pct
     - hle_diamond

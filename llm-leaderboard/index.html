@@ -826,7 +826,16 @@ permalink: /llm-leaderboard/
     for(var i=0; i<qualifiedMks.length; i++){
       for(var j=i+1; j<qualifiedMks.length; j++){
         var mkA=qualifiedMks[i], mkB=qualifiedMks[j];
-        var sharedBench = validKeys.filter(function(bk){ return sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk); });
+        var sharedBench = [];
+        validKeys.forEach(function(bk){
+          if (bk.slice(-3) === '_aa') {
+            var base = bk.slice(0, -3);
+            if (sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk)) sharedBench.push(bk);
+            else if (sm[mkA].hasOwnProperty(base) && sm[mkB].hasOwnProperty(base)) sharedBench.push(base);
+          } else if (validKeys.indexOf(bk + '_aa') === -1 && sm[mkA].hasOwnProperty(bk) && sm[mkB].hasOwnProperty(bk)) {
+            sharedBench.push(bk);
+          }
+        });
         if(sharedBench.length === 0) continue;
         totalOpponents[mkA]++;
         totalOpponents[mkB]++;
