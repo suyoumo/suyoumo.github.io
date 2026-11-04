@@ -753,6 +753,20 @@ categories:
     label: LongCat AppDev (Internal)
   - key: agents_last_exam
     label: Agents' Last Exam
+  - key: hy_swe_max_verified_2_0
+    label: Hy-SWE Max Verified 2.0 (Internal)
+  - key: hy_backend_3_0
+    label: Hy-Backend 3.0 (Internal)
+  - key: webcraftbench
+    label: WebCraftBench (Internal)
+  - key: gamefix_bench_2_0
+    label: GameFix Bench 2.0 (Internal)
+  - key: 3darena_modeling
+    label: 3DArena-Modeling (Internal)
+  - key: goal2repo
+    label: Goal2Repo (Internal)
+  - key: autocatbench
+    label: AutoCatBench (Internal)
 - name: General Agent
   columns:
   - key: terminal_bench_science_0_1
@@ -1069,6 +1083,18 @@ categories:
     label: AA-PersonalityBench Organization Score
   - key: aa_personality_expressiveness
     label: AA-PersonalityBench Expressiveness Score
+  - key: hy_browsecomp_2_0
+    label: Hy-BrowseComp 2.0 (Internal)
+  - key: e_bench_2_0
+    label: E-Bench 2.0 (Internal)
+  - key: agents_first_exam_if
+    label: Agents' First Exam-IF (Internal)
+  - key: tag_bench
+    label: Tag-bench (Internal)
+  - key: pptgen_bench
+    label: PPTGen-Bench (Internal)
+  - key: tenuretrail
+    label: TenureTrail (Internal)
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -1289,6 +1315,12 @@ categories:
     label: RiemannBench
   - key: aa_omniscience_index
     label: AA Omniscience Index
+  - key: hy_frontiermath_t5
+    label: Hy-FrontierMath T5 (Internal)
+  - key: proofbench
+    label: ProofBench (Internal)
+  - key: foundation_model_bench
+    label: Foundation Model Bench (Internal)
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -1549,6 +1581,12 @@ categories:
     label: PosterBench
   - key: forte_mm
     label: LongCatClawBench-MM (FORTE-MM)
+  - key: zerobench_main_tools_pass5
+    label: ZeroBench-main (with tools, pass@5)
+  - key: buddyvqa_atlas_tools
+    label: BuddyVQA Atlas (with tools, Internal)
+  - key: buddyvqa_atlas_no_tools
+    label: BuddyVQA Atlas (without tools, Internal)
 - name: Generation
   columns:
   - key: geneval
@@ -34031,6 +34069,8 @@ rows:
     url: https://hunyuan.tencent.com
   - label: IQuest-Q1 report
     url: https://iquest.ai
+  - label: Hy4 preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
   scores:
     swe_multilingual:
     - value: '82.9'
@@ -34063,6 +34103,9 @@ rows:
     - value: '31.9'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '31.9'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     terminal_bench_2_1:
     - value: '85.4'
       source_label: Hunyuan 4 Preview
@@ -34113,6 +34156,9 @@ rows:
     - value: '62.4'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '62.4'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     widesearch:
     - value: '83.9'
       source_label: Hunyuan 4 Preview
@@ -34129,6 +34175,9 @@ rows:
     - value: '49.2'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '45.9'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     hy_browsecomp_pro2:
     - value: '56.1'
       source_label: Hunyuan 4 Preview
@@ -34149,6 +34198,9 @@ rows:
     - value: '37.1'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '53.9'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     skillsbench:
     - value: '62.9'
       source_label: Hunyuan 4 Preview
@@ -34176,6 +34228,9 @@ rows:
     - value: '32.1'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '36.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     bankertoolbench:
     - value: '78.6'
       source_label: Hunyuan 4 Preview
@@ -34204,6 +34259,9 @@ rows:
     - value: '55.4'
       source_label: Hunyuan 4 Preview
       source_url: https://hunyuan.tencent.com
+    - value: '57.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     critpt:
     - value: '16.9'
       source_label: Hunyuan 4 Preview
@@ -34246,6 +34304,9 @@ rows:
     - value: '17.5'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/2.png
+    - value: '17.5'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     deepswe_1_1:
     - value: '64.3'
       source_label: IQuest-Q1 report
@@ -34253,6 +34314,9 @@ rows:
     - value: '64.3'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/1.png
+    - value: '64.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
     agent_arena:
     - value: '1.22'
       source_label: AgentArena
@@ -34261,6 +34325,78 @@ rows:
     - value: '1631'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    terminal_bench_4_0:
+    - value: '26.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    hy_swe_max_verified_2_0:
+    - value: '39.2'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    hy_backend_3_0:
+    - value: '23.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    webcraftbench:
+    - value: '52.7'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    gamefix_bench_2_0:
+    - value: '65.5'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    3darena_modeling:
+    - value: '23.4'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    goal2repo:
+    - value: '18.1'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    hy_browsecomp_2_0:
+    - value: '53.7'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    e_bench_2_0:
+    - value: '58.8'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    agents_first_exam_if:
+    - value: '50.5'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    tag_bench:
+    - value: '42.5'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    pptgen_bench:
+    - value: '49.0'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    hy_frontiermath_t5:
+    - value: '7.8'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    proofbench:
+    - value: '3.3'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    terminal_bench_science_0_1:
+    - value: '16.2'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    posttrainbench_1_2:
+    - value: '31.8'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    foundation_model_bench:
+    - value: '13.6'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
+    tenuretrail:
+    - value: '46.8'
+      source_label: Hy4 preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/5.png
 - company: Qwen
   model: Qwen3.8-Flash-Next
   mode: ''
@@ -42141,6 +42277,150 @@ rows:
     - value: '72.1'
       source_label: LongCat 2.5 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/longcat-2.5/1.png
+- company: Tencent
+  model: Hy4
+  mode: ''
+  released: '2026-11-04'
+  sources:
+  - label: Hy4 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+  scores:
+    deepswe_1_1:
+    - value: '74.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    swe_marathon:
+    - value: '43.8'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    program_bench:
+    - value: '30.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    terminal_bench_4_0:
+    - value: '44.4'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    frontiercode_2_0:
+    - value: '31.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_companybench:
+    - value: '78.8'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_swe_max_verified_2_0:
+    - value: '45.4'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_backend_3_0:
+    - value: '45.1'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    webcraftbench:
+    - value: '78.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    gamefix_bench_2_0:
+    - value: '68.4'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    3darena_modeling:
+    - value: '37.1'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    goal2repo:
+    - value: '23.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    autocatbench:
+    - value: '57.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_lifesearch:
+    - value: '60.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_browsecomp_2_0:
+    - value: '59.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    apex_agents:
+    - value: '75.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    agents_last_exam:
+    - value: '41.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    automation_bench:
+    - value: '56.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    e_bench_2_0:
+    - value: '70.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    agents_first_exam_if:
+    - value: '79.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    tag_bench:
+    - value: '48.8'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    pptgen_bench:
+    - value: '60.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hle_tools:
+    - value: '59.1'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    hy_frontiermath_t5:
+    - value: '13.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    proofbench:
+    - value: '5.5'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    terminal_bench_science_0_1:
+    - value: '19.8'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    posttrainbench_1_2:
+    - value: '35.2'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    foundation_model_bench:
+    - value: '28.1'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    tenuretrail:
+    - value: '53.6'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    osworld_2_1:
+    - value: '78.9'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    mmmu_pro:
+    - value: '78.6'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    zerobench_main_tools_pass5:
+    - value: '55.4'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    buddyvqa_atlas_tools:
+    - value: '81.0'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    buddyvqa_atlas_no_tools:
+    - value: '55.6'
+      source_label: Hy4 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
 collections:
   overall:
     label: ' 综合'
