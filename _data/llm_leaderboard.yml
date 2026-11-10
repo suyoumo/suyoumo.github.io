@@ -464,6 +464,10 @@ sources:
   label: Ling-3.2-Flash report
   short_label: Ling 3.2 Flash
   url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+- id: claude_fable52
+  label: Claude Fable 5.2 report
+  short_label: Fable 5.2
+  url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 categories:
 - name: Coding Agent
   columns:
@@ -1099,6 +1103,16 @@ categories:
     label: PPTGen-Bench (Internal)
   - key: tenuretrail
     label: TenureTrail (Internal)
+  - key: cyscenario_bench
+    label: CyScenarioBench
+  - key: cve_rediscovery
+    label: CVE Rediscovery
+  - key: de_novo_binder_design_24hr
+    label: De novo binder design (24 hr)
+  - key: robodojo_sim
+    label: RoboDojo Sim
+  - key: remote_labor_index
+    label: Remote Labor Index (RLI)
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -1913,6 +1927,8 @@ categories:
     label: BIObench
   - key: ainstein_bench
     label: AInstein Bench
+  - key: wandr_relaxed
+    label: WANDR (relaxed score)
 rows:
 - company: Qwen
   model: Qwen3.7-Max
@@ -29352,6 +29368,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Claude Fable 5.2 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   scores:
     terminal_bench_science_0_1:
     - value: '52.6'
@@ -29369,6 +29387,9 @@ rows:
     - value: '43'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '52.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     terminal_bench_4_0:
     - value: '55.8'
       source_label: Claude Fable 5.1 report
@@ -29420,6 +29441,9 @@ rows:
     - value: '65.6'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '65.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     automation_bench:
     - value: '31.4'
       source_label: Claude Fable 5.1 report
@@ -29433,6 +29457,9 @@ rows:
     - value: '31.4'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '31.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     cursorbench:
     - value: '73.47'
       source_label: Claude Fable 5.1 report
@@ -29469,6 +29496,9 @@ rows:
     - value: '1672'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    - value: '1669'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     harvey_lab_aa:
     - value: '6.7'
       source_label: Gemini 4 Argon report
@@ -29649,6 +29679,9 @@ rows:
     - value: '80.7'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '83.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     chartography_tools:
     - value: '88.4'
       source_label: Claude Opus 5.5 report
@@ -29695,6 +29728,9 @@ rows:
     - value: '56.3'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '56.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     vibe_code_bench_v1_1:
     - value: '90.3'
       source_label: Gemini 4 Argon report
@@ -29723,6 +29759,9 @@ rows:
     - value: '46.2'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '44.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     lvbench:
     - value: '79.7'
       source_label: Gemini 4 Argon report
@@ -29899,6 +29938,9 @@ rows:
     - value: '32'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '32.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     code2video_aa:
     - value: '1325'
       source_label: Artificial Analysis
@@ -29952,6 +29994,34 @@ rows:
     - value: '1745'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    cyscenario_bench:
+    - value: '61.7'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    cve_rediscovery:
+    - value: '78.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    de_novo_binder_design_24hr:
+    - value: '79.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    wandr_relaxed:
+    - value: '68.7'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    robodojo_sim:
+    - value: '27.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    aa_briefcase_rubric:
+    - value: '61.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    remote_labor_index:
+    - value: '17.9'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 - company: Anthropic
   model: Claude Sonnet 5
   mode: ''
@@ -36777,6 +36847,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Claude Fable 5.2 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   scores:
     agents_last_exam:
     - value: '59.3'
@@ -36817,6 +36889,9 @@ rows:
     - value: '41.4'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '41.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     benchcad:
     - value: '95.9'
       source_label: GPT-6 Astra report
@@ -36896,6 +36971,9 @@ rows:
     - value: '63'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '68.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     frontiermath_t4:
     - value: '97.6'
       source_label: GPT-6 Astra report
@@ -36917,6 +36995,9 @@ rows:
     - value: '57.2'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '57.2'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     genebench_pro:
     - value: '37.8'
       source_label: GPT-6 Astra report
@@ -37041,6 +37122,9 @@ rows:
     - value: '1569'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1569'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     mmmu_pro:
     - value: '87'
       source_label: Artificial Analysis
@@ -37083,6 +37167,9 @@ rows:
     - value: '65.5'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '65.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     vibe_code_bench_v1_1:
     - value: '89.6'
       source_label: Gemini 4 Argon report
@@ -37111,6 +37198,9 @@ rows:
     - value: '71.0'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '71.0'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     lvbench:
     - value: '87.5'
       source_label: Gemini 4 Argon report
@@ -37137,6 +37227,9 @@ rows:
     - value: '80.9'
       source_label: GPT-6.1 Terra report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/gpt-6.1-terra/1.png
+    - value: '79.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     memorybench:
     - value: '81.4'
       source_label: Muse Wonder report
@@ -37304,6 +37397,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '42.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     code2video_aa:
     - value: '1427'
       source_label: Artificial Analysis
@@ -37357,6 +37453,22 @@ rows:
     - value: '1767'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    cyscenario_bench:
+    - value: '61'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    robodojo_sim:
+    - value: '29.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    aa_briefcase_rubric:
+    - value: '52.0'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    remote_labor_index:
+    - value: '20.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 - company: Anthropic
   model: Claude Opus 5.5
   mode: Max with fallback
@@ -37386,6 +37498,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Claude Fable 5.2 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   scores:
     terminal_bench_4_0:
     - value: '60'
@@ -37422,6 +37536,9 @@ rows:
     - value: '42.5'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '42.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     hle_tools:
     - value: '67.7'
       source_label: Claude Opus 5.5 report
@@ -37432,10 +37549,16 @@ rows:
     - value: '67.7'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '67.7'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     terminal_bench_science_0_1:
     - value: '59'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '58.7'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     osworld_2_1:
     - value: '81.8'
       source_label: Claude Opus 5.5 report
@@ -37449,6 +37572,9 @@ rows:
     - value: '81.8'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '87.2'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     chartography_tools:
     - value: '89.0'
       source_label: Claude Opus 5.5 report
@@ -37500,6 +37626,9 @@ rows:
     - value: '1801'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1800'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     chartography:
     - value: '64.4'
       source_label: Claude Sonnet 5.5 report
@@ -37507,6 +37636,9 @@ rows:
     - value: '66.3'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '64.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     vals_index:
     - value: '67.0'
       source_label: Gemini 4 Argon report
@@ -37535,6 +37667,9 @@ rows:
     - value: '62.3'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '62.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     vibe_code_bench_v1_1:
     - value: '90.3'
       source_label: Gemini 4 Argon report
@@ -37771,6 +37906,9 @@ rows:
     - value: '46'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '45.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     code2video_aa:
     - value: '1536'
       source_label: Artificial Analysis
@@ -37821,6 +37959,34 @@ rows:
     - value: '1818'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    cyscenario_bench:
+    - value: '67.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    cve_rediscovery:
+    - value: '81.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    de_novo_binder_design_24hr:
+    - value: '82.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    wandr_relaxed:
+    - value: '72.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    robodojo_sim:
+    - value: '39.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    aa_briefcase_rubric:
+    - value: '61.2'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    remote_labor_index:
+    - value: '21.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 - company: Anthropic
   model: Claude Sonnet 5.5
   mode: Max with fallback
@@ -40921,6 +41087,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Claude Fable 5.2 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   scores:
     hle:
     - value: '59'
@@ -40958,10 +41126,16 @@ rows:
     - value: '65'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '64.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     frontiercode_2_0:
     - value: '41'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '41.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     hle_diamond:
     - value: '69'
       source_label: Artificial Analysis
@@ -40994,6 +41168,9 @@ rows:
     - value: '1611'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1611'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     agent_arena:
     - value: '16.63'
       source_label: AgentArena
@@ -41002,6 +41179,26 @@ rows:
     - value: '1768'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    frontierswe_v2:
+    - value: '61.2'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    automation_bench:
+    - value: '53.9'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    osworld_2_1:
+    - value: '81.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    aa_briefcase_rubric:
+    - value: '61.8'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    chartography:
+    - value: '72.5'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 - company: Meta
   model: Muse Spark Open
   mode: xHigh
@@ -42869,6 +43066,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Claude Fable 5.2 report
+    url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   scores:
     mlcr_aa:
     - value: '44'
@@ -42906,10 +43105,16 @@ rows:
     - value: '49'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '49.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     terminal_bench_science_0_1:
     - value: '73'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '74.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     automation_bench_aa:
     - value: '76'
       source_label: Artificial Analysis
@@ -42926,10 +43131,61 @@ rows:
     - value: '1785'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '1785'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
     web_dev_arena:
     - value: '1832'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    frontierswe_v2:
+    - value: '69.9'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    automation_bench:
+    - value: '51.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    cyscenario_bench:
+    - value: '76.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    cve_rediscovery:
+    - value: '89.6'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    de_novo_binder_design_24hr:
+    - value: '85.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    wandr_relaxed:
+    - value: '82.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    osworld_2_1:
+    - value: '89.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    robodojo_sim:
+    - value: '64.9'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    aa_briefcase_rubric:
+    - value: '66.1'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    remote_labor_index:
+    - value: '41.3'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    hle_tools:
+    - value: '74.2'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    chartography:
+    - value: '73.4'
+      source_label: Claude Fable 5.2 report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
 - company: Meta
   model: Muse Ember
   mode: Max
