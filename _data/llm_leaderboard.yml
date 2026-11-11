@@ -468,6 +468,10 @@ sources:
   label: Claude Fable 5.2 report
   short_label: Fable 5.2
   url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+- id: ernie55_flash_preview
+  label: ERNIE 5.5 Flash Preview report
+  short_label: ERNIE 5.5 Flash Preview
+  url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 categories:
 - name: Coding Agent
   columns:
@@ -775,6 +779,12 @@ categories:
     label: Goal2Repo (Internal)
   - key: autocatbench
     label: AutoCatBench (Internal)
+  - key: cookiebench
+    label: CookieBench
+  - key: blenderworld_text_only
+    label: BlenderWorld (text-only)
+  - key: skillsbench_1_1_text_only
+    label: SkillsBench 1.1 (text-only)
 - name: General Agent
   columns:
   - key: terminal_bench_science_0_1
@@ -1339,6 +1349,8 @@ categories:
     label: ProofBench (Internal)
   - key: foundation_model_bench
     label: Foundation Model Bench (Internal)
+  - key: aa_omniscience_public
+    label: AA-Omniscience-Public
 - name: Long Context
   columns:
   - key: mrcr_v2_128k
@@ -28023,6 +28035,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Ling-3.2-Flash report
     url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     terminal_bench_2_1:
     - value: '84.3'
@@ -28041,6 +28055,9 @@ rows:
     - value: '63.4'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/1.png
+    - value: '63.4'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     agents_last_exam:
     - value: '26.3'
       source_label: GLM-5.3-Flash
@@ -28055,6 +28072,9 @@ rows:
     - value: '48.8'
       source_label: GLM-5.3-Flash
       source_url: https://bigmodel.cn
+    - value: 48.8/48.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     hle_tools:
     - value: '55.3'
       source_label: GLM-5.3-Flash
@@ -28087,6 +28107,9 @@ rows:
     - value: '35'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '39.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     gpqa:
     - value: '91'
       source_label: GLM-5.3-Flash
@@ -28162,6 +28185,9 @@ rows:
     - value: '5'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 5.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     harvey_lab_aa:
     - value: '1'
       source_label: Artificial Analysis
@@ -28209,6 +28235,9 @@ rows:
     - value: '80'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 77.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_lcr:
     - value: '78'
       source_label: GLM-5.3-Flash
@@ -28223,6 +28252,9 @@ rows:
     - value: '33'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 35.8/37.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_briefcase:
     - value: '1450'
       source_label: Artificial Analysis
@@ -28283,6 +28315,62 @@ rows:
     - value: '68.70'
       source_label: Ling-3.2-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+    program_bench:
+    - value: 15.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    nl2repo:
+    - value: 56.3/57.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    cookiebench:
+    - value: 76.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 71.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    apex_agents:
+    - value: 52.8/52.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: 78.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: 31.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    officeqa_pro_v2:
+    - value: 64.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    agents_last_exam_cli:
+    - value: 28.6*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 65.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: 78.5/76.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: 78.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    browsecomp:
+    - value: 74.6*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 16.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -33822,6 +33910,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     terminal_bench_2_1:
     - value: '88.2'
@@ -33862,6 +33952,9 @@ rows:
     - value: '66.9'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: '66.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     nl2repo:
     - value: '58.0'
       source_label: GLM-5.3 report
@@ -33881,6 +33974,9 @@ rows:
     - value: '58.0'
       source_label: Naive-N0.5-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/naive-n0-5-flash/2.png
+    - value: 58.0/58.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontierswe:
     - value: '78.1'
       source_label: GLM-5.3 report
@@ -33949,6 +34045,9 @@ rows:
     - value: '52.5'
       source_label: Atria Dawn report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    - value: 48.2/50.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     agents_last_exam:
     - value: '28.5'
       source_label: GLM-5.3 report
@@ -34019,6 +34118,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 42.0†
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     gpqa:
     - value: '92'
       source_label: Artificial Analysis (GLM-5.3)
@@ -34095,6 +34197,9 @@ rows:
     - value: '78.1'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: 82.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     hy_lifesearch:
     - value: '49.2'
       source_label: GLM-5.3
@@ -34120,10 +34225,16 @@ rows:
     - value: '84.2'
       source_label: Beam report
       source_url: https://beam.ai
+    - value: 82.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     toolathlon_verified:
     - value: '73.0'
       source_label: GLM-5.3
       source_url: https://z.ai
+    - value: 73.0/72.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     apex_agents:
     - value: '38.1'
       source_label: GLM-5.3
@@ -34131,6 +34242,9 @@ rows:
     - value: '56.6'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    - value: 56.6/59.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     skillsbench:
     - value: '63.3'
       source_label: GLM-5.3
@@ -34196,6 +34310,9 @@ rows:
     - value: '19.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: 19.0/19.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     automation_bench_aa:
     - value: '62'
       source_label: Artificial Analysis
@@ -34208,6 +34325,9 @@ rows:
     - value: '10'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '8.1'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     swe_bench_pro_v2_hard:
     - value: '84.3'
       source_label: Beam report
@@ -34231,6 +34351,9 @@ rows:
     - value: '42'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 41.8/38.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     loca_bench_256k:
     - value: '50.3'
       source_label: MiniMax-M3.1-Flash report
@@ -34279,6 +34402,9 @@ rows:
     - value: '32.1'
       source_label: Atria Dawn report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/2.png
+    - value: 32.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     harvey_lab:
     - value: '22.5'
       source_label: Atria Dawn report
@@ -34295,6 +34421,9 @@ rows:
     - value: '89.6'
       source_label: Atria Dawn report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/atria-dawn/4.png
+    - value: 77.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     kimi_code_bench_v3_long_horizon:
     - value: '45.5'
       source_label: Kimi K3.1 Pro report
@@ -34303,6 +34432,9 @@ rows:
     - value: '31.1'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: 59.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontierfinance:
     - value: '57.5'
       source_label: Kimi K3.1 Pro report
@@ -34323,6 +34455,9 @@ rows:
     - value: '29.4'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    - value: 22.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_briefcase:
     - value: '1503'
       source_label: Artificial Analysis
@@ -34446,6 +34581,9 @@ rows:
     - value: '80'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 79.7/78.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_lcr:
     - value: '76'
       source_label: Artificial Analysis (GLM-5.3)
@@ -34470,6 +34608,22 @@ rows:
     - value: '1622'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    cookiebench:
+    - value: 80.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 69.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 62.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 21.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: Tencent
   model: Hunyuan 4 Preview
   mode: ''
@@ -36041,6 +36195,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Ling-3.2-Flash report
     url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     hle:
     - value: 42.6/44.0*
@@ -36055,10 +36211,16 @@ rows:
     - value: '43'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 44.0†
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     terminal_bench_4_0:
     - value: '34'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 42.3/40.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     deepswe_1_1:
     - value: '77.0'
       source_label: DS-V4.1-Flash-1017
@@ -36069,6 +36231,9 @@ rows:
     - value: '77.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: '77.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     program_bench:
     - value: '29.1'
       source_label: DS-V4.1-Flash-1017
@@ -36076,6 +36241,9 @@ rows:
     - value: '29.1'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: 29.1/27.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     nl2repo:
     - value: '68.2'
       source_label: DS-V4.1-Flash-1017
@@ -36083,6 +36251,9 @@ rows:
     - value: '68.2'
       source_label: MiniMax-M3.1-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: 68.1/62.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     automation_bench:
     - value: '60.5'
       source_label: DS-V4.1-Flash-1017
@@ -36090,6 +36261,9 @@ rows:
     - value: '60.5'
       source_label: MiniMax-M3.1-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/minimax-m3.1-flash/1.png
+    - value: 60.5/57.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     agents_last_exam:
     - value: '35.4'
       source_label: DS-V4.1-Flash-1017
@@ -36153,6 +36327,9 @@ rows:
     - value: '13'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 15.7/14.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     kimi_code_bench_v3_long_horizon:
     - value: '51.5'
       source_label: Kimi K3.1 Pro report
@@ -36165,6 +36342,9 @@ rows:
     - value: '40.4'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: 63.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontierfinance:
     - value: '54.5'
       source_label: Kimi K3.1 Pro report
@@ -36221,6 +36401,9 @@ rows:
     - value: '36.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    - value: 35.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_briefcase:
     - value: '1570'
       source_label: Artificial Analysis
@@ -36229,6 +36412,9 @@ rows:
     - value: '63.4'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    - value: 69.8/43.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     officeqa_pro:
     - value: '62.4'
       source_label: Kimi K3.1 Pro report
@@ -36341,6 +36527,9 @@ rows:
     - value: '83'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 82.7/80.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_lcr:
     - value: '83'
       source_label: Artificial Analysis (MiniMax-M3.1-Flash comparison)
@@ -36397,6 +36586,42 @@ rows:
     - value: '67.59'
       source_label: Ling-3.2-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+    cookiebench:
+    - value: 87.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 79.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: 83.6*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: 34.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 67.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: 71.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: 77.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    browsecomp:
+    - value: 80.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 11.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: DeepSeek
   model: DeepSeek-V4.1-Flash
   mode: ''
@@ -37500,11 +37725,16 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Fable 5.2 report
     url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     terminal_bench_4_0:
     - value: '60'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 66.4/63.6*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontiercode_main:
     - value: '54.4'
       source_label: Claude Opus 5.5 report
@@ -37539,6 +37769,9 @@ rows:
     - value: '42.5'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: 58.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     hle_tools:
     - value: '67.7'
       source_label: Claude Opus 5.5 report
@@ -37559,6 +37792,9 @@ rows:
     - value: '58.7'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '63.3'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     osworld_2_1:
     - value: '81.8'
       source_label: Claude Opus 5.5 report
@@ -37610,6 +37846,9 @@ rows:
     - value: '61'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '61.4'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     gdp_pdf:
     - value: '26'
       source_label: Artificial Analysis
@@ -37663,6 +37902,9 @@ rows:
     - value: '74.2'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: '74.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontierswe_v2:
     - value: '62.3'
       source_label: Gemini 4 Argon report
@@ -37745,6 +37987,9 @@ rows:
     - value: '65.0'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/16.png
+    - value: '65.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_intelligence_index_v4_1:
     - value: '58'
       source_label: Muse Wonder report
@@ -37769,6 +38014,9 @@ rows:
     - value: '62.2'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '62.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontierfinance:
     - value: '56.7'
       source_label: Kimi K3.1 Pro report
@@ -37789,6 +38037,9 @@ rows:
     - value: '90.8'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    - value: '90.8'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     biomystery_bench:
     - value: '81.9'
       source_label: Kimi K3.1 Pro report
@@ -37817,10 +38068,16 @@ rows:
     - value: '40.7'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/17.png
+    - value: 34.3/32.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     apex_agents:
     - value: '73.5'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/18.png
+    - value: 73.5/72.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     handbook_md:
     - value: '41.5'
       source_label: Kimi K3.1 Pro report
@@ -37941,6 +38198,9 @@ rows:
     - value: '85'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 84.7/81.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_lcr:
     - value: '85'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -37987,6 +38247,38 @@ rows:
     - value: '21.3'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    cookiebench:
+    - value: 91.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 86.1*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: 87.4/87.9*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: 35.1*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 71.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: 80.1*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: 84.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 62.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: Anthropic
   model: Claude Sonnet 5.5
   mode: Max with fallback
@@ -38360,6 +38652,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     scicode:
     - value: '54'
@@ -38397,6 +38691,9 @@ rows:
     - value: '53'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '52.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     gdpval_aa_v2_pct:
     - value: '1763'
       source_label: Artificial Analysis
@@ -38445,6 +38742,9 @@ rows:
     - value: '58'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '57.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     harvey_lab_aa:
     - value: '7'
       source_label: Artificial Analysis
@@ -38489,6 +38789,9 @@ rows:
     - value: '83'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 83.0/78.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     aa_lcr:
     - value: '83'
       source_label: Artificial Analysis (Claude Opus 5.5)
@@ -38515,6 +38818,9 @@ rows:
     - value: '56'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '56.1'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     agent_arena:
     - value: '12.53'
       source_label: AgentArena
@@ -38523,6 +38829,62 @@ rows:
     - value: '1743'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    deepswe_1_1:
+    - value: '75.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    cookiebench:
+    - value: 89.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 85.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    automation_bench:
+    - value: 49.3*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    apex_agents:
+    - value: 60.0/59.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: 79.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: 32.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    officeqa_pro_v2:
+    - value: 70.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    agents_last_exam_cli:
+    - value: 29.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 72.6*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: 67.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: 81.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    browsecomp:
+    - value: 87.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 52.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: Google
   model: Gemini 4 Argon
   mode: High
@@ -42888,11 +43250,16 @@ rows:
     url: https://artificialanalysis.ai
   - label: AgentArena
     url: https://agent-arena.com
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
   scores:
     deepswe_1_1:
     - value: '74.9'
       source_label: Hy4 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    - value: '74.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     swe_marathon:
     - value: '43.8'
       source_label: Hy4 report
@@ -42901,10 +43268,16 @@ rows:
     - value: '30.0'
       source_label: Hy4 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    - value: 30.0/28.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     terminal_bench_4_0:
     - value: '37'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 44.4/42.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     frontiercode_2_0:
     - value: '31'
       source_label: Artificial Analysis
@@ -42953,6 +43326,9 @@ rows:
     - value: '75.2'
       source_label: Hy4 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    - value: 77.6/75.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     agents_last_exam:
     - value: '41.0'
       source_label: Hy4 report
@@ -42961,6 +43337,9 @@ rows:
     - value: '56.2'
       source_label: Hy4 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/hy4/1.png
+    - value: 56.2/55.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     e_bench_2_0:
     - value: '70.0'
       source_label: Hy4 report
@@ -42993,6 +43372,9 @@ rows:
     - value: '13'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: 19.8/17.1*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
     posttrainbench_1_2:
     - value: '35.2'
       source_label: Hy4 report
@@ -43057,6 +43439,62 @@ rows:
     - value: '4.66'
       source_label: AgentArena
       source_url: https://agent-arena.com
+    nl2repo:
+    - value: 65.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    cookiebench:
+    - value: 88.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: 76.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: 90.7*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: 34.5*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    officeqa_pro_v2:
+    - value: 63.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    agents_last_exam_cli:
+    - value: 32.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: 77.4*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: 73.1*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: 83.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    browsecomp:
+    - value: 91.8*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    hle:
+    - value: 46.7*†
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: 20.2*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_lcr_v1_1:
+    - value: 80.0*
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 - company: Anthropic
   model: Claude Fable 5.2
   mode: xHigh
@@ -43574,6 +44012,94 @@ rows:
     - value: '67.77'
       source_label: Ling-3.2-Flash report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+- company: Baidu
+  model: ERNIE 5.5 Flash Preview
+  mode: ''
+  released: ''
+  sources:
+  - label: ERNIE 5.5 Flash Preview report
+    url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+  scores:
+    terminal_bench_4_0:
+    - value: '46.5'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    deepswe_1_1:
+    - value: '71.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    program_bench:
+    - value: '29.5'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    nl2repo:
+    - value: '64.8'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    terminal_bench_science_0_1:
+    - value: '21.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    cookiebench:
+    - value: '88.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    blenderworld_text_only:
+    - value: '79.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    automation_bench:
+    - value: '61.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    apex_agents:
+    - value: '64.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    draco:
+    - value: '84.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    spreadsheetbench_2:
+    - value: '36.4'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    officeqa_pro_v2:
+    - value: '67.9'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    agents_last_exam_cli:
+    - value: '29.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    skillsbench_1_1_text_only:
+    - value: '73.5'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    toolathlon_verified:
+    - value: '75.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    mcp_atlas:
+    - value: '84.6'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    browsecomp:
+    - value: '87.4'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    hle:
+    - value: 46.4†
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_omniscience_public:
+    - value: '25.2'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    aa_lcr_v1_1:
+    - value: '79.0'
+      source_label: ERNIE 5.5 Flash Preview report
+      source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
 collections:
   overall:
     label: ' 综合'
