@@ -476,6 +476,10 @@ sources:
   label: Qwen4 report
   short_label: Qwen4
   url: https://qwen.ai/blog?id=qwen4
+- id: hy4_flash
+  label: Hy4 Flash report
+  short_label: Hy4 Flash
+  url: https://hunyuan.tencent.com
 categories:
 - name: Coding Agent
   columns:
@@ -1119,6 +1123,18 @@ categories:
     label: Tag-bench (Internal)
   - key: pptgen_bench
     label: PPTGen-Bench (Internal)
+  - key: pptcoedit_bench
+    label: PPTCoEditBench (Internal)
+  - key: pptfix_bench
+    label: PPTFixBench (Internal)
+  - key: mdcoedit_bench
+    label: MdCoEditBench (Internal)
+  - key: wordedit_bench
+    label: WordEditBench (Internal)
+  - key: excelfix_bench
+    label: ExcelFixBench (Internal)
+  - key: audiovideo_bench
+    label: AudioVideoBench (Internal)
   - key: tenuretrail
     label: TenureTrail (Internal)
   - key: cyscenario_bench
@@ -28356,6 +28372,30 @@ rows:
     - value: '1609'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    pptcoedit_bench:
+    - value: '67.3'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '28.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '32.3'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '47.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '9.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '11.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: Moonshot
   model: Kimi K2.7 Code
   mode: ''
@@ -35005,6 +35045,30 @@ rows:
     - value: '1632'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    pptcoedit_bench:
+    - value: '71.5'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '23.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '49.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '44.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '11.7'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '16.3'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: Qwen
   model: Qwen3.8-Flash-Next
   mode: ''
@@ -35156,6 +35220,30 @@ rows:
     - value: '1625'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    pptcoedit_bench:
+    - value: '62.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '23.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '53.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '46.3'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '12.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '17.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: Qwen
   model: Qwen3.8-27B
   mode: ''
@@ -36662,6 +36750,30 @@ rows:
     - value: '1661'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    pptcoedit_bench:
+    - value: '76.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '45.3'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '29.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '53.5'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '20.0'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '22.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: DeepSeek
   model: DeepSeek-V4.1-Flash
   mode: ''
@@ -39584,6 +39696,30 @@ rows:
     - value: '1577'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    pptcoedit_bench:
+    - value: '43.5'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '8.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '53.1'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '42.7'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '6.7'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '10.0'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: InclusionAI
   model: Ling-3.1-Flash
   mode: Thinking
@@ -43721,6 +43857,30 @@ rows:
     - value: '5.67'
       source_label: AgentArena
       source_url: https://agent-arena.com
+    pptcoedit_bench:
+    - value: '78.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '45.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '57.7'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '57.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '27.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '27.4'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 - company: Anthropic
   model: Claude Fable 5.2
   mode: xHigh
@@ -44594,6 +44754,82 @@ rows:
     - value: '1704'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+- company: Tencent
+  model: Hy4 Flash
+  mode: ''
+  released: '2026-11-16'
+  sources:
+  - label: Hy4 Flash report
+    url: https://hunyuan.tencent.com
+  scores:
+    pptgen_bench:
+    - value: '54.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    buddyvqa_atlas_no_tools:
+    - value: '48.5'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    deepswe_1_1:
+    - value: '64.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    program_bench:
+    - value: '16.0'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    terminal_bench_4_0:
+    - value: '19.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    apex_agents:
+    - value: '63.1'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    automation_bench:
+    - value: '52.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    hle_tools:
+    - value: '55.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    osworld_2_1:
+    - value: '68.1'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mmmu_pro:
+    - value: '75.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    zerobench_main_tools_pass5:
+    - value: '45.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptcoedit_bench:
+    - value: '74.0'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    pptfix_bench:
+    - value: '23.7'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    mdcoedit_bench:
+    - value: '56.9'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    wordedit_bench:
+    - value: '46.2'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    excelfix_bench:
+    - value: '15.6'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
+    audiovideo_bench:
+    - value: '17.8'
+      source_label: Hy4 Flash report
+      source_url: https://hunyuan.tencent.com
 collections:
   overall:
     label: ' 综合'
