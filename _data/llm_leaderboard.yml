@@ -480,6 +480,14 @@ sources:
   label: Hy4 Flash report
   short_label: Hy4 Flash
   url: https://hunyuan.tencent.com
+- id: gpt62
+  label: GPT-6.2 Astra and Sol report
+  short_label: GPT-6.2 Astra and Sol report
+  url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+- id: gemini4neon
+  label: Gemini 4 Neon report
+  short_label: Gemini 4 Neon report
+  url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 categories:
 - name: Coding Agent
   columns:
@@ -793,6 +801,18 @@ categories:
     label: BlenderWorld (text-only)
   - key: skillsbench_1_1_text_only
     label: SkillsBench 1.1 (text-only)
+  - key: secureswe
+    label: SecureSWE
+  - key: patchbench
+    label: PatchBench
+  - key: cursorbench_4_1
+    label: CursorBench 4.1
+  - key: terminal_bench_4_1_cheating_adjusted
+    label: Terminal-Bench 4.1 (Cheating-Adjusted Accuracy)
+  - key: swe_sweep_provider_harness
+    label: SWE-sweep (Provider Harness)
+  - key: swe_sweep_mini_swe_harness
+    label: SWE-sweep (Mini-SWE Harness)
 - name: General Agent
   columns:
   - key: terminal_bench_science_0_1
@@ -1147,6 +1167,30 @@ categories:
     label: RoboDojo Sim
   - key: remote_labor_index
     label: Remote Labor Index (RLI)
+  - key: aa_intelligence_index_v5_0_1
+    label: Artificial Analysis Intelligence Index v5.0.1
+  - key: lifeval
+    label: LifeVal
+  - key: gdpval_v2_internal
+    label: GDPval v2 (Internal)
+  - key: deepbinary_estimated_bounty
+    label: DeepBinary (Estimated Bounty, USD)
+  - key: concealing_task_obstructions_with_developer_prompt
+    label: Concealing Task Obstructions (With Developer Prompt, Lower Is Better)
+  - key: concealing_task_obstructions_without_developer_prompt
+    label: Concealing Task Obstructions (Without Developer Prompt, Lower Is Better)
+  - key: workplace_improper_actions
+    label: Workplace Improper Actions (Severe Harm Rate, Lower Is Better)
+  - key: cwe_bench_v2
+    label: CWE-Bench v2
+  - key: webexploitbench_v1_2
+    label: WebExploitBench v1.2
+  - key: autobaxbench
+    label: AutoBaxBench
+  - key: gray_swan_ipi_k15
+    label: Gray Swan IPI (Attack Success Rate @ k=15, Lower Is Better)
+  - key: vals_science_index_v1
+    label: Vals Science Index v1
 - name: Knowledge & Reasoning
   columns:
   - key: onemilia
@@ -1433,6 +1477,8 @@ categories:
     label: LongFact-Concepts
   - key: memorybench
     label: MemoryBench
+  - key: graphwalks_bfs_256k_1m_f1
+    label: GraphWalks BFS (256k to 1M, F1)
 - name: Instruction & Multilingual
   columns:
   - key: ifeval
@@ -1645,6 +1691,8 @@ categories:
     label: AntBench-Medical (Comprehensiveness / Correctness)
   - key: blenderbench
     label: BlenderBench
+  - key: mka_climb_wsr
+    label: MKA (Climb WSR)
 - name: Generation
   columns:
   - key: geneval
@@ -18205,6 +18253,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Ling-3.2-Flash report
     url: https://suyoumo.github.io/assets/images/llm-reports/ling-3.2-flash/1.png
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
   scores:
     gdpval_aa:
     - value: '1747.8'
@@ -19548,6 +19598,10 @@ rows:
     - value: '1616'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    workplace_improper_actions:
+    - value: '11.65'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 - company: OpenAI
   model: GPT-5.6 Terra
   mode: ''
@@ -36023,6 +36077,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     gdpval_aa_v2:
     - value: '1754'
@@ -36226,6 +36282,10 @@ rows:
     - value: '1655'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    gray_swan_ipi_k15:
+    - value: '6.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: DeepSeek
   model: DeepSeek-V4-Flash-Vision-Exp
   mode: Max reasoning effort
@@ -37226,6 +37286,10 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Fable 5.2 report
     url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     agents_last_exam:
     - value: '59.3'
@@ -37246,6 +37310,9 @@ rows:
     - value: '43.4'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    - value: '73.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     osworld_2_0:
     - value: '72.6'
       source_label: GPT-6 Astra report
@@ -37272,6 +37339,9 @@ rows:
     - value: '41.4'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '41.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     benchcad:
     - value: '95.9'
       source_label: GPT-6 Astra report
@@ -37279,6 +37349,9 @@ rows:
     - value: '95.9'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '62.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     browsecomp:
     - value: '91.5'
       source_label: GPT-6 Astra report
@@ -37360,6 +37433,9 @@ rows:
     - value: '68.1'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '68.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     frontiermath_t4:
     - value: '97.6'
       source_label: GPT-6 Astra report
@@ -37424,6 +37500,9 @@ rows:
     - value: '39.0'
       source_label: GPT-6 Astra report
       source_url: https://openai.com
+    - value: '31.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     sre_bench:
     - value: '88.0'
       source_label: GPT-6 Astra report
@@ -37547,6 +37626,9 @@ rows:
     - value: '9'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '8.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     vals_index:
     - value: '63.1'
       source_label: Gemini 4 Argon report
@@ -37813,6 +37895,9 @@ rows:
     - value: '42.8'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '42.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     code2video_aa:
     - value: '1427'
       source_label: Artificial Analysis
@@ -37897,6 +37982,46 @@ rows:
     - value: '76.7'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    aa_intelligence_index_v5_0_1:
+    - value: '56.9'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    lifeval:
+    - value: '79.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '44.2'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    deepbinary_estimated_bounty:
+    - value: '438000'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    secureswe:
+    - value: '46.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    patchbench:
+    - value: '70.9'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    concealing_task_obstructions_without_developer_prompt:
+    - value: '11.09'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    workplace_improper_actions:
+    - value: '1.20'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    autobaxbench:
+    - value: '57.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    vals_science_index_v1:
+    - value: '65.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 - company: Anthropic
   model: Claude Opus 5.5
   mode: Max with fallback
@@ -37930,6 +38055,10 @@ rows:
     url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
   - label: ERNIE 5.5 Flash Preview report
     url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     terminal_bench_4_0:
     - value: '60'
@@ -37978,6 +38107,12 @@ rows:
     - value: 58.0*
       source_label: ERNIE 5.5 Flash Preview report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    - value: '42.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '42.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     hle_tools:
     - value: '67.7'
       source_label: Claude Opus 5.5 report
@@ -38001,6 +38136,12 @@ rows:
     - value: '63.3'
       source_label: ERNIE 5.5 Flash Preview report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    - value: '63.3'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '63.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     osworld_2_1:
     - value: '81.8'
       source_label: Claude Opus 5.5 report
@@ -38069,6 +38210,9 @@ rows:
     - value: '4'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '4.2'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     mmmu_pro:
     - value: '88'
       source_label: Artificial Analysis
@@ -38093,10 +38237,16 @@ rows:
     - value: '66.3'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    - value: '66.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     vals_index:
     - value: '67.0'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '70.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     vals_finance_agent_v2:
     - value: '58.6'
       source_label: Gemini 4 Argon report
@@ -38146,6 +38296,9 @@ rows:
     - value: '69.6'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '80.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     graphwalks_bfs_128k:
     - value: '90.6'
       source_label: Gemini 4 Argon report
@@ -38170,10 +38323,19 @@ rows:
     - value: '43.4'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    - value: '71.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '71.6'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     lvbench:
     - value: '83.7'
       source_label: Gemini 4 Argon report
       source_url: https://deepmind.google/models/evals-methodology/gemini-4-argon
+    - value: '83.7'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     cwe_bench_v1:
     - value: '67.0'
       source_label: Gemini 4 Argon report
@@ -38240,6 +38402,9 @@ rows:
     - value: '96.2'
       source_label: Kimi K3.1 Pro report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/kimi-k3.1-pro/1.png
+    - value: '65.3'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     officeqa_pro_v2:
     - value: '62.2'
       source_label: Kimi K3.1 Pro report
@@ -38334,6 +38499,9 @@ rows:
     - value: '68'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '67.9'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     gpqa_diamond:
     - value: '93.9'
       source_label: Kimi K3.1 Pro report
@@ -38405,6 +38573,12 @@ rows:
     - value: '45.5'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '45.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '47.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
     code2video_aa:
     - value: '1536'
       source_label: Artificial Analysis
@@ -38533,6 +38707,61 @@ rows:
     - value: '74.8'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    aa_intelligence_index_v5_0_1:
+    - value: '59.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '59'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gdpval_v2_internal:
+    - value: '43.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    cursorbench_4_1:
+    - value: '58.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    terminal_bench_4_1_cheating_adjusted:
+    - value: '65.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_provider_harness:
+    - value: '10.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_mini_swe_harness:
+    - value: '3.6'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    mka_climb_wsr:
+    - value: '53.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    graphwalks_bfs_256k_1m_f1:
+    - value: '66.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    cwe_bench_v2:
+    - value: '67.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    webexploitbench_v1_2:
+    - value: '37.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    autobaxbench:
+    - value: '68.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gray_swan_ipi_k15:
+    - value: '1.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    vals_science_index_v1:
+    - value: '58.7'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 - company: Anthropic
   model: Claude Sonnet 5.5
   mode: Max with fallback
@@ -38554,6 +38783,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     scicode:
     - value: '61'
@@ -38720,6 +38951,10 @@ rows:
     - value: '1772'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    gray_swan_ipi_k15:
+    - value: '3.4'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Anthropic
   model: Claude Haiku 5.5
   mode: Max
@@ -38908,6 +39143,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: ERNIE 5.5 Flash Preview report
     url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
   scores:
     scicode:
     - value: '54'
@@ -39011,14 +39248,23 @@ rows:
     - value: '57.0'
       source_label: ERNIE 5.5 Flash Preview report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    - value: '57.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     harvey_lab_aa:
     - value: '7'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '6.9'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     frontiercode_2_0:
     - value: '41'
       source_label: Artificial Analysis
       source_url: https://artificialanalysis.ai
+    - value: '39.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     hle_diamond:
     - value: '59'
       source_label: Artificial Analysis
@@ -39071,6 +39317,9 @@ rows:
     - value: '42.6'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    - value: '72.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     osworld_2_1:
     - value: '78.0'
       source_label: GPT-6.1 Terra report
@@ -39108,6 +39357,9 @@ rows:
     - value: 49.3*
       source_label: ERNIE 5.5 Flash Preview report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/ernie-5.5-flash-preview/1.png
+    - value: '36.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     apex_agents:
     - value: 60.0/59.2*
       source_label: ERNIE 5.5 Flash Preview report
@@ -39194,6 +39446,50 @@ rows:
     - value: '73.8'
       source_label: Qwen4
       source_url: https://qwen.ai/blog?id=qwen4
+    aa_intelligence_index_v5_0_1:
+    - value: '54.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    lifeval:
+    - value: '79.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '41.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    deepbinary_estimated_bounty:
+    - value: '317500'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    exploit_bench_june_aug_2026:
+    - value: '21.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    secureswe:
+    - value: '49.7'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    patchbench:
+    - value: '71.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    benchcad:
+    - value: '52.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    concealing_task_obstructions_without_developer_prompt:
+    - value: '14.00'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    workplace_improper_actions:
+    - value: '1.32'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    vals_science_index_v1:
+    - value: '59.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 - company: Google
   model: Gemini 4 Argon
   mode: High
@@ -39209,6 +39505,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     scicode:
     - value: '62'
@@ -39405,6 +39703,10 @@ rows:
     - value: '1679'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    gray_swan_ipi_k15:
+    - value: '0.7'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Mistral
   model: Mistral Large 4 Preview
   mode: ''
@@ -39540,6 +39842,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     scicode:
     - value: '55'
@@ -39720,6 +40024,10 @@ rows:
     - value: '10.0'
       source_label: Hy4 Flash report
       source_url: https://hunyuan.tencent.com
+    gray_swan_ipi_k15:
+    - value: '28.7'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: InclusionAI
   model: Ling-3.1-Flash
   mode: Thinking
@@ -40296,6 +40604,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     terminal_bench_4_0_aa:
     - value: '52.0'
@@ -40464,6 +40774,10 @@ rows:
     - value: '1647'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    autobaxbench:
+    - value: '49.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Meta
   model: Muse Glimmer
   mode: High
@@ -40952,6 +41266,8 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
   scores:
     scicode:
     - value: '58'
@@ -41057,6 +41373,10 @@ rows:
     - value: '1673'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    workplace_improper_actions:
+    - value: '5.36'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 - company: NaiveAI
   model: Naive-N0.5-Flash
   domestic: true
@@ -41466,6 +41786,10 @@ rows:
     url: https://agent-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     gdpval_aa_v2_pct:
     - value: '1733'
@@ -41555,6 +41879,18 @@ rows:
     - value: '1681'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    concealing_task_obstructions_without_developer_prompt:
+    - value: '8.47'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    workplace_improper_actions:
+    - value: '2.28'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gray_swan_ipi_k15:
+    - value: '7.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: InclusionAI
   model: Ling-3.1-Flash-1019
   mode: ''
@@ -41849,6 +42185,10 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Fable 5.2 report
     url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     hle:
     - value: '59'
@@ -41896,6 +42236,9 @@ rows:
     - value: '41.1'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '38.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     hle_diamond:
     - value: '69'
       source_label: Artificial Analysis
@@ -41935,6 +42278,9 @@ rows:
     - value: '53.9'
       source_label: Claude Fable 5.2 report
       source_url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+    - value: '53.9'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
     osworld_2_1:
     - value: '81.5'
       source_label: Claude Fable 5.2 report
@@ -41963,6 +42309,26 @@ rows:
     - value: '1768'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    agents_last_exam:
+    - value: '77.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    aa_intelligence_index_v5_0_1:
+    - value: '60.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '48.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    autobaxbench:
+    - value: '74.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gray_swan_ipi_k15:
+    - value: '0.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Meta
   model: Muse Spark Open
   mode: xHigh
@@ -43892,6 +44258,8 @@ rows:
     url: https://artificialanalysis.ai
   - label: Claude Fable 5.2 report
     url: https://suyoumo.github.io/assets/images/llm-reports/claude-fable-5.2/1.png
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     mlcr_aa:
     - value: '44'
@@ -44018,6 +44386,14 @@ rows:
     - value: '1826'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    autobaxbench:
+    - value: '68.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gray_swan_ipi_k15:
+    - value: '4.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Meta
   model: Muse Ember
   mode: Max
@@ -44697,6 +45073,8 @@ rows:
     url: https://text-arena.com
   - label: WebDevArena
     url: https://artificialanalysis.ai
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
   scores:
     aa_briefcase_pct:
     - value: '1568'
@@ -44754,6 +45132,10 @@ rows:
     - value: '1704'
       source_label: WebDevArena
       source_url: https://artificialanalysis.ai
+    gray_swan_ipi_k15:
+    - value: '0.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
 - company: Tencent
   model: Hy4 Flash
   mode: ''
@@ -44830,6 +45212,377 @@ rows:
     - value: '17.8'
       source_label: Hy4 Flash report
       source_url: https://hunyuan.tencent.com
+- company: OpenAI
+  model: GPT-6.2 Astra
+  mode: Max reasoning effort
+  released: '2026-11-23'
+  sources:
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+  scores:
+    agents_last_exam:
+    - value: '77.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    terminal_bench_science_0_1:
+    - value: '77.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    aa_intelligence_index_v5_0_1:
+    - value: '62.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    frontiercode_2_0:
+    - value: '44.2'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    lifeval:
+    - value: '86.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    harvey_lab_aa:
+    - value: '15.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '50.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    deepbinary_estimated_bounty:
+    - value: '1038250'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    exploit_bench_june_aug_2026:
+    - value: '53.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    secureswe:
+    - value: '65.7'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    patchbench:
+    - value: '79.7'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    benchcad:
+    - value: '82.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    automation_bench:
+    - value: '52.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    concealing_task_obstructions_with_developer_prompt:
+    - value: '8.04'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    concealing_task_obstructions_without_developer_prompt:
+    - value: '22.28'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    workplace_improper_actions:
+    - value: '0.64'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gray_swan_ipi_k15:
+    - value: '2.4'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    vals_science_index_v1:
+    - value: '68.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+- company: OpenAI
+  model: GPT-6.2 Sol
+  mode: Max reasoning effort
+  released: '2026-11-23'
+  sources:
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+  scores:
+    agents_last_exam:
+    - value: '73.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '73.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    terminal_bench_science_0_1:
+    - value: '68.0'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '68.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    aa_intelligence_index_v5_0_1:
+    - value: '57.3'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '57'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    frontiercode_2_0:
+    - value: '43.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '43.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    lifeval:
+    - value: '83.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    harvey_lab_aa:
+    - value: '11.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '46.9'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    deepbinary_estimated_bounty:
+    - value: '687250'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    exploit_bench_june_aug_2026:
+    - value: '50.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    secureswe:
+    - value: '55.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    patchbench:
+    - value: '75.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    benchcad:
+    - value: '73.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    automation_bench:
+    - value: '41.1'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    - value: '41.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    concealing_task_obstructions_with_developer_prompt:
+    - value: '8.88'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    concealing_task_obstructions_without_developer_prompt:
+    - value: '24.08'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    workplace_improper_actions:
+    - value: '0.71'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    vals_index:
+    - value: '66.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    terminal_bench_4_1_cheating_adjusted:
+    - value: '61.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_provider_harness:
+    - value: '8.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_mini_swe_harness:
+    - value: '11.6'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    riemannbench:
+    - value: '80.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    hle_diamond:
+    - value: '64.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    mka_climb_wsr:
+    - value: '52.7'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    chartography:
+    - value: '75.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    lvbench:
+    - value: '87.6'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    graphwalks_bfs_256k_1m_f1:
+    - value: '80.1'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    cwe_bench_v2:
+    - value: '66.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    sec_bench_pro:
+    - value: '88.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gray_swan_ipi_k15:
+    - value: '2.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    vals_science_index_v1:
+    - value: '57.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+- company: Anthropic
+  model: Claude Fable 5.2
+  mode: Max
+  released: '2026-11-09'
+  sources:
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  scores:
+    agents_last_exam:
+    - value: '72.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    terminal_bench_science_0_1:
+    - value: '73.3'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    aa_intelligence_index_v5_0_1:
+    - value: '64.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    frontiercode_2_0:
+    - value: '45.6'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    harvey_lab_aa:
+    - value: '7.2'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    gdpval_v2_internal:
+    - value: '44.8'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    benchcad:
+    - value: '83.5'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+    automation_bench:
+    - value: '51.4'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+- company: Google
+  model: Gemini 4 Neon
+  mode: High
+  released: '2026-11-23'
+  sources:
+  - label: Gemini 4 Neon report
+    url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+  scores:
+    aa_intelligence_index_v5_0_1:
+    - value: '61'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    vals_index:
+    - value: '70.9'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    cursorbench_4_1:
+    - value: '65.4'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    terminal_bench_4_1_cheating_adjusted:
+    - value: '65.2'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    frontiercode_2_0:
+    - value: '46.2'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_provider_harness:
+    - value: '39.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    swe_sweep_mini_swe_harness:
+    - value: '12.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    automation_bench:
+    - value: '56.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    agents_last_exam:
+    - value: '75.8'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    riemannbench:
+    - value: '84.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    terminal_bench_science_0_1:
+    - value: '70.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    hle_diamond:
+    - value: '71.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    mka_climb_wsr:
+    - value: '56.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    chartography:
+    - value: '73.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    lvbench:
+    - value: '89.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    graphwalks_bfs_256k_1m_f1:
+    - value: '95.2'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    cwe_bench_v2:
+    - value: '70.7'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    sec_bench_pro:
+    - value: '90.5'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    webexploitbench_v1_2:
+    - value: '51.3'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    autobaxbench:
+    - value: '76.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+    gray_swan_ipi_k15:
+    - value: '0.0'
+      source_label: Gemini 4 Neon report
+      source_url: https://deepmind.google/models/evals-methodology/gemini-4-neon
+- company: Anthropic
+  model: Claude Fable 5.2
+  mode: High
+  released: '2026-11-09'
+  sources:
+  - label: GPT-6.2 Astra and Sol report
+    url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+  scores:
+    vals_science_index_v1:
+    - value: '63.7'
+      source_label: GPT-6.2 Astra and Sol report
+      source_url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
 collections:
   overall:
     label: ' 综合'
