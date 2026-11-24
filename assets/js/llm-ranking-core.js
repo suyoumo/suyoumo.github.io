@@ -60,7 +60,7 @@ window.LLMCore = (function () {
 
   function computeRanking(sm, keys, min) {
     var mks = Object.keys(sm), br = {}, brPercentile = {};
-    var minModelsPerBench = 5;
+    var minModelsPerBench = 4;
     keys.forEach(function (bk) {
       var scored = [];
       mks.forEach(function (mk) { if (sm[mk].hasOwnProperty(bk)) scored.push({ k: mk, s: sm[mk][bk] }); });

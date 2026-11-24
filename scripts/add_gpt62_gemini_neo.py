@@ -70,6 +70,20 @@ NEW_KEYS = {
     'gray_swan_ipi_k15': ('General Agent', 'Gray Swan IPI (Attack Success Rate @ k=15, Lower Is Better)'),
 }
 
+COLLECTION_KEYS = {
+    'overall': [
+        'aa_intelligence_index_v5_0_1', 'vals_science_index_v1', 'lifeval',
+        'gdpval_v2_internal', 'deepbinary_estimated_bounty',
+        'exploit_bench_june_aug_2026', 'secureswe', 'patchbench',
+    ],
+    'code': ['secureswe', 'patchbench'],
+    'general': [
+        'aa_intelligence_index_v5_0_1', 'vals_science_index_v1', 'lifeval',
+        'gdpval_v2_internal', 'deepbinary_estimated_bounty',
+        'exploit_bench_june_aug_2026', 'harvey_lab_aa',
+    ],
+}
+
 REPORTS = []
 
 REPORTS.append(('gpt62', [
@@ -213,7 +227,6 @@ def add_score(row, key, value, label, url, replace=False):
 
 
 def main():
-    collections_before = yaml.safe_dump(data['collections'], sort_keys=False)
     cats = {c['name']: c for c in data['categories']}
     registered_keys = {
         col['key'] for c in data['categories'] for col in c.get('columns', [])
@@ -223,6 +236,14 @@ def main():
         if key not in registered_keys:
             cats[cat_name].setdefault('columns', []).append({'key': key, 'label': label})
             added_keys.append(key)
+
+    added_collection_keys = []
+    for collection, keys in COLLECTION_KEYS.items():
+        collection_keys = data['collections'][collection]['keys']
+        for key in keys:
+            if key not in collection_keys:
+                collection_keys.append(key)
+                added_collection_keys.append((collection, key))
 
     added_sources = []
     for sid, (label, url) in SRC.items():
@@ -258,12 +279,14 @@ def main():
                 else:
                     duplicates += 1
 
-    assert yaml.safe_dump(data['collections'], sort_keys=False) == collections_before
+    assert all(len(cfg['keys']) == len(set(cfg['keys']))
+               for cfg in data['collections'].values())
     with open(YML_PATH, 'w', encoding='utf-8') as f:
         yaml.dump(data, f, default_flow_style=False, allow_unicode=True,
                   sort_keys=False, width=1000)
 
     print('new benchmark keys:', len(added_keys), added_keys)
+    print('new collection keys:', len(added_collection_keys), added_collection_keys)
     print('new sources:', len(added_sources), added_sources)
     print('new rows:', len(created), sorted(created))
     print('scores added:', scores_added, 'duplicates skipped:', duplicates)
