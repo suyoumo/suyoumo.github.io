@@ -80,11 +80,12 @@ permalink: /llm-leaderboard/
           <input type="number" id="rankingMinBench" value="6" min="1" max="30">
         </label>
         <label class="llm-ranking-min-label">每 bench 最少模型数:
-          <input type="number" id="rankingMinModels" value="5" min="2" max="20">
+          <input type="number" id="rankingMinModels" value="4" min="2" max="20">
         </label>
         <label class="llm-ranking-min-label">排序方式:
           <select id="rankingSortMode">
-            <option value="wins" selected>对局得分率</option>
+            <option value="elo" selected>Elo</option>
+            <option value="wins">对局得分率</option>
             <option value="percentile">百分位</option>
           </select>
         </label>
@@ -105,9 +106,9 @@ permalink: /llm-leaderboard/
       <strong>📋 排名机制说明：</strong>
       <ol>
         <li><b>百分位排名</b>：每个 benchmark 内按分数从高到低排名，计算 <code>位次 / 该bench参评模型总数</code>。值域 0~1，越小越好。这样 50 个模型里排第 10（0.2）不会和 10 个模型里排第 10（1.0）被等同对待。</li>
-        <li><b>每 benchmark 最少模型数</b>（默认 5）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
-        <li><b>每模型最少 benchmark 数</b>：Code=2, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
-        <li><b>两种排序方式</b>：<b>对局得分率</b>——每两个模型只在共有 benchmark 上比较；赢得 benchmark 更多的一方得 1 分，数量相同各得 0.5 分，另一方得 0 分，最后按总得分 / 有效对手数排序。ELO 也使用相同的 1 / 0.5 / 0 对局分值；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。</li>
+        <li><b>每 benchmark 最少模型数</b>（默认 4）：参评模型数少于该阈值的 benchmark 直接跳过，避免样本过少导致排名不稳定。</li>
+        <li><b>每模型最少 benchmark 数</b>：Code=3, General=5, 综合=6。结果覆盖太少的模型不纳入排名，防止偶然性。</li>
+        <li><b>三种排序方式</b>：<b>Elo</b>——按对局结果和对手强度排序，击败强模型比击败弱模型更能提升排名；<b>对局得分率</b>——每两个模型只在共有 benchmark 上比较，按总得分 / 有效对手数排序；<b>百分位</b>——各 benchmark 百分位取平均，值小者排前。</li>
         <li><b>缺失值</b>：模型在某 benchmark 无结果时，该 bench 不参与该模型的均百分位计算，也不计入"最少 benchmark 数"。</li>
       </ol>
     </div>
@@ -886,7 +887,7 @@ permalink: /llm-leaderboard/
         ranks:validKeys.map(function(bk){return br[bk][mk];}),
         totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
     });
-    results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
+    results.sort(function(a,b){ return b.elo-a.elo || b.scoreRate-a.scoreRate; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
@@ -915,10 +916,11 @@ permalink: /llm-leaderboard/
     var data=computeRanking(keys,minB,minModels), results=data.results, br=data.br, validKeys=data.validKeys;
     if(activeCol==='Custom') syncCustomCheckboxes();
     var skipped = keys.length - validKeys.length;
-    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='wins'?'对局得分率排名':'百分位排名');
+    document.getElementById('rankingInfo').textContent = results.length+' 模型 · '+validKeys.length+' benchmarks'+(skipped>0?' ('+skipped+' 因模型数<'+minModels+' 跳过)':'')+' · '+(sortMode==='elo'?'Elo 排名':sortMode==='wins'?'对局得分率排名':'百分位排名');
     // Sort by selected mode
     if(sortMode === 'percentile') results.sort(function(a,b){ return a.avg-b.avg; });
-    else results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
+    else if(sortMode === 'wins') results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
+    else results.sort(function(a,b){ return b.elo-a.elo || b.scoreRate-a.scoreRate; });
     // Build two-row header: category row + benchmark row
     var catOrder = [], catKeysMap = {};
     validKeys.forEach(function(bk){ var cat=benchCat[bk]||'Other'; if(!catKeysMap[cat]) catOrder.push(cat); if(!catKeysMap[cat]) catKeysMap[cat]=[]; catKeysMap[cat].push(bk); });
