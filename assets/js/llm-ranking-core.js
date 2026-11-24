@@ -118,7 +118,7 @@ window.LLMCore = (function () {
       var opp = totalOpponents[mk] || 0;
       results.push({ company: p[0], model: p[1], mk: mk, avg: avg, cnt: percentiles.length, wins: wins[mk], draws: draws[mk], losses: losses[mk], scoreRate: opp > 0 ? matchPoints[mk] / opp : 0, elo: elo[mk] });
     });
-    results.sort(function (a, b) { return b.elo - a.elo || b.scoreRate - a.scoreRate; });
+    results.sort(function (a, b) { return b.scoreRate - a.scoreRate || b.elo - a.elo; });
     return { results: results, br: br, validKeys: validKeys };
   }
 

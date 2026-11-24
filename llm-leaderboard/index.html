@@ -84,8 +84,8 @@ permalink: /llm-leaderboard/
         </label>
         <label class="llm-ranking-min-label">排序方式:
           <select id="rankingSortMode">
-            <option value="elo" selected>Elo</option>
-            <option value="wins">对局得分率</option>
+            <option value="elo">Elo</option>
+            <option value="wins" selected>对局得分率</option>
             <option value="percentile">百分位</option>
           </select>
         </label>
@@ -887,7 +887,7 @@ permalink: /llm-leaderboard/
         ranks:validKeys.map(function(bk){return br[bk][mk];}),
         totals:validKeys.map(function(bk){return Object.keys(br[bk]).length;})});
     });
-    results.sort(function(a,b){ return b.elo-a.elo || b.scoreRate-a.scoreRate; });
+    results.sort(function(a,b){ return b.scoreRate-a.scoreRate || b.elo-a.elo; });
     return {results:results, br:br, brPercentile:brPercentile, validKeys:validKeys};
   }
 
