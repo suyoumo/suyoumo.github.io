@@ -198,11 +198,17 @@ def add_source(row, label, url):
     return True
 
 
-def add_score(row, key, value, label, url):
+def add_score(row, key, value, label, url, replace=False):
     entries = row.setdefault('scores', {}).setdefault(key, [])
+    entry = {'value': str(value), 'source_label': label, 'source_url': url}
+    if replace:
+        if entries == [entry]:
+            return False
+        entries[:] = [entry]
+        return True
     if any(e.get('value') == str(value) and e.get('source_label') == label for e in entries):
         return False
-    entries.append({'value': str(value), 'source_label': label, 'source_url': url})
+    entries.append(entry)
     return True
 
 
@@ -226,20 +232,28 @@ def main():
             })
             added_sources.append(sid)
 
+    gpt62_pairs = {
+        (M[model_key], bench)
+        for src_key, benches in REPORTS if src_key == 'gpt62'
+        for bench, values in benches for model_key in values
+    }
     created = set()
     scores_added = 0
     duplicates = 0
     row_sources_added = 0
-    for src_key, benches in REPORTS:
+    for src_key, benches in reversed(REPORTS):
         label, url = SRC[src_key]
         for bench, values in benches:
             for model_key, value in values.items():
+                if src_key != 'gpt62' and (M[model_key], bench) in gpt62_pairs:
+                    duplicates += 1
+                    continue
                 row, was_created = get_row(model_key)
                 if was_created:
                     created.add(f"{row['model']} ({row['mode']})")
                 if add_source(row, label, url):
                     row_sources_added += 1
-                if add_score(row, bench, value, label, url):
+                if add_score(row, bench, value, label, url, replace=src_key == 'gpt62'):
                     scores_added += 1
                 else:
                     duplicates += 1
